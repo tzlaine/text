@@ -38,8 +38,8 @@
         The interface for simple uses is straightforward; you just call the algorithm
         with a sequence of code points, and it returns a lazy range of subranges.
         Each subrange is a <code class="computeroutput"><a class="link" href="../../boost/text/bidirectional_cp_subrange.html" title="Struct template bidirectional_cp_subrange">bidirectional_cp_subrange</a></code> (or
-        <code class="computeroutput"><a class="link" href="../../boost/text/bidirectional_gra_idm15783.html" title="Struct template bidirectional_grapheme_subrange">bidirectional_grapheme_subrange</a></code>
-        for the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
+        <code class="computeroutput"><a class="link" href="../../boost/text/bidirectional_gra_idm15740.html" title="Struct template bidirectional_grapheme_subrange">bidirectional_grapheme_subrange</a></code>
+        for the <a class="link" href="../concepts.html" title="Concepts">GraphemeRange</a>
         overload):
       </p>
 <p>
@@ -168,18 +168,16 @@ translate English-&gt;Arabic, it produces "&#1579;&#1606;&#1575;&#1574;&#1610; &
 <tr><td align="left" valign="top"><p>
           The extent-callable used in the line breaking API takes two parameters
           of exact type. The extent-callable used above must take two parameters
-          of any type that models <a class="link" href="../concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a>.
+          of any type that models <a class="link" href="../concepts.html" title="Concepts">CPIter</a>.
           This is because the callable is used with some internal iterator types
-          that do not match the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.cpiter">CPIters</a>
+          that do not match the <a class="link" href="../concepts.html" title="Concepts">CPIters</a>
           in the top-level range that you pass to <code class="computeroutput"><span class="identifier">bidirectional_subranges</span><span class="special">()</span></code>.
         </p></td></tr>
 </table></div>
 <p>
         As with most of the other Unicode layer algorithms, overloads of the two
-        forms above exist for <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>,
-        <a class="link" href="../concepts.html#boost_text__proposed_.concepts.cprange">CPRange</a>, and
-        pair-of-<a class="link" href="../concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a>
-        inputs.
+        forms above exist for <a class="link" href="../concepts.html" title="Concepts">GraphemeRange</a>,
+        <a class="link" href="../concepts.html" title="Concepts">CPRange</a>, and pair-of-<a class="link" href="../concepts.html" title="Concepts">CPIter</a> inputs.
       </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

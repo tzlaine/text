@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="up" href="../../../../header/boost/text/normalize_string_hpp.html" title="Header &lt;boost/text/normalize_string.hpp&gt;">
-<link rel="prev" href="normalize_append__idm19012.html" title="Struct template normalize_append_impl&lt;Normalization, String, true, 2&gt;">
-<link rel="next" href="normalize_string__idm19053.html" title="Struct template normalize_string_impl&lt;String, true&gt;">
+<link rel="prev" href="normalize_append__idm18969.html" title="Struct template normalize_append_impl&lt;Normalization, String, true, 2&gt;">
+<link rel="next" href="normalize_string__idm19010.html" title="Struct template normalize_string_impl&lt;String, true&gt;">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="normalize_append__idm19012.html"><img src="../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../../header/boost/text/normalize_string_hpp.html"><img src="../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../images/home.png" alt="Home"></a><a accesskey="n" href="normalize_string__idm19053.html"><img src="../../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="normalize_append__idm18969.html"><img src="../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../../header/boost/text/normalize_string_hpp.html"><img src="../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../images/home.png" alt="Home"></a><a accesskey="n" href="normalize_string__idm19010.html"><img src="../../../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.text.v1.dtl.normalize_string_impl"></a><div class="titlepage"></div>
@@ -26,18 +26,18 @@
          <span class="keyword">bool</span> Enable <span class="special">=</span> <span class="identifier">detail</span><span class="special">::</span><span class="identifier">is_detected</span><span class="special">&lt;</span><span class="identifier">has_capacity_reserve</span><span class="special">,</span> <span class="identifier">String</span><span class="special">&gt;</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;</span> 
 <span class="keyword">struct</span> <a class="link" href="normalize_string_impl.html" title="Struct template normalize_string_impl">normalize_string_impl</a> <span class="special">{</span>
 
-  <span class="comment">// <a class="link" href="normalize_string_impl.html#idm19040-bb">public static functions</a></span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="normalize_string_impl.html#idm19041-bb"><span class="identifier">prefix</span></a><span class="special">(</span><span class="identifier">String</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">String</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="normalize_string_impl.html#idm19047-bb"><span class="identifier">suffix</span></a><span class="special">(</span><span class="identifier">String</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">String</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="normalize_string_impl.html#idm18997-bb">public static functions</a></span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="normalize_string_impl.html#idm18998-bb"><span class="identifier">prefix</span></a><span class="special">(</span><span class="identifier">String</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">String</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="normalize_string_impl.html#idm19004-bb"><span class="identifier">suffix</span></a><span class="special">(</span><span class="identifier">String</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">String</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm28234"></a><h2>Description</h2>
+<a name="idm28213"></a><h2>Description</h2>
 <div class="refsect2">
-<a name="idm28236"></a><h3>
-<a name="idm19040-bb"></a><code class="computeroutput">normalize_string_impl</code> public static functions</h3>
+<a name="idm28215"></a><h3>
+<a name="idm18997-bb"></a><code class="computeroutput">normalize_string_impl</code> public static functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="idm19041-bb"></a><span class="identifier">prefix</span><span class="special">(</span><span class="identifier">String</span> <span class="keyword">const</span> <span class="special">&amp;</span> s<span class="special">,</span> <span class="identifier">String</span> <span class="special">&amp;</span> temp<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="idm19047-bb"></a><span class="identifier">suffix</span><span class="special">(</span><span class="identifier">String</span> <span class="special">&amp;</span> s<span class="special">,</span> <span class="identifier">String</span> <span class="special">&amp;</span> temp<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="idm18998-bb"></a><span class="identifier">prefix</span><span class="special">(</span><span class="identifier">String</span> <span class="keyword">const</span> <span class="special">&amp;</span> s<span class="special">,</span> <span class="identifier">String</span> <span class="special">&amp;</span> temp<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="idm19004-bb"></a><span class="identifier">suffix</span><span class="special">(</span><span class="identifier">String</span> <span class="special">&amp;</span> s<span class="special">,</span> <span class="identifier">String</span> <span class="special">&amp;</span> temp<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>
@@ -52,7 +52,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="normalize_append__idm19012.html"><img src="../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../../header/boost/text/normalize_string_hpp.html"><img src="../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../images/home.png" alt="Home"></a><a accesskey="n" href="normalize_string__idm19053.html"><img src="../../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="normalize_append__idm18969.html"><img src="../../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../../header/boost/text/normalize_string_hpp.html"><img src="../../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../images/home.png" alt="Home"></a><a accesskey="n" href="normalize_string__idm19010.html"><img src="../../../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

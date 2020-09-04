@@ -37,11 +37,11 @@
       methods (smaller is better). The input was around half a megabyte of text from
       Wikipedia. "Iterators" is using <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span></code> from
       <code class="computeroutput"><a class="link" href="../boost/text/utf_8_to_16_iterator.html" title="Struct template utf_8_to_16_iterator">utf_8_to_16_iterator</a></code>
-      to a pointer; "Algorithm std::back_inserter" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm22315.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code> in the SIMD code path, and
+      to a pointer; "Algorithm std::back_inserter" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm22280.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code> in the SIMD code path, and
       outputting to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">back_insert_iterator</span></code>; "Algorithm using
-      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm22315.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
+      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm22280.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
       from pointer to pointer in the SIMD-using code path; "Algorithm no SIMD"
-      is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm22315.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
+      is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm22280.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
       from pointer to pointer in the non-SIMD code path; and "ICU" is is
       using <code class="computeroutput"><span class="identifier">UnicodeString</span><span class="special">::</span><span class="identifier">fromUTF8</span><span class="special">()</span></code>.
     </p>

@@ -17,136 +17,258 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_text__proposed_.concepts"></a><a class="link" href="concepts.html" title="Concepts">Concepts</a>
 </h2></div></div></div>
-<p>
-      All of the concepts below apply to the pre-C++20 interfaces. Interfaces that
-      are meant for use in C++20 use the concepts found in <a class="link" href="../header/boost/text/concepts_hpp.html" title="Header &lt;boost/text/concepts.hpp&gt;">concepts.hpp</a>.
-    </p>
 <h4>
 <a name="boost_text__proposed_.concepts.h0"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.chariter"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a>
+      <span class="phrase"><a name="boost_text__proposed_.concepts.c__20_concepts"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.c__20_concepts">C++20
+      Concepts</a>
     </h4>
 <p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a> is
-      a bidirectional iterator over a sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
+      All of the concepts below apply to the pre-C++20 interfaces. Interfaces that
+      are meant for use in C++20 use these concepts:
     </p>
 <p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code><code class="computeroutput"><span class="special">::</span><span class="identifier">iterator</span></code>.
+      From concepts.hpp:
     </p>
 <p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a>.
-      In the table below, <code class="computeroutput"><span class="identifier">Iter</span></code> is
-      a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t0"></a><p class="title"><b>Table&#160;1.8.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-<th>
-              <p>
-                Notes
-              </p>
-            </th>
-</tr></thead>
-<tbody><tr>
-<td>
-              <p>
 </p>
-<pre class="programlisting"><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span>
-    <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span>
-        <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span><span class="special">&lt;</span><span class="identifier">Iter</span><span class="special">&gt;::</span><span class="identifier">value_type</span>
-    <span class="special">&gt;::</span><span class="identifier">type</span>
-<span class="special">&gt;::</span><span class="identifier">type</span></pre>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span> <span class="identifier">F</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">code_unit</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span> <span class="keyword">sizeof</span><span class="special">(</span><span class="identifier">T</span><span class="special">)</span> <span class="special">==</span> <span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="identifier">F</span><span class="special">;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf8_code_unit</span> <span class="special">=</span> <span class="identifier">code_unit</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf16_code_unit</span> <span class="special">=</span> <span class="identifier">code_unit</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf16</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf32_code_unit</span> <span class="special">=</span> <span class="identifier">code_unit</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf32</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span> <span class="identifier">F</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">code_unit_iterator</span> <span class="special">=</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">bidirectional_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span> <span class="identifier">code_unit</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">iter_value_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">F</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span> <span class="identifier">F</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">code_unit_pointer</span> <span class="special">=</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">is_pointer_v</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span> <span class="identifier">code_unit</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">iter_value_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">F</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span> <span class="identifier">F</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">code_unit_range</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">bidirectional_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">code_unit</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">range_value_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">F</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span> <span class="identifier">F</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">contiguous_code_unit_range</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">contiguous_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">code_unit</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">range_value_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">F</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf8_iter</span> <span class="special">=</span> <span class="identifier">code_unit_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf8_pointer</span> <span class="special">=</span> <span class="identifier">code_unit_pointer</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf8_range</span> <span class="special">=</span> <span class="identifier">code_unit_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">contiguous_utf8_range</span> <span class="special">=</span> <span class="identifier">contiguous_code_unit_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf16_iter</span> <span class="special">=</span> <span class="identifier">code_unit_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf16</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf16_pointer</span> <span class="special">=</span> <span class="identifier">code_unit_pointer</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf16</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf16_range</span> <span class="special">=</span> <span class="identifier">code_unit_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf16</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">contiguous_utf16_range</span> <span class="special">=</span>
+    <span class="identifier">contiguous_code_unit_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf16</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf32_iter</span> <span class="special">=</span> <span class="identifier">code_unit_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf32</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf32_pointer</span> <span class="special">=</span> <span class="identifier">code_unit_pointer</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf32</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf32_range</span> <span class="special">=</span> <span class="identifier">code_unit_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf32</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">contiguous_utf32_range</span> <span class="special">=</span>
+    <span class="identifier">contiguous_code_unit_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf32</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">code_point</span> <span class="special">=</span> <span class="identifier">utf32_code_unit</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">code_point_iter</span> <span class="special">=</span> <span class="identifier">utf32_iter</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">code_point_range</span> <span class="special">=</span> <span class="identifier">utf32_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;;</span>
+
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">grapheme_iter</span> <span class="special">=</span>
+    <span class="comment">// clang-format off</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">bidirectional_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">code_point_range</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">iter_reference_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">requires</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">t</span><span class="special">)</span> <span class="special">{</span>
+    <span class="special">{</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">base</span><span class="special">()</span> <span class="special">}</span> <span class="special">-&gt;</span> <span class="identifier">code_point_iter</span><span class="special">;</span>
+    <span class="comment">// clang-format on</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">grapheme_range</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">bidirectional_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">grapheme_iter</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">iterator_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">R</span><span class="special">&gt;</span>
+<span class="keyword">using</span> <span class="identifier">code_point_iterator_t</span> <span class="special">=</span> <span class="keyword">decltype</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">declval</span><span class="special">&lt;</span><span class="identifier">R</span><span class="special">&gt;().</span><span class="identifier">begin</span><span class="special">().</span><span class="identifier">base</span><span class="special">());</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">R</span><span class="special">&gt;</span>
+<span class="keyword">using</span> <span class="identifier">code_point_sentinel_t</span> <span class="special">=</span> <span class="keyword">decltype</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">declval</span><span class="special">&lt;</span><span class="identifier">R</span><span class="special">&gt;().</span><span class="identifier">end</span><span class="special">().</span><span class="identifier">base</span><span class="special">());</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span> <span class="identifier">F</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">grapheme_iter_code_unit</span> <span class="special">=</span>
+    <span class="comment">// clang-format off</span>
+    <span class="identifier">grapheme_iter</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">requires</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">t</span><span class="special">)</span> <span class="special">{</span>
+    <span class="special">{</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span> <span class="special">}</span> <span class="special">-&gt;</span> <span class="identifier">code_unit_iterator</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;;</span>
+    <span class="comment">// clang-format on</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span> <span class="identifier">F</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">grapheme_range_code_unit</span> <span class="special">=</span> <span class="identifier">grapheme_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">grapheme_iter_code_unit</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">iterator_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">F</span><span class="special">&gt;;</span>
+
+
+<span class="keyword">namespace</span> <span class="identifier">dtl</span> <span class="special">{</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+    <span class="identifier">concept</span> <span class="identifier">eraseable_sized_bidi_range</span> <span class="special">=</span>
+        <span class="comment">// clang-format off</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">sized_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">bidirectional_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span> <span class="identifier">requires</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">t</span><span class="special">)</span> <span class="special">{</span>
+        <span class="special">{</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">erase</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">}</span> <span class="special">-&gt;</span>
+            <span class="identifier">std</span><span class="special">::</span><span class="identifier">same_as</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">iterator_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;;</span>
+        <span class="comment">// clang-format on</span>
+    <span class="special">};</span>
+<span class="special">}</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf8_string</span> <span class="special">=</span>
+    <span class="comment">// clang-format off</span>
+    <span class="identifier">dtl</span><span class="special">::</span><span class="identifier">eraseable_sized_bidi_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">utf8_code_unit</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">range_value_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">requires</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">t</span><span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> <span class="identifier">it</span><span class="special">)</span> <span class="special">{</span>
+    <span class="special">{</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">it</span><span class="special">,</span> <span class="identifier">it</span><span class="special">)</span> <span class="special">}</span> <span class="special">-&gt;</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">same_as</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">iterator_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;;</span>
+    <span class="comment">// clang-format on</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf16_string</span> <span class="special">=</span>
+    <span class="comment">// clang-format off</span>
+    <span class="identifier">dtl</span><span class="special">::</span><span class="identifier">eraseable_sized_bidi_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">utf16_code_unit</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">range_value_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">requires</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">t</span><span class="special">,</span> <span class="identifier">uint16_t</span> <span class="keyword">const</span> <span class="special">*</span> <span class="identifier">it</span><span class="special">)</span> <span class="special">{</span>
+    <span class="special">{</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">it</span><span class="special">,</span> <span class="identifier">it</span><span class="special">)</span> <span class="special">}</span> <span class="special">-&gt;</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">same_as</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">iterator_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;;</span>
+    <span class="comment">// clang-format on</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf_string</span> <span class="special">=</span> <span class="identifier">utf8_string</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">||</span> <span class="identifier">utf16_string</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="comment">// clang-format off</span>
+<span class="identifier">concept</span> <span class="identifier">transcoding_error_handler</span> <span class="special">=</span> <span class="identifier">requires</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">t</span><span class="special">)</span> <span class="special">{</span>
+    <span class="special">{</span> <span class="identifier">t</span><span class="special">(</span><span class="string">""</span><span class="special">)</span> <span class="special">}</span> <span class="special">-&gt;</span> <span class="identifier">code_point</span><span class="special">;</span>
+    <span class="comment">// clang-format on</span>
+<span class="special">};</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">utf_iter</span> <span class="special">=</span> <span class="identifier">utf8_iter</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">||</span> <span class="identifier">utf16_iter</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">||</span> <span class="identifier">utf32_iter</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="comment">// clang-format off</span>
+<span class="identifier">concept</span> <span class="identifier">utf_range_like</span> <span class="special">=</span>
+    <span class="identifier">utf8_range</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="special">||</span>
+    <span class="identifier">utf16_range</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="special">||</span>
+    <span class="identifier">utf32_range</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="special">||</span>
+    <span class="identifier">utf8_pointer</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="special">||</span>
+    <span class="identifier">utf16_pointer</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="special">||</span>
+    <span class="identifier">utf32_pointer</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;;</span>
+<span class="comment">// clang-format on</span>
+</pre>
 <p>
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="keyword">char</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                The <code class="computeroutput"><span class="identifier">value_type</span></code> of
-                <code class="computeroutput"><span class="identifier">Iter</span></code> must be convertible
-                to <code class="computeroutput"><span class="keyword">char</span></code>.
-              </p>
-            </td>
-<td>
-              <p>
-                The size of the <code class="computeroutput"><span class="identifier">value_type</span></code>
-                of <code class="computeroutput"><span class="identifier">Iter</span></code> must also
-                be <code class="computeroutput"><span class="number">1</span></code>.
-              </p>
-            </td>
-</tr></tbody>
-</table></div>
-</div>
-<br class="table-break"><p>
-      <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a> does
-      <span class="bold"><strong>not</strong></span> need to be a contiguous iterator.
+    </p>
+<p>
+      From word_break.hpp:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">word_prop_func</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invocable</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">uint32_t</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">convertible_to</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">invoke_result_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">uint32_t</span><span class="special">&gt;,</span> <span class="identifier">word_property</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">word_break_func</span> <span class="special">=</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">invocable</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">uint32_t</span><span class="special">,</span> <span class="identifier">uint32_t</span><span class="special">,</span> <span class="identifier">uint32_t</span><span class="special">,</span> <span class="identifier">uint32_t</span><span class="special">,</span> <span class="identifier">uint32_t</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">convertible_to</span><span class="special">&lt;</span>
+            <span class="identifier">std</span><span class="special">::</span><span class="identifier">invoke_result_t</span><span class="special">&lt;</span>
+                <span class="identifier">T</span><span class="special">,</span>
+                <span class="identifier">uint32_t</span><span class="special">,</span>
+                <span class="identifier">uint32_t</span><span class="special">,</span>
+                <span class="identifier">uint32_t</span><span class="special">,</span>
+                <span class="identifier">uint32_t</span><span class="special">,</span>
+                <span class="identifier">uint32_t</span><span class="special">&gt;,</span>
+            <span class="keyword">bool</span><span class="special">&gt;;</span>
+</pre>
+<p>
+    </p>
+<p>
+      From line_break.hpp:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">I</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Extent</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">line_break_cp_extent_func</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invocable</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">convertible_to</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">invoke_result_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;,</span> <span class="identifier">Extent</span><span class="special">&gt;;</span>
+</pre>
+<p>
+    </p>
+<p>
+      From collation_search.hpp:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">I</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">S</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">searcher_break_func</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invocable</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">S</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">convertible_to</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">invoke_result_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">S</span><span class="special">&gt;,</span> <span class="identifier">I</span><span class="special">&gt;;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">I</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">S</span><span class="special">&gt;</span>
+<span class="identifier">concept</span> <span class="identifier">searcher</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invocable</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">S</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">convertible_to</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">invoke_result_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">S</span><span class="special">&gt;,</span> <span class="identifier">utf32_view</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">&gt;&gt;;</span>
+</pre>
+<p>
     </p>
 <h4>
 <a name="boost_text__proposed_.concepts.h1"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.charrange"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>
+      <span class="phrase"><a name="boost_text__proposed_.concepts.pre_c__20_concept_emulation"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.pre_c__20_concept_emulation">Pre-C++20
+      Concept Emulation</a>
     </h4>
 <p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>
-      is a possibly-discontiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
-    </p>
-<p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>.
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>.
-      In the table below, <code class="computeroutput"><span class="identifier">R</span></code> is a
-      type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>;
-      <code class="computeroutput"><span class="identifier">r</span></code> is an object of type <code class="computeroutput"><span class="identifier">R</span></code>; <code class="computeroutput"><span class="identifier">Iter</span></code>
-      is an iterator type whose value type is (possibly cv-qualified) <code class="computeroutput"><span class="keyword">char</span></code>; and <code class="computeroutput"><span class="identifier">Sentinel</span></code>
-      is a type equality comparable to <code class="computeroutput"><span class="identifier">Iter</span></code>.
+      All constraints in the pre-C++20 interfaces are implemented using SFINAE. All
+      such interfaces use a template parameter naming convention to communicate the
+      notional concept that applies to that template parameter. Below are all the
+      names that are used. Each name corresponds to a C++20 concept, and emulates
+      the corresponding concept as closely as possible. This table summarizes the
+      correspondence:
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t1"></a><p class="title"><b>Table&#160;1.9.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
+<a name="boost_text__proposed_.concepts.t0"></a><p class="title"><b>Table&#160;1.8.&#160;Pre-C++20 Template Parameter Names and Their Associated C++20 Concepts</b></p>
+<div class="table-contents"><table class="table" summary="Pre-C++20 Template Parameter Names and Their Associated C++20 Concepts">
 <colgroup>
-<col>
 <col>
 <col>
 </colgroup>
 <thead><tr>
 <th>
               <p>
-                Expression
+                Pre-C++20 Template Parameter Name
               </p>
             </th>
 <th>
               <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
+                C++20 Concept
               </p>
             </th>
 </tr></thead>
@@ -154,1211 +276,199 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>
+                <code class="computeroutput"><span class="identifier">CharIter</span></code>
               </p>
             </td>
 <td>
               <p>
-                Iter
-              </p>
-            </td>
-<td>
-              <p>
-                The begin-iterator for <code class="computeroutput"><span class="identifier">r</span></code>.
+                <code class="computeroutput"><span class="identifier">utf8_iter</span></code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>
+                <code class="computeroutput"><span class="identifier">CharRange</span></code>
               </p>
             </td>
 <td>
               <p>
-                Sentinel
-              </p>
-            </td>
-<td>
-              <p>
-                The end-iterator or end-sentinel for <code class="computeroutput"><span class="identifier">r</span></code>.
+                <code class="computeroutput"><span class="identifier">utf8_range</span></code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">))&gt;::</span><span class="identifier">iterator_category</span></code>
+                <code class="computeroutput"><span class="identifier">ContigCharRange</span></code>
               </p>
             </td>
 <td>
               <p>
-                std::bidirectional_iterator_tag
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">))</span></code>
-                must be a bidirectional iterator.
+                <code class="computeroutput"><span class="identifier">contiguous_utf8_range</span></code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="special">*</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>
+                <code class="computeroutput"><span class="identifier">CUIter</span></code>
               </p>
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="keyword">char</span></code>
+                <code class="computeroutput"><span class="identifier">code_unit_iterator</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">CURange</span></code>
               </p>
             </td>
 <td>
               <p>
-                It must be possible to access the <code class="computeroutput"><span class="keyword">char</span></code>
-                sequence underlying <code class="computeroutput"><span class="identifier">r</span></code>.
+                <code class="computeroutput"><span class="identifier">code_unit_range</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">CPIter</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">code_point_iter</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">CPRange</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">code_point_range</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">GraphemeIterator</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">grapheme_iter</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">GraphemeRange</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">grapheme_range</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">GraphemeIterCUator</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">grapheme_iter_code_unit</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">GraphemeRangeCU</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">grapheme_range_code_unit</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">CPExtentFunc</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">line_break_cp_extent_func</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">WordPropFunc</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">word_prop_func</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">CPWordBreakFunc</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">word_break_func</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">BreakFunc</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">searcher_break_func</span></code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">Searcher</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">searcher</span></code>
               </p>
             </td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<br class="table-break"><h4>
-<a name="boost_text__proposed_.concepts.h2"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.contigcharrange"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.contigcharrange">ContigCharRange</a>
-    </h4>
-<p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.contigcharrange">ContigCharRange</a>
-      is a contiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
-    </p>
-<p>
-      Example: <code class="computeroutput">std::string</code>.
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.contigcharrange">ContigCharRange</a>.
-      All the requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>
-      apply, in addition to the following table. In the table, <code class="computeroutput"><span class="identifier">R</span></code>
-      is a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.contigcharrange">ContigCharRange</a>;
-      <code class="computeroutput"><span class="identifier">r</span></code> is an object of type <code class="computeroutput"><span class="identifier">R</span></code>; and <code class="computeroutput"><span class="identifier">Iter</span></code>
-      is an iterator type whose value type is (possibly cv-qualified) <code class="computeroutput"><span class="keyword">char</span></code>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t2"></a><p class="title"><b>Table&#160;1.10.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-<th>
-              <p>
-                Notes
-              </p>
-            </th>
-</tr></thead>
-<tbody><tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">addressof</span><span class="special">(*</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">))</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="keyword">char</span> <span class="special">*</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                It must be possible to access the <code class="computeroutput"><span class="keyword">char</span></code>
-                sequence underlying <code class="computeroutput"><span class="identifier">r</span></code>
-                as an array.
-              </p>
-            </td>
-<td>
-              <p>
-                The result will be <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code>
-                if <code class="computeroutput"><span class="identifier">r</span></code> is <code class="computeroutput"><span class="keyword">const</span></code>.
-              </p>
-            </td>
-</tr></tbody>
-</table></div>
-</div>
-<br class="table-break"><p>
-      Additionally, <code class="computeroutput"><span class="identifier">Iter</span></code> must be
-      a contiguous random access iterator.
-    </p>
-<h4>
-<a name="boost_text__proposed_.concepts.h3"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.cpiter"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a>
-    </h4>
-<p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a> is a
-      bidirectional iterator over a sequence whose element type is an unsigned 32-bit
-      integral type.
-    </p>
-<p>
-      Example: <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">,</span> <span class="number">5</span><span class="special">&gt;::</span><span class="identifier">iterator</span></code>.
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a>.
-      In the table below, <code class="computeroutput"><span class="identifier">Iter</span></code> is
-      a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t3"></a><p class="title"><b>Table&#160;1.11.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-</tr></thead>
-<tbody><tr>
-<td>
-              <p>
-</p>
-<pre class="programlisting"><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span>
-    <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span>
-        <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span><span class="special">&lt;</span><span class="identifier">Iter</span><span class="special">&gt;::</span><span class="identifier">value_type</span>
-    <span class="special">&gt;::</span><span class="identifier">type</span>
-<span class="special">&gt;::</span><span class="identifier">type</span></pre>
-<p>
-              </p>
-            </td>
-<td>
-              <p>
-                any unsigned 32-bit integral convertible to <code class="computeroutput"><span class="identifier">uint32_t</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                The <code class="computeroutput"><span class="identifier">value_type</span></code> of
-                <code class="computeroutput"><span class="identifier">Iter</span></code> must be convertible
-                to <code class="computeroutput"><span class="identifier">uint32_t</span></code>.
-              </p>
-            </td>
-</tr></tbody>
-</table></div>
-</div>
-<br class="table-break"><p>
-      <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a> does not
-      need to be a contiguous iterator.
-    </p>
-<h4>
-<a name="boost_text__proposed_.concepts.h4"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.cprange"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.cprange">CPRange</a>
-    </h4>
-<p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.cprange">CPRange</a> is
-      a possibly-discontiguous sequence whose element type is an unsigned 32-bit
-      integral type.
-    </p>
-<p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/utf32_view.html" title="Struct template utf32_view">utf32_view</a></code>.
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.cprange">CPRange</a>.
-      In the table below, <code class="computeroutput"><span class="identifier">R</span></code> is a
-      type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.cprange">CPRange</a>;
-      <code class="computeroutput"><span class="identifier">r</span></code> is an object of type <code class="computeroutput"><span class="identifier">R</span></code>; <code class="computeroutput"><span class="identifier">Iter</span></code>
-      is an iterator type whose (possibly cv-qualified) value type is convertible
-      to <code class="computeroutput"><span class="identifier">uint32_t</span></code>; and <code class="computeroutput"><span class="identifier">Sentinel</span></code> is a type equality comparable to
-      <code class="computeroutput"><span class="identifier">Iter</span></code>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t4"></a><p class="title"><b>Table&#160;1.12.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-</tr></thead>
-<tbody>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Iter
-              </p>
-            </td>
-<td>
-              <p>
-                The begin-iterator for <code class="computeroutput"><span class="identifier">r</span></code>.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Sentinel
-              </p>
-            </td>
-<td>
-              <p>
-                The end-iterator or end-sentinel for <code class="computeroutput"><span class="identifier">r</span></code>.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">))&gt;::</span><span class="identifier">iterator_category</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                std::bidirectional_iterator_tag
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">))</span></code>
-                must be a bidirectional iterator.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="special">*</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">))</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                any unsigned 32-bit integral convertible to <code class="computeroutput"><span class="identifier">uint32_t</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                It must be possible to access the sequence underlying <code class="computeroutput"><span class="identifier">r</span></code>.
-              </p>
-            </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<br class="table-break"><h4>
-<a name="boost_text__proposed_.concepts.h5"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.graphemeiterator"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemeiterator">GraphemeIterator</a>
-    </h4>
-<p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemeiterator">GraphemeIterator</a>
-      is a converting bidirectional iterator that produces grapheme subranges from
-      an underlying sequence of UTF-8-encoded <code class="computeroutput"><span class="keyword">char</span></code>,
-      using an intervening <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a>
-      iterator.
-    </p>
-<p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>::iterator.
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemeiterator">GraphemeIterator</a>.
-      In the table below, <code class="computeroutput"><span class="identifier">Iter</span></code> is
-      a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemeiterator">GraphemeIterator</a>;
-      <code class="computeroutput"><span class="identifier">it</span></code> is an object of type <code class="computeroutput"><span class="identifier">Iter</span></code>; <code class="computeroutput"><span class="identifier">CPIter</span></code>
-      is an iterator type whose (possibly cv-qualified) value type is convertible
-      to <code class="computeroutput"><span class="identifier">uint32_t</span></code>; <code class="computeroutput"><span class="identifier">CharIter</span></code> is an iterator type whose value
-      type is (possibly cv-qualified) <code class="computeroutput"><span class="keyword">char</span></code>;
-      and <code class="computeroutput"><span class="identifier">char_it</span></code> is an object of
-      type <code class="computeroutput"><span class="identifier">CharIter</span></code>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t5"></a><p class="title"><b>Table&#160;1.13.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-</tr></thead>
-<tbody>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">it</span><span class="special">.</span><span class="identifier">base</span><span class="special">()</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                CPIter
-              </p>
-            </td>
-<td>
-              <p>
-                The iterator for the underlying sequence of <code class="computeroutput"><span class="identifier">uint32_t</span></code>
-                delimited by <code class="computeroutput"><span class="identifier">it</span></code>.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">it</span><span class="special">.</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                CharIter
-              </p>
-            </td>
-<td>
-              <p>
-                The iterator for the underlying sequence of <code class="computeroutput"><span class="keyword">char</span></code>
-                delimited by <code class="computeroutput"><span class="identifier">it</span></code>.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">it</span><span class="special">.</span><span class="identifier">base</span><span class="special">())&gt;::</span><span class="identifier">iterator_category</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                std::bidirectional_iterator_tag
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">CPIter</span></code> must be a
-                bidirectional iterator.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="special">*</span><span class="identifier">it</span><span class="special">.</span><span class="identifier">base</span><span class="special">()</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                any type convertible to <code class="computeroutput"><span class="identifier">uint32_t</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                It must be possible to access the <code class="computeroutput"><span class="identifier">uint32_t</span></code>
-                sequence underlying <code class="computeroutput"><span class="identifier">r</span></code>.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="special">*</span><span class="identifier">it</span><span class="special">.</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="keyword">char</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                It must be possible to access the <code class="computeroutput"><span class="keyword">char</span></code>
-                sequence underlying <code class="computeroutput"><span class="identifier">r</span></code>.
-              </p>
-            </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<br class="table-break"><h4>
-<a name="boost_text__proposed_.concepts.h6"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.graphemerange"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
-    </h4>
-<p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
-      is a sequence of graphemes over an underlying possibly-discontiguous sequence
-      of UTF-8-encoded <code class="computeroutput"><span class="keyword">char</span></code>, using an
-      intervening <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a>
-      iterator.
-    </p>
-<p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code>.
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>.
-      In the table below, <code class="computeroutput"><span class="identifier">R</span></code> is a
-      type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>;
-      <code class="computeroutput"><span class="identifier">r</span></code> is an object of type <code class="computeroutput"><span class="identifier">R</span></code>; <code class="computeroutput"><span class="identifier">CPIter</span></code>
-      is an iterator type whose (possibly cv-qualified) value type is convertible
-      to <code class="computeroutput"><span class="identifier">uint32_t</span></code>; <code class="computeroutput"><span class="identifier">Iter</span></code> is an iterator type whose value type
-      is (possibly cv-qualified) <code class="computeroutput"><span class="keyword">char</span></code>;
-      and <code class="computeroutput"><span class="identifier">it</span></code> is an object of type
-      <code class="computeroutput"><span class="identifier">Iter</span></code>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t6"></a><p class="title"><b>Table&#160;1.14.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-</tr></thead>
-<tbody>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">()</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                CPIter
-              </p>
-            </td>
-<td>
-              <p>
-                The begin-iterator for the underlying sequence of <code class="computeroutput"><span class="identifier">uint32_t</span></code>
-                delimited by <code class="computeroutput"><span class="identifier">r</span></code>.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">()</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                CPIter or some sentinel type equality comparable to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">()</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                The end-iterator or end-sentinel for the underlying sequence of
-                <code class="computeroutput"><span class="identifier">uint32_t</span></code> delimited
-                by <code class="computeroutput"><span class="identifier">r</span></code>.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Iter
-              </p>
-            </td>
-<td>
-              <p>
-                The begin-iterator for the underlying sequence of <code class="computeroutput"><span class="keyword">char</span></code>
-                delimited by <code class="computeroutput"><span class="identifier">r</span></code>.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Sentinel
-              </p>
-            </td>
-<td>
-              <p>
-                The end-iterator or end-sentinel for the underlying sequence of
-                <code class="computeroutput"><span class="keyword">char</span></code> delimited by <code class="computeroutput"><span class="identifier">r</span></code>.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">))&gt;::</span><span class="identifier">iterator_category</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                std::bidirectional_iterator_tag
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">))</span></code>
-                must be a bidirectional iterator.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="special">*</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">()</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                any type convertible to <code class="computeroutput"><span class="identifier">uint32_t</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                It must be possible to access the <code class="computeroutput"><span class="identifier">uint32_t</span></code>
-                sequence underlying <code class="computeroutput"><span class="identifier">r</span></code>.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="special">*</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="keyword">char</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                It must be possible to access the <code class="computeroutput"><span class="keyword">char</span></code>
-                sequence underlying <code class="computeroutput"><span class="identifier">r</span></code>.
-              </p>
-            </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<br class="table-break"><h4>
-<a name="boost_text__proposed_.concepts.h7"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.contiggraphemerange"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.contiggraphemerange">ContigGraphemeRange</a>
-    </h4>
-<p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.contiggraphemerange">ContigGraphemeRange</a>
-      is a sequence of graphemes over an underlying contiguous sequence of UTF-8-encoded
-      <code class="computeroutput"><span class="keyword">char</span></code>.
-    </p>
-<p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>.
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.contiggraphemerange">ContigGraphemeRange</a>.
-      All the requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
-      apply, in addition to the following table. In the table, <code class="computeroutput"><span class="identifier">R</span></code>
-      is a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.contiggraphemerange">ContigGraphemeRange</a>;
-      <code class="computeroutput"><span class="identifier">r</span></code> is an object of type <code class="computeroutput"><span class="identifier">R</span></code>; and <code class="computeroutput"><span class="identifier">Iter</span></code>
-      is an iterator type whose value type is (possibly cv-qualified) <code class="computeroutput"><span class="keyword">char</span></code>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t7"></a><p class="title"><b>Table&#160;1.15.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-<th>
-              <p>
-                Notes
-              </p>
-            </th>
-</tr></thead>
-<tbody><tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">addressof</span><span class="special">(*</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">())</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="keyword">char</span> <span class="special">*</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                It must be possible to access the <code class="computeroutput"><span class="keyword">char</span></code>
-                sequence underlying <code class="computeroutput"><span class="identifier">r</span></code>
-                as an array.
-              </p>
-            </td>
-<td>
-              <p>
-                The result will be <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code>
-                if <code class="computeroutput"><span class="identifier">R</span></code> is <code class="computeroutput"><span class="keyword">const</span></code>.
-              </p>
-            </td>
-</tr></tbody>
-</table></div>
-</div>
-<br class="table-break"><p>
-      Additionally, <code class="computeroutput"><span class="identifier">Iter</span></code> must be
-      a contiguous random access iterator.
-    </p>
-<h4>
-<a name="boost_text__proposed_.concepts.h8"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.wordpropfunc"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.wordpropfunc">WordPropFunc</a>
-    </h4>
-<p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.wordpropfunc">WordPropFunc</a>
-      is a callable taking a code point that returns the <code class="computeroutput">word_property</code> for that code point.
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.wordpropfunc">WordPropFunc</a>
-      must be stateless.
-    </p>
-<p>
-      Example:
-</p>
-<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">default_word_prop</span>
-<span class="special">{</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_property</span> <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">uint32_t</span> <span class="identifier">cp</span><span class="special">)</span>
-    <span class="special">{</span>
-        <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_prop</span><span class="special">(</span><span class="identifier">cp</span><span class="special">);</span>
-    <span class="special">}</span>
-<span class="special">};</span>
-</pre>
-<p>
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.wordpropfunc">WordPropFunc</a>.
-      In the table below, <code class="computeroutput"><span class="identifier">F</span></code> is a
-      type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.wordpropfunc">WordPropFunc</a>;
-      <code class="computeroutput"><span class="identifier">f</span></code> is an object of type <code class="computeroutput"><span class="identifier">f</span></code>; and <code class="computeroutput"><span class="identifier">cp</span></code>
-      is an object convertible to <code class="computeroutput"><span class="identifier">uint32_t</span></code>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t8"></a><p class="title"><b>Table&#160;1.16.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-<th>
-              <p>
-                Notes
-              </p>
-            </th>
-</tr></thead>
-<tbody><tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">cp</span><span class="special">)</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput">word_property</code>
-              </p>
-            </td>
-<td>
-              <p>
-                Returns the <code class="computeroutput">word_property</code> associated
-                with <code class="computeroutput"><span class="identifier">cp</span></code>.
-              </p>
-            </td>
-<td>
-              <p>
-                The <code class="computeroutput">word_property</code>
-                produced by <code class="computeroutput"><span class="identifier">f</span></code> may
-                be different than the one indicated by the Unicode standard; this
-                allows customization of word boundaries. <code class="computeroutput"><span class="identifier">f</span></code>
-                may not rely on its state being preserved between calls.
-              </p>
-            </td>
-</tr></tbody>
-</table></div>
-</div>
-<br class="table-break"><p>
-      <a class="link" href="concepts.html#boost_text__proposed_.concepts.wordpropfunc">WordPropFunc</a>
-      is used in some of the word breaking API to tailor word breaking behavior.
-    </p>
-<h4>
-<a name="boost_text__proposed_.concepts.h9"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.cpwordbreakfunc"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.cpwordbreakfunc">CPWordBreakFunc</a>
-    </h4>
-<p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpwordbreakfunc">CPWordBreakFunc</a>
-      is a callable taking a several code points that returns <code class="computeroutput"><span class="keyword">true</span></code>
-      or <code class="computeroutput"><span class="keyword">false</span></code> indicating whether to
-      break at the middle code point. A <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpwordbreakfunc">CPWordBreakFunc</a>
-      must be stateless.
-    </p>
-<p>
-      Example:
-</p>
-<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">default_cp_break</span>
-<span class="special">{</span>
-    <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">uint32_t</span> <span class="identifier">prev_prev</span><span class="special">,</span>
-                    <span class="identifier">uint32_t</span> <span class="identifier">prev</span><span class="special">,</span>
-                    <span class="identifier">uint32_t</span> <span class="identifier">curr</span><span class="special">,</span>
-                    <span class="identifier">uint32_t</span> <span class="identifier">next</span><span class="special">,</span>
-                    <span class="identifier">uint32_t</span> <span class="identifier">next_next</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span>
-    <span class="special">{</span>
-        <span class="keyword">return</span> <span class="keyword">false</span><span class="special">;</span>
-    <span class="special">}</span>
-<span class="special">};</span>
-</pre>
-<p>
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpwordbreakfunc">CPWordBreakFunc</a>.
-      In the table below, <code class="computeroutput"><span class="identifier">F</span></code> is a
-      type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpwordbreakfunc">CPWordBreakFunc</a>;
-      <code class="computeroutput"><span class="identifier">f</span></code> is an object of type <code class="computeroutput"><span class="identifier">f</span></code>; and <code class="computeroutput"><span class="identifier">prev_prev</span></code>,
-      <code class="computeroutput"><span class="identifier">prev</span></code>, <code class="computeroutput"><span class="identifier">curr</span></code>,
-      <code class="computeroutput"><span class="identifier">next</span></code>, and <code class="computeroutput"><span class="identifier">next_next</span></code>
-      are objects convertible to <code class="computeroutput"><span class="identifier">uint32_t</span></code>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t9"></a><p class="title"><b>Table&#160;1.17.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-<th>
-              <p>
-                Notes
-              </p>
-            </th>
-</tr></thead>
-<tbody><tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">prev_prev</span><span class="special">,</span>
-                <span class="identifier">prev</span><span class="special">,</span>
-                <span class="identifier">curr</span><span class="special">,</span>
-                <span class="identifier">next</span><span class="special">,</span>
-                <span class="identifier">next_next</span><span class="special">)</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                a type convertible to <code class="computeroutput"><span class="keyword">bool</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Returns <code class="computeroutput"><span class="keyword">true</span></code> if a word
-                break at <code class="computeroutput"><span class="identifier">curr</span></code> is
-                indicated, and <code class="computeroutput"><span class="keyword">false</span></code>
-                otherwise.
-              </p>
-            </td>
-<td>
-              <p>
-                The result produced by <code class="computeroutput"><span class="identifier">f</span></code>
-                may be different than the one indicated by the Unicode standard;
-                this allows customization of word boundaries. <code class="computeroutput"><span class="identifier">f</span></code>
-                may not rely on its state being preserved between calls.
-              </p>
-            </td>
-</tr></tbody>
-</table></div>
-</div>
-<br class="table-break"><p>
-      <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpwordbreakfunc">CPWordBreakFunc</a>
-      is used in some of the word breaking API to tailor word breaking behavior.
-    </p>
-<h4>
-<a name="boost_text__proposed_.concepts.h10"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.cpextentfunc"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.cpextentfunc">CPExtentFunc</a>
-    </h4>
-<p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpextentfunc">CPExtentFunc</a>
-      is a callable taking a pair of iterators to a range of code points that returns
-      the horizontal extent of the code points. A <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpextentfunc">CPExtentFunc</a>
-      may be stateful.
-    </p>
-<p>
-      Example:
-</p>
-<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">no_op_cp_extent</span>
-<span class="special">{</span>
-    <span class="keyword">int</span> <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">uint32_t</span> <span class="special">*</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">uint32_t</span> <span class="special">*</span> <span class="identifier">last</span><span class="special">)</span>
-    <span class="special">{</span>
-        <span class="comment">// Extent is always zero, regardless of the code points given.</span>
-        <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
-    <span class="special">}</span>
-<span class="special">};</span>
-</pre>
-<p>
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpextentfunc">CPExtentFunc</a>.
-      In the table below, <code class="computeroutput"><span class="identifier">F</span></code> is a
-      type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpextentfunc">CPExtentFunc</a>;
-      <code class="computeroutput"><span class="identifier">f</span></code> is an object of type <code class="computeroutput"><span class="identifier">f</span></code>; <code class="computeroutput"><span class="identifier">CPIter</span></code>
-      is the parameter type of <code class="computeroutput"><span class="identifier">F</span></code>;
-      and <code class="computeroutput"><span class="identifier">first</span></code> and <code class="computeroutput"><span class="identifier">last</span></code> are objects of type <code class="computeroutput"><span class="identifier">CPIter</span></code>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t10"></a><p class="title"><b>Table&#160;1.18.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-<th>
-              <p>
-                Notes
-              </p>
-            </th>
-</tr></thead>
-<tbody><tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span>
-                <span class="identifier">last</span><span class="special">)</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                an integral type
-              </p>
-            </td>
-<td>
-              <p>
-                Returns the horizontal width of the given range of code points.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">f</span></code> may have state
-                that is mutated in the call.
-              </p>
-            </td>
-</tr></tbody>
-</table></div>
-</div>
-<br class="table-break"><p>
-      <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpextentfunc">CPExtentFunc</a>
-      is used in some of the line breaking API.
-    </p>
-<h4>
-<a name="boost_text__proposed_.concepts.h11"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.breakfunc"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.breakfunc">BreakFunc</a>
-    </h4>
-<p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.breakfunc">BreakFunc</a>
-      is a callable taking three iterators to a range of code points that indicates
-      whether the middle iterator is at a text break (word break, grapheme break,
-      etc.). A <a class="link" href="concepts.html#boost_text__proposed_.concepts.breakfunc">BreakFunc</a>
-      may not be stateful.
-    </p>
-<p>
-      Example: <code class="computeroutput">prev_grapheme_break()</code>
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.breakfunc">BreakFunc</a>.
-      In the table below, <code class="computeroutput"><span class="identifier">F</span></code> is a
-      type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.breakfunc">BreakFunc</a>;
-      <code class="computeroutput"><span class="identifier">f</span></code> is an object of type <code class="computeroutput"><span class="identifier">f</span></code>; <code class="computeroutput"><span class="identifier">CPIter</span></code>
-      is the parameter type of <code class="computeroutput"><span class="identifier">F</span></code>;
-      and <code class="computeroutput"><span class="identifier">first</span></code>, <code class="computeroutput"><span class="identifier">it</span></code>,
-      and <code class="computeroutput"><span class="identifier">last</span></code> are objects of type
-      <code class="computeroutput"><span class="identifier">CPIter</span></code>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t11"></a><p class="title"><b>Table&#160;1.19.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-<th>
-              <p>
-                Notes
-              </p>
-            </th>
-</tr></thead>
-<tbody><tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span>
-                <span class="identifier">it</span><span class="special">,</span>
-                <span class="identifier">last</span><span class="special">)</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                a type convertible to <code class="computeroutput"><span class="keyword">bool</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Returns <code class="computeroutput"><span class="keyword">true</span></code> if <code class="computeroutput"><span class="identifier">it</span></code> is at a text break, and <code class="computeroutput"><span class="keyword">false</span></code> otherwise.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">f</span></code> may not rely on
-                its state being preserved between calls.
-              </p>
-            </td>
-</tr></tbody>
-</table></div>
-</div>
-<br class="table-break"><p>
-      <a class="link" href="concepts.html#boost_text__proposed_.concepts.breakfunc">BreakFunc</a> is
-      used in some of the collation-aware searching API.
-    </p>
-<h4>
-<a name="boost_text__proposed_.concepts.h12"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.searcher"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.searcher">Searcher</a>
-    </h4>
-<p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.searcher">Searcher</a> is
-      a callable taking a pair of iterators to a corpus of code points to search.
-      It returns a range of code points from the corpus that is equal to the sequence
-      of code points the <a class="link" href="concepts.html#boost_text__proposed_.concepts.searcher">Searcher</a>
-      was configured to find.
-    </p>
-<p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/boyer_moore_colla_idm16828.html" title="Struct template boyer_moore_collation_searcher">boyer_moore_collation_searcher</a></code>
-    </p>
-<p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.searcher">Searcher</a>.
-      In the table below, <code class="computeroutput"><span class="identifier">F</span></code> is a
-      type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.searcher">Searcher</a>;
-      <code class="computeroutput"><span class="identifier">f</span></code> is an object of type <code class="computeroutput"><span class="identifier">f</span></code>; <code class="computeroutput"><span class="identifier">CPIter</span></code>
-      is the parameter type of <code class="computeroutput"><span class="identifier">F</span></code>;
-      and <code class="computeroutput"><span class="identifier">first</span></code>, <code class="computeroutput"><span class="identifier">it</span></code>,
-      and <code class="computeroutput"><span class="identifier">last</span></code> are objects of type
-      <code class="computeroutput"><span class="identifier">CPIter</span></code>.
-    </p>
-<div class="table">
-<a name="boost_text__proposed_.concepts.t12"></a><p class="title"><b>Table&#160;1.20.&#160;Expression Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Expression Requirements">
-<colgroup>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                Expression
-              </p>
-            </th>
-<th>
-              <p>
-                Type
-              </p>
-            </th>
-<th>
-              <p>
-                Description
-              </p>
-            </th>
-</tr></thead>
-<tbody><tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span>
-                <span class="identifier">last</span><span class="special">)</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.cprange">CPRange</a>
-              </p>
-            </td>
-<td>
-              <p>
-                Returns the range within (<code class="computeroutput"><span class="identifier">first</span></code>,
-                <code class="computeroutput"><span class="identifier">last</span></code>] that matches
-                the code point sequence <code class="computeroutput"><span class="identifier">f</span></code>
-                was configured to find.
-              </p>
-            </td>
-</tr></tbody>
-</table></div>
-</div>
-<br class="table-break"><p>
-      <a class="link" href="concepts.html#boost_text__proposed_.concepts.searcher">Searcher</a> is
-      used in some of the collation-aware searching API.
-    </p>
+<br class="table-break">
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
