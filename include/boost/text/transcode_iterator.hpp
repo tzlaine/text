@@ -2363,26 +2363,23 @@ namespace boost { namespace text {
         get_value(uint16_t curr) const noexcept(!throw_on_error)
         {
             uint32_t value = 0;
-            I next = it_;
+            I next = std::next(it_);
 
             if (high_surrogate(curr)) {
                 value = (curr - high_surrogate_base) << 10;
-                ++next;
                 if (at_end(next)) {
                     return get_value_result{replacement_character(), next};
                 }
-                curr = *next;
+                curr = *next++;
                 if (!low_surrogate(curr)) {
                     return get_value_result{replacement_character(), next};
                 }
                 value += curr - low_surrogate_base;
-                ++next;
             } else if (low_surrogate(curr)) {
                 value = ErrorHandler{}("Invalid initial UTF-16 code unit.");
                 return get_value_result{replacement_character(), next};
             } else {
                 value = curr;
-                ++next;
             }
 
             if (!valid_code_point(value)) {

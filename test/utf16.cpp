@@ -227,3 +227,38 @@ TEST(utf_16, test_back_and_forth)
         }
     }
 }
+
+TEST(utf_16, invalid_surrogate_pairs)
+{
+    // UTF-16 -> UTF-32 low surrogate without high surrogate
+    {
+        uint32_t const utf32[] = {0xfffd};
+        uint16_t const utf16[] = {0xdc00};
+
+        auto it = text::utf_16_to_32_iterator<uint16_t const *>(
+            std::begin(utf16), std::begin(utf16), std::end(utf16));
+
+        auto end = text::utf_16_to_32_iterator<uint16_t const *>(
+            std::begin(utf16), std::end(utf16), std::end(utf16));
+
+        EXPECT_EQ(*it, utf32[0]);
+        ++it;
+        EXPECT_EQ(it, end);
+    }
+
+    // UTF-16 -> UTF-32 valid high surrogate, invalid low surrogate
+    {
+        uint32_t const utf32[] = {0xfffd};
+        uint16_t const utf16[] = {0xd800, 0xdb00};
+
+        auto it = text::utf_16_to_32_iterator<uint16_t const *>(
+            std::begin(utf16), std::begin(utf16), std::end(utf16));
+
+        auto end = text::utf_16_to_32_iterator<uint16_t const *>(
+            std::begin(utf16), std::end(utf16), std::end(utf16));
+
+        EXPECT_EQ(*it, utf32[0]);
+        ++it;
+        EXPECT_EQ(it, end);
+    }
+}
