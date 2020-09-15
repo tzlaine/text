@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-project(boost_text)
+project(boost_text LANGUAGES CXX)
 
 ################################################## 
 # C++ standard version selection
@@ -81,7 +81,10 @@ add_library(text
     src/data_versions.cpp
 )
 
-target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(text
+  PUBLIC
+  $<INSTALL_INTERFACE:include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 target_link_libraries(text PUBLIC boost)
 set_property(TARGET text PROPERTY CXX_STANDARD ${CXX_STD})
 target_compile_options(text PRIVATE -DBOOST_TEXT_SOURCE)
@@ -93,6 +96,12 @@ if (NOT MSVC)
     target_compile_options(text PRIVATE -Wall)
 endif ()
 
+install(TARGETS text
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/boost
+  DESTINATION "include")
 
 ##################################################
 # Tests and examples
