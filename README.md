@@ -1,10 +1,18 @@
 # text
 
-This library includes three layers:
+### Motivation
+C and C++ are the only major production languages that do not have robust Unicode support. This library attempts to provide that support for C++.
 
-- The string layer, a set of types that constitute "a better std::string"
-- The Unicode layer, consisting of the Unicode algorithms and data
-- The text layer, a set of types like the string layer types, but providing transparent Unicode support
+This library provides a Unicode implementation suitable for use by anyone — including those who know next to nothing about Unicode.
+
+### Features
+- Iterators, views, and algorithms that convert among UTF-8, UTF-16, and UTF-32.
+
+- An implementation of the Unicode algorithms for dealing with encodings, normalization, text segmentation, etc.
+
+- A family of types for use in Unicode-aware text processing. This includes text, text_view, rope, and rope_view.
+
+- Code familiarity -- all of the above types and algorithms work like the STL containers and algorithms.
 
 This library targets submission to Boost and eventual standardization.
 
