@@ -29,40 +29,110 @@ else ()
     endif()
     execute_process(
       COMMAND git submodule init libs/test
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/algorithm
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/align
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/array
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/bind
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/concept_check
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/container
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/container_hash
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/exception
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/filesystem
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/function
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/integer
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/intrusive
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/io
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/iterator
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/move
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/mpl
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/numeric
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/optional
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/preprocessor
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/range
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/smart_ptr
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/static_assert
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/system
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/type_index
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/type_traits
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/throw_exception
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/utility
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/assert
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/config
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/core
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/predef
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/detail
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init tools/build
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init libs/headers
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
+    execute_process(
       COMMAND git submodule init tools/boost_install
       WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root)
     execute_process(
