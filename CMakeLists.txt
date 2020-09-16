@@ -97,8 +97,18 @@ if (NOT MSVC)
 endif ()
 
 install(TARGETS text
+  EXPORT text_export
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib)
+
+install(EXPORT text_export
+  FILE text-targets.cmake
+  NAMESPACE Boost::
+  DESTINATION lib/cmake/text)
+
+install(FILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/text-config.cmake
+  DESTINATION "lib/cmake/text")
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/boost
   DESTINATION "include")
