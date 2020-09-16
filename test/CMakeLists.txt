@@ -43,7 +43,7 @@ set(coverage_gcda_files_6 INTERNAL)
 # This is used to generate some of the test files.  It is not a test.
 add_executable(generate_tailoring_rule_tests generate_tailoring_rule_tests.cpp)
 target_compile_options(generate_tailoring_rule_tests PRIVATE ${warnings_flag})
-target_link_libraries(generate_tailoring_rule_tests text gtest gtest_main)
+target_link_libraries(generate_tailoring_rule_tests text boost gtest gtest_main)
 set_property(TARGET generate_tailoring_rule_tests PROPERTY CXX_STANDARD ${CXX_STD})
 if (clang_on_linux)
     target_link_libraries(generate_tailoring_rule_tests c++)
@@ -53,7 +53,7 @@ macro(add_test_executable name group)
     set(local_name ${name}_g${group})
     add_executable(${local_name} ${name}.cpp)
     target_compile_options(${local_name} PRIVATE ${warnings_flag})
-    target_link_libraries(${local_name} text gtest gtest_main)
+    target_link_libraries(${local_name} text boost gtest gtest_main)
     if (ICU_FOUND AND NOT LIMIT_TESTING_FOR_CI)
         target_include_directories(${local_name} PRIVATE ${ICU_INCLUDE_DIR})
         target_link_libraries(
@@ -318,7 +318,7 @@ endif ()
 
 add_executable(compile_tests ${compile_sources})
 target_compile_options(compile_tests PRIVATE ${warnings_flag})
-target_link_libraries(compile_tests text)
+target_link_libraries(compile_tests text boost)
 set_property(TARGET compile_tests PROPERTY CXX_STANDARD ${CXX_STD})
 if (clang_on_linux)
     target_link_libraries(compile_tests c++)
@@ -330,7 +330,7 @@ if (BUILD_ROPE_THREADSAFETY_TEST)
     endif ()
     add_executable(rope_threadsafety rope_threadsafety.cpp)
     target_compile_options(rope_threadsafety PRIVATE ${warnings_flag} -fsanitize=thread)
-    target_link_libraries(rope_threadsafety text -fsanitize=thread)
+    target_link_libraries(rope_threadsafety text boost -fsanitize=thread)
     if (UNIX AND NOT APPLE) # Linux
         target_compile_options(rope_threadsafety PRIVATE -pthread)
         target_link_libraries(rope_threadsafety -pthread)
@@ -353,7 +353,7 @@ if (BUILD_FUZZ_TESTS)
 
     add_executable(fuzz_rope fuzz_rope.cpp)
     target_compile_options(fuzz_rope PRIVATE ${warnings_flag} -fsanitize-coverage=trace-pc -fsanitize=address)
-    target_link_libraries(fuzz_rope text Fuzzer -fsanitize-coverage=trace-pc -fsanitize=address)
+    target_link_libraries(fuzz_rope text boost Fuzzer -fsanitize-coverage=trace-pc -fsanitize=address)
     set_property(TARGET fuzz_rope PROPERTY CXX_STANDARD ${CXX_STD})
     add_test(fuzz_rope
              ${CMAKE_CURRENT_BINARY_DIR}/fuzz_rope
@@ -364,7 +364,7 @@ if (BUILD_FUZZ_TESTS)
 
     add_executable(fuzz_segmented_vector fuzz_segmented_vector.cpp)
     target_compile_options(fuzz_segmented_vector PRIVATE ${warnings_flag} -fsanitize-coverage=trace-pc -fsanitize=address)
-    target_link_libraries(fuzz_segmented_vector text Fuzzer -fsanitize-coverage=trace-pc -fsanitize=address)
+    target_link_libraries(fuzz_segmented_vector text boost Fuzzer -fsanitize-coverage=trace-pc -fsanitize=address)
     set_property(TARGET fuzz_segmented_vector PROPERTY CXX_STANDARD ${CXX_STD})
     add_test(fuzz_segmented_vector
              ${CMAKE_CURRENT_BINARY_DIR}/fuzz_segmented_vector
@@ -375,7 +375,7 @@ if (BUILD_FUZZ_TESTS)
 
     add_executable(fuzz_trie fuzz_trie.cpp)
     target_compile_options(fuzz_trie PRIVATE ${warnings_flag} -fsanitize-coverage=trace-pc -fsanitize=address)
-    target_link_libraries(fuzz_trie text Fuzzer -fsanitize-coverage=trace-pc -fsanitize=address)
+    target_link_libraries(fuzz_trie text boost Fuzzer -fsanitize-coverage=trace-pc -fsanitize=address)
     set_property(TARGET fuzz_trie PROPERTY CXX_STANDARD ${CXX_STD})
     add_test(fuzz_trie
              ${CMAKE_CURRENT_BINARY_DIR}/fuzz_trie

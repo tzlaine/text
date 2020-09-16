@@ -85,7 +85,7 @@ target_include_directories(text
   PUBLIC
   $<INSTALL_INTERFACE:include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-target_link_libraries(text PUBLIC boost)
+target_include_directories(text PRIVATE ${Boost_INCLUDE_DIR})
 set_property(TARGET text PROPERTY CXX_STANDARD ${CXX_STD})
 target_compile_options(text PRIVATE -DBOOST_TEXT_SOURCE)
 if (link_flags)

@@ -8,7 +8,7 @@ set(DISABLE_ICU ${LIMIT_TESTING_FOR_CI})
 macro(add_perf_executable name)
     add_executable(${name} ${name}.cpp)
     target_compile_options(${name} PRIVATE ${warnings_flag})
-    target_link_libraries(${name} text benchmark)
+    target_link_libraries(${name} text boost benchmark)
     if (ICU_FOUND AND NOT DISABLE_ICU)
         target_include_directories(${name} PRIVATE ${ICU_INCLUDE_DIR})
         target_link_libraries(
