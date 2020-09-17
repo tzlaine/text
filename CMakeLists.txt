@@ -113,6 +113,16 @@ install(FILES
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/boost
   DESTINATION "include")
 
+# If Boost was not found, make text depend on boost_clone, so that we clone
+# Boost from Github repos.  However, we don't want a permanent text ->
+# boost_clone dependency, so make this CMakeLists.txt file dirty by touching
+# it, after boost_clone finishes.
+if (NOT Boost_FOUND AND NOT EXISTS ${CMAKE_BINARY_DIR}/boost_root)
+  add_dependencies(text boost_clone)
+  add_custom_command(TARGET boost_clone POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_LIST_FILE})
+endif()
+
 ##################################################
 # Tests and examples
 ##################################################
