@@ -2768,9 +2768,10 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
-        BOOST_TEXT_CXX14_CONSTEXPR bool at_end() const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR bool at_end(I it) const
+            noexcept(!throw_on_error)
         {
-            if (it_ == last_) {
+            if (it == last_) {
                 ErrorHandler{}(
                     "Invalid UTF-16 sequence; expected another code unit "
                     "before the end of string.");
@@ -2794,10 +2795,10 @@ namespace boost { namespace text {
             uint32_t second = 0;
             uint32_t cp = first;
             if (boost::text::high_surrogate(first)) {
-                if (at_end())
+                if (at_end(++next))
                     cp = replacement_character();
                 else {
-                    second = static_cast<uint32_t>(*++next);
+                    second = static_cast<uint32_t>(*next);
                     if (!boost::text::low_surrogate(second)) {
                         ErrorHandler{}(
                             "Invalid UTF-16 sequence; expected low surrogate "
