@@ -1040,3 +1040,23 @@ TEST(utf_8, make_utfN_iterator)
         EXPECT_EQ(result, expected);
     }
 }
+
+TEST(utf8, utf_16_to_8_incomplete_surrogate_pair)
+{
+    uint16_t const utf16[] = {0xd800};
+    char const utf8[] = {char(0xef),
+                         char(0xbf),
+                         char(0xbd),
+                         0};
+
+    auto it = text::utf_16_to_8_iterator<uint16_t const *>(
+        std::begin(utf16), std::begin(utf16), std::end(utf16));
+
+    auto const end = text::utf_16_to_8_iterator<uint16_t const *>(
+        std::begin(utf16), std::end(utf16), std::end(utf16));
+
+    EXPECT_EQ(*it++, utf8[0]);
+    EXPECT_EQ(*it++, utf8[1]);
+    EXPECT_EQ(*it++, utf8[2]);
+    EXPECT_EQ(it, end);
+}
