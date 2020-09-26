@@ -10,6 +10,9 @@
 #include <boost/text/detail/iterator.hpp>
 
 #include <boost/assert.hpp>
+#include <boost/type_traits/detected.hpp>
+#include <boost/type_traits/detected_or.hpp>
+#include <boost/type_traits/is_detected.hpp>
 
 #include <numeric>
 #include <type_traits>
@@ -81,45 +84,6 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     using remove_cv_ref_t =
         typename std::remove_cv<typename std::remove_reference<T>::type>::type;
-
-    struct nonesuch
-    {};
-
-    template<
-        typename Default,
-        typename AlwaysVoid,
-        template<typename...> class Template,
-        typename... Args>
-    struct detector
-    {
-        using value_t = std::false_type;
-        using type = Default;
-    };
-
-    template<
-        typename Default,
-        template<typename...> class Template,
-        typename... Args>
-    struct detector<Default, void_t<Template<Args...>>, Template, Args...>
-    {
-        using value_t = std::true_type;
-        using type = Template<Args...>;
-    };
-
-    template<template<typename...> class Template, typename... Args>
-    using is_detected =
-        typename detector<nonesuch, void, Template, Args...>::value_t;
-
-    template<template<typename...> class Template, typename... Args>
-    using detected_t =
-        typename detector<nonesuch, void, Template, Args...>::type;
-
-    template<
-        typename Default,
-        template<typename...> class Template,
-        typename... Args>
-    using detected_or =
-        typename detector<Default, void, Template, Args...>::type;
 
 
 
@@ -360,7 +324,7 @@ namespace boost { namespace text { namespace detail {
         ((std::is_pointer<T>::value &&
           is_code_point<typename std::remove_cv<
               typename std::remove_pointer<T>::type>::type>::value) ||
-         (is_detected<has_deref_and_incr, T>::value &&
+         (is_detected_v<has_deref_and_incr, T> &&
           is_code_point<typename std::remove_cv<
               detected_t<value_type_, T>>::type>::value))>;
 
@@ -407,7 +371,7 @@ namespace boost { namespace text { namespace detail {
         ((std::is_pointer<T>::value &&
           is_16_code_unit<typename std::remove_cv<
               typename std::remove_pointer<T>::type>::type>::value) ||
-         (is_detected<has_deref_and_incr, T>::value &&
+         (is_detected_v<has_deref_and_incr, T> &&
           is_16_code_unit<typename std::remove_cv<
               detected_t<value_type_, T>>::type>::value))>;
 
@@ -436,7 +400,7 @@ namespace boost { namespace text { namespace detail {
         ((std::is_pointer<T>::value &&
           is_8_code_unit<typename std::remove_cv<
               typename std::remove_pointer<T>::type>::type>::value) ||
-         (is_detected<has_deref_and_incr, T>::value &&
+         (is_detected_v<has_deref_and_incr, T> &&
           is_8_code_unit<typename std::remove_cv<
               detected_t<value_type_, T>>::type>::value))>;
 
@@ -464,7 +428,7 @@ namespace boost { namespace text { namespace detail {
         typename CPIter,
         typename Sentinel,
         bool FIsWordPropFunc = is_cp_iter<CPIter>::value &&
-            is_detected<comparable_, CPIter, Sentinel>::value>
+            is_detected_v<comparable_, CPIter, Sentinel>>
     struct cp_iter_sntl_ret
     {
     };
@@ -489,10 +453,9 @@ namespace boost { namespace text { namespace detail {
         typename Sentinel1,
         typename CPIter2,
         typename Sentinel2,
-        bool AreCPRanges =
-            is_cp_iter<CPIter1>::value && is_cp_iter<CPIter2>::value &&
-                is_detected<comparable_, CPIter1, Sentinel1>::value &&
-                    is_detected<comparable_, CPIter2, Sentinel2>::value>
+        bool AreCPRanges = is_cp_iter<CPIter1>::value && is_cp_iter<
+            CPIter2>::value && is_detected_v<comparable_, CPIter1, Sentinel1> &&
+            is_detected_v<comparable_, CPIter2, Sentinel2>>
     struct cp_iters_sntls_ret
     {
     };
@@ -582,7 +545,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T>
     using is_grapheme_iter =
-        detected_or<std::false_type, is_grapheme_iter_expr, T>;
+        detected_or_t<std::false_type, is_grapheme_iter_expr, T>;
 
     template<
         typename T,
@@ -631,7 +594,7 @@ namespace boost { namespace text { namespace detail {
                     std::declval<const T>().base().base())>>::value>;
 
     template<int Size, typename T>
-    using is_grapheme_cu_iter = detected_or<
+    using is_grapheme_cu_iter = detected_or_t<
         std::false_type,
         is_grapheme_cu_iter_expr,
         std::integral_constant<int, Size>,
@@ -668,7 +631,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T>
     using is_grapheme_range =
-        detected_or<std::false_type, is_grapheme_range_expr, T>;
+        detected_or_t<std::false_type, is_grapheme_range_expr, T>;
 
     template<
         typename T,
@@ -697,7 +660,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T>
     using is_cp_grapheme_range =
-        detected_or<std::false_type, is_cp_grapheme_range_expr, T>;
+        detected_or_t<std::false_type, is_cp_grapheme_range_expr, T>;
 
     template<
         typename T,
@@ -828,7 +791,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T>
     using is_contig_grapheme_range =
-        detected_or<std::false_type, is_contig_grapheme_range_expr, T>;
+        detected_or_t<std::false_type, is_contig_grapheme_range_expr, T>;
 
     template<
         typename T,
@@ -931,7 +894,7 @@ namespace boost { namespace text { namespace detail {
     using char_ptr = std::integral_constant<
         bool,
         std::is_pointer<Iter>::value &&
-            detected_or<std::false_type, char_value_type, Iter>::value>;
+            detected_or_t<std::false_type, char_value_type, Iter>::value>;
 
     template<typename Iter>
     using _16_value_type = std::integral_constant<
@@ -944,7 +907,7 @@ namespace boost { namespace text { namespace detail {
     using _16_ptr = std::integral_constant<
         bool,
         std::is_pointer<Iter>::value &&
-            detected_or<std::false_type, _16_value_type, Iter>::value>;
+            detected_or_t<std::false_type, _16_value_type, Iter>::value>;
 
     template<typename Iter>
     using cp_value_type = std::integral_constant<
@@ -957,7 +920,7 @@ namespace boost { namespace text { namespace detail {
     using cp_ptr = std::integral_constant<
         bool,
         std::is_pointer<Iter>::value &&
-            detected_or<std::false_type, cp_value_type, Iter>::value>;
+            detected_or_t<std::false_type, cp_value_type, Iter>::value>;
 
 }}}
 

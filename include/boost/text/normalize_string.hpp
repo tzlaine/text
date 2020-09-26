@@ -132,8 +132,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         template<
             typename String,
-            bool Enable =
-                detail::is_detected<has_capacity_reserve, String>::value>
+            bool Enable = is_detected_v<has_capacity_reserve, String>>
         struct normalize_string_impl
         {
             static void prefix(String const & s, String & temp) {}
