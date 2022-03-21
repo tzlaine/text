@@ -1637,6 +1637,8 @@ namespace boost { namespace text {
                 paragraphs_last_(paragraphs_.end()),
                 next_line_(std::move(next))
             {
+                if (first == last)
+                    return;
                 next_paragraph(true);
                 next_line();
                 next_reordered_run();

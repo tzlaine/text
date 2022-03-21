@@ -24,6 +24,24 @@ using namespace boost::text::detail;
 
 TEST(break_apis, grapheme_break)
 {
+    // empty range
+    {
+        std::vector<uint32_t> const empty_cps;
+        auto subranges =
+            boost::text::graphemes(empty_cps.begin(), empty_cps.end());
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+    {
+        std::string const empty_cus;
+        auto subranges =
+            boost::text::graphemes(boost::text::as_utf32(empty_cus));
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+
     // ÷ 1F3FB × 0308 ÷ 1100 ÷
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0]
     // COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
@@ -340,6 +358,22 @@ TEST(break_apis, grapheme_break_sentinel)
 
 TEST(break_apis, word_break)
 {
+    // empty range
+    {
+        std::vector<uint32_t> const empty_cps;
+        auto subranges = boost::text::words(empty_cps.begin(), empty_cps.end());
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+    {
+        std::string const empty_cus;
+        auto subranges = boost::text::words(boost::text::as_utf32(empty_cus));
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+
     // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷
     // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) ×
     // [13.2] LATIN SMALL LETTER A (ALetter) ÷ [999.0] FULL STOP (MidNumLet) ÷
@@ -1099,6 +1133,24 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
 
 TEST(break_apis, sentence_break)
 {
+    // empty range
+    {
+        std::vector<uint32_t> const empty_cps;
+        auto subranges =
+            boost::text::sentences(empty_cps.begin(), empty_cps.end());
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+    {
+        std::string const empty_cus;
+        auto subranges =
+            boost::text::sentences(boost::text::as_utf32(empty_cus));
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+
     // ÷ 5B57 × 3002 ÷ 5B83 ÷
     // ÷ [0.2] CJK UNIFIED IDEOGRAPH-5B57 (OLetter) × [998.0] IDEOGRAPHIC FULL
     // STOP (STerm) ÷ [11.0] CJK UNIFIED IDEOGRAPH-5B83 (OLetter) ÷ [0.3]
@@ -1354,6 +1406,22 @@ TEST(break_apis, sentence_break_sentinel)
 
 TEST(break_apis, line_break)
 {
+    // empty range
+    {
+        std::vector<uint32_t> const empty_cps;
+        auto subranges = boost::text::lines(empty_cps.begin(), empty_cps.end());
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+    {
+        std::string const empty_cus;
+        auto subranges = boost::text::lines(boost::text::as_utf32(empty_cus));
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+
     // × 200B × 0020 ÷ 0030 ÷
     // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU)
     // ÷ [0.3]
@@ -2242,6 +2310,24 @@ TEST(break_apis, line_break_sentinel)
 
 TEST(break_apis, paragraph_break)
 {
+    // empty range
+    {
+        std::vector<uint32_t> const empty_cps;
+        auto subranges =
+            boost::text::paragraphs(empty_cps.begin(), empty_cps.end());
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+    {
+        std::string const empty_cus;
+        auto subranges =
+            boost::text::paragraphs(boost::text::as_utf32(empty_cus));
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+
     // ÷ 0061 × 000D × 000A ÷ 002E × 000A ÷ 0061 ÷
     std::vector<uint32_t> const cps = {0x61, 0xd, 0xa, 0x2e, 0xa, 0x61};
 
@@ -2573,6 +2659,24 @@ std::vector<int> bidi_stateful_cp_extent::index_counts;
 
 TEST(break_apis, bidi)
 {
+    // empty range
+    {
+        std::vector<uint32_t> const empty_cps;
+        auto subranges = boost::text::bidirectional_subranges(
+            empty_cps.begin(), empty_cps.end(), 0);
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+    {
+        std::string const empty_cus;
+        auto subranges = boost::text::bidirectional_subranges(
+            boost::text::as_utf32(empty_cus), 0);
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+
     // ON RLE ON FSI ON R RLO L PDF ON PDI ON PDF ON; 3 ('LTR') (line 496999)
     std::vector<uint32_t> const cps = {
         0x0021,
