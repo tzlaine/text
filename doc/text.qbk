@@ -191,6 +191,7 @@
 [def _string_max_m_         [macroref BOOST_TEXT_STRING_INSERT_MAX]]
 [def _disable_concepts_m_   [macroref BOOST_TEXT_DISABLE_CONCEPTS]]
 [def _disable_coroutines_m_ [macroref BOOST_TEXT_DISABLE_COROUTINES]]
+[def _disable_fs_m_         [macroref BOOST_TEXT_DISABLE_STD_FILESYSTEM]]
 
 [def _ce_                  `constexpr`]
 

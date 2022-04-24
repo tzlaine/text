@@ -9,17 +9,20 @@
 #include <boost/text/collation_table.hpp>
 #include <boost/text/detail/serialization.hpp>
 
+#if BOOST_TEXT_USE_STD_FILESYSTEM
+#include <filesystem>
+#else
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
+#endif
 
 
 namespace boost { namespace text {
 
     struct collation_table;
 
-    void
-    save_table(collation_table const & table, filesystem::path const & path);
-    collation_table load_table(filesystem::path const & path);
+    void save_table(collation_table const & table, fs::path const & path);
+    collation_table load_table(fs::path const & path);
 
     namespace detail {
 
@@ -27,35 +30,33 @@ namespace boost { namespace text {
         {};
 
         template<>
-        struct tag<filesystem::ifstream>
+        struct tag<fs::ifstream>
         {
             using type = filesystem_fstream_tag_t;
         };
 
         template<>
-        struct tag<filesystem::ofstream>
+        struct tag<fs::ofstream>
         {
             using type = filesystem_fstream_tag_t;
         };
 
         template<typename T>
-        void
-        read_bytes(filesystem::ifstream & ifs, T & x, filesystem_fstream_tag_t)
+        void read_bytes(fs::ifstream & ifs, T & x, filesystem_fstream_tag_t)
         {
             ifs.read(reinterpret_cast<char *>(&x), sizeof(T));
         }
 
         template<typename T>
-        void write_bytes(
-            T const & x, filesystem::ofstream & ofs, filesystem_fstream_tag_t)
+        void
+        write_bytes(T const & x, fs::ofstream & ofs, filesystem_fstream_tag_t)
         {
             ofs.write(reinterpret_cast<char const *>(&x), sizeof(T));
         }
     }
 
     /** Writes the given collation table to `path`. */
-    void save_table(
-        collation_table const & table_proper, filesystem::path const & path)
+    void save_table(collation_table const & table_proper, fs::path const & path)
     {
         auto const & table = *table_proper.data_;
 
@@ -63,7 +64,7 @@ namespace boost { namespace text {
 
         detail::header_t header(table, trie_map);
 
-        filesystem::ofstream ofs(path, std::ios_base::binary);
+        fs::ofstream ofs(path, std::ios_base::binary);
 
         detail::write_bytes(header, ofs);
 
@@ -81,7 +82,7 @@ namespace boost { namespace text {
     }
 
     /** Reads a collation table from `path`. */
-    collation_table load_table(filesystem::path const & path)
+    collation_table load_table(fs::path const & path)
     {
         collation_table retval;
 
@@ -89,7 +90,7 @@ namespace boost { namespace text {
 
         detail::header_t header;
 
-        filesystem::ifstream ifs(path, std::ios_base::binary);
+        fs::ifstream ifs(path, std::ios_base::binary);
 
         detail::read_bytes(ifs, header);
 

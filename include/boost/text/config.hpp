@@ -34,6 +34,12 @@
 #    define BOOST_TEXT_USE_COROUTINES 0
 #endif
 
+#if defined(__cpp_lib_filesystem) && !defined(BOOST_TEXT_DISABLE_STD_FILESYSTEM)
+#    define BOOST_TEXT_USE_STD_FILESYSTEM 1
+#else
+#    define BOOST_TEXT_USE_STD_FILESYSTEM 0
+#endif
+
 #ifndef BOOST_TEXT_DOXYGEN
 
 // The inline namespaces v1 and v2 represent pre- and post-C++20.  v1 is
