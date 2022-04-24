@@ -33,10 +33,12 @@ else ()
       COMMAND git submodule init libs/algorithm
       COMMAND git submodule init libs/align
       COMMAND git submodule init libs/array
+      COMMAND git submodule init libs/atomic
       COMMAND git submodule init libs/bind
       COMMAND git submodule init libs/concept_check
       COMMAND git submodule init libs/container
       COMMAND git submodule init libs/container_hash
+      COMMAND git submodule init libs/endian
       COMMAND git submodule init libs/exception
       COMMAND git submodule init libs/filesystem
       COMMAND git submodule init libs/function
@@ -68,12 +70,16 @@ else ()
       COMMAND git submodule update --jobs 3 --depth 100
       COMMAND ${bootstrap_cmd}
       COMMAND ./b2 headers
+      COMMAND ./b2
       WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root
       DEPENDS boost_root_clone)
   endif()
   add_library(boost INTERFACE)
   target_include_directories(boost INTERFACE ${CMAKE_BINARY_DIR}/boost_root)
   set(Boost_INCLUDE_DIR ${CMAKE_BINARY_DIR}/boost_root)
+  if (NOT LIMIT_TESTING_FOR_CI)
+    target_link_directories(boost INTERFACE ${CMAKE_BINARY_DIR}/boost_root/stage/lib)
+  endif()
 endif ()
 
 
