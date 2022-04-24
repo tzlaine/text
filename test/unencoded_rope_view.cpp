@@ -176,4 +176,5 @@ TEST(unencoded_rope_view, test_unformatted_output)
 {
     text::unencoded_rope r("abc");
     text::unencoded_rope_view rv = r;
+    (void)rv;
 }

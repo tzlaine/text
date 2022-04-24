@@ -180,7 +180,7 @@ namespace boost { namespace text {
                   0x2B812, 0x2B813, 0x2B814, 0x2B815, 0x2B816, 0x2B817, 0x2B818,
                   0x2B819, 0x2B81A, 0x2B81B, 0x2B81C, 0x2B81D}};
 
-            double const spacing = implicit_weights_spacing_times_ten / 10.0;
+            double const spacing = (double)implicit_weights_spacing_times_ten / 10.0;
 
             for (auto seg : make_implicit_weights_segments()) {
                 if (seg.first_ <= cp && cp < seg.last_) {
