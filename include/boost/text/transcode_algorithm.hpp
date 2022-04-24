@@ -694,7 +694,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     /** Copies the code points in the range `r` to `out`, changing the
-        encoding from UTF-8.  */
+        encoding to UTF-8.  */
     template<typename R, std::output_iterator<uint8_t> O>
         // clang-format off
         requires utf16_range<R> || utf32_range<R> ||
@@ -734,7 +734,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     /** Copies the code points in the range `r` to `out`, changing the
-        encoding from UTF-16.  */
+        encoding to UTF-16.  */
     template<typename R, std::output_iterator<uint16_t> O>
         // clang-format off
         requires utf8_range<R> || utf32_range<R> ||
@@ -774,7 +774,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     /** Copies the code points in the range `r` to `out`, changing the
-        encoding from UTF-32.  */
+        encoding to UTF-32.  */
     template<typename R, std::output_iterator<uint32_t> O>
         // clang-format off
         requires utf8_range<R> || utf16_range<R> ||
