@@ -54,6 +54,7 @@ else ()
       COMMAND git submodule init libs/range
       COMMAND git submodule init libs/smart_ptr
       COMMAND git submodule init libs/static_assert
+      COMMAND git submodule init libs/stl_interfaces
       COMMAND git submodule init libs/system
       COMMAND git submodule init libs/type_index
       COMMAND git submodule init libs/type_traits
