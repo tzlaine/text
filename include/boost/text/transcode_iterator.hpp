@@ -1088,6 +1088,9 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+
         BOOST_TEXT_CXX14_CONSTEXPR char operator*() const
             noexcept(!throw_on_error)
         {
@@ -1388,6 +1391,9 @@ namespace boost { namespace text {
             it_(other.it_),
             last_(other.last_)
         {}
+
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
 
         BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
             noexcept(!throw_on_error)
@@ -1987,6 +1993,9 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+
         BOOST_TEXT_CXX14_CONSTEXPR uint16_t operator*() const
             noexcept(!throw_on_error)
         {
@@ -2297,6 +2306,9 @@ namespace boost { namespace text {
         // clang-format off
             first_(other.first_), it_(other.it_), last_(other.last_)
         {}
+
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
 
         BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
             noexcept(!throw_on_error)
@@ -2708,6 +2720,9 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+
         BOOST_TEXT_CXX14_CONSTEXPR char operator*() const
             noexcept(!throw_on_error)
         {
@@ -3114,6 +3129,12 @@ namespace boost { namespace text {
             index_(other.index_),
             buf_(other.buf_)
         {}
+
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept
+        {
+            return it_.begin();
+        }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return it_.end(); }
 
         BOOST_TEXT_CXX14_CONSTEXPR uint16_t operator*() const
             noexcept(!throw_on_error)

@@ -35,32 +35,45 @@ namespace boost { namespace text {
             return first;
         }
 
-        template<typename Iter, typename Sentinel>
-        auto stream_safe_out(tagged_range<utf8_tag, Iter, Sentinel> unpacked)
+        template<typename Iter, typename Sentinel, typename Repack>
+        auto
+        stream_safe_out(tagged_range<utf8_tag, Iter, Sentinel, Repack> unpacked)
         {
             return boost::text::utf_32_to_8_out(unpacked.f_);
         }
-        template<typename Iter, typename Sentinel>
-        auto stream_safe_out(tagged_range<utf16_tag, Iter, Sentinel> unpacked)
+        template<typename Iter, typename Sentinel, typename Repack>
+        auto stream_safe_out(
+            tagged_range<utf16_tag, Iter, Sentinel, Repack> unpacked)
         {
             return boost::text::utf_32_to_16_out(unpacked.f_);
         }
-        template<typename Iter, typename Sentinel>
-        auto stream_safe_out(tagged_range<utf32_tag, Iter, Sentinel> unpacked)
+        template<typename Iter, typename Sentinel, typename Repack>
+        auto stream_safe_out(
+            tagged_range<utf32_tag, Iter, Sentinel, Repack> unpacked)
         {
             return unpacked.f_;
         }
 
-        template<typename OutIter, typename Iter, typename Sentinel>
+        template<
+            typename OutIter,
+            typename Iter,
+            typename Sentinel,
+            typename Repack>
         auto stream_safe_result(
-            tagged_range<utf8_tag, Iter, Sentinel> unpacked, OutIter out)
+            tagged_range<utf8_tag, Iter, Sentinel, Repack> unpacked,
+            OutIter out)
         {
             return boost::text::utf32_iterator(
                 unpacked.f_, out.base(), unpacked.l_);
         }
-        template<typename OutIter, typename Iter, typename Sentinel>
+        template<
+            typename OutIter,
+            typename Iter,
+            typename Sentinel,
+            typename Repack>
         auto stream_safe_result(
-            tagged_range<utf16_tag, Iter, Sentinel> unpacked, OutIter out)
+            tagged_range<utf16_tag, Iter, Sentinel, Repack> unpacked,
+            OutIter out)
         {
             return boost::text::utf32_iterator(
                 unpacked.f_, out.base(), unpacked.l_);
