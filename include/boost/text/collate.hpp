@@ -1513,7 +1513,7 @@ namespace boost { namespace text { namespace detail {
             auto u = detail::unpack_iterator_and_sentinel(it, last);
             auto copy_result = detail::transcode_to_32<true>(
                 u.tag_, u.f_, u.l_, buffer.end() - buf_it, buf_it);
-            it = detail::make_iterator(first, copy_result.iter, last);
+            it = detail::make_iterator(first, copy_result.in, last);
             buf_it = copy_result.out;
         }
 
