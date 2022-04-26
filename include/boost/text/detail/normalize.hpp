@@ -81,7 +81,7 @@ namespace boost { namespace text { namespace detail {
         template<typename CharIter>
         char_iter_ret_t<void, CharIter> append(CharIter first, CharIter last)
         {
-            out_ = boost::text::transcode_to_utf32(first, last, out_);
+            out_ = boost::text::transcode_to_utf32(first, last, out_).out;
         }
 
         UTF32OutIter out() const { return out_; }
@@ -129,7 +129,8 @@ namespace boost { namespace text { namespace detail {
             s_->resize(initial_size + dist * 3, typename String::value_type{});
             auto * s_first = &*s_->begin();
             auto * out = s_first + initial_size;
-            out = boost::text::transcode_to_utf8(utf16_first, utf16_last, out);
+            out = boost::text::transcode_to_utf8(utf16_first, utf16_last, out)
+                      .out;
             s_->resize(out - s_first, typename String::value_type{});
         }
 
@@ -148,7 +149,8 @@ namespace boost { namespace text { namespace detail {
         _16_iter_ret_t<void, Iter> append(Iter utf16_first, Iter utf16_last)
         {
             out_ =
-                boost::text::transcode_to_utf32(utf16_first, utf16_last, out_);
+                boost::text::transcode_to_utf32(utf16_first, utf16_last, out_)
+                    .out;
         }
 
         UTF32OutIter out() const { return out_; }

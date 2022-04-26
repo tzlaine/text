@@ -37,9 +37,9 @@ TEST(transcode_algorthm, from_utf8_non_error)
     {
         std::vector<uint32_t> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf32(
+        auto const in_out = text::transcode_to_utf32(
             std::begin(utf8), std::end(utf8) - 1, &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result, std::vector<uint32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
     }
@@ -47,9 +47,9 @@ TEST(transcode_algorthm, from_utf8_non_error)
     {
         std::vector<uint32_t> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf32(
+        auto const in_out = text::transcode_to_utf32(
             std::begin(utf8), text::null_sentinel{}, &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result, std::vector<uint32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
     }
@@ -58,9 +58,9 @@ TEST(transcode_algorthm, from_utf8_non_error)
         std::vector<uint32_t> result(10);
         std::list<char> utf8_(std::begin(utf8), std::end(utf8) - 1);
         auto const out_first = &result[0];
-        auto const out_last =
+        auto const in_out =
             text::transcode_to_utf32(utf8_.begin(), utf8_.end(), &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result, std::vector<uint32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
     }
@@ -96,9 +96,9 @@ TEST(transcode_algorthm, from_utf8_non_error)
     {
         std::vector<uint16_t> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf16(
+        auto const in_out = text::transcode_to_utf16(
             std::begin(utf8), std::end(utf8) - 1, &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<uint16_t>({0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02}));
@@ -107,9 +107,9 @@ TEST(transcode_algorthm, from_utf8_non_error)
     {
         std::vector<uint16_t> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf16(
+        auto const in_out = text::transcode_to_utf16(
             std::begin(utf8), text::null_sentinel{}, &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<uint16_t>({0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02}));
@@ -119,9 +119,9 @@ TEST(transcode_algorthm, from_utf8_non_error)
         std::vector<uint16_t> result(10);
         std::list<char> utf8_(std::begin(utf8), std::end(utf8) - 1);
         auto const out_first = &result[0];
-        auto const out_last =
+        auto const in_out =
             text::transcode_to_utf16(utf8_.begin(), utf8_.end(), &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<uint16_t>({0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02}));
@@ -181,9 +181,9 @@ TEST(transcode_algorthm, from_utf8_errors_0)
     {
         std::vector<uint32_t> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf32(
+        auto const in_out = text::transcode_to_utf32(
             std::begin(bad_utf8), std::end(bad_utf8) - 1, &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<uint32_t>(
@@ -202,9 +202,9 @@ TEST(transcode_algorthm, from_utf8_errors_0)
     {
         std::vector<uint32_t> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf32(
+        auto const in_out = text::transcode_to_utf32(
             std::begin(bad_utf8), text::null_sentinel{}, &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<uint32_t>(
@@ -224,9 +224,9 @@ TEST(transcode_algorthm, from_utf8_errors_0)
         std::vector<uint32_t> result(10);
         std::list<char> bad_utf8_(std::begin(bad_utf8), std::end(bad_utf8) - 1);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf32(
+        auto const in_out = text::transcode_to_utf32(
             bad_utf8_.begin(), bad_utf8_.end(), &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<uint32_t>(
@@ -633,9 +633,9 @@ TEST(transcode_algorthm, from_utf16_non_error)
     {
         std::vector<uint32_t> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf32(
+        auto const in_out = text::transcode_to_utf32(
             std::begin(utf16), std::end(utf16), &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result, std::vector<uint32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
     }
@@ -644,9 +644,9 @@ TEST(transcode_algorthm, from_utf16_non_error)
         std::vector<uint32_t> result(10);
         std::list<uint16_t> utf16_(std::begin(utf16), std::end(utf16));
         auto const out_first = &result[0];
-        auto const out_last =
+        auto const in_out =
             text::transcode_to_utf32(utf16_.begin(), utf16_.end(), &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result, std::vector<uint32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
     }
@@ -672,9 +672,9 @@ TEST(transcode_algorthm, from_utf16_non_error)
     {
         std::vector<char> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf8(
+        auto const in_out = text::transcode_to_utf8(
             std::begin(utf16), std::end(utf16), &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<char>(
@@ -694,9 +694,9 @@ TEST(transcode_algorthm, from_utf16_non_error)
         std::vector<char> result(10);
         std::list<uint16_t> utf16_(std::begin(utf16), std::end(utf16));
         auto const out_first = &result[0];
-        auto const out_last =
+        auto const in_out =
             text::transcode_to_utf8(utf16_.begin(), utf16_.end(), &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<char>(
@@ -894,9 +894,9 @@ TEST(transcode_algorthm, from_utf32)
     {
         std::vector<uint16_t> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf16(
+        auto const in_out = text::transcode_to_utf16(
             std::begin(utf32), std::end(utf32), &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<uint16_t>({0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02}));
@@ -906,9 +906,9 @@ TEST(transcode_algorthm, from_utf32)
         std::vector<uint16_t> result(10);
         std::list<uint32_t> utf32_(std::begin(utf32), std::end(utf32));
         auto const out_first = &result[0];
-        auto const out_last =
+        auto const in_out =
             text::transcode_to_utf16(utf32_.begin(), utf32_.end(), &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<uint16_t>({0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02}));
@@ -937,9 +937,9 @@ TEST(transcode_algorthm, from_utf32)
     {
         std::vector<char> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf8(
+        auto const in_out = text::transcode_to_utf8(
             std::begin(utf32), std::end(utf32), &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<char>(
@@ -959,9 +959,9 @@ TEST(transcode_algorthm, from_utf32)
         std::vector<char> result(10);
         std::list<uint32_t> utf32_(std::begin(utf32), std::end(utf32));
         auto const out_first = &result[0];
-        auto const out_last =
+        auto const in_out =
             text::transcode_to_utf8(utf32_.begin(), utf32_.end(), &result[0]);
-        result.resize(out_last - out_first);
+        result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<char>(

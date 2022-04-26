@@ -31,7 +31,7 @@ namespace boost { namespace text {
 
         template<typename CPIter, typename Sentinel>
         using utf8_fast_path =
-            detected_or<std::false_type, utf8_range_expr, CPIter, Sentinel>;
+            detected_or_t<std::false_type, utf8_range_expr, CPIter, Sentinel>;
 
         template<typename OutIter>
         struct norm_result

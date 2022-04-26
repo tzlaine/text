@@ -180,7 +180,7 @@ namespace boost { namespace text {
                   0x2B812, 0x2B813, 0x2B814, 0x2B815, 0x2B816, 0x2B817, 0x2B818,
                   0x2B819, 0x2B81A, 0x2B81B, 0x2B81C, 0x2B81D}};
 
-            double const spacing = implicit_weights_spacing_times_ten / 10.0;
+            double const spacing = (double)implicit_weights_spacing_times_ten / 10.0;
 
             for (auto seg : make_implicit_weights_segments()) {
                 if (seg.first_ <= cp && cp < seg.last_) {
@@ -1513,7 +1513,7 @@ namespace boost { namespace text { namespace detail {
             auto u = detail::unpack_iterator_and_sentinel(it, last);
             auto copy_result = detail::transcode_to_32<true>(
                 u.tag_, u.f_, u.l_, buffer.end() - buf_it, buf_it);
-            it = detail::make_iterator(first, copy_result.iter, last);
+            it = detail::make_iterator(first, copy_result.in, last);
             buf_it = copy_result.out;
         }
 

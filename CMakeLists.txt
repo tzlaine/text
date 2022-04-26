@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-project(boost_text)
+project(boost_text LANGUAGES CXX)
 
 ################################################## 
 # C++ standard version selection
@@ -81,8 +81,11 @@ add_library(text
     src/data_versions.cpp
 )
 
-target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(text PUBLIC boost)
+target_include_directories(text
+  PUBLIC
+  $<INSTALL_INTERFACE:include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_include_directories(text PRIVATE ${Boost_INCLUDE_DIR})
 set_property(TARGET text PROPERTY CXX_STANDARD ${CXX_STD})
 target_compile_options(text PRIVATE -DBOOST_TEXT_SOURCE)
 if (link_flags)
@@ -93,6 +96,32 @@ if (NOT MSVC)
     target_compile_options(text PRIVATE -Wall)
 endif ()
 
+install(TARGETS text
+  EXPORT text_export
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib)
+
+install(EXPORT text_export
+  FILE text-targets.cmake
+  NAMESPACE Boost::
+  DESTINATION lib/cmake/text)
+
+install(FILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/text-config.cmake
+  DESTINATION "lib/cmake/text")
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/boost
+  DESTINATION "include")
+
+# If Boost was not found, make text depend on boost_clone, so that we clone
+# Boost from Github repos.  However, we don't want a permanent text ->
+# boost_clone dependency, so make this CMakeLists.txt file dirty by touching
+# it, after boost_clone finishes.
+if (TARGET boost_clone)
+  add_dependencies(text boost_clone)
+  add_custom_command(TARGET boost_clone POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_LIST_FILE})
+endif()
 
 ##################################################
 # Tests and examples

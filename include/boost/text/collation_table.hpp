@@ -28,13 +28,25 @@
 #endif
 
 
+#if BOOST_TEXT_USE_STD_FILESYSTEM
+namespace std { namespace filesystem {
+    class path;
+}}
+#else
 namespace boost { namespace filesystem {
     class path;
 }}
+#endif
 
 #endif
 
 namespace boost { namespace text {
+
+#if BOOST_TEXT_USE_STD_FILESYSTEM
+    namespace fs = std::filesystem;
+#else
+    namespace fs = boost::filesystem;
+#endif
 
     namespace detail {
 
@@ -349,9 +361,9 @@ namespace boost { namespace text {
         template<typename CharIter>
         friend read_table_result<CharIter> read_table(CharIter it);
 
-        friend void save_table(
-            collation_table const & table, filesystem::path const & path);
-        friend collation_table load_table(filesystem::path const & path);
+        friend void
+        save_table(collation_table const & table, fs::path const & path);
+        friend collation_table load_table(fs::path const & path);
 
         template<
             typename CPIter1,

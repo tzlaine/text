@@ -1084,7 +1084,7 @@ namespace boost { namespace text {
         }
         std::array<char_type, 128> buf;
         auto out =
-            boost::text::transcode_to_utf8(g.begin(), g.end(), buf.data());
+            boost::text::transcode_to_utf8(g.begin(), g.end(), buf.data()).out;
         return replace_impl(
             first, last, buf.data(), out, insertion_not_normalized);
     }

@@ -1637,6 +1637,8 @@ namespace boost { namespace text {
                 paragraphs_last_(paragraphs_.end()),
                 next_line_(std::move(next))
             {
+                if (first == last)
+                    return;
                 next_paragraph(true);
                 next_line();
                 next_reordered_run();
@@ -2400,8 +2402,8 @@ namespace boost { namespace text {
 
     /** Represents a range of non-overlapping subranges.  Each subrange is a
         sequence of code points that are all in a consistent direction
-        (left-to-right or right-to-lef).  Each subrange is lazily produced; an
-        output subrange is not produced until a lazy range iterator is
+        (left-to-right or right-to-left).  Each subrange is lazily produced;
+        an output subrange is not produced until a lazy range iterator is
         dereferenced. */
     template<
         typename CPIter,

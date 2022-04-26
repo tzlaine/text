@@ -37,6 +37,7 @@ TEST(transcode_view, detail_unpack_base_case)
             "");
         EXPECT_EQ(unpacked.f_, utf32.begin());
         EXPECT_EQ(unpacked.l_, utf32.end());
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), utf32.begin());
     }
     {
         std::vector<uint16_t> utf16(3);
@@ -57,6 +58,7 @@ TEST(transcode_view, detail_unpack_base_case)
             "");
         EXPECT_EQ(unpacked.f_, utf16.begin());
         EXPECT_EQ(unpacked.l_, utf16.end());
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), utf16.begin());
     }
     {
         std::vector<unsigned char> utf8(3);
@@ -76,6 +78,7 @@ TEST(transcode_view, detail_unpack_base_case)
             "");
         EXPECT_EQ(unpacked.f_, utf8.begin());
         EXPECT_EQ(unpacked.l_, utf8.end());
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), utf8.begin());
     }
     {
         std::vector<char> utf8(3);
@@ -93,6 +96,7 @@ TEST(transcode_view, detail_unpack_base_case)
             "");
         EXPECT_EQ(unpacked.f_, utf8.begin());
         EXPECT_EQ(unpacked.l_, utf8.end());
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), utf8.begin());
     }
     {
         char const * utf8 = "foo";
@@ -105,6 +109,7 @@ TEST(transcode_view, detail_unpack_base_case)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, utf8);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), utf8);
     }
     {
         char const * utf8 = "foo";
@@ -117,6 +122,7 @@ TEST(transcode_view, detail_unpack_base_case)
             std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, utf8);
         EXPECT_EQ(unpacked.l_, utf8 + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), utf8);
     }
 }
 
@@ -142,6 +148,7 @@ TEST(transcode_view, detail_unpack_8_N)
             std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_8_to_32_iterator<char const *, null_sentinel> it(
@@ -155,6 +162,7 @@ TEST(transcode_view, detail_unpack_8_N)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // N = 16
@@ -170,6 +178,7 @@ TEST(transcode_view, detail_unpack_8_N)
             std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_8_to_16_iterator<char const *, null_sentinel> it(
@@ -183,6 +192,7 @@ TEST(transcode_view, detail_unpack_8_N)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 }
 
@@ -204,6 +214,7 @@ TEST(transcode_view, detail_unpack_16_N)
             std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_16_to_32_iterator<uint16_t const *, null_sentinel> it(
@@ -218,6 +229,7 @@ TEST(transcode_view, detail_unpack_16_N)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // N = 8
@@ -234,6 +246,7 @@ TEST(transcode_view, detail_unpack_16_N)
             std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_16_to_8_iterator<uint16_t const *, null_sentinel> it(
@@ -248,6 +261,7 @@ TEST(transcode_view, detail_unpack_16_N)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 }
 
@@ -269,6 +283,7 @@ TEST(transcode_view, detail_unpack_32_N)
             std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_32_to_16_iterator<uint32_t const *, null_sentinel> it(
@@ -283,6 +298,7 @@ TEST(transcode_view, detail_unpack_32_N)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // N = 8
@@ -299,6 +315,7 @@ TEST(transcode_view, detail_unpack_32_N)
             std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_32_to_8_iterator<uint32_t const *, null_sentinel> it(
@@ -313,6 +330,7 @@ TEST(transcode_view, detail_unpack_32_N)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 }
 
@@ -339,6 +357,7 @@ TEST(transcode_view, detail_make_utf8)
             std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, str8);
         EXPECT_EQ(unpacked.l_, str8 + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_8_to_32_iterator<char const *, null_sentinel> it(
@@ -356,6 +375,7 @@ TEST(transcode_view, detail_make_utf8)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str8);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 8 -> 16 -> 8
@@ -375,6 +395,7 @@ TEST(transcode_view, detail_make_utf8)
             std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, str8);
         EXPECT_EQ(unpacked.l_, str8 + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_8_to_16_iterator<char const *, null_sentinel> it(
@@ -392,6 +413,7 @@ TEST(transcode_view, detail_make_utf8)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str8);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 16 -> 32 -> 8
@@ -418,6 +440,7 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.l_,
             utf_16_to_8_iterator<uint16_t const *>(
                 str16, str16 + 3, str16 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_16_to_32_iterator<uint16_t const *, null_sentinel> it(
@@ -438,6 +461,7 @@ TEST(transcode_view, detail_make_utf8)
         EXPECT_EQ(
             unpacked.f_,
             utf_16_to_8_iterator<uint16_t const *>(str16, str16, str16 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 16 -> 8 -> 8
@@ -463,6 +487,7 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.l_,
             utf_16_to_8_iterator<uint16_t const *>(
                 str16, str16 + 3, str16 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_16_to_8_iterator<uint16_t const *, null_sentinel> it(
@@ -483,6 +508,7 @@ TEST(transcode_view, detail_make_utf8)
         EXPECT_EQ(
             unpacked.f_,
             utf_16_to_8_iterator<uint16_t const *>(str16, str16, str16 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 32 -> 16 -> 8
@@ -509,6 +535,7 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.l_,
             utf_32_to_8_iterator<uint32_t const *>(
                 str32, str32 + 3, str32 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_32_to_16_iterator<uint32_t const *, null_sentinel> it(
@@ -529,6 +556,7 @@ TEST(transcode_view, detail_make_utf8)
         EXPECT_EQ(
             unpacked.f_,
             utf_32_to_8_iterator<uint32_t const *>(str32, str32, str32 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 32 -> 8 -> 8
@@ -554,6 +582,7 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.l_,
             utf_32_to_8_iterator<uint32_t const *>(
                 str32, str32 + 3, str32 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_32_to_8_iterator<uint32_t const *, null_sentinel> it(
@@ -574,6 +603,7 @@ TEST(transcode_view, detail_make_utf8)
         EXPECT_EQ(
             unpacked.f_,
             utf_32_to_8_iterator<uint32_t const *>(str32, str32, str32 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 }
 
@@ -604,6 +634,7 @@ TEST(transcode_view, detail_make_utf16)
         EXPECT_EQ(
             unpacked.l_,
             utf_8_to_16_iterator<char const *>(str8, str8 + 3, str8 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_8_to_32_iterator<char const *, null_sentinel> it(
@@ -623,6 +654,7 @@ TEST(transcode_view, detail_make_utf16)
         EXPECT_EQ(
             unpacked.f_,
             utf_8_to_16_iterator<char const *>(str8, str8, str8 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 8 -> 16 -> 16
@@ -646,6 +678,7 @@ TEST(transcode_view, detail_make_utf16)
         EXPECT_EQ(
             unpacked.l_,
             utf_8_to_16_iterator<char const *>(str8, str8 + 3, str8 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_8_to_16_iterator<char const *, null_sentinel> it(
@@ -665,6 +698,7 @@ TEST(transcode_view, detail_make_utf16)
         EXPECT_EQ(
             unpacked.f_,
             utf_8_to_16_iterator<char const *>(str8, str8, str8 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 16 -> 32 -> 16
@@ -686,6 +720,7 @@ TEST(transcode_view, detail_make_utf16)
             std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str16);
         EXPECT_EQ(unpacked.l_, str16 + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_16_to_32_iterator<uint16_t const *, null_sentinel> it(
@@ -707,6 +742,7 @@ TEST(transcode_view, detail_make_utf16)
             unpacked.f_,
             utf_16_to_8_iterator<uint16_t const *>(str16, str16, str16 + 3));
         EXPECT_EQ(unpacked.f_, str16);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 16 -> 8 -> 16
@@ -727,6 +763,7 @@ TEST(transcode_view, detail_make_utf16)
             std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str16);
         EXPECT_EQ(unpacked.l_, str16 + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_16_to_8_iterator<uint16_t const *, null_sentinel> it(
@@ -745,6 +782,7 @@ TEST(transcode_view, detail_make_utf16)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str16);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 32 -> 16 -> 16
@@ -771,6 +809,7 @@ TEST(transcode_view, detail_make_utf16)
             unpacked.l_,
             utf_32_to_16_iterator<uint32_t const *>(
                 str32, str32 + 3, str32 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_32_to_16_iterator<uint32_t const *, null_sentinel> it(
@@ -791,6 +830,7 @@ TEST(transcode_view, detail_make_utf16)
         EXPECT_EQ(
             unpacked.f_,
             utf_32_to_16_iterator<uint32_t const *>(str32, str32, str32 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 32 -> 8 -> 16
@@ -816,6 +856,7 @@ TEST(transcode_view, detail_make_utf16)
             unpacked.l_,
             utf_32_to_16_iterator<uint32_t const *>(
                 str32, str32 + 3, str32 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_32_to_8_iterator<uint32_t const *, null_sentinel> it(
@@ -836,6 +877,7 @@ TEST(transcode_view, detail_make_utf16)
         EXPECT_EQ(
             unpacked.f_,
             utf_32_to_16_iterator<uint32_t const *>(str32, str32, str32 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 }
 
@@ -866,6 +908,7 @@ TEST(transcode_view, detail_make_utf32)
         EXPECT_EQ(
             unpacked.l_,
             utf_8_to_32_iterator<char const *>(str8, str8 + 3, str8 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_8_to_32_iterator<char const *, null_sentinel> it(
@@ -885,6 +928,7 @@ TEST(transcode_view, detail_make_utf32)
         EXPECT_EQ(
             unpacked.f_,
             utf_8_to_32_iterator<char const *>(str8, str8, str8 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 8 -> 16 -> 32
@@ -908,6 +952,7 @@ TEST(transcode_view, detail_make_utf32)
         EXPECT_EQ(
             unpacked.l_,
             utf_8_to_32_iterator<char const *>(str8, str8 + 3, str8 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_8_to_16_iterator<char const *, null_sentinel> it(
@@ -927,6 +972,7 @@ TEST(transcode_view, detail_make_utf32)
         EXPECT_EQ(
             unpacked.f_,
             utf_8_to_32_iterator<char const *>(str8, str8, str8 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 16 -> 32 -> 32
@@ -953,6 +999,7 @@ TEST(transcode_view, detail_make_utf32)
             unpacked.l_,
             utf_16_to_32_iterator<uint16_t const *>(
                 str16, str16 + 3, str16 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_16_to_32_iterator<uint16_t const *, null_sentinel> it(
@@ -976,6 +1023,7 @@ TEST(transcode_view, detail_make_utf32)
         EXPECT_EQ(
             unpacked.f_,
             utf_16_to_8_iterator<uint16_t const *>(str16, str16, str16 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 16 -> 8 -> 32
@@ -1001,6 +1049,7 @@ TEST(transcode_view, detail_make_utf32)
             unpacked.l_,
             utf_16_to_32_iterator<uint16_t const *>(
                 str16, str16 + 3, str16 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_16_to_8_iterator<uint16_t const *, null_sentinel> it(
@@ -1021,6 +1070,7 @@ TEST(transcode_view, detail_make_utf32)
         EXPECT_EQ(
             unpacked.f_,
             utf_16_to_32_iterator<uint16_t const *>(str16, str16, str16 + 3));
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 32 -> 16 -> 32
@@ -1042,6 +1092,7 @@ TEST(transcode_view, detail_make_utf32)
             std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str32);
         EXPECT_EQ(unpacked.l_, str32 + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_32_to_16_iterator<uint32_t const *, null_sentinel> it(
@@ -1060,6 +1111,7 @@ TEST(transcode_view, detail_make_utf32)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str32);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 
     // 32 -> 8 -> 32
@@ -1080,6 +1132,7 @@ TEST(transcode_view, detail_make_utf32)
             std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str32);
         EXPECT_EQ(unpacked.l_, str32 + 3);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it1);
     }
     {
         utf_32_to_8_iterator<uint32_t const *, null_sentinel> it(
@@ -1098,6 +1151,7 @@ TEST(transcode_view, detail_make_utf32)
         static_assert(
             std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str32);
+        EXPECT_EQ(unpacked.repack_(unpacked.f_), it);
     }
 }
 
@@ -1146,6 +1200,24 @@ TEST(transcode_view, as_utfN)
     }
     {
         auto r = as_utf8(utf8_);
+        static_assert(
+            std::is_same<decltype(r.begin()), char const *>::value, "");
+        static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
+        EXPECT_TRUE(boost::algorithm::equal(
+            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
+    }
+    {
+        auto r = utf32_ | as_utf8;
+        EXPECT_TRUE(boost::algorithm::equal(
+            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
+    }
+    {
+        auto r = utf16_ | as_utf8;
+        EXPECT_TRUE(boost::algorithm::equal(
+            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
+    }
+    {
+        auto r = utf8_ | as_utf8;
         static_assert(
             std::is_same<decltype(r.begin()), char const *>::value, "");
         static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
@@ -1281,10 +1353,122 @@ TEST(transcode_view, as_utfN)
             EXPECT_EQ(*it, *truth) << "iteration " << i;
         }
     }
+    {
+        char const * ptr = utf8_null;
+        auto r = ptr | as_utf8;
+        static_assert(
+            std::is_same<decltype(r.begin()), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf8_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint16_t const * ptr = utf16_null;
+        auto r = ptr | as_utf8;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf8_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint32_t const * ptr = utf32_null;
+        auto r = ptr | as_utf8;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf8_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        char const * ptr = utf8_null;
+        auto r = ptr | as_utf16;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf16_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint16_t const * ptr = utf16_null;
+        auto r = ptr | as_utf16;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf16_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint32_t const * ptr = utf32_null;
+        auto r = ptr | as_utf16;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf16_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        char const * ptr = utf8_null;
+        auto r = ptr | as_utf32;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf32_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint16_t const * ptr = utf16_null;
+        auto r = ptr | as_utf32;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf32_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint32_t const * ptr = utf32_null;
+        auto r = ptr | as_utf32;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf32_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+
+
 
     // funkyzeit
     {
         auto r = as_utf8(as_utf16(as_utf8(as_utf32(as_utf16(as_utf8(utf8_))))));
+        EXPECT_TRUE(boost::algorithm::equal(
+            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
+        static_assert(
+            std::is_same<decltype(r.begin()), char const *>::value, "");
+        static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
+    }
+    {
+        auto r = utf8_ | as_utf8 | as_utf16 | as_utf32 | as_utf8 | as_utf16 |
+                 as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
         static_assert(

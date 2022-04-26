@@ -1088,6 +1088,9 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+
         BOOST_TEXT_CXX14_CONSTEXPR char operator*() const
             noexcept(!throw_on_error)
         {
@@ -1388,6 +1391,9 @@ namespace boost { namespace text {
             it_(other.it_),
             last_(other.last_)
         {}
+
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
 
         BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
             noexcept(!throw_on_error)
@@ -1987,6 +1993,9 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+
         BOOST_TEXT_CXX14_CONSTEXPR uint16_t operator*() const
             noexcept(!throw_on_error)
         {
@@ -2298,6 +2307,9 @@ namespace boost { namespace text {
             first_(other.first_), it_(other.it_), last_(other.last_)
         {}
 
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+
         BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
             noexcept(!throw_on_error)
         {
@@ -2363,26 +2375,23 @@ namespace boost { namespace text {
         get_value(uint16_t curr) const noexcept(!throw_on_error)
         {
             uint32_t value = 0;
-            I next = it_;
+            I next = std::next(it_);
 
             if (high_surrogate(curr)) {
                 value = (curr - high_surrogate_base) << 10;
-                ++next;
                 if (at_end(next)) {
                     return get_value_result{replacement_character(), next};
                 }
-                curr = *next;
+                curr = *next++;
                 if (!low_surrogate(curr)) {
                     return get_value_result{replacement_character(), next};
                 }
                 value += curr - low_surrogate_base;
-                ++next;
             } else if (low_surrogate(curr)) {
                 value = ErrorHandler{}("Invalid initial UTF-16 code unit.");
                 return get_value_result{replacement_character(), next};
             } else {
                 value = curr;
-                ++next;
             }
 
             if (!valid_code_point(value)) {
@@ -2711,6 +2720,9 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+
         BOOST_TEXT_CXX14_CONSTEXPR char operator*() const
             noexcept(!throw_on_error)
         {
@@ -2771,9 +2783,10 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
-        BOOST_TEXT_CXX14_CONSTEXPR bool at_end() const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR bool at_end(I it) const
+            noexcept(!throw_on_error)
         {
-            if (it_ == last_) {
+            if (it == last_) {
                 ErrorHandler{}(
                     "Invalid UTF-16 sequence; expected another code unit "
                     "before the end of string.");
@@ -2797,10 +2810,10 @@ namespace boost { namespace text {
             uint32_t second = 0;
             uint32_t cp = first;
             if (boost::text::high_surrogate(first)) {
-                if (at_end())
+                if (at_end(++next))
                     cp = replacement_character();
                 else {
-                    second = static_cast<uint32_t>(*++next);
+                    second = static_cast<uint32_t>(*next);
                     if (!boost::text::low_surrogate(second)) {
                         ErrorHandler{}(
                             "Invalid UTF-16 sequence; expected low surrogate "
@@ -3116,6 +3129,12 @@ namespace boost { namespace text {
             index_(other.index_),
             buf_(other.buf_)
         {}
+
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept
+        {
+            return it_.begin();
+        }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return it_.end(); }
 
         BOOST_TEXT_CXX14_CONSTEXPR uint16_t operator*() const
             noexcept(!throw_on_error)

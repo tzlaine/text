@@ -96,7 +96,8 @@ void BM_8_to_16_algorithm_prealloc(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::vector<uint16_t> utf16_result(utf8_text.size());
-        auto out = text::transcode_to_utf16(utf8_text, utf16_result.begin());
+        auto out =
+            text::transcode_to_utf16(utf8_text, utf16_result.begin()).out;
         utf16_result.resize(out - utf16_result.begin());
         benchmark::ClobberMemory();
     }
@@ -125,7 +126,7 @@ void BM_8_to_16_algorithm_prealloc_pointer(benchmark::State & state)
         auto out = text::transcode_to_utf16(
             &*utf8_text.begin(),
             &*utf8_text.begin() + utf8_text.size(),
-            &*utf16_result.begin());
+            &*utf16_result.begin()).out;
         utf16_result.resize(out - &*utf16_result.begin());
         benchmark::ClobberMemory();
     }
@@ -214,12 +215,11 @@ void BM_8_to_32_algorithm_no_simd_no_alloc(benchmark::State & state)
     std::vector<uint16_t> utf16_result(utf8_text.size());
     while (state.KeepRunning()) {
         auto out = text::detail::transcode_utf_8_to_32<false>(
-                       utf8_text.begin(),
-                       utf8_text.end(),
-                       -1,
-                       utf16_result.begin(),
-                       std::input_iterator_tag{})
-                       .out;
+            utf8_text.begin(),
+            utf8_text.end(),
+            -1,
+            utf16_result.begin(),
+            std::input_iterator_tag{});
         (void)out;
         benchmark::ClobberMemory();
     }
@@ -240,7 +240,8 @@ void BM_8_to_32_algorithm_prealloc(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::vector<uint32_t> utf32_result(utf8_text.size());
-        auto out = text::transcode_to_utf32(utf8_text, utf32_result.begin());
+        auto out =
+            text::transcode_to_utf32(utf8_text, utf32_result.begin()).out;
         utf32_result.resize(out - utf32_result.begin());
         benchmark::ClobberMemory();
     }
@@ -267,9 +268,10 @@ void BM_8_to_32_algorithm_prealloc_pointer(benchmark::State & state)
     while (state.KeepRunning()) {
         std::vector<uint32_t> utf32_result(utf8_text.size());
         auto out = text::transcode_to_utf32(
-            &*utf8_text.begin(),
-            &*utf8_text.begin() + utf8_text.size(),
-            &*utf32_result.begin());
+                       &*utf8_text.begin(),
+                       &*utf8_text.begin() + utf8_text.size(),
+                       &*utf32_result.begin())
+                       .out;
         utf32_result.resize(out - &*utf32_result.begin());
         benchmark::ClobberMemory();
     }
