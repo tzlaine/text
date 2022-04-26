@@ -565,7 +565,7 @@ TEST(sentinel_apis, normalize_nfc)
 
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
-    auto utf8_rng_0 = as_utf32(&*utf8.begin(), text::null_sentinel{});
+    auto utf8_rng_0 = text::as_utf32(&*utf8.begin(), text::null_sentinel{});
     text::normalize<text::nf::c>(
         utf8_rng_0.begin(), text::null_sentinel{}, std::back_inserter(result3));
 

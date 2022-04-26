@@ -1206,6 +1206,24 @@ TEST(transcode_view, as_utfN)
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
+    {
+        auto r = utf32_ | as_utf8;
+        EXPECT_TRUE(boost::algorithm::equal(
+            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
+    }
+    {
+        auto r = utf16_ | as_utf8;
+        EXPECT_TRUE(boost::algorithm::equal(
+            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
+    }
+    {
+        auto r = utf8_ | as_utf8;
+        static_assert(
+            std::is_same<decltype(r.begin()), char const *>::value, "");
+        static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
+        EXPECT_TRUE(boost::algorithm::equal(
+            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
+    }
 
     // ptr/sentinel
     {
@@ -1335,10 +1353,122 @@ TEST(transcode_view, as_utfN)
             EXPECT_EQ(*it, *truth) << "iteration " << i;
         }
     }
+    {
+        char const * ptr = utf8_null;
+        auto r = ptr | as_utf8;
+        static_assert(
+            std::is_same<decltype(r.begin()), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf8_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint16_t const * ptr = utf16_null;
+        auto r = ptr | as_utf8;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf8_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint32_t const * ptr = utf32_null;
+        auto r = ptr | as_utf8;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf8_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        char const * ptr = utf8_null;
+        auto r = ptr | as_utf16;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf16_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint16_t const * ptr = utf16_null;
+        auto r = ptr | as_utf16;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf16_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint32_t const * ptr = utf32_null;
+        auto r = ptr | as_utf16;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf16_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        char const * ptr = utf8_null;
+        auto r = ptr | as_utf32;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf32_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint16_t const * ptr = utf16_null;
+        auto r = ptr | as_utf32;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf32_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint32_t const * ptr = utf32_null;
+        auto r = ptr | as_utf32;
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = utf32_null;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+
+
 
     // funkyzeit
     {
         auto r = as_utf8(as_utf16(as_utf8(as_utf32(as_utf16(as_utf8(utf8_))))));
+        EXPECT_TRUE(boost::algorithm::equal(
+            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
+        static_assert(
+            std::is_same<decltype(r.begin()), char const *>::value, "");
+        static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
+    }
+    {
+        auto r = utf8_ | as_utf8 | as_utf16 | as_utf32 | as_utf8 | as_utf16 |
+                 as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
         static_assert(
