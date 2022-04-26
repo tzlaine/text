@@ -34,7 +34,8 @@ doxygen text_reference
                                    \"enable_if=detail::unspecified\" \\
                                    \"BOOST_TEXT_NAMESPACE_V1=namespace inline v1\" \\
                                    \"BOOST_TEXT_NAMESPACE_V2=namespace detail\" \\
-                                   \"BOOST_TEXT_CXX14_CONSTEXPR=constexpr\""
+                                   \"BOOST_TEXT_CXX14_CONSTEXPR=constexpr\" \\
+                                   \"dtl=detail\""
         <doxygen:param>HIDE_UNDOC_MEMBERS=NO
         <doxygen:param>EXTRACT_PRIVATE=NO
         <doxygen:param>ENABLE_PREPROCESSING=YES
