@@ -9,6 +9,7 @@
 #include <boost/text/text.hpp>
 #include <boost/text/string_utility.hpp>
 #include <boost/text/estimated_width.hpp>
+#include <boost/text/reverse.hpp>
 
 #include <iostream>
 
@@ -38,14 +39,14 @@ auto after_0 = boost::text::next_grapheme_break(first, last);
 assert(after_0 == first + 2);
 
 // Prints "[0, 2) [2, 3)".
-for (auto range : boost::text::graphemes(cps)) {
+for (auto range : boost::text::as_graphemes(cps)) {
     std::cout << '[' << (range.begin() - first) << ", " << (range.end() - first)
               << ") ";
 }
 std::cout << "\n";
 
-// Prints "[2, 3) [0, 2)".
-for (auto range : boost::text::reversed_graphemes(cps)) {
+// Prints "[2, 3) [0, 2)".  You should use std::views::reverse if you can.
+for (auto range : boost::text::as_graphemes(cps) | boost::text::reverse) {
     std::cout << '[' << (range.begin() - first) << ", " << (range.end() - first)
               << ") ";
 }

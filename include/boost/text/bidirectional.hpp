@@ -1563,7 +1563,7 @@ namespace boost { namespace text {
                     reordered_runs_t<CPIter> local_reordered_runs;
                     auto pae_it = reorderd_runs_it->begin();
 
-                    for (auto grapheme : boost::text::graphemes(
+                    for (auto grapheme : boost::text::as_graphemes(
                              pae_cp_iterator{reorderd_runs_it->begin()},
                              pae_cp_iterator{reorderd_runs_it->end()})) {
                         if (1 < std::distance(

@@ -12,6 +12,7 @@
 #include <boost/text/string_utility.hpp>
 #include <boost/text/text.hpp>
 #include <boost/text/transcode_iterator.hpp>
+#include <boost/text/reverse.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 
@@ -28,7 +29,7 @@ TEST(break_apis, grapheme_break)
     {
         std::vector<uint32_t> const empty_cps;
         auto subranges =
-            boost::text::graphemes(empty_cps.begin(), empty_cps.end());
+            boost::text::as_graphemes(empty_cps.begin(), empty_cps.end());
         for (auto subrange : subranges) {
             (void)subrange;
         }
@@ -36,7 +37,7 @@ TEST(break_apis, grapheme_break)
     {
         std::string const empty_cus;
         auto subranges =
-            boost::text::graphemes(boost::text::as_utf32(empty_cus));
+            boost::text::as_graphemes(boost::text::as_utf32(empty_cus));
         for (auto subrange : subranges) {
             (void)subrange;
         }
@@ -114,13 +115,14 @@ TEST(break_apis, grapheme_break)
 
     {
         auto const all_graphemes =
-            boost::text::graphemes(cps.begin(), cps.end());
+            boost::text::as_graphemes(cps.begin(), cps.end());
 
         std::array<std::pair<int, int>, 2> const grapheme_bounds = {
             {{0, 2}, {2, 3}}};
 
         int i = 0;
-        for (auto grapheme : all_graphemes) {
+        for (auto grapheme :
+             all_graphemes | boost::text::reverse | boost::text::reverse) {
             EXPECT_EQ(grapheme.begin() - cps.begin(), grapheme_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(grapheme.end() - cps.begin(), grapheme_bounds[i].second)
@@ -130,7 +132,8 @@ TEST(break_apis, grapheme_break)
         EXPECT_EQ(i, (int)grapheme_bounds.size());
 
         auto const all_graphemes_reversed =
-            boost::text::reversed_graphemes(cps.begin(), cps.end());
+            boost::text::as_graphemes(cps.begin(), cps.end()) |
+            boost::text::reverse;
         i = grapheme_bounds.size();
         for (auto grapheme : all_graphemes_reversed) {
             --i;
@@ -143,7 +146,7 @@ TEST(break_apis, grapheme_break)
     }
     // Range API
     {
-        auto const all_graphemes = boost::text::graphemes(cps);
+        auto const all_graphemes = boost::text::as_graphemes(cps);
 
         std::array<std::pair<int, int>, 2> const grapheme_bounds = {
             {{0, 2}, {2, 3}}};
@@ -159,7 +162,7 @@ TEST(break_apis, grapheme_break)
         EXPECT_EQ(i, (int)grapheme_bounds.size());
 
         auto const all_graphemes_reversed =
-            boost::text::reversed_graphemes(cps);
+            boost::text::as_graphemes(cps) | boost::text::reverse;
         i = grapheme_bounds.size();
         for (auto grapheme : all_graphemes_reversed) {
             --i;
@@ -185,7 +188,7 @@ TEST(break_apis, grapheme_break)
             0x01f466,
         };
 
-        auto const all_graphemes = boost::text::graphemes(cps);
+        auto const all_graphemes = boost::text::as_graphemes(cps);
 
         std::array<std::pair<int, int>, 1> const grapheme_bounds = {{{0, 7}}};
 
@@ -212,7 +215,7 @@ TEST(break_apis, grapheme_break)
             0x01f466,
         };
 
-        auto const all_graphemes = boost::text::graphemes(cps);
+        auto const all_graphemes = boost::text::as_graphemes(cps);
 
         std::array<std::pair<int, int>, 2> const grapheme_bounds = {
             {{0, 1}, {1, 8}}};
@@ -315,8 +318,11 @@ TEST(break_apis, grapheme_break_sentinel)
     }
 #endif
 
+    // This only works in C++20 and later, because range-for does not support
+    // non-common_ranges before that.
+#if 202002L <= __cplusplus
     {
-        auto const all_graphemes = boost::text::graphemes(begin, end);
+        auto const all_graphemes = boost::text::as_graphemes(begin, end);
 
         std::array<std::pair<int, int>, 2> const grapheme_bounds = {
             {{0, 2}, {2, 3}}};
@@ -336,7 +342,7 @@ TEST(break_apis, grapheme_break_sentinel)
     }
     // Range API
     {
-        auto const all_graphemes = boost::text::graphemes(cp_range);
+        auto const all_graphemes = boost::text::as_graphemes(cp_range);
 
         std::array<std::pair<int, int>, 2> const grapheme_bounds = {
             {{0, 2}, {2, 3}}};
@@ -354,6 +360,7 @@ TEST(break_apis, grapheme_break_sentinel)
         }
         EXPECT_EQ(i, (int)grapheme_bounds.size());
     }
+#endif
 }
 
 TEST(break_apis, word_break)

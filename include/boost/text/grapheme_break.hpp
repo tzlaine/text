@@ -8,6 +8,7 @@
 
 #include <boost/text/algorithm.hpp>
 #include <boost/text/lazy_segment_range.hpp>
+#include <boost/text/detail/pipeable_view.hpp>
 
 #include <boost/assert.hpp>
 
@@ -498,34 +499,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                    std::begin(range), it, std::end(range)) == it;
     }
 
-    template<typename CPIter, typename Sentinel>
-    auto graphemes(CPIter first, Sentinel last) noexcept->decltype(
-        detail::graphemes_impl(first, last))
-    {
-        return detail::graphemes_impl(first, last);
-    }
-
-    template<typename CPRange>
-    auto graphemes(CPRange && range) noexcept->decltype(
-        detail::graphemes_impl(range))
-    {
-        return detail::graphemes_impl(range);
-    }
-
-    template<typename CPIter>
-    auto reversed_graphemes(CPIter first, CPIter last) noexcept->decltype(
-        detail::reversed_graphemes_impl(first, last))
-    {
-        return detail::reversed_graphemes_impl(first, last);
-    }
-
-    template<typename CPRange>
-    auto reversed_graphemes(CPRange && range) noexcept->decltype(
-        detail::reversed_graphemes_impl(range))
-    {
-        return detail::reversed_graphemes_impl(range);
-    }
-
 #endif
 
 }}}
@@ -576,54 +549,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return true;
         return boost::text::prev_grapheme_break(
                    std::begin(range), it, std::end(range)) == it;
-    }
-
-    template<code_point_iter I, std::sentinel_for<I> S>
-    lazy_segment_range<I, S, detail::next_grapheme_callable<I, S>> graphemes(
-        I first, S last) noexcept
-    {
-        return detail::graphemes_impl(first, last);
-    }
-
-    template<code_point_range R>
-    lazy_segment_range<
-        std::ranges::iterator_t<R>,
-        std::ranges::sentinel_t<R>,
-        detail::next_grapheme_callable<
-            std::ranges::iterator_t<R>,
-            std::ranges::sentinel_t<R>>>
-        graphemes(R && range) noexcept
-    {
-        return detail::graphemes_impl(range);
-    }
-
-    template<code_point_iter I>
-    lazy_segment_range<
-        I,
-        I,
-        detail::prev_grapheme_callable<I>,
-        utf32_view<I>,
-        detail::const_reverse_lazy_segment_iterator,
-        true>
-    reversed_graphemes(I first, I last)
-    {
-        return detail::reversed_graphemes_impl(first, last);
-    }
-
-    template<code_point_range R>
-    // clang-format off
-        requires std::ranges::common_range<R>
-    lazy_segment_range<
-        // clang-format on
-        std::ranges::iterator_t<R>,
-        std::ranges::sentinel_t<R>,
-        detail::prev_grapheme_callable<std::ranges::iterator_t<R>>,
-        utf32_view<std::ranges::iterator_t<R>>,
-        detail::const_reverse_lazy_segment_iterator,
-        true>
-        reversed_graphemes(R && range) noexcept
-    {
-        return detail::reversed_graphemes_impl(range);
     }
 
 }}}

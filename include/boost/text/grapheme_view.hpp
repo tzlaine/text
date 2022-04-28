@@ -9,6 +9,7 @@
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_view.hpp>
+#include <boost/text/detail/pipeable_view.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
@@ -113,16 +114,19 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
+#if defined(BOOST_TEXT_DOXYGEN)
+
     /** Returns a `grapheme_view` over the data in `[first, last)`, transcoding
         the data if necessary. */
     template<typename Iter, typename Sentinel>
-    constexpr auto as_graphemes(Iter first, Sentinel last) noexcept
-    {
-        auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
-        auto r =
-            detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        return grapheme_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
-    }
+    constexpr auto as_graphemes(Iter first, Sentinel last) noexcept;
+
+    /** Returns a `grapheme_view` over the data in `r`, transcoding the data
+        if necessary. */
+    template<typename Range>
+    constexpr auto as_graphemes(Range && r) noexcept;
+
+#endif
 
     namespace dtl {
         template<
@@ -151,16 +155,37 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                     r.begin(), null_sentinel{});
             }
         };
+
+        struct as_graphemes_impl : detail::pipeable<as_graphemes_impl>
+        {
+            template<typename Iter, typename Sentinel>
+            constexpr auto operator()(Iter first, Sentinel last) const noexcept
+            {
+                auto unpacked =
+                    detail::unpack_iterator_and_sentinel(first, last);
+                auto r = detail::make_utf32_range_(
+                    unpacked.tag_, unpacked.f_, unpacked.l_);
+                return grapheme_view<decltype(r.f_), decltype(r.l_)>(
+                    r.f_, r.l_);
+            }
+
+            template<typename Range>
+            constexpr auto operator()(Range && r) const noexcept
+                -> decltype(dtl::as_graphemes_dispatch<Range &&>::call(
+                    (Range &&) r))
+            {
+                return dtl::as_graphemes_dispatch<Range &&>::call((Range &&) r);
+            }
+        };
     }
 
-    /** Returns a `grapheme_view` over the data in `r`, transcoding the data
-        if necessary. */
-    template<typename Range>
-    constexpr auto as_graphemes(Range && r) noexcept->decltype(
-        dtl::as_graphemes_dispatch<Range &&>::call((Range &&) r))
-    {
-        return dtl::as_graphemes_dispatch<Range &&>::call((Range &&) r);
+#if defined(__cpp_inline_variables)
+    inline constexpr dtl::as_graphemes_impl as_graphemes;
+#else
+    namespace {
+        constexpr dtl::as_graphemes_impl as_graphemes;
     }
+#endif
 
 }}}
 
@@ -168,28 +193,33 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Returns a `grapheme_view` over the data in `[first, last)`, transcoding
-        the data if necessary. */
-    template<utf_iter I, std::sentinel_for<I> S>
-    constexpr auto as_graphemes(I first, S last) noexcept
-    {
-        auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
-        auto r =
-            detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        return grapheme_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+    namespace dtl {
+        struct as_graphemes_impl : detail::pipeable<as_graphemes_impl>
+        {
+            template<utf_iter I, std::sentinel_for<I> S>
+            constexpr auto operator()(I first, S last) const noexcept
+            {
+                auto unpacked =
+                    detail::unpack_iterator_and_sentinel(first, last);
+                auto r = detail::make_utf32_range_(
+                    unpacked.tag_, unpacked.f_, unpacked.l_);
+                return grapheme_view<decltype(r.f_), decltype(r.l_)>(
+                    r.f_, r.l_);
+            }
+
+            template<utf_range_like R>
+            constexpr auto operator()(R && r) const noexcept
+            {
+                auto intermediate = boost::text::as_utf32(r);
+                return grapheme_view<
+                    std::ranges::iterator_t<decltype(intermediate)>,
+                    std::ranges::sentinel_t<decltype(intermediate)>>(
+                    intermediate.begin(), intermediate.end());
+            }
+        };
     }
 
-    /** Returns a `grapheme_view` over the data in `r`, transcoding the data
-        if necessary. */
-    template<utf_range_like R>
-    constexpr auto as_graphemes(R && r) noexcept
-    {
-        auto intermediate = boost::text::as_utf32(r);
-        return grapheme_view<
-            std::ranges::iterator_t<decltype(intermediate)>,
-            std::ranges::sentinel_t<decltype(intermediate)>>(
-            intermediate.begin(), intermediate.end());
-    }
+    inline constexpr dtl::as_graphemes_impl as_graphemes;
 
 }}}
 
