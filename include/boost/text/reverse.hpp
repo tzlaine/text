@@ -44,10 +44,18 @@ namespace boost { namespace text {
             using v_iter = iterator_t<View>;
             using v_sent = sentinel_t<View>;
 
+            static_assert(
+                std::is_base_of<
+                    std::bidirectional_iterator_tag,
+                    typename std::iterator_traits<v_iter>::iterator_category>::
+                    value,
+                "A reversed view must have bidirectional iterators.");
+
             using iterator = std::reverse_iterator<v_iter>;
 
             constexpr reverse_view() = default;
-            constexpr explicit reverse_view(View && v) : v_{std::move(v)} {
+            constexpr explicit reverse_view(View && v) : v_{std::move(v)}
+            {
                 first_ = set_rev_rng_first<
                     std::is_same<v_iter, v_sent>::value>::call(v_);
             }
