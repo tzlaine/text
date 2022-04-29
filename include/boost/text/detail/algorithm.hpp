@@ -6,6 +6,7 @@
 #ifndef BOOST_TEXT_DETAIL_ALGORITHM_HPP
 #define BOOST_TEXT_DETAIL_ALGORITHM_HPP
 
+#include <boost/text/concepts.hpp>
 #include <boost/text/unencoded_rope_fwd.hpp>
 #include <boost/text/detail/iterator.hpp>
 
@@ -38,18 +39,65 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     using range_value_t = std::ranges::range_value_t<T>;
 
+    // A grapheme_range that has a sentinel type that is not an iterator, but
+    // that is comparable with T's interator type.
+    template<typename T>
+    concept cp_sentinel_gr_rng =
+        // clang-format off
+        grapheme_range<T> &&
+        !grapheme_iter<sentinel_t<T>> &&
+        requires(iterator_t<T> first, sentinel_t<T> last) {
+        { first.base() == last } -> std::convertible_to<bool>;
+        // clang-format on
+    };
+
+    template<typename T>
+    using gr_rng_cp_iter_t = decltype(std::declval<iterator_t<T>>().base());
+    template<typename T>
+    using gr_rng_cp_sent_t = std::conditional_t<
+        cp_sentinel_gr_rng<T>,
+        sentinel_t<T>,
+        gr_rng_cp_iter_t<T>>;
+
 #else
 
     template<typename T>
-    using iterator_t = decltype(std::begin(std::declval<T &>()));
-    template<typename Range>
-    using sentinel_t = decltype(std::end(std::declval<Range>()));
+    using iterator_t = decltype(std::begin(std::declval<T>()));
+    template<typename T>
+    using sentinel_t = decltype(std::end(std::declval<T>()));
     template<typename T>
     using iter_value_t = typename std::iterator_traits<T>::value_type;
     template<typename T>
     using iter_reference_t = decltype(*std::declval<T &>());
     template<typename T>
     using range_value_t = iter_value_t<iterator_t<T>>;
+
+    template<typename T>
+    using has_base = decltype(std::declval<T>().base());
+    template<typename T>
+    using sentinel_comparable_to_iter_base =
+        decltype(std::declval<T>().begin().base() == std::declval<T>().end());
+
+    // A grapheme_range that has a sentinel type that is not an iterator, but
+    // that is comparable with T's interator type.
+    template<
+        typename T,
+        bool IsIt = is_detected_v<has_base, iterator_t<T>> &&
+                    !is_detected_v<has_base, sentinel_t<T>> &&
+                    is_detected_v<sentinel_comparable_to_iter_base, T>>
+    struct is_cp_sentinel_gr_rng : std::false_type
+    {};
+    template<typename T>
+    struct is_cp_sentinel_gr_rng<T, true> : std::true_type
+    {};
+
+    template<typename T>
+    using gr_rng_cp_iter_t = decltype(std::begin(std::declval<T>()).base());
+    template<typename T>
+    using gr_rng_cp_sent_t = std::conditional_t<
+        is_cp_sentinel_gr_rng<T>::value,
+        sentinel_t<T>,
+        gr_rng_cp_iter_t<T>>;
 
 #endif
 

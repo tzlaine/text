@@ -12,6 +12,7 @@
 #include <boost/text/collation_search.hpp>
 #include <boost/text/data/da.hpp>
 #include <boost/text/case_mapping.hpp>
+#include <boost/text/reverse.hpp>
 
 #include <gtest/gtest.h>
 
@@ -182,7 +183,7 @@ TEST(break_apis, line_break)
         }
         EXPECT_EQ(i, (int)line_bounds.size());
 
-        auto const all_lines_reversed = reversed_lines(cps);
+        auto const all_lines_reversed = lines(cps) | boost::text::reverse;
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
@@ -212,7 +213,7 @@ TEST(break_apis, line_break)
         EXPECT_EQ(i, (int)line_bounds.size());
 
         auto const all_lines_reversed =
-            reversed_allowed_lines(cps);
+            allowed_lines(cps) | boost::text::reverse;
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;

@@ -8,7 +8,7 @@
 
 #include <boost/text/algorithm.hpp>
 #include <boost/text/grapheme_view.hpp>
-#include <boost/text/lazy_segment_range.hpp>
+#include <boost/text/break_view.hpp>
 
 #include <boost/assert.hpp>
 #include <boost/optional.hpp>
@@ -118,7 +118,7 @@ namespace boost { namespace text {
     /** The result type for line break algorithms that return an iterator, and
         which may return an iterator to either a hard (i.e. mandatory) or
         allowed line break.  A hard break occurs only after a code point with
-        the line break property BK, CR, LF, or NL (but not within a CR/LF
+        the line break property BK, CR, LF, or NL (but only once for a CR/LF
         pair). */
     template<typename CPIter>
     struct line_break_result
@@ -1389,15 +1389,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             }
         };
 
-        template<typename BreakResult, typename Sentinel>
-        struct next_allowed_line_break_callable
-        {
-            BreakResult operator()(BreakResult result, Sentinel last) noexcept
-            {
-                return detail::next_allowed_line_break_impl(result.iter, last);
-            }
-        };
-
         inline void * align(
             std::size_t alignment,
             std::size_t size,
@@ -1589,6 +1580,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     break_overlong_lines_);
             }
 
+            /** Moves the contained `CPExtentFunc` out of *this. */
+            CPExtentFunc extent_func() && noexcept
+            {
+                BOOST_ASSERT(cp_extent_);
+                return std::move(*cp_extent_);
+            }
+
         private:
             Extent extent_;
             optional_extent_func<CPExtentFunc> cp_extent_;
@@ -1603,86 +1601,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             {
                 return detail::prev_line_break_impl(first, it, last, true).iter;
             }
-        };
-
-        template<typename CPIter, typename BreakResult>
-        struct prev_allowed_line_break_callable
-        {
-            BreakResult
-            operator()(CPIter first, CPIter result, CPIter last) noexcept
-            {
-                return detail::prev_line_break_impl(first, result, last, false);
-            }
-        };
-
-        template<
-            typename CPIter,
-            typename ResultType,
-            typename PrevFunc,
-            typename CPRange>
-        struct const_reverse_allowed_line_iterator
-            : stl_interfaces::proxy_iterator_interface<
-                  const_reverse_allowed_line_iterator<
-                      CPIter,
-                      ResultType,
-                      PrevFunc,
-                      CPRange>,
-                  std::forward_iterator_tag,
-                  CPRange>
-        {
-        private:
-            PrevFunc * prev_func_;
-            CPIter first_;
-            ResultType it_;
-            ResultType next_;
-
-        public:
-            const_reverse_allowed_line_iterator() noexcept :
-                prev_func_(), first_(), it_(), next_()
-            {}
-
-            const_reverse_allowed_line_iterator(
-                CPIter first, ResultType it, ResultType last) noexcept :
-                prev_func_(), first_(first), it_(it), next_(last)
-            {}
-
-            CPRange operator*() const noexcept { return CPRange{it_, next_}; }
-
-            const_reverse_allowed_line_iterator & operator++() noexcept
-            {
-                if (it_ == first_) {
-                    next_.iter = first_;
-                    return *this;
-                }
-                auto const prev_it =
-                    (*prev_func_)(first_, std::prev(it_.iter), next_.iter);
-                next_ = it_;
-                it_ = prev_it;
-                return *this;
-            }
-
-            void set_next_func(PrevFunc * prev_func) noexcept
-            {
-                prev_func_ = prev_func;
-                ++*this;
-            }
-
-            friend bool operator==(
-                const_reverse_allowed_line_iterator lhs,
-                const_reverse_allowed_line_iterator rhs) noexcept
-            {
-                return lhs.next_ == rhs.first_;
-            }
-
-            using base_type = stl_interfaces::proxy_iterator_interface<
-                const_reverse_allowed_line_iterator<
-                    CPIter,
-                    ResultType,
-                    PrevFunc,
-                    CPRange>,
-                std::forward_iterator_tag,
-                CPRange>;
-            using base_type::operator++;
         };
 
         template<typename CPRange, typename CPIter>
@@ -1855,115 +1773,244 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
 
         template<typename CPIter, typename Sentinel>
-        lazy_segment_range<
+        break_view<
             CPIter,
             Sentinel,
+            prev_hard_line_break_callable<CPIter>,
             next_hard_line_break_callable<CPIter, Sentinel>>
         lines_impl(CPIter first, Sentinel last) noexcept
         {
-            next_hard_line_break_callable<CPIter, Sentinel> next;
-            return {std::move(next), {first, last}, {last}};
+            return {first, last, {}, {}};
         }
 
         template<typename CPRange>
-        auto lines_cr_impl(CPRange && range) noexcept -> lazy_segment_range<
+        auto lines_cr_impl(CPRange && range) noexcept -> break_view<
             iterator_t<CPRange>,
             sentinel_t<CPRange>,
+            prev_hard_line_break_callable<iterator_t<CPRange>>,
             next_hard_line_break_callable<
                 iterator_t<CPRange>,
                 sentinel_t<CPRange>>>
         {
+            return {std::begin(range), std::end(range), {}, {}};
+        }
+
+        template<
+            typename GraphemeRange,
+#if BOOST_TEXT_USE_CONCEPTS
+            bool UseSentinel = cp_sentinel_gr_rng<GraphemeRange>
+#else
+            bool UseSentinel = is_cp_sentinel_gr_rng<GraphemeRange>::value
+#endif
+            >
+        struct gr_rng_cp_last
+        {
+            static auto call(GraphemeRange && r) { return r.end(); }
+        };
+
+        template<typename GraphemeRange>
+        struct gr_rng_cp_last<GraphemeRange, false>
+        {
+            static auto call(GraphemeRange && r) { return r.end().base(); }
+        };
+
+        template<typename GraphemeRange>
+        auto lines_gr_impl(GraphemeRange && range) noexcept -> break_view<
+            gr_rng_cp_iter_t<GraphemeRange>,
+            gr_rng_cp_sent_t<GraphemeRange>,
+            prev_hard_line_break_callable<gr_rng_cp_iter_t<GraphemeRange>>,
             next_hard_line_break_callable<
-                iterator_t<CPRange>,
-                sentinel_t<CPRange>>
-                next;
-            return {
-                std::move(next),
-                {std::begin(range), std::end(range)},
-                {std::end(range)}};
-        }
-
-        template<typename GraphemeRange>
-        auto lines_gr_impl(GraphemeRange && range) noexcept
-            -> lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                next_hard_line_break_callable<
-                    decltype(range.begin().base()),
-                    decltype(range.begin().base())>,
-                grapheme_view<decltype(range.begin().base())>>
+                gr_rng_cp_iter_t<GraphemeRange>,
+                gr_rng_cp_sent_t<GraphemeRange>>,
+            grapheme_view<gr_rng_cp_iter_t<GraphemeRange>>>
         {
-            using cp_iter_t = decltype(range.begin().base());
-            next_hard_line_break_callable<cp_iter_t, cp_iter_t> next;
             return {
-                std::move(next),
-                {range.begin().base(), range.end().base()},
-                {range.end().base()}};
+                range.begin().base(),
+                gr_rng_cp_last<GraphemeRange>::call(range),
+                {},
+                {}};
         }
 
-        template<typename CPIter>
-        lazy_segment_range<
+        template<
+            typename CPIter,
+            typename CPSentinel,
+            typename NextFunc,
+            typename CPRange>
+        struct forward_allowed_break_iterator
+            : stl_interfaces::proxy_iterator_interface<
+                  forward_allowed_break_iterator<
+                      CPIter,
+                      CPSentinel,
+                      NextFunc,
+                      CPRange>,
+                  std::forward_iterator_tag,
+                  CPRange>
+        {
+            forward_allowed_break_iterator() noexcept = default;
+
+            forward_allowed_break_iterator(
+                CPIter first, CPSentinel last, NextFunc * next_func) noexcept :
+                seg_({first, false}, {first, false}),
+                last_(last),
+                next_func_(next_func)
+            {
+                seg_.second = (*next_func_)(seg_.first, last_);
+            }
+
+            CPRange operator*() const noexcept
+            {
+                return CPRange{seg_.first, seg_.second};
+            }
+
+            forward_allowed_break_iterator & operator++() noexcept
+            {
+                auto const next_it = (*next_func_)(seg_.second, last_);
+                seg_.first = seg_.second;
+                seg_.second = next_it;
+                return *this;
+            }
+
+            friend bool operator==(
+                forward_allowed_break_iterator lhs,
+                forward_allowed_break_iterator rhs) noexcept
+            {
+                return lhs.seg_ == rhs.seg_;
+            }
+
+            template<typename Sentinel>
+            friend std::enable_if_t<
+                !std::is_same<CPIter, CPSentinel>::value &&
+                    std::is_same<Sentinel, CPSentinel>::value,
+                bool>
+            operator==(
+                forward_allowed_break_iterator lhs, Sentinel rhs) noexcept
+            {
+                return lhs.seg_.first == rhs;
+            }
+
+            using base_type = stl_interfaces::proxy_iterator_interface<
+                forward_allowed_break_iterator<
+                    CPIter,
+                    CPSentinel,
+                    NextFunc,
+                    CPRange>,
+                std::forward_iterator_tag,
+                CPRange>;
+            using base_type::operator++;
+
+        private:
+            std::pair<line_break_result<CPIter>, line_break_result<CPIter>>
+                seg_ = {};
+            CPSentinel last_ = {};
+            NextFunc * next_func_ = nullptr;
+        };
+
+        template<
+            typename T,
+            typename Iter,
+            typename CPSentinel,
+            typename NextFunc>
+        struct make_fwd_allowed_break_iter_last
+        {
+            using type = CPSentinel;
+            static auto call(Iter first, CPSentinel last, NextFunc * next_func)
+            {
+                return last;
+            }
+        };
+
+        template<typename T, typename Iter, typename NextFunc>
+        struct make_fwd_allowed_break_iter_last<T, Iter, Iter, NextFunc>
+        {
+            using type = T;
+            static auto call(Iter first, Iter last, NextFunc * next_func)
+            {
+                return T(last, last, next_func);
+            }
+        };
+    }
+
+    /** Represents a forward-iterable range of non-overlapping code point
+        subranges.  Each subrange represents the code points between one
+        allowed line break and the next.  Each subrange is lazily produced; an
+        output subrange is not produced until a lazy range iterator is
+        dereferenced.  Each element has a member function `bool hard_break()`
+        that indicates whether the end of the subrange is at a hard line
+        break, or just an allowed line break location.  If
+        forward_line_break_view is constructed with a stateful `CPExtentFunc`,
+        you can get it back by moving it out via `extent_func()`. */
+    template<
+        typename CPIter,
+        typename CPSentinel,
+        typename Extent,
+        typename CPExtentFunc,
+        typename Subrange = line_break_cp_view<CPIter>>
+    struct forward_line_break_view
+        : stl_interfaces::view_interface<forward_line_break_view<
+              CPIter,
+              CPSentinel,
+              Extent,
+              CPExtentFunc,
+              Subrange>>
+    {
+        using iterator = detail::forward_allowed_break_iterator<
             CPIter,
+            CPSentinel,
+            detail::next_allowed_line_break_within_extent_callable<
+                Extent,
+                CPExtentFunc>,
+            Subrange>;
+        using sentinel = typename detail::make_fwd_allowed_break_iter_last<
+            iterator,
             CPIter,
-            prev_hard_line_break_callable<CPIter>,
-            utf32_view<CPIter>,
-            const_reverse_lazy_segment_iterator,
-            true>
-        reversed_lines_impl(CPIter first, CPIter last) noexcept
+            CPSentinel,
+            detail::next_allowed_line_break_within_extent_callable<
+                Extent,
+                CPExtentFunc>>::type;
+
+        forward_line_break_view() noexcept {}
+        forward_line_break_view(
+            CPIter first,
+            CPSentinel last,
+            Extent max_extent,
+            CPExtentFunc cp_extent,
+            bool break_overlong_lines) noexcept :
+            next_(max_extent, std::move(cp_extent), break_overlong_lines),
+            first_(first, last, &next_)
         {
-            prev_hard_line_break_callable<CPIter> prev;
-            return {std::move(prev), {first, last, last}, {first, first, last}};
+            last_ = detail::make_fwd_allowed_break_iter_last<
+                iterator,
+                CPIter,
+                CPSentinel,
+                detail::next_allowed_line_break_within_extent_callable<
+                    Extent,
+                    CPExtentFunc>>::call(first, last, &next_);
         }
 
-        template<typename CPRange>
-        auto reversed_lines_cr_impl(CPRange && range) noexcept
-            -> lazy_segment_range<
-                iterator_t<CPRange>,
-                sentinel_t<CPRange>,
-                prev_hard_line_break_callable<iterator_t<CPRange>>,
-                utf32_view<iterator_t<CPRange>>,
-                const_reverse_lazy_segment_iterator,
-                true>
+        iterator begin() const noexcept { return first_; }
+        sentinel end() const noexcept { return last_; }
+
+        /** Moves the contained `CPExtentFunc` out of *this. */
+        CPExtentFunc extent_func() && noexcept
         {
-            prev_hard_line_break_callable<iterator_t<CPRange>> prev;
-            return {
-                std::move(prev),
-                {std::begin(range), std::end(range), std::end(range)},
-                {std::begin(range), std::begin(range), std::end(range)}};
+            return std::move(next_).extent_func();
         }
 
-        template<typename GraphemeRange>
-        auto reversed_lines_gr_impl(GraphemeRange && range) noexcept
-            -> lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                prev_hard_line_break_callable<decltype(range.begin().base())>,
-                grapheme_view<decltype(range.begin().base())>,
-                const_reverse_lazy_segment_iterator,
-                true>
-        {
-            using cp_iter_t = decltype(range.begin().base());
-            prev_hard_line_break_callable<cp_iter_t> prev;
-            return {
-                std::move(prev),
-                {range.begin().base(), range.end().base(), range.end().base()},
-                {range.begin().base(),
-                 range.begin().base(),
-                 range.end().base()}};
-        }
+    private:
+        detail::
+            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
+                next_;
+        iterator first_;
+        sentinel last_;
+    };
 
+    namespace detail {
         template<
             typename CPIter,
             typename Sentinel,
             typename Extent,
             typename CPExtentFunc>
-        lazy_segment_range<
-            line_break_result<CPIter>,
-            Sentinel,
-            next_allowed_line_break_within_extent_callable<
-                Extent,
-                CPExtentFunc>,
-            line_break_cp_view<CPIter>>
+        forward_line_break_view<CPIter, Sentinel, Extent, CPExtentFunc>
         lines_impl(
             CPIter first,
             Sentinel last,
@@ -1971,36 +2018,32 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             CPExtentFunc cp_extent,
             bool break_overlong_lines = true) noexcept
         {
-            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
-                next{max_extent, std::move(cp_extent), break_overlong_lines};
             return {
-                std::move(next),
-                {line_break_result<CPIter>{first, false}, last},
-                {last}};
+                first,
+                last,
+                max_extent,
+                std::move(cp_extent),
+                break_overlong_lines};
         }
 
         template<typename CPRange, typename Extent, typename CPExtentFunc>
-        lazy_segment_range<
-            line_break_result<iterator_t<CPRange>>,
+        forward_line_break_view<
+            iterator_t<CPRange>,
             sentinel_t<CPRange>,
-            next_allowed_line_break_within_extent_callable<
-                Extent,
-                CPExtentFunc>,
-            line_break_cp_view<iterator_t<CPRange>>>
+            Extent,
+            CPExtentFunc>
         lines_cr_impl(
             CPRange && range,
             Extent max_extent,
             CPExtentFunc cp_extent,
             bool break_overlong_lines = true) noexcept
         {
-            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
-                next{max_extent, std::move(cp_extent), break_overlong_lines};
             return {
-                std::move(next),
-                {line_break_result<iterator_t<CPRange>>{
-                     std::begin(range), false},
-                 std::end(range)},
-                {std::end(range)}};
+                std::begin(range),
+                std::end(range),
+                max_extent,
+                std::move(cp_extent),
+                break_overlong_lines};
         }
 
         template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
@@ -2009,26 +2052,21 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             Extent max_extent,
             CPExtentFunc cp_extent,
             bool break_overlong_lines = true) noexcept
-            -> lazy_segment_range<
-                line_break_result<decltype(range.begin().base())>,
-                decltype(range.begin().base()),
-                next_allowed_line_break_within_extent_callable<
-                    Extent,
-                    CPExtentFunc>,
-                line_break_grapheme_view<decltype(range.begin().base())>>
+            -> forward_line_break_view<
+                gr_rng_cp_iter_t<GraphemeRange>,
+                gr_rng_cp_sent_t<GraphemeRange>,
+                Extent,
+                CPExtentFunc,
+                line_break_grapheme_view<gr_rng_cp_iter_t<GraphemeRange>>>
         {
-            using cp_iter_t = decltype(range.begin().base());
-            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
-                next{max_extent, std::move(cp_extent), break_overlong_lines};
             return {
-                std::move(next),
-                {line_break_result<cp_iter_t>{range.begin().base(), false},
-                 range.end().base()},
-                {range.end().base()}};
+                range.begin().base(),
+                gr_rng_cp_last<GraphemeRange>::call(range),
+                max_extent,
+                std::move(cp_extent),
+                break_overlong_lines};
         }
 
-        /** Returns the bounds of the smallest chunk of text that could be
-           broken off into a line, searching from `it` in either direction. */
         template<typename CPIter, typename Sentinel>
         line_break_cp_view<CPIter>
         allowed_line_impl(CPIter first, CPIter it, Sentinel last) noexcept
@@ -2065,154 +2103,176 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 detail::next_allowed_line_break_gr_impl(range, first.iter)};
         }
 
+        template<typename CPIter, typename CPSentinel, typename Subrange>
+        struct allowed_break_iterator
+            : stl_interfaces::proxy_iterator_interface<
+                  allowed_break_iterator<CPIter, CPSentinel, Subrange>,
+                  std::bidirectional_iterator_tag,
+                  Subrange>
+        {
+            allowed_break_iterator() noexcept = default;
+
+            // begin
+            allowed_break_iterator(CPIter first, CPSentinel last) noexcept :
+                first_(first), seg_({first, false}, {first, false}), last_(last)
+            {
+                seg_.second = detail::next_allowed_line_break_impl(
+                    seg_.second.iter, last_);
+            }
+
+            // end
+            allowed_break_iterator(
+                CPIter first, CPIter it, CPSentinel last) noexcept :
+                first_(first), seg_({it, false}, {it, false}), last_(last)
+            {}
+
+            Subrange operator*() const noexcept
+            {
+                return Subrange{seg_.first, seg_.second};
+            }
+
+            allowed_break_iterator & operator++() noexcept
+            {
+                auto const next_it = detail::next_allowed_line_break_impl(
+                    seg_.second.iter, last_);
+                seg_.first = seg_.second;
+                seg_.second = next_it;
+                return *this;
+            }
+
+            allowed_break_iterator & operator--() noexcept
+            {
+                if (seg_.first == first_) {
+                    seg_.second.iter = first_;
+                    return *this;
+                }
+
+                bool const at_end = seg_.first == seg_.second;
+
+                auto const prev_it = detail::prev_line_break_impl(
+                    first_, std::prev(seg_.first.iter), last_, false);
+                seg_.second = seg_.first;
+                seg_.first = prev_it;
+
+                if (at_end) {
+                    seg_.second = detail::next_allowed_line_break_impl(
+                        seg_.first.iter, seg_.second.iter);
+                }
+
+                return *this;
+            }
+
+            friend bool operator==(
+                allowed_break_iterator lhs, allowed_break_iterator rhs) noexcept
+            {
+                return lhs.seg_ == rhs.seg_;
+            }
+
+            template<typename Sentinel>
+            friend std::enable_if_t<
+                !std::is_same<CPIter, CPSentinel>::value &&
+                    std::is_same<Sentinel, CPSentinel>::value,
+                bool>
+            operator==(allowed_break_iterator lhs, Sentinel rhs) noexcept
+            {
+                return lhs.seg_.first == rhs;
+            }
+
+            using base_type = stl_interfaces::proxy_iterator_interface<
+                allowed_break_iterator<CPIter, CPSentinel, Subrange>,
+                std::bidirectional_iterator_tag,
+                Subrange>;
+            using base_type::operator++;
+            using base_type::operator--;
+
+        private:
+            CPIter first_ = {};
+            std::pair<line_break_result<CPIter>, line_break_result<CPIter>>
+                seg_ = {};
+            CPSentinel last_ = {};
+        };
+
+        template<typename T, typename Iter, typename CPSentinel>
+        struct make_allowed_break_iter_last
+        {
+            using type = CPSentinel;
+            static auto call(Iter first, CPSentinel last) { return last; }
+        };
+
+        template<typename T, typename Iter>
+        struct make_allowed_break_iter_last<T, Iter, Iter>
+        {
+            using type = T;
+            static auto call(Iter first, Iter last) {
+                return T(first, last, last);
+            }
+        };
+    }
+
+    /** Represents a bidirectionally-iterable range of non-overlapping code
+        point subranges.  Each subrange represents the code points between one
+        allowed line break and the next.  Each subrange is lazily produced; an
+        output subrange is not produced until a lazy range iterator is
+        dereferenced.  Each element has a member function `bool hard_break()`
+        that indicates whether the end of the subrange is at a hard line
+        break, or just an allowed line break location. */
+    template<
+        typename CPIter,
+        typename CPSentinel,
+        typename Subrange = line_break_cp_view<CPIter>>
+    struct line_break_view : stl_interfaces::view_interface<
+                                 line_break_view<CPIter, CPSentinel, Subrange>>
+    {
+        using iterator =
+            detail::allowed_break_iterator<CPIter, CPSentinel, Subrange>;
+        using sentinel = typename detail::
+            make_allowed_break_iter_last<iterator, CPIter, CPSentinel>::type;
+
+        line_break_view() noexcept {}
+        line_break_view(CPIter first, CPSentinel last) noexcept :
+            first_(first, last)
+        {
+            last_ = detail::make_allowed_break_iter_last<
+                iterator,
+                CPIter,
+                CPSentinel>::call(first, last);
+        }
+
+        iterator begin() const noexcept { return first_; }
+        sentinel end() const noexcept { return last_; }
+
+    private:
+        iterator first_;
+        sentinel last_;
+    };
+
+    namespace detail {
         template<typename CPIter, typename Sentinel>
-        lazy_segment_range<
-            line_break_result<CPIter>,
-            Sentinel,
-            next_allowed_line_break_callable<
-                line_break_result<CPIter>,
-                Sentinel>,
-            line_break_cp_view<CPIter>>
+        line_break_view<CPIter, Sentinel>
         allowed_lines_impl(CPIter first, Sentinel last) noexcept
         {
-            next_allowed_line_break_callable<
-                line_break_result<CPIter>,
-                Sentinel>
-                next;
-            return {
-                std::move(next),
-                {line_break_result<CPIter>{first, false}, last},
-                {last}};
+            return {first, last};
         }
 
         template<typename CPRange>
         auto allowed_lines_cr_impl(CPRange && range) noexcept
-            -> lazy_segment_range<
-                line_break_result<iterator_t<CPRange>>,
-                sentinel_t<CPRange>,
-                next_allowed_line_break_callable<
-                    line_break_result<iterator_t<CPRange>>,
-                    sentinel_t<CPRange>>,
-                line_break_cp_view<iterator_t<CPRange>>>
+            -> line_break_view<iterator_t<CPRange>, sentinel_t<CPRange>>
         {
-            next_allowed_line_break_callable<
-                line_break_result<iterator_t<CPRange>>,
-                sentinel_t<CPRange>>
-                next;
-            return {
-                std::move(next),
-                {line_break_result<iterator_t<CPRange>>{
-                     std::begin(range), false},
-                 std::end(range)},
-                {std::end(range)}};
+            return {std::begin(range), std::end(range)};
         }
 
         template<typename GraphemeRange>
         auto allowed_lines_gr_impl(GraphemeRange && range) noexcept
-            -> lazy_segment_range<
-                line_break_result<decltype(range.begin().base())>,
-                decltype(range.begin().base()),
-                next_allowed_line_break_callable<
-                    line_break_result<decltype(range.begin().base())>,
-                    decltype(range.begin().base())>,
-                line_break_grapheme_view<decltype(range.begin().base())>>
+            -> line_break_view<
+                gr_rng_cp_iter_t<GraphemeRange>,
+                gr_rng_cp_sent_t<GraphemeRange>,
+                line_break_grapheme_view<gr_rng_cp_iter_t<GraphemeRange>>>
         {
-            using cp_iter_t = decltype(range.begin().base());
-            next_allowed_line_break_callable<
-                line_break_result<cp_iter_t>,
-                cp_iter_t>
-                next;
             return {
-                std::move(next),
-                {line_break_result<cp_iter_t>{range.begin().base(), false},
-                 range.end().base()},
-                {range.end().base()}};
-        }
-
-        template<typename CPIter>
-        lazy_segment_range<
-            CPIter,
-            line_break_result<CPIter>,
-            prev_allowed_line_break_callable<CPIter, line_break_result<CPIter>>,
-            line_break_cp_view<CPIter>,
-            const_reverse_allowed_line_iterator,
-            true>
-        reversed_allowed_lines_impl(CPIter first, CPIter last) noexcept
-        {
-            prev_allowed_line_break_callable<CPIter, line_break_result<CPIter>>
-                prev;
-            bool const ends_in_hard_break =
-                first != last && detail::hard_break_cp(*std::prev(last));
-            auto const first_result = line_break_result<CPIter>{first, false};
-            auto const last_result =
-                line_break_result<CPIter>{last, ends_in_hard_break};
-            return {
-                std::move(prev),
-                {first, last_result, last_result},
-                {first, first_result, last_result}};
-        }
-
-        template<typename CPRange>
-        auto reversed_allowed_lines_cr_impl(CPRange && range) noexcept
-            -> lazy_segment_range<
-                iterator_t<CPRange>,
-                line_break_result<iterator_t<CPRange>>,
-                prev_allowed_line_break_callable<
-                    iterator_t<CPRange>,
-                    line_break_result<iterator_t<CPRange>>>,
-                line_break_cp_view<iterator_t<CPRange>>,
-                const_reverse_allowed_line_iterator,
-                true>
-        {
-            prev_allowed_line_break_callable<
-                iterator_t<CPRange>,
-                line_break_result<iterator_t<CPRange>>>
-                prev;
-            auto const begin = std::begin(range);
-            auto const end = std::end(range);
-            bool const ends_in_hard_break =
-                begin != end && detail::hard_break_cp(*std::prev(end));
-            auto const begin_result =
-                line_break_result<iterator_t<CPRange>>{begin, false};
-            auto const end_result =
-                line_break_result<iterator_t<CPRange>>{end, ends_in_hard_break};
-            return {
-                std::move(prev),
-                {begin, end_result, end_result},
-                {begin, begin_result, end_result}};
-        }
-
-        template<typename GraphemeRange>
-        auto reversed_allowed_lines_gr_impl(GraphemeRange && range) noexcept
-            -> lazy_segment_range<
-                decltype(range.begin().base()),
-                line_break_result<decltype(range.begin().base())>,
-                prev_allowed_line_break_callable<
-                    decltype(range.begin().base()),
-                    line_break_result<decltype(range.begin().base())>>,
-                line_break_grapheme_view<decltype(range.begin().base())>,
-                const_reverse_allowed_line_iterator,
-                true>
-        {
-            using cp_iter_t = decltype(range.begin().base());
-            prev_allowed_line_break_callable<
-                cp_iter_t,
-                line_break_result<cp_iter_t>>
-                prev;
-            bool const ends_in_hard_break =
-                range.begin() != range.end() &&
-                detail::hard_break_cp(*std::prev(range.end().base()));
-            auto const begin_result =
-                line_break_result<cp_iter_t>{range.begin().base(), false};
-            auto const end_result = line_break_result<cp_iter_t>{
-                range.end().base(), ends_in_hard_break};
-            return {
-                std::move(prev),
-                {range.begin().base(), end_result, end_result},
-                {range.begin().base(), begin_result, end_result}};
+                range.begin().base(),
+                gr_rng_cp_last<GraphemeRange>::call(range)};
         }
     }
-
 }}
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
@@ -2654,27 +2714,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename GraphemeRange>
     detail::unspecified lines(GraphemeRange && range) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting lines (using
-        hard line breaks) in `[first, last)`, in reverse. */
-    template<typename CPIter>
-    detail::unspecified reversed_lines(CPIter first, CPIter last) noexcept;
-
-    /** Returns a lazy range of the code point ranges delimiting lines (using
-        hard line breaks) in `range`, in reverse.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange>
-    detail::unspecified reversed_lines(CPRange && range) noexcept;
-
-    /** Returns a lazy range of the grapheme ranges delimiting lines (using
-        hard line breaks) in `range`, in reverse.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange>
-    detail::unspecified reversed_lines(GraphemeRange && range) noexcept;
-
 #else
 
     template<typename CPRange, typename CPIter>
@@ -2694,20 +2733,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename CPIter, typename Sentinel>
-    lazy_segment_range<
-        CPIter,
-        Sentinel,
-        detail::next_hard_line_break_callable<CPIter, Sentinel>>
-    lines(CPIter first, Sentinel last) noexcept
+    auto lines(CPIter first, Sentinel last) noexcept
     {
         return detail::lines_impl(first, last);
     }
 
     template<typename CPRange>
-    auto lines(CPRange && range) noexcept -> detail::cp_rng_alg_ret_t<
-        lazy_segment_range<
+    auto lines(CPRange && range) noexcept->detail::cp_rng_alg_ret_t<
+        break_view<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>,
+            detail::prev_hard_line_break_callable<detail::iterator_t<CPRange>>,
             detail::next_hard_line_break_callable<
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>>>,
@@ -2717,61 +2753,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename GraphemeRange>
-    auto lines(GraphemeRange && range) noexcept
-        -> detail::graph_rng_alg_ret_t<
-            lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                detail::next_hard_line_break_callable<
-                    decltype(range.begin().base()),
-                    decltype(range.begin().base())>,
-                grapheme_view<decltype(range.begin().base())>>,
-            GraphemeRange>
+    auto lines(GraphemeRange && range) noexcept->detail::graph_rng_alg_ret_t<
+        break_view<
+            detail::gr_rng_cp_iter_t<GraphemeRange>,
+            detail::gr_rng_cp_sent_t<GraphemeRange>,
+            detail::prev_hard_line_break_callable<
+                detail::gr_rng_cp_iter_t<GraphemeRange>>,
+            detail::next_hard_line_break_callable<
+                detail::gr_rng_cp_iter_t<GraphemeRange>,
+                detail::gr_rng_cp_sent_t<GraphemeRange>>,
+            grapheme_view<detail::gr_rng_cp_iter_t<GraphemeRange>>>,
+        GraphemeRange>
     {
         return detail::lines_gr_impl(range);
-    }
-
-    template<typename CPIter>
-    lazy_segment_range<
-        CPIter,
-        CPIter,
-        detail::prev_hard_line_break_callable<CPIter>,
-        utf32_view<CPIter>,
-        detail::const_reverse_lazy_segment_iterator,
-        true>
-    reversed_lines(CPIter first, CPIter last) noexcept
-    {
-        return detail::reversed_lines_impl(first, last);
-    }
-
-    template<typename CPRange>
-    auto reversed_lines(CPRange && range) noexcept -> detail::cp_rng_alg_ret_t<
-        lazy_segment_range<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>,
-            detail::prev_hard_line_break_callable<detail::iterator_t<CPRange>>,
-            utf32_view<detail::iterator_t<CPRange>>,
-            detail::const_reverse_lazy_segment_iterator,
-            true>,
-        CPRange>
-    {
-        return detail::reversed_lines_cr_impl(range);
-    }
-
-    template<typename GraphemeRange>
-    auto reversed_lines(GraphemeRange && range) noexcept
-        -> detail::graph_rng_alg_ret_t<
-            lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                detail::prev_hard_line_break_callable<
-                    decltype(range.begin().base())>,
-                grapheme_view<decltype(range.begin().base())>,
-                detail::const_reverse_lazy_segment_iterator,
-                true>,
-            GraphemeRange>
-    {
-        return detail::reversed_lines_gr_impl(range);
     }
 
 #endif
@@ -2845,14 +2839,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         typename Sentinel,
         typename Extent,
         typename CPExtentFunc>
-    lazy_segment_range<
-        line_break_result<CPIter>,
-        Sentinel,
-        detail::next_allowed_line_break_within_extent_callable<
-            Extent,
-            CPExtentFunc>,
-        line_break_cp_view<CPIter>>
-    lines(
+    auto lines(
         CPIter first,
         Sentinel last,
         Extent max_extent,
@@ -2869,13 +2856,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     detail::cp_rng_alg_ret_t<
-        lazy_segment_range<
-            line_break_result<detail::iterator_t<CPRange>>,
+        forward_line_break_view<
+            detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>,
-            detail::next_allowed_line_break_within_extent_callable<
-                Extent,
-                CPExtentFunc>,
-            line_break_cp_view<detail::iterator_t<CPRange>>>,
+            Extent,
+            CPExtentFunc>,
         CPRange>
     lines(
         CPRange && range,
@@ -2893,14 +2878,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Extent max_extent,
         CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept
-        -> detail::graph_rng_alg_ret_t<
-            lazy_segment_range<
-                line_break_result<decltype(range.begin().base())>,
-                decltype(range.begin().base()),
-                detail::next_allowed_line_break_within_extent_callable<
-                    Extent,
-                    CPExtentFunc>,
-                line_break_grapheme_view<decltype(range.begin().base())>>,
+        ->detail::graph_rng_alg_ret_t<
+            forward_line_break_view<
+                detail::gr_rng_cp_iter_t<GraphemeRange>,
+                detail::gr_rng_cp_sent_t<GraphemeRange>,
+                Extent,
+                CPExtentFunc,
+                line_break_grapheme_view<
+                    detail::gr_rng_cp_iter_t<GraphemeRange>>>,
             GraphemeRange>
     {
         return detail::lines_gr_impl(
@@ -2980,122 +2965,31 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename CPIter, typename Sentinel>
-    lazy_segment_range<
-        line_break_result<CPIter>,
-        Sentinel,
-        detail::next_allowed_line_break_callable<
-            line_break_result<CPIter>,
-            Sentinel>,
-        line_break_cp_view<CPIter>>
-    allowed_lines(CPIter first, Sentinel last) noexcept
+    auto allowed_lines(CPIter first, Sentinel last) noexcept
     {
         return detail::allowed_lines_impl(first, last);
     }
 
     template<typename CPRange>
-    auto allowed_lines(CPRange && range) noexcept -> detail::cp_rng_alg_ret_t<
-        lazy_segment_range<
-            line_break_result<detail::iterator_t<CPRange>>,
-            detail::sentinel_t<CPRange>,
-            detail::next_allowed_line_break_callable<
-                line_break_result<detail::iterator_t<CPRange>>,
-                detail::sentinel_t<CPRange>>,
-            line_break_cp_view<detail::iterator_t<CPRange>>>,
+    auto allowed_lines(CPRange && range) noexcept->detail::cp_rng_alg_ret_t<
+        line_break_view<
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>>,
         CPRange>
     {
         return detail::allowed_lines_cr_impl(range);
     }
 
     template<typename GraphemeRange>
-    auto allowed_lines(GraphemeRange && range) noexcept
-        -> detail::graph_rng_alg_ret_t<
-            lazy_segment_range<
-                line_break_result<decltype(range.begin().base())>,
-                decltype(range.begin().base()),
-                detail::next_allowed_line_break_callable<
-                    line_break_result<decltype(range.begin().base())>,
-                    decltype(range.begin().base())>,
-                line_break_grapheme_view<decltype(range.begin().base())>>,
-            GraphemeRange>
+    auto
+    allowed_lines(GraphemeRange && range) noexcept->detail::graph_rng_alg_ret_t<
+        line_break_view<
+            detail::gr_rng_cp_iter_t<GraphemeRange>,
+            detail::gr_rng_cp_sent_t<GraphemeRange>,
+            line_break_grapheme_view<detail::gr_rng_cp_iter_t<GraphemeRange>>>,
+        GraphemeRange>
     {
         return detail::allowed_lines_gr_impl(range);
-    }
-
-#endif
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Returns a lazy range of the code point ranges delimiting allowed lines
-        in `[first, last)`, in reverse. */
-    template<typename CPIter>
-    detail::unspecified
-    reversed_allowed_lines(CPIter first, CPIter last) noexcept;
-
-    /** Returns a lazy range of the code point ranges delimiting allowed lines
-        in `range`, in reverse.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange>
-    detail::unspecified reversed_allowed_lines(CPRange && range) noexcept;
-
-    /** Returns a lazy range of the grapheme ranges delimiting allowed lines
-        in `range`, in reverse.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange>
-    detail::unspecified
-    reversed_allowed_lines(GraphemeRange && range) noexcept;
-
-#else
-
-    template<typename CPIter>
-    lazy_segment_range<
-        CPIter,
-        line_break_result<CPIter>,
-        detail::
-            prev_allowed_line_break_callable<CPIter, line_break_result<CPIter>>,
-        line_break_cp_view<CPIter>,
-        detail::const_reverse_allowed_line_iterator,
-        true>
-    reversed_allowed_lines(CPIter first, CPIter last) noexcept
-    {
-        return detail::reversed_allowed_lines_impl(first, last);
-    }
-
-    template<typename CPRange>
-    auto reversed_allowed_lines(CPRange && range) noexcept
-        -> detail::cp_rng_alg_ret_t<
-            lazy_segment_range<
-                detail::iterator_t<CPRange>,
-                line_break_result<detail::iterator_t<CPRange>>,
-                detail::prev_allowed_line_break_callable<
-                    detail::iterator_t<CPRange>,
-                    line_break_result<detail::iterator_t<CPRange>>>,
-                line_break_cp_view<detail::iterator_t<CPRange>>,
-                detail::const_reverse_allowed_line_iterator,
-                true>,
-            CPRange>
-    {
-        return detail::reversed_allowed_lines_cr_impl(range);
-    }
-
-    template<typename GraphemeRange>
-    auto reversed_allowed_lines(GraphemeRange && range) noexcept
-        -> detail::graph_rng_alg_ret_t<
-            lazy_segment_range<
-                decltype(range.begin().base()),
-                line_break_result<decltype(range.begin().base())>,
-                detail::prev_allowed_line_break_callable<
-                    decltype(range.begin().base()),
-                    line_break_result<decltype(range.begin().base())>>,
-                line_break_grapheme_view<decltype(range.begin().base())>,
-                detail::const_reverse_allowed_line_iterator,
-                true>,
-            GraphemeRange>
-    {
-        return detail::reversed_allowed_lines_gr_impl(range);
     }
 
 #endif
@@ -3206,8 +3100,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return detail::at_allowed_line_break_gr_impl(r, it);
     }
 
-    /** Returns the bounds of the line (using hard line breaks) that
-        `it` lies within. */
     template<code_point_iter I, std::sentinel_for<I> S>
     utf32_view<I> line(I first, I it, S last) noexcept
     {
@@ -3244,24 +3136,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     auto lines(R && r) noexcept
     {
         return detail::lines_gr_impl(r);
-    }
-
-    template<code_point_iter I>
-    auto reversed_lines(I first, I last) noexcept
-    {
-        return detail::reversed_lines_impl(first, last);
-    }
-
-    template<code_point_range R>
-    auto reversed_lines(R && r) noexcept
-    {
-        return detail::reversed_lines_cr_impl(r);
-    }
-
-    template<grapheme_range R>
-    auto reversed_lines(R && r) noexcept
-    {
-        return detail::reversed_lines_gr_impl(r);
     }
 
     template<
@@ -3314,8 +3188,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             r, max_extent, std::move(cp_extent), break_overlong_lines);
     }
 
-    /** Returns the bounds of the smallest chunk of text that could be broken
-        off into a line, searching from `it` in either direction. */
     template<code_point_iter I, std::sentinel_for<I> S>
     line_break_cp_view<I> allowed_line(I first, I it, S last) noexcept
     {
@@ -3352,24 +3224,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     auto allowed_lines(R && r) noexcept
     {
         return detail::allowed_lines_gr_impl(r);
-    }
-
-    template<code_point_iter I>
-    auto reversed_allowed_lines(I first, I last) noexcept
-    {
-        return detail::reversed_allowed_lines_impl(first, last);
-    }
-
-    template<code_point_range R>
-    auto reversed_allowed_lines(R && r) noexcept
-    {
-        return detail::reversed_allowed_lines_cr_impl(r);
-    }
-
-    template<grapheme_range R>
-    auto reversed_allowed_lines(R && r) noexcept
-    {
-        return detail::reversed_allowed_lines_gr_impl(r);
     }
 
 }}}

@@ -1523,7 +1523,8 @@ TEST(break_apis, line_break)
         EXPECT_EQ(i, (int)line_bounds.size());
 
         auto const all_lines_reversed =
-            boost::text::reversed_allowed_lines(cps.begin(), cps.end());
+            boost::text::allowed_lines(cps.begin(), cps.end()) |
+            boost::text::reverse;
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
@@ -1553,7 +1554,7 @@ TEST(break_apis, line_break)
         EXPECT_EQ(i, (int)line_bounds.size());
 
         auto const all_lines_reversed =
-            boost::text::reversed_allowed_lines(cps);
+            boost::text::allowed_lines(cps) | boost::text::reverse;
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
@@ -1583,7 +1584,7 @@ TEST(break_apis, line_break_terminal_newline)
             ++i;
         }
         EXPECT_EQ(i, 7);
-        for (auto line : boost::text::reversed_allowed_lines(t)) {
+        for (auto line : boost::text::allowed_lines(t) | boost::text::reverse) {
             --i;
             EXPECT_EQ(line.hard_break(), i == 3);
         }
@@ -1597,7 +1598,7 @@ TEST(break_apis, line_break_terminal_newline)
             ++i;
         }
         EXPECT_EQ(i, 7);
-        for (auto line : boost::text::reversed_allowed_lines(t)) {
+        for (auto line : boost::text::allowed_lines(t) | boost::text::reverse) {
             --i;
             EXPECT_EQ(line.hard_break(), i == 3 || i == 6);
         }
@@ -1611,7 +1612,7 @@ TEST(break_apis, line_break_terminal_newline)
             ++i;
         }
         EXPECT_EQ(i, 1);
-        for (auto line : boost::text::reversed_allowed_lines(t)) {
+        for (auto line : boost::text::allowed_lines(t) | boost::text::reverse) {
             --i;
             EXPECT_TRUE(line.hard_break());
         }
@@ -1721,7 +1722,7 @@ TEST(break_apis, line_break_hard)
         EXPECT_EQ(i, (int)line_bounds.size());
 
         auto const all_lines_reversed =
-            boost::text::reversed_lines(cps.begin(), cps.end());
+            boost::text::lines(cps.begin(), cps.end()) | boost::text::reverse;
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
@@ -1749,7 +1750,8 @@ TEST(break_apis, line_break_hard)
         }
         EXPECT_EQ(i, (int)line_bounds.size());
 
-        auto const all_lines_reversed = boost::text::reversed_lines(cps);
+        auto const all_lines_reversed =
+            boost::text::lines(cps) | boost::text::reverse;
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
@@ -1882,6 +1884,9 @@ TEST(break_apis, line_break_sentinel)
         EXPECT_EQ(std::distance(begin, range.end()), 2);
     }
 
+    // This only works in C++20 and later, because range-for does not support
+    // non-common_ranges before that.
+#if 202002L <= __cplusplus
     {
         auto const all_lines = boost::text::allowed_lines(begin, end);
 
@@ -1915,8 +1920,12 @@ TEST(break_apis, line_break_sentinel)
         }
         EXPECT_EQ(i, (int)line_bounds.size());
     }
+#endif
 
 
+    // This only works in C++20 and later, because range-for does not support
+    // non-common_ranges before that.
+#if 202002L <= __cplusplus
     using begin_t = decltype(begin);
 
     // 80 columns -> don't take the allowed break in the middle.
@@ -2005,6 +2014,7 @@ TEST(break_apis, line_break_sentinel)
         }
         EXPECT_EQ(i, (int)line_bounds.size());
     }
+#endif
 
     std::array<uint32_t, 17> const lb15_cps = {
         {0x0061,
@@ -2296,6 +2306,9 @@ TEST(break_apis, line_break_sentinel)
         EXPECT_EQ(i, (int)line_bounds.size());
     }
 
+    // This only works in C++20 and later, because range-for does not support
+    // non-common_ranges before that.
+#if 202002L <= __cplusplus
     // Range API
     // 80 columns -> don't take the allowed break in the middle.
     {
@@ -2316,6 +2329,7 @@ TEST(break_apis, line_break_sentinel)
         }
         EXPECT_EQ(i, (int)line_bounds.size());
     }
+#endif
 }
 
 TEST(break_apis, paragraph_break)
