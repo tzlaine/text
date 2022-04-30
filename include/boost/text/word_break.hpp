@@ -8,7 +8,7 @@
 
 #include <boost/text/algorithm.hpp>
 #include <boost/text/grapheme_view.hpp>
-#include <boost/text/lazy_segment_range.hpp>
+#include <boost/text/detail/breaks_impl.hpp>
 
 #include <array>
 #include <unordered_map>
@@ -1095,21 +1095,18 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             Sentinel last,
             WordPropFunc word_prop = WordPropFunc{},
             WordBreakFunc word_break = WordBreakFunc{}) noexcept
-            -> lazy_segment_range<
+            -> break_view<
                 CPIter,
                 Sentinel,
+                prev_word_callable<CPIter, WordPropFunc, WordBreakFunc>,
                 next_word_callable<
                     CPIter,
                     Sentinel,
                     WordPropFunc,
-                    WordBreakFunc>,
-                utf32_view<CPIter>,
-                const_lazy_segment_iterator,
-                false>
+                    WordBreakFunc>>
         {
-            next_word_callable<CPIter, Sentinel, WordPropFunc, WordBreakFunc>
-                next{std::move(word_prop), std::move(word_break)};
-            return {std::move(next), {first, last}, {last}};
+            return {
+                first, last, {word_prop, word_break}, {word_prop, word_break}};
         }
 
         template<
@@ -1120,25 +1117,24 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPRange && range,
             WordPropFunc word_prop = WordPropFunc{},
             WordBreakFunc word_break = WordBreakFunc{}) noexcept
-            -> lazy_segment_range<
+            -> break_view<
                 iterator_t<CPRange>,
                 sentinel_t<CPRange>,
+                prev_word_callable<
+                    iterator_t<CPRange>,
+                    WordPropFunc,
+                    WordBreakFunc>,
                 next_word_callable<
                     iterator_t<CPRange>,
                     sentinel_t<CPRange>,
                     WordPropFunc,
                     WordBreakFunc>>
         {
-            next_word_callable<
-                iterator_t<CPRange>,
-                sentinel_t<CPRange>,
-                WordPropFunc,
-                WordBreakFunc>
-                next{std::move(word_prop), std::move(word_break)};
             return {
-                std::move(next),
-                {std::begin(range), std::end(range)},
-                {std::end(range)}};
+                std::begin(range),
+                std::end(range),
+                {word_prop, word_break},
+                {word_prop, word_break}};
         }
 
         template<
@@ -1149,109 +1145,25 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             GraphemeRange && range,
             WordPropFunc word_prop = WordPropFunc{},
             WordBreakFunc word_break = WordBreakFunc{}) noexcept
-            -> lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
+            -> break_view<
+                gr_rng_cp_iter_t<GraphemeRange>,
+                gr_rng_cp_sent_t<GraphemeRange>,
+                prev_word_callable<
+                    gr_rng_cp_iter_t<GraphemeRange>,
+                    WordPropFunc,
+                    WordBreakFunc>,
                 next_word_callable<
-                    decltype(range.begin().base()),
-                    decltype(range.begin().base()),
+                    gr_rng_cp_iter_t<GraphemeRange>,
+                    gr_rng_cp_sent_t<GraphemeRange>,
                     WordPropFunc,
                     WordBreakFunc>,
-                grapheme_view<decltype(range.begin().base())>>
+                grapheme_view<gr_rng_cp_iter_t<GraphemeRange>>>
         {
-            using cp_iter_t = decltype(range.begin().base());
-            next_word_callable<
-                cp_iter_t,
-                cp_iter_t,
-                WordPropFunc,
-                WordBreakFunc>
-                next{std::move(word_prop), std::move(word_break)};
             return {
-                std::move(next),
-                {range.begin().base(), range.end().base()},
-                {range.end().base()}};
-        }
-
-        template<
-            typename CPIter,
-            typename WordPropFunc = word_prop_callable,
-            typename WordBreakFunc = untailored_word_break>
-        auto reversed_words_impl(
-            CPIter first,
-            CPIter last,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc word_break = WordBreakFunc{}) noexcept
-            -> lazy_segment_range<
-                CPIter,
-                CPIter,
-                prev_word_callable<CPIter, WordPropFunc, WordBreakFunc>,
-                utf32_view<CPIter>,
-                const_reverse_lazy_segment_iterator,
-                true>
-        {
-            prev_word_callable<CPIter, WordPropFunc, WordBreakFunc> prev{
-                std::move(word_prop), std::move(word_break)};
-            return {std::move(prev), {first, last, last}, {first, first, last}};
-        }
-
-        template<
-            typename CPRange,
-            typename WordPropFunc = word_prop_callable,
-            typename WordBreakFunc = untailored_word_break>
-        auto reversed_words_cr_impl(
-            CPRange && range,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc word_break = WordBreakFunc{}) noexcept
-            -> lazy_segment_range<
-                iterator_t<CPRange>,
-                sentinel_t<CPRange>,
-                prev_word_callable<
-                    iterator_t<CPRange>,
-                    WordPropFunc,
-                    WordBreakFunc>,
-                utf32_view<iterator_t<CPRange>>,
-                const_reverse_lazy_segment_iterator,
-                true>
-        {
-            prev_word_callable<
-                iterator_t<CPRange>,
-                WordPropFunc,
-                WordBreakFunc>
-                prev{std::move(word_prop), std::move(word_break)};
-            return {
-                std::move(prev),
-                {std::begin(range), std::end(range), std::end(range)},
-                {std::begin(range), std::begin(range), std::end(range)}};
-        }
-
-        template<
-            typename GraphemeRange,
-            typename WordPropFunc = word_prop_callable,
-            typename WordBreakFunc = untailored_word_break>
-        auto reversed_words_gr_impl(
-            GraphemeRange && range,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc word_break = WordBreakFunc{}) noexcept
-            -> lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                prev_word_callable<
-                    decltype(range.begin().base()),
-                    WordPropFunc,
-                    WordBreakFunc>,
-                grapheme_view<decltype(range.begin().base())>,
-                const_reverse_lazy_segment_iterator,
-                true>
-        {
-            using cp_iter_t = decltype(range.begin().base());
-            prev_word_callable<cp_iter_t, WordPropFunc, WordBreakFunc> prev{
-                std::move(word_prop), std::move(word_break)};
-            return {
-                std::move(prev),
-                {range.begin().base(), range.end().base(), range.end().base()},
-                {range.begin().base(),
-                 range.begin().base(),
-                 range.end().base()}};
+                range.begin().base(),
+                gr_rng_cp_last<GraphemeRange>::call(range),
+                {word_prop, word_break},
+                {word_prop, word_break}};
         }
     }
 
@@ -1749,70 +1661,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordPropFunc word_prop = WordPropFunc{},
         WordBreakFunc word_break = WordBreakFunc{}) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting words in
-        `[first, last)`, in reverse.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept and CPIter is equality comparable with
-        Sentinel.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
-        semantics. */
-    template<
-        typename CPIter,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined reversed_words(
-        CPIter first,
-        CPIter last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
-
-    /** Returns a lazy range of the code point ranges delimiting words in
-        `range`, in reverse.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept and `WordPropFunc` models the WordPropFunc
-        concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
-        semantics. */
-    template<
-        typename CPRange,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined reversed_words(
-        CPRange && range,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
-
-    /** Returns a lazy range of the grapheme ranges delimiting words in
-        `range`, in reverse.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
-        models the WordPropFunc concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
-        semantics. */
-    template<
-        typename GraphemeRange,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined reversed_words(
-        GraphemeRange && range,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
-
 #else
 
     template<
@@ -1851,159 +1699,77 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return detail::word_gr_impl(range, it, word_prop, word_break);
     }
 
-    template<
-        typename CPIter,
-        typename Sentinel,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = untailored_word_break>
-    auto words(
-        CPIter first,
-        Sentinel last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-        ->detail::cp_iter_sntl_ret_t<
-            lazy_segment_range<
-                CPIter,
-                Sentinel,
-                detail::next_word_callable<
+    namespace dtl {
+        struct words_impl : detail::pipeable<words_impl>
+        {
+            template<
+                typename CPIter,
+                typename Sentinel,
+                typename WordPropFunc = word_prop_callable,
+                typename WordBreakFunc = untailored_word_break>
+            auto operator()(
+                CPIter first,
+                Sentinel last,
+                WordPropFunc word_prop = WordPropFunc{},
+                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+                -> detail::cp_iter_sntl_ret_t<
+                    decltype(detail::words_impl(
+                        first,
+                        last,
+                        std::move(word_prop),
+                        std::move(word_break))),
                     CPIter,
-                    Sentinel,
+                    Sentinel>
+            {
+                return detail::words_impl(
+                    first, last, std::move(word_prop), std::move(word_break));
+            }
+
+            template<
+                typename CPRange,
+                typename WordPropFunc = word_prop_callable,
+                typename WordBreakFunc = untailored_word_break>
+            auto operator()(
+                CPRange && range,
+                WordPropFunc word_prop = WordPropFunc{},
+                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+                -> detail::word_prop_func_ret_t<
+                    decltype(detail::words_cr_impl(
+                        range, std::move(word_prop), std::move(word_break))),
                     WordPropFunc,
-                    WordBreakFunc>,
-                utf32_view<CPIter>,
-                detail::const_lazy_segment_iterator,
-                false>,
-            CPIter,
-            Sentinel>
-    {
-        return detail::words_impl(
-            first, last, std::move(word_prop), std::move(word_break));
+                    CPRange>
+            {
+                return detail::words_cr_impl(
+                    range, std::move(word_prop), std::move(word_break));
+            }
+
+            template<
+                typename GraphemeRange,
+                typename WordPropFunc = word_prop_callable,
+                typename WordBreakFunc = untailored_word_break>
+            auto operator()(
+                GraphemeRange && range,
+                WordPropFunc word_prop = WordPropFunc{},
+                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+                -> detail::graph_word_prop_func_ret_t<
+                    decltype(detail::words_gr_impl(
+                        range, std::move(word_prop), std::move(word_break))),
+                    WordPropFunc,
+                    GraphemeRange>
+            {
+                return detail::words_gr_impl(
+                    range, std::move(word_prop), std::move(word_break));
+            }
+        };
     }
 
-    template<
-        typename CPRange,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = untailored_word_break>
-    auto words(
-        CPRange && range,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-        ->detail::word_prop_func_ret_t<
-            lazy_segment_range<
-                detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>,
-                detail::next_word_callable<
-                    detail::iterator_t<CPRange>,
-                    detail::sentinel_t<CPRange>,
-                    WordPropFunc,
-                    WordBreakFunc>>,
-            WordPropFunc,
-            CPRange>
-    {
-        return detail::words_cr_impl(
-            range, std::move(word_prop), std::move(word_break));
+#if defined(__cpp_inline_variables)
+    inline constexpr dtl::words_impl words;
+#else
+    namespace {
+        constexpr dtl::words_impl words;
     }
-
-    template<
-        typename GraphemeRange,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = untailored_word_break>
-    auto words(
-        GraphemeRange && range,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-        ->detail::graph_word_prop_func_ret_t<
-            lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                detail::next_word_callable<
-                    decltype(range.begin().base()),
-                    decltype(range.begin().base()),
-                    WordPropFunc,
-                    WordBreakFunc>,
-                grapheme_view<decltype(range.begin().base())>>,
-            WordPropFunc,
-            GraphemeRange>
-    {
-        return detail::words_gr_impl(
-            range, std::move(word_prop), std::move(word_break));
-    }
-
-    template<
-        typename CPIter,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = untailored_word_break>
-    auto reversed_words(
-        CPIter first,
-        CPIter last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-        ->detail::cp_iter_sntl_ret_t<
-            lazy_segment_range<
-                CPIter,
-                CPIter,
-                detail::prev_word_callable<CPIter, WordPropFunc, WordBreakFunc>,
-                utf32_view<CPIter>,
-                detail::const_reverse_lazy_segment_iterator,
-                true>,
-            CPIter,
-            CPIter>
-    {
-        return detail::reversed_words_impl(
-            first, last, std::move(word_prop), std::move(word_break));
-    }
-
-    template<
-        typename CPRange,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = untailored_word_break>
-    auto reversed_words(
-        CPRange && range,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-        ->detail::word_prop_func_ret_t<
-            lazy_segment_range<
-                detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>,
-                detail::prev_word_callable<
-                    detail::iterator_t<CPRange>,
-                    WordPropFunc,
-                    WordBreakFunc>,
-                utf32_view<detail::iterator_t<CPRange>>,
-                detail::const_reverse_lazy_segment_iterator,
-                true>,
-            WordPropFunc,
-            CPRange>
-    {
-        return detail::reversed_words_cr_impl(
-            range, std::move(word_prop), std::move(word_break));
-    }
-
-    template<
-        typename GraphemeRange,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = untailored_word_break>
-    auto reversed_words(
-        GraphemeRange && range,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-        ->detail::graph_word_prop_func_ret_t<
-            lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                detail::prev_word_callable<
-                    decltype(range.begin().base()),
-                    WordPropFunc,
-                    WordBreakFunc>,
-                grapheme_view<decltype(range.begin().base())>,
-                detail::const_reverse_lazy_segment_iterator,
-                true>,
-            WordPropFunc,
-            GraphemeRange>
-    {
-        return detail::reversed_words_gr_impl(
-            range, std::move(word_prop), std::move(word_break));
-    }
+#endif
 
 #endif
 
@@ -2197,86 +1963,53 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return detail::word_gr_impl(r, it, word_prop, word_break);
     }
 
-    template<
-        code_point_iter I,
-        std::sentinel_for<I> S,
-        word_prop_func WordPropFunc = word_prop_callable,
-        word_break_func WordBreakFunc = untailored_word_break>
-    auto words(
-        I first,
-        S last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-    {
-        return detail::words_impl(
-            first, last, std::move(word_prop), std::move(word_break));
+    namespace dtl {
+        struct words_impl : detail::pipeable<words_impl>
+        {
+            template<
+                code_point_iter I,
+                std::sentinel_for<I> S,
+                word_prop_func WordPropFunc = word_prop_callable,
+                word_break_func WordBreakFunc = untailored_word_break>
+            auto operator()(
+                I first,
+                S last,
+                WordPropFunc word_prop = WordPropFunc{},
+                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+            {
+                return detail::words_impl(
+                    first, last, std::move(word_prop), std::move(word_break));
+            }
+
+            template<
+                code_point_range R,
+                word_prop_func WordPropFunc = word_prop_callable,
+                word_break_func WordBreakFunc = untailored_word_break>
+            auto operator()(
+                R && r,
+                WordPropFunc word_prop = WordPropFunc{},
+                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+            {
+                return detail::words_cr_impl(
+                    r, std::move(word_prop), std::move(word_break));
+            }
+
+            template<
+                grapheme_range R,
+                word_prop_func WordPropFunc = word_prop_callable,
+                word_break_func WordBreakFunc = untailored_word_break>
+            auto operator()(
+                R && r,
+                WordPropFunc word_prop = WordPropFunc{},
+                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+            {
+                return detail::words_gr_impl(
+                    r, std::move(word_prop), std::move(word_break));
+            }
+        };
     }
 
-    template<
-        code_point_range R,
-        word_prop_func WordPropFunc = word_prop_callable,
-        word_break_func WordBreakFunc = untailored_word_break>
-    auto words(
-        R && r,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-    {
-        return detail::words_cr_impl(
-            r, std::move(word_prop), std::move(word_break));
-    }
-
-    template<
-        grapheme_range R,
-        word_prop_func WordPropFunc = word_prop_callable,
-        word_break_func WordBreakFunc = untailored_word_break>
-    auto words(
-        R && r,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-    {
-        return detail::words_gr_impl(
-            r, std::move(word_prop), std::move(word_break));
-    }
-
-    template<
-        code_point_iter I,
-        word_prop_func WordPropFunc = word_prop_callable,
-        word_break_func WordBreakFunc = untailored_word_break>
-    auto reversed_words(
-        I first,
-        I last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-    {
-        return detail::reversed_words_impl(
-            first, last, std::move(word_prop), std::move(word_break));
-    }
-
-    template<
-        code_point_range R,
-        word_prop_func WordPropFunc = word_prop_callable,
-        word_break_func WordBreakFunc = untailored_word_break>
-    auto reversed_words(
-        R && r,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-    {
-        return detail::reversed_words_cr_impl(
-            r, std::move(word_prop), std::move(word_break));
-    }
-
-    template<
-        grapheme_range R,
-        word_prop_func WordPropFunc = word_prop_callable,
-        word_break_func WordBreakFunc = untailored_word_break>
-    auto reversed_words(
-        R && r,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept
-    {
-        return detail::reversed_words_gr_impl(
-            r, std::move(word_prop), std::move(word_break));
-    }
+    inline constexpr dtl::words_impl words;
 
 }}}
 

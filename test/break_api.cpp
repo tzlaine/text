@@ -493,7 +493,7 @@ TEST(break_apis, word_break)
         EXPECT_EQ(i, (int)word_bounds.size());
 
         auto const all_words_reversed =
-            boost::text::reversed_words(cps.begin(), cps.end());
+            boost::text::words(cps.begin(), cps.end()) | boost::text::reverse;
         i = word_bounds.size();
         for (auto word : all_words_reversed) {
             --i;
@@ -521,7 +521,8 @@ TEST(break_apis, word_break)
         }
         EXPECT_EQ(i, (int)word_bounds.size());
 
-        auto const all_words_reversed = boost::text::reversed_words(cps);
+        auto const all_words_reversed =
+            boost::text::words(cps) | boost::text::reverse;
         i = word_bounds.size();
         for (auto word : all_words_reversed) {
             --i;
@@ -630,6 +631,9 @@ TEST(break_apis, word_break_sentinel)
         EXPECT_EQ(std::distance(begin, range.end()), 3);
     }
 
+    // This only works in C++20 and later, because range-for does not support
+    // non-common_ranges before that.
+#if 202002L <= __cplusplus
     {
         auto const all_words = boost::text::words(begin, end);
 
@@ -663,6 +667,7 @@ TEST(break_apis, word_break_sentinel)
         }
         EXPECT_EQ(i, (int)word_bounds.size());
     }
+#endif
 }
 
 TEST(break_apis, word_tailoring_MidLetter)
@@ -770,8 +775,8 @@ TEST(break_apis, word_tailoring_MidLetter)
         EXPECT_EQ(i, 7);
 
         i = 7;
-        for (auto word :
-             boost::text::reversed_words(begin, end, midletter_dash)) {
+        for (auto word : boost::text::words(begin, end, midletter_dash) |
+                             boost::text::reverse) {
             --i;
             auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
@@ -793,7 +798,7 @@ TEST(break_apis, word_tailoring_MidLetter)
         EXPECT_EQ(i, 9);
 
         i = 9;
-        for (auto word : boost::text::reversed_words(cps)) {
+        for (auto word : boost::text::words(cps) | boost::text::reverse) {
             --i;
             auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
@@ -815,7 +820,8 @@ TEST(break_apis, word_tailoring_MidLetter)
         EXPECT_EQ(i, 7);
 
         i = 7;
-        for (auto word : boost::text::reversed_words(cps, midletter_dash)) {
+        for (auto word :
+             boost::text::words(cps, midletter_dash) | boost::text::reverse) {
             --i;
             auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
@@ -915,6 +921,9 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
             word.begin(), word.end(), expected.begin(), expected.end()));
     }
 
+    // This only works in C++20 and later, because range-for does not support
+    // non-common_ranges before that.
+#if 202002L <= __cplusplus
     // Default breaks.
     {
         std::string const expected_words[9] = {
@@ -967,6 +976,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
         }
         EXPECT_EQ(i, 7);
     }
+#endif
 }
 
 TEST(break_apis, word_tailoring_cp_break)
@@ -1049,6 +1059,9 @@ TEST(break_apis, word_tailoring_cp_break)
     }
 }
 
+// This only works in C++20 and later, because range-for does not support
+// non-common_ranges before that.
+#if 202002L <= __cplusplus
 TEST(break_apis, word_tailoring_cp_break_sentinel)
 {
     using u32_iter = boost::text::
@@ -1137,6 +1150,7 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
         EXPECT_EQ(i, 6);
     }
 }
+#endif
 
 TEST(break_apis, sentence_break)
 {

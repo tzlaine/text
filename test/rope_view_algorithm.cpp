@@ -56,7 +56,7 @@ TEST(rope_view_algorithm, word_break)
         }
         EXPECT_EQ(i, (int)word_bounds.size());
 
-        auto const all_words_reversed = reversed_words(cps);
+        auto const all_words_reversed = words(cps) | boost::text::reverse;
         i = word_bounds.size();
         for (auto word : all_words_reversed) {
             --i;

@@ -82,7 +82,7 @@ for (auto range : boost::text::words(cps)) {
 std::cout << "\n";
 
 // Prints the indices of the words from the table above, backward.
-for (auto range : boost::text::reversed_words(cps)) {
+for (auto range : boost::text::words(cps) | boost::text::reverse) {
     std::cout << '[' << std::distance(first, range.begin()) << ", "
               << std::distance(first, range.end()) << ") ";
 }
