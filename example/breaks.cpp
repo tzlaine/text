@@ -188,7 +188,8 @@ std::array<uint32_t, 5> cps = {{'a', ' ', 'b', '\n', 'c'}};
 "b
 ""a "
 */
-for (auto line : boost::text::allowed_lines(cps) | boost::text::reverse) {
+for (auto line : boost::text::lines(cps, boost::text::allowed_breaks) |
+                     boost::text::reverse) {
     std::cout << '"' << boost::text::to_string(line.begin(), line.end()) << '"';
     // Don't add \n to a hard line break; it already has one!
     if (!line.hard_break())

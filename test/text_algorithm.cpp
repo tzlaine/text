@@ -194,7 +194,7 @@ TEST(break_apis, line_break)
     }
 
     {
-        auto const all_lines = allowed_lines(cps);
+        auto const all_lines = lines(cps, allowed_breaks);
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -211,7 +211,7 @@ TEST(break_apis, line_break)
         EXPECT_EQ(i, (int)line_bounds.size());
 
         auto const all_lines_reversed =
-            allowed_lines(cps) | boost::text::reverse;
+            lines(cps, allowed_breaks) | boost::text::reverse;
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;

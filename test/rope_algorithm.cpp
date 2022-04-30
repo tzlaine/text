@@ -194,7 +194,34 @@ TEST(break_apis, line_break)
     }
 
     {
-        auto const all_lines = allowed_lines(cps);
+        auto const all_lines = cps | lines;
+
+        std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 3}}};
+
+        int i = 0;
+        for (auto line : all_lines) {
+            EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)line_bounds.size());
+
+        auto const all_lines_reversed = cps | lines | boost::text::reverse;
+        i = line_bounds.size();
+        for (auto line : all_lines_reversed) {
+            --i;
+            EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
+    }
+
+    {
+        auto const all_lines = lines(cps, allowed_breaks);
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -211,7 +238,38 @@ TEST(break_apis, line_break)
         EXPECT_EQ(i, (int)line_bounds.size());
 
         auto const all_lines_reversed =
-            allowed_lines(cps) | boost::text::reverse;
+            lines(cps, allowed_breaks) | boost::text::reverse;
+        i = line_bounds.size();
+        for (auto line : all_lines_reversed) {
+            --i;
+            EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
+                << "i=" << i;
+            EXPECT_EQ(line.hard_break(), false);
+        }
+        EXPECT_EQ(i, 0);
+    }
+
+    {
+        auto const all_lines = cps | lines(allowed_breaks);
+
+        std::array<std::pair<int, int>, 2> const line_bounds = {
+            {{0, 2}, {2, 3}}};
+
+        int i = 0;
+        for (auto line : all_lines) {
+            EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
+                << "i=" << i;
+            EXPECT_EQ(line.hard_break(), false) << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)line_bounds.size());
+
+        auto const all_lines_reversed =
+            cps | lines(allowed_breaks) | boost::text::reverse;
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
@@ -233,6 +291,48 @@ TEST(break_apis, line_break)
                rope::const_iterator::iterator_type last) {
                 return distance(it, last);
             });
+
+        std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 3}}};
+
+        int i = 0;
+        for (auto line : _80_column_lines) {
+            EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)line_bounds.size());
+    }
+    {
+        auto const _80_column_lines =
+            cps | lines(
+                      80,
+                      [](rope::const_iterator::iterator_type it,
+                         rope::const_iterator::iterator_type last) {
+                          return distance(it, last);
+                      });
+
+        std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 3}}};
+
+        int i = 0;
+        for (auto line : _80_column_lines) {
+            EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)line_bounds.size());
+    }
+    {
+        auto const _80_column_lines =
+            cps | lines(
+                      80.0,
+                      [](rope::const_iterator::iterator_type it,
+                         rope::const_iterator::iterator_type last) {
+                          return distance(it, last);
+                      });
 
         std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 3}}};
 

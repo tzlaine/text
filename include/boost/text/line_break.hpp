@@ -8,7 +8,8 @@
 
 #include <boost/text/algorithm.hpp>
 #include <boost/text/grapheme_view.hpp>
-#include <boost/text/break_view.hpp>
+#include <boost/text/detail/breaks_impl.hpp>
+#include <boost/text/detail/view_closure.hpp>
 
 #include <boost/assert.hpp>
 #include <boost/optional.hpp>
@@ -205,6 +206,20 @@ namespace boost { namespace text {
     private:
         bool hard_break_;
     };
+
+    /** A tag type that can be passed to the `lines` view adaptor.  Pass the
+        constant `boost::text::allowed_breaks` to get lines divided only by
+        allowed line breaks. */
+    struct allowed_breaks_t
+    {};
+
+#if defined(__cpp_inline_variables)
+    inline constexpr allowed_breaks_t allowed_breaks;
+#else
+    namespace {
+        constexpr allowed_breaks_t allowed_breaks;
+    }
+#endif
 
     namespace detail {
         // Note that whereas the other kinds of breaks have an 'Other', line
@@ -1772,65 +1787,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 range.end().base()};
         }
 
-        template<typename CPIter, typename Sentinel>
-        break_view<
-            CPIter,
-            Sentinel,
-            prev_hard_line_break_callable<CPIter>,
-            next_hard_line_break_callable<CPIter, Sentinel>>
-        lines_impl(CPIter first, Sentinel last) noexcept
-        {
-            return {first, last, {}, {}};
-        }
-
-        template<typename CPRange>
-        auto lines_cr_impl(CPRange && range) noexcept -> break_view<
-            iterator_t<CPRange>,
-            sentinel_t<CPRange>,
-            prev_hard_line_break_callable<iterator_t<CPRange>>,
-            next_hard_line_break_callable<
-                iterator_t<CPRange>,
-                sentinel_t<CPRange>>>
-        {
-            return {std::begin(range), std::end(range), {}, {}};
-        }
-
-        template<
-            typename GraphemeRange,
-#if BOOST_TEXT_USE_CONCEPTS
-            bool UseSentinel = cp_sentinel_gr_rng<GraphemeRange>
-#else
-            bool UseSentinel = is_cp_sentinel_gr_rng<GraphemeRange>::value
-#endif
-            >
-        struct gr_rng_cp_last
-        {
-            static auto call(GraphemeRange && r) { return r.end(); }
-        };
-
-        template<typename GraphemeRange>
-        struct gr_rng_cp_last<GraphemeRange, false>
-        {
-            static auto call(GraphemeRange && r) { return r.end().base(); }
-        };
-
-        template<typename GraphemeRange>
-        auto lines_gr_impl(GraphemeRange && range) noexcept -> break_view<
-            gr_rng_cp_iter_t<GraphemeRange>,
-            gr_rng_cp_sent_t<GraphemeRange>,
-            prev_hard_line_break_callable<gr_rng_cp_iter_t<GraphemeRange>>,
-            next_hard_line_break_callable<
-                gr_rng_cp_iter_t<GraphemeRange>,
-                gr_rng_cp_sent_t<GraphemeRange>>,
-            grapheme_view<gr_rng_cp_iter_t<GraphemeRange>>>
-        {
-            return {
-                range.begin().base(),
-                gr_rng_cp_last<GraphemeRange>::call(range),
-                {},
-                {}};
-        }
-
         template<
             typename CPIter,
             typename CPSentinel,
@@ -2732,42 +2688,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return detail::line_gr_impl(range, it);
     }
 
-    template<typename CPIter, typename Sentinel>
-    auto lines(CPIter first, Sentinel last) noexcept
-    {
-        return detail::lines_impl(first, last);
-    }
-
-    template<typename CPRange>
-    auto lines(CPRange && range) noexcept->detail::cp_rng_alg_ret_t<
-        break_view<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>,
-            detail::prev_hard_line_break_callable<detail::iterator_t<CPRange>>,
-            detail::next_hard_line_break_callable<
-                detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>>>,
-        CPRange>
-    {
-        return detail::lines_cr_impl(range);
-    }
-
-    template<typename GraphemeRange>
-    auto lines(GraphemeRange && range) noexcept->detail::graph_rng_alg_ret_t<
-        break_view<
-            detail::gr_rng_cp_iter_t<GraphemeRange>,
-            detail::gr_rng_cp_sent_t<GraphemeRange>,
-            detail::prev_hard_line_break_callable<
-                detail::gr_rng_cp_iter_t<GraphemeRange>>,
-            detail::next_hard_line_break_callable<
-                detail::gr_rng_cp_iter_t<GraphemeRange>,
-                detail::gr_rng_cp_sent_t<GraphemeRange>>,
-            grapheme_view<detail::gr_rng_cp_iter_t<GraphemeRange>>>,
-        GraphemeRange>
-    {
-        return detail::lines_gr_impl(range);
-    }
-
 #endif
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -2832,66 +2752,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept;
 
-#else
-
-    template<
-        typename CPIter,
-        typename Sentinel,
-        typename Extent,
-        typename CPExtentFunc>
-    auto lines(
-        CPIter first,
-        Sentinel last,
-        Extent max_extent,
-        CPExtentFunc cp_extent,
-        bool break_overlong_lines = true) noexcept
-    {
-        return detail::lines_impl(
-            first,
-            last,
-            max_extent,
-            std::move(cp_extent),
-            break_overlong_lines);
-    }
-
-    template<typename CPRange, typename Extent, typename CPExtentFunc>
-    detail::cp_rng_alg_ret_t<
-        forward_line_break_view<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>,
-            Extent,
-            CPExtentFunc>,
-        CPRange>
-    lines(
-        CPRange && range,
-        Extent max_extent,
-        CPExtentFunc cp_extent,
-        bool break_overlong_lines = true) noexcept
-    {
-        return detail::lines_cr_impl(
-            range, max_extent, std::move(cp_extent), break_overlong_lines);
-    }
-
-    template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
-    auto lines(
-        GraphemeRange && range,
-        Extent max_extent,
-        CPExtentFunc cp_extent,
-        bool break_overlong_lines = true) noexcept
-        ->detail::graph_rng_alg_ret_t<
-            forward_line_break_view<
-                detail::gr_rng_cp_iter_t<GraphemeRange>,
-                detail::gr_rng_cp_sent_t<GraphemeRange>,
-                Extent,
-                CPExtentFunc,
-                line_break_grapheme_view<
-                    detail::gr_rng_cp_iter_t<GraphemeRange>>>,
-            GraphemeRange>
-    {
-        return detail::lines_gr_impl(
-            range, max_extent, std::move(cp_extent), break_overlong_lines);
-    }
-
 #endif
 
     /** Returns the bounds of the smallest chunk of text that could be broken
@@ -2920,13 +2780,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
-    detail::unspecified
-    allowed_line(GraphemeRange && range, GraphemeIter it) noexcept;
+    detail::unspecified allowed_line(
+        GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting allowed lines
         in `[first, last)`. */
     template<typename CPIter, typename Sentinel>
-    detail::unspecified allowed_lines(CPIter first, Sentinel last) noexcept;
+    detail::unspecified lines(
+        Callowed_breaks_t, PIter first, Sentinel last) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting allowed lines
         in `range`.
@@ -2934,7 +2795,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    detail::unspecified allowed_lines(CPRange && range) noexcept;
+    detail::unspecified lines(allowed_breaks_t, CPRange && range) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting allowed lines
         in `range`.
@@ -2942,7 +2803,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
-    detail::unspecified allowed_lines(GraphemeRange && range) noexcept;
+    detail::unspecified lines(
+        allowed_breaks_t, GraphemeRange && range) noexcept;
 
 #else
 
@@ -2964,33 +2826,178 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return detail::allowed_line_gr_impl(range, it);
     }
 
-    template<typename CPIter, typename Sentinel>
-    auto allowed_lines(CPIter first, Sentinel last) noexcept
-    {
-        return detail::allowed_lines_impl(first, last);
+
+    namespace dtl {
+        struct lines_impl : detail::pipeable<lines_impl>
+        {
+            template<typename T>
+            using does_arithmetic =
+                decltype(-declval<T>() + declval<T>() / declval<T>() * declval<T>());
+
+            template<
+                typename CPIter,
+                typename Sentinel,
+                typename Enable = std::enable_if_t<
+                    !is_detected<does_arithmetic, CPIter>::value>>
+            auto operator()(CPIter first, Sentinel last) const noexcept
+            {
+                return detail::breaks_impl<
+                    detail::prev_hard_line_break_callable,
+                    detail::next_hard_line_break_callable>(first, last);
+            }
+
+            template<typename CPRange>
+            auto operator()(CPRange && r) const noexcept
+                -> detail::cp_rng_alg_ret_t<
+                    decltype(detail::breaks_cr_impl<
+                             detail::prev_hard_line_break_callable,
+                             detail::next_hard_line_break_callable>(r)),
+                    CPRange>
+            {
+                return detail::breaks_cr_impl<
+                    detail::prev_hard_line_break_callable,
+                    detail::next_hard_line_break_callable>(r);
+            }
+
+            template<typename GraphemeRange>
+            auto operator()(GraphemeRange && r) const noexcept
+                -> detail::graph_rng_alg_ret_t<
+                    decltype(detail::breaks_gr_impl<
+                             detail::prev_hard_line_break_callable,
+                             detail::next_hard_line_break_callable>(r)),
+                    GraphemeRange>
+            {
+                return detail::breaks_gr_impl<
+                    detail::prev_hard_line_break_callable,
+                    detail::next_hard_line_break_callable>(r);
+            }
+
+            template<
+                typename CPIter,
+                typename Sentinel,
+                typename Extent,
+                typename CPExtentFunc>
+            auto operator()(
+                CPIter first,
+                Sentinel last,
+                Extent max_extent,
+                CPExtentFunc && cp_extent,
+                bool break_overlong_lines = true) const noexcept
+            {
+                return detail::lines_impl(
+                    first,
+                    last,
+                    max_extent,
+                    std::move(cp_extent),
+                    break_overlong_lines);
+            }
+
+            template<typename CPRange, typename Extent, typename CPExtentFunc>
+            auto operator()(
+                CPRange && r,
+                Extent max_extent,
+                CPExtentFunc cp_extent,
+                bool break_overlong_lines = true) const noexcept
+                -> detail::cp_rng_alg_ret_t<
+                    forward_line_break_view<
+                        detail::iterator_t<CPRange>,
+                        detail::sentinel_t<CPRange>,
+                        Extent,
+                        CPExtentFunc>,
+                    CPRange>
+
+            {
+                return detail::lines_cr_impl(
+                    r, max_extent, std::move(cp_extent), break_overlong_lines);
+            }
+
+            template<
+                typename GraphemeRange,
+                typename Extent,
+                typename CPExtentFunc>
+            auto operator()(
+                GraphemeRange && r,
+                Extent max_extent,
+                CPExtentFunc cp_extent,
+                bool break_overlong_lines = true) const noexcept
+                -> detail::graph_rng_alg_ret_t<
+                    forward_line_break_view<
+                        detail::gr_rng_cp_iter_t<GraphemeRange>,
+                        detail::gr_rng_cp_sent_t<GraphemeRange>,
+                        Extent,
+                        CPExtentFunc,
+                        line_break_grapheme_view<
+                            detail::gr_rng_cp_iter_t<GraphemeRange>>>,
+                    GraphemeRange>
+            {
+                return detail::lines_gr_impl(
+                    r, max_extent, std::move(cp_extent), break_overlong_lines);
+            }
+
+            template<
+                typename Extent,
+                typename CPExtentFunc,
+                typename Enable = std::enable_if_t<
+                    is_detected<does_arithmetic, Extent>::value>>
+            auto operator()(
+                Extent max_extent,
+                CPExtentFunc cp_extent,
+                bool break_overlong_lines = true) const noexcept
+            {
+                return detail::
+                    view_closure<lines_impl, Extent, CPExtentFunc, bool>(
+                        *this,
+                        std::move(max_extent),
+                        std::move(cp_extent),
+                        std::move(break_overlong_lines));
+            }
+
+            template<typename CPIter, typename Sentinel>
+            auto operator()(
+                CPIter first, Sentinel last, allowed_breaks_t) const noexcept
+            {
+                return detail::allowed_lines_impl(first, last);
+            }
+
+            template<typename CPRange>
+            auto operator()(CPRange && r, allowed_breaks_t) const noexcept
+                -> detail::cp_rng_alg_ret_t<
+                    line_break_view<
+                        detail::iterator_t<CPRange>,
+                        detail::sentinel_t<CPRange>>,
+                    CPRange>
+            {
+                return detail::allowed_lines_cr_impl(r);
+            }
+
+            template<typename GraphemeRange>
+            auto operator()(GraphemeRange && r, allowed_breaks_t) const noexcept
+                -> detail::graph_rng_alg_ret_t<
+                    line_break_view<
+                        detail::gr_rng_cp_iter_t<GraphemeRange>,
+                        detail::gr_rng_cp_sent_t<GraphemeRange>,
+                        line_break_grapheme_view<
+                            detail::gr_rng_cp_iter_t<GraphemeRange>>>,
+                    GraphemeRange>
+            {
+                return detail::allowed_lines_gr_impl(r);
+            }
+
+            auto operator()(allowed_breaks_t ab) const noexcept
+            {
+                return detail::view_closure<lines_impl, allowed_breaks_t>(
+                    *this, std::move(ab));
+            }
+        };
     }
 
-    template<typename CPRange>
-    auto allowed_lines(CPRange && range) noexcept->detail::cp_rng_alg_ret_t<
-        line_break_view<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>>,
-        CPRange>
-    {
-        return detail::allowed_lines_cr_impl(range);
+#if defined(__cpp_inline_variables)
+    inline constexpr dtl::lines_impl lines;
+#else
+    namespace {
+        constexpr dtl::lines_impl lines;
     }
-
-    template<typename GraphemeRange>
-    auto
-    allowed_lines(GraphemeRange && range) noexcept->detail::graph_rng_alg_ret_t<
-        line_break_view<
-            detail::gr_rng_cp_iter_t<GraphemeRange>,
-            detail::gr_rng_cp_sent_t<GraphemeRange>,
-            line_break_grapheme_view<detail::gr_rng_cp_iter_t<GraphemeRange>>>,
-        GraphemeRange>
-    {
-        return detail::allowed_lines_gr_impl(range);
-    }
+#endif
 
 #endif
 
@@ -3120,73 +3127,135 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return detail::line_gr_impl(r, it);
     }
 
-    template<code_point_iter I, std::sentinel_for<I> S>
-    auto lines(I first, S last) noexcept
-    {
-        return detail::lines_impl(first, last);
+    namespace dtl {
+        struct lines_impl : detail::pipeable<lines_impl>
+        {
+            template<code_point_iter I, std::sentinel_for<I> S>
+            auto operator()(I first, S last) const noexcept
+            {
+                return detail::breaks_impl<
+                    detail::prev_hard_line_break_callable,
+                    detail::next_hard_line_break_callable>(first, last);
+            }
+
+            template<code_point_range R>
+            auto operator()(R && r) const noexcept
+            {
+                return detail::breaks_cr_impl<
+                    detail::prev_hard_line_break_callable,
+                    detail::next_hard_line_break_callable>(r);
+            }
+
+            template<grapheme_range R>
+            auto operator()(R && r) const noexcept
+            {
+                return detail::breaks_gr_impl<
+                    detail::prev_hard_line_break_callable,
+                    detail::next_hard_line_break_callable>(r);
+            }
+
+            template<
+                code_point_iter I,
+                std::sentinel_for<I> S,
+                typename Extent,
+                line_break_cp_extent_func<I, Extent> CPExtentFunc>
+            auto operator()(
+                I first,
+                S last,
+                Extent max_extent,
+                CPExtentFunc && cp_extent,
+                bool break_overlong_lines = true) const noexcept
+            {
+                return detail::lines_impl(
+                    first,
+                    last,
+                    max_extent,
+                    std::move(cp_extent),
+                    break_overlong_lines);
+            }
+
+            template<
+                code_point_range R,
+                typename Extent,
+                line_break_cp_extent_func<std::ranges::iterator_t<R>, Extent>
+                    CPExtentFunc>
+            auto operator()(
+                R && r,
+                Extent max_extent,
+                CPExtentFunc cp_extent,
+                bool break_overlong_lines = true) const noexcept
+            {
+                return detail::lines_cr_impl(
+                    r, max_extent, std::move(cp_extent), break_overlong_lines);
+            }
+
+            template<
+                grapheme_range R,
+                typename Extent,
+                line_break_cp_extent_func<code_point_iterator_t<R>, Extent>
+                    CPExtentFunc>
+            auto operator()(
+                R && r,
+                Extent max_extent,
+                CPExtentFunc cp_extent,
+                bool break_overlong_lines = true) const noexcept
+            {
+                return detail::lines_gr_impl(
+                    r, max_extent, std::move(cp_extent), break_overlong_lines);
+            }
+
+            template<std::integral Extent, typename CPExtentFunc>
+            auto operator()(
+                Extent max_extent,
+                CPExtentFunc cp_extent,
+                bool break_overlong_lines = true) const noexcept
+            {
+                return detail::view_closure(
+                    *this,
+                    std::move(max_extent),
+                    std::move(cp_extent),
+                    std::move(break_overlong_lines));
+            }
+
+            template<std::floating_point Extent, typename CPExtentFunc>
+            auto operator()(
+                Extent max_extent,
+                CPExtentFunc cp_extent,
+                bool break_overlong_lines = true) const noexcept
+            {
+                return detail::view_closure(
+                    *this,
+                    std::move(max_extent),
+                    std::move(cp_extent),
+                    std::move(break_overlong_lines));
+            }
+
+            template<code_point_iter I, std::sentinel_for<I> S>
+            auto operator()(I first, S last, allowed_breaks_t) const noexcept
+            {
+                return detail::allowed_lines_impl(first, last);
+            }
+
+            template<code_point_range R>
+            auto operator()(R && r, allowed_breaks_t) const noexcept
+            {
+                return detail::allowed_lines_cr_impl(r);
+            }
+
+            template<grapheme_range R>
+            auto operator()(R && r, allowed_breaks_t) const noexcept
+            {
+                return detail::allowed_lines_gr_impl(r);
+            }
+
+            auto operator()(allowed_breaks_t ab) const noexcept
+            {
+                return detail::view_closure(*this, std::move(ab));
+            }
+        };
     }
 
-    template<code_point_range R>
-    auto lines(R && r) noexcept
-    {
-        return detail::lines_cr_impl(r);
-    }
-
-    template<grapheme_range R>
-    auto lines(R && r) noexcept
-    {
-        return detail::lines_gr_impl(r);
-    }
-
-    template<
-        code_point_iter I,
-        std::sentinel_for<I> S,
-        typename Extent,
-        line_break_cp_extent_func<I, Extent> CPExtentFunc>
-    auto lines(
-        I first,
-        S last,
-        Extent max_extent,
-        CPExtentFunc && cp_extent,
-        bool break_overlong_lines = true) noexcept
-    {
-        return detail::lines_impl(
-            first,
-            last,
-            max_extent,
-            std::move(cp_extent),
-            break_overlong_lines);
-    }
-
-    template<
-        code_point_range R,
-        typename Extent,
-        line_break_cp_extent_func<std::ranges::iterator_t<R>, Extent>
-            CPExtentFunc>
-    auto lines(
-        R && r,
-        Extent max_extent,
-        CPExtentFunc cp_extent,
-        bool break_overlong_lines = true) noexcept
-    {
-        return detail::lines_cr_impl(
-            r, max_extent, std::move(cp_extent), break_overlong_lines);
-    }
-
-    template<
-        grapheme_range R,
-        typename Extent,
-        line_break_cp_extent_func<code_point_iterator_t<R>, Extent>
-            CPExtentFunc>
-    auto lines(
-        R && r,
-        Extent max_extent,
-        CPExtentFunc cp_extent,
-        bool break_overlong_lines = true) noexcept
-    {
-        return detail::lines_gr_impl(
-            r, max_extent, std::move(cp_extent), break_overlong_lines);
-    }
+    inline constexpr dtl::lines_impl lines;
 
     template<code_point_iter I, std::sentinel_for<I> S>
     line_break_cp_view<I> allowed_line(I first, I it, S last) noexcept
@@ -3206,24 +3275,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         R && r, std::ranges::iterator_t<R> it) noexcept
     {
         return detail::allowed_line_gr_impl(r, it);
-    }
-
-    template<code_point_iter I, std::sentinel_for<I> S>
-    auto allowed_lines(I first, S last) noexcept
-    {
-        return detail::allowed_lines_impl(first, last);
-    }
-
-    template<code_point_range R>
-    auto allowed_lines(R && r) noexcept
-    {
-        return detail::allowed_lines_cr_impl(r);
-    }
-
-    template<grapheme_range R>
-    auto allowed_lines(R && r) noexcept
-    {
-        return detail::allowed_lines_gr_impl(r);
     }
 
 }}}
