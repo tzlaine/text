@@ -1244,7 +1244,8 @@ TEST(break_apis, sentence_break)
         EXPECT_EQ(i, (int)sentence_bounds.size());
 
         auto const all_sentences_reversed =
-            boost::text::reversed_sentences(cps.begin(), cps.end());
+            boost::text::sentences(cps.begin(), cps.end()) |
+            boost::text::reverse;
         i = sentence_bounds.size();
         for (auto sentence : all_sentences_reversed) {
             --i;
@@ -1273,7 +1274,7 @@ TEST(break_apis, sentence_break)
         EXPECT_EQ(i, (int)sentence_bounds.size());
 
         auto const all_sentences_reversed =
-            boost::text::reversed_sentences(cps);
+            boost::text::sentences(cps) | boost::text::reverse;
         i = sentence_bounds.size();
         for (auto sentence : all_sentences_reversed) {
             --i;
@@ -1368,6 +1369,9 @@ TEST(break_apis, sentence_break_sentinel)
         EXPECT_EQ(std::distance(begin, range.end()), 2);
     }
 
+    // This only works in C++20 and later, because range-for does not support
+    // non-common_ranges before that.
+#if 202002L <= __cplusplus
     {
         auto const all_sentences = boost::text::sentences(begin, end);
 
@@ -1407,6 +1411,7 @@ TEST(break_apis, sentence_break_sentinel)
         }
         EXPECT_EQ(i, (int)sentence_bounds.size());
     }
+#endif
 }
 
 TEST(break_apis, line_break)

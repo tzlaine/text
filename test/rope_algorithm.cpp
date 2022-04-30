@@ -108,7 +108,8 @@ TEST(rope_algorithm, sentence_break)
         }
         EXPECT_EQ(i, (int)sentence_bounds.size());
 
-        auto const all_sentences_reversed = reversed_sentences(cps);
+        auto const all_sentences_reversed =
+            sentences(cps) | boost::text::reverse;
         i = sentence_bounds.size();
         for (auto sentence : all_sentences_reversed) {
             --i;

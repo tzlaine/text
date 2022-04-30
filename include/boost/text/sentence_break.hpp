@@ -8,7 +8,7 @@
 
 #include <boost/text/algorithm.hpp>
 #include <boost/text/grapheme_view.hpp>
-#include <boost/text/lazy_segment_range.hpp>
+#include <boost/text/detail/breaks_impl.hpp>
 
 #include <boost/assert.hpp>
 
@@ -770,100 +770,6 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 detail::next_sentence_break_impl(first, range.end().base()),
                 range.end().base()};
         }
-
-        template<typename CPIter, typename Sentinel>
-        lazy_segment_range<
-            CPIter,
-            Sentinel,
-            next_sentence_callable<CPIter, Sentinel>>
-        sentences_impl(CPIter first, Sentinel last) noexcept
-        {
-            next_sentence_callable<CPIter, Sentinel> next;
-            return {std::move(next), {first, last}, {last}};
-        }
-
-        template<typename CPRange>
-        auto sentences_cr_impl(CPRange && range) noexcept -> lazy_segment_range<
-            iterator_t<CPRange>,
-            sentinel_t<CPRange>,
-            next_sentence_callable<iterator_t<CPRange>, sentinel_t<CPRange>>>
-        {
-            next_sentence_callable<iterator_t<CPRange>, sentinel_t<CPRange>>
-                next;
-            return {
-                std::move(next),
-                {std::begin(range), std::end(range)},
-                {std::end(range)}};
-        }
-
-        template<typename GraphemeRange>
-        auto sentences_gr_impl(GraphemeRange && range) noexcept
-            -> lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                next_sentence_callable<
-                    decltype(range.begin().base()),
-                    decltype(range.begin().base())>,
-                grapheme_view<decltype(range.begin().base())>>
-        {
-            using cp_iter_t = decltype(range.begin().base());
-            next_sentence_callable<cp_iter_t, cp_iter_t> next;
-            return {
-                std::move(next),
-                {range.begin().base(), range.end().base()},
-                {range.end().base()}};
-        }
-
-        template<typename CPIter>
-        lazy_segment_range<
-            CPIter,
-            CPIter,
-            prev_sentence_callable<CPIter>,
-            utf32_view<CPIter>,
-            const_reverse_lazy_segment_iterator,
-            true>
-        reversed_sentences_impl(CPIter first, CPIter last) noexcept
-        {
-            prev_sentence_callable<CPIter> prev;
-            return {std::move(prev), {first, last, last}, {first, first, last}};
-        }
-
-        template<typename CPRange>
-        auto reversed_sentences_cr_impl(CPRange && range) noexcept
-            -> lazy_segment_range<
-                iterator_t<CPRange>,
-                sentinel_t<CPRange>,
-                prev_sentence_callable<iterator_t<CPRange>>,
-                utf32_view<iterator_t<CPRange>>,
-                const_reverse_lazy_segment_iterator,
-                true>
-        {
-            prev_sentence_callable<iterator_t<CPRange>> prev;
-            return {
-                std::move(prev),
-                {std::begin(range), std::end(range), std::end(range)},
-                {std::begin(range), std::begin(range), std::end(range)}};
-        }
-
-        template<typename GraphemeRange>
-        auto reversed_sentences_gr_impl(GraphemeRange && range) noexcept
-            -> lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                prev_sentence_callable<decltype(range.begin().base())>,
-                grapheme_view<decltype(range.begin().base())>,
-                const_reverse_lazy_segment_iterator,
-                true>
-        {
-            using cp_iter_t = decltype(range.begin().base());
-            prev_sentence_callable<cp_iter_t> prev;
-            return {
-                std::move(prev),
-                {range.begin().base(), range.end().base(), range.end().base()},
-                {range.begin().base(),
-                 range.begin().base(),
-                 range.end().base()}};
-        }
     }
 
 }}
@@ -1081,28 +987,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename GraphemeRange>
     detail::unspecified sentences(GraphemeRange && range) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting sentences in
-        `[first, last)`, in reverse. */
-    template<typename CPIter>
-    detail::unspecified reversed_sentences(CPIter first, CPIter last) noexcept;
-
-    /** Returns a lazy range of the code point ranges delimiting sentences in
-        `range`, in reverse.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange>
-    detail::unspecified reversed_sentences(CPRange && range) noexcept;
-
-    /** Returns a lazy range of the grapheme ranges delimiting sentences in
-        `range`, in reverse.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange>
-    detail::unspecified
-    reversed_sentences(GraphemeRange && range) noexcept;
-
 #else
 
     template<typename CPRange, typename CPIter>
@@ -1121,86 +1005,55 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return detail::sentence_gr_impl(range, it);
     }
 
-    template<typename CPIter, typename Sentinel>
-    lazy_segment_range<
-        CPIter,
-        Sentinel,
-        detail::next_sentence_callable<CPIter, Sentinel>>
-    sentences(CPIter first, Sentinel last) noexcept
-    {
-        return detail::sentences_impl(first, last);
+    namespace dtl {
+        struct sentences_impl : detail::pipeable<sentences_impl>
+        {
+            template<typename CPIter, typename Sentinel>
+            auto operator()(CPIter first, Sentinel last) const noexcept
+                -> decltype(detail::breaks_impl<
+                            detail::prev_sentence_callable,
+                            detail::next_sentence_callable>(first, last))
+            {
+                return detail::breaks_impl<
+                    detail::prev_sentence_callable,
+                    detail::next_sentence_callable>(first, last);
+            }
+
+            template<typename CPRange>
+            auto operator()(CPRange && range) const noexcept
+                -> detail::cp_rng_alg_ret_t<
+                    decltype(detail::breaks_cr_impl<
+                             detail::prev_sentence_callable,
+                             detail::next_sentence_callable>(range)),
+                    CPRange>
+            {
+                return detail::breaks_cr_impl<
+                    detail::prev_sentence_callable,
+                    detail::next_sentence_callable>(range);
+            }
+
+            template<typename GraphemeRange>
+            auto operator()(GraphemeRange && range) const noexcept
+                -> detail::graph_rng_alg_ret_t<
+                    decltype(detail::breaks_gr_impl<
+                             detail::prev_sentence_callable,
+                             detail::next_sentence_callable>(range)),
+                    GraphemeRange>
+            {
+                return detail::breaks_gr_impl<
+                    detail::prev_sentence_callable,
+                    detail::next_sentence_callable>(range);
+            }
+        };
     }
 
-    template<typename CPRange>
-    auto sentences(CPRange && range) noexcept -> detail::cp_rng_alg_ret_t<
-        lazy_segment_range<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>,
-            detail::next_sentence_callable<
-                detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>>>,
-        CPRange>
-    {
-        return detail::sentences_cr_impl(range);
+#if defined(__cpp_inline_variables)
+    inline constexpr dtl::sentences_impl sentences;
+#else
+    namespace {
+        constexpr dtl::sentences_impl sentences;
     }
-
-    template<typename GraphemeRange>
-    auto sentences(GraphemeRange && range) noexcept
-        -> detail::graph_rng_alg_ret_t<
-            lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                detail::next_sentence_callable<
-                    decltype(range.begin().base()),
-                    decltype(range.begin().base())>,
-                grapheme_view<decltype(range.begin().base())>>,
-            GraphemeRange>
-    {
-        return detail::sentences_gr_impl(range);
-    }
-
-    template<typename CPIter>
-    lazy_segment_range<
-        CPIter,
-        CPIter,
-        detail::prev_sentence_callable<CPIter>,
-        utf32_view<CPIter>,
-        detail::const_reverse_lazy_segment_iterator,
-        true>
-    reversed_sentences(CPIter first, CPIter last) noexcept
-    {
-        return detail::reversed_sentences_impl(first, last);
-    }
-
-    template<typename CPRange>
-    auto reversed_sentences(CPRange && range) noexcept
-        -> detail::cp_rng_alg_ret_t<
-            lazy_segment_range<
-                detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>,
-                detail::prev_sentence_callable<detail::iterator_t<CPRange>>,
-                utf32_view<detail::iterator_t<CPRange>>,
-                detail::const_reverse_lazy_segment_iterator,
-                true>,
-            CPRange>
-    {
-        return detail::reversed_sentences_cr_impl(range);
-    }
-
-    template<typename GraphemeRange>
-    auto reversed_sentences(GraphemeRange && range) noexcept
-        -> detail::graph_rng_alg_ret_t<
-            lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                detail::prev_sentence_callable<decltype(range.begin().base())>,
-                grapheme_view<decltype(range.begin().base())>,
-                detail::const_reverse_lazy_segment_iterator,
-                true>,
-            GraphemeRange>
-    {
-        return detail::reversed_sentences_gr_impl(range);
-    }
+#endif
 
 #endif
 
@@ -1291,43 +1144,38 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return detail::sentence_gr_impl(r, it);
     }
 
-    template<code_point_iter I, std::sentinel_for<I> S>
-    auto sentences(I first, S last) noexcept
-    {
-        return detail::sentences_impl(first, last);
+    namespace dtl {
+        struct sentences_impl : detail::pipeable<sentences_impl>
+        {
+            template<code_point_iter I, std::sentinel_for<I> S>
+            auto operator()(I first, S last) const noexcept
+            {
+                return detail::breaks_impl<
+                    detail::prev_sentence_callable,
+                    detail::next_sentence_callable>(first, last);
+            }
+
+            template<code_point_range R>
+            auto operator()(R && r) const noexcept
+            {
+                return detail::breaks_cr_impl<
+                    detail::prev_sentence_callable,
+                    detail::next_sentence_callable>(r);
+            }
+
+            template<grapheme_range R>
+            auto operator()(R && r) const noexcept
+            {
+                return detail::breaks_gr_impl<
+                    detail::prev_sentence_callable,
+                    detail::next_sentence_callable>(r);
+            }
+        };
     }
 
-    template<code_point_range R>
-    auto sentences(R && r) noexcept
-    {
-        return detail::sentences_cr_impl(r);
+    inline constexpr dtl::sentences_impl sentences;
     }
-
-    template<grapheme_range R>
-    auto sentences(R && r) noexcept
-    {
-        return detail::sentences_gr_impl(r);
-    }
-
-    template<code_point_iter I>
-    auto reversed_sentences(I first, I last) noexcept
-    {
-        return detail::reversed_sentences_impl(first, last);
-    }
-
-    template<code_point_range R>
-    auto reversed_sentences(R && r) noexcept
-    {
-        return detail::reversed_sentences_cr_impl(r);
-    }
-
-    template<grapheme_range R>
-    auto reversed_sentences(R && r) noexcept
-    {
-        return detail::reversed_sentences_gr_impl(r);
-    }
-
-}}}
+}}
 
 #endif
 
