@@ -2554,6 +2554,14 @@ TEST(break_apis, paragraph_break)
             (void)subrange;
         }
     }
+    {
+        std::string const empty_cus;
+        auto subranges =
+            empty_cus | boost::text::as_utf32 | boost::text::paragraphs;
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
 
     // ÷ 0061 × 000D × 000A ÷ 002E × 000A ÷ 0061 ÷
     std::vector<uint32_t> const cps = {0x61, 0xd, 0xa, 0x2e, 0xa, 0x61};
@@ -2667,7 +2675,8 @@ TEST(break_apis, paragraph_break)
         EXPECT_EQ(i, (int)paragraph_bounds.size());
 
         auto const all_paragraphs_reversed =
-            boost::text::reversed_paragraphs(cps.begin(), cps.end());
+            boost::text::paragraphs(cps.begin(), cps.end()) |
+            boost::text::reverse;
         i = paragraph_bounds.size();
         for (auto paragraph : all_paragraphs_reversed) {
             --i;
@@ -2698,7 +2707,37 @@ TEST(break_apis, paragraph_break)
         EXPECT_EQ(i, (int)paragraph_bounds.size());
 
         auto const all_paragraphs_reversed =
-            boost::text::reversed_paragraphs(cps);
+            boost::text::paragraphs(cps) | boost::text::reverse;
+        i = paragraph_bounds.size();
+        for (auto paragraph : all_paragraphs_reversed) {
+            --i;
+            EXPECT_EQ(
+                paragraph.begin() - cps.begin(), paragraph_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(paragraph.end() - cps.begin(), paragraph_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
+    }
+    {
+        auto const all_paragraphs = cps | boost::text::paragraphs;
+
+        std::array<std::pair<int, int>, 3> const paragraph_bounds = {
+            {{0, 3}, {3, 5}, {5, 6}}};
+
+        int i = 0;
+        for (auto paragraph : all_paragraphs) {
+            EXPECT_EQ(
+                paragraph.begin() - cps.begin(), paragraph_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(paragraph.end() - cps.begin(), paragraph_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)paragraph_bounds.size());
+
+        auto const all_paragraphs_reversed =
+            cps | boost::text::paragraphs | boost::text::reverse;
         i = paragraph_bounds.size();
         for (auto paragraph : all_paragraphs_reversed) {
             --i;
@@ -2816,6 +2855,9 @@ TEST(break_apis, paragraph_break_sentinel)
         EXPECT_EQ(std::distance(begin, range.end()), 3);
     }
 
+    // This only works in C++20 and later, because range-for does not support
+    // non-common_ranges before that.
+#if 202002L <= __cplusplus
     {
         auto const all_paragraphs = boost::text::paragraphs(begin, end);
 
@@ -2857,6 +2899,27 @@ TEST(break_apis, paragraph_break_sentinel)
         }
         EXPECT_EQ(i, (int)paragraph_bounds.size());
     }
+    {
+        auto const all_paragraphs = cp_range | boost::text::paragraphs;
+
+        std::array<std::pair<int, int>, 3> const paragraph_bounds = {
+            {{0, 3}, {3, 5}, {5, 6}}};
+
+        int i = 0;
+        for (auto paragraph : all_paragraphs) {
+            EXPECT_EQ(
+                std::distance(begin, paragraph.begin()),
+                paragraph_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(begin, paragraph.end()),
+                paragraph_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)paragraph_bounds.size());
+    }
+#endif
 }
 
 struct bidi_stateful_cp_extent

@@ -288,7 +288,8 @@ TEST(text_view_algorithm, paragraph_break)
         }
         EXPECT_EQ(i, (int)paragraph_bounds.size());
 
-        auto const all_paragraphs_reversed = reversed_paragraphs(cps);
+        auto const all_paragraphs_reversed =
+            paragraphs(cps) | boost::text::reverse;
         i = paragraph_bounds.size();
         for (auto paragraph : all_paragraphs_reversed) {
             --i;

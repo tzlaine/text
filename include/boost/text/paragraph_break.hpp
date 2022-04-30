@@ -7,7 +7,7 @@
 #define BOOST_TEXT_PARAGRAPH_BREAK_HPP
 
 #include <boost/text/grapheme_view.hpp>
-#include <boost/text/lazy_segment_range.hpp>
+#include <boost/text/detail/breaks_impl.hpp>
 
 
 namespace boost { namespace text { namespace detail {
@@ -180,97 +180,6 @@ namespace boost { namespace text { namespace detail {
             first,
             detail::next_paragraph_break_impl(first, range.end().base()),
             range.end().base()};
-    }
-
-    template<typename CPIter, typename Sentinel>
-    lazy_segment_range<
-        CPIter,
-        Sentinel,
-        next_paragraph_callable<CPIter, Sentinel>>
-    paragraphs_impl(CPIter first, Sentinel last) noexcept
-    {
-        next_paragraph_callable<CPIter, Sentinel> next;
-        return {std::move(next), {first, last}, {last}};
-    }
-
-    template<typename CPRange>
-    auto paragraphs_cr_impl(CPRange && range) noexcept -> lazy_segment_range<
-        iterator_t<CPRange>,
-        sentinel_t<CPRange>,
-        next_paragraph_callable<iterator_t<CPRange>, sentinel_t<CPRange>>>
-    {
-        next_paragraph_callable<iterator_t<CPRange>, sentinel_t<CPRange>> next;
-        return {
-            std::move(next),
-            {std::begin(range), std::end(range)},
-            {std::end(range)}};
-    }
-
-    template<typename GraphemeRange>
-    auto paragraphs_gr_impl(GraphemeRange && range) noexcept
-        -> lazy_segment_range<
-            decltype(range.begin().base()),
-            decltype(range.begin().base()),
-            next_paragraph_callable<
-                decltype(range.begin().base()),
-                decltype(range.begin().base())>,
-            grapheme_view<decltype(range.begin().base())>>
-    {
-        using cp_iter_t = decltype(range.begin().base());
-        next_paragraph_callable<cp_iter_t, cp_iter_t> next;
-        return {
-            std::move(next),
-            {range.begin().base(), range.end().base()},
-            {range.end().base()}};
-    }
-
-    template<typename CPIter>
-    lazy_segment_range<
-        CPIter,
-        CPIter,
-        prev_paragraph_callable<CPIter>,
-        utf32_view<CPIter>,
-        const_reverse_lazy_segment_iterator,
-        true>
-    reversed_paragraphs_impl(CPIter first, CPIter last) noexcept
-    {
-        prev_paragraph_callable<CPIter> prev;
-        return {std::move(prev), {first, last, last}, {first, first, last}};
-    }
-
-    template<typename CPRange>
-    auto reversed_paragraphs_cr_impl(CPRange && range) noexcept
-        -> lazy_segment_range<
-            iterator_t<CPRange>,
-            sentinel_t<CPRange>,
-            prev_paragraph_callable<iterator_t<CPRange>>,
-            utf32_view<iterator_t<CPRange>>,
-            const_reverse_lazy_segment_iterator,
-            true>
-    {
-        prev_paragraph_callable<iterator_t<CPRange>> prev;
-        return {
-            std::move(prev),
-            {std::begin(range), std::end(range), std::end(range)},
-            {std::begin(range), std::begin(range), std::end(range)}};
-    }
-
-    template<typename GraphemeRange>
-    auto reversed_paragraphs_gr_impl(GraphemeRange && range) noexcept
-        -> lazy_segment_range<
-            decltype(range.begin().base()),
-            decltype(range.begin().base()),
-            prev_paragraph_callable<decltype(range.begin().base())>,
-            grapheme_view<decltype(range.begin().base())>,
-            const_reverse_lazy_segment_iterator,
-            true>
-    {
-        using cp_iter_t = decltype(range.begin().base());
-        prev_paragraph_callable<cp_iter_t> prev;
-        return {
-            std::move(prev),
-            {range.begin().base(), range.end().base(), range.end().base()},
-            {range.begin().base(), range.begin().base(), range.end().base()}};
     }
 
 }}}
@@ -495,28 +404,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename GraphemeRange>
     detail::unspecified paragraphs(GraphemeRange && range) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting paragraphs in
-        `[first, last)`, in reverse. */
-    template<typename CPIter>
-    detail::unspecified reversed_paragraphs(CPIter first, CPIter last) noexcept;
-
-    /** Returns a lazy range of the code point ranges delimiting paragraphs in
-        `range`, in reverse.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange>
-    detail::unspecified reversed_paragraphs(CPRange && range) noexcept;
-
-    /** Returns a lazy range of the grapheme ranges delimiting paragraphs in
-        `range`, in reverse.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange>
-    detail::unspecified
-    reversed_paragraphs(GraphemeRange && range) noexcept;
-
 #else
 
     template<typename CPRange, typename CPIter>
@@ -535,86 +422,55 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return detail::paragraph_gr_impl(range, it);
     }
 
-    template<typename CPIter, typename Sentinel>
-    lazy_segment_range<
-        CPIter,
-        Sentinel,
-        detail::next_paragraph_callable<CPIter, Sentinel>>
-    paragraphs(CPIter first, Sentinel last) noexcept
-    {
-        return detail::paragraphs_impl(first, last);
+    namespace dtl {
+        struct paragraphs_impl : detail::pipeable<paragraphs_impl>
+        {
+            template<typename CPIter, typename Sentinel>
+            auto operator()(CPIter first, Sentinel last) const noexcept
+                -> decltype(detail::breaks_impl<
+                            detail::prev_paragraph_callable,
+                            detail::next_paragraph_callable>(first, last))
+            {
+                return detail::breaks_impl<
+                    detail::prev_paragraph_callable,
+                    detail::next_paragraph_callable>(first, last);
+            }
+
+            template<typename CPRange>
+            auto operator()(CPRange && range) const noexcept
+                -> detail::cp_rng_alg_ret_t<
+                    decltype(detail::breaks_cr_impl<
+                             detail::prev_paragraph_callable,
+                             detail::next_paragraph_callable>(range)),
+                    CPRange>
+            {
+                return detail::breaks_cr_impl<
+                    detail::prev_paragraph_callable,
+                    detail::next_paragraph_callable>(range);
+            }
+
+            template<typename GraphemeRange>
+            auto operator()(GraphemeRange && range) const noexcept
+                -> detail::graph_rng_alg_ret_t<
+                    decltype(detail::breaks_gr_impl<
+                             detail::prev_paragraph_callable,
+                             detail::next_paragraph_callable>(range)),
+                    GraphemeRange>
+            {
+                return detail::breaks_gr_impl<
+                    detail::prev_paragraph_callable,
+                    detail::next_paragraph_callable>(range);
+            }
+        };
     }
 
-    template<typename CPRange>
-    auto paragraphs(CPRange && range) noexcept->detail::cp_rng_alg_ret_t<
-        lazy_segment_range<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>,
-            detail::next_paragraph_callable<
-                detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>>>,
-        CPRange>
-    {
-        return detail::paragraphs_cr_impl(range);
+#if defined(__cpp_inline_variables)
+    inline constexpr dtl::paragraphs_impl paragraphs;
+#else
+    namespace {
+        constexpr dtl::paragraphs_impl paragraphs;
     }
-
-    template<typename GraphemeRange>
-    auto paragraphs(GraphemeRange && range) noexcept
-        ->detail::graph_rng_alg_ret_t<
-            lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                detail::next_paragraph_callable<
-                    decltype(range.begin().base()),
-                    decltype(range.begin().base())>,
-                grapheme_view<decltype(range.begin().base())>>,
-            GraphemeRange>
-    {
-        return detail::paragraphs_gr_impl(range);
-    }
-
-    template<typename CPIter>
-    lazy_segment_range<
-        CPIter,
-        CPIter,
-        detail::prev_paragraph_callable<CPIter>,
-        utf32_view<CPIter>,
-        detail::const_reverse_lazy_segment_iterator,
-        true>
-    reversed_paragraphs(CPIter first, CPIter last) noexcept
-    {
-        return detail::reversed_paragraphs_impl(first, last);
-    }
-
-    template<typename CPRange>
-    auto reversed_paragraphs(CPRange && range) noexcept
-        ->detail::cp_rng_alg_ret_t<
-            lazy_segment_range<
-                detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>,
-                detail::prev_paragraph_callable<detail::iterator_t<CPRange>>,
-                utf32_view<detail::iterator_t<CPRange>>,
-                detail::const_reverse_lazy_segment_iterator,
-                true>,
-            CPRange>
-    {
-        return detail::reversed_paragraphs_cr_impl(range);
-    }
-
-    template<typename GraphemeRange>
-    auto reversed_paragraphs(GraphemeRange && range) noexcept
-        ->detail::graph_rng_alg_ret_t<
-            lazy_segment_range<
-                decltype(range.begin().base()),
-                decltype(range.begin().base()),
-                detail::prev_paragraph_callable<decltype(range.begin().base())>,
-                grapheme_view<decltype(range.begin().base())>,
-                detail::const_reverse_lazy_segment_iterator,
-                true>,
-            GraphemeRange>
-    {
-        return detail::reversed_paragraphs_gr_impl(range);
-    }
+#endif
 
 #endif
 
@@ -703,41 +559,36 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return detail::paragraph_gr_impl(r, it);
     }
 
-    template<code_point_iter I, std::sentinel_for<I> S>
-    auto paragraphs(I first, S last) noexcept
-    {
-        return detail::paragraphs_impl(first, last);
+    namespace dtl {
+        struct paragraphs_impl : detail::pipeable<paragraphs_impl>
+        {
+            template<code_point_iter I, std::sentinel_for<I> S>
+            auto operator()(I first, S last) const noexcept
+            {
+                return detail::breaks_impl<
+                    detail::prev_paragraph_callable,
+                    detail::next_paragraph_callable>(first, last);
+            }
+
+            template<code_point_range R>
+            auto operator()(R && r) const noexcept
+            {
+                return detail::breaks_cr_impl<
+                    detail::prev_paragraph_callable,
+                    detail::next_paragraph_callable>(r);
+            }
+
+            template<grapheme_range R>
+            auto operator()(R && r) const noexcept
+            {
+                return detail::breaks_gr_impl<
+                    detail::prev_paragraph_callable,
+                    detail::next_paragraph_callable>(r);
+            }
+        };
     }
 
-    template<code_point_range R>
-    auto paragraphs(R && r) noexcept
-    {
-        return detail::paragraphs_cr_impl(r);
-    }
-
-    template<grapheme_range R>
-    auto paragraphs(R && r) noexcept
-    {
-        return detail::paragraphs_gr_impl(r);
-    }
-
-    template<code_point_iter I>
-    auto reversed_paragraphs(I first, I last) noexcept
-    {
-        return detail::reversed_paragraphs_impl(first, last);
-    }
-
-    template<code_point_range R>
-    auto reversed_paragraphs(R && r) noexcept
-    {
-        return detail::reversed_paragraphs_cr_impl(r);
-    }
-
-    template<grapheme_range R>
-    auto reversed_paragraphs(R && r) noexcept
-    {
-        return detail::reversed_paragraphs_gr_impl(r);
-    }
+    inline constexpr dtl::paragraphs_impl paragraphs;
 
 }}}
 

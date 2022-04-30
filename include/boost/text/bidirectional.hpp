@@ -1940,9 +1940,10 @@ namespace boost { namespace text {
                 next_reordered_run();
             }
 
-            using paragraphs_t = lazy_segment_range<
+            using paragraphs_t = break_view<
                 CPIter,
                 Sentinel,
+                prev_paragraph_callable<CPIter>,
                 next_paragraph_callable<CPIter, Sentinel>>;
 
             using pae_cp_iterator = props_and_embeddings_cp_iterator<CPIter>;
@@ -2030,7 +2031,7 @@ namespace boost { namespace text {
 
             paragraphs_t paragraphs_;
             typename paragraphs_t::iterator paragraphs_it_;
-            typename paragraphs_t::iterator paragraphs_last_;
+            typename paragraphs_t::sentinel paragraphs_last_;
 
             next_t next_line_;
             lines_t lines_;

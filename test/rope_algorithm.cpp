@@ -384,7 +384,44 @@ TEST(rope_algorithm, paragraph_break)
         }
         EXPECT_EQ(i, (int)paragraph_bounds.size());
 
-        auto const all_paragraphs_reversed = reversed_paragraphs(cps);
+        auto const all_paragraphs_reversed =
+            paragraphs(cps) | boost::text::reverse;
+        i = paragraph_bounds.size();
+        for (auto paragraph : all_paragraphs_reversed) {
+            --i;
+            EXPECT_EQ(
+                std::distance(cps.cbegin(), paragraph.begin()),
+                paragraph_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(cps.cbegin(), paragraph.end()),
+                paragraph_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
+    }
+
+    {
+        auto const all_paragraphs = cps | paragraphs;
+
+        std::array<std::pair<int, int>, 1> const paragraph_bounds = {{{0, 5}}};
+
+        int i = 0;
+        for (auto paragraph : all_paragraphs) {
+            EXPECT_EQ(
+                std::distance(cps.cbegin(), paragraph.begin()),
+                paragraph_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(cps.cbegin(), paragraph.end()),
+                paragraph_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)paragraph_bounds.size());
+
+        auto const all_paragraphs_reversed =
+            cps | paragraphs | boost::text::reverse;
         i = paragraph_bounds.size();
         for (auto paragraph : all_paragraphs_reversed) {
             --i;
