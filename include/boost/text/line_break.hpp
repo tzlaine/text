@@ -208,8 +208,8 @@ namespace boost { namespace text {
     };
 
     /** A tag type that can be passed to the `lines` view adaptor.  Pass the
-        constant `boost::text::allowed_breaks` to get lines divided only by
-        allowed line breaks. */
+        constant `boost::text::allowed_breaks` to get lines divided by allowed
+        and hard line breaks, instead of only by hard line breaks. */
     struct allowed_breaks_t
     {};
 
