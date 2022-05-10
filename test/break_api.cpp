@@ -2006,7 +2006,6 @@ TEST(break_apis, line_break_sentinel)
         EXPECT_EQ(i, (int)line_bounds.size());
     }
 
-#if 0 // TODO: Broken!
     // GraphemeRange API
     {
         auto const all_lines = c_str | boost::text::as_graphemes |
@@ -2017,17 +2016,18 @@ TEST(break_apis, line_break_sentinel)
         auto const ultimate_begin = all_lines_begin.base().base();
         EXPECT_EQ(ultimate_begin, c_str);
 
+        // In code units, not code points.
         std::array<std::pair<int, int>, 2> const line_bounds = {
-            {{0, 2}, {2, 3}}};
+            {{0, 4}, {4, 5}}};
 
         int i = 0;
         for (auto line : all_lines) {
             EXPECT_EQ(
-                std::distance(all_lines_begin, line.begin()),
+                std::distance(c_str, line.begin().base().base()),
                 line_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(
-                std::distance(all_lines_begin, line.end()),
+                std::distance(c_str, line.end().base().base()),
                 line_bounds[i].second)
                 << "i=" << i;
             ++i;
@@ -2042,26 +2042,26 @@ TEST(break_apis, line_break_sentinel)
         auto const all_lines_begin = all_lines.begin()->begin();
 
         auto const ultimate_begin = all_lines_begin.base().base();
-        EXPECT_EQ(ultimate_begin, c_str);
+        EXPECT_EQ(ultimate_begin, c_str + 4);
 
+        // In code units, not code points.
         std::array<std::pair<int, int>, 2> const line_bounds = {
-            {{0, 2}, {2, 3}}};
+            {{0, 4}, {4, 5}}};
 
         int i = 2;
         for (auto line : all_lines) {
             --i;
             EXPECT_EQ(
-                std::distance(all_lines_begin, line.begin()),
+                std::distance(c_str, line.begin().base().base()),
                 line_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(
-                std::distance(all_lines_begin, line.end()),
+                std::distance(c_str, line.end().base().base()),
                 line_bounds[i].second)
                 << "i=" << i;
         }
         EXPECT_EQ(i, 0);
     }
-#endif
     {
         auto const all_lines =
             c_str | boost::text::as_graphemes | boost::text::lines;
