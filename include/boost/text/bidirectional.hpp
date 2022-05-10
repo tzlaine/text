@@ -15,6 +15,7 @@
 #include <boost/text/detail/bidirectional.hpp>
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/generator.hpp>
+#include <boost/text/detail/lazy_segment_range.hpp>
 
 #include <boost/optional.hpp>
 #include <boost/container/small_vector.hpp>

@@ -11,6 +11,7 @@
 #include <boost/text/detail/case_constants.hpp>
 #include <boost/text/detail/case_mapping_data.hpp>
 #include <boost/text/detail/normalization_data.hpp>
+#include <boost/text/detail/lazy_segment_range.hpp>
 
 #include <numeric>
 
@@ -921,7 +922,7 @@ namespace boost { namespace text {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
         NextWordBreakFunc next;
-        lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
+        detail::lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
             std::move(next), {first, last}, {last}};
         for (auto r : words) {
             auto it = r.begin();
@@ -1016,7 +1017,7 @@ namespace boost { namespace text {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
         NextWordBreakFunc next;
-        lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
+        detail::lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
             std::move(next), {it, last}, {last}};
 
         for (auto r : words) {
