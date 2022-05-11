@@ -69,6 +69,12 @@ _CPRng_ parameters.  For convenience, overloads are provided for many of the
 Unicode layer algorithms that take _GrRng_ and _GrIter_ parameters.  This
 provides convenient compatibility with the text layer types, like _t_ and _r_.
 
+Many of the algorithms and other functions accept null-terminated pointers,
+and treat them as ranges.  This is done to make calling them with string
+literals and other null-terminated strings easier.  A null terminated string
+`s` is isomorphic with the range `[s, boost::text::null_sentinel{})`, and this
+is what _Text_'s functions treat null-terminated strings as internally.
+
 [heading Memory Allocations]
 
 Many of the Unicode algorithms require that intermediate results be
@@ -340,8 +346,8 @@ will use `first.base()` for its begin-iterator.
 
 When you only need to transcode from one UTF encoding to another, use the
 transcoding algorithms instead of the transcoding iterators.  The algorithms
-are quite a bit faster in most cases (_tc_8_to_32_ is particularly faster, as
-it uses SIMD instructions when available).
+are quite a bit faster in most cases (_tc_to_32_ is particularly faster when
+given UTF-8 input, as it uses SIMD instructions when available).
 
 There are three of these, just as there are three make-functions for
 transcoding iterators:
@@ -363,9 +369,6 @@ optimization.  See the _unpacking_ section for details.
 [important Though these algorithms are generic, some of the optimizations in
 them require pointers on both the input and output iterators for maximum
 performance.  In performance-critical code paths, stick to pointers.]
-
-[The transcoding algorithms do iterator unpacking.  See the section on
-_unpacking_ for details.]
 
 
 [heading Choosing a Transcoding Mechanism]
@@ -417,7 +420,7 @@ of umlauts).  It is valid to have an 'A' followed by 100 million umlauts.
 This is valid but not useful.  Unicode specifies something called the
 _str_safe_.  This format inserts extra code points between combiners to ensure
 that there are never more than 30 combiners in a row.  In practice, you should
-never need anywhere near that number.
+never need anywhere near 30.
 
 _Text_ provides an API for putting text in a _str_safe_:
 
@@ -426,7 +429,7 @@ _Text_ provides an API for putting text in a _str_safe_:
     code_points.erase(it.base(), code_points.end());
     assert(boost::text::is_safe_stream(code_points));
 
-There is also a lazy-range API:
+There is also a view API:
 
     std::vector<uint32_t> code_points = /* ... */;
     auto const stream_safe_view = boost::text::as_stream_safe(code_points);
@@ -543,7 +546,7 @@ there is always an implicit break at the end of a sequence of _cps_, if `it`
 This behavior allows us to do two convenient things with `prev_X_break()`.
 First, we can use `prev_X_break(first, it, last) == it` as a predicate that
 `it` is at a break.  Second, we can use `prev_X_break()` followed by
-`next_X_break()` to find the nearest breaks that include `it`.
+`next_X_break()` to find the nearest breaks around `it`.
 
 Note that `prev_X_break()` requires `last` because in the general case, the
 algorithm needs to know context after `it` to determine where the breaks are
@@ -564,13 +567,13 @@ in which `it` is found.
     template<typename CPIter, typename Sentinel>
     auto Xs(CPIter first, Sentinel last) noexcept;
 
-`Xs()` returns a lazy range of subranges of `[first, last)`.  Each subrange is an `X`.
+`Xs()` returns a view of subranges of `[first, last)`.  Each subrange is an
+`X`.  `Xs` is a view adaptor, and can be used in pipe expressions _emdash_
+without parameters _emdash_ as in `r | Xs`.
 
-    template<typename CPIter>
-    auto reversed_Xs(CPIter first, CPIter last) noexcept;
-
-`reversed_Xs()` returns the same thing as `Xs()`, with the subranges in
-reverse order.
+[note Since all the text segmentation operations can be done in in terms of
+next and previous steps, `Xs` can be reversed.  Use `boost::text::reverse` or
+`std::views::reverse` to do so, as in `r | Xs | std::views::reverse`]
 
 And of course there are _CPRng_ overloads as well:
 
@@ -582,8 +585,6 @@ And of course there are _CPRng_ overloads as well:
     auto X(CPRange & range, CPIter it) noexcept;
     template<typename CPRange>
     auto Xs(CPRange & range) noexcept;
-    template<typename CPRange>
-    auto reversed_Xs(CPRange & range) noexcept;
 
 For all kinds of breaks besides grapheme breaks, there are range overloads
 that accept _GrRng_ ranges _GrIter_ iterators instead.  These provide
@@ -598,8 +599,6 @@ types like _t_ and _r_.
     auto X(GraphemeRange const & range, GraphemeIter it) noexcept;
     template<typename GraphemeRange>
     auto Xs(GraphemeRange const & range) noexcept;
-    template<typename GraphemeRange>
-    auto reversed_Xs(GraphemeRange const & range) noexcept;
 
 [heading Tailoring]
 
@@ -619,9 +618,8 @@ the same notion of what a _gr_ is for that to work.
 
 [heading Alternate Grapheme API]
 
-In addition to the interface that is used for all the kinds of text
-segmentation, there is an API just for producing grapheme views, similar to
-the one for producing UTF views.  See _as_grs_ for details.
+The overload set for producing a view of graphemes, and the associated view
+adaptor, are called _as_grs_, not `graphemes()`.
 
 [important _as_grs_ produces `grapheme_view<Iter>`s (where `Iter` is some code
 point iterator).  If you call a standard algorithm in `std::ranges` with two
@@ -720,10 +718,11 @@ too.
 
 [heading Word Break Tailoring]
 
-Fortunately, unlike _gr_ breaking, word breaking is tailorable in two ways.
+Fortunately, unlike _gr_ breaking, word breaking is tailorable.  There are two
+ways to do so.
 
 Each break algorithm is defined in terms of _cp_ properties; each _cp_ is a
-letter, digit, punctuation, etc.  All the work break functions accept an
+letter, digit, punctuation, etc.  All the word break functions accept an
 optional word-property lookup function to replace the default one.
 
 For example, here I've made a custom word property lookup function that treats
@@ -1143,11 +1142,11 @@ Maps and sets have an unfair advantage, or a bug, depending on your use case.
 
 If you use a map instead of a multimap, you will not insert a value that has
 the same sort key as an element already in the map, even if that _cp_ sequence
-itself is *not* in the map.  That is, two _cp_ sequences can collate to the
-same sort key.  If you want to consider two _cp_ sequences equivalent when
-they collate the same, it is a feature, and a possibly large optimization, not
-to insert one of them.  If you want to keep all unique _cp_ sequences,
-regardless of their associated keys, this is a bug.
+itself is *not* in the map.  That is, two different _cp_ sequences can collate
+to the same sort key.  If you want to consider two _cp_ sequences equivalent
+when they collate the same, it is a feature, and a possibly large
+optimization, not to insert one of them.  If you want to keep all unique _cp_
+sequences, regardless of their associated keys, this is a bug.
 
 [heading Associative Container Perf Bottom Line]
 
@@ -1273,7 +1272,7 @@ nested within LTR.  Unicode is hard.
 
 _Text_ has an implementation of the Unicode bidirectional algorithm.  The
 interface for simple uses is straightforward; you just call the algorithm with
-a sequence of _cps_, and it returns a lazy range of subranges.  Each subrange
+a sequence of _cps_, and it returns a view of subranges.  Each subrange
 is a _bidi_cp_subrng_ (or _bidi_gr_subrng_ for the _GrRng_ overload):
 
 [bidi_simple]
@@ -1312,7 +1311,7 @@ used with some internal iterator types that do not match the _CPIters_ in the
 top-level range that you pass to `bidirectional_subranges()`.]
 
 As with most of the other Unicode layer algorithms, overloads of the two forms
-above exist for _GrRng_, _CPRng_, and pair-of-_CPIter_ inputs.
+above exist for _GrRng_, _CPRng_, and _CPIter_/sentinel inputs.
 
 [endsect]
 

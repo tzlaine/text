@@ -20,6 +20,6 @@ _emdash_ including those who know next to nothing about Unicode.
   _t_, _tv_, _r_, and _rv_.
 
 - Code familiarity -- all of the above types and algorithms work like the STL
-  containers and algorithms.
+  containers, algorithms, and views.
 
 [endsect]
