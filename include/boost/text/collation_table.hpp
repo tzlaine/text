@@ -27,18 +27,14 @@
 #include <iostream>
 #endif
 
-
 #if BOOST_TEXT_USE_STD_FILESYSTEM
-namespace std { namespace filesystem {
-    class path;
-}}
+#include <filesystem>
 #else
-namespace boost { namespace filesystem {
-    class path;
-}}
+#include <boost/filesystem.hpp>
 #endif
 
 #endif
+
 
 namespace boost { namespace text {
 

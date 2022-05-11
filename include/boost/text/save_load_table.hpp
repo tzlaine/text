@@ -10,14 +10,21 @@
 #include <boost/text/detail/serialization.hpp>
 
 #if BOOST_TEXT_USE_STD_FILESYSTEM
-#include <filesystem>
+#include <fstream>
 #else
-#include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #endif
 
 
 namespace boost { namespace text {
+
+#if BOOST_TEXT_USE_STD_FILESYSTEM
+    using fs_ifstream = std::ifstream;
+    using fs_ofstream = std::ofstream;
+#else
+    using fs_ifstream = fs::ifstream;
+    using fs_ofstream = fs::ofstream;
+#endif
 
     struct collation_table;
 
@@ -30,26 +37,26 @@ namespace boost { namespace text {
         {};
 
         template<>
-        struct tag<fs::ifstream>
+        struct tag<fs_ifstream>
         {
             using type = filesystem_fstream_tag_t;
         };
 
         template<>
-        struct tag<fs::ofstream>
+        struct tag<fs_ofstream>
         {
             using type = filesystem_fstream_tag_t;
         };
 
         template<typename T>
-        void read_bytes(fs::ifstream & ifs, T & x, filesystem_fstream_tag_t)
+        void read_bytes(fs_ifstream & ifs, T & x, filesystem_fstream_tag_t)
         {
             ifs.read(reinterpret_cast<char *>(&x), sizeof(T));
         }
 
         template<typename T>
         void
-        write_bytes(T const & x, fs::ofstream & ofs, filesystem_fstream_tag_t)
+        write_bytes(T const & x, fs_ofstream & ofs, filesystem_fstream_tag_t)
         {
             ofs.write(reinterpret_cast<char const *>(&x), sizeof(T));
         }
@@ -64,7 +71,7 @@ namespace boost { namespace text {
 
         detail::header_t header(table, trie_map);
 
-        fs::ofstream ofs(path, std::ios_base::binary);
+        fs_ofstream ofs(path, std::ios_base::binary);
 
         detail::write_bytes(header, ofs);
 
@@ -90,7 +97,7 @@ namespace boost { namespace text {
 
         detail::header_t header;
 
-        fs::ifstream ifs(path, std::ios_base::binary);
+        fs_ifstream ifs(path, std::ios_base::binary);
 
         detail::read_bytes(ifs, header);
 

@@ -7,7 +7,7 @@
 #define BOOST_TEXT_GRAPHEME_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
-#include <boost/text/lazy_segment_range.hpp>
+#include <boost/text/detail/pipeable_view.hpp>
 
 #include <boost/assert.hpp>
 
@@ -305,65 +305,6 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
                 return detail::prev_grapheme_break_impl(first, it, last);
             }
         };
-
-        template<typename CPIter, typename Sentinel>
-        lazy_segment_range<
-            CPIter,
-            Sentinel,
-            next_grapheme_callable<CPIter, Sentinel>>
-        graphemes_impl(CPIter first, Sentinel last) noexcept
-        {
-            next_grapheme_callable<CPIter, Sentinel> next;
-            return {std::move(next), {first, last}, {last}};
-        }
-
-        template<typename CPRange>
-        lazy_segment_range<
-            iterator_t<CPRange>,
-            sentinel_t<CPRange>,
-            next_grapheme_callable<iterator_t<CPRange>, sentinel_t<CPRange>>>
-        graphemes_impl(CPRange && range) noexcept
-        {
-            next_grapheme_callable<
-                iterator_t<CPRange>,
-                sentinel_t<CPRange>>
-                next;
-            return {
-                std::move(next),
-                {std::begin(range), std::end(range)},
-                {std::end(range)}};
-        }
-
-        template<typename CPIter>
-        lazy_segment_range<
-            CPIter,
-            CPIter,
-            prev_grapheme_callable<CPIter>,
-            utf32_view<CPIter>,
-            const_reverse_lazy_segment_iterator,
-            true>
-        reversed_graphemes_impl(CPIter first, CPIter last) noexcept
-        {
-            prev_grapheme_callable<CPIter> prev;
-            return {std::move(prev), {first, last, last}, {first, first, last}};
-        }
-
-        template<typename CPRange>
-        lazy_segment_range<
-            iterator_t<CPRange>,
-            sentinel_t<CPRange>,
-            prev_grapheme_callable<iterator_t<CPRange>>,
-            utf32_view<iterator_t<CPRange>>,
-            const_reverse_lazy_segment_iterator,
-            true>
-        reversed_graphemes_impl(CPRange && range) noexcept
-        {
-            prev_grapheme_callable<iterator_t<CPRange>> prev;
-            return {
-                std::move(prev),
-                {std::begin(range), std::end(range), std::end(range)},
-                {std::begin(range), std::begin(range), std::end(range)}};
-        }
     }
 
 }}
@@ -498,34 +439,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                    std::begin(range), it, std::end(range)) == it;
     }
 
-    template<typename CPIter, typename Sentinel>
-    auto graphemes(CPIter first, Sentinel last) noexcept->decltype(
-        detail::graphemes_impl(first, last))
-    {
-        return detail::graphemes_impl(first, last);
-    }
-
-    template<typename CPRange>
-    auto graphemes(CPRange && range) noexcept->decltype(
-        detail::graphemes_impl(range))
-    {
-        return detail::graphemes_impl(range);
-    }
-
-    template<typename CPIter>
-    auto reversed_graphemes(CPIter first, CPIter last) noexcept->decltype(
-        detail::reversed_graphemes_impl(first, last))
-    {
-        return detail::reversed_graphemes_impl(first, last);
-    }
-
-    template<typename CPRange>
-    auto reversed_graphemes(CPRange && range) noexcept->decltype(
-        detail::reversed_graphemes_impl(range))
-    {
-        return detail::reversed_graphemes_impl(range);
-    }
-
 #endif
 
 }}}
@@ -576,54 +489,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return true;
         return boost::text::prev_grapheme_break(
                    std::begin(range), it, std::end(range)) == it;
-    }
-
-    template<code_point_iter I, std::sentinel_for<I> S>
-    lazy_segment_range<I, S, detail::next_grapheme_callable<I, S>> graphemes(
-        I first, S last) noexcept
-    {
-        return detail::graphemes_impl(first, last);
-    }
-
-    template<code_point_range R>
-    lazy_segment_range<
-        std::ranges::iterator_t<R>,
-        std::ranges::sentinel_t<R>,
-        detail::next_grapheme_callable<
-            std::ranges::iterator_t<R>,
-            std::ranges::sentinel_t<R>>>
-        graphemes(R && range) noexcept
-    {
-        return detail::graphemes_impl(range);
-    }
-
-    template<code_point_iter I>
-    lazy_segment_range<
-        I,
-        I,
-        detail::prev_grapheme_callable<I>,
-        utf32_view<I>,
-        detail::const_reverse_lazy_segment_iterator,
-        true>
-    reversed_graphemes(I first, I last)
-    {
-        return detail::reversed_graphemes_impl(first, last);
-    }
-
-    template<code_point_range R>
-    // clang-format off
-        requires std::ranges::common_range<R>
-    lazy_segment_range<
-        // clang-format on
-        std::ranges::iterator_t<R>,
-        std::ranges::sentinel_t<R>,
-        detail::prev_grapheme_callable<std::ranges::iterator_t<R>>,
-        utf32_view<std::ranges::iterator_t<R>>,
-        detail::const_reverse_lazy_segment_iterator,
-        true>
-        reversed_graphemes(R && range) noexcept
-    {
-        return detail::reversed_graphemes_impl(range);
     }
 
 }}}
