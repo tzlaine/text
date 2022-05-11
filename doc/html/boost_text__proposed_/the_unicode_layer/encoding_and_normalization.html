@@ -436,8 +436,9 @@
 <p>
         When you only need to transcode from one UTF encoding to another, use the
         transcoding algorithms instead of the transcoding iterators. The algorithms
-        are quite a bit faster in most cases (<span class="underline">tc_8_to_32</span>
-        is particularly faster, as it uses SIMD instructions when available).
+        are quite a bit faster in most cases (<code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf3_idm22148.html" title="Function template transcode_to_utf32">transcode_to_utf32()</a></code>
+        is particularly faster when given UTF-8 input, as it uses SIMD instructions
+        when available).
       </p>
 <p>
         There are three of these, just as there are three make-functions for transcoding
@@ -445,13 +446,13 @@
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf8_idm22250.html" title="Function template transcode_to_utf8">transcode_to_utf8()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf8_idm22088.html" title="Function template transcode_to_utf8">transcode_to_utf8()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf1_idm22280.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf1_idm22118.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf3_idm22310.html" title="Function template transcode_to_utf32">transcode_to_utf32()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf3_idm22148.html" title="Function template transcode_to_utf32">transcode_to_utf32()</a></code>
           </li>
 </ul></div>
 <p>
@@ -478,10 +479,6 @@
           In performance-critical code paths, stick to pointers.
         </p></td></tr>
 </table></div>
-<p>
-        [The transcoding algorithms do iterator unpacking. See the section on <a class="link" href="encoding_and_normalization.html#boost_text__proposed_.the_unicode_layer.encoding_and_normalization.iterator__quot_unpacking_quot_">iterator
-        unpacking</a> for details.]
-      </p>
 <h5>
 <a name="boost_text__proposed_.the_unicode_layer.encoding_and_normalization.h6"></a>
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.encoding_and_normalization.choosing_a_transcoding_mechanism"></a></span><a class="link" href="encoding_and_normalization.html#boost_text__proposed_.the_unicode_layer.encoding_and_normalization.choosing_a_transcoding_mechanism">Choosing
@@ -551,7 +548,7 @@
         This is valid but not useful. Unicode specifies something called the <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
         Format</a>. This format inserts extra code points between combiners to
         ensure that there are never more than 30 combiners in a row. In practice,
-        you should never need anywhere near that number.
+        you should never need anywhere near 30.
       </p>
 <p>
         Boost.Text provides an API for putting text in a <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
@@ -563,7 +560,7 @@
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">is_safe_stream</span><span class="special">(</span><span class="identifier">code_points</span><span class="special">));</span>
 </pre>
 <p>
-        There is also a lazy-range API:
+        There is also a view API:
       </p>
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">&gt;</span> <span class="identifier">code_points</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
 <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">stream_safe_view</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_stream_safe</span><span class="special">(</span><span class="identifier">code_points</span><span class="special">);</span>
@@ -721,7 +718,7 @@
             <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_erase.html" title="Function template normalize_erase">normalize_erase()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_insert_idm18775.html" title="Function template normalize_insert">normalize_insert()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_insert_idm18768.html" title="Function template normalize_insert">normalize_insert()</a></code>
           </li>
 <li class="listitem">
             <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_replace.html" title="Function template normalize_replace">normalize_replace()</a></code>

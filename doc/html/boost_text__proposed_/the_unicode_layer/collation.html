@@ -907,11 +907,11 @@
         If you use a map instead of a multimap, you will not insert a value that
         has the same sort key as an element already in the map, even if that code
         point sequence itself is <span class="bold"><strong>not</strong></span> in the map.
-        That is, two code point sequences can collate to the same sort key. If you
-        want to consider two code point sequences equivalent when they collate the
-        same, it is a feature, and a possibly large optimization, not to insert one
-        of them. If you want to keep all unique code point sequences, regardless
-        of their associated keys, this is a bug.
+        That is, two different code point sequences can collate to the same sort
+        key. If you want to consider two code point sequences equivalent when they
+        collate the same, it is a feature, and a possibly large optimization, not
+        to insert one of them. If you want to keep all unique code point sequences,
+        regardless of their associated keys, this is a bug.
       </p>
 <h5>
 <a name="boost_text__proposed_.the_unicode_layer.collation.h3"></a>

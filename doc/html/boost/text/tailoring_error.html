@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="up" href="../../header/boost/text/parser_fwd_hpp.html" title="Header &lt;boost/text/parser_fwd.hpp&gt;">
-<link rel="prev" href="parse_error.html" title="Struct parse_error">
-<link rel="next" href="parser_diagnostic_callback.html" title="Type definition parser_diagnostic_callback">
+<link rel="prev" href="../../header/boost/text/parser_fwd_hpp.html" title="Header &lt;boost/text/parser_fwd.hpp&gt;">
+<link rel="next" href="parse_error.html" title="Struct parse_error">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="parse_error.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/parser_fwd_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="parser_diagnostic_callback.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../../header/boost/text/parser_fwd_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/parser_fwd_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="parse_error.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.text.tailoring_error"></a><div class="titlepage"></div>
@@ -23,27 +23,27 @@
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/parser_fwd_hpp.html" title="Header &lt;boost/text/parser_fwd.hpp&gt;">boost/text/parser_fwd.hpp</a>&gt;
 
 </span>
-<span class="keyword">struct</span> <a class="link" href="tailoring_error.html" title="Struct tailoring_error">tailoring_error</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">exception</span> <span class="special">{</span>
+<span class="keyword">struct</span> <a class="link" href="tailoring_error.html" title="Struct tailoring_error">tailoring_error</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">exception</span> <span class="special">{</span>
   <span class="comment">// <a class="link" href="tailoring_error.html#boost.text.tailoring_errorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="tailoring_error.html#idm19411-bb"><span class="identifier">tailoring_error</span></a><span class="special">(</span><span class="identifier">string_view</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="tailoring_error.html#idm19238-bb"><span class="identifier">tailoring_error</span></a><span class="special">(</span><span class="identifier">string_view</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="tailoring_error.html#idm19408-bb">public member functions</a></span>
-  <span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> <a class="link" href="tailoring_error.html#idm19409-bb"><span class="identifier">what</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="tailoring_error.html#idm19235-bb">public member functions</a></span>
+  <span class="keyword">char</span> <span class="keyword">const</span>  <span class="special">*</span> <a class="link" href="tailoring_error.html#idm19236-bb"><span class="identifier">what</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm29551"></a><h2>Description</h2>
+<a name="idm28415"></a><h2>Description</h2>
 <p>The type of exception thrown when some aspect of the requested tailoring cannot be performed. </p>
 <div class="refsect2">
-<a name="idm29554"></a><h3>
+<a name="idm28418"></a><h3>
 <a name="boost.text.tailoring_errorconstruct-copy-destruct"></a><code class="computeroutput">tailoring_error</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idm19411-bb"></a><span class="identifier">tailoring_error</span><span class="special">(</span><span class="identifier">string_view</span> msg<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idm19238-bb"></a><span class="identifier">tailoring_error</span><span class="special">(</span><span class="identifier">string_view</span> msg<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idm29568"></a><h3>
-<a name="idm19408-bb"></a><code class="computeroutput">tailoring_error</code> public member functions</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> <a name="idm19409-bb"></a><span class="identifier">what</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li></ol></div>
+<a name="idm28432"></a><h3>
+<a name="idm19235-bb"></a><code class="computeroutput">tailoring_error</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">char</span> <span class="keyword">const</span>  <span class="special">*</span> <a name="idm19236-bb"></a><span class="identifier">what</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li></ol></div>
 </div>
 </div>
 </div>
@@ -57,7 +57,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="parse_error.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/parser_fwd_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="parser_diagnostic_callback.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../../header/boost/text/parser_fwd_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/parser_fwd_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="parse_error.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

@@ -120,6 +120,13 @@
       like <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>
       and <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code>.
     </p>
+<p>
+      Many of the algorithms and other functions accept null-terminated pointers,
+      and treat them as ranges. This is done to make calling them with string literals
+      and other null-terminated strings easier. A null terminated string <code class="computeroutput"><span class="identifier">s</span></code> is isomorphic with the range <code class="computeroutput"><span class="special">[</span><span class="identifier">s</span><span class="special">,</span>
+      <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">null_sentinel</span><span class="special">{})</span></code>, and this is what Boost.Text's functions
+      treat null-terminated strings as internally.
+    </p>
 <h4>
 <a name="boost_text__proposed_.the_unicode_layer.h3"></a>
       <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.memory_allocations"></a></span><a class="link" href="the_unicode_layer.html#boost_text__proposed_.the_unicode_layer.memory_allocations">Memory

@@ -43,7 +43,7 @@
       <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>
       have copy-on-write semantics. This means that often a copy of a very large
       <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>
-      is nearly free, and that a mutated copy of a <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code> often shares much
+      is nearly free, and that a mutated copy of an <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code> often shares much
       of its data with the <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code> from which it
       was copied.
     </p>
@@ -160,7 +160,7 @@
 </table></div>
 <p>
       Besides the segmented nature of <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>, there are some
-      other properties you need to know about. A <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code> as a whole is
+      other properties you need to know about. An <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code> as a whole is
       copy-on-write; it is also therefore thread-safe for reading and writing; it
       is not null-terminated.
     </p>
@@ -169,7 +169,7 @@
       where B is the branching factor (maximum number of children per interior node).
       As mentioned before, B is an implementation detail, and thus subject to change,
       but it is unlikely to be less than 16. That means very little pointer chasing
-      is required to access an arbitrary element of a <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>, because its tree
+      is required to access an arbitrary element of an <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>, because its tree
       is very shallow.
     </p>
 <p>
@@ -180,7 +180,7 @@
       <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="number">1</span><span class="special">)</span></code>!
     </p>
 <p>
-      As mentioned previously, mutations to a <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code> are done in-place
+      As mentioned previously, mutations to an <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code> are done in-place
       if the mutations do not affect nodes that are shared with other <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_ropes</a></code>.
     </p>
 <p>
@@ -221,9 +221,9 @@
 <p>
       <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>
       contains logic like the pseudocode below to determine when to create a partial
-      copy of a <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>'s
+      copy of an <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>'s
       tree, or when to mutate the tree in-place when performing inserts or erases
-      on a <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>:
+      on an <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>:
     </p>
 <pre class="programlisting"><span class="identifier">path</span> <span class="special">=</span> <span class="identifier">find_path_from_root_to_mutation_point</span><span class="special">()</span>
 <span class="identifier">in_place</span> <span class="special">=</span> <span class="keyword">true</span>

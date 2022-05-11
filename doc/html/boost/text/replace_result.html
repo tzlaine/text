@@ -30,35 +30,35 @@
   <span class="keyword">typedef</span> <span class="identifier">Iter</span> <a name="boost.text.replace_result.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="replace_result.html#boost.text.replace_resultconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="replace_result.html#idm18718-bb"><span class="identifier">replace_result</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="replace_result.html#idm18719-bb"><span class="identifier">replace_result</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="replace_result.html#idm18711-bb"><span class="identifier">replace_result</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="replace_result.html#idm18712-bb"><span class="identifier">replace_result</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="replace_result.html#idm18711-bb">public member functions</a></span>
-  <span class="identifier">iterator</span> <a class="link" href="replace_result.html#idm18712-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="replace_result.html#idm18714-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="replace_result.html#idm18716-bb"><span class="keyword">operator</span> <span class="identifier">iterator</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="replace_result.html#idm18704-bb">public member functions</a></span>
+  <span class="identifier">iterator</span> <a class="link" href="replace_result.html#idm18705-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="replace_result.html#idm18707-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="replace_result.html#idm18709-bb"><span class="keyword">operator</span> <span class="identifier">iterator</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm27506"></a><h2>Description</h2>
+<a name="idm27222"></a><h2>Description</h2>
 <p>The result of inserting a sequence of code points <code class="computeroutput">S</code> into another sequence of code points <code class="computeroutput">D</code>, ensuring proper normalization. Since the insertion operation may need to change some code points just before and/or just after the insertion due to normalization, the code points bounded by this range may be longer than <code class="computeroutput">S</code>. Values of this type represent the entire sequence of of code points in <code class="computeroutput">D</code> that have changed.</p>
 <p>Note that the iterator type refers to the underlying sequence, which may not itself be a sequence of code points. For example, the underlying sequence may be a sequence of <code class="computeroutput">char</code> which is interpreted as UTF-8. </p>
 <div class="refsect2">
-<a name="idm27515"></a><h3>
+<a name="idm27231"></a><h3>
 <a name="boost.text.replace_resultconstruct-copy-destruct"></a><code class="computeroutput">replace_result</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm18718-bb"></a><span class="identifier">replace_result</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm18719-bb"></a><span class="identifier">replace_result</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm18711-bb"></a><span class="identifier">replace_result</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm18712-bb"></a><span class="identifier">replace_result</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm27539"></a><h3>
-<a name="idm18711-bb"></a><code class="computeroutput">replace_result</code> public member functions</h3>
+<a name="idm27255"></a><h3>
+<a name="idm18704-bb"></a><code class="computeroutput">replace_result</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm18712-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm18714-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm18716-bb"></a><span class="keyword">operator</span> <span class="identifier">iterator</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm18705-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm18707-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm18709-bb"></a><span class="keyword">operator</span> <span class="identifier">iterator</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

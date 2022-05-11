@@ -50,8 +50,7 @@
         <span class="identifier">last</span><span class="special">)</span>
         <span class="special">==</span> <span class="identifier">it</span></code>
         as a predicate that <code class="computeroutput"><span class="identifier">it</span></code> is
-        at a break. Second, we can use <code class="computeroutput"><span class="identifier">prev_X_break</span><span class="special">()</span></code> followed by <code class="computeroutput"><span class="identifier">next_X_break</span><span class="special">()</span></code> to find the nearest breaks that include
-        <code class="computeroutput"><span class="identifier">it</span></code>.
+        at a break. Second, we can use <code class="computeroutput"><span class="identifier">prev_X_break</span><span class="special">()</span></code> followed by <code class="computeroutput"><span class="identifier">next_X_break</span><span class="special">()</span></code> to find the nearest breaks around <code class="computeroutput"><span class="identifier">it</span></code>.
       </p>
 <p>
         Note that <code class="computeroutput"><span class="identifier">prev_X_break</span><span class="special">()</span></code>
@@ -82,16 +81,22 @@
 </pre>
 <p>
         <code class="computeroutput"><span class="identifier">Xs</span><span class="special">()</span></code>
-        returns a lazy range of subranges of <code class="computeroutput"><span class="special">[</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">)</span></code>.
-        Each subrange is an <code class="computeroutput"><span class="identifier">X</span></code>.
+        returns a view of subranges of <code class="computeroutput"><span class="special">[</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">)</span></code>.
+        Each subrange is an <code class="computeroutput"><span class="identifier">X</span></code>. <code class="computeroutput"><span class="identifier">Xs</span></code> is a view adaptor, and can be used in
+        pipe expressions &#8212; without parameters &#8212; as in <code class="computeroutput"><span class="identifier">r</span> <span class="special">|</span> <span class="identifier">Xs</span></code>.
       </p>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">&gt;</span>
-<span class="keyword">auto</span> <span class="identifier">reversed_Xs</span><span class="special">(</span><span class="identifier">CPIter</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">CPIter</span> <span class="identifier">last</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-</pre>
-<p>
-        <code class="computeroutput"><span class="identifier">reversed_Xs</span><span class="special">()</span></code>
-        returns the same thing as <code class="computeroutput"><span class="identifier">Xs</span><span class="special">()</span></code>, with the subranges in reverse order.
-      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          Since all the text segmentation operations can be done in in terms of next
+          and previous steps, <code class="computeroutput"><span class="identifier">Xs</span></code>
+          can be reversed. Use <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reverse</span></code>
+          or <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">views</span><span class="special">::</span><span class="identifier">reverse</span></code> to do so, as in <code class="computeroutput"><span class="identifier">r</span> <span class="special">|</span> <span class="identifier">Xs</span> <span class="special">|</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">views</span><span class="special">::</span><span class="identifier">reverse</span></code>
+        </p></td></tr>
+</table></div>
 <p>
         And of course there are <a class="link" href="../concepts.html" title="Concepts">CPRange</a>
         overloads as well:
@@ -104,8 +109,6 @@
 <span class="keyword">auto</span> <span class="identifier">X</span><span class="special">(</span><span class="identifier">CPRange</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">CPIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPRange</span><span class="special">&gt;</span>
 <span class="keyword">auto</span> <span class="identifier">Xs</span><span class="special">(</span><span class="identifier">CPRange</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPRange</span><span class="special">&gt;</span>
-<span class="keyword">auto</span> <span class="identifier">reversed_Xs</span><span class="special">(</span><span class="identifier">CPRange</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 </pre>
 <p>
         For all kinds of breaks besides grapheme breaks, there are range overloads
@@ -122,8 +125,6 @@
 <span class="keyword">auto</span> <span class="identifier">X</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">GraphemeIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">&gt;</span>
 <span class="keyword">auto</span> <span class="identifier">Xs</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">&gt;</span>
-<span class="keyword">auto</span> <span class="identifier">reversed_Xs</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 </pre>
 <h5>
 <a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h1"></a>
@@ -162,14 +163,14 @@
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">after_0</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span><span class="special">);</span>
 
 <span class="comment">// Prints "[0, 2) [2, 3)".</span>
-<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">graphemes</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_graphemes</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'['</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">-</span> <span class="identifier">first</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">", "</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span> <span class="special">-</span> <span class="identifier">first</span><span class="special">)</span>
               <span class="special">&lt;&lt;</span> <span class="string">") "</span><span class="special">;</span>
 <span class="special">}</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
 
-<span class="comment">// Prints "[2, 3) [0, 2)".</span>
-<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reversed_graphemes</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
+<span class="comment">// Prints "[2, 3) [0, 2)".  You should use std::views::reverse if you can.</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_graphemes</span><span class="special">(</span><span class="identifier">cps</span><span class="special">)</span> <span class="special">|</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reverse</span><span class="special">)</span> <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'['</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">-</span> <span class="identifier">first</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">", "</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span> <span class="special">-</span> <span class="identifier">first</span><span class="special">)</span>
               <span class="special">&lt;&lt;</span> <span class="string">") "</span><span class="special">;</span>
 <span class="special">}</span>
@@ -188,10 +189,9 @@
         Grapheme API</a>
       </h5>
 <p>
-        In addition to the interface that is used for all the kinds of text segmentation,
-        there is an API just for producing grapheme views, similar to the one for
-        producing UTF views. See <code class="computeroutput">as_graphemes()</code>
-        for details.
+        The overload set for producing a view of graphemes, and the associated view
+        adaptor, are called <code class="computeroutput">as_graphemes()</code>,
+        not <code class="computeroutput"><span class="identifier">graphemes</span><span class="special">()</span></code>.
       </p>
 <div class="important"><table border="0" summary="Important">
 <tr>
@@ -435,7 +435,7 @@
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
 
 <span class="comment">// Prints the indices of the words from the table above, backward.</span>
-<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reversed_words</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">words</span><span class="special">(</span><span class="identifier">cps</span><span class="special">)</span> <span class="special">|</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reverse</span><span class="special">)</span> <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'['</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">", "</span>
               <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">") "</span><span class="special">;</span>
 <span class="special">}</span>
@@ -481,12 +481,12 @@
         Break Tailoring</a>
       </h5>
 <p>
-        Fortunately, unlike grapheme breaking, word breaking is tailorable in two
-        ways.
+        Fortunately, unlike grapheme breaking, word breaking is tailorable. There
+        are two ways to do so.
       </p>
 <p>
         Each break algorithm is defined in terms of code point properties; each code
-        point is a letter, digit, punctuation, etc. All the work break functions
+        point is a letter, digit, punctuation, etc. All the word break functions
         accept an optional word-property lookup function to replace the default one.
       </p>
 <p>
@@ -831,9 +831,10 @@
 <span class="comment">/* Prints:
 "c"
 "b
-"a "
+""a "
 */</span>
-<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">line</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reversed_allowed_lines</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">line</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">lines</span><span class="special">(</span><span class="identifier">cps</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">allowed_breaks</span><span class="special">)</span> <span class="special">|</span>
+                     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reverse</span><span class="special">)</span> <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'"'</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">to_string</span><span class="special">(</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">line</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="char">'"'</span><span class="special">;</span>
     <span class="comment">// Don't add \n to a hard line break; it already has one!</span>
     <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break</span><span class="special">())</span>
