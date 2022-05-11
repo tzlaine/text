@@ -22,6 +22,11 @@
 using namespace boost::text;
 using namespace boost::text::detail;
 
+#define TEST_STD_VIEWS                                                         \
+    202002L <= __cplusplus &&                                                  \
+        (defined(__clang_major__) && 14 <= __clang_major__ ||                  \
+         defined(__GNUC__) && 10 <= __GNUC__ ||                                \
+         defined(_MSC_VER) && 1929 <= _MSC_VER)
 
 TEST(break_apis, grapheme_break)
 {
@@ -144,6 +149,53 @@ TEST(break_apis, grapheme_break)
         }
         EXPECT_EQ(i, 0);
     }
+
+#if TEST_STD_VIEWS
+    // std closures interop
+    {
+        auto const all_graphemes =
+            boost::text::as_graphemes(cps.begin(), cps.end());
+
+        std::array<std::pair<int, int>, 2> const grapheme_bounds = {
+            {{0, 2}, {2, 3}}};
+
+        int i = 0;
+        for (auto grapheme :
+                 all_graphemes | std::views::reverse | boost::text::reverse) {
+            EXPECT_EQ(grapheme.begin() - cps.begin(), grapheme_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(grapheme.end() - cps.begin(), grapheme_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)grapheme_bounds.size());
+
+        i = 0;
+        for (auto grapheme :
+                 all_graphemes | boost::text::reverse | std::views::reverse) {
+            EXPECT_EQ(grapheme.begin() - cps.begin(), grapheme_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(grapheme.end() - cps.begin(), grapheme_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)grapheme_bounds.size());
+
+        auto const all_graphemes_reversed = std::views::all(cps) |
+                                            boost::text::as_graphemes |
+                                            std::views::reverse;
+        i = grapheme_bounds.size();
+        for (auto grapheme : all_graphemes_reversed) {
+            --i;
+            EXPECT_EQ(grapheme.begin() - cps.begin(), grapheme_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(grapheme.end() - cps.begin(), grapheme_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
+    }
+#endif
+
     // Range API
     {
         auto const all_graphemes = boost::text::as_graphemes(cps);
@@ -1596,7 +1648,7 @@ TEST(break_apis, line_break)
     // Range API
     {
         auto const all_lines =
-            cps| boost::text::lines(boost::text::allowed_breaks);
+            cps | boost::text::lines(boost::text::allowed_breaks);
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -1625,6 +1677,41 @@ TEST(break_apis, line_break)
         }
         EXPECT_EQ(i, 0);
     }
+#if TEST_STD_VIEWS
+    // std closures interop
+    {
+        auto const all_lines = std::views::all(cps) |
+                               boost::text::lines(boost::text::allowed_breaks);
+
+        std::array<std::pair<int, int>, 2> const line_bounds = {
+            {{0, 2}, {2, 3}}};
+
+        int i = 0;
+        for (auto line : all_lines) {
+            EXPECT_EQ(line.begin() - cps.begin(), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(line.end() - cps.begin(), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)line_bounds.size());
+
+        auto const all_lines_reversed =
+            std::views::all(cps) |
+            boost::text::lines(boost::text::allowed_breaks) |
+            std::views::reverse;
+        i = line_bounds.size();
+        for (auto line : all_lines_reversed) {
+            --i;
+            EXPECT_EQ(line.begin() - cps.begin(), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(line.end() - cps.begin(), line_bounds[i].second)
+                << "i=" << i;
+            EXPECT_EQ(line.hard_break(), false);
+        }
+        EXPECT_EQ(i, 0);
+    }
+#endif
 }
 
 TEST(break_apis, line_break_terminal_newline)
