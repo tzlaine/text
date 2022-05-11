@@ -34,55 +34,55 @@ struct inline_t
 
 using namespace boost;
 
-static_assert(text::detail::is_char_range<text::basic_string_view<char>>::value, "");
-static_assert(text::detail::is_char_range<text::basic_string_view<char> const>::value, "");
-static_assert(text::detail::is_char_range<std::string>::value, "");
-static_assert(text::detail::is_char_range<std::string const>::value, "");
-static_assert(text::detail::is_char_range<text::unencoded_rope>::value, "");
-static_assert(text::detail::is_char_range<text::unencoded_rope_view>::value, "");
-static_assert(text::detail::is_char_range<std::string>::value, "");
-static_assert(text::detail::is_char_range<std::string const>::value, "");
-static_assert(text::detail::is_char_range<std::vector<char>>::value, "");
-static_assert(text::detail::is_char_range<std::vector<char> const>::value, "");
-static_assert(text::detail::is_char_range<std::array<char, 5>>::value, "");
-static_assert(text::detail::is_char_range<std::array<char, 5> const>::value, "");
-static_assert(text::detail::is_char_range<iterator_range<char *>>::value, "");
-static_assert(text::detail::is_char_range<iterator_range<char const *>>::value, "");
+static_assert(text::detail::is_char_range_v<text::basic_string_view<char>>, "");
+static_assert(text::detail::is_char_range_v<text::basic_string_view<char> const>, "");
+static_assert(text::detail::is_char_range_v<std::string>, "");
+static_assert(text::detail::is_char_range_v<std::string const>, "");
+static_assert(text::detail::is_char_range_v<text::unencoded_rope>, "");
+static_assert(text::detail::is_char_range_v<text::unencoded_rope_view>, "");
+static_assert(text::detail::is_char_range_v<std::string>, "");
+static_assert(text::detail::is_char_range_v<std::string const>, "");
+static_assert(text::detail::is_char_range_v<std::vector<char>>, "");
+static_assert(text::detail::is_char_range_v<std::vector<char> const>, "");
+static_assert(text::detail::is_char_range_v<std::array<char, 5>>, "");
+static_assert(text::detail::is_char_range_v<std::array<char, 5> const>, "");
+static_assert(text::detail::is_char_range_v<iterator_range<char *>>, "");
+static_assert(text::detail::is_char_range_v<iterator_range<char const *>>, "");
 static_assert(
-    text::detail::is_char_range<iterator_range<std::vector<char>::iterator>>::value,
+    text::detail::is_char_range_v<iterator_range<std::vector<char>::iterator>>,
     "");
 static_assert(
-    text::detail::is_char_range<
-        iterator_range<std::vector<char>::iterator const>>::value,
+    text::detail::is_char_range_v<
+        iterator_range<std::vector<char>::iterator const>>,
     "");
 
-static_assert(text::detail::is_char_range<inline_t>::value, "");
-static_assert(text::detail::is_char_range<inline_t const>::value, "");
+static_assert(text::detail::is_char_range_v<inline_t>, "");
+static_assert(text::detail::is_char_range_v<inline_t const>, "");
 
 // These don't work because their value types narrow when converted to char.
-static_assert(!text::detail::is_char_range<std::vector<wchar_t>>::value, "");
-static_assert(!text::detail::is_char_range<std::vector<int>>::value, "");
-static_assert(!text::detail::is_char_range<std::array<float, 5>>::value, "");
+static_assert(!text::detail::is_char_range_v<std::vector<wchar_t>>, "");
+static_assert(!text::detail::is_char_range_v<std::vector<int>>, "");
+static_assert(!text::detail::is_char_range_v<std::array<float, 5>>, "");
 static_assert(
-    !text::detail::is_char_range<iterator_range<wchar_t *>>::value, "");
+    !text::detail::is_char_range_v<iterator_range<wchar_t *>>, "");
 static_assert(
-    !text::detail::is_char_range<
-        iterator_range<std::vector<int>::iterator>>::value,
+    !text::detail::is_char_range_v<
+        iterator_range<std::vector<int>::iterator>>,
     "");
 
-static_assert(text::detail::is_char_range<std::list<char>>::value, "");
+static_assert(text::detail::is_char_range_v<std::list<char>>, "");
 
-static_assert(!text::detail::is_char_range<char>::value, "");
-static_assert(!text::detail::is_char_range<int>::value, "");
+static_assert(!text::detail::is_char_range_v<char>, "");
+static_assert(!text::detail::is_char_range_v<int>, "");
 
-static_assert(!text::detail::is_char_range<text::text>::value, "");
-static_assert(!text::detail::is_char_range<text::text_view>::value, "");
-static_assert(!text::detail::is_char_range<text::rope>::value, "");
-static_assert(!text::detail::is_char_range<text::rope_view>::value, "");
+static_assert(!text::detail::is_char_range_v<text::text>, "");
+static_assert(!text::detail::is_char_range_v<text::text_view>, "");
+static_assert(!text::detail::is_char_range_v<text::rope>, "");
+static_assert(!text::detail::is_char_range_v<text::rope_view>, "");
 
 
-static_assert(!text::detail::is_contig_char_range<text::unencoded_rope>::value, "");
-static_assert(!text::detail::is_contig_char_range<text::unencoded_rope_view>::value, "");
+static_assert(!text::detail::is_contig_char_range_v<text::unencoded_rope>, "");
+static_assert(!text::detail::is_contig_char_range_v<text::unencoded_rope_view>, "");
 
 
 static_assert(text::detail::is_grapheme_range<text::text>::value, "");
@@ -95,6 +95,6 @@ static_assert(text::detail::is_contig_grapheme_range<text::text_view>::value, ""
 static_assert(!text::detail::is_contig_grapheme_range<text::rope>::value, "");
 static_assert(!text::detail::is_contig_grapheme_range<text::rope_view>::value, "");
 
-static_assert(!text::detail::is_char16_range<text::basic_string_view<char>>::value, "");
-static_assert(!text::detail::is_char16_range<std::string>::value, "");
-static_assert(text::detail::is_char16_range<std::array<uint16_t, 1>>::value, "");
+static_assert(!text::detail::is_char16_range_v<text::basic_string_view<char>>, "");
+static_assert(!text::detail::is_char16_range_v<std::string>, "");
+static_assert(text::detail::is_char16_range_v<std::array<uint16_t, 1>>, "");

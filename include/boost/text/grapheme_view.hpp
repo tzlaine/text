@@ -132,9 +132,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         template<
             typename Range,
             bool Pointer =
-                detail::char_ptr<std::remove_reference_t<Range>>::value ||
-                detail::_16_ptr<std::remove_reference_t<Range>>::value ||
-                detail::cp_ptr<std::remove_reference_t<Range>>::value>
+                detail::is_char_ptr_v<std::remove_reference_t<Range>> ||
+                detail::is_16_ptr_v<std::remove_reference_t<Range>> ||
+                detail::is_cp_ptr_v<std::remove_reference_t<Range>>>
         struct as_graphemes_dispatch
         {
             static constexpr auto call(Range && r_) noexcept

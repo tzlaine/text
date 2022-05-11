@@ -40,8 +40,7 @@ namespace boost { namespace text {
 
 #if !BOOST_TEXT_USE_CONCEPTS
         static_assert(
-            detail::is_cp_iter<I>::value,
-            "I must be a code point iterator");
+            detail::is_cp_iter_v<I>, "I must be a code point iterator");
         static_assert(
             std::is_same<
                 typename std::iterator_traits<I>::iterator_category,

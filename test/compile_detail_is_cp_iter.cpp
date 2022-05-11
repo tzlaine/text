@@ -18,107 +18,113 @@ using namespace boost;
 
 // positive tests
 
-static_assert(text::detail::is_cp_iter<uint32_t *>{}, "");
-static_assert(text::detail::is_cp_iter<uint32_t const *>{}, "");
+static_assert(text::detail::is_cp_iter_v<uint32_t *>, "");
+static_assert(text::detail::is_cp_iter_v<uint32_t const *>, "");
 
 static_assert(
-    text::detail::is_cp_iter<std::array<uint32_t, 10>::iterator>{}, "");
+    text::detail::is_cp_iter_v<std::array<uint32_t, 10>::iterator>, "");
 static_assert(
-    text::detail::is_cp_iter<std::array<uint32_t, 10>::const_iterator>{}, "");
+    text::detail::is_cp_iter_v<std::array<uint32_t, 10>::const_iterator>, "");
 static_assert(
-    text::detail::is_cp_iter<std::array<uint32_t, 10>::reverse_iterator>{}, "");
+    text::detail::is_cp_iter_v<std::array<uint32_t, 10>::reverse_iterator>, "");
 static_assert(
-    text::detail::is_cp_iter<
-        std::array<uint32_t, 10>::const_reverse_iterator>{},
+    text::detail::is_cp_iter_v<
+        std::array<uint32_t, 10>::const_reverse_iterator>,
     "");
 
-static_assert(text::detail::is_cp_iter<std::list<uint32_t>::iterator>{}, "");
+static_assert(text::detail::is_cp_iter_v<std::list<uint32_t>::iterator>, "");
 static_assert(
-    text::detail::is_cp_iter<std::list<uint32_t>::const_iterator>{}, "");
+    text::detail::is_cp_iter_v<std::list<uint32_t>::const_iterator>, "");
 static_assert(
-    text::detail::is_cp_iter<std::list<uint32_t>::reverse_iterator>{}, "");
+    text::detail::is_cp_iter_v<std::list<uint32_t>::reverse_iterator>, "");
 static_assert(
-    text::detail::is_cp_iter<std::list<uint32_t>::const_reverse_iterator>{},
+    text::detail::is_cp_iter_v<std::list<uint32_t>::const_reverse_iterator>,
     "");
 
 static_assert(
-    text::detail::is_cp_iter<text::utf_8_to_32_iterator<char const *>>{}, "");
+    text::detail::is_cp_iter_v<text::utf_8_to_32_iterator<char const *>>, "");
 
 
 
 // negative tests
 
-static_assert(!text::detail::is_cp_iter<char *>{}, "");
-static_assert(!text::detail::is_cp_iter<char const *>{}, "");
-
-static_assert(!text::detail::is_cp_iter<text::basic_string_view<char>::iterator>{}, "");
-static_assert(
-    !text::detail::is_cp_iter<text::basic_string_view<char>::const_iterator>{}, "");
-static_assert(
-    !text::detail::is_cp_iter<text::basic_string_view<char>::reverse_iterator>{}, "");
-static_assert(
-    !text::detail::is_cp_iter<text::basic_string_view<char>::const_reverse_iterator>{}, "");
-
-static_assert(!text::detail::is_cp_iter<std::string::iterator>{}, "");
-static_assert(!text::detail::is_cp_iter<std::string::const_iterator>{}, "");
-static_assert(!text::detail::is_cp_iter<std::string::reverse_iterator>{}, "");
-static_assert(
-    !text::detail::is_cp_iter<std::string::const_reverse_iterator>{}, "");
+static_assert(!text::detail::is_cp_iter_v<char *>, "");
+static_assert(!text::detail::is_cp_iter_v<char const *>, "");
 
 static_assert(
-    !text::detail::is_cp_iter<text::unencoded_rope_view::iterator>{}, "");
+    !text::detail::is_cp_iter_v<text::basic_string_view<char>::iterator>, "");
 static_assert(
-    !text::detail::is_cp_iter<text::unencoded_rope_view::const_iterator>{}, "");
-static_assert(
-    !text::detail::is_cp_iter<text::unencoded_rope_view::reverse_iterator>{},
+    !text::detail::is_cp_iter_v<text::basic_string_view<char>::const_iterator>,
     "");
 static_assert(
-    !text::detail::is_cp_iter<
-        text::unencoded_rope_view::const_reverse_iterator>{},
+    !text::detail::is_cp_iter_v<
+        text::basic_string_view<char>::reverse_iterator>,
+    "");
+static_assert(
+    !text::detail::is_cp_iter_v<
+        text::basic_string_view<char>::const_reverse_iterator>,
     "");
 
-static_assert(!text::detail::is_cp_iter<text::unencoded_rope::iterator>{}, "");
+static_assert(!text::detail::is_cp_iter_v<std::string::iterator>, "");
+static_assert(!text::detail::is_cp_iter_v<std::string::const_iterator>, "");
+static_assert(!text::detail::is_cp_iter_v<std::string::reverse_iterator>, "");
 static_assert(
-    !text::detail::is_cp_iter<text::unencoded_rope::const_iterator>{}, "");
+    !text::detail::is_cp_iter_v<std::string::const_reverse_iterator>, "");
+
 static_assert(
-    !text::detail::is_cp_iter<text::unencoded_rope::reverse_iterator>{}, "");
+    !text::detail::is_cp_iter_v<text::unencoded_rope_view::iterator>, "");
 static_assert(
-    !text::detail::is_cp_iter<text::unencoded_rope::const_reverse_iterator>{},
+    !text::detail::is_cp_iter_v<text::unencoded_rope_view::const_iterator>, "");
+static_assert(
+    !text::detail::is_cp_iter_v<text::unencoded_rope_view::reverse_iterator>,
+    "");
+static_assert(
+    !text::detail::is_cp_iter_v<
+        text::unencoded_rope_view::const_reverse_iterator>,
     "");
 
-static_assert(!text::detail::is_cp_iter<std::string::iterator>{}, "");
-static_assert(!text::detail::is_cp_iter<std::string::const_iterator>{}, "");
-static_assert(!text::detail::is_cp_iter<std::string::reverse_iterator>{}, "");
+static_assert(!text::detail::is_cp_iter_v<text::unencoded_rope::iterator>, "");
 static_assert(
-    !text::detail::is_cp_iter<std::string::const_reverse_iterator>{}, "");
-
-static_assert(!text::detail::is_cp_iter<std::vector<char>::iterator>{}, "");
+    !text::detail::is_cp_iter_v<text::unencoded_rope::const_iterator>, "");
 static_assert(
-    !text::detail::is_cp_iter<std::vector<char>::const_iterator>{}, "");
+    !text::detail::is_cp_iter_v<text::unencoded_rope::reverse_iterator>, "");
 static_assert(
-    !text::detail::is_cp_iter<std::vector<char>::reverse_iterator>{}, "");
-static_assert(
-    !text::detail::is_cp_iter<std::vector<char>::const_reverse_iterator>{}, "");
-
-static_assert(!text::detail::is_cp_iter<std::array<char, 5>::iterator>{}, "");
-static_assert(
-    !text::detail::is_cp_iter<std::array<char, 5>::const_iterator>{}, "");
-static_assert(
-    !text::detail::is_cp_iter<std::array<char, 5>::reverse_iterator>{}, "");
-static_assert(
-    !text::detail::is_cp_iter<std::array<char, 5>::const_reverse_iterator>{},
+    !text::detail::is_cp_iter_v<text::unencoded_rope::const_reverse_iterator>,
     "");
 
-static_assert(!text::detail::is_cp_iter<std::list<char>::iterator>{}, "");
-static_assert(!text::detail::is_cp_iter<std::list<char>::const_iterator>{}, "");
+static_assert(!text::detail::is_cp_iter_v<std::string::iterator>, "");
+static_assert(!text::detail::is_cp_iter_v<std::string::const_iterator>, "");
+static_assert(!text::detail::is_cp_iter_v<std::string::reverse_iterator>, "");
 static_assert(
-    !text::detail::is_cp_iter<std::list<char>::reverse_iterator>{}, "");
-static_assert(
-    !text::detail::is_cp_iter<std::list<char>::const_reverse_iterator>{}, "");
+    !text::detail::is_cp_iter_v<std::string::const_reverse_iterator>, "");
 
-static_assert(!text::detail::is_cp_iter<char>{}, "");
-static_assert(!text::detail::is_cp_iter<int>{}, "");
+static_assert(!text::detail::is_cp_iter_v<std::vector<char>::iterator>, "");
+static_assert(
+    !text::detail::is_cp_iter_v<std::vector<char>::const_iterator>, "");
+static_assert(
+    !text::detail::is_cp_iter_v<std::vector<char>::reverse_iterator>, "");
+static_assert(
+    !text::detail::is_cp_iter_v<std::vector<char>::const_reverse_iterator>, "");
+
+static_assert(!text::detail::is_cp_iter_v<std::array<char, 5>::iterator>, "");
+static_assert(
+    !text::detail::is_cp_iter_v<std::array<char, 5>::const_iterator>, "");
+static_assert(
+    !text::detail::is_cp_iter_v<std::array<char, 5>::reverse_iterator>, "");
+static_assert(
+    !text::detail::is_cp_iter_v<std::array<char, 5>::const_reverse_iterator>,
+    "");
+
+static_assert(!text::detail::is_cp_iter_v<std::list<char>::iterator>, "");
+static_assert(!text::detail::is_cp_iter_v<std::list<char>::const_iterator>, "");
+static_assert(
+    !text::detail::is_cp_iter_v<std::list<char>::reverse_iterator>, "");
+static_assert(
+    !text::detail::is_cp_iter_v<std::list<char>::const_reverse_iterator>, "");
+
+static_assert(!text::detail::is_cp_iter_v<char>, "");
+static_assert(!text::detail::is_cp_iter_v<int>, "");
 #ifdef _MSC_VER
-static_assert(!text::detail::is_cp_iter<wchar_t *>{}, "");
+static_assert(!text::detail::is_cp_iter_v<wchar_t *>, "");
 #endif
-static_assert(!text::detail::is_cp_iter<wchar_t[5]>{}, "");
+static_assert(!text::detail::is_cp_iter_v<wchar_t[5]>, "");

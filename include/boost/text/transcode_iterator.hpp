@@ -105,14 +105,12 @@ namespace boost { namespace text {
         }
 
         template<typename T, typename U>
-        struct enable_utf8_cp : std::enable_if<is_char_iter<T>::value, U>
-        {};
+        using enable_utf8_cp = std::enable_if<is_char_iter_v<T>, U>;
         template<typename T, typename U = T>
         using enable_utf8_cp_t = typename enable_utf8_cp<T, U>::type;
 
         template<typename T, typename U>
-        struct enable_utf16_cp : std::enable_if<is_16_iter<T>::value, U>
-        {};
+        using enable_utf16_cp = std::enable_if<is_16_iter_v<T>, U>;
         template<typename T, typename U = T>
         using enable_utf16_cp_t = typename enable_utf16_cp<T, U>::type;
     }
@@ -965,8 +963,8 @@ namespace boost { namespace text {
     namespace detail {
         template<
             typename Iter,
-            bool UTF8 = char_ptr<Iter>::value || _16_ptr<Iter>::value ||
-                        cp_ptr<Iter>::value>
+            bool UTF8 =
+                is_char_ptr_v<Iter> || is_16_ptr_v<Iter> || is_cp_ptr_v<Iter>>
         struct null_sent_eq_dispatch
         {};
 

@@ -536,8 +536,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             bool UseN,
             typename Range,
             typename OutIter,
-            bool _16Ptr = detail::_16_ptr<Range>::value,
-            bool CPPtr = detail::cp_ptr<Range>::value>
+            bool _16Ptr = detail::is_16_ptr_v<Range>,
+            bool CPPtr = detail::is_cp_ptr_v<Range>>
         struct transcode_to_8_dispatch
         {
             static constexpr auto
@@ -578,8 +578,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             bool UseN,
             typename Range,
             typename OutIter,
-            bool CharPtr = detail::char_ptr<Range>::value,
-            bool CPPtr = detail::cp_ptr<Range>::value>
+            bool CharPtr = detail::is_char_ptr_v<Range>,
+            bool CPPtr = detail::is_cp_ptr_v<Range>>
         struct transcode_to_16_dispatch
         {
             static constexpr auto
@@ -620,8 +620,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             bool UseN,
             typename Range,
             typename OutIter,
-            bool CharPtr = detail::char_ptr<Range>::value,
-            bool _16Ptr = detail::_16_ptr<Range>::value>
+            bool CharPtr = detail::is_char_ptr_v<Range>,
+            bool _16Ptr = detail::is_16_ptr_v<Range>>
         struct transcode_to_32_dispatch
         {
             static constexpr auto

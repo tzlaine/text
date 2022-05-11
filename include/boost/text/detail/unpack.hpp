@@ -70,9 +70,9 @@ namespace boost { namespace text { namespace detail {
         typename Iter,
         typename Sentinel,
         typename Repack,
-        bool UTF8 = is_char_iter<Iter>::value,
-        bool UTF16 = is_16_iter<Iter>::value,
-        bool UTF32 = is_cp_iter<Iter>::value>
+        bool UTF8 = is_char_iter_v<Iter>,
+        bool UTF16 = is_16_iter_v<Iter>,
+        bool UTF32 = is_cp_iter_v<Iter>>
     struct unpack_iterator_and_sentinel_impl
     {};
 

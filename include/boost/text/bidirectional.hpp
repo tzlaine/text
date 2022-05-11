@@ -1426,7 +1426,7 @@ namespace boost { namespace text {
         using iterator = detail::fwd_rev_cp_iter<CPIter>;
 
         static_assert(
-            detail::is_cp_iter<CPIter>::value,
+            detail::is_cp_iter_v<CPIter>,
             "CPIter must be a code point iterator");
 
         bidirectional_cp_subrange() noexcept :
@@ -1482,7 +1482,7 @@ namespace boost { namespace text {
         using iterator = detail::fwd_rev_grapheme_iter<CPIter>;
 
         static_assert(
-            detail::is_cp_iter<CPIter>::value,
+            detail::is_cp_iter_v<CPIter>,
             "CPIter must be a code point iterator");
 
         bidirectional_grapheme_subrange() noexcept :

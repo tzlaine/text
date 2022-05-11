@@ -85,17 +85,15 @@ namespace boost { namespace text { namespace detail {
         bool IsIt = is_detected_v<has_base, iterator_t<T>> &&
                     !is_detected_v<has_base, sentinel_t<T>> &&
                     is_detected_v<sentinel_comparable_to_iter_base, T>>
-    struct is_cp_sentinel_gr_rng : std::false_type
-    {};
+    constexpr bool is_cp_sentinel_gr_rng_v = false;
     template<typename T>
-    struct is_cp_sentinel_gr_rng<T, true> : std::true_type
-    {};
+    constexpr bool is_cp_sentinel_gr_rng_v<T, true> = true;
 
     template<typename T>
     using gr_rng_cp_iter_t = decltype(std::begin(std::declval<T>()).base());
     template<typename T>
     using gr_rng_cp_sent_t = std::conditional_t<
-        is_cp_sentinel_gr_rng<T>::value,
+        is_cp_sentinel_gr_rng_v<T>,
         sentinel_t<T>,
         gr_rng_cp_iter_t<T>>;
 
@@ -158,42 +156,39 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T, typename U, int N>
-    struct is_convertible_and_n_bytes
-        : std::integral_constant<
-              bool,
-              std::is_convertible<T, U>::value && sizeof(T) == N>
-    {
-    };
+    constexpr bool
+        is_convertible_and_n_bytes_v = std::is_convertible<T, U>::value &&
+                                       sizeof(T) == N;
 
 
 
     template<typename T>
-    using is_char_iter = std::integral_constant<
-        bool,
+    constexpr bool is_char_iter_v =
         std::is_same<char *, typename std::remove_cv<T>::type>::value ||
-            std::is_same<char const *, typename std::remove_cv<T>::type>::
-                value ||
+        std::is_same<char const *, typename std::remove_cv<T>::type>::value ||
 #if defined(__cpp_char8_t)
-            std::is_same<char8_t *, typename std::remove_cv<T>::type>::value ||
-            std::is_same<char8_t const *, typename std::remove_cv<T>::type>::
-                value ||
+        std::is_same<char8_t *, typename std::remove_cv<T>::type>::value ||
+        std::is_same<char8_t const *, typename std::remove_cv<T>::type>::
+            value ||
 #endif
-            is_convertible_and_n_bytes<detected_t<value_type_, T>, char, 1>::
-                value>;
+        is_convertible_and_n_bytes_v<detected_t<value_type_, T>, char, 1>;
+
+    // Needed for detected_or_t.
+    template<typename T>
+    using is_char_iter = std::integral_constant<bool, is_char_iter_v<T>>;
 
     template<typename T>
-    using is_char_range = std::integral_constant<
-        bool,
+    constexpr bool is_char_range_v =
         std::is_same<remove_cv_ref_t<T>, unencoded_rope_view>::value ||
-            std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value ||
-            (is_convertible_and_n_bytes<
-                 remove_cv_ref_t<detected_t<has_begin, T>>,
-                 char,
-                 1>::value &&
-             is_convertible_and_n_bytes<
-                 remove_cv_ref_t<detected_t<has_end, T>>,
-                 char,
-                 1>::value)>;
+        std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value ||
+        (is_convertible_and_n_bytes_v<
+             remove_cv_ref_t<detected_t<has_begin, T>>,
+             char,
+             1> &&
+         is_convertible_and_n_bytes_v<
+             remove_cv_ref_t<detected_t<has_end, T>>,
+             char,
+             1>);
 
 
 
@@ -202,7 +197,7 @@ namespace boost { namespace text { namespace detail {
         typename R1,
         typename Exclude,
         bool R1IsCharRange =
-            is_char_range<R1>::value && !std::is_same<R1, Exclude>::value>
+            is_char_range_v<R1> && !std::is_same<R1, Exclude>::value>
     struct rng_alg_ret
     {
     };
@@ -220,8 +215,8 @@ namespace boost { namespace text { namespace detail {
         typename T,
         typename R1,
         typename R2,
-        bool R1IsCharRange = is_char_range<R1>::value,
-        bool R2IsCharRange = is_char_range<R2>::value>
+        bool R1IsCharRange = is_char_range_v<R1>,
+        bool R2IsCharRange = is_char_range_v<R2>>
     struct rngs_alg_ret
     {
     };
@@ -243,8 +238,7 @@ namespace boost { namespace text { namespace detail {
     using has_contig_end = decltype(&*std::end(std::declval<T>()));
 
     template<typename T>
-    using is_contig_char_range = std::integral_constant<
-        bool,
+    constexpr bool is_contig_char_range_v =
         ((std::is_same<
               fixup_ptr_t<detected_t<has_contig_begin, T>>,
               char const *>::value &&
@@ -260,18 +254,18 @@ namespace boost { namespace text { namespace detail {
                  char8_t const *>::value)
 #endif
              ) &&
-            std::is_convertible<
-                iterator_category_<T>,
-                std::random_access_iterator_tag>::value &&
-            !std::is_same<T, unencoded_rope>::value &&
-            !std::is_same<T, unencoded_rope_view>::value>;
+        std::is_convertible<
+            iterator_category_<T>,
+            std::random_access_iterator_tag>::value
+        && !std::is_same<T, unencoded_rope>::value &&
+        !std::is_same<T, unencoded_rope_view>::value;
 
 
 
     template<
         typename T,
         typename R1,
-        bool R1IsContigCharRange = is_contig_char_range<R1>::value>
+        bool R1IsContigCharRange = is_contig_char_range_v<R1>>
     struct contig_rng_alg_ret
     {
     };
@@ -289,8 +283,8 @@ namespace boost { namespace text { namespace detail {
         typename T,
         typename R1,
         typename R2,
-        bool R1IsContigCharRange = is_contig_char_range<R1>::value,
-        bool R2IsContigCharRange = is_contig_char_range<R2>::value>
+        bool R1IsContigCharRange = is_contig_char_range_v<R1>,
+        bool R2IsContigCharRange = is_contig_char_range_v<R2>>
     struct contig_rngs_alg_ret
     {
     };
@@ -307,23 +301,22 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using is_char16_range = std::integral_constant<
-        bool,
-        (is_convertible_and_n_bytes<
+    constexpr bool is_char16_range_v =
+        (is_convertible_and_n_bytes_v<
              remove_cv_ref_t<detected_t<has_begin, T>>,
              uint16_t,
-             2>::value &&
-         is_convertible_and_n_bytes<
+             2> &&
+         is_convertible_and_n_bytes_v<
              remove_cv_ref_t<detected_t<has_end, T>>,
              uint16_t,
-             2>::value)>;
+             2>);
 
 
 
     template<
         typename T,
         typename R1,
-        bool R1IsChar16Range = is_char16_range<R1>::value>
+        bool R1IsChar16Range = is_char16_range_v<R1>>
     struct rng16_alg_ret
     {
     };
@@ -339,10 +332,7 @@ namespace boost { namespace text { namespace detail {
 
 
 
-    template<
-        typename T,
-        typename R1,
-        bool R1IsCharRange = is_char_iter<R1>::value>
+    template<typename T, typename R1, bool R1IsCharRange = is_char_iter_v<R1>>
     struct char_iter_ret
     {
     };
@@ -359,24 +349,23 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using is_code_point = std::
-        integral_constant<bool, (std::is_integral<T>::value && sizeof(T) == 4)>;
+    constexpr bool is_code_point_v = std::is_integral<T>::value &&
+                                     sizeof(T) == 4;
 
     template<typename T>
     using has_deref_and_incr =
         std::pair<decltype(*std::declval<T>()), decltype(++std::declval<T>())>;
 
     template<typename T>
-    using is_cp_iter = std::integral_constant<
-        bool,
+    constexpr bool is_cp_iter_v =
         ((std::is_pointer<T>::value &&
-          is_code_point<typename std::remove_cv<
-              typename std::remove_pointer<T>::type>::type>::value) ||
+          is_code_point_v<typename std::remove_cv<
+              typename std::remove_pointer<T>::type>::type>) ||
          (is_detected_v<has_deref_and_incr, T> &&
-          is_code_point<typename std::remove_cv<
-              detected_t<value_type_, T>>::type>::value))>;
+          is_code_point_v<
+              typename std::remove_cv<detected_t<value_type_, T>>::type>));
 
-    template<typename T, typename R1, bool R1IsCPRange = is_cp_iter<R1>::value>
+    template<typename T, typename R1, bool R1IsCPRange = is_cp_iter_v<R1>>
     struct cp_iter_ret
     {
     };
@@ -394,7 +383,7 @@ namespace boost { namespace text { namespace detail {
         typename T,
         typename R1,
         typename R2,
-        bool R1R2AreCPRanges = is_cp_iter<R1>::value && is_cp_iter<R2>::value>
+        bool R1R2AreCPRanges = is_cp_iter_v<R1> && is_cp_iter_v<R2>>
     struct cp_iters_ret
     {
     };
@@ -410,20 +399,19 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using is_16_code_unit = std::
-        integral_constant<bool, (std::is_integral<T>::value && sizeof(T) == 2)>;
+    constexpr bool is_16_code_unit_v = std::is_integral<T>::value &&
+                                       sizeof(T) == 2;
 
     template<typename T>
-    using is_16_iter = std::integral_constant<
-        bool,
+    constexpr bool is_16_iter_v =
         ((std::is_pointer<T>::value &&
-          is_16_code_unit<typename std::remove_cv<
-              typename std::remove_pointer<T>::type>::type>::value) ||
+          is_16_code_unit_v<typename std::remove_cv<
+              typename std::remove_pointer<T>::type>::type>) ||
          (is_detected_v<has_deref_and_incr, T> &&
-          is_16_code_unit<typename std::remove_cv<
-              detected_t<value_type_, T>>::type>::value))>;
+          is_16_code_unit_v<
+              typename std::remove_cv<detected_t<value_type_, T>>::type>));
 
-    template<typename T, typename R1, bool R1IsCPRange = is_16_iter<R1>::value>
+    template<typename T, typename R1, bool R1IsCPRange = is_16_iter_v<R1>>
     struct _16_iter_ret
     {
     };
@@ -439,20 +427,19 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using is_8_code_unit = std::
-        integral_constant<bool, std::is_integral<T>::value && sizeof(T) == 1>;
+    constexpr bool is_8_code_unit_v = std::is_integral<T>::value &&
+                                      sizeof(T) == 1;
 
     template<typename T>
-    using is_8_iter = std::integral_constant<
-        bool,
+    constexpr bool is_8_iter_v =
         ((std::is_pointer<T>::value &&
-          is_8_code_unit<typename std::remove_cv<
-              typename std::remove_pointer<T>::type>::type>::value) ||
+          is_8_code_unit_v<typename std::remove_cv<
+              typename std::remove_pointer<T>::type>::type>) ||
          (is_detected_v<has_deref_and_incr, T> &&
-          is_8_code_unit<typename std::remove_cv<
-              detected_t<value_type_, T>>::type>::value))>;
+          is_8_code_unit_v<
+              typename std::remove_cv<detected_t<value_type_, T>>::type>));
 
-    template<typename T, typename R1, bool R1IsCPRange = is_8_iter<R1>::value>
+    template<typename T, typename R1, bool R1IsCPRange = is_8_iter_v<R1>>
     struct _8_iter_ret
     {
     };
@@ -475,7 +462,7 @@ namespace boost { namespace text { namespace detail {
         typename T,
         typename CPIter,
         typename Sentinel,
-        bool FIsWordPropFunc = is_cp_iter<CPIter>::value &&
+        bool FIsWordPropFunc = is_cp_iter_v<CPIter> &&
             is_detected_v<comparable_, CPIter, Sentinel>>
     struct cp_iter_sntl_ret
     {
@@ -501,9 +488,9 @@ namespace boost { namespace text { namespace detail {
         typename Sentinel1,
         typename CPIter2,
         typename Sentinel2,
-        bool AreCPRanges = is_cp_iter<CPIter1>::value && is_cp_iter<
-            CPIter2>::value && is_detected_v<comparable_, CPIter1, Sentinel1> &&
-            is_detected_v<comparable_, CPIter2, Sentinel2>>
+        bool AreCPRanges = is_cp_iter_v<CPIter1> && is_cp_iter_v<CPIter2> &&
+            is_detected_v<comparable_, CPIter1, Sentinel1> &&
+                is_detected_v<comparable_, CPIter2, Sentinel2>>
     struct cp_iters_sntls_ret
     {
     };
@@ -539,14 +526,14 @@ namespace boost { namespace text { namespace detail {
 
 
     template<int Size, typename T>
-    using is_cu_iter =
-        std::conditional_t<Size == 1, is_char_iter<T>, is_16_iter<T>>;
+    constexpr bool is_cu_iter_v =
+        Size == 1 ? is_char_iter_v<T> : is_16_iter_v<T>;
 
     template<
         int Size,
         typename T,
         typename U,
-        bool UIsCUIter = is_cu_iter<Size, U>::value>
+        bool UIsCUIter = is_cu_iter_v<Size, U>>
     struct cu_iter_ret
     {
     };
@@ -561,8 +548,8 @@ namespace boost { namespace text { namespace detail {
     using cu_iter_ret_t = typename cu_iter_ret<Size, T, U>::type;
 
     template<int Size, typename T>
-    using is_cu_range =
-        std::conditional_t<Size == 1, is_char_range<T>, is_char16_range<T>>;
+    constexpr bool is_cu_range_v =
+        Size == 1 ? is_char_range_v<T> : is_char16_range_v<T>;
 
     template<
         int Size,
@@ -570,7 +557,7 @@ namespace boost { namespace text { namespace detail {
         typename U,
         typename Exclude,
         bool UIsCURange =
-            is_cu_range<Size, U>::value && !std::is_same<U, Exclude>::value>
+            is_cu_range_v<Size, U> && !std::is_same<U, Exclude>::value>
     struct cu_rng_alg_ret
     {
     };
@@ -588,8 +575,8 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     using is_grapheme_iter_expr = std::integral_constant<
         bool,
-        is_cp_iter<
-            remove_cv_ref_t<decltype(std::declval<const T>().base())>>::value>;
+        is_cp_iter_v<
+            remove_cv_ref_t<decltype(std::declval<const T>().base())>>>;
 
     template<typename T>
     using is_grapheme_iter =
@@ -634,12 +621,12 @@ namespace boost { namespace text { namespace detail {
     template<typename Size, typename T>
     using is_grapheme_cu_iter_expr = std::integral_constant<
         bool,
-        is_cp_iter<
-            remove_cv_ref_t<decltype(std::declval<const T>().base())>>::value &&
-            is_cu_iter<
+        is_cp_iter_v<
+            remove_cv_ref_t<decltype(std::declval<const T>().base())>> &&
+            is_cu_iter_v<
                 Size::value,
-                remove_cv_ref_t<decltype(
-                    std::declval<const T>().base().base())>>::value>;
+                remove_cv_ref_t<
+                    decltype(std::declval<const T>().base().base())>>>;
 
     template<int Size, typename T>
     using is_grapheme_cu_iter = detected_or_t<
@@ -669,10 +656,10 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     using is_grapheme_range_expr = std::integral_constant<
         bool,
-        is_cp_iter<remove_cv_ref_t<decltype(
-            std::declval<const T>().begin().base())>>::value &&
-            is_cp_iter<remove_cv_ref_t<decltype(
-                std::declval<const T>().end().base())>>::value &&
+        is_cp_iter_v<remove_cv_ref_t<
+            decltype(std::declval<const T>().begin().base())>> &&
+            is_cp_iter_v<remove_cv_ref_t<
+                decltype(std::declval<const T>().end().base())>> &&
             void_<
                 decltype(std::declval<const T>().begin().base().base()),
                 decltype(std::declval<const T>().end().base().base())>::value>;
@@ -701,10 +688,10 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     using is_cp_grapheme_range_expr = std::integral_constant<
         bool,
-        is_cp_iter<remove_cv_ref_t<decltype(
-            std::declval<const T>().begin().base())>>::value &&
-            is_cp_iter<remove_cv_ref_t<decltype(
-                std::declval<const T>().end().base())>>::value>;
+        is_cp_iter_v<remove_cv_ref_t<
+            decltype(std::declval<const T>().begin().base())>> &&
+            is_cp_iter_v<remove_cv_ref_t<
+                decltype(std::declval<const T>().end().base())>>>;
 
     template<typename T>
     using is_cp_grapheme_range =
@@ -932,43 +919,37 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename Iter>
-    using char_value_type = std::integral_constant<
+    using char_value_expr = std::integral_constant<
         bool,
         std::is_integral<
             typename std::iterator_traits<Iter>::value_type>::value &&
             sizeof(typename std::iterator_traits<Iter>::value_type) == 1>;
 
     template<typename Iter>
-    using char_ptr = std::integral_constant<
-        bool,
-        std::is_pointer<Iter>::value &&
-            detected_or_t<std::false_type, char_value_type, Iter>::value>;
+    constexpr bool is_char_ptr_v = std::is_pointer<Iter>::value &&
+        detected_or_t<std::false_type, char_value_expr, Iter>::value;
 
     template<typename Iter>
-    using _16_value_type = std::integral_constant<
+    using _16_value_expr = std::integral_constant<
         bool,
         std::is_integral<
             typename std::iterator_traits<Iter>::value_type>::value &&
             sizeof(typename std::iterator_traits<Iter>::value_type) == 2>;
 
     template<typename Iter>
-    using _16_ptr = std::integral_constant<
-        bool,
-        std::is_pointer<Iter>::value &&
-            detected_or_t<std::false_type, _16_value_type, Iter>::value>;
+    constexpr bool is_16_ptr_v = std::is_pointer<Iter>::value &&
+        detected_or_t<std::false_type, _16_value_expr, Iter>::value;
 
     template<typename Iter>
-    using cp_value_type = std::integral_constant<
+    using cp_value_expr = std::integral_constant<
         bool,
         std::is_integral<
             typename std::iterator_traits<Iter>::value_type>::value &&
             sizeof(typename std::iterator_traits<Iter>::value_type) == 4>;
 
     template<typename Iter>
-    using cp_ptr = std::integral_constant<
-        bool,
-        std::is_pointer<Iter>::value &&
-            detected_or_t<std::false_type, cp_value_type, Iter>::value>;
+    constexpr bool is_cp_ptr_v = std::is_pointer<Iter>::value &&
+        detected_or_t<std::false_type, cp_value_expr, Iter>::value;
 
 }}}
 

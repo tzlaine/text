@@ -285,7 +285,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             typename T,
             typename F,
             typename R,
-            bool RIsCPRange = is_cp_iter<iterator_t<R>>::value,
+            bool RIsCPRange = is_cp_iter_v<iterator_t<R>>,
             bool FIsWordPropFunc = std::
                 is_same<detected_t<word_prop_func_, F>, word_property>::value>
         struct word_prop_func_ret

@@ -22,14 +22,8 @@ namespace boost { namespace text { namespace detail {
         std::is_object_v<T> && std::copy_constructible<T>;
 #else
     template<typename T>
-    struct is_pipeable : std::integral_constant<
-                             bool,
-                             std::is_base_of<pipeable_base, T>::value &&
-                                 std::is_object<T>::value &&
-                                 std::is_copy_constructible<T>::value>
-    {};
-    template<typename T>
-    constexpr bool pipeable_ = is_pipeable<T>::value;
+    constexpr bool pipeable_ = std::is_base_of<pipeable_base, T>::value &&
+        std::is_object<T>::value && std::is_copy_constructible<T>::value;
 #endif
 
 #if BOOST_TEXT_USE_CONCEPTS
