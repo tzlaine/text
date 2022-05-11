@@ -370,26 +370,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename CPRange, typename CPIter>
     bool at_grapheme_break(CPRange && range, CPIter it) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting graphemes in
-        `[first, last)`. */
-    template<typename CPIter, typename Sentinel>
-    detail::undefined graphemes(CPIter first, Sentinel last) noexcept;
-
-    /** Returns a lazy range of the code point ranges delimiting graphemes in
-        `range`. */
-    template<typename CPRange>
-    detail::undefined graphemes(CPRange && range) noexcept;
-
-    /** Returns a lazy range of the code point ranges delimiting graphemes in
-        `[first, last)`, in reverse. */
-    template<typename CPIter>
-    detail::undefined reversed_graphemes(CPIter first, CPIter last) noexcept;
-
-    /** Returns a lazy range of the code point ranges delimiting graphemes in
-        `range`, in reverse. */
-    template<typename CPRange>
-    detail::undefined reversed_graphemes(CPRange && range) noexcept;
-
 #else
 
     template<typename CPIter, typename Sentinel>
