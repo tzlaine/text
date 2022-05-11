@@ -19,7 +19,7 @@ The user's view of _Text_'s _ur_ is that it is a string that is inexpensive to
 insert into at any point -- even the middle or front -- no matter how large it
 is.  In addition, substrings within the _ur_ have copy-on-write semantics.
 This means that often a copy of a very large _ur_ is nearly free, and that a
-mutated copy of a _ur_ often shares much of its data with the _ur_ from which
+mutated copy of an _ur_ often shares much of its data with the _ur_ from which
 it was copied.
 
 _ur_'s implementation uses a tree structure similar to a B-tree, and each
@@ -94,21 +94,21 @@ other mutation.  If the reference counts on the root-to-leaf path are all `1`,
 we will mutate the tree in place.]
 
 Besides the segmented nature of _ur_, there are some other properties you need
-to know about.  A _ur_ as a whole is copy-on-write; it is also therefore
+to know about.  An _ur_ as a whole is copy-on-write; it is also therefore
 thread-safe for reading and writing; it is not null-terminated.
 
 Insertions, erasures, and indexing each happen in `O(log_B(N))` time, where B
 is the branching factor (maximum number of children per interior node).  As
 mentioned before, B is an implementation detail, and thus subject to change,
 but it is unlikely to be less than 16.  That means very little pointer chasing
-is required to access an arbitrary element of a _ur_, because its tree is very
+is required to access an arbitrary element of an _ur_, because its tree is very
 shallow.
 
 In fact, with a branching factor of 16, the maximum depth of the tree is also
 16, since the `max_size()` of the tree is `PTRDIFF_MAX`.  This means that
 `O(log_B(N))` time has a fixed upper bound, making it `O(1)`!
 
-As mentioned previously, mutations to a _ur_ are done in-place if the mutations
+As mentioned previously, mutations to an _ur_ are done in-place if the mutations
 do not affect nodes that are shared with other _urs_.
 
 If a mutation can be done in place, and the point of mutation falls within a
@@ -130,8 +130,8 @@ if you like.  If you care about thread-safety, *always* pass them by value at
 thread boundaries!]
 
 _ur_ contains logic like the pseudocode below to determine when to create a
-partial copy of a _ur_'s tree, or when to mutate the tree in-place when
-performing inserts or erases on a _ur_:
+partial copy of an _ur_'s tree, or when to mutate the tree in-place when
+performing inserts or erases on an _ur_:
 
     path = find_path_from_root_to_mutation_point()
     in_place = true
