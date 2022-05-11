@@ -11,7 +11,7 @@
 // Included for definition of __cpp_lib_concepts.
 #include <iterator>
 
-#if 202002L <= __cplusplus && __has_include(<coroutine>)
+#if 202002L <= __cplusplus && defined(__cpp_impl_coroutine) && __has_include(<coroutine>)
 #include <coroutine>
 #endif
 
