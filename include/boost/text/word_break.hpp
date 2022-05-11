@@ -1921,7 +1921,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return detail::at_word_break_gr_impl(r, it, word_prop, word_break);
     }
 
-    /** Returns the bounds of the word that `it` lies within. */
     template<
         code_point_iter I,
         std::sentinel_for<I> S,
