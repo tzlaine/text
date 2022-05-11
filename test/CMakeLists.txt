@@ -27,6 +27,7 @@ try_compile(
 )
 if (fcoroutines_supported)
     add_definitions(-fcoroutines)
+    message("Using -fcoroutines to compile tests.")
 endif()
 
 set(warnings_flag)
