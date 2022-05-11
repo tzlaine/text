@@ -14,16 +14,13 @@ There are a couple of assorted bits that were necessary or useful to have
 around when implementing various parts of _Text_: _segv_, _ur_, _urv_, and
 _trie_\/_trie_m_\/_trie_s_.
 
-The _t_ layer depends on the Unicode layer.  The Unicode layer can be used
-without touching the _t_ layer.
-
 
 [heading The Unicode Layer]
 
 The Unicode layer provides a few Unicode-related utility types, but is
 primarily comprised of the Unicode algorithms.  These algorithms are done in
 the style of the standard algorithms, with range-friendly interfaces.  For
-each of the unicode algorithms there is a corresponding lazy view.  There are
+each of the unicode algorithms there is a corresponding view.  There are
 algorithms for these Unicode operations:
 
 * Transcoding among UTF-8, UTF-16, and UTF-32

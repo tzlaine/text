@@ -1121,7 +1121,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return detail::at_sentence_break_gr_impl(r, it);
     }
 
-    /** Returns the bounds of the sentence that `it` lies within. */
     template<code_point_iter I, std::sentinel_for<I> S>
     utf32_view<I> sentence(I first, I it, S last) noexcept
     {

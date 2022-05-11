@@ -126,7 +126,7 @@ faster than the UTF-8 ICU code path.
 
 These are just like the NFC chart, both in meaning and results; they are shown
 here for completeness.  Note that the FCC normalization form is what _Text_
-uses internally in all the test layer types.  See _tn5_ for details.
+uses internally in all the text layer types.  See _tn5_ for details.
 
 Normalization of NFC, European script text:
 
