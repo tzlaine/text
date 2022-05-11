@@ -13,8 +13,8 @@ C++20 mode, if the compiler defines `__cpp_lib_concepts`.  To disable the use
 of concepts, define _disable_concepts_m_.
 
 _Text_ will automatically use coroutines when building in C++20 mode, if the
-compiler defines `__cpp_coroutines`.  To disable the use of coroutines, define
-_disable_coroutines_m_.
+compiler defines `__cpp_impl_coroutine` and `__cpp_lib_coroutine`.  To disable
+the use of coroutines, define _disable_coroutines_m_.
 
 _Text_ will automatically use `std::filesystem` when building in C++17 mode,
 if the compiler defines `__cpp_lib_filesystem`.  To disable the use of
