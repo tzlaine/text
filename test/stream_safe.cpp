@@ -362,25 +362,17 @@ TEST(stream_safe, truncation_needed_long)
             str.erase(it.base(), str.end());
             EXPECT_EQ(str, expected);
         }
-
-#if 0
+ 
         {
-            std::string str = stream_unsafe;
-            auto const utf32 = as_utf32(str);
-            auto const ss = as_stream_safe(utf32);
-            auto it = ss.begin();
-            while (it != ss.end()) {
-                ++it;
+            std::string result;
+            auto const v = stream_unsafe | as_utf32 | as_stream_safe;
+            // Can't use std::copy() (or even range-base for) because of the
+            // sentinel
+            for (auto it = v.begin(); it != v.end(); ++it) {
+                *from_utf32_back_inserter(result)++ = *it;
             }
-            std::vector<uint32_t> cps;
-            std::copy(
-                std::make_reverse_iterator(it),
-                std::make_reverse_iterator(ss.begin()),
-                std::back_inserter(cps));
-            std::reverse(cps.begin(), cps.end());
-            std::vector<uint32_t> ss_copy(ss.begin(), ss.end());
-            EXPECT_EQ(cps, ss_copy);
+            EXPECT_NE(stream_unsafe, result);
+            EXPECT_EQ(result, expected);
         }
-#endif
     }
 }
