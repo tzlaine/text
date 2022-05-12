@@ -55,7 +55,7 @@ namespace boost { namespace text { namespace detail {
     struct tagged_range
     {
         Iter f_;
-        Sentinel l_;
+        [[no_unique_address]] Sentinel l_;
         Tag tag_;
         Repack repack_;
     };

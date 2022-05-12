@@ -1957,7 +1957,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
                 next_;
         iterator first_;
-        sentinel last_;
+        [[no_unique_address]] sentinel last_;
     };
 
     namespace detail {
@@ -2199,7 +2199,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     private:
         iterator first_;
-        sentinel last_;
+        [[no_unique_address]] sentinel last_;
     };
 
     namespace detail {

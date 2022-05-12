@@ -215,7 +215,7 @@ namespace boost { namespace text {
                                         .l_);
 
         iterator_t first_;
-        sentinel_t last_;
+        [[no_unique_address]] sentinel_t last_;
     };
 
     /** A view over UTF-16 code units. */
@@ -283,7 +283,7 @@ namespace boost { namespace text {
                                         .l_);
 
         iterator_t first_;
-        sentinel_t last_;
+        [[no_unique_address]] sentinel_t last_;
     };
 
     /** A view over UTF-32 code units. */
@@ -349,7 +349,7 @@ namespace boost { namespace text {
                                         .l_);
 
         iterator_t first_;
-        sentinel_t last_;
+        [[no_unique_address]] sentinel_t last_;
     };
 
 }}

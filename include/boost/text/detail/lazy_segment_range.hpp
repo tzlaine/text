@@ -28,7 +28,7 @@ namespace boost { namespace text { namespace detail {
         NextFunc * next_func_;
         CPIter prev_;
         CPIter it_;
-        Sentinel last_;
+        [[no_unique_address]] Sentinel last_;
 
     public:
         const_lazy_segment_iterator() noexcept :

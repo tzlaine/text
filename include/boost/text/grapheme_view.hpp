@@ -107,7 +107,7 @@ namespace boost { namespace text {
 
     private:
         iterator first_;
-        sentinel last_;
+        [[no_unique_address]] sentinel last_;
     };
 
 }}

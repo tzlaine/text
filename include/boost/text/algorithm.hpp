@@ -172,7 +172,7 @@ namespace boost { namespace text {
 
     private:
         iterator first_;
-        sentinel last_;
+        [[no_unique_address]] sentinel last_;
     };
 
     /** Calls `f(sub)` for each subrange `sub` in `[first, last)`.  A subrange

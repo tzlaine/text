@@ -114,7 +114,7 @@ namespace boost { namespace text {
         private:
             CPIter first_ = {};
             std::pair<CPIter, CPIter> seg_ = {};
-            CPSentinel last_ = {};
+            [[no_unique_address]] CPSentinel last_ = {};
             PrevFunc * prev_func_ = nullptr;
             NextFunc * next_func_ = nullptr;
         };
@@ -213,7 +213,7 @@ namespace boost { namespace text {
 
     private:
         iterator first_;
-        sentinel last_;
+        [[no_unique_address]] sentinel last_;
         PrevFunc prev_func_;
         NextFunc next_func_;
     };
