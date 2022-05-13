@@ -366,7 +366,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 detail::is_cp_ptr_v<std::remove_reference_t<Range>>>
         struct as_utf8_dispatch
         {
-            static constexpr auto call(Range r) noexcept
+            static constexpr auto call(Range && r) noexcept
                 -> decltype(Impl{}(detail::begin(r), detail::end(r)))
             {
                 return Impl{}(detail::begin(r), detail::end(r));
@@ -424,7 +424,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 detail::is_cp_ptr_v<std::remove_reference_t<Range>>>
         struct as_utf16_dispatch
         {
-            static constexpr auto call(Range r) noexcept
+            static constexpr auto call(Range && r) noexcept
                 -> decltype(Impl{}(detail::begin(r), detail::end(r)))
             {
                 return Impl{}(detail::begin(r), detail::end(r));
@@ -482,7 +482,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 detail::is_cp_ptr_v<std::remove_reference_t<Range>>>
         struct as_utf32_dispatch
         {
-            static constexpr auto call(Range r) noexcept
+            static constexpr auto call(Range && r) noexcept
                 -> decltype(Impl{}(detail::begin(r), detail::end(r)))
             {
                 return Impl{}(detail::begin(r), detail::end(r));
