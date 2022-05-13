@@ -174,10 +174,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPRange && r,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
-        if (std::begin(r) == std::end(r))
+        if (detail::begin(r) == detail::end(r))
             return {at, at};
         return detail::replace_impl<false, Normalization>(
-            string, at, at, std::begin(r), std::end(r), insertion_norm);
+            string, at, at, detail::begin(r), detail::end(r), insertion_norm);
     }
 
     /** Erases the subsequence `[str_first, str_last)` within `string`,

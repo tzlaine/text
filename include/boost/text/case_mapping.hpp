@@ -818,7 +818,7 @@ namespace boost { namespace text {
     auto is_lower(CPRange && range) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        return is_lower(std::begin(range), std::end(range));
+        return is_lower(detail::begin(range), detail::end(range));
     }
 
     template<typename GraphemeRange>
@@ -887,7 +887,11 @@ namespace boost { namespace text {
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return boost::text::to_lower(
-            std::begin(range), std::begin(range), std::end(range), out, lang);
+            detail::begin(range),
+            detail::begin(range),
+            detail::end(range),
+            out,
+            lang);
     }
 
     template<typename GraphemeRange, typename OutIter>
@@ -980,7 +984,7 @@ namespace boost { namespace text {
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return boost::text::is_title(
-            std::begin(range), std::end(range), next_word_break);
+            detail::begin(range), detail::end(range), next_word_break);
     }
 
     template<
@@ -1091,9 +1095,9 @@ namespace boost { namespace text {
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return boost::text::to_title(
-            std::begin(range),
-            std::begin(range),
-            std::end(range),
+            detail::begin(range),
+            detail::begin(range),
+            detail::end(range),
             out,
             lang,
             next_word_break);
@@ -1155,7 +1159,7 @@ namespace boost { namespace text {
     auto is_upper(CPRange && range) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        return boost::text::is_upper(std::begin(range), std::end(range));
+        return boost::text::is_upper(detail::begin(range), detail::end(range));
     }
 
     template<typename GraphemeRange>
@@ -1224,7 +1228,11 @@ namespace boost { namespace text {
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return boost::text::to_upper(
-            std::begin(range), std::begin(range), std::end(range), out, lang);
+            detail::begin(range),
+            detail::begin(range),
+            detail::end(range),
+            out,
+            lang);
     }
 
     template<typename GraphemeRange, typename OutIter>

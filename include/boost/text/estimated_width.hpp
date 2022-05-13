@@ -30,9 +30,9 @@ namespace boost { namespace text { namespace detail {
             {0x20000, 0x2fffd},
             {0x30000, 0x3fffd},
         };
-        auto const last = std::end(double_wides);
+        auto const last = detail::end(double_wides);
         auto const it = std::lower_bound(
-            std::begin(double_wides), last, cp, [](pair_type y, uint32_t x) {
+            detail::begin(double_wides), last, cp, [](pair_type y, uint32_t x) {
                 return y.second < x;
             });
         if (it != last && it->first <= cp && cp <= it->second)
@@ -77,10 +77,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename CPRange>
     auto estimated_width_of_graphemes(CPRange && r)
         ->decltype(detail::estimated_width_of_graphemes_impl(
-            std::begin(r), std::end(r)))
+            detail::begin(r), detail::end(r)))
     {
         return detail::estimated_width_of_graphemes_impl(
-            std::begin(r), std::end(r));
+            detail::begin(r), detail::end(r));
     }
 
 }}}

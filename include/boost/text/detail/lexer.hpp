@@ -300,8 +300,9 @@ namespace boost { namespace text { namespace detail {
                 "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUV"
                 "WXYZ"
                 "_-";
-            return std::find(std::begin(id_chars), std::end(id_chars), c) !=
-                   std::end(id_chars);
+            return std::find(
+                       detail::begin(id_chars), detail::end(id_chars), c) !=
+                   detail::end(id_chars);
         };
 
         auto is_hex = [](char c) {

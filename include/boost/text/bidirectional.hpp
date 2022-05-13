@@ -2884,9 +2884,14 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<
             bidirectional_cp_subrange<detail::iterator_t<CPRange>>>(
-            std::begin(range), std::end(range), paragraph_embedding_level);
+            detail::begin(range),
+            detail::end(range),
+            paragraph_embedding_level);
 #else
-        return {std::begin(range), std::end(range), paragraph_embedding_level};
+        return {
+            detail::begin(range),
+            detail::end(range),
+            paragraph_embedding_level};
 #endif
     }
 
@@ -2968,13 +2973,13 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<
             bidirectional_cp_subrange<detail::iterator_t<CPRange>>>(
-            std::begin(range),
-            std::end(range),
+            detail::begin(range),
+            detail::end(range),
             paragraph_embedding_level,
             std::move(next));
 #else
-        return {std::begin(range),
-                std::end(range),
+        return {detail::begin(range),
+                detail::end(range),
                 paragraph_embedding_level,
                 std::move(next)};
 #endif

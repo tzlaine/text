@@ -367,9 +367,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf8_dispatch
         {
             static constexpr auto call(Range r) noexcept
-                -> decltype(Impl{}(std::begin(r), std::end(r)))
+                -> decltype(Impl{}(detail::begin(r), detail::end(r)))
             {
-                return Impl{}(std::begin(r), std::end(r));
+                return Impl{}(detail::begin(r), detail::end(r));
             }
         };
 
@@ -425,9 +425,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf16_dispatch
         {
             static constexpr auto call(Range r) noexcept
-                -> decltype(Impl{}(std::begin(r), std::end(r)))
+                -> decltype(Impl{}(detail::begin(r), detail::end(r)))
             {
-                return Impl{}(std::begin(r), std::end(r));
+                return Impl{}(detail::begin(r), detail::end(r));
             }
         };
 
@@ -483,9 +483,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf32_dispatch
         {
             static constexpr auto call(Range r) noexcept
-                -> decltype(Impl{}(std::begin(r), std::end(r)))
+                -> decltype(Impl{}(detail::begin(r), detail::end(r)))
             {
-                return Impl{}(std::begin(r), std::end(r));
+                return Impl{}(detail::begin(r), detail::end(r));
             }
         };
 

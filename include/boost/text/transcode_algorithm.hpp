@@ -542,10 +542,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         {
             static constexpr auto
             call(Range && r, std::ptrdiff_t n, OutIter out) noexcept
-                -> transcode_result<decltype(std::begin(r)), OutIter>
+                -> transcode_result<decltype(detail::begin(r)), OutIter>
             {
                 auto const u = detail::unpack_iterator_and_sentinel(
-                    std::begin(r), std::end(r));
+                    detail::begin(r), detail::end(r));
                 auto unpacked =
                     detail::transcode_to_8<UseN>(u.tag_, u.f_, u.l_, n, out);
                 return {u.repack_(unpacked.in), unpacked.out};
@@ -584,10 +584,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         {
             static constexpr auto
             call(Range && r, std::ptrdiff_t n, OutIter out) noexcept
-                -> transcode_result<decltype(std::begin(r)), OutIter>
+                -> transcode_result<decltype(detail::begin(r)), OutIter>
             {
                 auto const u = detail::unpack_iterator_and_sentinel(
-                    std::begin(r), std::end(r));
+                    detail::begin(r), detail::end(r));
                 auto unpacked =
                     detail::transcode_to_16<UseN>(u.tag_, u.f_, u.l_, n, out);
                 return {u.repack_(unpacked.in), unpacked.out};
@@ -626,10 +626,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         {
             static constexpr auto
             call(Range && r, std::ptrdiff_t n, OutIter out) noexcept
-                -> transcode_result<decltype(std::begin(r)), OutIter>
+                -> transcode_result<decltype(detail::begin(r)), OutIter>
             {
                 auto const u = detail::unpack_iterator_and_sentinel(
-                    std::begin(r), std::end(r));
+                    detail::begin(r), detail::end(r));
                 auto unpacked =
                     detail::transcode_to_32<UseN>(u.tag_, u.f_, u.l_, n, out);
                 return {u.repack_(unpacked.in), unpacked.out};

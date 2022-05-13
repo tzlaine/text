@@ -417,7 +417,7 @@ namespace boost { namespace text {
 
         enum table_state : uint8_t {
             bgn = 0,
-            end = bgn,
+            e_d = bgn, // "end"
             err = 12,
             cs1 = 24,
             cs2 = 36,
@@ -515,9 +515,9 @@ namespace boost { namespace text {
             };
 
             constexpr table_state transitions[108] = {
-                err, end, err, err, err, cs1, p3a, cs2, p3b, p4a, cs3, p4b,
+                err, e_d, err, err, err, cs1, p3a, cs2, p3b, p4a, cs3, p4b,
                 err, err, err, err, err, err, err, err, err, err, err, err,
-                err, err, end, end, end, err, err, err, err, err, err, err,
+                err, err, e_d, e_d, e_d, err, err, err, err, err, err, err,
                 err, err, cs1, cs1, cs1, err, err, err, err, err, err, err,
                 err, err, cs2, cs2, cs2, err, err, err, err, err, err, err,
                 err, err, err, err, cs1, err, err, err, err, err, err, err,

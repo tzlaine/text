@@ -136,11 +136,11 @@ namespace boost { namespace text {
 #endif
             ref_(rope_ref())
         {
-            if (std::begin(r) == std::end(r)) {
+            if (detail::begin(r) == detail::end(r)) {
                 *this = basic_unencoded_rope_view();
             } else {
-                *this = basic_unencoded_rope_view(
-                    string_view(&*std::begin(r), std::end(r) - std::begin(r)));
+                *this = basic_unencoded_rope_view(string_view(
+                    &*detail::begin(r), detail::end(r) - detail::begin(r)));
             }
         }
 

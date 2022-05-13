@@ -363,7 +363,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     bool at_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept;
 
     /** Returns true iff `it` is at the beginning of a grapheme, or `it ==
-        std::end(range)`.
+        std::ranges::end(range)`.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -390,14 +390,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto prev_grapheme_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return v1::prev_grapheme_break(std::begin(range), it, std::end(range));
+        return v1::prev_grapheme_break(
+            detail::begin(range), it, detail::end(range));
     }
 
     template<typename CPRange, typename CPIter>
     auto next_grapheme_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return v1::next_grapheme_break(it, std::end(range));
+        return v1::next_grapheme_break(it, detail::end(range));
     }
 
     template<typename CPIter, typename Sentinel>
@@ -413,10 +414,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto at_grapheme_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        if (it == std::end(range))
+        if (it == detail::end(range))
             return true;
         return v1::prev_grapheme_break(
-                   std::begin(range), it, std::end(range)) == it;
+                   detail::begin(range), it, detail::end(range)) == it;
     }
 
 #endif
@@ -444,14 +445,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         R && range, std::ranges::iterator_t<R> it) noexcept
     {
         return boost::text::prev_grapheme_break(
-            std::begin(range), it, std::end(range));
+            detail::begin(range), it, detail::end(range));
     }
 
     template<code_point_range R>
     std::ranges::iterator_t<R> next_grapheme_break(
         R && range, std::ranges::iterator_t<R> it) noexcept
     {
-        return boost::text::next_grapheme_break(it, std::end(range));
+        return boost::text::next_grapheme_break(it, detail::end(range));
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
@@ -465,10 +466,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<code_point_range R>
     bool at_grapheme_break(R && range, std::ranges::iterator_t<R> it) noexcept
     {
-        if (it == std::end(range))
+        if (it == detail::end(range))
             return true;
         return boost::text::prev_grapheme_break(
-                   std::begin(range), it, std::end(range)) == it;
+                   detail::begin(range), it, detail::end(range)) == it;
     }
 
 }}}

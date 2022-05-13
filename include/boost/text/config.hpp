@@ -47,6 +47,15 @@
 
 #ifndef BOOST_TEXT_DOXYGEN
 
+#if defined(__cpp_lib_ranges)
+namespace boost { namespace text { namespace detail {
+    inline constexpr auto begin = std::ranges::begin;
+    inline constexpr auto end = std::ranges::end;
+}}}
+#else
+#include <boost/text/detail/begin_end.hpp>
+#endif
+
 // The inline namespaces v1 and v2 represent pre- and post-C++20.  v1 is
 // inline for standards before C++20, and v2 is inline for C++20 and later.
 // Note that this only applies to code for which a v2 namespace alternative

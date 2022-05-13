@@ -860,7 +860,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             return detail::prev_word_break_impl(
-                std::begin(range), it, std::end(range), word_prop, word_break);
+                detail::begin(range), it, detail::end(range), word_prop, word_break);
         }
 
         template<
@@ -898,7 +898,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             return detail::next_word_break_impl(
-                it, std::end(range), word_prop, word_break);
+                it, detail::end(range), word_prop, word_break);
         }
 
         template<
@@ -952,12 +952,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordPropFunc const & word_prop = WordPropFunc{},
             WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
-            if (it == std::end(range))
+            if (it == detail::end(range))
                 return true;
             return detail::prev_word_break_impl(
-                       std::begin(range),
+                       detail::begin(range),
                        it,
-                       std::end(range),
+                       detail::end(range),
                        word_prop,
                        word_break) == it;
         }
@@ -973,7 +973,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordPropFunc const & word_prop = WordPropFunc{},
             WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
-            if (it == std::end(range))
+            if (it == detail::end(range))
                 return true;
             using cp_iter_t = decltype(range.begin().base());
             cp_iter_t it_ = static_cast<cp_iter_t>(it.base());
@@ -1051,11 +1051,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             auto first = detail::prev_word_break_impl(
-                std::begin(range), it, std::end(range), word_prop, word_break);
+                detail::begin(range), it, detail::end(range), word_prop, word_break);
             return utf32_view<iterator_t<CPRange>>{
                 first,
                 detail::next_word_break_impl(
-                    first, std::end(range), word_prop, word_break)};
+                    first, detail::end(range), word_prop, word_break)};
         }
 
         template<
@@ -1131,8 +1131,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     WordBreakFunc>>
         {
             return {
-                std::begin(range),
-                std::end(range),
+                detail::begin(range),
+                detail::end(range),
                 {word_prop, word_break},
                 {word_prop, word_break}};
         }
@@ -1346,7 +1346,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Returns true iff `it` is at the beginning of a word, or `it ==
-        std::end(range)`.
+        std::ranges::end(range)`.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept and `WordPropFunc` models the WordPropFunc
@@ -1363,7 +1363,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Returns true iff `it` is at the beginning of a word, or `it ==
-        std::end(range)`.
+        std::ranges::end(range)`.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`

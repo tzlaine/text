@@ -1623,7 +1623,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             -> iterator_t<CPRange>
         {
             return detail::prev_hard_line_break_impl(
-                std::begin(range), it, std::end(range));
+                detail::begin(range), it, detail::end(range));
         }
 
         template<typename GraphemeRange, typename GraphemeIter>
@@ -1645,7 +1645,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         auto next_hard_line_break_cr_impl(CPRange && range, CPIter it) noexcept
             -> iterator_t<CPRange>
         {
-            return detail::next_hard_line_break_impl(it, std::end(range));
+            return detail::next_hard_line_break_impl(it, detail::end(range));
         }
 
         template<typename GraphemeRange, typename GraphemeIter>
@@ -1667,7 +1667,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             -> line_break_result<iterator_t<CPRange>>
         {
             return detail::prev_allowed_line_break_impl<iterator_t<CPRange>>(
-                std::begin(range), it, std::end(range));
+                detail::begin(range), it, detail::end(range));
         }
 
         template<typename GraphemeRange, typename GraphemeIter>
@@ -1691,7 +1691,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             -> line_break_result<iterator_t<CPRange>>
         {
             return detail::next_allowed_line_break_impl<iterator_t<CPRange>>(
-                it, std::end(range));
+                it, detail::end(range));
         }
 
         template<typename GraphemeRange, typename GraphemeIter>
@@ -1710,17 +1710,17 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         template<typename CPRange, typename CPIter>
         bool at_hard_line_break_cr_impl(CPRange && range, CPIter it) noexcept
         {
-            if (it == std::end(range))
+            if (it == detail::end(range))
                 return true;
             return detail::prev_hard_line_break_impl(
-                       std::begin(range), it, std::end(range)) == it;
+                       detail::begin(range), it, detail::end(range)) == it;
         }
 
         template<typename GraphemeRange, typename GraphemeIter>
         bool at_hard_line_break_gr_impl(
             GraphemeRange && range, GraphemeIter it) noexcept
         {
-            if (it == std::end(range))
+            if (it == detail::end(range))
                 return true;
             using cp_iter_t = decltype(range.begin().base());
             cp_iter_t it_ = static_cast<cp_iter_t>(it.base());
@@ -1731,17 +1731,17 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         template<typename CPRange, typename CPIter>
         bool at_allowed_line_break_cr_impl(CPRange && range, CPIter it) noexcept
         {
-            if (it == std::end(range))
+            if (it == detail::end(range))
                 return true;
             return detail::prev_allowed_line_break_impl<iterator_t<CPRange>>(
-                std::begin(range), it, std::end(range));
+                detail::begin(range), it, detail::end(range));
         }
 
         template<typename GraphemeRange, typename GraphemeIter>
         bool at_allowed_line_break_gr_impl(
             GraphemeRange && range, GraphemeIter it) noexcept
         {
-            if (it == std::end(range))
+            if (it == detail::end(range))
                 return true;
             using cp_iter_t = decltype(range.begin().base());
             cp_iter_t it_ = static_cast<cp_iter_t>(it.base());
@@ -1765,10 +1765,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             -> utf32_view<iterator_t<CPRange>>
         {
             auto first = detail::prev_hard_line_break_impl<iterator_t<CPRange>>(
-                std::begin(range), it, std::end(range));
+                detail::begin(range), it, detail::end(range));
             return utf32_view<iterator_t<CPRange>>{
                 first,
-                detail::next_hard_line_break_impl(first, std::end(range))};
+                detail::next_hard_line_break_impl(first, detail::end(range))};
         }
 
         template<typename GraphemeRange, typename GraphemeIter>
@@ -1995,8 +1995,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             bool break_overlong_lines = true) noexcept
         {
             return {
-                std::begin(range),
-                std::end(range),
+                detail::begin(range),
+                detail::end(range),
                 max_extent,
                 std::move(cp_extent),
                 break_overlong_lines};
@@ -2040,11 +2040,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         {
             auto const first =
                 detail::prev_allowed_line_break_impl<iterator_t<CPRange>>(
-                    std::begin(range), it, std::end(range));
+                    detail::begin(range), it, detail::end(range));
             return line_break_cp_view<iterator_t<CPRange>>{
                 first,
                 detail::next_allowed_line_break_impl<iterator_t<CPRange>>(
-                    first.iter, std::end(range))};
+                    first.iter, detail::end(range))};
         }
 
         template<typename GraphemeRange, typename GraphemeIter>
@@ -2214,7 +2214,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         auto allowed_lines_cr_impl(CPRange && range) noexcept
             -> line_break_view<iterator_t<CPRange>, sentinel_t<CPRange>>
         {
-            return {std::begin(range), std::end(range)};
+            return {detail::begin(range), detail::end(range)};
         }
 
         template<typename GraphemeRange>
@@ -2469,7 +2469,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a line (considering only
-        hard line breaks), or `it == std::end(range)`.  A hard line break
+        hard line breaks), or `it == detail::end(range)`.  A hard line break
         follows any code points with the property BK, CR (not followed by LF),
         LF, or NL.
 
@@ -2479,7 +2479,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     bool at_hard_line_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a line (considering only
-        hard line breaks), or `it == std::end(range)`.  A hard line break
+        hard line breaks), or `it == detail::end(range)`.  A hard line break
         follows any code points with the property BK, CR (not followed by LF),
         LF, or NL.
 
@@ -2490,7 +2490,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     at_hard_line_break(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a line, or `it ==
-        std::end(range)`.
+        detail::end(range)`.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -2498,7 +2498,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     bool at_allowed_line_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a line, or `it ==
-        std::end(range)`.
+        detail::end(range)`.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */

@@ -42,7 +42,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto to_string(CPRange const & range)
         -> detail::cp_rng_alg_ret_t<std::string, CPRange>
     {
-        return v1::to_string(std::begin(range), std::end(range));
+        return v1::to_string(detail::begin(range), detail::end(range));
     }
 
 #endif

@@ -142,7 +142,7 @@ namespace boost { namespace text {
         explicit basic_rope(
             CURange const & r,
             detail::cu_rng_alg_ret_t<(int)utf_format, int *, CURange> = 0) :
-            rope_(std::begin(r), std::end(r))
+            rope_(detail::begin(r), detail::end(r))
         {}
 
         template<typename CUIter, typename Sentinel>
@@ -399,7 +399,7 @@ namespace boost { namespace text {
                 replace_result<const_iterator>,
                 CURange>
         {
-            return replace(first, last, std::begin(r), std::end(r));
+            return replace(first, last, detail::begin(r), detail::end(r));
         }
 
         template<typename CUIter>
@@ -796,7 +796,10 @@ namespace boost { namespace text {
                 decltype(lhs = rhs, true)>
         {
             return algorithm::equal(
-                std::begin(lhs), std::end(lhs), std::begin(rhs), std::end(rhs));
+                detail::begin(lhs),
+                detail::end(lhs),
+                detail::begin(rhs),
+                detail::end(rhs));
         }
 
         /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which

@@ -482,7 +482,7 @@ namespace boost { namespace text {
             -> detail::
                 cu_rng_alg_ret_t<(int)utf_format, replace_result<iterator>, R>
         {
-            return replace(first, last, std::begin(r), std::end(r));
+            return replace(first, last, detail::begin(r), detail::end(r));
         }
 #endif
 
@@ -518,7 +518,7 @@ namespace boost { namespace text {
         auto replace(const_iterator first, const_iterator last, R const & r)
             -> detail::graph_rng_alg_ret_t<replace_result<iterator>, R>
         {
-            return replace(first, last, std::begin(r), std::end(r));
+            return replace(first, last, detail::begin(r), detail::end(r));
         }
 #endif
 
@@ -814,7 +814,10 @@ namespace boost { namespace text {
                 decltype(lhs = rhs, true)>
         {
             return algorithm::equal(
-                std::begin(lhs), std::end(lhs), std::begin(rhs), std::end(rhs));
+                detail::begin(lhs),
+                detail::end(lhs),
+                detail::begin(rhs),
+                detail::end(rhs));
         }
 
         /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which

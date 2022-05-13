@@ -326,10 +326,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename CPRange, typename OutIter>
     constexpr auto stream_safe_copy(CPRange && r, OutIter out) noexcept
         ->decltype(boost::text::v1::stream_safe_copy(
-            std::begin(r), std::end(r), out))
+            detail::begin(r), detail::end(r), out))
     {
         return boost::text::v1::stream_safe_copy(
-            std::begin(r), std::end(r), out);
+            detail::begin(r), detail::end(r), out);
     }
 
     /** Copies the stream-safe portion of `[first, last)` to the beginning
@@ -358,9 +358,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPRange>
     constexpr auto stream_safe(CPRange && r) noexcept
-        ->decltype(boost::text::v1::stream_safe(std::begin(r), std::end(r)))
+        ->decltype(boost::text::v1::stream_safe(detail::begin(r), detail::end(r)))
     {
-        return boost::text::v1::stream_safe(std::begin(r), std::end(r));
+        return boost::text::v1::stream_safe(detail::begin(r), detail::end(r));
     }
 
     /** Returns true iff `[first, last)` is in stream-safe format.
@@ -386,9 +386,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename CPRange>
     constexpr auto is_stream_safe(CPRange && r) noexcept
         ->decltype(boost::text::v1::is_stream_safe(
-            std::begin(r), std::end(r)))
+            detail::begin(r), detail::end(r)))
     {
-        return boost::text::v1::is_stream_safe(std::begin(r), std::end(r));
+        return boost::text::v1::is_stream_safe(detail::begin(r), detail::end(r));
     }
 
 #if defined(BOOST_TEXT_DOXYGEN)
@@ -451,9 +451,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
             template<typename CPRange>
             constexpr auto operator()(CPRange && r) const noexcept
-                -> decltype((*this)(std::begin(r), std::end(r)))
+                -> decltype((*this)(detail::begin(r), detail::end(r)))
             {
-                return (*this)(std::begin(r), std::end(r));
+                return (*this)(detail::begin(r), detail::end(r));
             }
         };
     }
