@@ -9,6 +9,7 @@
 #include <boost/text/collate.hpp>
 #include <boost/text/grapheme_break.hpp>
 #include <boost/text/grapheme_view.hpp>
+#include <boost/text/subrange.hpp>
 #include <boost/text/detail/algorithm.hpp>
 
 #include <boost/algorithm/cxx14/mismatch.hpp>
@@ -52,8 +53,7 @@ namespace boost { namespace text {
 #else
     template<typename I, typename S = I>
 #endif
-    struct collation_search_result
-        : stl_interfaces::view_interface<collation_search_result<I, S>>
+    struct collation_search_result : subrange<I>
     {
         using iterator = I;
         using sentinel = S;
@@ -61,24 +61,8 @@ namespace boost { namespace text {
         constexpr collation_search_result() noexcept {}
         constexpr collation_search_result(
             iterator first, iterator last) noexcept :
-            first_(first), last_(last)
+            subrange<I>(first, last)
         {}
-
-        constexpr iterator begin() const noexcept { return first_; }
-        constexpr sentinel end() const noexcept { return last_; }
-
-        friend constexpr bool operator==(
-            collation_search_result lhs,
-            collation_search_result rhs)
-        {
-            return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
-        }
-        friend constexpr bool operator!=(
-            collation_search_result lhs,
-            collation_search_result rhs)
-        {
-            return !(lhs == rhs);
-        }
 
         friend std::ostream &
         operator<<(std::ostream & os, collation_search_result v)
@@ -96,10 +80,6 @@ namespace boost { namespace text {
             return os;
         }
 #endif
-
-    private:
-        iterator first_;
-        [[no_unique_address]] sentinel last_;
     };
 
     namespace detail {
