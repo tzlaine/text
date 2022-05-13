@@ -6,8 +6,7 @@
 #ifndef BOOST_TEXT_REVERSE_HPP
 #define BOOST_TEXT_REVERSE_HPP
 
-#include <boost/text/detail/pipeable_view.hpp>
-#include <boost/text/detail/algorithm.hpp>
+#include <boost/text/view_adaptor.hpp>
 
 
 namespace boost { namespace text {
@@ -94,7 +93,7 @@ namespace boost { namespace text {
             }
         };
 
-        struct reverse_impl : detail::pipeable<reverse_impl>
+        struct reverse_impl : range_adaptor_closure<reverse_impl>
         {
             template<typename R>
             constexpr auto operator()(R && r) const

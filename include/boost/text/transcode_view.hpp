@@ -9,8 +9,8 @@
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/concepts.hpp>
 #include <boost/text/dangling.hpp>
-#include <boost/text/detail/pipeable_view.hpp>
 #include <boost/text/detail/unpack.hpp>
+#include <boost/text/view_adaptor.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
@@ -383,7 +383,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
         };
 
-        struct as_utf8_impl : detail::pipeable<as_utf8_impl>
+        struct as_utf8_impl : range_adaptor_closure<as_utf8_impl>
         {
             template<typename Iter, typename Sentinel>
             constexpr auto operator()(Iter first, Sentinel last) const noexcept
@@ -441,7 +441,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
         };
 
-        struct as_utf16_impl : detail::pipeable<as_utf16_impl>
+        struct as_utf16_impl : range_adaptor_closure<as_utf16_impl>
         {
             template<typename Iter, typename Sentinel>
             constexpr auto operator()(Iter first, Sentinel last) const noexcept
@@ -499,7 +499,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
         };
 
-        struct as_utf32_impl : detail::pipeable<as_utf32_impl>
+        struct as_utf32_impl : range_adaptor_closure<as_utf32_impl>
         {
             template<typename Iter, typename Sentinel>
             constexpr auto operator()(Iter first, Sentinel last) const noexcept
@@ -552,7 +552,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 #endif
 
     namespace dtl {
-        struct as_utf8_impl : detail::pipeable<as_utf8_impl>
+        struct as_utf8_impl : range_adaptor_closure<as_utf8_impl>
         {
             template<utf_iter I, std::sentinel_for<I> S>
             constexpr auto operator()(I first, S last) const noexcept
@@ -598,7 +598,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 #endif
 
     namespace dtl {
-        struct as_utf16_impl : detail::pipeable<as_utf16_impl>
+        struct as_utf16_impl : range_adaptor_closure<as_utf16_impl>
         {
             template<utf_iter I, std::sentinel_for<I> S>
             constexpr auto operator()(I first, S last) const noexcept
@@ -644,7 +644,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 #endif
 
     namespace dtl {
-        struct as_utf32_impl : detail::pipeable<as_utf32_impl>
+        struct as_utf32_impl : range_adaptor_closure<as_utf32_impl>
         {
             template<utf_iter I, std::sentinel_for<I> S>
             constexpr auto operator()(I first, S last) const noexcept

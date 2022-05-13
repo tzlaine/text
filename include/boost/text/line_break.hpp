@@ -9,7 +9,6 @@
 #include <boost/text/algorithm.hpp>
 #include <boost/text/grapheme_view.hpp>
 #include <boost/text/detail/breaks_impl.hpp>
-#include <boost/text/detail/view_closure.hpp>
 
 #include <boost/assert.hpp>
 #include <boost/optional.hpp>
@@ -2828,7 +2827,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 
     namespace dtl {
-        struct lines_impl : detail::pipeable<lines_impl>
+        struct lines_impl : range_adaptor_closure<lines_impl>
         {
             template<typename T>
             using does_arithmetic =
@@ -2944,12 +2943,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 CPExtentFunc cp_extent,
                 bool break_overlong_lines = true) const noexcept
             {
-                return detail::
-                    view_closure<lines_impl, Extent, CPExtentFunc, bool>(
-                        *this,
-                        std::move(max_extent),
-                        std::move(cp_extent),
-                        std::move(break_overlong_lines));
+                using closure_func_type = decltype(boost::text::bind_back(
+                    *this,
+                    std::move(max_extent),
+                    std::move(cp_extent),
+                    std::move(break_overlong_lines)));
+                return closure<closure_func_type>(boost::text::bind_back(
+                    *this,
+                    std::move(max_extent),
+                    std::move(cp_extent),
+                    std::move(break_overlong_lines)));
             }
 
             template<typename CPIter, typename Sentinel>
@@ -2985,8 +2988,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
             auto operator()(allowed_breaks_t ab) const noexcept
             {
-                return detail::view_closure<lines_impl, allowed_breaks_t>(
-                    *this, std::move(ab));
+                using closure_func_type =
+                    decltype(boost::text::bind_back(*this, std::move(ab)));
+                return closure<closure_func_type>(
+                    boost::text::bind_back(*this, std::move(ab)));
             }
         };
     }
@@ -3128,7 +3133,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     namespace dtl {
-        struct lines_impl : detail::pipeable<lines_impl>
+        struct lines_impl : range_adaptor_closure<lines_impl>
         {
             template<code_point_iter I, std::sentinel_for<I> S>
             auto operator()(I first, S last) const noexcept
@@ -3210,11 +3215,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 CPExtentFunc cp_extent,
                 bool break_overlong_lines = true) const noexcept
             {
-                return detail::view_closure(
+                return closure(boost::text::bind_back(
                     *this,
                     std::move(max_extent),
                     std::move(cp_extent),
-                    std::move(break_overlong_lines));
+                    std::move(break_overlong_lines)));
             }
 
             template<std::floating_point Extent, typename CPExtentFunc>
@@ -3223,11 +3228,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 CPExtentFunc cp_extent,
                 bool break_overlong_lines = true) const noexcept
             {
-                return detail::view_closure(
+                return closure(boost::text::bind_back(
                     *this,
                     std::move(max_extent),
                     std::move(cp_extent),
-                    std::move(break_overlong_lines));
+                    std::move(break_overlong_lines)));
             }
 
             template<code_point_iter I, std::sentinel_for<I> S>
@@ -3250,7 +3255,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
             auto operator()(allowed_breaks_t ab) const noexcept
             {
-                return detail::view_closure(*this, std::move(ab));
+                return closure(boost::text::bind_back(*this, std::move(ab)));
             }
         };
     }

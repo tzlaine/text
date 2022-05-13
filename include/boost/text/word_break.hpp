@@ -1700,7 +1700,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     namespace dtl {
-        struct words_impl : detail::pipeable<words_impl>
+        struct words_impl : range_adaptor_closure<words_impl>
         {
             template<
                 typename CPIter,
@@ -1963,7 +1963,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     namespace dtl {
-        struct words_impl : detail::pipeable<words_impl>
+        struct words_impl : range_adaptor_closure<words_impl>
         {
             template<
                 code_point_iter I,

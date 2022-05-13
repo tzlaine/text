@@ -10,7 +10,7 @@
 #include <boost/text/concepts.hpp>
 #include <boost/text/dangling.hpp>
 #include <boost/text/detail/normalization_data.hpp>
-#include <boost/text/detail/pipeable_view.hpp>
+#include <boost/text/view_adaptor.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
@@ -425,7 +425,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 #endif
 
     namespace dtl {
-        struct as_stream_safe_impl : detail::pipeable<as_stream_safe_impl>
+        struct as_stream_safe_impl : range_adaptor_closure<as_stream_safe_impl>
         {
             template<typename CPIter, typename Sentinel>
             constexpr auto
@@ -516,7 +516,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     namespace dtl {
-        struct as_stream_safe_impl : detail::pipeable<as_stream_safe_impl>
+        struct as_stream_safe_impl : range_adaptor_closure<as_stream_safe_impl>
         {
             template<code_point_iter I, std::sentinel_for<I> S>
             constexpr stream_safe_view<stream_safe_iterator<I, S>, S>

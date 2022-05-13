@@ -9,7 +9,7 @@
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_view.hpp>
-#include <boost/text/detail/pipeable_view.hpp>
+#include <boost/text/view_adaptor.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
@@ -156,7 +156,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
         };
 
-        struct as_graphemes_impl : detail::pipeable<as_graphemes_impl>
+        struct as_graphemes_impl : range_adaptor_closure<as_graphemes_impl>
         {
             template<typename Iter, typename Sentinel>
             constexpr auto operator()(Iter first, Sentinel last) const noexcept
@@ -194,7 +194,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     namespace dtl {
-        struct as_graphemes_impl : detail::pipeable<as_graphemes_impl>
+        struct as_graphemes_impl : range_adaptor_closure<as_graphemes_impl>
         {
             template<utf_iter I, std::sentinel_for<I> S>
             constexpr auto operator()(I first, S last) const noexcept
