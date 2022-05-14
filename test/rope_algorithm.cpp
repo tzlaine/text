@@ -288,8 +288,8 @@ TEST(break_apis, line_break)
         auto const _80_column_lines = lines(
             cps,
             80,
-            [](rope::const_iterator::iterator_type it,
-               rope::const_iterator::iterator_type last) {
+            [](rope::const_iterator::iterator it,
+               rope::const_iterator::iterator last) {
                 return distance(it, last);
             });
 
@@ -309,8 +309,8 @@ TEST(break_apis, line_break)
         auto const _80_column_lines =
             cps | lines(
                       80,
-                      [](rope::const_iterator::iterator_type it,
-                         rope::const_iterator::iterator_type last) {
+                      [](rope::const_iterator::iterator it,
+                         rope::const_iterator::iterator last) {
                           return distance(it, last);
                       });
 
@@ -330,8 +330,8 @@ TEST(break_apis, line_break)
         auto const _80_column_lines =
             cps | lines(
                       80.0,
-                      [](rope::const_iterator::iterator_type it,
-                         rope::const_iterator::iterator_type last) {
+                      [](rope::const_iterator::iterator it,
+                         rope::const_iterator::iterator last) {
                           return distance(it, last);
                       });
 

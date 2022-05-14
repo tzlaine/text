@@ -505,7 +505,7 @@ TEST(rope, test_insert)
             text::rope r;
             r.insert(
                 r.begin(),
-                text::grapheme_ref<text::rope::iterator::iterator_type>());
+                text::grapheme_ref<text::rope::iterator::iterator>());
             EXPECT_EQ(r, text::text(""));
         }
     }

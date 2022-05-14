@@ -14,7 +14,7 @@
 // interfaces.
 
 // This returns a view into a temporary.  Don't do this.
-boost::text::grapheme_ref<boost::text::text::iterator::iterator_type>
+boost::text::grapheme_ref<boost::text::text::iterator::iterator>
 find_first_dot_bad(boost::text::text t)
 {
     for (auto grapheme : t) {
@@ -29,8 +29,7 @@ find_first_dot_bad(boost::text::text t)
             return grapheme;
         }
     }
-    return boost::text::grapheme_ref<
-        boost::text::text::iterator::iterator_type>();
+    return boost::text::grapheme_ref<boost::text::text::iterator::iterator>();
 }
 
 // This returns a grapheme that owns its code point storage, so it cannot

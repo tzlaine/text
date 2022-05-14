@@ -326,7 +326,7 @@ TEST(text_utf16, test_insert)
             text16 t;
             t.insert(
                 t.begin(),
-                text::grapheme_ref<text::rope::iterator::iterator_type>());
+                text::grapheme_ref<text::rope::iterator::iterator>());
             EXPECT_EQ(t, text16(u""));
         }
     }

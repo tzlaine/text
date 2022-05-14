@@ -332,7 +332,7 @@ TEST(text_tests, test_insert)
             text::text t;
             t.insert(
                 t.begin(),
-                text::grapheme_ref<text::rope::iterator::iterator_type>());
+                text::grapheme_ref<text::rope::iterator::iterator>());
             EXPECT_EQ(t, text::text(""));
         }
     }

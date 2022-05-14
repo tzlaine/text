@@ -515,7 +515,7 @@ TEST(rope_utf16, test_insert)
             rope16 r;
             r.insert(
                 r.begin(),
-                text::grapheme_ref<rope16::iterator::iterator_type>());
+                text::grapheme_ref<rope16::iterator::iterator>());
             EXPECT_EQ(r, rope16::text(u""));
         }
     }

@@ -2857,15 +2857,15 @@ namespace boost { namespace text {
         GraphemeRange && range, int paragraph_embedding_level = -1)
         -> detail::graph_rng_alg_ret_t<
             lazy_bidi_segment_range<
-                typename detail::iterator_t<GraphemeRange const>::iterator_type,
-                typename detail::iterator_t<GraphemeRange const>::iterator_type,
+                typename detail::iterator_t<GraphemeRange const>::iterator,
+                typename detail::iterator_t<GraphemeRange const>::iterator,
                 bidirectional_grapheme_subrange<typename detail::iterator_t<
-                    GraphemeRange const>::iterator_type>>,
+                    GraphemeRange const>::iterator>>,
             GraphemeRange>
     {
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<bidirectional_grapheme_subrange<
-            typename detail::iterator_t<GraphemeRange const>::iterator_type>>(
+            typename detail::iterator_t<GraphemeRange const>::iterator>>(
             range.begin().base(),
             range.end().base(),
             paragraph_embedding_level);
@@ -2951,10 +2951,10 @@ namespace boost { namespace text {
         bool break_overlong_lines = true)
         -> detail::graph_rng_alg_ret_t<
             lazy_bidi_segment_range<
-                typename detail::iterator_t<GraphemeRange const>::iterator_type,
-                typename detail::iterator_t<GraphemeRange const>::iterator_type,
+                typename detail::iterator_t<GraphemeRange const>::iterator,
+                typename detail::iterator_t<GraphemeRange const>::iterator,
                 bidirectional_grapheme_subrange<typename detail::iterator_t<
-                    GraphemeRange const>::iterator_type>,
+                    GraphemeRange const>::iterator>,
                 detail::next_allowed_line_break_within_extent_callable<
                     Extent,
                     CPExtentFunc>>,
@@ -2965,7 +2965,7 @@ namespace boost { namespace text {
                 next{max_extent, std::move(cp_extent), break_overlong_lines};
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<bidirectional_grapheme_subrange<
-            typename detail::iterator_t<GraphemeRange const>::iterator_type>>(
+            typename detail::iterator_t<GraphemeRange const>::iterator>>(
             range.begin().base(),
             range.end().base(),
             paragraph_embedding_level,

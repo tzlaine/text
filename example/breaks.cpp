@@ -225,8 +225,8 @@ std::cout << "************************************************************\n";
 for (auto line : boost::text::lines(
          cps,
          60,
-         [](boost::text::text::const_iterator::iterator_type first,
-            boost::text::text::const_iterator::iterator_type last)
+         [](boost::text::text::const_iterator::iterator first,
+            boost::text::text::const_iterator::iterator last)
              -> std::ptrdiff_t {
              // estimated_width_of_graphemes() uses the same table-based width
              // determination that std::format() uses.  You can use anything

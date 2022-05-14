@@ -233,8 +233,8 @@ TEST(break_apis, line_break)
         auto const _80_column_lines = lines(
             cps,
             80,
-            [](text_view::const_iterator::iterator_type it,
-               text_view::const_iterator::iterator_type last) {
+            [](text_view::const_iterator::iterator it,
+               text_view::const_iterator::iterator last) {
                 return distance(it, last);
             });
 
