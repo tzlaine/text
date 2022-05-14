@@ -604,7 +604,7 @@ namespace boost { namespace text {
         operator==(basic_rope const & lhs, char_type const * rhs) noexcept
         {
             return boost::text::equal(
-                lhs.begin(), lhs.end(), rhs, null_sentinel{});
+                lhs.begin(), lhs.end(), rhs, null_sentinel);
         }
 
         friend bool

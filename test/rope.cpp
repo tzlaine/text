@@ -1068,7 +1068,7 @@ TEST(rope, test_sentinel_api)
 {
     {
         char const * chars = "chars";
-        text::rope s(chars, text::null_sentinel{});
+        text::rope s(chars, text::null_sentinel);
         EXPECT_EQ(s, text::text(chars));
     }
 }

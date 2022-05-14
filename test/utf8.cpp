@@ -31,12 +31,12 @@ TEST(utf_8, test_consecutive)
 
     // UTF-8 -> UTF-32
     {
-        auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
-            utf8, utf8, text::null_sentinel{});
+        auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel_t>(
+            utf8, utf8, text::null_sentinel);
 
         auto const end =
-            text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
-                utf8, utf8 + 10, text::null_sentinel{});
+            text::utf_8_to_32_iterator<char const *, text::null_sentinel_t>(
+                utf8, utf8 + 10, text::null_sentinel);
 
         auto const zero = it;
         EXPECT_EQ(*it, utf32[0]);
@@ -458,8 +458,8 @@ TEST(utf_8, test_back_and_forth)
 
     // UTF-8 -> UTF-32
     for (int iterations = 1; iterations <= 4; ++iterations) {
-        auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
-            utf8, utf8, text::null_sentinel{});
+        auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel_t>(
+            utf8, utf8, text::null_sentinel);
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf32[i])
                 << "iterations=" << iterations << " i=" << i;
@@ -471,8 +471,8 @@ TEST(utf_8, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 4; ++iterations) {
-        auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
-            utf8, utf8 + 10, text::null_sentinel{});
+        auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel_t>(
+            utf8, utf8 + 10, text::null_sentinel);
         int i = 4;
         for (; i-- > iterations;) {
             EXPECT_EQ(*--it, utf32[i])
@@ -808,8 +808,8 @@ TEST(utf_8, test_0xfffd)
                                  0xfffd,
                                  0x0064};
 
-    auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
-        bad_utf8, bad_utf8, text::null_sentinel{});
+    auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel_t>(
+        bad_utf8, bad_utf8, text::null_sentinel);
 
     EXPECT_EQ(*it++, expected[0]);
     EXPECT_EQ(*it++, expected[1]);
@@ -822,8 +822,8 @@ TEST(utf_8, test_0xfffd)
     EXPECT_EQ(*it++, expected[8]);
     EXPECT_EQ(*it++, expected[9]);
 
-    it = text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
-        bad_utf8, bad_utf8 + 13, text::null_sentinel{});
+    it = text::utf_8_to_32_iterator<char const *, text::null_sentinel_t>(
+        bad_utf8, bad_utf8 + 13, text::null_sentinel);
 
     EXPECT_EQ(*--it, expected[9]);
     EXPECT_EQ(*--it, expected[8]);
@@ -907,11 +907,11 @@ TEST(utf_8, iterator_conversions)
                    0};
 
     {
-        text::utf_8_to_32_iterator<char *, text::null_sentinel> const it =
-            text::utf_8_to_32_iterator<char *, text::null_sentinel>(
-                utf8, utf8, text::null_sentinel{});
+        text::utf_8_to_32_iterator<char *, text::null_sentinel_t> const it =
+            text::utf_8_to_32_iterator<char *, text::null_sentinel_t>(
+                utf8, utf8, text::null_sentinel);
 
-        text::utf_8_to_32_iterator<char const *, text::null_sentinel> const
+        text::utf_8_to_32_iterator<char const *, text::null_sentinel_t> const
             it_const = it;
 
         EXPECT_EQ(it_const, it);

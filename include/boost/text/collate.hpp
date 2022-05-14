@@ -858,7 +858,7 @@ namespace boost { namespace text {
             -> detail::cp_iter_ret_t<text_sort_key, CPIter>;
 
         template<typename Result, typename Iter>
-        auto make_iterator(Result first, Iter it, null_sentinel s)
+        auto make_iterator(Result first, Iter it, null_sentinel_t s)
             -> decltype(Result(first.base(), it, s))
         {
             return Result(first.base(), it, s);

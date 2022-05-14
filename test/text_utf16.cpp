@@ -826,7 +826,7 @@ TEST(text_utf16, test_sentinel_api)
 {
     {
         char16_t const * chars = u"chars";
-        text16 s(chars, text::null_sentinel{});
+        text16 s(chars, text::null_sentinel);
         EXPECT_EQ(s, text16(chars));
     }
 }

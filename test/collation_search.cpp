@@ -46,22 +46,22 @@ void do_simple_search(
     // Exercise cases where !std::is_same<CPIter, Sentinel>::value:
 
     using sentinel_cp_range_iter =
-        utf_8_to_32_iterator<char const *, null_sentinel>;
-    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
+        utf_8_to_32_iterator<char const *, null_sentinel_t>;
+    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel_t>;
 
     sentinel_cp_range str_cp_range{
         str.empty()
-            ? sentinel_cp_range_iter("", "", null_sentinel{})
+            ? sentinel_cp_range_iter("", "", null_sentinel)
             : sentinel_cp_range_iter(
-                  &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
-        null_sentinel{}};
+                  &*str.begin().base(), &*str.begin().base(), null_sentinel),
+        null_sentinel};
     sentinel_cp_range substr_cp_range{
-        substr.empty() ? sentinel_cp_range_iter("", "", null_sentinel{})
+        substr.empty() ? sentinel_cp_range_iter("", "", null_sentinel)
                        : sentinel_cp_range_iter(
                              &*substr.begin().base(),
                              &*substr.begin().base(),
-                             null_sentinel{}),
-        null_sentinel{}};
+                             null_sentinel),
+        null_sentinel};
 
     {
         auto const r =
@@ -115,22 +115,22 @@ void do_boyer_moore_search(
     // Exercise cases where !std::is_same<CPIter, Sentinel>::value:
 
     using sentinel_cp_range_iter =
-        utf_8_to_32_iterator<char const *, null_sentinel>;
-    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
+        utf_8_to_32_iterator<char const *, null_sentinel_t>;
+    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel_t>;
 
     sentinel_cp_range str_cp_range{
         str.empty()
-            ? sentinel_cp_range_iter("", "", null_sentinel{})
+            ? sentinel_cp_range_iter("", "", null_sentinel)
             : sentinel_cp_range_iter(
-                  &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
-        null_sentinel{}};
+                  &*str.begin().base(), &*str.begin().base(), null_sentinel),
+        null_sentinel};
     sentinel_cp_range substr_cp_range{
-        substr.empty() ? sentinel_cp_range_iter("", "", null_sentinel{})
+        substr.empty() ? sentinel_cp_range_iter("", "", null_sentinel)
                        : sentinel_cp_range_iter(
                              &*substr.begin().base(),
                              &*substr.begin().base(),
-                             null_sentinel{}),
-        null_sentinel{}};
+                             null_sentinel),
+        null_sentinel};
 
     {
         auto r = collation_search(
@@ -177,22 +177,22 @@ void do_boyer_moore_horspool_search(
     // Exercise cases where !std::is_same<CPIter, Sentinel>::value:
 
     using sentinel_cp_range_iter =
-        utf_8_to_32_iterator<char const *, null_sentinel>;
-    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
+        utf_8_to_32_iterator<char const *, null_sentinel_t>;
+    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel_t>;
 
     sentinel_cp_range str_cp_range{
         str.empty()
-            ? sentinel_cp_range_iter("", "", null_sentinel{})
+            ? sentinel_cp_range_iter("", "", null_sentinel)
             : sentinel_cp_range_iter(
-                  &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
-        null_sentinel{}};
+                  &*str.begin().base(), &*str.begin().base(), null_sentinel),
+        null_sentinel};
     sentinel_cp_range substr_cp_range{
-        substr.empty() ? sentinel_cp_range_iter("", "", null_sentinel{})
+        substr.empty() ? sentinel_cp_range_iter("", "", null_sentinel)
                        : sentinel_cp_range_iter(
                              &*substr.begin().base(),
                              &*substr.begin().base(),
-                             null_sentinel{}),
-        null_sentinel{}};
+                             null_sentinel),
+        null_sentinel};
 
     {
         auto r = collation_search(
@@ -851,17 +851,17 @@ void do_simple_word_search(
     // Exercise cases where !std::is_same<CPIter, Sentinel>::value:
 
     using sentinel_cp_range_iter =
-        utf_8_to_32_iterator<char const *, null_sentinel>;
-    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
+        utf_8_to_32_iterator<char const *, null_sentinel_t>;
+    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel_t>;
 
     sentinel_cp_range str_cp_range{
         sentinel_cp_range_iter(
-            str.begin().base(), str.begin().base(), null_sentinel{}),
-        null_sentinel{}};
+            str.begin().base(), str.begin().base(), null_sentinel),
+        null_sentinel};
     sentinel_cp_range substr_cp_range{
         sentinel_cp_range_iter(
-            substr.begin().base(), substr.begin().base(), null_sentinel{}),
-        null_sentinel{}};
+            substr.begin().base(), substr.begin().base(), null_sentinel),
+        null_sentinel};
 
     {
         auto const r = collation_search(
@@ -921,17 +921,17 @@ void do_simple_word_search_not_found(
     // Exercise cases where !std::is_same<CPIter, Sentinel>::value:
 
     using sentinel_cp_range_iter =
-        utf_8_to_32_iterator<char const *, null_sentinel>;
-    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
+        utf_8_to_32_iterator<char const *, null_sentinel_t>;
+    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel_t>;
 
     sentinel_cp_range str_cp_range{
         sentinel_cp_range_iter(
-            str.begin().base(), str.begin().base(), null_sentinel{}),
-        null_sentinel{}};
+            str.begin().base(), str.begin().base(), null_sentinel),
+        null_sentinel};
     sentinel_cp_range substr_cp_range{
         sentinel_cp_range_iter(
-            substr.begin().base(), substr.begin().base(), null_sentinel{}),
-        null_sentinel{}};
+            substr.begin().base(), substr.begin().base(), null_sentinel),
+        null_sentinel};
 
     {
         auto const r = collation_search(

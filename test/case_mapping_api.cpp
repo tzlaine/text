@@ -14,16 +14,16 @@
 using namespace boost;
 using namespace boost::text::detail;
 
-using u32_iter = text::utf_8_to_32_iterator<char const *, text::null_sentinel>;
-using sentinel_cp_range_t = text::utf32_view<u32_iter, text::null_sentinel>;
+using u32_iter = text::utf_8_to_32_iterator<char const *, text::null_sentinel_t>;
+using sentinel_cp_range_t = text::utf32_view<u32_iter, text::null_sentinel_t>;
 
 void to_sentinel_cp_range(
     std::string & s, sentinel_cp_range_t & r, std::vector<uint32_t> cps)
 {
     s = text::to_string(cps.begin(), cps.end());
     r = sentinel_cp_range_t{
-        u32_iter(s.data(), s.data(), text::null_sentinel{}),
-        text::null_sentinel{}};
+        u32_iter(s.data(), s.data(), text::null_sentinel),
+        text::null_sentinel};
 }
 
 

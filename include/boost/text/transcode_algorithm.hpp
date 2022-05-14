@@ -559,7 +559,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
             {
                 return detail::transcode_to_8<UseN>(
-                    detail::utf16_tag{}, p, null_sentinel{}, n, out);
+                    detail::utf16_tag{}, p, null_sentinel, n, out);
             }
         };
 
@@ -570,7 +570,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
             {
                 return detail::transcode_to_8<UseN>(
-                    detail::utf32_tag{}, p, null_sentinel{}, n, out);
+                    detail::utf32_tag{}, p, null_sentinel, n, out);
             }
         };
 
@@ -601,7 +601,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
             {
                 return detail::transcode_to_16<UseN>(
-                    detail::utf8_tag{}, p, null_sentinel{}, n, out);
+                    detail::utf8_tag{}, p, null_sentinel, n, out);
             }
         };
 
@@ -612,7 +612,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
             {
                 return detail::transcode_to_16<UseN>(
-                    detail::utf32_tag{}, p, null_sentinel{}, n, out);
+                    detail::utf32_tag{}, p, null_sentinel, n, out);
             }
         };
 
@@ -643,7 +643,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
             {
                 return detail::transcode_to_32<UseN>(
-                    detail::utf8_tag{}, p, null_sentinel{}, n, out);
+                    detail::utf8_tag{}, p, null_sentinel, n, out);
             }
         };
 
@@ -654,7 +654,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
             {
                 return detail::transcode_to_32<UseN>(
-                    detail::utf16_tag{}, p, null_sentinel{}, n, out);
+                    detail::utf16_tag{}, p, null_sentinel, n, out);
             }
         };
     }
@@ -751,7 +751,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return {r.repack_(unpacked.in), unpacked.out};
     }
 
-    /** Copies the code points in the range `[p, null_sentinel{})` to `out`,
+    /** Copies the code points in the range `[p, null_sentinel)` to `out`,
         changing the encoding to UTF-8.  */
     template<typename Ptr, std::output_iterator<uint8_t> O>
     // clang-format off
@@ -759,7 +759,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     transcode_result<Ptr, O> transcode_to_utf8(Ptr p, O out)
     {
         // clang-format on
-        return text::transcode_to_utf8(p, null_sentinel{}, out);
+        return text::transcode_to_utf8(p, null_sentinel, out);
     }
 
     /** Copies the code points in the array `arr` to `out`, changing the
@@ -809,7 +809,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return {r.repack_(unpacked.in), unpacked.out};
     }
 
-    /** Copies the code points in the range `[p, null_sentinel{})` to `out`,
+    /** Copies the code points in the range `[p, null_sentinel)` to `out`,
         changing the encoding to UTF-16.  */
     template<typename Ptr, std::output_iterator<uint16_t> O>
     // clang-format off
@@ -817,7 +817,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     transcode_result<Ptr, O> transcode_to_utf16(Ptr p, O out)
     {
         // clang-format on
-        return text::transcode_to_utf16(p, null_sentinel{}, out);
+        return text::transcode_to_utf16(p, null_sentinel, out);
     }
 
     /** Copies the code points in the array `arr` to `out`, changing the
@@ -867,7 +867,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return {r.repack_(unpacked.in), unpacked.out};
     }
 
-    /** Copies the code points in the range `[p, null_sentinel{})` to `out`,
+    /** Copies the code points in the range `[p, null_sentinel)` to `out`,
         changing the encoding to UTF-32.  */
     template<typename Ptr, std::output_iterator<uint32_t> O>
     // clang-format off
@@ -875,7 +875,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     transcode_result<Ptr, O> transcode_to_utf32(Ptr p, O out)
     {
         // clang-format on
-        return text::transcode_to_utf32(p, null_sentinel{}, out);
+        return text::transcode_to_utf32(p, null_sentinel, out);
     }
 
     /** Copies the code points in the array `arr` to `out`, changing the

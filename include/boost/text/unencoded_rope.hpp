@@ -446,84 +446,84 @@ namespace boost { namespace text {
         operator==(value_type const * lhs, basic_unencoded_rope rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) == 0;
+                       lhs, null_sentinel, rhs.begin(), rhs.end()) == 0;
         }
 
         friend bool
         operator==(basic_unencoded_rope lhs, value_type const * rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) == 0;
+                       lhs.begin(), lhs.end(), rhs, null_sentinel) == 0;
         }
 
         friend bool
         operator!=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) != 0;
+                       lhs, null_sentinel, rhs.begin(), rhs.end()) != 0;
         }
 
         friend bool
         operator!=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) != 0;
+                       lhs.begin(), lhs.end(), rhs, null_sentinel) != 0;
         }
 
         friend bool
         operator<(value_type const * lhs, basic_unencoded_rope rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) < 0;
+                       lhs, null_sentinel, rhs.begin(), rhs.end()) < 0;
         }
 
         friend bool
         operator<(basic_unencoded_rope lhs, value_type const * rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) < 0;
+                       lhs.begin(), lhs.end(), rhs, null_sentinel) < 0;
         }
 
         friend bool
         operator<=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) <= 0;
+                       lhs, null_sentinel, rhs.begin(), rhs.end()) <= 0;
         }
 
         friend bool
         operator<=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) <= 0;
+                       lhs.begin(), lhs.end(), rhs, null_sentinel) <= 0;
         }
 
         friend bool
         operator>(value_type const * lhs, basic_unencoded_rope rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) > 0;
+                       lhs, null_sentinel, rhs.begin(), rhs.end()) > 0;
         }
 
         friend bool
         operator>(basic_unencoded_rope lhs, value_type const * rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) > 0;
+                       lhs.begin(), lhs.end(), rhs, null_sentinel) > 0;
         }
 
         friend bool
         operator>=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) >= 0;
+                       lhs, null_sentinel, rhs.begin(), rhs.end()) >= 0;
         }
 
         friend bool
         operator>=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
         {
             return boost::text::lexicographical_compare_three_way(
-                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) >= 0;
+                       lhs.begin(), lhs.end(), rhs, null_sentinel) >= 0;
         }
 
         friend void swap(basic_unencoded_rope & lhs, basic_unencoded_rope & rhs)

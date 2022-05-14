@@ -47,18 +47,18 @@ void grapheme_view_guides()
 
     {
         int utf32[] = {'s', 't', 'r', '\0'};
-        grapheme_iterator it{utf32, utf32, null_sentinel{}};
-        grapheme_view gv{it, null_sentinel{}};
+        grapheme_iterator it{utf32, utf32, null_sentinel};
+        grapheme_view gv{it, null_sentinel};
         static_assert(
-            std::is_same_v<decltype(gv), grapheme_view<int *, null_sentinel>>);
+            std::is_same_v<decltype(gv), grapheme_view<int *, null_sentinel_t>>);
     }
 
     {
         int const utf32[] = {'s', 't', 'r', '\0'};
-        grapheme_view gv{utf32, null_sentinel{}};
+        grapheme_view gv{utf32, null_sentinel};
         static_assert(std::is_same_v<
                       decltype(gv),
-                      grapheme_view<int const *, null_sentinel>>);
+                      grapheme_view<int const *, null_sentinel_t>>);
     }
 }
 
@@ -77,7 +77,7 @@ void segmented_vector_guides()
 
     {
         int const utf32[] = {'s', 't', 'r', '\0'};
-        segmented_vector sv{std::begin(utf32), null_sentinel{}};
+        segmented_vector sv{std::begin(utf32), null_sentinel};
         static_assert(std::is_same_v<decltype(sv), segmented_vector<int>>);
     }
 
@@ -96,9 +96,9 @@ void subrange_guides()
     }
     {
         int utf32[] = {'s', 't', 'r', '\0'};
-        subrange s{std::begin(utf32), null_sentinel{}};
+        subrange s{std::begin(utf32), null_sentinel};
         static_assert(
-            std::is_same_v<decltype(s), subrange<int *, null_sentinel>>);
+            std::is_same_v<decltype(s), subrange<int *, null_sentinel_t>>);
     }
     {
         int const utf32[] = {'s', 't', 'r', '\0'};

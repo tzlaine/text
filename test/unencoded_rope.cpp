@@ -761,31 +761,31 @@ TEST(unencoded_rope, test_sentinel_api)
 {
     {
         char const * chars = "chars";
-        text::unencoded_rope s(chars, text::null_sentinel{});
+        text::unencoded_rope s(chars, text::null_sentinel);
         EXPECT_EQ(s, chars);
     }
     {
         char const * chars = "chars";
         text::unencoded_rope s;
-        s.insert(s.begin(), chars, text::null_sentinel{});
+        s.insert(s.begin(), chars, text::null_sentinel);
         EXPECT_EQ(s, chars);
     }
     {
         char const * chars = "chars";
         text::unencoded_rope s;
-        s.insert(s.end(), chars, text::null_sentinel{});
+        s.insert(s.end(), chars, text::null_sentinel);
         EXPECT_EQ(s, chars);
     }
     {
         char const * chars = "chars";
         text::unencoded_rope s;
-        s.replace(s(0, 0), chars, text::null_sentinel{});
+        s.replace(s(0, 0), chars, text::null_sentinel);
         EXPECT_EQ(s, chars);
     }
     {
         char const * chars = "chars";
         text::unencoded_rope s;
-        s.replace(s.begin(), s.begin(), chars, text::null_sentinel{});
+        s.replace(s.begin(), s.begin(), chars, text::null_sentinel);
         EXPECT_EQ(s, chars);
     }
 }

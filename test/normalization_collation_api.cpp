@@ -16,8 +16,8 @@
 using namespace boost;
 using namespace boost::text::detail;
 
-using u32_iter = text::utf_8_to_32_iterator<char const *, text::null_sentinel>;
-using sentinel_cp_range_t = text::utf32_view<u32_iter, text::null_sentinel>;
+using u32_iter = text::utf_8_to_32_iterator<char const *, text::null_sentinel_t>;
+using sentinel_cp_range_t = text::utf32_view<u32_iter, text::null_sentinel_t>;
 
 void to_sentinel_cp_range(
     std::string & s,
@@ -29,8 +29,8 @@ void to_sentinel_cp_range(
     if (normalize)
         boost::text::normalize<text::nf::d>(s);
     r = sentinel_cp_range_t{
-        u32_iter(s.data(), s.data(), text::null_sentinel{}),
-        text::null_sentinel{}};
+        u32_iter(s.data(), s.data(), text::null_sentinel),
+        text::null_sentinel};
 }
 
 
@@ -460,9 +460,9 @@ TEST(sentinel_apis, normalize_nfd)
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
     auto utf8_it = text::utf32_iterator(
-        &*utf8.begin(), &*utf8.begin(), text::null_sentinel{});
+        &*utf8.begin(), &*utf8.begin(), text::null_sentinel);
     text::normalize<text::nf::d>(
-        utf8_it, text::null_sentinel{}, std::back_inserter(result3));
+        utf8_it, text::null_sentinel, std::back_inserter(result3));
 
     EXPECT_EQ(result3, result1);
 
@@ -513,9 +513,9 @@ TEST(sentinel_apis, normalize_nfkd)
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
     auto utf8_it = text::utf32_iterator(
-        &*utf8.begin(), &*utf8.begin(), text::null_sentinel{});
+        &*utf8.begin(), &*utf8.begin(), text::null_sentinel);
     text::normalize<text::nf::kd>(
-        utf8_it, text::null_sentinel{}, std::back_inserter(result3));
+        utf8_it, text::null_sentinel, std::back_inserter(result3));
 
     EXPECT_EQ(result3, result1);
 
@@ -565,9 +565,9 @@ TEST(sentinel_apis, normalize_nfc)
 
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
-    auto utf8_rng_0 = text::as_utf32(&*utf8.begin(), text::null_sentinel{});
+    auto utf8_rng_0 = text::as_utf32(&*utf8.begin(), text::null_sentinel);
     text::normalize<text::nf::c>(
-        utf8_rng_0.begin(), text::null_sentinel{}, std::back_inserter(result3));
+        utf8_rng_0.begin(), text::null_sentinel, std::back_inserter(result3));
 
     EXPECT_EQ(result3, result1);
 
@@ -615,9 +615,9 @@ TEST(sentinel_apis, normalize_nfkc)
 
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
-    auto utf8_rng_0 = text::as_utf32(&*utf8.begin(), text::null_sentinel{});
+    auto utf8_rng_0 = text::as_utf32(&*utf8.begin(), text::null_sentinel);
     text::normalize<text::nf::kc>(
-        utf8_rng_0.begin(), text::null_sentinel{}, std::back_inserter(result3));
+        utf8_rng_0.begin(), text::null_sentinel, std::back_inserter(result3));
 
     EXPECT_EQ(result3, result1);
 
@@ -665,9 +665,9 @@ TEST(sentinel_apis, normalize_fcc)
 
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
-    auto utf8_rng_0 = text::as_utf32(&*utf8.begin(), text::null_sentinel{});
+    auto utf8_rng_0 = text::as_utf32(&*utf8.begin(), text::null_sentinel);
     text::normalize<text::nf::fcc>(
-        utf8_rng_0.begin(), text::null_sentinel{}, std::back_inserter(result3));
+        utf8_rng_0.begin(), text::null_sentinel, std::back_inserter(result3));
 
     EXPECT_EQ(result3, result1);
 

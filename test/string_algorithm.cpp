@@ -24,7 +24,7 @@ TEST(str_algo, find)
         char32_t const * teehee_ptr = U"teehee";
         char32_t const * ee_ptr = U"ee";
         auto const result = text::find(
-            teehee_ptr, text::null_sentinel{}, ee_ptr, text::null_sentinel{});
+            teehee_ptr, text::null_sentinel, ee_ptr, text::null_sentinel);
         EXPECT_TRUE(result.begin() == teehee_ptr + 1);
         EXPECT_TRUE(result.end() == teehee_ptr + 3);
     }
@@ -34,7 +34,7 @@ TEST(str_algo, find)
             std::begin(teehee_array),
             std::end(teehee_array),
             ee_ptr,
-            text::null_sentinel{});
+            text::null_sentinel);
         EXPECT_TRUE(result.begin() == teehee_array + 1);
         EXPECT_TRUE(result.end() == teehee_array + 3);
     }
@@ -42,7 +42,7 @@ TEST(str_algo, find)
         char32_t const * teehee_ptr = U"teehee";
         auto const result = text::find(
             teehee_ptr,
-            text::null_sentinel{},
+            text::null_sentinel,
             std::begin(ee_array),
             std::end(ee_array));
         EXPECT_TRUE(result.begin() == teehee_ptr + 1);
@@ -116,24 +116,24 @@ TEST(str_algo, find)
 
     // Grapheme iterators.
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"he", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         auto const result =
             text::find(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result.begin() == std::next(r1.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(r1.begin(), 2));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"er", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"er", text::null_sentinel);
         auto const result =
             text::find(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result.begin() == std::next(r1.begin(), 1));
         EXPECT_TRUE(result.end() == std::next(r1.begin(), 3));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"re", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"re", text::null_sentinel);
         auto const result =
             text::find(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result.begin() == std::next(r1.begin(), 2));
@@ -141,14 +141,14 @@ TEST(str_algo, find)
     }
     {
         auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(U"he", text::null_sentinel{});
+        auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         auto const result =
             text::find(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result.begin() == std::next(r1.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(r1.begin(), 2));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
         auto const r2 = text::as_graphemes(he_array);
         auto const result =
             text::find(r1.begin(), r1.end(), r2.begin(), r2.end());
@@ -325,7 +325,7 @@ TEST(str_algo, find_first_of)
         char32_t const * teehee_ptr = U"teehee";
         char32_t const * ee_ptr = U"fe";
         auto const result = text::find_first_of(
-            teehee_ptr, text::null_sentinel{}, ee_ptr, text::null_sentinel{});
+            teehee_ptr, text::null_sentinel, ee_ptr, text::null_sentinel);
         EXPECT_TRUE(result == teehee_ptr + 1);
     }
     {
@@ -334,14 +334,14 @@ TEST(str_algo, find_first_of)
             std::begin(teehee_array),
             std::end(teehee_array),
             ee_ptr,
-            text::null_sentinel{});
+            text::null_sentinel);
         EXPECT_TRUE(result == teehee_array + 1);
     }
     {
         char32_t const * teehee_ptr = U"teehee";
         auto const result = text::find_first_of(
             teehee_ptr,
-            text::null_sentinel{},
+            text::null_sentinel,
             std::begin(ee_array),
             std::end(ee_array));
         EXPECT_TRUE(result == teehee_ptr + 1);
@@ -394,35 +394,35 @@ TEST(str_algo, find_first_of)
 
     // Grapheme iterators.
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"he", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         auto const result =
             text::find_first_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 0));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"er", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"er", text::null_sentinel);
         auto const result =
             text::find_first_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 1));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"re", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"re", text::null_sentinel);
         auto const result =
             text::find_first_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 1));
     }
     {
         auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(U"he", text::null_sentinel{});
+        auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         auto const result =
             text::find_first_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 0));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
         auto const r2 = text::as_graphemes(he_array);
         auto const result =
             text::find_first_of(r1.begin(), r1.end(), r2.begin(), r2.end());
@@ -569,7 +569,7 @@ TEST(str_algo, find_first_not_of)
         char32_t const * teehee_ptr = U"teehee";
         char32_t const * ee_ptr = U"fe";
         auto const result = text::find_first_not_of(
-            teehee_ptr, text::null_sentinel{}, ee_ptr, text::null_sentinel{});
+            teehee_ptr, text::null_sentinel, ee_ptr, text::null_sentinel);
         EXPECT_TRUE(result == teehee_ptr + 0);
     }
     {
@@ -578,14 +578,14 @@ TEST(str_algo, find_first_not_of)
             std::begin(teehee_array),
             std::end(teehee_array),
             ee_ptr,
-            text::null_sentinel{});
+            text::null_sentinel);
         EXPECT_TRUE(result == teehee_array + 0);
     }
     {
         char32_t const * teehee_ptr = U"teehee";
         auto const result = text::find_first_not_of(
             teehee_ptr,
-            text::null_sentinel{},
+            text::null_sentinel,
             std::begin(ee_array),
             std::end(ee_array));
         EXPECT_TRUE(result == teehee_ptr + 0);
@@ -643,35 +643,35 @@ TEST(str_algo, find_first_not_of)
 
     // Grapheme iterators.
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"he", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         auto const result =
             text::find_first_not_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 2));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"er", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"er", text::null_sentinel);
         auto const result =
             text::find_first_not_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 0));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"re", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"re", text::null_sentinel);
         auto const result =
             text::find_first_not_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 0));
     }
     {
         auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(U"he", text::null_sentinel{});
+        auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         auto const result =
             text::find_first_not_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 2));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
         auto const r2 = text::as_graphemes(he_array);
         auto const result =
             text::find_first_not_of(r1.begin(), r1.end(), r2.begin(), r2.end());
@@ -816,19 +816,19 @@ TEST(str_algo, starts_with)
     // Code point iterators.
     {
         EXPECT_TRUE(text::starts_with(
-            U"here", text::null_sentinel{}, U"he", text::null_sentinel{}));
+            U"here", text::null_sentinel, U"he", text::null_sentinel));
     }
     {
         EXPECT_TRUE(text::starts_with(
             std::begin(here_array),
             std::end(here_array),
             U"he",
-            text::null_sentinel{}));
+            text::null_sentinel));
     }
     {
         EXPECT_TRUE(text::starts_with(
             U"here",
-            text::null_sentinel{},
+            text::null_sentinel,
             std::begin(he_array),
             std::end(he_array)));
     }
@@ -878,19 +878,19 @@ TEST(str_algo, starts_with)
 
     // Grapheme iterators.
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"he", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         EXPECT_TRUE(
             text::starts_with(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
         auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(U"he", text::null_sentinel{});
+        auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         EXPECT_TRUE(
             text::starts_with(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
         auto const r2 = text::as_graphemes(he_array);
         EXPECT_TRUE(
             text::starts_with(r1.begin(), r1.end(), r2.begin(), r2.end()));
@@ -1004,27 +1004,27 @@ TEST(str_algo, contains)
     // Code point iterators.
     {
         EXPECT_TRUE(text::contains(
-            U"here", text::null_sentinel{}, U"he", text::null_sentinel{}));
+            U"here", text::null_sentinel, U"he", text::null_sentinel));
     }
     {
         EXPECT_TRUE(text::contains(
-            U"here", text::null_sentinel{}, U"er", text::null_sentinel{}));
+            U"here", text::null_sentinel, U"er", text::null_sentinel));
     }
     {
         EXPECT_TRUE(text::contains(
-            U"here", text::null_sentinel{}, U"re", text::null_sentinel{}));
+            U"here", text::null_sentinel, U"re", text::null_sentinel));
     }
     {
         EXPECT_TRUE(text::contains(
             std::begin(here_array),
             std::end(here_array),
             U"he",
-            text::null_sentinel{}));
+            text::null_sentinel));
     }
     {
         EXPECT_TRUE(text::contains(
             U"here",
-            text::null_sentinel{},
+            text::null_sentinel,
             std::begin(he_array),
             std::end(he_array)));
     }
@@ -1071,27 +1071,27 @@ TEST(str_algo, contains)
 
     // Grapheme iterators.
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"he", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         EXPECT_TRUE(text::contains(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"er", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"er", text::null_sentinel);
         EXPECT_TRUE(text::contains(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
-        auto const r2 = text::as_graphemes(U"re", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
+        auto const r2 = text::as_graphemes(U"re", text::null_sentinel);
         EXPECT_TRUE(text::contains(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
         auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(U"he", text::null_sentinel{});
+        auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         EXPECT_TRUE(text::contains(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
-        auto const r1 = text::as_graphemes(U"here", text::null_sentinel{});
+        auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
         auto const r2 = text::as_graphemes(he_array);
         EXPECT_TRUE(text::contains(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }

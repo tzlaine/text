@@ -377,9 +377,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf8_dispatch<Impl, Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
-                -> decltype(Impl{}(p, null_sentinel{}))
+                -> decltype(Impl{}(p, null_sentinel))
             {
-                return Impl{}(p, null_sentinel{});
+                return Impl{}(p, null_sentinel);
             }
         };
 
@@ -435,9 +435,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf16_dispatch<Impl, Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
-                -> decltype(Impl{}(p, null_sentinel{}))
+                -> decltype(Impl{}(p, null_sentinel))
             {
-                return Impl{}(p, null_sentinel{});
+                return Impl{}(p, null_sentinel);
             }
         };
 
@@ -493,9 +493,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf32_dispatch<Impl, Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
-                -> decltype(Impl{}(p, null_sentinel{}))
+                -> decltype(Impl{}(p, null_sentinel))
             {
-                return Impl{}(p, null_sentinel{});
+                return Impl{}(p, null_sentinel);
             }
         };
 
@@ -568,7 +568,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             constexpr auto operator()(R && r) const noexcept
             {
                 if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
-                    return (*this)(r, null_sentinel{});
+                    return (*this)(r, null_sentinel);
                 } else {
                     auto intermediate =
                         (*this)(std::ranges::begin(r), std::ranges::end(r));
@@ -614,7 +614,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             constexpr auto operator()(R && r) const noexcept
             {
                 if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
-                    return (*this)(r, null_sentinel{});
+                    return (*this)(r, null_sentinel);
                 } else {
                     auto intermediate =
                         (*this)(std::ranges::begin(r), std::ranges::end(r));
@@ -660,7 +660,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             constexpr auto operator()(R && r) const noexcept
             {
                 if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
-                    return (*this)(r, null_sentinel{});
+                    return (*this)(r, null_sentinel);
                 } else {
                     auto intermediate =
                         (*this)(std::ranges::begin(r), std::ranges::end(r));

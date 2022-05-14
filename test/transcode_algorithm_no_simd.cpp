@@ -48,7 +48,7 @@ TEST(transcode_algorthm, from_utf8_non_error)
         std::vector<uint32_t> result(10);
         auto const out_first = &result[0];
         auto const in_out = text::transcode_to_utf32(
-            std::begin(utf8), text::null_sentinel{}, &result[0]);
+            std::begin(utf8), text::null_sentinel, &result[0]);
         result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result, std::vector<uint32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
@@ -77,7 +77,7 @@ TEST(transcode_algorthm, from_utf8_non_error)
         std::vector<uint32_t> result;
         text::transcode_to_utf32(
             std::begin(utf8),
-            text::null_sentinel{},
+            text::null_sentinel,
             std::back_inserter(result));
         EXPECT_EQ(
             result, std::vector<uint32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
@@ -108,7 +108,7 @@ TEST(transcode_algorthm, from_utf8_non_error)
         std::vector<uint16_t> result(10);
         auto const out_first = &result[0];
         auto const in_out = text::transcode_to_utf16(
-            std::begin(utf8), text::null_sentinel{}, &result[0]);
+            std::begin(utf8), text::null_sentinel, &result[0]);
         result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
@@ -140,7 +140,7 @@ TEST(transcode_algorthm, from_utf8_non_error)
         std::vector<uint16_t> result;
         text::transcode_to_utf16(
             std::begin(utf8),
-            text::null_sentinel{},
+            text::null_sentinel,
             std::back_inserter(result));
         EXPECT_EQ(
             result,
@@ -203,7 +203,7 @@ TEST(transcode_algorthm, from_utf8_errors_0)
         std::vector<uint32_t> result(10);
         auto const out_first = &result[0];
         auto const in_out = text::transcode_to_utf32(
-            std::begin(bad_utf8), text::null_sentinel{}, &result[0]);
+            std::begin(bad_utf8), text::null_sentinel, &result[0]);
         result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
@@ -267,7 +267,7 @@ TEST(transcode_algorthm, from_utf8_errors_0)
         std::vector<uint32_t> result;
         text::transcode_to_utf32(
             std::begin(bad_utf8),
-            text::null_sentinel{},
+            text::null_sentinel,
             std::back_inserter(result));
         EXPECT_EQ(
             result,

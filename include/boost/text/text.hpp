@@ -732,7 +732,7 @@ namespace boost { namespace text {
         friend bool
         operator==(basic_text const & lhs, char_type const * rhs) noexcept
         {
-            return boost::text::equal(lhs.begin(), lhs.end(), rhs, null_sentinel{});
+            return boost::text::equal(lhs.begin(), lhs.end(), rhs, null_sentinel);
         }
 
         friend bool

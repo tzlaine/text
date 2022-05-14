@@ -924,7 +924,7 @@ TEST(text, test_sentinel_api)
 {
     {
         char const * chars = "chars";
-        text::text s(chars, text::null_sentinel{});
+        text::text s(chars, text::null_sentinel);
         EXPECT_EQ(s, text::text(chars));
     }
 }

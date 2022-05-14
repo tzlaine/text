@@ -210,7 +210,7 @@ TEST(stream_safe, truncation_needed_short)
         {
             std::string result;
             auto utf32 = as_utf32(stream_unsafe);
-            auto const v = as_stream_safe(utf32.begin(), null_sentinel{});
+            auto const v = as_stream_safe(utf32.begin(), null_sentinel);
             // Can't use std::copy() (or even range-base for) because of the
             // sentinel
             for (auto it = v.begin(); it != v.end(); ++it) {
@@ -344,7 +344,7 @@ TEST(stream_safe, truncation_needed_long)
         {
             std::string result;
             auto utf32 = as_utf32(stream_unsafe);
-            auto const v = as_stream_safe(utf32.begin(), null_sentinel{});
+            auto const v = as_stream_safe(utf32.begin(), null_sentinel);
             // Can't use std::copy() (or even range-base for) because of the
             // sentinel
             for (auto it = v.begin(); it != v.end(); ++it) {

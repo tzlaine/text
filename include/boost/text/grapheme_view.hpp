@@ -175,8 +175,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             static constexpr auto call(Ptr p) noexcept
             {
                 auto r = boost::text::as_utf32(p);
-                return grapheme_view<decltype(r.begin()), null_sentinel>(
-                    r.begin(), null_sentinel{});
+                return grapheme_view<decltype(r.begin()), null_sentinel_t>(
+                    r.begin(), null_sentinel);
             }
         };
 
