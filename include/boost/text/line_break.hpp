@@ -2786,7 +2786,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         `[first, last)`. */
     template<typename CPIter, typename Sentinel>
     detail::unspecified lines(
-        Callowed_breaks_t, PIter first, Sentinel last) noexcept;
+        CPIter first, Sentinel last, allowed_breaks_t) noexcept;
 
     /** Returns a view of the code point ranges delimiting allowed lines in
         `range`.
@@ -2794,7 +2794,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    detail::unspecified lines(allowed_breaks_t, CPRange && range) noexcept;
+    detail::unspecified lines(CPRange && range, allowed_breaks_t) noexcept;
 
     /** Returns a view of the grapheme ranges delimiting allowed lines in
         `range`.
@@ -2803,7 +2803,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified lines(
-        allowed_breaks_t, GraphemeRange && range) noexcept;
+        GraphemeRange && range, allowed_breaks_t) noexcept;
+
+    /** Returns a view adaptor that can combined with a `CPRange` or
+        `GraphemeRange` `r`, as in `r | lines(allowed_breaks)`. */
+    detail::unspecified lines(allowed_breaks_t) noexcept;
 
 #else
 
