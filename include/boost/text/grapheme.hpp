@@ -281,4 +281,14 @@ namespace boost { namespace text {
 
 }}
 
+#if BOOST_TEXT_USE_CONCEPTS
+
+namespace std::ranges {
+    template<boost::text::code_point_iter I>
+    inline constexpr bool enable_borrowed_range<boost::text::grapheme_ref<I>> =
+        true;
+}
+
+#endif
+
 #endif

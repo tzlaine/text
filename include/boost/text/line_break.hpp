@@ -3284,6 +3284,34 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
 }}}
 
+namespace std::ranges {
+    template<boost::text::code_point_iter I>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::line_break_cp_view<I>> = true;
+
+    template<boost::text::code_point_iter I>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::line_break_grapheme_view<I>> = true;
+
+    template<
+        typename CPIter,
+        typename CPSentinel,
+        typename Extent,
+        typename CPExtentFunc,
+        typename Subrange>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::forward_line_break_view<
+            CPIter,
+            CPSentinel,
+            Extent,
+            CPExtentFunc,
+            Subrange>> = true;
+
+    template<typename CPIter, typename CPSentinel, typename Subrange>
+    inline constexpr bool enable_borrowed_range<
+        boost::text::line_break_view<CPIter, CPSentinel, Subrange>> = true;
+}
+
 #endif
 
 #endif
