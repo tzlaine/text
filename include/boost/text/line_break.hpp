@@ -1888,12 +1888,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     /** Represents a forward-iterable range of non-overlapping code point
         subranges.  Each subrange represents the code points between one
         allowed line break and the next.  Each subrange is lazily produced; an
-        output subrange is not produced until a lazy range iterator is
-        dereferenced.  Each element has a member function `bool hard_break()`
-        that indicates whether the end of the subrange is at a hard line
-        break, or just an allowed line break location.  If
-        forward_line_break_view is constructed with a stateful `CPExtentFunc`,
-        you can get it back by moving it out via `extent_func()`. */
+        output subrange is not produced until a view iterator is dereferenced.
+        Each element has a member function `bool hard_break()` that indicates
+        whether the end of the subrange is at a hard line break, or just an
+        allowed line break location.  If forward_line_break_view is
+        constructed with a stateful `CPExtentFunc`, you can get it back by
+        moving it out via `extent_func()`. */
     template<
         typename CPIter,
         typename CPSentinel,
@@ -2167,10 +2167,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     /** Represents a bidirectionally-iterable range of non-overlapping code
         point subranges.  Each subrange represents the code points between one
         allowed line break and the next.  Each subrange is lazily produced; an
-        output subrange is not produced until a lazy range iterator is
-        dereferenced.  Each element has a member function `bool hard_break()`
-        that indicates whether the end of the subrange is at a hard line
-        break, or just an allowed line break location. */
+        output subrange is not produced until a view iterator is dereferenced.
+        Each element has a member function `bool hard_break()` that indicates
+        whether the end of the subrange is at a hard line break, or just an
+        allowed line break location. */
     template<
         typename CPIter,
         typename CPSentinel,
@@ -2648,21 +2648,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::unspecified
     line(GraphemeRange && range, GraphemeIter it) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting lines (using
-        hard line breaks) in `[first, last)`. */
+    /** Returns a view of the code point ranges delimiting lines (using hard
+        line breaks) in `[first, last)`. */
     template<typename CPIter, typename Sentinel>
     detail::unspecified lines(CPIter first, Sentinel last) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting lines (using
-        hard line breaks) in `range`.
+    /** Returns a view of the code point ranges delimiting lines (using hard
+        line breaks) in `range`.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
     detail::unspecified lines(CPRange && range) noexcept;
 
-    /** Returns a lazy range of the grapheme ranges delimiting lines (using
-        hard line breaks) in `range`.
+    /** Returns a view of the grapheme ranges delimiting lines (using hard
+        line breaks) in `range`.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -2691,11 +2691,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns a lazy range of the code point ranges in `[first, last)`
-        delimiting lines.  A line that does not end in a hard break will end
-        in a allowed break that does not exceed `max_extent`, using the code
-        point extents derived from `CPExtentFunc`.  When a line has no allowed
-        breaks before it would exceed `max_extent`, it will be broken only if
+    /** Returns a view of the code point ranges in `[first, last)` delimiting
+        lines.  A line that does not end in a hard break will end in a allowed
+        break that does not exceed `max_extent`, using the code point extents
+        derived from `CPExtentFunc`.  When a line has no allowed breaks before
+        it would exceed `max_extent`, it will be broken only if
         `break_overlong_lines` is true.  If `break_overlong_lines` is false,
         such an unbreakable line will exceed `max_extent`.
 
@@ -2713,9 +2713,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept;
 
-    /** Returns a lazy range of the code point ranges in `range` delimiting
-        lines.  A line that does not end in a hard break will end in a allowed
-        break that does not exceed `max_extent`, using the code point extents
+    /** Returns a view of the code point ranges in `range` delimiting lines.
+        A line that does not end in a hard break will end in a allowed break
+        that does not exceed `max_extent`, using the code point extents
         derived from `CPExtentFunc`.  When a line has no allowed breaks before
         it would exceed `max_extent`, it will be broken only if
         `break_overlong_lines` is true.  If `break_overlong_lines` is false,
@@ -2730,9 +2730,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept;
 
-    /** Returns a lazy range of the grapheme ranges in `range` delimiting
-        lines.  A line that does not end in a hard break will end in a allowed
-        break that does not exceed `max_extent`, using the code point extents
+    /** Returns a view of the grapheme ranges in `range` delimiting lines.  A
+        line that does not end in a hard break will end in a allowed break
+        that does not exceed `max_extent`, using the code point extents
         derived from `CPExtentFunc`.  When a line has no allowed breaks before
         it would exceed `max_extent`, it will be broken only if
         `break_overlong_lines` is true.  If `break_overlong_lines` is false,
@@ -2782,22 +2782,22 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::unspecified allowed_line(
         GraphemeRange && range, GraphemeIter it) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting allowed lines
-        in `[first, last)`. */
+    /** Returns a view of the code point ranges delimiting allowed lines in
+        `[first, last)`. */
     template<typename CPIter, typename Sentinel>
     detail::unspecified lines(
         Callowed_breaks_t, PIter first, Sentinel last) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting allowed lines
-        in `range`.
+    /** Returns a view of the code point ranges delimiting allowed lines in
+        `range`.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
     detail::unspecified lines(allowed_breaks_t, CPRange && range) noexcept;
 
-    /** Returns a lazy range of the grapheme ranges delimiting allowed lines
-        in `range`.
+    /** Returns a view of the grapheme ranges delimiting allowed lines in
+        `range`.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */

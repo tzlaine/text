@@ -163,8 +163,8 @@ namespace boost { namespace text {
         controlled by the `PrevFunc` and `NextFunc` template parameters.  For
         instance, if `NextFunc` is next_paragraph_break, the subranges
         produced by break_view will be paragraphs.  Each subrange is lazily
-        produced; an output subrange is not produced until a lazy range
-        iterator is dereferenced. */
+        produced; an output subrange is not produced until a view iterator is
+        dereferenced. */
     template<
         typename CPIter,
         typename CPSentinel,

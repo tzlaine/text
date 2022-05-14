@@ -966,12 +966,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::unspecified
     sentence(GraphemeRange && range, GraphemeIter it) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting sentences in
+    /** Returns a view of the code point ranges delimiting sentences in
         `[first, last)`. */
     template<typename CPIter, typename Sentinel>
     detail::unspecified sentences(CPIter first, Sentinel last) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting sentences in
+    /** Returns a view of the code point ranges delimiting sentences in
         `range`.
 
         This function only participates in overload resolution if `CPRange`
@@ -979,8 +979,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename CPRange>
     detail::unspecified sentences(CPRange && range) noexcept;
 
-    /** Returns a lazy range of the grapheme ranges delimiting sentences in
-        `range`.
+    /** Returns a view of the grapheme ranges delimiting sentences in `range`.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */

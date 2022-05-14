@@ -2574,9 +2574,10 @@ namespace boost { namespace text {
     /** Represents a range of non-overlapping subranges.  Each subrange is a
         sequence of code points that are all in a consistent direction
         (left-to-right or right-to-left).  Each subrange is lazily produced;
-        an output subrange is not produced until a lazy range iterator is
-        dereferenced.  If C++20 coroutines are available (determined by
-        whether `__cpp_coroutines` is defined), `lazy_bidi_segment_range` will
+        an output subrange is not produced until an iterator is dereferenced.
+        If C++20 coroutines are available (determined by whether
+        `__cpp_impl_coroutine` and `__cpp_lib_coroutine` are defined, and the
+        value of `BOOST_TEXT_USE_COROUTINES`), `lazy_bidi_segment_range` will
         be an alias for a generator of `ResultType` elements. */
     template<
         typename CPIter,
@@ -2613,7 +2614,7 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns a lazy range of code point subranges in `[first, last)`; each
+    /** Returns a view of code point subranges in `[first, last)`; each
         subrange is one of three kinds: a forward-subrange; a
         reverse-subrange; or a one-code-point subrange used to subtitute a
         reversed bracketing code point (e.g. `'['`) for its couterpart
@@ -2638,8 +2639,8 @@ namespace boost { namespace text {
     detail::unspecified bidirectional_subranges(
         CPIter first, Sentinel last, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of code point subranges in `range`; each subrange
-        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+    /** Returns a view of code point subranges in `range`; each subrange is
+        one of three kinds: a forward-subrange; a reverse-subrange; or a
         one-code-point subrange used to subtitute a reversed bracketing code
         point (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
         iterator type used in the resulting subranges, so this distinction is
@@ -2666,8 +2667,8 @@ namespace boost { namespace text {
     detail::unspecified bidirectional_subranges(
         CPRange && range, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of grapheme subranges in `range`; each subrange
-        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+    /** Returns a view of grapheme subranges in `range`; each subrange is one
+        of three kinds: a forward-subrange; a reverse-subrange; or a
         one-grapheme subrange used to subtitute a reversed bracketing grapheme
         (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
         iterator type used in the resulting subranges, so this distinction is
@@ -2694,7 +2695,7 @@ namespace boost { namespace text {
     detail::unspecified bidirectional_subranges(
         GraphemeRange && range, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of code point subranges in `[first, last)`; each
+    /** Returns a view of code point subranges in `[first, last)`; each
         subrange is one of three kinds: a forward-subrange; a
         reverse-subrange; or a one-code-point subrange used to subtitute a
         reversed bracketing code point (e.g. `'['`) for its couterpart
@@ -2734,8 +2735,8 @@ namespace boost { namespace text {
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true);
 
-    /** Returns a lazy range of code point subranges in `range`; each subrange
-        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+    /** Returns a view of code point subranges in `range`; each subrange is
+        one of three kinds: a forward-subrange; a reverse-subrange; or a
         one-code-point subrange used to subtitute a reversed bracketing code
         point (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
         iterator type used in the resulting subranges, so this distinction is
@@ -2772,8 +2773,8 @@ namespace boost { namespace text {
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true);
 
-    /** Returns a lazy range of grapheme subranges in `range`; each subrange
-        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+    /** Returns a view of grapheme subranges in `range`; each subrange is one
+        of three kinds: a forward-subrange; a reverse-subrange; or a
         one-grapheme subrange used to subtitute a reversed bracketing grapheme
         (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
         iterator type used in the resulting subranges, so this distinction is

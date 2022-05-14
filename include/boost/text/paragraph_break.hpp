@@ -383,12 +383,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::unspecified
     paragraph(GraphemeRange && range, GraphemeIter it) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting paragraphs in
+    /** Returns a view of the code point ranges delimiting paragraphs in
         `[first, last)`. */
     template<typename CPIter, typename Sentinel>
     detail::unspecified paragraphs(CPIter first, Sentinel last) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting paragraphs in
+    /** Returns a view of the code point ranges delimiting paragraphs in
         `range`.
 
         This function only participates in overload resolution if `CPRange`
@@ -396,7 +396,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename CPRange>
     detail::unspecified paragraphs(CPRange && range) noexcept;
 
-    /** Returns a lazy range of the grapheme ranges delimiting paragraphs in
+    /** Returns a view of the grapheme ranges delimiting paragraphs in
         `range`.
 
         This function only participates in overload resolution if

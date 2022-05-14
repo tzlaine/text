@@ -1596,8 +1596,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting words in
-        `[first, last)`.
+    /** Returns a view of the code point ranges delimiting words in `[first,
+        last)`.
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept and CPIter is equality comparable with
@@ -1619,8 +1619,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordPropFunc word_prop = WordPropFunc{},
         WordBreakFunc word_break = WordBreakFunc{}) noexcept;
 
-    /** Returns a lazy range of the code point ranges delimiting words in
-        `range`.
+    /** Returns a view of the code point ranges delimiting words in `range`.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept and `WordPropFunc` models the WordPropFunc
@@ -1640,7 +1639,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordPropFunc word_prop = WordPropFunc{},
         WordBreakFunc word_break = WordBreakFunc{}) noexcept;
 
-    /** Returns a lazy range of the grapheme ranges delimiting words in
+    /** Returns a view of the grapheme ranges delimiting words in
         `range`.
 
         This function only participates in overload resolution if
