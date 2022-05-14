@@ -11,6 +11,11 @@ add_custom_target(
 )
 
 add_custom_target(
+    compile_tests
+    COMMAND ${CMAKE_CTEST_COMMAND} --verbose -C ${CMAKE_CFG_INTDIR} -R compile_
+)
+
+add_custom_target(
     bidi_tests
     COMMAND ${CMAKE_CTEST_COMMAND} -j4 -C ${CMAKE_CFG_INTDIR} -R bidi
 )
@@ -279,61 +284,53 @@ if (BUILD_COVERAGE AND UNIX)
     endif ()
 endif ()
 
-set(compile_sources
-    compile_tests_main.cpp
-    compile_include_string_view_1.cpp
-    compile_include_string_view_2.cpp
-    compile_include_unencoded_rope_view_1.cpp
-    compile_include_unencoded_rope_view_2.cpp
-    compile_include_unencoded_rope_view_3.cpp
-    compile_include_unencoded_rope_1.cpp
-    compile_include_unencoded_rope_2.cpp
-    compile_include_unencoded_rope_3.cpp
-    compile_include_text_view_1.cpp
-    compile_include_text_view_2.cpp
-    compile_include_text_1.cpp
-    compile_include_rope_view_1.cpp
-    compile_include_rope_view_2.cpp
-    compile_include_rope_view_3.cpp
-    compile_include_rope_1.cpp
-    compile_include_rope_2.cpp
-    compile_include_rope_3.cpp
-    compile_include_trie_1.cpp
-    compile_include_trie_2.cpp
-    compile_include_trie_map_1.cpp
-    compile_include_trie_map_2.cpp
-    compile_include_trie_set_1.cpp
-    compile_include_trie_set_2.cpp
-    compile_include_vector_1.cpp
-    compile_include_vector_2.cpp
-    compile_include_algorithm_1.cpp
-    compile_include_algorithm_2.cpp
-    compile_detail_is_char_iter.cpp
-    compile_detail_is_char_range.cpp
-    compile_detail_is_cp_iter.cpp
-    compile_trie_conversions.cpp
-)
+macro(add_compile_test name)
+    add_library(${name} STATIC EXCLUDE_FROM_ALL ${name}.cpp)
+    target_compile_options(${name} PRIVATE ${warnings_flag})
+    target_link_libraries(${name} text boost)
+    set_property(TARGET ${name} PROPERTY CXX_STANDARD ${CXX_STD})
+    if (clang_on_linux)
+        target_link_libraries(${name} c++)
+    endif ()
+    add_test(NAME ${name}_test COMMAND ${CMAKE_COMMAND} --build . --target ${name})
+endmacro()
 
-# Set to true to compile the headers with BOOST_TEXT_DOXYGEN defined
-if (false)
-    set(compile_sources
-      ${compile_sources}
-      compile_include_string_view_doxygen.cpp
-      compile_include_string_doxygen.cpp
-      compile_include_unencoded_rope_view_doxygen.cpp
-      compile_include_unencoded_rope_doxygen.cpp
-      compile_include_algorithm_doxygen.cpp
-      compile_include_utf8_doxygen.cpp
-    )
-endif ()
+macro(add_compile_fail_test name)
+    add_compile_test(${name})
+    set_tests_properties(${name} PROPERTIES WILL_FAIL TRUE)
+endmacro()
 
-add_executable(compile_tests ${compile_sources})
-target_compile_options(compile_tests PRIVATE ${warnings_flag})
-target_link_libraries(compile_tests text boost)
-set_property(TARGET compile_tests PROPERTY CXX_STANDARD ${CXX_STD})
-if (clang_on_linux)
-    target_link_libraries(compile_tests c++)
-endif ()
+add_compile_test(compile_include_string_view_1)
+add_compile_test(compile_include_string_view_2)
+add_compile_test(compile_include_unencoded_rope_view_1)
+add_compile_test(compile_include_unencoded_rope_view_2)
+add_compile_test(compile_include_unencoded_rope_view_3)
+add_compile_test(compile_include_unencoded_rope_1)
+add_compile_test(compile_include_unencoded_rope_2)
+add_compile_test(compile_include_unencoded_rope_3)
+add_compile_test(compile_include_text_view_1)
+add_compile_test(compile_include_text_view_2)
+add_compile_test(compile_include_text_1)
+add_compile_test(compile_include_rope_view_1)
+add_compile_test(compile_include_rope_view_2)
+add_compile_test(compile_include_rope_view_3)
+add_compile_test(compile_include_rope_1)
+add_compile_test(compile_include_rope_2)
+add_compile_test(compile_include_rope_3)
+add_compile_test(compile_include_trie_1)
+add_compile_test(compile_include_trie_2)
+add_compile_test(compile_include_trie_map_1)
+add_compile_test(compile_include_trie_map_2)
+add_compile_test(compile_include_trie_set_1)
+add_compile_test(compile_include_trie_set_2)
+add_compile_test(compile_include_vector_1)
+add_compile_test(compile_include_vector_2)
+add_compile_test(compile_include_algorithm_1)
+add_compile_test(compile_include_algorithm_2)
+add_compile_test(compile_detail_is_char_iter)
+add_compile_test(compile_detail_is_char_range)
+add_compile_test(compile_detail_is_cp_iter)
+add_compile_test(compile_trie_conversions)
 
 if (BUILD_ROPE_THREADSAFETY_TEST)
     if (USE_ASAN OR USE_UBSAN)
