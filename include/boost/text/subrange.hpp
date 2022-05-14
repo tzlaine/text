@@ -80,4 +80,14 @@ namespace boost { namespace text {
 
 }}
 
+#if BOOST_TEXT_USE_CONCEPTS
+
+namespace std::ranges {
+    template<std::forward_iterator I, std::sentinel_for<I> S>
+    inline constexpr bool enable_borrowed_range<boost::text::subrange<I, S>> =
+        true;
+}
+
+#endif
+
 #endif
