@@ -399,6 +399,17 @@ namespace boost { namespace text {
 #endif
     };
 
+#if defined(__cpp_deduction_guides)
+    template<typename T>
+    segmented_vector(std::size_t, T) -> segmented_vector<T>;
+
+    template<typename I, typename S>
+    segmented_vector(I, S) -> segmented_vector<detail::iter_value_t<I>>;
+
+    template<typename T>
+    segmented_vector(std::initializer_list<T>) -> segmented_vector<T>;
+#endif
+
 }}
 
 #endif

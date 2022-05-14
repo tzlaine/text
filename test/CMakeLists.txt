@@ -331,6 +331,7 @@ add_compile_test(compile_detail_is_char_iter)
 add_compile_test(compile_detail_is_char_range)
 add_compile_test(compile_detail_is_cp_iter)
 add_compile_test(compile_trie_conversions)
+add_compile_test(compile_deduction_guides)
 
 if (BUILD_ROPE_THREADSAFETY_TEST)
     if (USE_ASAN OR USE_UBSAN)

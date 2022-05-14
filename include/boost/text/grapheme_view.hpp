@@ -110,6 +110,30 @@ namespace boost { namespace text {
         [[no_unique_address]] sentinel last_;
     };
 
+#if defined(__cpp_deduction_guides)
+#if BOOST_TEXT_USE_CONCEPTS
+    template<code_point_iter I, std::sentinel_for<I> S>
+#else
+    template<typename I, typename S>
+#endif
+    grapheme_view(grapheme_iterator<I, S>, grapheme_iterator<I, S>)
+        -> grapheme_view<I, S>;
+
+#if BOOST_TEXT_USE_CONCEPTS
+    template<code_point_iter I, std::sentinel_for<I> S>
+#else
+    template<typename I, typename S>
+#endif
+    grapheme_view(grapheme_iterator<I, S>, S) -> grapheme_view<I, S>;
+
+#if BOOST_TEXT_USE_CONCEPTS
+    template<code_point_iter I, std::sentinel_for<I> S>
+#else
+    template<typename I, typename S>
+#endif
+    grapheme_view(I, S) -> grapheme_view<I, S>;
+#endif
+
 }}
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {

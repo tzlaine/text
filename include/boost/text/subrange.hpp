@@ -7,6 +7,7 @@
 #define BOOST_TEXT_SUBRANGE_HPP
 
 #include <boost/text/config.hpp>
+#include <boost/text/detail/algorithm.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
@@ -60,6 +61,22 @@ namespace boost { namespace text {
         I first_;
         [[no_unique_address]] S last_;
     };
+
+#if defined(__cpp_deduction_guides)
+#if BOOST_TEXT_USE_CONCEPTS
+    template<std::input_or_output_iterator I, std::sentinel_for<I> S>
+#else
+    template<typename I, typename S>
+#endif
+    subrange(I, S) -> subrange<I, S>;
+
+#if BOOST_TEXT_USE_CONCEPTS
+    template<std::ranges::borrowed_range R>
+#else
+    template<typename R>
+#endif
+    subrange(R &&) -> subrange<detail::iterator_t<R>, detail::sentinel_t<R>>;
+#endif
 
 }}
 
