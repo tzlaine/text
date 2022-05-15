@@ -2654,7 +2654,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::unspecified lines(CPIter first, Sentinel last) noexcept;
 
     /** Returns a view of the code point ranges delimiting lines (using hard
-        line breaks) in `range`.
+        line breaks) in `range`.  The result is returned as a
+        `borrowed_view_t` in C++20 and later.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -2662,7 +2663,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::unspecified lines(CPRange && range) noexcept;
 
     /** Returns a view of the grapheme ranges delimiting lines (using hard
-        line breaks) in `range`.
+        line breaks) in `range`.  The result is returned as a
+        `borrowed_view_t` in C++20 and later.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -2719,7 +2721,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         derived from `CPExtentFunc`.  When a line has no allowed breaks before
         it would exceed `max_extent`, it will be broken only if
         `break_overlong_lines` is true.  If `break_overlong_lines` is false,
-        such an unbreakable line will exceed `max_extent`.
+        such an unbreakable line will exceed `max_extent`.  The result is
+        returned as a `borrowed_view_t` in C++20 and later.
 
         CPExtentFunc must be an invocable type whose signature is `Extent
         (CPIter, CPIter)`, where `CPIter` is `decltype(range.begin())`. */
@@ -2736,7 +2739,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         derived from `CPExtentFunc`.  When a line has no allowed breaks before
         it would exceed `max_extent`, it will be broken only if
         `break_overlong_lines` is true.  If `break_overlong_lines` is false,
-        such an unbreakable line will exceed `max_extent`.
+        such an unbreakable line will exceed `max_extent`.  The result is
+        returned as a `borrowed_view_t` in C++20 and later.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept.
@@ -2789,7 +2793,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPIter first, Sentinel last, allowed_breaks_t) noexcept;
 
     /** Returns a view of the code point ranges delimiting allowed lines in
-        `range`.
+        `range`.  The result is returned as a `borrowed_view_t` in C++20 and
+        later.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -2797,7 +2802,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::unspecified lines(CPRange && range, allowed_breaks_t) noexcept;
 
     /** Returns a view of the grapheme ranges delimiting allowed lines in
-        `range`.
+        `range`.  The result is returned as a `borrowed_view_t` in C++20 and
+        later.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -3150,17 +3156,25 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<code_point_range R>
             auto operator()(R && r) const noexcept
             {
-                return detail::breaks_cr_impl<
-                    detail::prev_hard_line_break_callable,
-                    detail::next_hard_line_break_callable>(r);
+                if constexpr (std::ranges::borrowed_range<R>) {
+                    return detail::breaks_cr_impl<
+                        detail::prev_hard_line_break_callable,
+                        detail::next_hard_line_break_callable>(r);
+                } else {
+                    return std::ranges::dangling{};
+                }
             }
 
             template<grapheme_range R>
             auto operator()(R && r) const noexcept
             {
-                return detail::breaks_gr_impl<
-                    detail::prev_hard_line_break_callable,
-                    detail::next_hard_line_break_callable>(r);
+                if constexpr (std::ranges::borrowed_range<R>) {
+                    return detail::breaks_gr_impl<
+                        detail::prev_hard_line_break_callable,
+                        detail::next_hard_line_break_callable>(r);
+                } else {
+                    return std::ranges::dangling{};
+                }
             }
 
             template<
@@ -3194,8 +3208,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 CPExtentFunc cp_extent,
                 bool break_overlong_lines = true) const noexcept
             {
-                return detail::lines_cr_impl(
-                    r, max_extent, std::move(cp_extent), break_overlong_lines);
+                if constexpr (std::ranges::borrowed_range<R>) {
+                    return detail::lines_cr_impl(
+                        r,
+                        max_extent,
+                        std::move(cp_extent),
+                        break_overlong_lines);
+                } else {
+                    return std::ranges::dangling{};
+                }
             }
 
             template<
@@ -3209,8 +3230,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 CPExtentFunc cp_extent,
                 bool break_overlong_lines = true) const noexcept
             {
-                return detail::lines_gr_impl(
-                    r, max_extent, std::move(cp_extent), break_overlong_lines);
+                if constexpr (std::ranges::borrowed_range<R>) {
+                    return detail::lines_gr_impl(
+                        r,
+                        max_extent,
+                        std::move(cp_extent),
+                        break_overlong_lines);
+                } else {
+                    return std::ranges::dangling{};
+                }
             }
 
             template<std::integral Extent, typename CPExtentFunc>
@@ -3248,13 +3276,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<code_point_range R>
             auto operator()(R && r, allowed_breaks_t) const noexcept
             {
-                return detail::allowed_lines_cr_impl(r);
+                if constexpr (std::ranges::borrowed_range<R>)
+                    return detail::allowed_lines_cr_impl(r);
+                else
+                    return std::ranges::dangling{};
             }
 
             template<grapheme_range R>
             auto operator()(R && r, allowed_breaks_t) const noexcept
             {
-                return detail::allowed_lines_gr_impl(r);
+                if constexpr (std::ranges::borrowed_range<R>)
+                    return detail::allowed_lines_gr_impl(r);
+                else
+                    return std::ranges::dangling{};
             }
 
             auto operator()(allowed_breaks_t ab) const noexcept

@@ -146,7 +146,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     constexpr auto as_graphemes(Iter first, Sentinel last) noexcept;
 
     /** Returns a `grapheme_view` over the data in `r`, transcoding the data
-        if necessary. */
+        if necessary.  If `std::remove_reference_t<R>` is not a pointer, the
+        result is returned as a `borrowed_view_t` (C++20 and later only). */
     template<typename Range>
     constexpr auto as_graphemes(Range && r) noexcept;
 
@@ -234,11 +235,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<utf_range_like R>
             constexpr auto operator()(R && r) const noexcept
             {
-                auto intermediate = boost::text::as_utf32(r);
-                return grapheme_view<
-                    std::ranges::iterator_t<decltype(intermediate)>,
-                    std::ranges::sentinel_t<decltype(intermediate)>>(
-                    intermediate.begin(), intermediate.end());
+                if constexpr (
+                    !std::is_pointer_v<std::remove_reference_t<R>> &&
+                    !std::ranges::borrowed_range<R>) {
+                    return std::ranges::dangling{};
+                } else {
+                    auto intermediate = boost::text::as_utf32(r);
+                    return grapheme_view<
+                        std::ranges::iterator_t<decltype(intermediate)>,
+                        std::ranges::sentinel_t<decltype(intermediate)>>(
+                        intermediate.begin(), intermediate.end());
+                }
             }
         };
     }

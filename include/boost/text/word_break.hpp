@@ -1597,7 +1597,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Returns a view of the code point ranges delimiting words in `[first,
-        last)`.
+        last)`.  The result is returned as a `borrowed_view_t` in C++20 and
+        later.
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept and CPIter is equality comparable with
@@ -1620,6 +1621,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordBreakFunc word_break = WordBreakFunc{}) noexcept;
 
     /** Returns a view of the code point ranges delimiting words in `range`.
+        The result is returned as a `borrowed_view_t` in C++20 and later.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept and `WordPropFunc` models the WordPropFunc
@@ -1639,8 +1641,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordPropFunc word_prop = WordPropFunc{},
         WordBreakFunc word_break = WordBreakFunc{}) noexcept;
 
-    /** Returns a view of the grapheme ranges delimiting words in
-        `range`.
+    /** Returns a view of the grapheme ranges delimiting words in `range`.
+        The result is returned as a `borrowed_view_t` in C++20 and later.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
@@ -1988,8 +1990,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 WordPropFunc word_prop = WordPropFunc{},
                 WordBreakFunc word_break = WordBreakFunc{}) const noexcept
             {
-                return detail::words_cr_impl(
-                    r, std::move(word_prop), std::move(word_break));
+                if constexpr (std::ranges::borrowed_range<R>) {
+                    return detail::words_cr_impl(
+                        r, std::move(word_prop), std::move(word_break));
+                } else {
+                    return std::ranges::dangling{};
+                }
             }
 
             template<
@@ -2001,8 +2007,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 WordPropFunc word_prop = WordPropFunc{},
                 WordBreakFunc word_break = WordBreakFunc{}) const noexcept
             {
-                return detail::words_gr_impl(
-                    r, std::move(word_prop), std::move(word_break));
+                if constexpr (std::ranges::borrowed_range<R>) {
+                    return detail::words_gr_impl(
+                        r, std::move(word_prop), std::move(word_break));
+                } else {
+                    return std::ranges::dangling{};
+                }
             }
         };
     }

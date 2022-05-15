@@ -416,7 +416,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns a `stream_safe_view` of the range `r`.
 
         This function only participates in overload resolution if `CPRange`
-        models the CPRange concept.
+        models the CPRange concept.  The result is returned as a
+        `borrowed_view_t` in C++20 and later.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPRange>
@@ -533,11 +534,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
 
             template<code_point_range R>
-            constexpr auto operator()(R && r) const noexcept -> borrowed_view_t<
-                R,
-                decltype((*this)(std::ranges::begin(r), std::ranges::end(r)))>
+            constexpr auto operator()(R && r) const noexcept
             {
-                return (*this)(std::ranges::begin(r), std::ranges::end(r));
+                if constexpr (std::ranges::borrowed_range<R>)
+                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
+                else
+                    return std::ranges::dangling{};
             }
         };
     }

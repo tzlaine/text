@@ -972,7 +972,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::unspecified sentences(CPIter first, Sentinel last) noexcept;
 
     /** Returns a view of the code point ranges delimiting sentences in
-        `range`.
+        `range`.  The result is returned as a `borrowed_view_t` in C++20 and
+        later.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -980,6 +981,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::unspecified sentences(CPRange && range) noexcept;
 
     /** Returns a view of the grapheme ranges delimiting sentences in `range`.
+        The result is returned as a `borrowed_view_t` in C++20 and later.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -1156,17 +1158,25 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<code_point_range R>
             auto operator()(R && r) const noexcept
             {
-                return detail::breaks_cr_impl<
-                    detail::prev_sentence_callable,
-                    detail::next_sentence_callable>(r);
+                if constexpr (std::ranges::borrowed_range<R>) {
+                    return detail::breaks_cr_impl<
+                        detail::prev_sentence_callable,
+                        detail::next_sentence_callable>(r);
+                } else {
+                    return std::ranges::dangling{};
+                }
             }
 
             template<grapheme_range R>
             auto operator()(R && r) const noexcept
             {
-                return detail::breaks_gr_impl<
-                    detail::prev_sentence_callable,
-                    detail::next_sentence_callable>(r);
+                if constexpr (std::ranges::borrowed_range<R>) {
+                    return detail::breaks_gr_impl<
+                        detail::prev_sentence_callable,
+                        detail::next_sentence_callable>(r);
+                } else {
+                    return std::ranges::dangling{};
+                }
             }
         };
     }

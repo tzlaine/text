@@ -48,6 +48,18 @@ TEST(break_apis, grapheme_break)
         }
     }
 
+#if BOOST_TEXT_USE_CONCEPTS
+    // dangling range
+    {
+        using result_type = decltype(boost::text::as_graphemes(std::string{}));
+        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
+    }
+    {
+        using result_type = decltype(std::string{} | boost::text::as_graphemes);
+        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
+    }
+#endif
+
     // ÷ 1F3FB × 0308 ÷ 1100 ÷
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0]
     // COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
@@ -432,6 +444,18 @@ TEST(break_apis, word_break)
             (void)subrange;
         }
     }
+
+#if BOOST_TEXT_USE_CONCEPTS
+    // dangling range
+    {
+        using result_type = decltype(boost::text::words(std::u32string{}));
+        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
+    }
+    {
+        using result_type = decltype(std::u32string{} | boost::text::words);
+        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
+    }
+#endif
 
     // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷
     // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) ×
@@ -1224,6 +1248,18 @@ TEST(break_apis, sentence_break)
         }
     }
 
+#if BOOST_TEXT_USE_CONCEPTS
+    // dangling range
+    {
+        using result_type = decltype(boost::text::sentences(std::u32string{}));
+        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
+    }
+    {
+        using result_type = decltype(std::u32string{} | boost::text::sentences);
+        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
+    }
+#endif
+
     // ÷ 5B57 × 3002 ÷ 5B83 ÷
     // ÷ [0.2] CJK UNIFIED IDEOGRAPH-5B57 (OLetter) × [998.0] IDEOGRAPHIC FULL
     // STOP (STerm) ÷ [11.0] CJK UNIFIED IDEOGRAPH-5B83 (OLetter) ÷ [0.3]
@@ -1504,6 +1540,18 @@ TEST(break_apis, line_break)
             (void)subrange;
         }
     }
+
+#if BOOST_TEXT_USE_CONCEPTS
+    // dangling range
+    {
+        using result_type = decltype(boost::text::as_utf32(std::string{}));
+        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
+    }
+    {
+        using result_type = decltype(std::string{} | boost::text::as_utf32);
+        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
+    }
+#endif
 
     // × 200B × 0020 ÷ 0030 ÷
     // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU)
@@ -2668,6 +2716,18 @@ TEST(break_apis, paragraph_break)
             (void)subrange;
         }
     }
+
+#if BOOST_TEXT_USE_CONCEPTS
+    // dangling range
+    {
+        using result_type = decltype(boost::text::paragraphs(std::u32string{}));
+        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
+    }
+    {
+        using result_type = decltype(std::u32string{} | boost::text::paragraphs);
+        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
+    }
+#endif
 
     // ÷ 0061 × 000D × 000A ÷ 002E × 000A ÷ 0061 ÷
     std::vector<uint32_t> const cps = {0x61, 0xd, 0xa, 0x2e, 0xa, 0x61};

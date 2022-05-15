@@ -545,7 +545,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf8_view` over the data in `r`.  The view will transcode
         the data if necessary.  If `std::remove_reference_t<R>` is not a
-        pointer, the result is returned as a `borrowed_view_t`. */
+        pointer, the result is returned as a `borrowed_view_t` (C++20 and
+        later only). */
     template<utf_range_like R>
     constexpr detail::unspecified as_utf8(R && r) noexcept;
 
@@ -567,15 +568,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<utf_range_like R>
             constexpr auto operator()(R && r) const noexcept
             {
-                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
+                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>)
                     return (*this)(r, null_sentinel);
-                } else {
-                    auto intermediate =
-                        (*this)(std::ranges::begin(r), std::ranges::end(r));
-                    using result_type =
-                        borrowed_view_t<R, decltype(intermediate)>;
-                    return result_type{intermediate};
-                }
+                else if constexpr (std::ranges::borrowed_range<R>)
+                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
+                else
+                    return std::ranges::dangling{};
             }
         };
     }
@@ -591,7 +589,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf16_view` over the data in `r` the data if necessary.  If
         `std::remove_reference_t<R>` is not a pointer, the result is returned
-        as a `borrowed_view_t`. */
+        as a `borrowed_view_t` (C++20 and later only). */
     template<utf_range_like R>
     constexpr detail::unspecified as_utf16(R && r) noexcept;
 
@@ -613,15 +611,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<utf_range_like R>
             constexpr auto operator()(R && r) const noexcept
             {
-                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
+                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>)
                     return (*this)(r, null_sentinel);
-                } else {
-                    auto intermediate =
-                        (*this)(std::ranges::begin(r), std::ranges::end(r));
-                    using result_type =
-                        borrowed_view_t<R, decltype(intermediate)>;
-                    return result_type{intermediate};
-                }
+                else if constexpr (std::ranges::borrowed_range<R>)
+                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
+                else
+                    return std::ranges::dangling{};
             }
         };
     }
@@ -637,7 +632,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf32_view` over the data in `r`.  The view will transcode
         the data if necessary.  If `std::remove_reference_t<R>` is not a
-        pointer, the result is returned as a `borrowed_view_t`. */
+        pointer, the result is returned as a `borrowed_view_t` (C++20 and
+        later only). */
     template<utf_range_like R>
     constexpr detail::unspecified as_utf32(R && r) noexcept;
 
@@ -659,15 +655,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<utf_range_like R>
             constexpr auto operator()(R && r) const noexcept
             {
-                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
+                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>)
                     return (*this)(r, null_sentinel);
-                } else {
-                    auto intermediate =
-                        (*this)(std::ranges::begin(r), std::ranges::end(r));
-                    using result_type =
-                        borrowed_view_t<R, decltype(intermediate)>;
-                    return result_type{intermediate};
-                }
+                else if constexpr (std::ranges::borrowed_range<R>)
+                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
+                else
+                    return std::ranges::dangling{};
             }
         };
     }

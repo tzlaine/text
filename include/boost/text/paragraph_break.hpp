@@ -389,7 +389,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::unspecified paragraphs(CPIter first, Sentinel last) noexcept;
 
     /** Returns a view of the code point ranges delimiting paragraphs in
-        `range`.
+        `range`.  The result is returned as a `borrowed_view_t` in C++20 and
+        later.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -397,7 +398,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::unspecified paragraphs(CPRange && range) noexcept;
 
     /** Returns a view of the grapheme ranges delimiting paragraphs in
-        `range`.
+        `range`.  The result is returned as a `borrowed_view_t` in C++20 and
+        later.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -538,7 +540,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return detail::at_paragraph_break_gr_impl(r, it);
     }
 
-    /** Returns the bounds of the paragraph that `it` lies within. */
     template<code_point_iter I, std::sentinel_for<I> S>
     utf32_view<I> paragraph(I first, I it, S last) noexcept
     {
@@ -573,17 +574,25 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<code_point_range R>
             auto operator()(R && r) const noexcept
             {
-                return detail::breaks_cr_impl<
-                    detail::prev_paragraph_callable,
-                    detail::next_paragraph_callable>(r);
+                if constexpr (std::ranges::borrowed_range<R>) {
+                    return detail::breaks_cr_impl<
+                        detail::prev_paragraph_callable,
+                        detail::next_paragraph_callable>(r);
+                } else {
+                    return std::ranges::dangling{};
+                }
             }
 
             template<grapheme_range R>
             auto operator()(R && r) const noexcept
             {
-                return detail::breaks_gr_impl<
-                    detail::prev_paragraph_callable,
-                    detail::next_paragraph_callable>(r);
+                if constexpr (std::ranges::borrowed_range<R>) {
+                    return detail::breaks_gr_impl<
+                        detail::prev_paragraph_callable,
+                        detail::next_paragraph_callable>(r);
+                } else {
+                    return std::ranges::dangling{};
+                }
             }
         };
     }
