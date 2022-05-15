@@ -3013,6 +3013,7 @@ namespace std::ranges {
     inline constexpr bool enable_borrowed_range<
         boost::text::bidirectional_grapheme_subrange<CPIter>> = true;
 
+#if !BOOST_TEXT_USE_COROUTINES
     template<
         typename CPIter,
         typename Sentinel,
@@ -3024,6 +3025,7 @@ namespace std::ranges {
             Sentinel,
             ResultType,
             NextLineBreakFunc>> = true;
+#endif
 }
 
 #endif
