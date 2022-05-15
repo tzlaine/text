@@ -781,94 +781,97 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Finds the nearest sentence break at or before before `it`.  If `it ==
         first`, that is returned.  Otherwise, the first code point of the
         sentence that `it` is within is returned (even if `it` is already at
-        the first code point of a sentence).
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    CPIter prev_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept;
+        the first code point of a sentence). */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    I prev_sentence_break(I first, I it, S last) noexcept;
 
     /** Finds the next sentence break after `first`.  This will be the first
         code point after the current sentence, or `last` if no next sentence
         exists.
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
         \pre `first` is at the beginning of a sentence. */
-    template<typename CPIter, typename Sentinel>
-    CPIter next_sentence_break(CPIter first, Sentinel last) noexcept;
+    template<code_point_iter I, std::sentinel_for<I> S>
+    I next_sentence_break(I first, S last) noexcept;
 
     /** Finds the nearest sentence break at or before before `it`.  If `it ==
-        range.begin()`, that is returned.  Otherwise, the first code point of
+        r.begin()`, that is returned.  Otherwise, the first code point of
         the sentence that `it` is within is returned (even if `it` is already
-        at the first code point of a sentence).
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename CPIter>
-    detail::unspecified
-    prev_sentence_break(CPRange && range, CPIter it) noexcept;
+        at the first code point of a sentence). */
+    template<code_point_range R>
+    std::ranges::iterator_t<R> prev_sentence_break(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Returns a grapheme_iterator to the nearest sentence break at or before
-        before `it`.  If `it == range.begin()`, that is returned.  Otherwise,
-        the first grapheme of the sentence that `it` is within is returned
-        (even if `it` is already at the first grapheme of a sentence).
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    detail::unspecified
-    prev_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept;
+        before `it`.  If `it == r.begin()`, that is returned.  Otherwise, the
+        first grapheme of the sentence that `it` is within is returned (even
+        if `it` is already at the first grapheme of a sentence). */
+    template<grapheme_range R>
+    std::ranges::iterator_t<R> prev_sentence_break(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Finds the next sentence break after `it`.  This will be the first code
-        point after the current sentence, or `range.end()` if no next sentence
+        point after the current sentence, or `r.end()` if no next sentence
         exists.
 
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept.
-
         \pre `it` is at the beginning of a sentence. */
-    template<typename CPRange, typename CPIter>
-    detail::unspecified
-    next_sentence_break(CPRange && range, CPIter it) noexcept;
+    template<code_point_range R>
+    std::ranges::iterator_t<R> next_sentence_break(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Returns a grapheme_iterator to the next sentence break after `it`.
         This will be the first grapheme after the current sentence, or
-        `range.end()` if no next sentence exists.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept.
+        `r.end()` if no next sentence exists.
 
         \pre `it` is at the beginning of a sentence. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    detail::unspecified
-    next_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept;
+    template<grapheme_range R>
+    std::ranges::iterator_t<R> next_sentence_break(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a sentence, or `it ==
-        last`.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    bool at_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept;
+        last`. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    bool at_sentence_break(I first, I it, S last) noexcept;
 
     /** Returns true iff `it` is at the beginning of a sentence, or `it ==
-        std::ranges::end(range)`.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename CPIter>
-    bool at_sentence_break(CPRange && range, CPIter it) noexcept;
+        std::ranges::end(r)`. */
+    template<code_point_range R>
+    bool at_sentence_break(R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a sentence, or `it ==
-        std::ranges::end(range)`.
+        std::ranges::end(r)`. */
+    template<grapheme_range R>
+    bool at_sentence_break(R && r, std::ranges::iterator_t<R> it) noexcept;
 
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    bool
-    at_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept;
+    /** Returns the bounds of the sentence that `it` lies within. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    utf32_view<I> sentence(I first, I it, S last) noexcept;
+
+    /** Returns the bounds of the sentence that `it` lies within, as a
+        utf32_view. */
+    template<code_point_range R>
+    utf32_view<std::ranges::iterator_t<R>> sentence(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
+
+    /** Returns grapheme range delimiting the bounds of the sentence that `it`
+        lies within, as a grapheme_view. */
+    template<grapheme_range R>
+    grapheme_view<code_point_iterator_t<R>> sentence(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
+
+    /** Returns a view of the code point ranges delimiting sentences in
+        `[first, last)`. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    detail::unspecified sentences(I first, S last) noexcept;
+
+    /** Returns a view of the code point ranges delimiting sentences in `r`.
+        The result is returned as a `borrowed_view_t` in C++20 and later. */
+    template<code_point_range R>
+    detail::unspecified sentences(R && r) noexcept;
+
+    /** Returns a view of the grapheme ranges delimiting sentences in `r`.
+        The result is returned as a `borrowed_view_t` in C++20 and later. */
+    template<grapheme_range R>
+    detail::unspecified sentences(R && r) noexcept;
 
 #else
 
@@ -938,57 +941,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return detail::at_sentence_break_gr_impl(range, it);
     }
 
-#endif
-
-    /** Returns the bounds of the sentence that `it` lies within. */
     template<typename CPIter, typename Sentinel>
     utf32_view<CPIter> sentence(CPIter first, CPIter it, Sentinel last) noexcept
     {
         return detail::sentence_impl(first, it, last);
     }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Returns the bounds of the sentence that `it` lies within, as a
-        utf32_view.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename CPIter>
-    detail::unspecified sentence(CPRange && range, CPIter it) noexcept;
-
-    /** Returns grapheme range delimiting the bounds of the sentence that `it`
-        lies within, as a grapheme_view.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    detail::unspecified
-    sentence(GraphemeRange && range, GraphemeIter it) noexcept;
-
-    /** Returns a view of the code point ranges delimiting sentences in
-        `[first, last)`. */
-    template<typename CPIter, typename Sentinel>
-    detail::unspecified sentences(CPIter first, Sentinel last) noexcept;
-
-    /** Returns a view of the code point ranges delimiting sentences in
-        `range`.  The result is returned as a `borrowed_view_t` in C++20 and
-        later.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange>
-    detail::unspecified sentences(CPRange && range) noexcept;
-
-    /** Returns a view of the grapheme ranges delimiting sentences in `range`.
-        The result is returned as a `borrowed_view_t` in C++20 and later.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange>
-    detail::unspecified sentences(GraphemeRange && range) noexcept;
-
-#else
 
     template<typename CPRange, typename CPIter>
     auto sentence(CPRange && range, CPIter it) noexcept -> detail::
@@ -1060,7 +1017,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -1182,8 +1139,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     inline constexpr dtl::sentences_impl sentences;
-    }
-}}
+
+}}}
 
 #endif
 

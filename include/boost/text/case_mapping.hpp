@@ -784,8 +784,25 @@ namespace boost { namespace text {
         }
     }
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Returns true if no code point in `[first, last)` would change in a
         call to to_lower(), and false otherwise. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    bool is_lower(I first, S last) noexcept;
+
+    /** Returns true if no code point in `range` would change in a call to
+        to_lower(), and false otherwise. */
+    template<code_point_range R>
+    bool is_lower(R && r) noexcept;
+
+    /** Returns true if no grapheme in `range` would change in a call to
+        to_lower(), and false otherwise. */
+    template<grapheme_range R>
+    bool is_lower(R && r) noexcept;
+
+#else
+
     template<typename CPIter, typename Sentinel>
     bool is_lower(CPIter first, Sentinel last) noexcept
     {
@@ -793,26 +810,6 @@ namespace boost { namespace text {
             return !detail::changes_when_lowered(cp);
         });
     }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Returns true if no code point in `range` would change in a call to
-        to_lower(), and false otherwise.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange>
-    bool is_lower(CPRange && range) noexcept;
-
-    /** Returns true if no grapheme in `range` would change in a call to
-        to_lower(), and false otherwise.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange>
-    bool is_lower(GraphemeRange && range) noexcept;
-
-#else
 
     template<typename CPRange>
     auto is_lower(CPRange && range) noexcept
@@ -830,54 +827,51 @@ namespace boost { namespace text {
 
 #endif
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Writes the code point sequence comprising the lower-case form of
         `[first, last)` to `out`, using language-specific handling as
         indicated by `lang`.  The normalization of the result is undefined. */
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        std::weakly_incrementable O>
+    requires indirectly_copyable<I, O>
+    O to_lower(
+        I first, S last, O out, case_language lang = case_language::other) noexcept;
+
+    /** Writes the code point sequence comprising the lower-case form of
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined. */
+    template<code_point_range R, std::weakly_incrementable O>
+    requires indirectly_copyable<I, O>
+    O to_lower(R && r, O out, case_language lang = case_language::other) noexcept;
+
+    /** Writes the code point sequence comprising the lower-case form of
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined. */
+    template<grapheme_range R, std::weakly_incrementable O>
+    requires indirectly_copyable<I, O>
+    O to_lower(R && r, O out, case_language lang = case_language::other) noexcept;
+
+#else
+
     template<typename CPIter, typename Sentinel, typename OutIter>
     OutIter to_lower(
         CPIter first,
-        CPIter it,
         Sentinel last,
         OutIter out,
         case_language lang = case_language::other) noexcept
     {
         return map_case(
             first,
-            it,
+            first,
             last,
             out,
             lang,
             detail::to_lower_map(),
             detail::map_case_mode::lower);
     }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Writes the code point sequence comprising the lower-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename OutIter>
-    OutIter to_lower(
-        CPRange && range,
-        OutIter out,
-        case_language lang = case_language::other) noexcept;
-
-    /** Writes the code point sequence comprising the lower-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename OutIter>
-    OutIter to_lower(
-        GraphemeRange && range,
-        OutIter out,
-        case_language lang = case_language::other) noexcept;
-
-#else
 
     template<typename CPRange, typename OutIter>
     auto to_lower(
@@ -887,11 +881,7 @@ namespace boost { namespace text {
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return boost::text::to_lower(
-            detail::begin(range),
-            detail::begin(range),
-            detail::end(range),
-            out,
-            lang);
+            detail::begin(range), detail::end(range), out, lang);
     }
 
     template<typename GraphemeRange, typename OutIter>
@@ -902,20 +892,44 @@ namespace boost { namespace text {
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
         return boost::text::to_lower(
-            range.begin().base(),
-            range.begin().base(),
-            range.end().base(),
-            out,
-            lang);
+            range.begin().base(), range.end().base(), out, lang);
     }
 
 #endif
 
-    /** Returns true if no code point in `[first, last)` would change in a
-        call to to_title(), and false otherwise.
+#ifdef BOOST_TEXT_DOXYGEN
 
-        NextWordBreakFunc must be an invocable type whose signature is `CPIter
-        (CPIter, Sentinel)`. */
+    /** Returns true if no code point in `[first, last)` would change in a
+        call to to_title(), and false otherwise. */
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        typename NextWordBreakFunc = next_word_break_callable>
+    bool is_title(
+        I first,
+        S last,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
+
+    /** Returns true if no code point in `range` would change in a call to
+        to_title(), and false otherwise. */
+    template<
+        code_point_range R,
+        typename NextWordBreakFunc = next_word_break_callable>
+    bool is_title(
+        R && r,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
+
+    /** Returns true if no grapheme in `range` would change in a call to
+        to_title(), and false otherwise. */
+    template<
+        grapheme_range R,
+        typename NextWordBreakFunc = next_word_break_callable>
+    bool is_title(
+        R && r,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
+
+#else
+
     template<
         typename CPIter,
         typename Sentinel,
@@ -937,43 +951,6 @@ namespace boost { namespace text {
         }
         return true;
     }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Returns true if no code point in `range` would change in a call to
-        to_title(), and false otherwise.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept.
-
-        NextWordBreakFunc must be an invocable type whose signature is `CPIter
-        (CPIter, Sentinel)`, where `CPIter` is `decltype(range.begin())` and
-        `Sentinel` is `decltype(range.end())`.  */
-    template<
-        typename CPRange,
-        typename NextWordBreakFunc = next_word_break_callable>
-    bool is_title(
-        CPRange && range,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
-
-    /** Returns true if no grapheme in `range` would change in a call to
-        to_title(), and false otherwise.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept.
-
-        NextWordBreakFunc must be an invocable type whose signature is `CPIter
-        (CPIter, Sentinel)`, where `CPIter` is
-        `decltype(range.begin().base())` and `Sentinel` is
-        `decltype(range.end().base())`.  */
-    template<
-        typename GraphemeRange,
-        typename NextWordBreakFunc = next_word_break_callable>
-    bool is_title(
-        GraphemeRange && range,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
-
-#else
 
     template<
         typename CPRange,
@@ -1001,12 +978,51 @@ namespace boost { namespace text {
 
 #endif
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Writes the code point sequence comprising the title-case form of
         `[first, last)` to `out`, using language-specific handling as
-        indicated by `lang`.  The normalization of the result is undefined.
+        indicated by `lang`.  The normalization of the result is undefined. */
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        typename O,
+        typename NextWordBreakFunc = next_word_break_callable>
+    O to_title(
+        I first,
+        S last,
+        O out,
+        case_language lang = case_language::other,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
 
-        NextWordBreakFunc must be an invocable type whose signature is `CPIter
-        (CPIter, Sentinel)`. */
+    /** Writes the code point sequence comprising the title-case form of
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined. */
+    template<
+        code_point_range R,
+        typename O,
+        typename NextWordBreakFunc = next_word_break_callable>
+    O to_title(
+        R && r,
+        O out,
+        case_language lang = case_language::other,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
+
+    /** Writes the code point sequence comprising the title-case form of
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined. */
+    template<
+        grapheme_range R,
+        typename O,
+        typename NextWordBreakFunc = next_word_break_callable>
+    O to_title(
+        R && r,
+        O out,
+        case_language lang = case_language::other,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
+
+#else
+
     template<
         typename CPIter,
         typename Sentinel,
@@ -1014,7 +1030,6 @@ namespace boost { namespace text {
         typename NextWordBreakFunc = next_word_break_callable>
     OutIter to_title(
         CPIter first,
-        CPIter it,
         Sentinel last,
         OutIter out,
         case_language lang = case_language::other,
@@ -1022,7 +1037,7 @@ namespace boost { namespace text {
     {
         NextWordBreakFunc next;
         detail::lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
-            std::move(next), {it, last}, {last}};
+            std::move(next), {first, last}, {last}};
 
         for (auto r : words) {
             out = map_case(
@@ -1038,51 +1053,6 @@ namespace boost { namespace text {
         return out;
     }
 
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Writes the code point sequence comprising the title-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept.
-
-        NextWordBreakFunc must be an invocable type whose signature is `CPIter
-        (CPIter, Sentinel)`, where `CPIter` is `decltype(range.begin())` and
-        `Sentinel` is `decltype(range.end())`. */
-    template<
-        typename CPRange,
-        typename OutIter,
-        typename NextWordBreakFunc = next_word_break_callable>
-    OutIter to_title(
-        CPRange && range,
-        OutIter out,
-        case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
-
-    /** Writes the code point sequence comprising the title-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept.
-
-        NextWordBreakFunc must be an invocable type whose signature is `CPIter
-        (CPIter, Sentinel)`, where `CPIter` is
-        `decltype(range.begin().base())` and `Sentinel` is
-        `decltype(range.end().base())`. */
-    template<
-        typename GraphemeRange,
-        typename OutIter,
-        typename NextWordBreakFunc = next_word_break_callable>
-    OutIter to_title(
-        GraphemeRange && range,
-        OutIter out,
-        case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
-
-#else
-
     template<
         typename CPRange,
         typename OutIter,
@@ -1095,7 +1065,6 @@ namespace boost { namespace text {
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return boost::text::to_title(
-            detail::begin(range),
             detail::begin(range),
             detail::end(range),
             out,
@@ -1116,7 +1085,6 @@ namespace boost { namespace text {
     {
         return boost::text::to_title(
             range.begin().base(),
-            range.begin().base(),
             range.end().base(),
             out,
             lang,
@@ -1125,8 +1093,25 @@ namespace boost { namespace text {
 
 #endif
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Returns true if no code point in `[first, last)` would change in a
         call to to_upper(), and false otherwise. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    bool is_upper(I first, S last) noexcept;
+
+    /** Returns true if no code point in `range` would change in a call to
+        to_upper(), and false otherwise. */
+    template<code_point_range R>
+    bool is_upper(R && r) noexcept;
+
+    /** Returns true if no grapheme in `range` would change in a call to
+        to_upper(), and false otherwise. */
+    template<grapheme_range R>
+    bool is_upper(R && r) noexcept;
+
+#else
+
     template<typename CPIter, typename Sentinel>
     bool is_upper(CPIter first, Sentinel last) noexcept
     {
@@ -1134,26 +1119,6 @@ namespace boost { namespace text {
             return !detail::changes_when_uppered(cp);
         });
     }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Returns true if no code point in `range` would change in a call to
-        to_upper(), and false otherwise.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange>
-    bool is_upper(CPRange && range) noexcept;
-
-    /** Returns true if no grapheme in `range` would change in a call to
-        to_upper(), and false otherwise.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange>
-    bool is_upper(GraphemeRange && range) noexcept;
-
-#else
 
     template<typename CPRange>
     auto is_upper(CPRange && range) noexcept
@@ -1171,54 +1136,53 @@ namespace boost { namespace text {
 
 #endif
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Writes code point sequence comprising the the upper-case form of
         `[first, last)` to `out`, using language-specific handling as
         indicated by `lang`.  The normalization of the result is undefined. */
+    template<code_point_iter I, std::sentinel_for<I> S, std::weakly_incrementable O>
+    requires indirectly_copyable<I, O> O
+    to_upper(I first, S last, O out, case_language lang = case_language::other) noexcept;
+
+    /** Writes code point sequence comprising the the upper-case form of
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined. */
+    template<code_point_range R, std::weakly_incrementable O>
+    requires indirectly_copyable<I, O>
+    O to_upper(
+        R && r,
+        O out,
+        case_language lang = case_language::other) noexcept;
+
+    /** Writes the code point sequence comprising the upper-case form of
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined. */
+    template<grapheme_range R, std::weakly_incrementable O>
+    requires indirectly_copyable<I, O>
+    O to_upper(
+        R && r,
+        O out,
+        case_language lang = case_language::other) noexcept;
+
+#else
+
     template<typename CPIter, typename Sentinel, typename OutIter>
     OutIter to_upper(
         CPIter first,
-        CPIter it,
         Sentinel last,
         OutIter out,
         case_language lang = case_language::other) noexcept
     {
         return detail::map_case(
             first,
-            it,
+            first,
             last,
             out,
             lang,
             detail::to_upper_map(),
             detail::map_case_mode::upper);
     }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Writes code point sequence comprising the the upper-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename OutIter>
-    OutIter to_upper(
-        CPRange && range,
-        OutIter out,
-        case_language lang = case_language::other) noexcept;
-
-    /** Writes the code point sequence comprising the upper-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename OutIter>
-    OutIter to_upper(
-        GraphemeRange && range,
-        OutIter out,
-        case_language lang = case_language::other) noexcept;
-
-#else
 
     template<typename CPRange, typename OutIter>
     auto to_upper(
@@ -1228,11 +1192,7 @@ namespace boost { namespace text {
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return boost::text::to_upper(
-            detail::begin(range),
-            detail::begin(range),
-            detail::end(range),
-            out,
-            lang);
+            detail::begin(range), detail::end(range), out, lang);
     }
 
     template<typename GraphemeRange, typename OutIter>
@@ -1243,11 +1203,7 @@ namespace boost { namespace text {
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
         return boost::text::to_upper(
-            range.begin().base(),
-            range.begin().base(),
-            range.end().base(),
-            out,
-            lang);
+            range.begin().base(), range.end().base(), out, lang);
     }
 
 #endif

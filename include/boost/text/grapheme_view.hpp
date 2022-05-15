@@ -38,22 +38,27 @@ namespace boost { namespace text {
 
         constexpr grapheme_view() : first_(), last_() {}
 
-        /** Construct a grapheme view that covers the entirety of the view
-            of graphemes that `begin()` and `end()` lie within. */
+        /** Construct a grapheme view that covers all the graphemes in
+            `[first, last)`. */
         constexpr grapheme_view(iterator first, sentinel last) :
             first_(first),
             last_(last)
         {}
 
-        /** Construct a grapheme view that covers the entirety of the view
-            of graphemes that `begin()` and `end()` lie within. */
+        /** Construct a grapheme view that covers all the graphemes in
+            `[first, last)`. */
         constexpr grapheme_view(I first, S last) :
             first_(first, first, last),
             last_(detail::make_iter<sentinel>(first, last, last))
         {}
 
-        /** Construct a view covering a subset of the view of graphemes that
-            `begin()` and `end()` lie within. */
+        /** Construct a grapheme view that covers only the graphemes in
+            `[view_first, view_last)`.
+
+            \note You should prefer this constructor over the
+            `grapheme_view(I, S)` constructor if you want to use `begin()` and
+            `end()` to traverse parts of `[first, last)` outside of
+            `[view_first, view_last)`. */
 #if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I2>
         // clang-format off
@@ -214,7 +219,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 

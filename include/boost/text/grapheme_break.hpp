@@ -316,59 +316,43 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Finds the nearest grapheme break at or before before `it`.  If `it ==
         first`, that is returned.  Otherwise, the first code point of the
         grapheme that `it` is within is returned (even if `it` is already at
-        the first code point of a grapheme).
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    CPIter prev_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept;
+        the first code point of a grapheme). */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    I prev_grapheme_break(I first, I it, S last) noexcept;
 
     /** Finds the next word break after `first`.  This will be the first code
         point after the current word, or `last` if no next word exists.
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
         \pre `first` is at the beginning of a word. */
-    template<typename CPIter, typename Sentinel>
-    CPIter next_grapheme_break(CPIter first, Sentinel last) noexcept;
+    template<code_point_iter I, std::sentinel_for<I> S>
+    I next_grapheme_break(I first, S last) noexcept;
 
     /** Finds the nearest grapheme break at or before before `it`.  If `it ==
         range.begin()`, that is returned.  Otherwise, the first code point of
         the grapheme that `it` is within is returned (even if `it` is already
-        at the first code point of a grapheme).
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename CPIter>
-    detail::undefined prev_grapheme_break(CPRange && range, CPIter it) noexcept;
+        at the first code point of a grapheme). */
+    template<code_point_range R>
+    std::ranges::iterator_t<R> prev_grapheme_break(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Finds the next grapheme break after `it`.  This will be the first code
         point after the current grapheme, or `range.end()` if no next grapheme
         exists.
 
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept.
-
         \pre `it` is at the beginning of a grapheme. */
-    template<typename CPRange, typename CPIter>
-    detail::undefined next_grapheme_break(CPRange && range, CPIter it) noexcept;
+    template<code_point_range R>
+    std::ranges::iterator_t<R> next_grapheme_break(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a grapheme, or `it ==
-        last`.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    bool at_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept;
+        last`. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    bool at_grapheme_break(I first, I it, S last) noexcept;
 
     /** Returns true iff `it` is at the beginning of a grapheme, or `it ==
-        std::ranges::end(range)`.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename CPIter>
-    bool at_grapheme_break(CPRange && range, CPIter it) noexcept;
+        std::ranges::end(range)`. */
+    template<code_point_range R>
+    bool at_grapheme_break(R && r, std::ranges::iterator_t<R> it) noexcept;
 
 #else
 
@@ -424,7 +408,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -442,17 +426,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<code_point_range R>
     std::ranges::iterator_t<R> prev_grapheme_break(
-        R && range, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it) noexcept
     {
         return boost::text::prev_grapheme_break(
-            detail::begin(range), it, detail::end(range));
+            detail::begin(r), it, detail::end(r));
     }
 
     template<code_point_range R>
     std::ranges::iterator_t<R> next_grapheme_break(
-        R && range, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it) noexcept
     {
-        return boost::text::next_grapheme_break(it, detail::end(range));
+        return boost::text::next_grapheme_break(it, detail::end(r));
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
@@ -464,12 +448,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    bool at_grapheme_break(R && range, std::ranges::iterator_t<R> it) noexcept
+    bool at_grapheme_break(R && r, std::ranges::iterator_t<R> it) noexcept
     {
-        if (it == detail::end(range))
+        if (it == detail::end(r))
             return true;
         return boost::text::prev_grapheme_break(
-                   detail::begin(range), it, detail::end(range)) == it;
+                   detail::begin(r), it, detail::end(r)) == it;
     }
 
 }}}

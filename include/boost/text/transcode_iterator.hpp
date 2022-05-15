@@ -596,8 +596,56 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
+#if defined(BOOST_TEXT_DOXYGEN)
+
     /** Returns the first code unit in `[first, last)` that is not properly
         UTF-8 encoded, or `last` if no such code unit is found. */
+    template<utf8_iter I>
+    requires std::random_access_iterator<I>
+    constexpr I find_invalid_encoding(I first, I last) noexcept;
+
+    /** Returns the first code unit in `[first, last)` that is not properly
+        UTF-16 encoded, or `last` if no such code unit is found. */
+    template<utf16_iter I>
+    requires std::random_access_iterator<I>
+    constexpr I find_invalid_encoding(I first, I last) noexcept;
+
+    /** Returns true iff `[first, last)` is properly UTF-8 encoded. */
+    template<utf8_iter I>
+    requires std::random_access_iterator<I>
+    constexpr bool encoded(I first, I last) noexcept;
+
+    /** Returns true iff `[first, last)` is properly UTF-16 encoded */
+    template<utf16_iter I>
+    requires std::random_access_iterator<I>
+    constexpr bool encoded(I first, I last) noexcept;
+
+    /** Returns true iff `[first, last)` is empty or the initial UTF-8 code
+        units in `[first, last)` form a valid Unicode code point. */
+    template<utf8_iter I>
+    requires std::random_access_iterator<I>
+    constexpr bool starts_encoded(I first, I last) noexcept;
+
+    /** Returns true iff `[first, last)` is empty or the initial UTF-16 code
+        units in `[first, last)` form a valid Unicode code point. */
+    template<utf16_iter I>
+    requires std::random_access_iterator<I>
+    constexpr bool starts_encoded(I first, I last) noexcept;
+
+    /** Returns true iff `[first, last)` is empty or the final UTF-8 code
+       units in `[first, last)` form a valid Unicode code point. */
+    template<utf8_iter I>
+    requires std::random_access_iterator<I>
+    constexpr bool ends_encoded(I first, I last) noexcept;
+
+    /** Returns true iff `[first, last)` is empty or the final UTF-16 code
+       units in `[first, last)` form a valid Unicode code point. */
+    template<utf16_iter I>
+    requires std::random_access_iterator<I>
+    constexpr bool ends_encoded(I first, I last) noexcept;
+
+#endif
+
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter>
     find_invalid_encoding(Iter first, Iter last) noexcept
@@ -616,8 +664,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return last;
     }
 
-    /** Returns the first code unit in `[first, last)` that is not properly
-        UTF-16 encoded, or `last` if no such code unit is found. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter>
     find_invalid_encoding(Iter first, Iter last) noexcept
@@ -636,7 +682,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return last;
     }
 
-    /** Returns true iff `[first, last)` is properly UTF-8 encoded. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool> encoded(
         Iter first, Iter last) noexcept
@@ -644,7 +689,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return v1::find_invalid_encoding(first, last) == last;
     }
 
-    /** Returns true iff `[first, last)` is properly UTF-16 encoded. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool> encoded(
         Iter first, Iter last) noexcept
@@ -652,8 +696,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return v1::find_invalid_encoding(first, last) == last;
     }
 
-    /** Returns true iff `[first, last)` is empty or the initial UTF-8 code units
-       in `[first, last)` form a valid Unicode code point. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool>
     starts_encoded(Iter first, Iter last) noexcept
@@ -668,8 +710,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return !detail::end_of_invalid_utf8(first);
     }
 
-    /** Returns true iff `[first, last)` is empty or the initial UTF-16 code
-        units in `[first, last)` form a valid Unicode code point. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool>
     starts_encoded(Iter first, Iter last) noexcept
@@ -684,8 +724,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
     }
 
-    /** Returns true iff `[first, last)` is empty or the final UTF-8 code units
-        in `[first, last)` form a valid Unicode code point. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool>
     ends_encoded(Iter first, Iter last) noexcept
@@ -700,8 +738,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return v1::starts_encoded(it, last);
     }
 
-    /** Returns true iff `[first, last)` is empty or the final UTF-16 code units
-        in `[first, last)` form a valid Unicode code point. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool>
     ends_encoded(Iter first, Iter last) noexcept
@@ -718,12 +754,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Returns the first code unit in `[first, last)` that is not properly
-        UTF-8 encoded, or `last` if no such code unit is found. */
     template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -744,8 +778,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return last;
     }
 
-    /** Returns the first code unit in `[first, last)` that is not properly
-        UTF-16 encoded, or `last` if no such code unit is found. */
     template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -766,7 +798,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return last;
     }
 
-    /** Returns true iff `[first, last)` is properly UTF-8 encoded. */
     template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -776,7 +807,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return boost::text::find_invalid_encoding(first, last) == last;
     }
 
-    /** Returns true iff `[first, last)` is properly UTF-16 encoded */
     template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -786,8 +816,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return boost::text::find_invalid_encoding(first, last) == last;
     }
 
-    /** Returns true iff `[first, last)` is empty or the initial UTF-8 code
-        units in `[first, last)` form a valid Unicode code point. */
     template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -804,8 +832,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return !detail::end_of_invalid_utf8(first);
     }
 
-    /** Returns true iff `[first, last)` is empty or the initial UTF-16 code
-        units in `[first, last)` form a valid Unicode code point. */
     template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -822,8 +848,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
     }
 
-    /** Returns true iff `[first, last)` is empty or the final UTF-8 code units
-        in `[first, last)` form a valid Unicode code point. */
     template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -840,8 +864,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return boost::text::starts_encoded(it, last);
     }
 
-    /** Returns true iff `[first, last)` is empty or the final UTF-16 code units
-        in `[first, last)` form a valid Unicode code point. */
     template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -903,25 +925,21 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN)
 
-    /** Only participates in overload resolution when `T` is an integral type,
-        and `sizeof(T)` is 1, 2, or 4.*/
     template<typename T>
-    constexpr bool operator==(T * p, null_sentinel_t);
+    requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
+    constexpr auto operator==(T * p, null_sentinel_t);
 
-    /** Only participates in overload resolution when `T` is an integral type,
-        and `sizeof(T)` is 1, 2, or 4.*/
     template<typename T>
-    constexpr bool operator!=(T * p, null_sentinel_t);
+    requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
+    constexpr auto operator!=(T * p, null_sentinel_t);
 
-    /** Only participates in overload resolution when `T` is an integral type,
-        and `sizeof(T)` is 1, 2, or 4.*/
     template<typename T>
-    constexpr bool operator==(null_sentinel_t, T * p);
+    requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
+    constexpr auto operator==(null_sentinel_t, T * p);
 
-    /** Only participates in overload resolution when `T` is an integral type,
-        and `sizeof(T)` is 1, 2, or 4.*/
     template<typename T>
-    constexpr bool operator!=(null_sentinel_t, T * p);
+    requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
+    constexpr auto operator!=(null_sentinel_t, T * p);
 
 #else
 
@@ -1011,7 +1029,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-8 to UTF-16 converting iterator. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         utf8_iter I,
         std::sentinel_for<I> S = I,
@@ -1026,7 +1044,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-32 to UTF-8 converting iterator. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         utf32_iter I,
         std::sentinel_for<I> S = I,
@@ -1069,7 +1087,7 @@ namespace boost { namespace text {
             if (it_ != last_)
                 read_into_buf();
         }
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<typename I2, typename S2>
         // clang-format off
         requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
@@ -1177,7 +1195,7 @@ namespace boost { namespace text {
         int index_;
         std::array<char, 5> buf_;
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<
             utf32_iter I2,
             std::sentinel_for<I2> S2,
@@ -1254,7 +1272,7 @@ namespace boost { namespace text {
 
 
     /** An out iterator that converts UTF-32 to UTF-8. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<std::output_iterator<uint8_t> Iter>
 #else
     template<typename Iter>
@@ -1353,7 +1371,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-8 to UTF-32 converting iterator. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         utf8_iter I,
         std::sentinel_for<I> S = I,
@@ -1375,7 +1393,7 @@ namespace boost { namespace text {
             :
             first_(first), it_(it), last_(last)
         {}
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<typename I2, typename S2>
         // clang-format off
         requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
@@ -1679,7 +1697,7 @@ namespace boost { namespace text {
         I it_;
         S last_;
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<
             utf8_iter I2,
             std::sentinel_for<I2> S2,
@@ -1689,7 +1707,7 @@ namespace boost { namespace text {
 #endif
         friend struct utf_8_to_16_iterator;
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<
             utf8_iter I2,
             std::sentinel_for<I2> S2,
@@ -1801,7 +1819,7 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-8 to UTF-32. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<std::output_iterator<uint32_t> Iter>
 #else
     template<typename Iter>
@@ -1928,7 +1946,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-32 to UTF-16 converting iterator. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         utf32_iter I,
         std::sentinel_for<I> S = I,
@@ -1973,7 +1991,7 @@ namespace boost { namespace text {
             if (it_ != last_)
                 read_into_buf();
         }
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<typename I2, typename S2>
         // clang-format off
         requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
@@ -2075,7 +2093,7 @@ namespace boost { namespace text {
         int index_;
         std::array<uint16_t, 4> buf_;
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<
             utf32_iter I2,
             std::sentinel_for<I2> S2,
@@ -2151,7 +2169,7 @@ namespace boost { namespace text {
 
 
     /** An out iterator that converts UTF-8 to UTF-16. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<std::output_iterator<uint16_t> Iter>
 #else
     template<typename Iter>
@@ -2251,7 +2269,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-16 to UTF-32 converting iterator. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         utf16_iter I,
         std::sentinel_for<I> S = I,
@@ -2291,7 +2309,7 @@ namespace boost { namespace text {
             :
             first_(first), it_(it), last_(last)
         {}
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<typename I2, typename S2>
         // clang-format off
         requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
@@ -2414,7 +2432,7 @@ namespace boost { namespace text {
         I it_;
         S last_;
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<
             utf32_iter I2,
             std::sentinel_for<I2> S2,
@@ -2424,7 +2442,7 @@ namespace boost { namespace text {
 #endif
         friend struct utf_32_to_16_iterator;
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<
             utf16_iter I2,
             std::sentinel_for<I2> S2,
@@ -2534,7 +2552,7 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-16 to UTF-32. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<std::output_iterator<uint32_t> Iter>
 #else
     template<typename Iter>
@@ -2658,7 +2676,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-16 to UTF-8 converting iterator. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         utf16_iter I,
         std::sentinel_for<I> S = I,
@@ -2701,7 +2719,7 @@ namespace boost { namespace text {
             if (it_ != last_)
                 read_into_buf();
         }
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<typename I2, typename S2>
         // clang-format off
         requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
@@ -2866,7 +2884,7 @@ namespace boost { namespace text {
         static uint32_t const surrogate_offset =
             0x10000 - (high_surrogate_min << 10) - low_surrogate_min;
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<
             utf16_iter I2,
             std::sentinel_for<I2> S2,
@@ -2969,7 +2987,7 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-16 to UTF-8. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<std::output_iterator<uint8_t> Iter>
 #else
     template<typename Iter>
@@ -3091,7 +3109,7 @@ namespace boost { namespace text {
     };
 
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         utf8_iter I,
         std::sentinel_for<I> S,
@@ -3113,7 +3131,7 @@ namespace boost { namespace text {
             if (it_.it_ != it_.last_)
                 read_into_buf();
         }
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<typename I2, typename S2>
         // clang-format off
         requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
@@ -3216,7 +3234,7 @@ namespace boost { namespace text {
         int index_;
         std::array<uint16_t, 4> buf_;
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
         template<
             utf8_iter I2,
             std::sentinel_for<I2> S2,
@@ -3325,7 +3343,7 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-8 to UTF-16. */
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
     template<std::output_iterator<uint16_t> Iter>
 #else
     template<typename Iter>
@@ -3646,56 +3664,172 @@ namespace boost { namespace text { namespace detail {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
-    /** Returns a `utf_32_to_8_out_iterator<Iter>` constructed from the given
+#if defined(BOOST_TEXT_DOXYGEN)
+
+    /** Returns a `utf_32_to_8_out_iterator<O>` constructed from the given
         iterator. */
+    template<std::output_iterator<uint8_t> O>
+    utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it) noexcept;
+
+    /** Returns a `utf_8_to_32_out_iterator<O>` constructed from the given
+        iterator. */
+    template<std::output_iterator<uint32_t> O>
+    utf_8_to_32_out_iterator<O> utf_8_to_32_out(O it) noexcept;
+
+    /** Returns a `utf_32_to_16_out_iterator<O>` constructed from the given
+        iterator. */
+    template<std::output_iterator<uint16_t> O>
+    utf_32_to_16_out_iterator<O> utf_32_to_16_out(O it) noexcept;
+
+    /** Returns a `utf_16_to_32_out_iterator<O>` constructed from the given
+        iterator. */
+    template<std::output_iterator<uint32_t> O>
+    utf_16_to_32_out_iterator<O> utf_16_to_32_out(O it) noexcept;
+
+    /** Returns a `utf_16_to_8_out_iterator<O>` constructed from the given
+        iterator. */
+    template<std::output_iterator<uint8_t> O>
+    utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it) noexcept;
+
+    /** Returns a `utf_8_to_16_out_iterator<O>` constructed from the given
+        iterator. */
+    template<std::output_iterator<uint16_t> O>
+    utf_8_to_16_out_iterator<O> utf_8_to_16_out(O it) noexcept;
+
+    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
+        to UTF-8. */
+    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    auto utf8_iterator(I first, I it, S last) noexcept;
+
+    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
+        to UTF-16. */
+    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    auto utf16_iterator(I first, I it, S last) noexcept;
+
+    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
+        to UTF-32. */
+    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    auto utf32_iterator(I first, I it, S last) noexcept;
+
+    /** Returns a inserting iterator that transcodes from UTF-8 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    requires requires { typename Cont::value_type; } &&
+             std::is_integral_v<typename Cont::value_type>
+    auto from_utf8_inserter(Cont & c, typename Cont::iterator it) noexcept;
+
+    /** Returns a inserting iterator that transcodes from UTF-16 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    requires requires { typename Cont::value_type; } &&
+             std::is_integral_v<typename Cont::value_type>
+    auto from_utf16_inserter(Cont & c, typename Cont::iterator it) noexcept;
+
+    /** Returns a inserting iterator that transcodes from UTF-32 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    requires requires { typename Cont::value_type; } &&
+             std::is_integral_v<typename Cont::value_type>
+    auto from_utf32_inserter(Cont & c, typename Cont::iterator it) noexcept;
+
+    /** Returns a back-inserting iterator that transcodes from UTF-8 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    requires requires { typename Cont::value_type; } &&
+             std::is_integral_v<typename Cont::value_type>
+    auto from_utf8_back_inserter(Cont & c) noexcept;
+
+    /** Returns a back-inserting iterator that transcodes from UTF-16 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    requires requires { typename Cont::value_type; } &&
+             std::is_integral_v<typename Cont::value_type>
+    auto from_utf16_back_inserter(Cont & c) noexcept;
+
+    /** Returns a back-inserting iterator that transcodes from UTF-32 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    requires requires { typename Cont::value_type; } &&
+             std::is_integral_v<typename Cont::value_type>
+    auto from_utf32_back_inserter(Cont & c) noexcept;
+
+    /** Returns a front-inserting iterator that transcodes from UTF-8 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    requires requires { typename Cont::value_type; } &&
+             std::is_integral_v<typename Cont::value_type>
+    auto from_utf8_front_inserter(Cont & c) noexcept;
+
+    /** Returns a front-inserting iterator that transcodes from UTF-16 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    requires requires { typename Cont::value_type; } &&
+             std::is_integral_v<typename Cont::value_type>
+    auto from_utf16_front_inserter(Cont & c) noexcept;
+
+    /** Returns a front-inserting iterator that transcodes from UTF-32 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    requires requires { typename Cont::value_type; } &&
+             std::is_integral_v<typename Cont::value_type>
+    auto from_utf32_front_inserter(Cont & c) noexcept;
+
+#endif
+
     template<typename Iter>
     utf_32_to_8_out_iterator<Iter> utf_32_to_8_out(Iter it) noexcept
     {
         return utf_32_to_8_out_iterator<Iter>(it);
     }
 
-    /** Returns a `utf_8_to_32_out_iterator<Iter>` constructed from the given
-        iterator. */
     template<typename Iter>
     utf_8_to_32_out_iterator<Iter> utf_8_to_32_out(Iter it) noexcept
     {
         return utf_8_to_32_out_iterator<Iter>(it);
     }
 
-    /** Returns a `utf_32_to_16_out_iterator<Iter>` constructed from the given
-        iterator. */
     template<typename Iter>
     utf_32_to_16_out_iterator<Iter> utf_32_to_16_out(Iter it) noexcept
     {
         return utf_32_to_16_out_iterator<Iter>(it);
     }
 
-    /** Returns a `utf_16_to_32_out_iterator<Iter>` constructed from the given
-        iterator. */
     template<typename Iter>
     utf_16_to_32_out_iterator<Iter> utf_16_to_32_out(Iter it) noexcept
     {
         return utf_16_to_32_out_iterator<Iter>(it);
     }
 
-    /** Returns a `utf_16_to_8_out_iterator<Iter>` constructed from the given
-        iterator. */
     template<typename Iter>
     utf_16_to_8_out_iterator<Iter> utf_16_to_8_out(Iter it) noexcept
     {
         return utf_16_to_8_out_iterator<Iter>(it);
     }
 
-    /** Returns a `utf_8_to_16_out_iterator<Iter>` constructed from the given
-        iterator. */
     template<typename Iter>
     utf_8_to_16_out_iterator<Iter> utf_8_to_16_out(Iter it) noexcept
     {
         return utf_8_to_16_out_iterator<Iter>(it);
     }
 
-    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
-        to UTF-8. */
     template<typename Iter, typename Sentinel>
     auto utf8_iterator(Iter first, Iter it, Sentinel last) noexcept
     {
@@ -3707,8 +3841,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             unpacked.f_, unpacked_it, unpacked.l_);
     }
 
-    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
-        to UTF-16. */
     template<typename Iter, typename Sentinel>
     auto utf16_iterator(Iter first, Iter it, Sentinel last) noexcept
     {
@@ -3720,8 +3852,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             unpacked.f_, unpacked_it, unpacked.l_);
     }
 
-    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
-        to UTF-32. */
     template<typename Iter, typename Sentinel>
     auto utf32_iterator(Iter first, Iter it, Sentinel last) noexcept
     {
@@ -3733,10 +3863,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             unpacked.f_, unpacked_it, unpacked.l_);
     }
 
-    /** Returns a inserting iterator that transcodes from UTF-8 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     auto from_utf8_inserter(Cont & c, typename Cont::iterator it) noexcept
     {
@@ -3748,10 +3874,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return result_type(c, it);
     }
 
-    /** Returns a inserting iterator that transcodes from UTF-16 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     auto from_utf16_inserter(Cont & c, typename Cont::iterator it) noexcept
     {
@@ -3763,10 +3885,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return result_type(c, it);
     }
 
-    /** Returns a inserting iterator that transcodes from UTF-32 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     auto from_utf32_inserter(Cont & c, typename Cont::iterator it) noexcept
     {
@@ -3778,10 +3896,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return result_type(c, it);
     }
 
-    /** Returns a back-inserting iterator that transcodes from UTF-8 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     auto from_utf8_back_inserter(Cont & c) noexcept
     {
@@ -3793,10 +3907,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return result_type(c);
     }
 
-    /** Returns a back-inserting iterator that transcodes from UTF-16 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     auto from_utf16_back_inserter(Cont & c) noexcept
     {
@@ -3808,10 +3918,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return result_type(c);
     }
 
-    /** Returns a back-inserting iterator that transcodes from UTF-32 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     auto from_utf32_back_inserter(Cont & c) noexcept
     {
@@ -3823,10 +3929,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return result_type(c);
     }
 
-    /** Returns a front-inserting iterator that transcodes from UTF-8 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     auto from_utf8_front_inserter(Cont & c) noexcept
     {
@@ -3838,10 +3940,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return result_type(c);
     }
 
-    /** Returns a front-inserting iterator that transcodes from UTF-16 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     auto from_utf16_front_inserter(Cont & c) noexcept
     {
@@ -3853,10 +3951,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return result_type(c);
     }
 
-    /** Returns a front-inserting iterator that transcodes from UTF-32 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     auto from_utf32_front_inserter(Cont & c) noexcept
     {
@@ -3870,86 +3964,64 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Returns a `utf_32_to_8_out_iterator<O>` constructed from the given
-        iterator. */
     template<std::output_iterator<uint8_t> O>
     utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it) noexcept
     {
         return utf_32_to_8_out_iterator<O>(it);
     }
 
-    /** Returns a `utf_8_to_32_out_iterator<O>` constructed from the given
-        iterator. */
     template<std::output_iterator<uint32_t> O>
     utf_8_to_32_out_iterator<O> utf_8_to_32_out(O it) noexcept
     {
         return utf_8_to_32_out_iterator<O>(it);
     }
 
-    /** Returns a `utf_32_to_16_out_iterator<O>` constructed from the given
-        iterator. */
     template<std::output_iterator<uint16_t> O>
     utf_32_to_16_out_iterator<O> utf_32_to_16_out(O it) noexcept
     {
         return utf_32_to_16_out_iterator<O>(it);
     }
 
-    /** Returns a `utf_16_to_32_out_iterator<O>` constructed from the given
-        iterator. */
     template<std::output_iterator<uint32_t> O>
     utf_16_to_32_out_iterator<O> utf_16_to_32_out(O it) noexcept
     {
         return utf_16_to_32_out_iterator<O>(it);
     }
 
-    /** Returns a `utf_16_to_8_out_iterator<O>` constructed from the given
-        iterator. */
     template<std::output_iterator<uint8_t> O>
     utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it) noexcept
     {
         return utf_16_to_8_out_iterator<O>(it);
     }
 
-    /** Returns a `utf_8_to_16_out_iterator<O>` constructed from the given
-        iterator. */
     template<std::output_iterator<uint16_t> O>
     utf_8_to_16_out_iterator<O> utf_8_to_16_out(O it) noexcept
     {
         return utf_8_to_16_out_iterator<O>(it);
     }
 
-    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
-        to UTF-8. */
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
     auto utf8_iterator(I first, I it, S last) noexcept
     {
         return v1::utf8_iterator(first, it, last);
     }
 
-    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
-        to UTF-16. */
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
     auto utf16_iterator(I first, I it, S last) noexcept
     {
         return v1::utf16_iterator(first, it, last);
     }
 
-    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
-        to UTF-32. */
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
     auto utf32_iterator(I first, I it, S last) noexcept
     {
         return v1::utf32_iterator(first, it, last);
     }
 
-    /** Returns a inserting iterator that transcodes from UTF-8 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
@@ -3966,10 +4038,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    /** Returns a inserting iterator that transcodes from UTF-16 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
@@ -3986,10 +4054,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    /** Returns a inserting iterator that transcodes from UTF-32 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
@@ -4006,10 +4070,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    /** Returns a back-inserting iterator that transcodes from UTF-8 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
@@ -4026,10 +4086,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    /** Returns a back-inserting iterator that transcodes from UTF-16 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
@@ -4046,10 +4102,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    /** Returns a back-inserting iterator that transcodes from UTF-32 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
@@ -4066,10 +4118,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    /** Returns a front-inserting iterator that transcodes from UTF-8 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
@@ -4086,10 +4134,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    /** Returns a front-inserting iterator that transcodes from UTF-16 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
@@ -4106,10 +4150,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    /** Returns a front-inserting iterator that transcodes from UTF-32 to UTF-8,
-        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
-        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
-        any other size implies UTF-32. */
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&

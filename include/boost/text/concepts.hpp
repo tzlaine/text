@@ -9,7 +9,7 @@
 #include <boost/text/config.hpp>
 #include <boost/text/utf.hpp>
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 #include <ranges>
 

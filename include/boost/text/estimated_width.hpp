@@ -53,13 +53,24 @@ namespace boost { namespace text { namespace detail {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Returns the estimated width of the graphemes within `[first, last)`,
         using the same technique that used by `std::format()`.
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
+        \see [format.string.std] for a full description */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    std::size_t estimated_width_of_graphemes(I first, S last);
+
+    /** Returns the estimated width of the graphemes within `r`, using the
+        same technique that used by `std::format()`.
 
         \see [format.string.std] for a full description */
+    template<code_point_range R>
+    std::size_t estimated_width_of_graphemes(R && r);
+
+#endif
+
     template<typename CPIter, typename Sentinel>
     auto estimated_width_of_graphemes(CPIter first, Sentinel last)
         ->detail::cp_iter_ret_t<std::size_t, CPIter>
@@ -67,13 +78,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return detail::estimated_width_of_graphemes_impl(first, last);
     }
 
-    /** Returns the estimated width of the graphemes within `r`, using the
-        same technique that used by `std::format()`.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept.
-
-        \see [format.string.std] for a full description */
     template<typename CPRange>
     auto estimated_width_of_graphemes(CPRange && r)
         ->decltype(detail::estimated_width_of_graphemes_impl(
@@ -85,24 +89,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Returns the estimated width of the graphemes within `[first, last)`,
-        using the same technique that used by `std::format()`.
-
-        \see [format.string.std] for a full description */
     template<code_point_iter I, std::sentinel_for<I> S>
     std::size_t estimated_width_of_graphemes(I first, S last)
     {
         return detail::estimated_width_of_graphemes_impl(first, last);
     }
 
-    /** Returns the estimated width of the graphemes within `r`, using the
-        same technique that used by `std::format()`.
-
-        \see [format.string.std] for a full description */
     template<code_point_range R>
     std::size_t estimated_width_of_graphemes(R && r)
     {

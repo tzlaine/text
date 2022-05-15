@@ -191,96 +191,99 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Finds the nearest paragraph break at or before before `it`.  If `it ==
         first`, that is returned.  Otherwise, the first code point of the
         paragraph that `it` is within is returned (even if `it` is already at
-        the first code point of a paragraph).
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    CPIter
-    prev_paragraph_break(CPIter first, CPIter it, Sentinel last) noexcept;
+        the first code point of a paragraph). */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    I prev_paragraph_break(I first, I it, S last) noexcept;
 
     /** Finds the next paragraph break after `first`.  This will be the first
         code point after the current paragraph, or `last` if no next paragraph
         exists.
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
         \pre `first` is at the beginning of a paragraph. */
-    template<typename CPIter, typename Sentinel>
-    CPIter next_paragraph_break(CPIter first, Sentinel last) noexcept;
+    template<code_point_iter I, std::sentinel_for<I> S>
+    I next_paragraph_break(I first, S last) noexcept;
 
     /** Finds the nearest paragraph break at or before before `it`.  If `it ==
-        range.begin()`, that is returned.  Otherwise, the first code point of
-        the paragraph that `it` is within is returned (even if `it` is already
-        at the first code point of a paragraph).
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename CPIter>
-    detail::unspecified
-    prev_paragraph_break(CPRange && range, CPIter it) noexcept;
+        r.begin()`, that is returned.  Otherwise, the first code point of the
+        paragraph that `it` is within is returned (even if `it` is already at
+        the first code point of a paragraph). */
+    template<code_point_range R>
+    std::ranges::iterator_t<R> prev_paragraph_break(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Returns a grapheme_iterator to the nearest paragraph break at or
-        before before `it`.  If `it == range.begin()`, that is returned.
+        before before `it`.  If `it == r.begin()`, that is returned.
         Otherwise, the first grapheme of the paragraph that `it` is within is
         returned (even if `it` is already at the first grapheme of a
-        paragraph).
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    detail::unspecified
-    prev_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept;
+        paragraph). */
+    template<grapheme_range R>
+    std::ranges::iterator_t<R> prev_paragraph_break(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Finds the next paragraph break after `it`.  This will be the first
-        code point after the current paragraph, or `range.end()` if no next
+        code point after the current paragraph, or `r.end()` if no next
         paragraph exists.
 
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept.
-
         \pre `it` is at the beginning of a paragraph. */
-    template<typename CPRange, typename CPIter>
-    detail::unspecified
-    next_paragraph_break(CPRange && range, CPIter it) noexcept;
+    template<code_point_range R>
+    std::ranges::iterator_t<R> next_paragraph_break(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Returns a grapheme_iterator to the next paragraph break after `it`.
         This will be the first grapheme after the current paragraph, or
-        `range.end()` if no next paragraph exists.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept.
+        `r.end()` if no next paragraph exists.
 
         \pre `it` is at the beginning of a paragraph. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    detail::unspecified
-    next_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept;
+    template<grapheme_range R>
+    std::ranges::iterator_t<R> next_paragraph_break(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a paragraph, or `it ==
-        last`.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    bool at_paragraph_break(CPIter first, CPIter it, Sentinel last) noexcept;
+        last`. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    bool at_paragraph_break(I first, I it, S last) noexcept;
 
     /** Returns true iff `it` is at the beginning of a paragraph, or `it ==
-        std::ranges::end(range)`.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename CPIter>
-    bool at_paragraph_break(CPRange && range, CPIter it) noexcept;
+        std::ranges::end(r)`. */
+    template<code_point_range R>
+    bool at_paragraph_break(R && r, std::ranges::iterator_t<R> it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a paragraph, or `it ==
-        std::ranges::end(range)`.
+        std::ranges::end(r)`. */
+    template<grapheme_range R>
+    bool at_paragraph_break(R && r, std::ranges::iterator_t<R> it) noexcept;
 
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    bool
-    at_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept;
+    /** Returns the bounds of the paragraph that `it` lies within. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    utf32_view<I> paragraph(I first, I it, S last) noexcept;
+
+    /** Returns the bounds of the paragraph that `it` lies within, as a
+        utf32_view. */
+    template<code_point_range R>
+    utf32_view<std::ranges::iterator_t<R>> paragraph(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
+
+    /** Returns grapheme range delimiting the bounds of the paragraph that
+        `it` lies within, as a grapheme_view. */
+    template<grapheme_range R>
+    grapheme_view<code_point_iterator_t<R>> paragraph(
+        R && r, std::ranges::iterator_t<R> it) noexcept;
+
+    /** Returns a view of the code point ranges delimiting paragraphs in
+        `[first, last)`. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    detail::unspecified paragraphs(I first, S last) noexcept;
+
+    /** Returns a view of the code point ranges delimiting paragraphs in `r`.
+        The result is returned as a `borrowed_view_t` in C++20 and later. */
+    template<code_point_range R>
+    detail::unspecified paragraphs(R && r) noexcept;
+
+    /** Returns a view of the grapheme ranges delimiting paragraphs in
+        `r`.  The result is returned as a `borrowed_view_t` in C++20 and
+        later. */
+    template<grapheme_range R>
+    detail::unspecified paragraphs(R && r) noexcept;
 
 #else
 
@@ -353,60 +356,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return detail::at_paragraph_break_gr_impl(range, it);
     }
 
-#endif
-
-    /** Returns the bounds of the paragraph that `it` lies
-        within. */
     template<typename CPIter, typename Sentinel>
     utf32_view<CPIter> paragraph(
         CPIter first, CPIter it, Sentinel last) noexcept
     {
         return detail::paragraph_impl(first, it, last);
     }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Returns the bounds of the paragraph that `it` lies within, as a
-        utf32_view.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename CPIter>
-    detail::unspecified paragraph(CPRange && range, CPIter it) noexcept;
-
-    /** Returns grapheme range delimiting the bounds of the paragraph that
-        `it` lies within, as a grapheme_view.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    detail::unspecified
-    paragraph(GraphemeRange && range, GraphemeIter it) noexcept;
-
-    /** Returns a view of the code point ranges delimiting paragraphs in
-        `[first, last)`. */
-    template<typename CPIter, typename Sentinel>
-    detail::unspecified paragraphs(CPIter first, Sentinel last) noexcept;
-
-    /** Returns a view of the code point ranges delimiting paragraphs in
-        `range`.  The result is returned as a `borrowed_view_t` in C++20 and
-        later.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange>
-    detail::unspecified paragraphs(CPRange && range) noexcept;
-
-    /** Returns a view of the grapheme ranges delimiting paragraphs in
-        `range`.  The result is returned as a `borrowed_view_t` in C++20 and
-        later.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange>
-    detail::unspecified paragraphs(GraphemeRange && range) noexcept;
-
-#else
 
     template<typename CPRange, typename CPIter>
     auto paragraph(CPRange && range, CPIter it) noexcept -> detail::
@@ -478,7 +433,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 

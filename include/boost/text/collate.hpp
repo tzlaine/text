@@ -981,14 +981,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Consider using one of the overloads that takes collation_flags
         instead.
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
         \pre `[first, last)` is normalized NFD or FCC. */
-    template<typename CPIter, typename Sentinel>
+    template<code_point_iter I, std::sentinel_for<I> S>
     text_sort_key collation_sort_key(
-        CPIter first,
-        Sentinel last,
+        I first,
+        S last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
@@ -1001,14 +998,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         honored, so long as they do not conflict with the settings on the
         given table.
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
         \pre `[first, last)` is normalized NFD or FCC. */
-    template<typename CPIter, typename Sentinel>
+    template<code_point_iter I, std::sentinel_for<I> S>
     text_sort_key collation_sort_key(
-        CPIter first,
-        Sentinel last,
+        I first,
+        S last,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1016,13 +1010,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         given collation table.  Any optional settings flags will be honored,
         so long as they do not conflict with the settings on the given table.
 
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept.
-
         \pre r is normalized NFD or FCC. */
-    template<typename CPRange>
+    template<code_point_range R>
     text_sort_key collation_sort_key(
-        CPRange && r,
+        R && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1030,13 +1021,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation table.  Any optional settings flags will be honored, so long
         as they do not conflict with the settings on the given table.
 
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept.
-
         \pre r is normalized NFD or FCC. */
-    template<typename GraphemeRange>
+    template<grapheme_range R>
     text_sort_key collation_sort_key(
-        GraphemeRange && r,
+        R && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1048,21 +1036,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Consider using one of the overloads that takes collation_flags
         instead.
 
-        This function only participates in overload resolution if `CPIter1`
-        and `CPIter2` model the CPIter concept.
-
         \pre `[first1, last1)` is normalized NFD or FCC.
         \pre `[first2, last2)` is normalized NFD or FCC. */
     template<
-        typename CPIter1,
-        typename Sentinel1,
-        typename CPIter2,
-        typename Sentinel2>
+        code_point_iter I1,
+        std::sentinel_for<I1> S1,
+        code_point_iter I2,
+        std::sentinel_for<I2> S2>
     int collate(
-        CPIter1 first1,
-        Sentinel1 last1,
-        CPIter2 first2,
-        Sentinel2 last2,
+        I1 first1,
+        S1 last1,
+        I2 first2,
+        S2 last2,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
@@ -1075,21 +1060,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         settings flags will be honored, so long as they do not conflict with
         the settings on the given table.
 
-        This function only participates in overload resolution if `CPIter1`
-        and `CPIter2` model the CPIter concept.
-
         \pre `[first1, last1)` is normalized NFD or FCC.
         \pre `[first2, last2)` is normalized NFD or FCC. */
     template<
-        typename CPIter1,
-        typename Sentinel1,
-        typename CPIter2,
-        typename Sentinel2>
+        code_point_iter I1,
+        std::sentinel_for<I1> S1,
+        code_point_iter I2,
+        std::sentinel_for<I2> S2>
     int collate(
-        CPIter1 first1,
-        Sentinel1 last1,
-        CPIter2 first2,
-        Sentinel2 last2,
+        I1 first1,
+        S1 last1,
+        I2 first2,
+        S2 last2,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1098,15 +1080,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         honored, so long as they do not conflict with the settings on the
         given table.
 
-        This function only participates in overload resolution if `CPRange1`
-        and `CPRange2` model the CPRange concept.
-
         \pre `r1` is normalized NFD or FCC.
         \pre `r2` is normalized NFD or FCC. */
-    template<typename CPRange1, typename CPRange2>
+    template<code_point_range R1, code_point_range R2>
     int collate(
-        CPRange1 const & r1,
-        CPRange2 const & r2,
+        R1 const & r1,
+        R2 const & r2,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1115,15 +1094,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         honored, so long as they do not conflict with the settings on the
         given table.
 
-        This function only participates in overload resolution if
-        `GraphemeRange1` and `GraphemeRange2` model the GraphemeRange concept.
-
         \pre `r1` is normalized NFD or FCC.
         \pre `r2` is normalized NFD or FCC. */
-    template<typename GraphemeRange1, typename GraphemeRange2>
+    template<grapheme_range R1, grapheme_range R2>
     int collate(
-        GraphemeRange1 const & r1,
-        GraphemeRange2 const & r2,
+        R1 const & r1,
+        R2 const & r2,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1311,7 +1287,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 

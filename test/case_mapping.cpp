@@ -9034,9 +9034,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9047,9 +9047,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9060,9 +9060,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9073,9 +9073,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9086,9 +9086,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9099,9 +9099,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9112,9 +9112,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9125,9 +9125,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9138,9 +9138,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9151,9 +9151,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9164,9 +9164,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9177,9 +9177,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9190,9 +9190,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9203,9 +9203,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9216,9 +9216,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9229,9 +9229,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9242,9 +9242,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9255,9 +9255,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9268,9 +9268,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9281,9 +9281,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9294,9 +9294,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9307,9 +9307,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9320,9 +9320,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9333,9 +9333,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9346,9 +9346,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9359,9 +9359,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9372,9 +9372,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9385,9 +9385,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9398,9 +9398,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9411,9 +9411,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9424,9 +9424,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9437,9 +9437,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9450,9 +9450,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9463,9 +9463,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9476,9 +9476,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9489,9 +9489,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9502,9 +9502,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9515,9 +9515,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9528,9 +9528,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9541,9 +9541,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9554,9 +9554,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9567,9 +9567,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9580,9 +9580,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9593,9 +9593,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9606,9 +9606,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9619,9 +9619,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9632,9 +9632,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9645,9 +9645,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9658,9 +9658,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9671,9 +9671,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9684,9 +9684,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9697,9 +9697,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9710,9 +9710,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9723,9 +9723,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9736,9 +9736,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9749,9 +9749,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9762,9 +9762,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9775,9 +9775,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9788,9 +9788,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9801,9 +9801,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9814,9 +9814,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9827,9 +9827,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9840,9 +9840,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9853,9 +9853,9 @@ TEST(case_mapping, 103)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x03C2});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -9872,9 +9872,9 @@ TEST(case_mapping, 104)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -9882,9 +9882,9 @@ TEST(case_mapping, 104)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9896,9 +9896,9 @@ TEST(case_mapping, 104)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -9906,9 +9906,9 @@ TEST(case_mapping, 104)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9920,9 +9920,9 @@ TEST(case_mapping, 104)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -9930,9 +9930,9 @@ TEST(case_mapping, 104)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9944,9 +9944,9 @@ TEST(case_mapping, 104)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -9954,9 +9954,9 @@ TEST(case_mapping, 104)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9968,9 +9968,9 @@ TEST(case_mapping, 104)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -9978,9 +9978,9 @@ TEST(case_mapping, 104)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -9992,9 +9992,9 @@ TEST(case_mapping, 104)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10002,9 +10002,9 @@ TEST(case_mapping, 104)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10022,9 +10022,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10032,9 +10032,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10046,9 +10046,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10056,9 +10056,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10070,9 +10070,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10080,9 +10080,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10094,9 +10094,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10104,9 +10104,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10118,9 +10118,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10128,9 +10128,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10142,9 +10142,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10152,9 +10152,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10166,9 +10166,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10176,9 +10176,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10190,9 +10190,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10200,9 +10200,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10214,9 +10214,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10224,9 +10224,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10238,9 +10238,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10248,9 +10248,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10262,9 +10262,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10272,9 +10272,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10286,9 +10286,9 @@ TEST(case_mapping, 105)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10296,9 +10296,9 @@ TEST(case_mapping, 105)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10316,9 +10316,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10326,9 +10326,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10340,9 +10340,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10350,9 +10350,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10364,9 +10364,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10374,9 +10374,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10388,9 +10388,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10398,9 +10398,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10412,9 +10412,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10422,9 +10422,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10436,9 +10436,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10446,9 +10446,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x006A, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10460,9 +10460,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10470,9 +10470,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10484,9 +10484,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10494,9 +10494,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10508,9 +10508,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10518,9 +10518,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10532,9 +10532,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10542,9 +10542,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10556,9 +10556,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10566,9 +10566,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10580,9 +10580,9 @@ TEST(case_mapping, 106)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10590,9 +10590,9 @@ TEST(case_mapping, 106)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x004A});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10610,9 +10610,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10620,9 +10620,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10634,9 +10634,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10644,9 +10644,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10658,9 +10658,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10668,9 +10668,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10682,9 +10682,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10692,9 +10692,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10706,9 +10706,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10716,9 +10716,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10730,9 +10730,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_NE(result, expected);
@@ -10740,9 +10740,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012F, 0x0307});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10754,9 +10754,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10764,9 +10764,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10778,9 +10778,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10788,9 +10788,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10802,9 +10802,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10812,9 +10812,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10826,9 +10826,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10836,9 +10836,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10850,9 +10850,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10860,9 +10860,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10874,9 +10874,9 @@ TEST(case_mapping, 107)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10884,9 +10884,9 @@ TEST(case_mapping, 107)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x012E});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10904,9 +10904,9 @@ TEST(case_mapping, 108)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307, 0x0300});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10914,9 +10914,9 @@ TEST(case_mapping, 108)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307, 0x0300});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10928,9 +10928,9 @@ TEST(case_mapping, 108)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x00CC});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10938,9 +10938,9 @@ TEST(case_mapping, 108)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x00CC});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -10958,9 +10958,9 @@ TEST(case_mapping, 109)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307, 0x0301});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10968,9 +10968,9 @@ TEST(case_mapping, 109)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307, 0x0301});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -10982,9 +10982,9 @@ TEST(case_mapping, 109)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x00CD});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -10992,9 +10992,9 @@ TEST(case_mapping, 109)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x00CD});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11012,9 +11012,9 @@ TEST(case_mapping, 110)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307, 0x0303});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -11022,9 +11022,9 @@ TEST(case_mapping, 110)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069, 0x0307, 0x0303});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11036,9 +11036,9 @@ TEST(case_mapping, 110)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0128});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
         EXPECT_EQ(result, expected);
@@ -11046,9 +11046,9 @@ TEST(case_mapping, 110)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0128});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11066,9 +11066,9 @@ TEST(case_mapping, 111)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11076,9 +11076,9 @@ TEST(case_mapping, 111)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11090,9 +11090,9 @@ TEST(case_mapping, 111)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0130});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11100,9 +11100,9 @@ TEST(case_mapping, 111)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0130});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11120,9 +11120,9 @@ TEST(case_mapping, 112)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11130,9 +11130,9 @@ TEST(case_mapping, 112)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11144,9 +11144,9 @@ TEST(case_mapping, 112)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0130});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11154,9 +11154,9 @@ TEST(case_mapping, 112)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0130});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11174,9 +11174,9 @@ TEST(case_mapping, 113)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11184,9 +11184,9 @@ TEST(case_mapping, 113)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11198,9 +11198,9 @@ TEST(case_mapping, 113)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11208,9 +11208,9 @@ TEST(case_mapping, 113)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11222,9 +11222,9 @@ TEST(case_mapping, 113)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11232,9 +11232,9 @@ TEST(case_mapping, 113)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11246,9 +11246,9 @@ TEST(case_mapping, 113)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11256,9 +11256,9 @@ TEST(case_mapping, 113)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11270,9 +11270,9 @@ TEST(case_mapping, 113)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11280,9 +11280,9 @@ TEST(case_mapping, 113)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11300,9 +11300,9 @@ TEST(case_mapping, 114)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11310,9 +11310,9 @@ TEST(case_mapping, 114)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11324,9 +11324,9 @@ TEST(case_mapping, 114)
         std::vector<uint32_t> result;
         int const prefix_size = 2;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11334,9 +11334,9 @@ TEST(case_mapping, 114)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11348,9 +11348,9 @@ TEST(case_mapping, 114)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11358,9 +11358,9 @@ TEST(case_mapping, 114)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11372,9 +11372,9 @@ TEST(case_mapping, 114)
         std::vector<uint32_t> result;
         int const prefix_size = 1;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11382,9 +11382,9 @@ TEST(case_mapping, 114)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11396,9 +11396,9 @@ TEST(case_mapping, 114)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11406,9 +11406,9 @@ TEST(case_mapping, 114)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0307});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11426,9 +11426,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11436,9 +11436,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11450,9 +11450,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11460,9 +11460,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11474,9 +11474,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11484,9 +11484,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11498,9 +11498,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11508,9 +11508,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11522,9 +11522,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
         EXPECT_NE(result, expected);
@@ -11532,9 +11532,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11546,9 +11546,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
         EXPECT_NE(result, expected);
@@ -11556,9 +11556,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11570,9 +11570,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11580,9 +11580,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11594,9 +11594,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11604,9 +11604,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11618,9 +11618,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11628,9 +11628,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11642,9 +11642,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11652,9 +11652,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11666,9 +11666,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11676,9 +11676,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11690,9 +11690,9 @@ TEST(case_mapping, 115)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -11700,9 +11700,9 @@ TEST(case_mapping, 115)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11720,9 +11720,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11730,9 +11730,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11744,9 +11744,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11754,9 +11754,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11768,9 +11768,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11778,9 +11778,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11792,9 +11792,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11802,9 +11802,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11816,9 +11816,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_NE(result, expected);
@@ -11826,9 +11826,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11840,9 +11840,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_NE(result, expected);
@@ -11850,9 +11850,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0131});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -11864,9 +11864,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11874,9 +11874,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11888,9 +11888,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11898,9 +11898,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11912,9 +11912,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11922,9 +11922,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11936,9 +11936,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11946,9 +11946,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11960,9 +11960,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11970,9 +11970,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -11984,9 +11984,9 @@ TEST(case_mapping, 116)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -11994,9 +11994,9 @@ TEST(case_mapping, 116)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0049});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -12014,9 +12014,9 @@ TEST(case_mapping, 117)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -12024,9 +12024,9 @@ TEST(case_mapping, 117)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -12038,9 +12038,9 @@ TEST(case_mapping, 117)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0130});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
         EXPECT_EQ(result, expected);
@@ -12048,9 +12048,9 @@ TEST(case_mapping, 117)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0130});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
@@ -12068,9 +12068,9 @@ TEST(case_mapping, 118)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -12078,9 +12078,9 @@ TEST(case_mapping, 118)
         expected.clear();
         result.clear();
 
-        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_lower(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0069});
-        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_lower(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, expected);
@@ -12092,9 +12092,9 @@ TEST(case_mapping, 118)
         std::vector<uint32_t> result;
         int const prefix_size = 0;
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0130});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
         EXPECT_EQ(result, expected);
@@ -12102,9 +12102,9 @@ TEST(case_mapping, 118)
         expected.clear();
         result.clear();
 
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_upper(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {0x0130});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_upper(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
         EXPECT_NE(result, expected);

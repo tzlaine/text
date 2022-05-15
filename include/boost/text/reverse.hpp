@@ -105,7 +105,7 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_inline_variables)
     /** A simplified version of the `std::views::reverse` range adaptor for
-        pre-c++20 builds.  Prefer `std::views::reverse` if you have it. */
+        pre-C++20 builds.  Prefer `std::views::reverse` if you have it. */
     inline constexpr detail::reverse_impl reverse;
 #else
     namespace {
@@ -115,7 +115,7 @@ namespace boost { namespace text {
 
 }}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace std::ranges {
     template<typename View>

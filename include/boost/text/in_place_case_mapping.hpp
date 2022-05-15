@@ -21,7 +21,6 @@ namespace boost { namespace text {
         std::string s;
         boost::text::to_lower(
             t.begin().base(),
-            t.begin().base(),
             t.end().base(),
             boost::text::from_utf32_inserter(s, s.end()),
             lang);
@@ -40,7 +39,6 @@ namespace boost { namespace text {
     {
         std::string s;
         boost::text::to_lower(
-            r.begin().base(),
             r.begin().base(),
             r.end().base(),
             boost::text::from_utf32_inserter(s, s.end()),
@@ -61,7 +59,6 @@ namespace boost { namespace text {
     {
         std::string s;
         boost::text::to_title(
-            t.begin().base(),
             t.begin().base(),
             t.end().base(),
             boost::text::from_utf32_inserter(s, s.end()),
@@ -89,7 +86,6 @@ namespace boost { namespace text {
         std::string s;
         boost::text::to_title(
             r.begin().base(),
-            r.begin().base(),
             r.end().base(),
             boost::text::from_utf32_inserter(s, s.end()),
             lang,
@@ -104,7 +100,6 @@ namespace boost { namespace text {
     {
         std::string s;
         boost::text::to_upper(
-            t.begin().base(),
             t.begin().base(),
             t.end().base(),
             boost::text::from_utf32_inserter(s, s.end()),
@@ -124,7 +119,6 @@ namespace boost { namespace text {
     {
         std::string s;
         boost::text::to_upper(
-            r.begin().base(),
             r.begin().base(),
             r.end().base(),
             boost::text::from_utf32_inserter(s, s.end()),

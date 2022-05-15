@@ -2635,9 +2635,9 @@ namespace boost { namespace text {
         code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI. */
-    template<typename CPIter, typename Sentinel>
+    template<code_point_iter I, std::sentinel_for<I> S>
     detail::unspecified bidirectional_subranges(
-        CPIter first, Sentinel last, int paragraph_embedding_level = -1);
+        I first, S last, int paragraph_embedding_level = -1);
 
     /** Returns a view of code point subranges in `range`; each subrange is
         one of three kinds: a forward-subrange; a reverse-subrange; or a
@@ -2659,13 +2659,10 @@ namespace boost { namespace text {
         in the output.  The Unicode bidirectional algorithm specifies that
         code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
         the output; this implementation additionally removes code points with
-        classes FSI, LRI, RLI, and PDI.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange>
-    detail::unspecified bidirectional_subranges(
-        CPRange && range, int paragraph_embedding_level = -1);
+        classes FSI, LRI, RLI, and PDI. */
+    template<code_point_range R>
+    detail::unspecified
+    bidirectional_subranges(R && r, int paragraph_embedding_level = -1);
 
     /** Returns a view of grapheme subranges in `range`; each subrange is one
         of three kinds: a forward-subrange; a reverse-subrange; or a
@@ -2687,13 +2684,10 @@ namespace boost { namespace text {
         The Unicode bidirectional algorithm specifies that graphemes with
         classes RLE, LRE, RLO, LRO, PDF, and BN not appear in the output; this
         implementation additionally removes graphemes with classes FSI, LRI,
-        RLI, and PDI.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange>
-    detail::unspecified bidirectional_subranges(
-        GraphemeRange && range, int paragraph_embedding_level = -1);
+        RLI, and PDI. */
+    template<grapheme_range R>
+    detail::unspecified
+    bidirectional_subranges(R && r, int paragraph_embedding_level = -1);
 
     /** Returns a view of code point subranges in `[first, last)`; each
         subrange is one of three kinds: a forward-subrange; a
@@ -2704,9 +2698,9 @@ namespace boost { namespace text {
 
         Line breaks are determined within the algorithm by calling
         `lines(first, last, max_extent, cp_extent, break_overlong_lines)`.
-        Note that CPExtentFunc must have a polymorphic call operator.  That
-        is, it must be a template or generic lambda that accepts two
-        parameters whose type models the CPIter concept.
+        Note that Func must have a polymorphic call operator.  That is, it
+        must be a template or generic lambda that accepts two parameters whose
+        type model `code_point_iter`.
 
         If a non-negative `paragraph_embedding_level` is provided, it will be
         used instead of the initial paragraph embedding level computed by the
@@ -2720,18 +2714,17 @@ namespace boost { namespace text {
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI.
 
-        CPExtentFunc must meet the same type requirements as the CPExtentFunc
-        template parameter to `lines()`. */
+        `Extent` must model `std::integral` or `std::floating_point`. */
     template<
-        typename CPIter,
-        typename Sentinel,
+        code_point_iter I,
+        std::sentinel_for<I> S,
         typename Extent,
-        typename CPExtentFunc>
+        line_break_cp_extent_func<I, Extent> Func>
     detail::unspecified bidirectional_subranges(
-        CPIter first,
-        Sentinel last,
+        I first,
+        S last,
         Extent max_extent,
-        CPExtentFunc cp_extent,
+        Func cp_extent,
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true);
 
@@ -2744,9 +2737,9 @@ namespace boost { namespace text {
 
         Line breaks are determined within the algorithm by calling
         `lines(first, last, max_extent, cp_extent, break_overlong_lines)`.
-        Note that CPExtentFunc must have a polymorphic call operator.  That
-        is, it must be a template or generic lambda that accepts two
-        parameters whose type models the CPIter concept.
+        Note that Func must have a polymorphic call operator.  That is, it
+        must be a template or generic lambda that accepts two parameters whose
+        type models `code_point_iter`.
 
         If a non-negative `paragraph_embedding_level` is provided, it will be
         used instead of the initial paragraph embedding level computed by the
@@ -2760,16 +2753,15 @@ namespace boost { namespace text {
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI.
 
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept.
-
-        CPExtentFunc must meet the same type requirements as the CPExtentFunc
-        template parameter to `lines()`. */
-    template<typename CPRange, typename Extent, typename CPExtentFunc>
+        `Extent` must model `std::integral` or `std::floating_point`. */
+    template<
+        code_point_range R,
+        typename Extent,
+        line_break_cp_extent_func<std::ranges::iterator_t<R>, Extent> Func>
     detail::unspecified bidirectional_subranges(
-        CPRange && range,
+        R && r,
         Extent max_extent,
-        CPExtentFunc cp_extent,
+        Func cp_extent,
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true);
 
@@ -2782,9 +2774,9 @@ namespace boost { namespace text {
 
         Line breaks are determined within the algorithm by calling
         `lines(first, last, max_extent, cp_extent, break_overlong_lines)`.
-        Note that CPExtentFunc must have a polymorphic call operator.  That
-        is, it must be a template or generic lambda that accepts two
-        parameters whose type models the CPIter concept.
+        Note that Func must have a polymorphic call operator.  That is, it
+        must be a template or generic lambda that accepts two parameters whose
+        type models `code_point_iter`.
 
         If a non-negative `paragraph_embedding_level` is provided, it will be
         used instead of the initial paragraph embedding level computed by the
@@ -2796,18 +2788,15 @@ namespace boost { namespace text {
         The Unicode bidirectional algorithm specifies that graphemes with
         classes RLE, LRE, RLO, LRO, PDF, and BN not appear in the output; this
         implementation additionally removes graphemes with classes FSI, LRI,
-        RLI, and PDI.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept.
-
-        CPExtentFunc must meet the same type requirements as the CPExtentFunc
-        template parameter to `lines()`. */
-    template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
+        RLI, and PDI. */
+    template<
+        grapheme_range R,
+        typename Extent,
+        line_break_cp_extent_func<scode_point_iterator_t<R>, Extent> Func>
     detail::unspecified bidirectional_subranges(
-        GraphemeRange && range,
+        R && r,
         Extent max_extent,
-        CPExtentFunc cp_extent,
+        Func cp_extent,
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true);
 

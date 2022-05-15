@@ -189,13 +189,43 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Writes sequence `[first, last)` in Unicode normalization form
         `Normalization` to `out`.
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
+        \see https://unicode.org/notes/tn5 */
+    template<
+        nf Normalization,
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        std::output_iterator<uint32_t> O>
+    O normalize(I first, S last, O out);
+
+    /** Writes sequence `r` in Unicode normalization form `Normalization` to
+        `out`.
 
         \see https://unicode.org/notes/tn5 */
+    template<
+        nf Normalization,
+        code_point_range R,
+        std::output_iterator<uint32_t> O>
+    O normalize(R && r, O out);
+
+    /** Returns true iff the given sequence of code points is in Unicode
+        normalization form `Normalization`.
+
+        \see https://unicode.org/notes/tn5 */
+    template<nf Normalization, code_point_iter I, std::sentinel_for<I> S>
+    bool normalized(I first, S last) noexcept;
+
+    /** Returns true iff the given sequence of code points is in Unicode
+        normalization form `Normalization`. */
+    template<nf Normalization, code_point_range R>
+    bool normalized(R && r) noexcept;
+
+#else
+
     template<
         nf Normalization,
         typename CPIter,
@@ -213,10 +243,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 .out_;
     }
 
-    /** Writes sequence `r` in Unicode normalization form `Normalization` to
-        `out`.
-
-        \see https://unicode.org/notes/tn5 */
     template<nf Normalization, typename CPRange, typename OutIter>
     OutIter normalize(CPRange && r, OutIter out)
     {
@@ -224,13 +250,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             detail::begin(r), detail::end(r), out);
     }
 
-    /** Returns true iff the given sequence of code points is in Unicode
-        normalization form `Normalization`.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        \see https://unicode.org/notes/tn5 */
     template<nf Normalization, typename CPIter, typename Sentinel>
     auto normalized(
         CPIter first,
@@ -243,24 +262,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             .normalized_;
     }
 
-    /** Returns true iff the given sequence of code points is in Unicode
-        normalization form `Normalization`. */
     template<nf Normalization, typename CPRange>
     bool normalized(CPRange && r) noexcept
     {
         return v1::normalized<Normalization>(detail::begin(r), detail::end(r));
     }
 
+#endif
+
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Writes sequence `[first, last)` in Unicode normalization form
-        `Normalization` to `out`.
-
-        \see https://unicode.org/notes/tn5 */
     template<
         nf Normalization,
         code_point_iter I,
@@ -275,10 +290,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             .out_;
     }
 
-    /** Writes sequence `r` in Unicode normalization form `Normalization` to
-        `out`.
-
-        \see https://unicode.org/notes/tn5 */
     template<
         nf Normalization,
         code_point_range R,
@@ -289,10 +300,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             std::ranges::begin(r), std::ranges::end(r), out);
     }
 
-    /** Returns true iff the given sequence of code points is in Unicode
-        normalization form `Normalization`.
-
-        \see https://unicode.org/notes/tn5 */
     template<nf Normalization, code_point_iter I, std::sentinel_for<I> S>
     bool normalized(I first, S last) noexcept
     {
@@ -303,8 +310,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             .normalized_;
     }
 
-    /** Returns true iff the given sequence of code points is in Unicode
-        normalization form `Normalization`. */
     template<nf Normalization, code_point_range R>
     bool normalized(R && r) noexcept
     {

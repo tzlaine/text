@@ -68,8 +68,7 @@ namespace boost { namespace text {
 
 #if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I2, std::sentinel_for<I2> S2>
-        // clang-format off
-            requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
+        requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
 #else
         template<
             typename I2,
@@ -79,7 +78,6 @@ namespace boost { namespace text {
                 std::is_convertible<S2, sentinel>::value>>
 #endif
         constexpr grapheme_iterator(grapheme_iterator<I2, S2> const & other) :
-            // clang-format on
             first_(other.first_),
             grapheme_first_(other.grapheme_first_),
             grapheme_last_(other.grapheme_last_),

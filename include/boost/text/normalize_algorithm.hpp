@@ -70,136 +70,7 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
-    /** Inserts `[first, last)` into string `string`, replacing the sequence
-        `[str_first, str_last)` within `string`, and returning a view
-        indicating the changed portion of `string`.  Note that the replacement
-        operation may mutate some code points just before or just after the
-        inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is normalized and put into
-        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
-        The code points at either end of the insertion may need to be
-        normalized, regardless of whether the inserted string does.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        \pre `string` is in normalization form `Normalization`.
-        \pre `string` is stream-safe format.
-        \pre `str_first` and `str_last` are at code point boundaries.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<
-        nf Normalization,
-        typename String,
-        typename CPIter,
-        typename StringIter = typename String::iterator>
-    auto normalize_replace(
-        String & string,
-        StringIter str_first,
-        StringIter str_last,
-        CPIter first,
-        CPIter last,
-        insertion_normalization insertion_norm = insertion_not_normalized)
-        ->detail::cp_iter_ret_t<replace_result<StringIter>, CPIter>
-    {
-        return detail::replace_impl<false, Normalization>(
-            string, str_first, str_last, first, last, insertion_norm);
-    }
-
-    /** Inserts `[first, last)` into string `string` at location `at`,
-        returning a view indicating the changed portion of `string`.  Note
-        that the insertion operation may mutate some code points just before
-        or just after the inserted sequence.  The output is UTF-8 if
-        `sizeof(*s.begin()) == 1`, and UTF-16 otherwise.  The inserted string
-        is normalized and put into stream-safe format if `insertion_norm` is
-        `insertion_not_normalized`.  The code points at either end of the
-        insertion may need to be normalized, regardless of whether the
-        inserted string does.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        \pre `string` is in normalization form `Normalization`.
-        \pre `string` is stream-safe format.
-        \pre `at` is at a code point boundary.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<
-        nf Normalization,
-        typename String,
-        typename CPIter,
-        typename StringIter = typename String::iterator>
-    auto normalize_insert(
-        String & string,
-        StringIter at,
-        CPIter first,
-        CPIter last,
-        insertion_normalization insertion_norm = insertion_not_normalized)
-        ->detail::cp_iter_ret_t<replace_result<StringIter>, CPIter>
-    {
-        if (first == last)
-            return {at, at};
-        return detail::replace_impl<false, Normalization>(
-            string, at, at, first, last, insertion_norm);
-    }
-
-    /** Inserts `r` into string `string` at location `at`, returning a view
-        indicating the changed portion of `string`.  Note that the insertion
-        operation may mutate some code points just before or just after the
-        inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is normalized and put into
-        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
-        The code points at either end of the insertion may need to be
-        normalized, regardless of whether the inserted string does.
-
-        \pre `string` is in normalization form `Normalization`.
-        \pre `string` is stream-safe format.
-        \pre `at` is at a code point boundary.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<
-        nf Normalization,
-        typename String,
-        typename CPRange,
-        typename StringIter = typename String::iterator>
-    replace_result<StringIter> normalize_insert(
-        String & string,
-        StringIter at,
-        CPRange && r,
-        insertion_normalization insertion_norm = insertion_not_normalized)
-    {
-        if (detail::begin(r) == detail::end(r))
-            return {at, at};
-        return detail::replace_impl<false, Normalization>(
-            string, at, at, detail::begin(r), detail::end(r), insertion_norm);
-    }
-
-    /** Erases the subsequence `[str_first, str_last)` within `string`,
-        maintaining stream-safe format.  Returns a view indicating the changed
-        portion of `string`.  Note that the insertion operation may mutate
-        some code points just before or just after the erased sequence.
-
-        \pre `string` is in normalization form `Normalization`.
-        \pre `string` is stream-safe format.
-        \pre `str_first` and `str_last` are at code point boundaries.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<
-        nf Normalization,
-        typename String,
-        typename StringIter = typename String::iterator>
-    replace_result<StringIter> normalize_erase(
-        String & string, StringIter str_first, StringIter str_last)
-    {
-        return detail::erase_impl<false, Normalization>(
-            string, str_first, str_last);
-    }
-
-}}}
-
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
-
-namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+#ifdef BOOST_TEXT_DOXYGEN
 
     /** Inserts `[first, last)` into string `string`, replacing the sequence
         `[str_first, str_last)` within `string`, and returning a view
@@ -227,11 +98,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         StringIter str_last,
         I first,
         I last,
-        insertion_normalization insertion_norm = insertion_not_normalized)
-    {
-        return detail::replace_impl<false, Normalization>(
-            string, str_first, str_last, first, last, insertion_norm);
-    }
+        insertion_normalization insertion_norm = insertion_not_normalized);
 
     /** Inserts `[first, last)` into string `string` at location `at`,
         returning a view indicating the changed portion of `string`.  Note
@@ -258,13 +125,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         StringIter at,
         I first,
         I last,
-        insertion_normalization insertion_norm = insertion_not_normalized)
-    {
-        if (first == last)
-            return {at, at};
-        return detail::replace_impl<false, Normalization>(
-            string, at, at, first, last, insertion_norm);
-    }
+        insertion_normalization insertion_norm = insertion_not_normalized);
 
     /** Inserts `r` into string `string` at location `at`, returning a view
         indicating the changed portion of `string`.  Note that the insertion
@@ -289,6 +150,144 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         String & string,
         StringIter at,
         R && r,
+        insertion_normalization insertion_norm = insertion_not_normalized);
+
+    /** Erases the subsequence `[str_first, str_last)` within `string`,
+        maintaining stream-safe format.  Returns a view indicating the changed
+        portion of `string`.  Note that the insertion operation may mutate
+        some code points just before or just after the erased sequence.
+
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+        \pre `str_first` and `str_last` are at code point boundaries.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
+    template<
+        nf Normalization,
+        utf_string String,
+        typename StringIter = std::ranges::iterator_t<String>>
+    replace_result<StringIter> normalize_erase(
+        String & string, StringIter str_first, StringIter str_last);
+
+#else
+
+    template<
+        nf Normalization,
+        typename String,
+        typename CPIter,
+        typename StringIter = typename String::iterator>
+    auto normalize_replace(
+        String & string,
+        StringIter str_first,
+        StringIter str_last,
+        CPIter first,
+        CPIter last,
+        insertion_normalization insertion_norm = insertion_not_normalized)
+        ->detail::cp_iter_ret_t<replace_result<StringIter>, CPIter>
+    {
+        return detail::replace_impl<false, Normalization>(
+            string, str_first, str_last, first, last, insertion_norm);
+    }
+
+    template<
+        nf Normalization,
+        typename String,
+        typename CPIter,
+        typename StringIter = typename String::iterator>
+    auto normalize_insert(
+        String & string,
+        StringIter at,
+        CPIter first,
+        CPIter last,
+        insertion_normalization insertion_norm = insertion_not_normalized)
+        ->detail::cp_iter_ret_t<replace_result<StringIter>, CPIter>
+    {
+        if (first == last)
+            return {at, at};
+        return detail::replace_impl<false, Normalization>(
+            string, at, at, first, last, insertion_norm);
+    }
+
+    template<
+        nf Normalization,
+        typename String,
+        typename CPRange,
+        typename StringIter = typename String::iterator>
+    replace_result<StringIter> normalize_insert(
+        String & string,
+        StringIter at,
+        CPRange && r,
+        insertion_normalization insertion_norm = insertion_not_normalized)
+    {
+        if (detail::begin(r) == detail::end(r))
+            return {at, at};
+        return detail::replace_impl<false, Normalization>(
+            string, at, at, detail::begin(r), detail::end(r), insertion_norm);
+    }
+
+    template<
+        nf Normalization,
+        typename String,
+        typename StringIter = typename String::iterator>
+    replace_result<StringIter> normalize_erase(
+        String & string, StringIter str_first, StringIter str_last)
+    {
+        return detail::erase_impl<false, Normalization>(
+            string, str_first, str_last);
+    }
+
+#endif
+
+}}}
+
+#if BOOST_TEXT_USE_CONCEPTS
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    template<
+        nf Normalization,
+        utf_string String,
+        code_point_iter I,
+        typename StringIter = std::ranges::iterator_t<String>>
+    replace_result<StringIter> normalize_replace(
+        String & string,
+        StringIter str_first,
+        StringIter str_last,
+        I first,
+        I last,
+        insertion_normalization insertion_norm = insertion_not_normalized)
+    {
+        return detail::replace_impl<false, Normalization>(
+            string, str_first, str_last, first, last, insertion_norm);
+    }
+
+    template<
+        nf Normalization,
+        utf_string String,
+        code_point_iter I,
+        typename StringIter = std::ranges::iterator_t<String>>
+    replace_result<StringIter> normalize_insert(
+        String & string,
+        StringIter at,
+        I first,
+        I last,
+        insertion_normalization insertion_norm = insertion_not_normalized)
+    {
+        if (first == last)
+            return {at, at};
+        return detail::replace_impl<false, Normalization>(
+            string, at, at, first, last, insertion_norm);
+    }
+
+    template<
+        nf Normalization,
+        utf_string String,
+        code_point_range R,
+        typename StringIter = std::ranges::iterator_t<String>>
+    replace_result<StringIter> normalize_insert(
+        String & string,
+        StringIter at,
+        R && r,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
         if (std::ranges::begin(r) == std::ranges::end(r))
@@ -302,16 +301,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             insertion_norm);
     }
 
-    /** Erases the subsequence `[str_first, str_last)` within `string`,
-        maintaining stream-safe format.  Returns a view indicating the changed
-        portion of `string`.  Note that the insertion operation may mutate
-        some code points just before or just after the erased sequence.
-
-        \pre `string` is in normalization form `Normalization`.
-        \pre `string` is stream-safe format.
-        \pre `str_first` and `str_last` are at code point boundaries.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         utf_string String,

@@ -188,6 +188,525 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         }
     }
 
+#if defined(BOOST_TEXT_DOXYGEN)
+
+    // Code point iteratator overloads.
+
+    /** A Unicode-friendly version of `std::ranges::find()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`,
+        etc. */
+    template<
+        code_point_iter I1,
+        std::sentinel_for<I1> S1,
+        code_point_iter I2,
+        std::sentinel_for<I2> S2>
+    std::ranges::subrange<I1> find(I1 first1, S1 last1, I2 first2, S2 last2);
+
+    /** A Unicode-friendly version of `std::string::rfind()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`,
+        etc. */
+    template<code_point_iter I1, code_point_iter I2>
+    std::ranges::subrange<I1> rfind(I1 first1, I1 last1, I2 first2, I2 last2);
+
+    /** A Unicode-friendly version of `std::string::find_first_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc. */
+    template<
+        code_point_iter I1,
+        std::sentinel_for<I1> S1,
+        code_point_iter I2,
+        std::sentinel_for<I2> S2>
+    I1 find_first_of(I1 first1, S1 last1, I2 first2, S2 last2);
+
+    /** A Unicode-friendly version of `std::string::find_last_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc. */
+    template<code_point_iter I1, code_point_iter I2>
+    I1 find_last_of(I1 first1, I1 last1, I2 first2, I2 last2);
+
+    /** A Unicode-friendly version of `std::string::find_first_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc. */
+    template<
+        code_point_iter I1,
+        std::sentinel_for<I1> S1,
+        code_point_iter I2,
+        std::sentinel_for<I2> S2>
+    I1 find_first_not_of(I1 first1, S1 last1, I2 first2, S2 last2);
+
+    /** A Unicode-friendly version of `std::string::find_last_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc. */
+    template<code_point_iter I1, code_point_iter I2>
+    I1 find_last_not_of(I1 first1, I1 last1, I2 first2, I2 last2);
+
+    /** A Unicode-friendly version of `std::ranges::starts_with()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`,
+        etc. */
+    template<
+        code_point_iter I1,
+        std::sentinel_for<I1> S1,
+        code_point_iter I2,
+        std::sentinel_for<I2> S2>
+    bool starts_with(I1 first1, S1 last1, I2 first2, S2 last2);
+
+    /** A Unicode-friendly version of `std::ranges::ends_with()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`,
+        etc. */
+    template<code_point_iter I1, code_point_iter I2>
+    bool ends_with(I1 first1, I1 last1, I2 first2, I2 last2);
+
+    /** A Unicode-friendly version of `std::ranges::contains()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`,
+        etc. */
+    template<
+        code_point_iter I1,
+        std::sentinel_for<I1> S1,
+        code_point_iter I2,
+        std::sentinel_for<I2> S2>
+    bool contains(I1 first1, S1 last1, I2 first2, S2 last2);
+
+    // Code point range overloads.
+
+    /** A Unicode-friendly version of `std::ranges::find()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`, etc.
+        The result is returned as a `borrowed_subrange_t` in C++20 and
+        later. */
+    template<utf_range_like R1, utf_range_like R2>
+    detail::unspecified find(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::rfind()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`, etc.
+        The result is returned as a `borrowed_subrange_t` in C++20 and
+        later. */
+    template<utf_range_like R1, utf_range_like R2>
+    detail::unspecified rfind(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_first_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, utf_range_like R2>
+    detail::unspecified find_first_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_last_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, utf_range_like R2>
+    detail::unspecified find_last_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_first_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, utf_range_like R2>
+    detail::unspecified find_first_not_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_last_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, utf_range_like R2>
+    detail::unspecified find_last_not_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::starts_with()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, utf_range_like R2>
+    bool starts_with(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::ends_with()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, utf_range_like R2>
+    bool ends_with(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::contains()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, utf_range_like R2>
+    bool contains(R1 && r1, R2 && r2);
+
+    // Grapheme iterator overloads.
+
+    /** A Unicode-friendly version of `std::ranges::find()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`,
+        etc. */
+    template<
+        grapheme_iter I1,
+        std::sentinel_for<I1> S1,
+        grapheme_iter I2,
+        std::sentinel_for<I2> S2>
+    std::ranges::subrange<I1> find(I1 first1, S1 last1, I2 first2, S2 last2);
+
+    /** A Unicode-friendly version of `std::string::rfind()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`,
+        etc. */
+    template<grapheme_iter I1, grapheme_iter I2>
+    std::ranges::subrange<I1> rfind(I1 first1, I1 last1, I2 first2, I2 last2);
+
+    /** A Unicode-friendly version of `std::string::find_first_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc. */
+    template<
+        grapheme_iter I1,
+        std::sentinel_for<I1> S1,
+        grapheme_iter I2,
+        std::sentinel_for<I2> S2>
+    I1 find_first_of(I1 first1, S1 last1, I2 first2, S2 last2);
+
+    /** A Unicode-friendly version of `std::string::find_last_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc. */
+    template<grapheme_iter I1, grapheme_iter I2>
+    I1 find_last_of(I1 first1, I1 last1, I2 first2, I2 last2);
+
+    /** A Unicode-friendly version of `std::string::find_first_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc. */
+    template<
+        grapheme_iter I1,
+        std::sentinel_for<I1> S1,
+        grapheme_iter I2,
+        std::sentinel_for<I2> S2>
+    I1 find_first_not_of(I1 first1, S1 last1, I2 first2, S2 last2);
+
+    /** A Unicode-friendly version of `std::string::find_last_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc. */
+    template<grapheme_iter I1, grapheme_iter I2>
+    I1 find_last_not_of(I1 first1, I1 last1, I2 first2, I2 last2);
+
+    /** A Unicode-friendly version of `std::ranges::starts_with()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc. */
+    template<
+        grapheme_iter I1,
+        std::sentinel_for<I1> S1,
+        grapheme_iter I2,
+        std::sentinel_for<I2> S2>
+    bool starts_with(I1 first1, S1 last1, I2 first2, S2 last2);
+
+    /** A Unicode-friendly version of `std::ranges::ends_with()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc. */
+    template<grapheme_iter I1, grapheme_iter I2>
+    bool ends_with(I1 first1, I1 last1, I2 first2, I2 last2);
+
+    /** A Unicode-friendly version of `std::ranges::contains()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc. */
+    template<
+        grapheme_iter I1,
+        std::sentinel_for<I1> S1,
+        grapheme_iter I2,
+        std::sentinel_for<I2> S2>
+    bool contains(I1 first1, S1 last1, I2 first2, S2 last2);
+
+    // Grapheme range overloads.
+
+    /** A Unicode-friendly version of `std::ranges::find()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`, etc.
+        The result is returned as a `borrowed_subrange_t` in C++20 and
+        later. */
+    template<grapheme_range R1, grapheme_range R2>
+    detail::unspecified find(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::find()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`, etc.
+        The result is returned as a `borrowed_subrange_t` in C++20 and
+        later. */
+    template<grapheme_range R1, utf_range_like R2>
+    detail::unspecified find(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::find()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`, etc.
+        The result is returned as a `borrowed_subrange_t` in C++20 and
+        later. */
+    template<utf_range_like R1, grapheme_range R2>
+    detail::unspecified find(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::rfind()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`, etc.
+        The result is returned as a `borrowed_subrange_t` in C++20 and
+        later. */
+    template<grapheme_range R1, grapheme_range R2>
+    detail::unspecified rfind(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::rfind()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`, etc.
+        The result is returned as a `borrowed_subrange_t` in C++20 and
+        later. */
+    template<grapheme_range R1, utf_range_like R2>
+    detail::unspecified rfind(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::rfind()`.  Compatibility
+        overloads exist to support operating on code points and graphemes;
+        ranges and null-terminated strings; and different UTF formats.  This
+        means that this overload set is compatible with `text`, `rope`, etc.
+        The result is returned as a `borrowed_subrange_t` in C++20 and
+        later. */
+    template<utf_range_like R1, grapheme_range R2>
+    detail::unspecified rfind(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_first_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, grapheme_range R2>
+    detail::unspecified find_first_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_first_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, utf_range_like R2>
+    detail::unspecified find_first_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_first_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, grapheme_range R2>
+    detail::unspecified find_first_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_last_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, grapheme_range R2>
+    detail::unspecified find_last_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_last_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, utf_range_like R2>
+    detail::unspecified find_last_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_last_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, grapheme_range R2>
+    detail::unspecified find_last_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_first_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, grapheme_range R2>
+    detail::unspecified find_first_not_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_first_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, utf_range_like R2>
+    detail::unspecified find_first_not_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_first_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, grapheme_range R2>
+    detail::unspecified find_first_not_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_last_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, grapheme_range R2>
+    detail::unspecified find_last_not_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_last_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, utf_range_like R2>
+    detail::unspecified find_last_not_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::string::find_last_not_of()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, grapheme_range R2>
+    detail::unspecified find_last_not_of(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::starts_with()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, grapheme_range R2>
+    bool starts_with(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::starts_with()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, utf_range_like R2>
+    bool starts_with(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::starts_with()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, grapheme_range R2>
+    bool starts_with(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::ends_with()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, grapheme_range R2>
+    bool ends_with(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::ends_with()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, utf_range_like R2>
+    bool ends_with(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::ends_with()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, grapheme_range R2>
+    bool ends_with(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::contains()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, grapheme_range R2>
+    bool contains(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::contains()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<grapheme_range R1, utf_range_like R2>
+    bool contains(R1 && r1, R2 && r2);
+
+    /** A Unicode-friendly version of `std::ranges::contains()`.
+        Compatibility overloads exist to support operating on code points and
+        graphemes; ranges and null-terminated strings; and different UTF
+        formats.  This means that this overload set is compatible with `text`,
+        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
+        C++20 and later. */
+    template<utf_range_like R1, grapheme_range R2>
+    bool contains(R1 && r1, R2 && r2);
+
+#endif
 
     // Code point iterator overloads.
 
@@ -979,7 +1498,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -1168,73 +1687,109 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<utf_range_like R1, utf_range_like R2>
     auto find(R1 && r1, R2 && r2)
     {
-        auto r1_ = detail::as_utf32_no_terminator(r1);
-        auto r2_ = detail::as_utf32_no_terminator(r2);
-        return dtl::find(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ = detail::as_utf32_no_terminator(r1);
+            auto r2_ = detail::as_utf32_no_terminator(r2);
+            return dtl::find(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
 
     template<utf_range_like R1, utf_range_like R2>
     auto rfind(R1 && r1, R2 && r2)
     {
-        auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
-        auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
-        return dtl::rfind(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
+            auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
+            return dtl::rfind(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
 
     template<utf_range_like R1, utf_range_like R2>
     auto find_first_of(R1 && r1, R2 && r2)
     {
-        auto r1_ = detail::as_utf32_no_terminator(r1);
-        auto r2_ = detail::as_utf32_no_terminator(r2);
-        return dtl::find_first_of(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ = detail::as_utf32_no_terminator(r1);
+            auto r2_ = detail::as_utf32_no_terminator(r2);
+            return dtl::find_first_of(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
 
     template<utf_range_like R1, utf_range_like R2>
     auto find_last_of(R1 && r1, R2 && r2)
     {
-        auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
-        auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
-        return dtl::find_last_of(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
+            auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
+            return dtl::find_last_of(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
 
     template<utf_range_like R1, utf_range_like R2>
     auto find_first_not_of(R1 && r1, R2 && r2)
     {
-        auto r1_ = detail::as_utf32_no_terminator(r1);
-        auto r2_ = detail::as_utf32_no_terminator(r2);
-        return dtl::find_first_not_of(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ = detail::as_utf32_no_terminator(r1);
+            auto r2_ = detail::as_utf32_no_terminator(r2);
+            return dtl::find_first_not_of(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
 
     template<utf_range_like R1, utf_range_like R2>
     auto find_last_not_of(R1 && r1, R2 && r2)
     {
-        auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
-        auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
-        return dtl::find_last_not_of(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
+            auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
+            return dtl::find_last_not_of(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
 
     template<utf_range_like R1, utf_range_like R2>
@@ -1354,129 +1909,201 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<grapheme_range R1, grapheme_range R2>
     auto find(R1 && r1, R2 && r2)
     {
-        return dtl::find(
-            std::ranges::begin(r1),
-            std::ranges::end(r1),
-            std::ranges::begin(r2),
-            std::ranges::end(r2));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            return dtl::find(
+                std::ranges::begin(r1),
+                std::ranges::end(r1),
+                std::ranges::begin(r2),
+                std::ranges::end(r2));
+        }
     }
     template<grapheme_range R1, utf_range_like R2>
     auto find(R1 && r1, R2 && r2)
     {
-        auto r2_ =
-            boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
-        return dtl::find(
-            std::ranges::begin(r1),
-            std::ranges::end(r1),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r2_ =
+                boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
+            return dtl::find(
+                std::ranges::begin(r1),
+                std::ranges::end(r1),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
     template<utf_range_like R1, grapheme_range R2>
     auto find(R1 && r1, R2 && r2)
     {
-        auto r1_ =
-            boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
-        return dtl::find(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2),
-            std::ranges::end(r2));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ =
+                boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
+            return dtl::find(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2),
+                std::ranges::end(r2));
+        }
     }
 
     template<grapheme_range R1, grapheme_range R2>
     auto rfind(R1 && r1, R2 && r2)
     {
-        return dtl::rfind(
-            std::ranges::begin(r1),
-            std::ranges::end(r1),
-            std::ranges::begin(r2),
-            std::ranges::end(r2));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            return dtl::rfind(
+                std::ranges::begin(r1),
+                std::ranges::end(r1),
+                std::ranges::begin(r2),
+                std::ranges::end(r2));
+        }
     }
     template<grapheme_range R1, utf_range_like R2>
     auto rfind(R1 && r1, R2 && r2)
     {
-        auto r2_ = boost::text::as_graphemes(
-            detail::as_utf32_common_view_no_terminator(r2));
-        return dtl::rfind(
-            std::ranges::begin(r1),
-            std::ranges::end(r1),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r2_ = boost::text::as_graphemes(
+                detail::as_utf32_common_view_no_terminator(r2));
+            return dtl::rfind(
+                std::ranges::begin(r1),
+                std::ranges::end(r1),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
     template<utf_range_like R1, grapheme_range R2>
     auto rfind(R1 && r1, R2 && r2)
     {
-        auto r1_ = boost::text::as_graphemes(
-            detail::as_utf32_common_view_no_terminator(r1));
-        return dtl::rfind(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2),
-            std::ranges::end(r2));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ = boost::text::as_graphemes(
+                detail::as_utf32_common_view_no_terminator(r1));
+            return dtl::rfind(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2),
+                std::ranges::end(r2));
+        }
     }
 
     template<grapheme_range R1, grapheme_range R2>
     auto find_first_of(R1 && r1, R2 && r2)
     {
-        return dtl::find_first_of(
-            std::ranges::begin(r1),
-            std::ranges::end(r1),
-            std::ranges::begin(r2),
-            std::ranges::end(r2));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            return dtl::find_first_of(
+                std::ranges::begin(r1),
+                std::ranges::end(r1),
+                std::ranges::begin(r2),
+                std::ranges::end(r2));
+        }
     }
     template<grapheme_range R1, utf_range_like R2>
     auto find_first_of(R1 && r1, R2 && r2)
     {
-        auto r2_ =
-            boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
-        return dtl::find_first_of(
-            std::ranges::begin(r1),
-            std::ranges::end(r1),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r2_ =
+                boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
+            return dtl::find_first_of(
+                std::ranges::begin(r1),
+                std::ranges::end(r1),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
     template<utf_range_like R1, grapheme_range R2>
     auto find_first_of(R1 && r1, R2 && r2)
     {
-        auto r1_ =
-            boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
-        return dtl::find_first_of(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2),
-            std::ranges::end(r2));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ =
+                boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
+            return dtl::find_first_of(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2),
+                std::ranges::end(r2));
+        }
     }
 
     template<grapheme_range R1, grapheme_range R2>
     auto find_last_of(R1 && r1, R2 && r2)
     {
-        return dtl::find_last_of(
-            std::ranges::begin(r1),
-            std::ranges::end(r1),
-            std::ranges::begin(r2),
-            std::ranges::end(r2));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            return dtl::find_last_of(
+                std::ranges::begin(r1),
+                std::ranges::end(r1),
+                std::ranges::begin(r2),
+                std::ranges::end(r2));
+        }
     }
     template<grapheme_range R1, utf_range_like R2>
     auto find_last_of(R1 && r1, R2 && r2)
     {
-        auto r2_ = boost::text::as_graphemes(
-            detail::as_utf32_common_view_no_terminator(r2));
-        return dtl::find_last_of(
-            std::ranges::begin(r1),
-            std::ranges::end(r1),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r2_ = boost::text::as_graphemes(
+                detail::as_utf32_common_view_no_terminator(r2));
+            return dtl::find_last_of(
+                std::ranges::begin(r1),
+                std::ranges::end(r1),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
     template<utf_range_like R1, grapheme_range R2>
     auto find_last_of(R1 && r1, R2 && r2)
     {
-        auto r1_ = boost::text::as_graphemes(
-            detail::as_utf32_common_view_no_terminator(r1));
-        return dtl::find_last_of(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2),
-            std::ranges::end(r2));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ = boost::text::as_graphemes(
+                detail::as_utf32_common_view_no_terminator(r1));
+            return dtl::find_last_of(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2),
+                std::ranges::end(r2));
+        }
     }
 
     template<grapheme_range R1, grapheme_range R2>
@@ -1491,56 +2118,86 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<grapheme_range R1, utf_range_like R2>
     auto find_first_not_of(R1 && r1, R2 && r2)
     {
-        auto r2_ =
-            boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
-        return dtl::find_first_not_of(
-            std::ranges::begin(r1),
-            std::ranges::end(r1),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r2_ =
+                boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
+            return dtl::find_first_not_of(
+                std::ranges::begin(r1),
+                std::ranges::end(r1),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
     template<utf_range_like R1, grapheme_range R2>
     auto find_first_not_of(R1 && r1, R2 && r2)
     {
-        auto r1_ =
-            boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
-        return dtl::find_first_not_of(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2),
-            std::ranges::end(r2));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ =
+                boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
+            return dtl::find_first_not_of(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2),
+                std::ranges::end(r2));
+        }
     }
 
     template<grapheme_range R1, grapheme_range R2>
     auto find_last_not_of(R1 && r1, R2 && r2)
     {
-        return dtl::find_last_not_of(
-            std::ranges::begin(r1),
-            std::ranges::end(r1),
-            std::ranges::begin(r2),
-            std::ranges::end(r2));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            return dtl::find_last_not_of(
+                std::ranges::begin(r1),
+                std::ranges::end(r1),
+                std::ranges::begin(r2),
+                std::ranges::end(r2));
+        }
     }
     template<grapheme_range R1, utf_range_like R2>
     auto find_last_not_of(R1 && r1, R2 && r2)
     {
-        auto r2_ = boost::text::as_graphemes(
-            detail::as_utf32_common_view_no_terminator(r2));
-        return dtl::find_last_not_of(
-            std::ranges::begin(r1),
-            std::ranges::end(r1),
-            std::ranges::begin(r2_),
-            std::ranges::end(r2_));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r2_ = boost::text::as_graphemes(
+                detail::as_utf32_common_view_no_terminator(r2));
+            return dtl::find_last_not_of(
+                std::ranges::begin(r1),
+                std::ranges::end(r1),
+                std::ranges::begin(r2_),
+                std::ranges::end(r2_));
+        }
     }
     template<utf_range_like R1, grapheme_range R2>
     auto find_last_not_of(R1 && r1, R2 && r2)
     {
-        auto r1_ = boost::text::as_graphemes(
-            detail::as_utf32_common_view_no_terminator(r1));
-        return dtl::find_last_not_of(
-            std::ranges::begin(r1_),
-            std::ranges::end(r1_),
-            std::ranges::begin(r2),
-            std::ranges::end(r2));
+        if constexpr (
+            !std::is_pointer_v<std::remove_cvref_t<R1>> &&
+            !std::ranges::borrowed_range<R1>) {
+            return std::ranges::dangling{};
+        } else {
+            auto r1_ = boost::text::as_graphemes(
+                detail::as_utf32_common_view_no_terminator(r1));
+            return dtl::find_last_not_of(
+                std::ranges::begin(r1_),
+                std::ranges::end(r1_),
+                std::ranges::begin(r2),
+                std::ranges::end(r2));
+        }
     }
 
     template<grapheme_range R1, grapheme_range R2>

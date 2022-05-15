@@ -111,18 +111,8 @@ namespace boost { namespace text {
             ref_(sv), which_(which::tv)
         {}
 
-#ifdef BOOST_TEXT_DOXYGEN
-
         /** Constructs a `basic_unencoded_rope_view` from a range of
-            `value_type`.
-
-            This function only participates in overload resolution if
-            `ContigCharRange` models the ContigCharRange concept. */
-        template<typename ContigCharRange>
-        explicit basic_unencoded_rope_view(ContigCharRange const & r);
-
-#else
-
+            `value_type`. */
 #if BOOST_TEXT_USE_CONCEPTS
         template<std::ranges::contiguous_range R>
         // clang-format off
@@ -143,8 +133,6 @@ namespace boost { namespace text {
                     &*detail::begin(r), detail::end(r) - detail::begin(r)));
             }
         }
-
-#endif
 
         const_iterator begin() const noexcept
         {
@@ -268,17 +256,7 @@ namespace boost { namespace text {
             return *this = basic_unencoded_rope_view(sv);
         }
 
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Assignment from a contiguous range of `value_type` elements.
-
-            This function only participates in overload resolution if
-            `ContigCharRange` models the ContigCharRange concept. */
-        template<typename ContigCharRange>
-        basic_unencoded_rope_view & operator=(ContigCharRange const & r);
-
-#else
-
+        /** Assignment from a contiguous range of `value_type` elements. */
 #if BOOST_TEXT_USE_CONCEPTS
         template<std::ranges::contiguous_range R>
         // clang-format off
@@ -293,8 +271,6 @@ namespace boost { namespace text {
         {
             return *this = basic_unencoded_rope_view(r);
         }
-
-#endif
 
         /** Stream inserter; performs unformatted output. */
         friend std::ostream &

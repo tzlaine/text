@@ -415,10 +415,10 @@ namespace boost { namespace text {
             l2_order_(detail::to_l2_order(flags))
         {}
 
+        /** Compares code point ranges `R1` and `R2`. */
 #if BOOST_TEXT_USE_CONCEPTS
         template<code_point_range R1, code_point_range R2>
 #else
-        /** Compares code point ranges `R1` and `R2`. */
         template<typename R1, typename R2>
 #endif
         bool operator()(R1 const & r1, R2 const & r2) const;

@@ -273,44 +273,17 @@ namespace boost { namespace text {
             return *this;
         }
 
-#ifdef BOOST_TEXT_DOXYGEN
-
         /** Replaces the portion of `*this` delimited by `old_substr` with
             `r`.
 
-            This function only participates in overload resolution if
-            `replace(old_substr.begin().as_rope_iter(),
-            old_substr.end().as_rope_iter(), std::forward<Range>(r))` is
-            well-formed.
-
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Range>
-        basic_unencoded_rope &
-        replace(unencoded_rope_view old_substr, Range && r);
-
-        /** Replaces the portion of `*this` delimited by `old_substr` with
-            `[first, last)`.
-
-            This function only participates in overload resolution if
-            `replace(old_substr.begin().as_rope_iter(),
-            old_substr.end().as_rope_iter(), first, last)` is well-formed.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Iter, typename Sentinel>
-        basic_unencoded_rope &
-        replace(unencoded_rope_view old_substr, Iter first, Sentinel last);
-
-#else
-
-#if BOOST_TEXT_USE_CONCEPTS
         template<typename R>
+#if BOOST_TEXT_USE_CONCEPTS
             // clang-format off
         requires std::ranges::range<R> &&
             std::convertible_to<
                 std::ranges::range_reference_t<R>, value_type> ||
             std::convertible_to<R, value_type const *>
-#else
-        template<typename R>
 #endif
         auto replace(unencoded_rope_view const & old_substr, R && r)
             // clang-format on
@@ -319,6 +292,10 @@ namespace boost { namespace text {
             return replace_shim<R>(old_substr, (R &&) r);
         }
 
+        /** Replaces the portion of `*this` delimited by `old_substr` with
+            `[first, last)`.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
 #if BOOST_TEXT_USE_CONCEPTS
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
@@ -334,46 +311,16 @@ namespace boost { namespace text {
             return replace_shim<I, S>(old_substr, first, last);
         }
 
-#endif
-
-#ifdef BOOST_TEXT_DOXYGEN
-
         /** Inserts `r` into `*this` at position `at`.
 
-            This function only participates in overload resolution if
-            `replace(at, at, std::forward<Range>(r))` is well-formed.
-
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Range>
-        const_iterator insert(const_iterator at, Range && r);
-
-        /** Inserts `[first, last)` into `*this` at position `at`.
-
-            This function only participates in overload resolution if
-            `replace(at, at, first, last)` is well-formed.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Iter, typename Sentinel>
-        const_iterator insert(const_iterator at, Iter first, Sentinel last);
-
-        /** Appends `x` to `*this`.
-
-            This function only participates in overload resolution if
-            `*this = std::forward<T>(x)` is well-formed. */
-        template<typename T>
-        basic_unencoded_rope & operator+=(T && x);
-
-#else
-
-#if BOOST_TEXT_USE_CONCEPTS
         template<typename R>
+#if BOOST_TEXT_USE_CONCEPTS
             // clang-format off
             requires std::ranges::range<R> &&
                 std::convertible_to<
                     std::ranges::range_reference_t<R>, value_type> ||
                 std::convertible_to<R, value_type const *>
-#else
-        template<typename R>
 #endif
         auto insert(const_iterator at, R && r)
             // clang-format on
@@ -384,6 +331,9 @@ namespace boost { namespace text {
             return begin() + at_offset;
         }
 
+        /** Inserts `[first, last)` into `*this` at position `at`.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
 #if BOOST_TEXT_USE_CONCEPTS
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
@@ -400,14 +350,13 @@ namespace boost { namespace text {
             return begin() + at_offset;
         }
 
+        /** Appends `x` to `*this`. */
         template<typename T>
         auto operator+=(T && x) -> decltype(*this = std::forward<T>(x))
         {
             insert(end(), std::forward<T>(x));
             return *this;
         }
-
-#endif
 
         void swap(basic_unencoded_rope & other)
         {

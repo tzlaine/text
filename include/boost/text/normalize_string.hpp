@@ -161,12 +161,30 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         };
     }
 
-    /** Appends sequence `[first, last)` in normalization form `Normalization`
-        to `s`.  The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
-        otherwise.
+#ifdef BOOST_TEXT_DOXYGEN
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
+    /** Appends `[first, last)` in normalization form `Normalization` to `s`.
+        The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
+        otherwise. */
+    template<
+        nf Normalization,
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        utf_string String>
+    inline void normalize_append(I first, S last, String & s);
+
+    /** Appends `r` in normalization form `Normalization` to `s`.  The output
+        is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16 otherwise. */
+    template<nf Normalization, code_point_range R, utf_string String>
+    inline void normalize_append(R && r, String & s);
+
+    /** Puts the contents of `s` into Unicode normalization form
+        `Normalize`. */
+    template<nf Normalization, utf_string String>
+    void normalize(String & s);
+
+#else
+
     template<
         nf Normalization,
         typename CPIter,
@@ -181,9 +199,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         dtl::normalize_append_impl<Normalization, String>::call(first, last, s);
     }
 
-    /** Appends sequence `r` in normalization form `Normalization` to `s`.
-        The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
-        otherwise. */
     template<nf Normalization, typename CPRange, typename String>
     void normalize_append(CPRange && r, String & s)
     {
@@ -191,7 +206,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             detail::begin(r), detail::end(r), s);
     }
 
-    /** Puts the contents of `s` in Unicode normalization form `Normalize`. */
     template<nf Normalization, typename String>
     void normalize(String & s)
     {
@@ -208,15 +222,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         impl.suffix(s, temp);
     }
 
+#endif
+
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Appends `[first, last)` in normalization form `Normalization` to `s`.
-        The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
-        otherwise. */
     template<
         nf Normalization,
         code_point_iter I,
@@ -230,8 +243,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             first, last, appender);
     }
 
-    /** Appends `r` in normalization form `Normalization` to `s`.  The output
-        is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16 otherwise. */
     template<nf Normalization, code_point_range R, utf_string String>
     inline void normalize_append(R && r, String & s)
     {
@@ -250,8 +261,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         };
     }
 
-    /** Puts the contents of `s` into Unicode normalization form
-        `Normalize`. */
     template<nf Normalization, utf_string String>
     void normalize(String & s)
     {

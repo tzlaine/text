@@ -14,19 +14,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns a UTF-8-encoded string constructed from [first, last).
+    /** Returns a UTF-8-encoded string constructed from [first, last). */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    std::string to_string(I first, S last);
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    std::string to_string(CPIter first, Sentinel last);
-
-    /** Returns a UTF-8-encoded string constructed from range.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange>
-    std::string to_string(CPRange const & range);
+    /** Returns a UTF-8-encoded string constructed from range. */
+    template<code_point_range R>
+    std::string to_string(R const & r);
 
 #else
 
@@ -49,7 +43,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 

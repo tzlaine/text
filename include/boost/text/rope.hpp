@@ -106,51 +106,27 @@ namespace boost { namespace text {
         /** Constructs a `basic_rope` from a `text`. */
         explicit basic_rope(text t);
 
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Constructs a `basic_rope` from a range of `char_type`.
-
-            This function only participates in overload resolution if
-            `CURange` models the CURange concept. */
-        template<typename CURange>
-        explicit basic_rope(CURange const & r);
-
-        /** Constructs a `basic_rope` from a sequence of `char_type`.
-
-            This function only participates in overload resolution if
-            `CUIter` models the CUIter concept. */
-        template<typename CUIter, typename Sentinel>
-        basic_rope(CUIter first, Sentinel last);
-
-        /** Constructs a `basic_rope` from a range of graphemes.
-
-            This function only participates in overload resolution if
-            `GraphemeRangeCU` models the GraphemeRangeCU concept. */
-        template<typename GraphemeRangeCU>
-        explicit basic_rope(GraphemeRangeCU const & r);
-
-        /** Constructs a `basic_rope` from a sequence of graphemes.
-
-            This function only participates in overload resolution if
-            `GraphemeIterCU` models the GraphemeIterCU concept. */
-        template<typename GraphemeIterCU>
-        explicit basic_rope(GraphemeIterCU first, GraphemeIterCU last);
-
+        /** Constructs a `basic_rope` from a range of `char_type`. */
+#if BOOST_TEXT_USE_CONCEPTS
+        template<code_unit_range<utf_format> R>
+        explicit basic_rope(R const & r) :
 #else
-
         template<typename CURange>
         explicit basic_rope(
             CURange const & r,
             detail::cu_rng_alg_ret_t<(int)utf_format, int *, CURange> = 0) :
+#endif
             rope_(detail::begin(r), detail::end(r))
         {}
 
+        /** Constructs a `basic_rope` from a sequence of `char_type`. */
         template<typename CUIter, typename Sentinel>
         basic_rope(
             CUIter first,
             Sentinel last,
             detail::cu_iter_ret_t<(int)utf_format, void *, CUIter> = 0);
 
+        /** Constructs a `basic_rope` from a range of graphemes. */
 #if BOOST_TEXT_USE_CONCEPTS
         template<grapheme_range_code_unit<utf_format> R>
         explicit basic_rope(R const & r)
@@ -166,6 +142,7 @@ namespace boost { namespace text {
             rope_.insert(rope_.begin(), std::move(str));
         }
 
+        /** Constructs a `basic_rope` from a sequence of graphemes. */
 #if BOOST_TEXT_USE_CONCEPTS
         template<grapheme_iter_code_unit<utf_format> I>
         explicit basic_rope(I first, I last)
@@ -182,8 +159,6 @@ namespace boost { namespace text {
             boost::text::normalize<normalization>(str);
             rope_.insert(rope_.begin(), std::move(str));
         }
-
-#endif
 
         /** Assignment from a null-terminated string. */
         basic_rope & operator=(char_type const * c_str)
@@ -360,37 +335,16 @@ namespace boost { namespace text {
         replace_result<const_iterator> replace(
             const_iterator first, const_iterator last, rope_view new_substr);
 
-#ifdef BOOST_TEXT_DOXYGEN
-
         /** Replaces the portion of `*this` delimited by `[first, last)` with
             `r`.
 
-            This function only participates in overload resolution if
-            `CURange` models the CURange concept.
-
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
-        template<typename CURange>
+#if BOOST_TEXT_USE_CONCEPTS
+        template<code_unit_range<utf_format> R>
         replace_result<const_iterator>
-        replace(const_iterator first, const_iterator last, CURange const & r);
-
-        /** Replaces the portion of `*this` delimited by `[first1, last1)`
-            with `[first2, last2)`.
-
-            This function only participates in overload resolution if `CUIter`
-            models the CUIter concept.
-
-            \pre !std::less(first1.base().base(), begin().base().base()) &&
-            !std::less(end().base().base(), last1.base().base()) */
-        template<typename CUIter>
-        replace_result<const_iterator> replace(
-            const_iterator first1,
-            const_iterator last1,
-            CUIter first2,
-            CUIter last2);
-
+        replace(const_iterator first, const_iterator last, R const & r)
 #else
-
         template<typename CURange>
         auto
         replace(const_iterator first, const_iterator last, CURange const & r)
@@ -398,10 +352,21 @@ namespace boost { namespace text {
                 (int)utf_format,
                 replace_result<const_iterator>,
                 CURange>
+#endif
         {
             return replace(first, last, detail::begin(r), detail::end(r));
         }
 
+        /** Replaces the portion of `*this` delimited by `[first1, last1)`
+            with `[first2, last2)`.
+
+            \pre !std::less(first1.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last1.base().base()) */
+#if BOOST_TEXT_USE_CONCEPTS
+        template<code_unit_iterator<utf_format> I>
+        replace_result<const_iterator>
+        replace(const_iterator first1, const_iterator last1, I first2, I last2)
+#else
         template<typename CUIter>
         auto replace(
             const_iterator first1,
@@ -412,12 +377,11 @@ namespace boost { namespace text {
                 (int)utf_format,
                 replace_result<const_iterator>,
                 CUIter>
+#endif
         {
             return replace_impl(
                 first1, last1, first2, last2, insertion_not_normalized);
         }
-
-#endif
 
         /** Replaces the portion of `*this` delimited by `[first, last)` with
             `g`. */
@@ -655,10 +619,8 @@ namespace boost { namespace text {
 
 #if BOOST_TEXT_USE_CONCEPTS
         template<typename Char2>
-        // clang-format off
-            requires std::is_same_v<Char2, char_type>
+        requires std::is_same_v<Char2, char_type>
         friend bool
-        // clang-format on
 #else
         template<typename Char2>
         friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
@@ -675,10 +637,8 @@ namespace boost { namespace text {
         }
 #if BOOST_TEXT_USE_CONCEPTS
         template<typename Char2>
-        // clang-format off
-            requires std::is_same_v<Char2, char_type>
+        requires std::is_same_v<Char2, char_type>
         friend bool
-        // clang-format on
 #else
         template<typename Char2>
         friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
@@ -692,10 +652,8 @@ namespace boost { namespace text {
 
 #if BOOST_TEXT_USE_CONCEPTS
         template<typename Char2>
-        // clang-format off
-            requires std::is_same_v<Char2, char_type>
+        requires std::is_same_v<Char2, char_type>
         friend bool
-        // clang-format on
 #else
         template<typename Char2>
         friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
@@ -708,10 +666,8 @@ namespace boost { namespace text {
         }
 #if BOOST_TEXT_USE_CONCEPTS
         template<typename Char2>
-        // clang-format off
-            requires std::is_same_v<Char2, char_type>
+        requires std::is_same_v<Char2, char_type>
         friend bool
-        // clang-format on
 #else
         template<typename Char2>
         friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
@@ -1137,8 +1093,6 @@ namespace boost { namespace text {
 
 #else
 
-    /** Creates a new `basic_rope` object that is the concatenation
-        of `t` and some object `x` for which `r = x` is well-formed. */
     template<nf Normalization, typename Char, typename String, typename T>
     auto operator+(basic_rope<Normalization, Char, String> r, T const & x)
         -> decltype(r = x, basic_rope<Normalization, Char, String>{})
@@ -1147,9 +1101,6 @@ namespace boost { namespace text {
         return r;
     }
 
-    /** Creates a new `basic_rope` object that is the concatenation
-        of `x` and `t`, where `x` is an object for which `r = x` is
-        well-formed. */
     template<nf Normalization, typename Char, typename String, typename T>
     auto operator+(T const & x, basic_rope<Normalization, Char, String> r)
         -> std::enable_if_t<

@@ -22,8 +22,10 @@ TEST(stream_safe, no_truncation_needed)
         EXPECT_TRUE(is_stream_safe(as_utf32(already_stream_safe)));
 
         std::string result;
-        stream_safe_copy(
+        auto const retval = stream_safe_copy(
             as_utf32(already_stream_safe), from_utf32_back_inserter(result));
+
+        EXPECT_EQ(retval.in, std::end(as_utf32(already_stream_safe)));
 
         EXPECT_EQ(result, already_stream_safe);
 
@@ -60,8 +62,10 @@ TEST(stream_safe, no_truncation_needed)
         EXPECT_TRUE(is_stream_safe(as_utf32(already_stream_safe)));
 
         std::string result;
-        stream_safe_copy(
+        auto const retval = stream_safe_copy(
             as_utf32(already_stream_safe), from_utf32_back_inserter(result));
+
+        EXPECT_EQ(retval.in, std::end(as_utf32(already_stream_safe)));
 
         EXPECT_EQ(result, already_stream_safe);
 
@@ -110,8 +114,10 @@ TEST(stream_safe, no_truncation_needed)
         EXPECT_TRUE(is_stream_safe(as_utf32(already_stream_safe)));
 
         std::string result;
-        stream_safe_copy(
+        auto const retval = stream_safe_copy(
             as_utf32(already_stream_safe), from_utf32_back_inserter(result));
+
+        EXPECT_EQ(retval.in, std::end(as_utf32(already_stream_safe)));
 
         EXPECT_EQ(result, already_stream_safe);
 
@@ -188,8 +194,9 @@ TEST(stream_safe, truncation_needed_short)
 
         {
             std::string result;
-            stream_safe_copy(
+            auto const retval = stream_safe_copy(
                 as_utf32(stream_unsafe), from_utf32_back_inserter(result));
+            EXPECT_EQ(retval.in, std::end(as_utf32(stream_unsafe)));
             EXPECT_NE(stream_unsafe, result);
             EXPECT_EQ(result, expected);
         }
@@ -322,8 +329,9 @@ TEST(stream_safe, truncation_needed_long)
 
         {
             std::string result;
-            stream_safe_copy(
+            auto const retval = stream_safe_copy(
                 as_utf32(stream_unsafe), from_utf32_back_inserter(result));
+            EXPECT_EQ(retval.in, std::end(as_utf32(stream_unsafe)));
             EXPECT_NE(stream_unsafe, result);
             EXPECT_EQ(result, expected);
         }
