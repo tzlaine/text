@@ -188,7 +188,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     void normalize_append(CPRange && r, String & s)
     {
         return boost::text::v1::normalize_append<Normalization>(
-            std::begin(r), std::end(r), s);
+            detail::begin(r), detail::end(r), s);
     }
 
     /** Puts the contents of `s` in Unicode normalization form `Normalize`. */
@@ -236,7 +236,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     inline void normalize_append(R && r, String & s)
     {
         return boost::text::normalize_append<Normalization>(
-            std::begin(r), std::end(r), s);
+            detail::begin(r), detail::end(r), s);
     }
 
     namespace dtl {

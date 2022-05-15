@@ -94,7 +94,7 @@
 [def _gr_                  grapheme]
 [def _grs_                 graphemes]
 
-[def _null_sent_           [classref boost::text::null_sentinel  `null_sentinel`]]
+[def _null_sent_           [classref boost::text::null_sentinel_t  `null_sentinel_t`]]
 
 [def _32_to_8_iter_        [classref boost::text::utf_32_to_8_iterator  `utf_32_to_8_iterator`]]
 [def _32_to_16_iter_       [classref boost::text::utf_32_to_16_iterator `utf_32_to_16_iterator`]]

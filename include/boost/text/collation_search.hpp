@@ -9,6 +9,7 @@
 #include <boost/text/collate.hpp>
 #include <boost/text/grapheme_break.hpp>
 #include <boost/text/grapheme_view.hpp>
+#include <boost/text/subrange.hpp>
 #include <boost/text/detail/algorithm.hpp>
 
 #include <boost/algorithm/cxx14/mismatch.hpp>
@@ -52,8 +53,7 @@ namespace boost { namespace text {
 #else
     template<typename I, typename S = I>
 #endif
-    struct collation_search_result
-        : stl_interfaces::view_interface<collation_search_result<I, S>>
+    struct collation_search_result : subrange<I>
     {
         using iterator = I;
         using sentinel = S;
@@ -61,24 +61,8 @@ namespace boost { namespace text {
         constexpr collation_search_result() noexcept {}
         constexpr collation_search_result(
             iterator first, iterator last) noexcept :
-            first_(first), last_(last)
+            subrange<I>(first, last)
         {}
-
-        constexpr iterator begin() const noexcept { return first_; }
-        constexpr sentinel end() const noexcept { return last_; }
-
-        friend constexpr bool operator==(
-            collation_search_result lhs,
-            collation_search_result rhs)
-        {
-            return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
-        }
-        friend constexpr bool operator!=(
-            collation_search_result lhs,
-            collation_search_result rhs)
-        {
-            return !(lhs == rhs);
-        }
 
         friend std::ostream &
         operator<<(std::ostream & os, collation_search_result v)
@@ -96,10 +80,6 @@ namespace boost { namespace text {
             return os;
         }
 #endif
-
-    private:
-        iterator first_;
-        sentinel last_;
     };
 
     namespace detail {
@@ -216,14 +196,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename CPRange, typename Searcher>
     auto collation_search(CPRange && r, Searcher const & searcher)
-        -> detail::cp_rng_alg_ret_t<
+        ->detail::cp_rng_alg_ret_t<
             decltype(detail::make_search_result(
-                std::begin(r), std::begin(r), std::begin(r), std::end(r))),
+                detail::begin(r),
+                detail::begin(r),
+                detail::begin(r),
+                detail::end(r))),
             CPRange>
     {
-        auto const cps = searcher(std::begin(r), std::end(r));
+        auto const cps = searcher(detail::begin(r), detail::end(r));
         return detail::make_search_result(
-            std::begin(r), cps.begin(), cps.end(), std::end(r));
+            detail::begin(r), cps.begin(), cps.end(), detail::end(r));
     }
 
     template<typename GraphemeRange, typename Searcher>
@@ -269,9 +252,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             Searcher>
     auto collation_search(R && r, Searcher const & s)
     {
-        auto const cps = s(std::begin(r), std::end(r));
+        auto const cps = s(detail::begin(r), detail::end(r));
         return detail::make_search_result(
-            std::begin(r), cps.begin(), cps.end(), std::end(r));
+            detail::begin(r), cps.begin(), cps.end(), detail::end(r));
     }
 
     template<
@@ -1626,19 +1609,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<
             simple_collation_searcher<
-                decltype(std::begin(r)),
-                decltype(std::end(r)),
+                decltype(detail::begin(r)),
+                decltype(detail::end(r)),
                 detail::coll_search_prev_grapheme_callable>,
             CPRange>
     {
-        using r_iter = decltype(std::begin(r));
-        using r_sntl = decltype(std::end(r));
+        using r_iter = decltype(detail::begin(r));
+        using r_sntl = decltype(detail::end(r));
         return simple_collation_searcher<
             r_iter,
             r_sntl,
             detail::coll_search_prev_grapheme_callable>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
@@ -1680,16 +1663,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<
             simple_collation_searcher<
-                decltype(std::begin(r)),
-                decltype(std::end(r)),
+                decltype(detail::begin(r)),
+                decltype(detail::end(r)),
                 BreakFunc>,
             CPRange>
     {
-        using r_iter = decltype(std::begin(r));
-        using r_sntl = decltype(std::end(r));
+        using r_iter = decltype(detail::begin(r));
+        using r_sntl = decltype(detail::end(r));
         return simple_collation_searcher<r_iter, r_sntl, BreakFunc>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             break_fn,
             table,
             detail::to_strength(flags),
@@ -1784,19 +1767,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<
             boyer_moore_horspool_collation_searcher<
-                decltype(std::begin(r)),
-                decltype(std::end(r)),
+                decltype(detail::begin(r)),
+                decltype(detail::end(r)),
                 detail::coll_search_prev_grapheme_callable>,
             CPRange>
     {
-        using r_iter = decltype(std::begin(r));
-        using r_sntl = decltype(std::end(r));
+        using r_iter = decltype(detail::begin(r));
+        using r_sntl = decltype(detail::end(r));
         return boyer_moore_horspool_collation_searcher<
             r_iter,
             r_sntl,
             detail::coll_search_prev_grapheme_callable>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
@@ -1838,19 +1821,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<
             boyer_moore_horspool_collation_searcher<
-                decltype(std::begin(r)),
-                decltype(std::end(r)),
+                decltype(detail::begin(r)),
+                decltype(detail::end(r)),
                 BreakFunc>,
             CPRange>
     {
-        using r_iter = decltype(std::begin(r));
-        using r_sntl = decltype(std::end(r));
+        using r_iter = decltype(detail::begin(r));
+        using r_sntl = decltype(detail::end(r));
         return boyer_moore_horspool_collation_searcher<
             r_iter,
             r_sntl,
             BreakFunc>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             break_fn,
             table,
             detail::to_strength(flags),
@@ -1942,19 +1925,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<
             boyer_moore_collation_searcher<
-                decltype(std::begin(r)),
-                decltype(std::end(r)),
+                decltype(detail::begin(r)),
+                decltype(detail::end(r)),
                 detail::coll_search_prev_grapheme_callable>,
             CPRange>
     {
-        using r_iter = decltype(std::begin(r));
-        using r_sntl = decltype(std::end(r));
+        using r_iter = decltype(detail::begin(r));
+        using r_sntl = decltype(detail::end(r));
         return boyer_moore_collation_searcher<
             r_iter,
             r_sntl,
             detail::coll_search_prev_grapheme_callable>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
@@ -1996,16 +1979,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<
             boyer_moore_collation_searcher<
-                decltype(std::begin(r)),
-                decltype(std::end(r)),
+                decltype(detail::begin(r)),
+                decltype(detail::end(r)),
                 BreakFunc>,
             CPRange>
     {
-        using r_iter = decltype(std::begin(r));
-        using r_sntl = decltype(std::end(r));
+        using r_iter = decltype(detail::begin(r));
+        using r_sntl = decltype(detail::end(r));
         return boyer_moore_collation_searcher<r_iter, r_sntl, BreakFunc>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             break_fn,
             table,
             detail::to_strength(flags),
@@ -2106,8 +2089,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             r_iter,
             r_sntl,
             detail::coll_search_prev_grapheme_callable>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
@@ -2157,8 +2140,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         using r_iter = std::ranges::iterator_t<R>;
         using r_sntl = std::ranges::sentinel_t<R>;
         return simple_collation_searcher<r_iter, r_sntl, BreakFunc>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             break_fn,
             table,
             detail::to_strength(flags),
@@ -2256,8 +2239,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             r_iter,
             r_sntl,
             detail::coll_search_prev_grapheme_callable>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
@@ -2310,8 +2293,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             r_iter,
             r_sntl,
             BreakFunc>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             break_fn,
             table,
             detail::to_strength(flags),
@@ -2412,8 +2395,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             r_iter,
             r_sntl,
             detail::coll_search_prev_grapheme_callable>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
@@ -2463,8 +2446,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         using r_iter = std::ranges::iterator_t<R>;
         using r_sntl = std::ranges::sentinel_t<R>;
         return boyer_moore_collation_searcher<r_iter, r_sntl, BreakFunc>(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             break_fn,
             table,
             detail::to_strength(flags),
@@ -2599,7 +2582,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     {
         auto const s = boost::text::make_simple_collation_searcher(
             pattern, break_fn, table, flags);
-        return boost::text::collation_search(std::begin(str), std::end(str), s);
+        return boost::text::collation_search(
+            detail::begin(str), detail::end(str), s);
     }
 
     template<
@@ -2713,7 +2697,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             detail::coll_search_prev_grapheme_callable{},
             table,
             flags);
-        return boost::text::collation_search(std::begin(str), std::end(str), s);
+        return boost::text::collation_search(
+            detail::begin(str), detail::end(str), s);
     }
 
     template<typename GraphemeRange1, typename GraphemeRange2>
@@ -2790,7 +2775,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         auto const s = boost::text::make_simple_collation_searcher(
             pattern, break_fn, table, flags);
-        return boost::text::collation_search(std::begin(str), std::end(str), s);
+        return boost::text::collation_search(
+            detail::begin(str), detail::end(str), s);
     }
 
     template<
@@ -2858,7 +2844,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             detail::coll_search_prev_grapheme_callable{},
             table,
             flags);
-        return boost::text::collation_search(std::begin(str), std::end(str), s);
+        return boost::text::collation_search(
+            detail::begin(str), detail::end(str), s);
     }
 
     template<grapheme_range R1, grapheme_range R2>

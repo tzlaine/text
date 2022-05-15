@@ -10,6 +10,7 @@
 #include <boost/text/concepts.hpp>
 #include <boost/text/dangling.hpp>
 #include <boost/text/detail/normalization_data.hpp>
+#include <boost/text/view_adaptor.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
@@ -202,7 +203,7 @@ namespace boost { namespace text {
     private:
         iterator first_;
         iterator it_;
-        sentinel last_;
+        [[no_unique_address]] sentinel last_;
         std::size_t nonstarters_ = 0;
     };
 
@@ -276,19 +277,19 @@ namespace boost { namespace text {
 
     private:
         iterator first_;
-        sentinel last_;
+        [[no_unique_address]] sentinel last_;
     };
 
     namespace detail {
         template<typename I, typename S>
-        auto as_stream_safe_impl(I first, S last)
+        constexpr auto as_stream_safe_impl(I first, S last) noexcept
         {
             using iterator = stream_safe_iterator<I, S>;
             return stream_safe_view<iterator, S>{iterator{first, last}, last};
         }
 
         template<typename I>
-        auto as_stream_safe_impl(I first, I last)
+        constexpr auto as_stream_safe_impl(I first, I last) noexcept
         {
             using iterator = stream_safe_iterator<I>;
             return stream_safe_view<iterator>{
@@ -308,8 +309,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPIter, typename Sentinel, typename OutIter>
-    auto stream_safe_copy(CPIter first, Sentinel last, OutIter out)
-        ->detail::cp_iter_ret_t<OutIter, CPIter>
+    constexpr auto stream_safe_copy(
+        CPIter first,
+        Sentinel last,
+        OutIter out) noexcept->detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::stream_safe_copy_impl(first, last, out);
     }
@@ -321,15 +324,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPRange, typename OutIter>
-    auto stream_safe_copy(CPRange && r, OutIter out)
-        ->decltype(
-            boost::text::v1::stream_safe_copy(std::begin(r), std::end(r), out))
+    constexpr auto stream_safe_copy(CPRange && r, OutIter out) noexcept
+        ->decltype(boost::text::v1::stream_safe_copy(
+            detail::begin(r), detail::end(r), out))
     {
         return boost::text::v1::stream_safe_copy(
-            std::begin(r), std::end(r), out);
+            detail::begin(r), detail::end(r), out);
     }
 
-    /** Copies the stream-safe portion of `[first, last)` to the beginning of
+    /** Copies the stream-safe portion of `[first, last)` to the beginning
+       of
         `[first, last)`, and returns an iterator to the end of the copied
         range.
 
@@ -338,8 +342,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPIter, typename Sentinel>
-    auto stream_safe(CPIter first, Sentinel last)
-        ->detail::cp_iter_ret_t<CPIter, CPIter>
+    constexpr auto stream_safe(
+        CPIter first,
+        Sentinel last) noexcept->detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::stream_safe_impl(first, last);
     }
@@ -352,10 +357,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPRange>
-    auto stream_safe(CPRange && r)
-        ->decltype(boost::text::v1::stream_safe(std::begin(r), std::end(r)))
+    constexpr auto stream_safe(CPRange && r) noexcept
+        ->decltype(boost::text::v1::stream_safe(detail::begin(r), detail::end(r)))
     {
-        return boost::text::v1::stream_safe(std::begin(r), std::end(r));
+        return boost::text::v1::stream_safe(detail::begin(r), detail::end(r));
     }
 
     /** Returns true iff `[first, last)` is in stream-safe format.
@@ -365,8 +370,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPIter, typename Sentinel>
-    auto is_stream_safe(CPIter first, Sentinel last)
-        ->detail::cp_iter_ret_t<bool, CPIter>
+    constexpr auto is_stream_safe(
+        CPIter first,
+        Sentinel last) noexcept->detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::is_stream_safe_impl(first, last);
     }
@@ -378,11 +384,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPRange>
-    auto is_stream_safe(CPRange && r)
-        ->decltype(boost::text::v1::is_stream_safe(std::begin(r), std::end(r)))
+    constexpr auto is_stream_safe(CPRange && r) noexcept
+        ->decltype(boost::text::v1::is_stream_safe(
+            detail::begin(r), detail::end(r)))
     {
-        return boost::text::v1::is_stream_safe(std::begin(r), std::end(r));
+        return boost::text::v1::is_stream_safe(detail::begin(r), detail::end(r));
     }
+
+#if defined(BOOST_TEXT_DOXYGEN)
 
     /** Returns a `stream_safe_view` of the range `[first, last)`.
 
@@ -391,13 +400,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPIter, typename Sentinel>
-    auto as_stream_safe(CPIter first, Sentinel last)
-        ->detail::cp_iter_ret_t<
-            stream_safe_view<stream_safe_iterator<CPIter, Sentinel>, Sentinel>,
-            CPIter>
-    {
-        return detail::as_stream_safe_impl(first, last);
-    }
+    constexpr detail::unspecified as_stream_safe(
+        CPIter first, Sentinel last) noexcept;
 
     /** Returns a `stream_safe_view` of the range `[first, last)`.
 
@@ -406,26 +410,62 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPIter>
-    auto as_stream_safe(CPIter first, CPIter last)
-        ->detail::cp_iter_ret_t<
-            stream_safe_view<stream_safe_iterator<CPIter>>,
-            CPIter>
-    {
-        return detail::as_stream_safe_impl(first, last);
-    }
+    constexpr detail::unspecified as_stream_safe(
+        CPIter first, CPIter last) noexcept;
 
     /** Returns a `stream_safe_view` of the range `r`.
 
         This function only participates in overload resolution if `CPRange`
-        models the CPRange concept.
+        models the CPRange concept.  The result is returned as a
+        `borrowed_view_t` in C++20 and later.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPRange>
-    auto as_stream_safe(CPRange && r)
-        ->decltype(boost::text::v1::as_stream_safe(std::begin(r), std::end(r)))
-    {
-        return boost::text::v1::as_stream_safe(std::begin(r), std::end(r));
+    constexpr detail::unspecified as_stream_safe(CPRange && r) noexcept;
+
+#endif
+
+    namespace dtl {
+        struct as_stream_safe_impl : range_adaptor_closure<as_stream_safe_impl>
+        {
+            template<typename CPIter, typename Sentinel>
+            constexpr auto
+            operator()(CPIter first, Sentinel last) const noexcept
+                -> detail::cp_iter_ret_t<
+                    stream_safe_view<
+                        stream_safe_iterator<CPIter, Sentinel>,
+                        Sentinel>,
+                    CPIter>
+            {
+                return detail::as_stream_safe_impl(first, last);
+            }
+
+            template<typename CPIter>
+            constexpr auto
+            operator()(CPIter first, CPIter last) const noexcept
+                -> detail::cp_iter_ret_t<
+                    stream_safe_view<stream_safe_iterator<CPIter>>,
+                    CPIter>
+            {
+                return detail::as_stream_safe_impl(first, last);
+            }
+
+            template<typename CPRange>
+            constexpr auto operator()(CPRange && r) const noexcept
+                -> decltype((*this)(detail::begin(r), detail::end(r)))
+            {
+                return (*this)(detail::begin(r), detail::end(r));
+            }
+        };
     }
+
+#if defined(__cpp_inline_variables)
+    inline constexpr dtl::as_stream_safe_impl as_stream_safe;
+#else
+    namespace {
+        constexpr dtl::as_stream_safe_impl as_stream_safe;
+    }
+#endif
 
 }}}
 
@@ -433,102 +473,79 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Writes sequence `[first, last)` to `out`, ensuring Stream-Safe Text
-        Format.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         code_point_iter I,
         std::sentinel_for<I> S,
         std::output_iterator<uint32_t> O>
-    O stream_safe_copy(I first, S last, O out)
+    constexpr O stream_safe_copy(I first, S last, O out) noexcept
     {
         return detail::stream_safe_copy_impl(first, last, out);
     }
 
-    /** Writes sequence `r` to `out`, ensuring Stream-Safe Text Format.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<code_point_range R, std::output_iterator<uint32_t> O>
-    O stream_safe_copy(R && r, O out)
+    constexpr O stream_safe_copy(R && r, O out) noexcept
     {
         return boost::text::stream_safe_copy(
             std::ranges::begin(r), std::ranges::end(r), out);
     }
 
-    /** Copies the stream-safe portion of `[first, last)` to the beginning of
-        `[first, last)`, and returns an iterator to the end of the copied
-        range.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<code_point_iter I, std::sentinel_for<I> S>
-    auto stream_safe(I first, S last)
+    constexpr auto stream_safe(I first, S last) noexcept
     {
         return detail::stream_safe_impl(first, last);
     }
 
-    /** Copies the stream-safe portion of `r` to the beginning of `r`, and
-        returns an iterator to the end of the copied range.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<code_point_range R>
-    std::ranges::borrowed_iterator_t<R> stream_safe(R && r)
+    constexpr std::ranges::borrowed_iterator_t<R> stream_safe(
+        R && r) noexcept
     {
         return boost::text::stream_safe(
             std::ranges::begin(r), std::ranges::end(r));
     }
 
-    /** Returns true iff `[first, last)` is in stream-safe format.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<code_point_iter I, std::sentinel_for<I> S>
-    bool is_stream_safe(I first, S last)
+    constexpr bool is_stream_safe(I first, S last) noexcept
     {
         return detail::is_stream_safe_impl(first, last);
     }
 
-    /** Returns true iff `r` is in stream-safe format.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<code_point_range R>
-    bool is_stream_safe(R && r)
+    constexpr bool is_stream_safe(R && r) noexcept
     {
         return boost::text::is_stream_safe(
             std::ranges::begin(r), std::ranges::end(r));
     }
 
-    /** Returns a `stream_safe_view` of the range `[first, last)`.
+    namespace dtl {
+        struct as_stream_safe_impl : range_adaptor_closure<as_stream_safe_impl>
+        {
+            template<code_point_iter I, std::sentinel_for<I> S>
+            constexpr stream_safe_view<stream_safe_iterator<I, S>, S>
+            operator()(I first, S last) const noexcept
+            {
+                return detail::as_stream_safe_impl(first, last);
+            }
 
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<code_point_iter I, std::sentinel_for<I> S>
-    stream_safe_view<stream_safe_iterator<I, S>, S> as_stream_safe(
-        I first, S last)
-    {
-        return detail::as_stream_safe_impl(first, last);
+            template<code_point_iter I>
+            constexpr stream_safe_view<stream_safe_iterator<I>>
+            operator()(I first, I last) const noexcept
+            {
+                return detail::as_stream_safe_impl(first, last);
+            }
+
+            template<code_point_range R>
+            constexpr auto operator()(R && r) const noexcept
+            {
+                if constexpr (std::ranges::borrowed_range<R>)
+                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
+                else
+                    return std::ranges::dangling{};
+            }
+        };
     }
 
-    /** Returns a `stream_safe_view` of the range `[first, last)`.
+    inline constexpr dtl::as_stream_safe_impl as_stream_safe;
 
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<code_point_iter I>
-    stream_safe_view<stream_safe_iterator<I>> as_stream_safe(I first, I last)
-    {
-        return detail::as_stream_safe_impl(first, last);
-    }
-
-    /** Returns a `stream_safe_view` of the range `r`.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<code_point_range R>
-    auto as_stream_safe(R && r)
-        ->borrowed_view_t<
-            R,
-            decltype(boost::text::as_stream_safe(
-                std::ranges::begin(r), std::ranges::end(r)))>
-    {
-        return boost::text::as_stream_safe(
-            std::ranges::begin(r), std::ranges::end(r));
-    }
 }}}
 
 namespace std::ranges {

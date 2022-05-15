@@ -474,17 +474,17 @@ TEST({1}, iterator_{3:02}_{4}_utf8)
             boost::text::utf_32_to_8_iterator<uint32_t const *>(cps, cps + {2}, cps + {2}),
             cus);
 
-        boost::text::null_sentinel sentinel;
+        boost::text::null_sentinel_t sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf_8_to_32_iterator<char const *, boost::text::null_sentinel> it(cus, cus, boost::text::null_sentinel{{}}); ; ++it) {{
+        for (boost::text::utf_8_to_32_iterator<char const *, boost::text::null_sentinel_t> it(cus, cus, boost::text::null_sentinel); ; ++it) {{
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }}
 
-        using iter_t = boost::text::utf_8_to_32_iterator<char const *, boost::text::null_sentinel>;
-        boost::text::{1}_iterator<iter_t, boost::text::null_sentinel> it(
-            iter_t{{cus, cus, boost::text::null_sentinel{{}}}}, iter_t{{cus, cus, boost::text::null_sentinel{{}}}}, sentinel);
+        using iter_t = boost::text::utf_8_to_32_iterator<char const *, boost::text::null_sentinel_t>;
+        boost::text::{1}_iterator<iter_t, boost::text::null_sentinel_t> it(
+            iter_t{{cus, cus, boost::text::null_sentinel}}, iter_t{{cus, cus, boost::text::null_sentinel}}, sentinel);
 
 '''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps), i, elem_index)
                 iterator_tests += '\n\n        ++it;\n\n'.join(code_unit_graphemes_and_end)

@@ -105,14 +105,12 @@ namespace boost { namespace text {
         }
 
         template<typename T, typename U>
-        struct enable_utf8_cp : std::enable_if<is_char_iter<T>::value, U>
-        {};
+        using enable_utf8_cp = std::enable_if<is_char_iter_v<T>, U>;
         template<typename T, typename U = T>
         using enable_utf8_cp_t = typename enable_utf8_cp<T, U>::type;
 
         template<typename T, typename U>
-        struct enable_utf16_cp : std::enable_if<is_16_iter<T>::value, U>
-        {};
+        using enable_utf16_cp = std::enable_if<is_16_iter_v<T>, U>;
         template<typename T, typename U = T>
         using enable_utf16_cp_t = typename enable_utf16_cp<T, U>::type;
     }
@@ -419,7 +417,7 @@ namespace boost { namespace text {
 
         enum table_state : uint8_t {
             bgn = 0,
-            end = bgn,
+            e_d = bgn, // "end"
             err = 12,
             cs1 = 24,
             cs2 = 36,
@@ -517,9 +515,9 @@ namespace boost { namespace text {
             };
 
             constexpr table_state transitions[108] = {
-                err, end, err, err, err, cs1, p3a, cs2, p3b, p4a, cs3, p4b,
+                err, e_d, err, err, err, cs1, p3a, cs2, p3b, p4a, cs3, p4b,
                 err, err, err, err, err, err, err, err, err, err, err, err,
-                err, err, end, end, end, err, err, err, err, err, err, err,
+                err, err, e_d, e_d, e_d, err, err, err, err, err, err, err,
                 err, err, cs1, cs1, cs1, err, err, err, err, err, err, err,
                 err, err, cs2, cs2, cs2, err, err, err, err, err, err, err,
                 err, err, err, err, cs1, err, err, err, err, err, err, err,
@@ -890,35 +888,40 @@ namespace boost { namespace text {
 
     /** A sentinel type that compares equal to a pointer to a 1-, 2-, or
         4-byte integral value, iff the pointer is null. */
-    struct null_sentinel
+    struct null_sentinel_t
     {
-        constexpr null_sentinel base() const noexcept
-        {
-            return null_sentinel{};
-        }
+        constexpr null_sentinel_t base() const noexcept { return {}; }
     };
+
+#if defined(__cpp_inline_variables)
+    inline constexpr null_sentinel_t null_sentinel;
+#else
+    namespace {
+        constexpr null_sentinel_t null_sentinel;
+    }
+#endif
 
 #if defined(BOOST_TEXT_DOXYGEN)
 
     /** Only participates in overload resolution when `T` is an integral type,
         and `sizeof(T)` is 1, 2, or 4.*/
     template<typename T>
-    constexpr bool operator==(T * p, null_sentinel);
+    constexpr bool operator==(T * p, null_sentinel_t);
 
     /** Only participates in overload resolution when `T` is an integral type,
         and `sizeof(T)` is 1, 2, or 4.*/
     template<typename T>
-    constexpr bool operator!=(T * p, null_sentinel);
+    constexpr bool operator!=(T * p, null_sentinel_t);
 
     /** Only participates in overload resolution when `T` is an integral type,
         and `sizeof(T)` is 1, 2, or 4.*/
     template<typename T>
-    constexpr bool operator==(null_sentinel, T * p);
+    constexpr bool operator==(null_sentinel_t, T * p);
 
     /** Only participates in overload resolution when `T` is an integral type,
         and `sizeof(T)` is 1, 2, or 4.*/
     template<typename T>
-    constexpr bool operator!=(null_sentinel, T * p);
+    constexpr bool operator!=(null_sentinel_t, T * p);
 
 #else
 
@@ -927,7 +930,7 @@ namespace boost { namespace text {
     template<typename T>
         // clang-format off
         requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator==(T * p, null_sentinel)
+    constexpr auto operator==(T * p, null_sentinel_t)
     // clang-format on
     {
         return *p == 0;
@@ -937,7 +940,7 @@ namespace boost { namespace text {
     template<typename T>
         // clang-format off
         requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator!=(T * p, null_sentinel)
+    constexpr auto operator!=(T * p, null_sentinel_t)
     // clang-format on
     {
         return *p != 0;
@@ -945,7 +948,7 @@ namespace boost { namespace text {
     template<typename T>
         // clang-format off
         requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator==(null_sentinel, T * p)
+    constexpr auto operator==(null_sentinel_t, T * p)
     // clang-format on
     {
         return *p == 0;
@@ -953,7 +956,7 @@ namespace boost { namespace text {
     template<typename T>
         // clang-format off
         requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator!=(null_sentinel, T * p)
+    constexpr auto operator!=(null_sentinel_t, T * p)
     // clang-format on
     {
         return *p != 0;
@@ -965,8 +968,8 @@ namespace boost { namespace text {
     namespace detail {
         template<
             typename Iter,
-            bool UTF8 = char_ptr<Iter>::value || _16_ptr<Iter>::value ||
-                        cp_ptr<Iter>::value>
+            bool UTF8 =
+                is_char_ptr_v<Iter> || is_16_ptr_v<Iter> || is_cp_ptr_v<Iter>>
         struct null_sent_eq_dispatch
         {};
 
@@ -978,25 +981,25 @@ namespace boost { namespace text {
     }
 
     template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(T * p, null_sentinel)
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(T * p, null_sentinel_t)
         ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return detail::null_sent_eq_dispatch<T *>::call(p);
     }
     template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(T * p, null_sentinel)
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(T * p, null_sentinel_t)
         ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return !detail::null_sent_eq_dispatch<T *>::call(p);
     }
     template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(null_sentinel, T * p)
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(null_sentinel_t, T * p)
         ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return detail::null_sent_eq_dispatch<T *>::call(p);
     }
     template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(null_sentinel, T * p)
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(null_sentinel_t, T * p)
         ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return !detail::null_sent_eq_dispatch<T *>::call(p);

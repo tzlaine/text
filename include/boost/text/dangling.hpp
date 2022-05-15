@@ -12,6 +12,7 @@
 #if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost::text {
+    /** An alias template analogous to `std::ranges::borrowed_subrange_t`. */
     template<std::ranges::range R, std::ranges::view V>
     using borrowed_view_t = std::
         conditional_t<std::ranges::borrowed_range<R>, V, std::ranges::dangling>;

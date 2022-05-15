@@ -17,7 +17,7 @@ namespace boost { namespace text { namespace detail {
         return String(first, last);
     }
     template<typename String, typename Char>
-    auto make_string(Char const * first, boost::text::null_sentinel)
+    auto make_string(Char const * first, boost::text::null_sentinel_t)
     {
         basic_string_view<Char> sv(first);
         return String(sv.begin(), sv.end());

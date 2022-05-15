@@ -858,7 +858,7 @@ namespace boost { namespace text {
             -> detail::cp_iter_ret_t<text_sort_key, CPIter>;
 
         template<typename Result, typename Iter>
-        auto make_iterator(Result first, Iter it, null_sentinel s)
+        auto make_iterator(Result first, Iter it, null_sentinel_t s)
             -> decltype(Result(first.base(), it, s))
         {
             return Result(first.base(), it, s);
@@ -1179,8 +1179,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         -> detail::cp_rng_alg_ret_t<text_sort_key, CPRange>
     {
         return detail::collation_sort_key(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             detail::to_strength(flags),
             detail::to_case_first(flags),
             detail::to_case_level(flags),
@@ -1197,8 +1197,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         -> detail::graph_rng_alg_ret_t<text_sort_key, GraphemeRange>
     {
         return detail::collation_sort_key(
-            std::begin(r).base(),
-            std::end(r).base(),
+            detail::begin(r).base(),
+            detail::end(r).base(),
             detail::to_strength(flags),
             detail::to_case_first(flags),
             detail::to_case_level(flags),
@@ -1274,10 +1274,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         -> detail::cp_rng_alg_ret_t<int, CPRange1>
     {
         return v1::collate(
-            std::begin(r1),
-            std::end(r1),
-            std::begin(r2),
-            std::end(r2),
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2),
+            detail::end(r2),
             table,
             detail::to_strength(flags),
             detail::to_case_first(flags),
@@ -1295,10 +1295,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         -> detail::graph_rng_alg_ret_t<int, GraphemeRange1>
     {
         return v1::collate(
-            std::begin(r1).base(),
-            std::end(r1).base(),
-            std::begin(r2).base(),
-            std::end(r2).base(),
+            detail::begin(r1).base(),
+            detail::end(r1).base(),
+            detail::begin(r2).base(),
+            detail::end(r2).base(),
             table,
             detail::to_strength(flags),
             detail::to_case_first(flags),
@@ -1362,8 +1362,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         collation_flags flags = collation_flags::none)
     {
         return detail::collation_sort_key(
-            std::begin(r),
-            std::end(r),
+            detail::begin(r),
+            detail::end(r),
             detail::to_strength(flags),
             detail::to_case_first(flags),
             detail::to_case_level(flags),
@@ -1379,8 +1379,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         collation_flags flags = collation_flags::none)
     {
         return detail::collation_sort_key(
-            std::begin(r).base(),
-            std::end(r).base(),
+            detail::begin(r).base(),
+            detail::end(r).base(),
             detail::to_strength(flags),
             detail::to_case_first(flags),
             detail::to_case_level(flags),
@@ -1453,10 +1453,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         collation_flags flags = collation_flags::none)
     {
         return boost::text::collate(
-            std::begin(r1),
-            std::end(r1),
-            std::begin(r2),
-            std::end(r2),
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2),
+            detail::end(r2),
             table,
             detail::to_strength(flags),
             detail::to_case_first(flags),
@@ -1473,10 +1473,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         collation_flags flags = collation_flags::none)
     {
         return boost::text::collate(
-            std::begin(r1).base(),
-            std::end(r1).base(),
-            std::begin(r2).base(),
-            std::end(r2).base(),
+            detail::begin(r1).base(),
+            detail::end(r1).base(),
+            detail::begin(r2).base(),
+            detail::end(r2).base(),
             table,
             detail::to_strength(flags),
             detail::to_case_first(flags),

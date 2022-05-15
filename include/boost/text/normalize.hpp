@@ -220,7 +220,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<nf Normalization, typename CPRange, typename OutIter>
     OutIter normalize(CPRange && r, OutIter out)
     {
-        return v1::normalize<Normalization>(std::begin(r), std::end(r), out);
+        return v1::normalize<Normalization>(
+            detail::begin(r), detail::end(r), out);
     }
 
     /** Returns true iff the given sequence of code points is in Unicode
@@ -247,7 +248,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<nf Normalization, typename CPRange>
     bool normalized(CPRange && r) noexcept
     {
-        return v1::normalized<Normalization>(std::begin(r), std::end(r));
+        return v1::normalized<Normalization>(detail::begin(r), detail::end(r));
     }
 
 }}}

@@ -72,7 +72,7 @@ provides convenient compatibility with the text layer types, like _t_ and _r_.
 Many of the algorithms and other functions accept null-terminated pointers,
 and treat them as ranges.  This is done to make calling them with string
 literals and other null-terminated strings easier.  A null terminated string
-`s` is isomorphic with the range `[s, boost::text::null_sentinel{})`, and this
+`s` is isomorphic with the range `[s, boost::text::null_sentinel)`, and this
 is what _Text_'s functions treat null-terminated strings as internally.
 
 [heading Memory Allocations]
@@ -263,7 +263,7 @@ range:
         boost::text::as_utf32(str.begin(), str.end());
 
     auto const utf32_range_from_utf8_iter_and_sentinel =
-        boost::text::as_utf32(str.c_str(), boost::text::null_sentinel{});
+        boost::text::as_utf32(str.c_str(), boost::text::null_sentinel);
 
 These functions also support null-terminated strings; you can just pass a
 pointer to `as_utfN()`:

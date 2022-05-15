@@ -35,13 +35,12 @@ namespace boost { namespace text {
         using reference = value_type;
         using iterator_category = std::bidirectional_iterator_tag;
 
-        using iterator_type = I;
-        using sentinel_type = S;
+        using iterator = I;
+        using sentinel = S;
 
 #if !BOOST_TEXT_USE_CONCEPTS
         static_assert(
-            detail::is_cp_iter<I>::value,
-            "I must be a code point iterator");
+            detail::is_cp_iter_v<I>, "I must be a code point iterator");
         static_assert(
             std::is_same<
                 typename std::iterator_traits<I>::iterator_category,
@@ -54,15 +53,11 @@ namespace boost { namespace text {
 #endif
 
         constexpr grapheme_iterator() noexcept :
-            first_(),
-            grapheme_first_(),
-            grapheme_last_(),
-            last_()
+            first_(), grapheme_first_(), grapheme_last_(), last_()
         {}
 
         constexpr grapheme_iterator(
-            iterator_type first, iterator_type it, sentinel_type last) noexcept
-            :
+            iterator first, iterator it, sentinel last) noexcept :
             first_(detail::unpack_iterator_and_sentinel(first, last).f_),
             grapheme_first_(detail::unpack_iterator_and_sentinel(it, last).f_),
             grapheme_last_(detail::unpack_iterator_and_sentinel(
@@ -80,8 +75,8 @@ namespace boost { namespace text {
             typename I2,
             typename S2,
             typename Enable = std::enable_if_t<
-                std::is_convertible<I2, iterator_type>::value &&
-                std::is_convertible<S2, sentinel_type>::value>>
+                std::is_convertible<I2, iterator>::value &&
+                std::is_convertible<S2, sentinel>::value>>
 #endif
         constexpr grapheme_iterator(grapheme_iterator<I2, S2> const & other) :
             // clang-format on
@@ -100,18 +95,18 @@ namespace boost { namespace text {
             return pointer(**this);
         }
 
-        constexpr iterator_type base() const noexcept { return gr_begin(); }
+        constexpr iterator base() const noexcept { return gr_begin(); }
 
         constexpr grapheme_iterator & operator++() noexcept
         {
-            iterator_type next_break =
+            iterator next_break =
                 boost::text::next_grapheme_break(gr_end(), seq_end());
             grapheme_first_ = grapheme_last_;
             grapheme_last_ =
                 detail::unpack_iterator_and_sentinel(next_break, seq_end()).f_;
             return *this;
         }
-        constexpr grapheme_iterator operator++(int)noexcept
+        constexpr grapheme_iterator operator++(int) noexcept
         {
             grapheme_iterator retval = *this;
             ++*this;
@@ -120,14 +115,14 @@ namespace boost { namespace text {
 
         constexpr grapheme_iterator & operator--() noexcept
         {
-            iterator_type prev_break = boost::text::prev_grapheme_break(
+            iterator prev_break = boost::text::prev_grapheme_break(
                 seq_begin(), std::prev(gr_begin()), seq_end());
             grapheme_last_ = grapheme_first_;
             grapheme_first_ =
                 detail::unpack_iterator_and_sentinel(prev_break, seq_end()).f_;
             return *this;
         }
-        constexpr grapheme_iterator operator--(int)noexcept
+        constexpr grapheme_iterator operator--(int) noexcept
         {
             grapheme_iterator retval = *this;
             --*this;
@@ -146,32 +141,30 @@ namespace boost { namespace text {
         }
 
     private:
-        using cu_iterator = decltype(
-            detail::unpack_iterator_and_sentinel(
-                std::declval<iterator_type>(), std::declval<sentinel_type>())
-                .f_);
-        using cu_sentinel = decltype(
-            detail::unpack_iterator_and_sentinel(
-                std::declval<iterator_type>(), std::declval<sentinel_type>())
-                .l_);
+        using cu_iterator =
+            decltype(detail::unpack_iterator_and_sentinel(
+                         std::declval<iterator>(), std::declval<sentinel>())
+                         .f_);
+        using cu_sentinel =
+            decltype(detail::unpack_iterator_and_sentinel(
+                         std::declval<iterator>(), std::declval<sentinel>())
+                         .l_);
 
-        constexpr iterator_type seq_begin() const noexcept
+        constexpr iterator seq_begin() const noexcept
         {
-            return detail::make_iter<iterator_type>(first_, first_, last_);
+            return detail::make_iter<iterator>(first_, first_, last_);
         }
-        constexpr iterator_type gr_begin() const noexcept
+        constexpr iterator gr_begin() const noexcept
         {
-            return detail::make_iter<iterator_type>(
-                first_, grapheme_first_, last_);
+            return detail::make_iter<iterator>(first_, grapheme_first_, last_);
         }
-        constexpr iterator_type gr_end() const noexcept
+        constexpr iterator gr_end() const noexcept
         {
-            return detail::make_iter<iterator_type>(
-                first_, grapheme_last_, last_);
+            return detail::make_iter<iterator>(first_, grapheme_last_, last_);
         }
-        constexpr sentinel_type seq_end() const noexcept
+        constexpr sentinel seq_end() const noexcept
         {
-            return detail::make_iter<sentinel_type>(first_, last_, last_);
+            return detail::make_iter<sentinel>(first_, last_, last_);
         }
 
         cu_iterator first_;
@@ -193,8 +186,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+            std::is_same<Sentinel1, null_sentinel_t>::value !=
+            std::is_same<Sentinel2, null_sentinel_t>::value>>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         grapheme_iterator<Iter1, Sentinel1> const & lhs,
         grapheme_iterator<Iter2, Sentinel2> const & rhs) noexcept
@@ -209,8 +202,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+            std::is_same<Sentinel1, null_sentinel_t>::value !=
+            std::is_same<Sentinel2, null_sentinel_t>::value>>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         grapheme_iterator<Iter1, Sentinel1> const & lhs,
         grapheme_iterator<Iter2, Sentinel2> const & rhs) noexcept

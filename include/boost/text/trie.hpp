@@ -7,6 +7,7 @@
 #define BOOST_TEXT_TRIE_HPP
 
 #include <boost/optional.hpp>
+#include <boost/text/config.hpp>
 #include <boost/text/trie_fwd.hpp>
 #include <boost/algorithm/cxx14/equal.hpp>
 
@@ -419,7 +420,7 @@ namespace boost { namespace text {
             size_(0),
             comp_(comp)
         {
-            insert(std::begin(r), std::end(r));
+            insert(detail::begin(r), detail::end(r));
         }
         trie(std::initializer_list<trie_element<key_type, value_type>> il) :
             size_(0)
@@ -458,8 +459,8 @@ namespace boost { namespace text {
         template<typename KeyRange>
         bool contains(KeyRange const & key) const noexcept
         {
-            auto first = std::begin(key);
-            auto const last = std::end(key);
+            auto first = detail::begin(key);
+            auto const last = detail::end(key);
             auto match = longest_match_impl<false>(first, last);
             return first == last && match.match;
         }
@@ -482,7 +483,7 @@ namespace boost { namespace text {
         template<typename KeyRange>
         match_result longest_subsequence(KeyRange const & key) const noexcept
         {
-            return longest_subsequence(std::begin(key), std::end(key));
+            return longest_subsequence(detail::begin(key), detail::end(key));
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -503,7 +504,7 @@ namespace boost { namespace text {
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
-            return longest_match(std::begin(key), std::end(key));
+            return longest_match(detail::begin(key), detail::end(key));
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -569,8 +570,8 @@ namespace boost { namespace text {
         optional_ref<value_type const> operator[](KeyRange const & key) const
             noexcept
         {
-            auto first = std::begin(key);
-            auto const last = std::end(key);
+            auto first = detail::begin(key);
+            auto const last = detail::end(key);
             auto match = longest_match_impl<false>(first, last);
             if (first != last || !match.match)
                 return {};
@@ -603,8 +604,8 @@ namespace boost { namespace text {
         template<typename KeyRange>
         optional_ref<value_type> operator[](KeyRange const & key) noexcept
         {
-            auto first = std::begin(key);
-            auto const last = std::end(key);
+            auto first = detail::begin(key);
+            auto const last = detail::end(key);
             auto match = longest_match_impl<false>(first, last);
             if (first != last || !match.match)
                 return {};
@@ -653,7 +654,8 @@ namespace boost { namespace text {
         template<typename KeyRange>
         bool insert(KeyRange const & key, Value value)
         {
-            return insert(std::begin(key), std::end(key), std::move(value));
+            return insert(
+                detail::begin(key), detail::end(key), std::move(value));
         }
 
         template<typename Char, std::size_t N>
@@ -688,7 +690,7 @@ namespace boost { namespace text {
         template<typename Range>
         bool insert(Range const & r)
         {
-            return insert(std::begin(r), std::end(r));
+            return insert(detail::begin(r), detail::end(r));
         }
 
         /** Inserts the sequence of key/value pairs `il` into *this. */
@@ -725,7 +727,8 @@ namespace boost { namespace text {
         template<typename KeyRange>
         void insert_or_assign(KeyRange const & key, Value value)
         {
-            insert_or_assign(std::begin(key), std::end(key), std::move(value));
+            insert_or_assign(
+                detail::begin(key), detail::end(key), std::move(value));
         }
 
         /** Erases the key/value pair associated with `key` from *this.
@@ -733,8 +736,8 @@ namespace boost { namespace text {
         template<typename KeyRange>
         bool erase(KeyRange const & key)
         {
-            auto first = std::begin(key);
-            auto const last = std::end(key);
+            auto first = detail::begin(key);
+            auto const last = detail::end(key);
             auto match = longest_match_impl<false>(first, last);
             if (first != last || !match.match)
                 return false;

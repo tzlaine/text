@@ -67,10 +67,10 @@ namespace boost { namespace text { namespace detail {
     {
         static constexpr auto call(R & r) noexcept
             -> decltype(detail::as_utf32_no_sentinel_or_terminator(
-                std::begin(r), std::end(r)))
+                detail::begin(r), detail::end(r)))
         {
             return detail::as_utf32_no_sentinel_or_terminator(
-                std::begin(r), std::end(r));
+                detail::begin(r), detail::end(r));
         }
     };
 
@@ -320,7 +320,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto r1_ = detail::as_utf32_no_terminator(r1);
         auto r2_ = detail::as_utf32_no_terminator(r2);
         return dtl::find(
-            std::begin(r1_), std::end(r1_), std::begin(r2_), std::end(r2_));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
 
     template<typename Range1, typename Range2>
@@ -333,7 +336,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
         auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
         return dtl::rfind(
-            std::begin(r1_), std::end(r1_), std::begin(r2_), std::end(r2_));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
 
     template<typename Range1, typename Range2>
@@ -346,7 +352,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto r1_ = detail::as_utf32_no_terminator(r1);
         auto r2_ = detail::as_utf32_no_terminator(r2);
         return dtl::find_first_of(
-            std::begin(r1_), std::end(r1_), std::begin(r2_), std::end(r2_));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
 
     template<typename Range1, typename Range2>
@@ -359,7 +368,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
         auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
         return dtl::find_last_of(
-            std::begin(r1_), std::end(r1_), std::begin(r2_), std::end(r2_));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
 
     template<typename Range1, typename Range2>
@@ -372,7 +384,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto r1_ = detail::as_utf32_no_terminator(r1);
         auto r2_ = detail::as_utf32_no_terminator(r2);
         return dtl::find_first_not_of(
-            std::begin(r1_), std::end(r1_), std::begin(r2_), std::end(r2_));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
 
     template<typename Range1, typename Range2>
@@ -385,7 +400,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
         auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
         return dtl::find_last_not_of(
-            std::begin(r1_), std::end(r1_), std::begin(r2_), std::end(r2_));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
 
     template<typename Range1, typename Range2>
@@ -395,7 +413,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto r1_ = detail::as_utf32_no_terminator(r1);
         auto r2_ = detail::as_utf32_no_terminator(r2);
         return dtl::starts_with(
-            std::begin(r1_), std::end(r1_), std::begin(r2_), std::end(r2_));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
 
     template<typename Range1, typename Range2>
@@ -405,7 +426,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
         auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
         return dtl::ends_with(
-            std::begin(r1_), std::end(r1_), std::begin(r2_), std::end(r2_));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
 
     template<typename Range1, typename Range2>
@@ -415,7 +439,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto r1_ = detail::as_utf32_no_terminator(r1);
         auto r2_ = detail::as_utf32_no_terminator(r2);
         return dtl::contains(
-            std::begin(r1_), std::end(r1_), std::begin(r2_), std::end(r2_));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
 
     // Grapheme iterator overloads.
@@ -590,7 +617,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             GraphemeRange2>
     {
         return dtl::find(
-            std::begin(r1), std::end(r1), std::begin(r2), std::end(r2));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2),
+            detail::end(r2));
     }
     template<typename GraphemeRange, typename Range>
     auto find(GraphemeRange && r1, Range && r2)
@@ -602,7 +632,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r2_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
         return dtl::find(
-            std::begin(r1), std::end(r1), std::begin(r2_), std::end(r2_));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
     template<typename Range, typename GraphemeRange>
     auto find(Range && r1, GraphemeRange && r2)
@@ -614,7 +647,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r1_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
         return dtl::find(
-            std::begin(r1_), std::end(r1_), std::begin(r2), std::end(r2));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2),
+            detail::end(r2));
     }
 
     template<typename GraphemeRange1, typename GraphemeRange2>
@@ -625,7 +661,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             GraphemeRange2>
     {
         return dtl::rfind(
-            std::begin(r1), std::end(r1), std::begin(r2), std::end(r2));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2),
+            detail::end(r2));
     }
     template<typename GraphemeRange, typename Range>
     auto rfind(GraphemeRange && r1, Range && r2)
@@ -637,7 +676,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r2_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r2));
         return dtl::rfind(
-            std::begin(r1), std::end(r1), std::begin(r2_), std::end(r2_));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
     template<typename Range, typename GraphemeRange>
     auto rfind(Range && r1, GraphemeRange && r2)
@@ -649,7 +691,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r1_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r1));
         return dtl::rfind(
-            std::begin(r1_), std::end(r1_), std::begin(r2), std::end(r2));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2),
+            detail::end(r2));
     }
 
     template<typename GraphemeRange1, typename GraphemeRange2>
@@ -660,7 +705,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             GraphemeRange2>
     {
         return dtl::find_first_of(
-            std::begin(r1), std::end(r1), std::begin(r2), std::end(r2));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2),
+            detail::end(r2));
     }
     template<typename GraphemeRange, typename Range>
     auto find_first_of(GraphemeRange && r1, Range && r2)
@@ -672,7 +720,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r2_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
         return dtl::find_first_of(
-            std::begin(r1), std::end(r1), std::begin(r2_), std::end(r2_));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
     template<typename Range, typename GraphemeRange>
     auto find_first_of(Range && r1, GraphemeRange && r2)
@@ -684,7 +735,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r1_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
         return dtl::find_first_of(
-            std::begin(r1_), std::end(r1_), std::begin(r2), std::end(r2));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2),
+            detail::end(r2));
     }
 
     template<typename GraphemeRange1, typename GraphemeRange2>
@@ -695,7 +749,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             GraphemeRange2>
     {
         return dtl::find_last_of(
-            std::begin(r1), std::end(r1), std::begin(r2), std::end(r2));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2),
+            detail::end(r2));
     }
     template<typename GraphemeRange, typename Range>
     auto find_last_of(GraphemeRange && r1, Range && r2)
@@ -707,7 +764,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r2_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r2));
         return dtl::find_last_of(
-            std::begin(r1), std::end(r1), std::begin(r2_), std::end(r2_));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
     template<typename Range, typename GraphemeRange>
     auto find_last_of(Range && r1, GraphemeRange && r2)
@@ -719,7 +779,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r1_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r1));
         return dtl::find_last_of(
-            std::begin(r1_), std::end(r1_), std::begin(r2), std::end(r2));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2),
+            detail::end(r2));
     }
 
     template<typename GraphemeRange1, typename GraphemeRange2>
@@ -730,7 +793,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             GraphemeRange2>
     {
         return dtl::find_first_not_of(
-            std::begin(r1), std::end(r1), std::begin(r2), std::end(r2));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2),
+            detail::end(r2));
     }
     template<typename GraphemeRange, typename Range>
     auto find_first_not_of(GraphemeRange && r1, Range && r2)
@@ -742,7 +808,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r2_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
         return dtl::find_first_not_of(
-            std::begin(r1), std::end(r1), std::begin(r2_), std::end(r2_));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
     template<typename Range, typename GraphemeRange>
     auto find_first_not_of(Range && r1, GraphemeRange && r2)
@@ -754,7 +823,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r1_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
         return dtl::find_first_not_of(
-            std::begin(r1_), std::end(r1_), std::begin(r2), std::end(r2));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2),
+            detail::end(r2));
     }
 
     template<typename GraphemeRange1, typename GraphemeRange2>
@@ -765,7 +837,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             GraphemeRange2>
     {
         return dtl::find_last_not_of(
-            std::begin(r1), std::end(r1), std::begin(r2), std::end(r2));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2),
+            detail::end(r2));
     }
     template<typename GraphemeRange, typename Range>
     auto find_last_not_of(GraphemeRange && r1, Range && r2)
@@ -777,7 +852,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r2_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r2));
         return dtl::find_last_not_of(
-            std::begin(r1), std::end(r1), std::begin(r2_), std::end(r2_));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
     template<typename Range, typename GraphemeRange>
     auto find_last_not_of(Range && r1, GraphemeRange && r2)
@@ -789,7 +867,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r1_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r1));
         return dtl::find_last_not_of(
-            std::begin(r1_), std::end(r1_), std::begin(r2), std::end(r2));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2),
+            detail::end(r2));
     }
 
     template<typename GraphemeRange1, typename GraphemeRange2>
@@ -797,7 +878,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         ->detail::graph_rngs_alg_ret_t<bool, GraphemeRange1, GraphemeRange2>
     {
         return dtl::starts_with(
-            std::begin(r1), std::end(r1), std::begin(r2), std::end(r2));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2),
+            detail::end(r2));
     }
     template<typename GraphemeRange, typename Range>
     auto starts_with(GraphemeRange && r1, Range && r2)
@@ -806,7 +890,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r2_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r2));
         return dtl::starts_with(
-            std::begin(r1), std::end(r1), std::begin(r2_), std::end(r2_));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
     template<typename Range, typename GraphemeRange>
     auto starts_with(Range && r1, GraphemeRange && r2)
@@ -815,7 +902,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r1_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r1));
         return dtl::starts_with(
-            std::begin(r1_), std::end(r1_), std::begin(r2), std::end(r2));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2),
+            detail::end(r2));
     }
 
     template<typename GraphemeRange1, typename GraphemeRange2>
@@ -823,7 +913,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         ->detail::graph_rngs_alg_ret_t<bool, GraphemeRange1, GraphemeRange2>
     {
         return dtl::ends_with(
-            std::begin(r1), std::end(r1), std::begin(r2), std::end(r2));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2),
+            detail::end(r2));
     }
     template<typename GraphemeRange, typename Range>
     auto ends_with(GraphemeRange && r1, Range && r2)
@@ -832,7 +925,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r2_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r2));
         return dtl::ends_with(
-            std::begin(r1), std::end(r1), std::begin(r2_), std::end(r2_));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
     template<typename Range, typename GraphemeRange>
     auto ends_with(Range && r1, GraphemeRange && r2)
@@ -841,7 +937,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r1_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r1));
         return dtl::ends_with(
-            std::begin(r1_), std::end(r1_), std::begin(r2), std::end(r2));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2),
+            detail::end(r2));
     }
 
     template<typename GraphemeRange1, typename GraphemeRange2>
@@ -849,7 +948,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         ->detail::graph_rngs_alg_ret_t<bool, GraphemeRange1, GraphemeRange2>
     {
         return dtl::contains(
-            std::begin(r1), std::end(r1), std::begin(r2), std::end(r2));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2),
+            detail::end(r2));
     }
     template<typename GraphemeRange, typename Range>
     auto contains(GraphemeRange && r1, Range && r2)
@@ -858,7 +960,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r2_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
         return dtl::contains(
-            std::begin(r1), std::end(r1), std::begin(r2_), std::end(r2_));
+            detail::begin(r1),
+            detail::end(r1),
+            detail::begin(r2_),
+            detail::end(r2_));
     }
     template<typename Range, typename GraphemeRange>
     auto contains(Range && r1, GraphemeRange && r2)
@@ -867,9 +972,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         auto const r1_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
         return dtl::contains(
-            std::begin(r1_), std::end(r1_), std::begin(r2), std::end(r2));
+            detail::begin(r1_),
+            detail::end(r1_),
+            detail::begin(r2),
+            detail::end(r2));
     }
-
 }}}
 
 #if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS

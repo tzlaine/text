@@ -9,7 +9,7 @@
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_view.hpp>
-#include <boost/text/detail/pipeable_view.hpp>
+#include <boost/text/view_adaptor.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
@@ -107,8 +107,32 @@ namespace boost { namespace text {
 
     private:
         iterator first_;
-        sentinel last_;
+        [[no_unique_address]] sentinel last_;
     };
+
+#if defined(__cpp_deduction_guides)
+#if BOOST_TEXT_USE_CONCEPTS
+    template<code_point_iter I, std::sentinel_for<I> S>
+#else
+    template<typename I, typename S>
+#endif
+    grapheme_view(grapheme_iterator<I, S>, grapheme_iterator<I, S>)
+        -> grapheme_view<I, S>;
+
+#if BOOST_TEXT_USE_CONCEPTS
+    template<code_point_iter I, std::sentinel_for<I> S>
+#else
+    template<typename I, typename S>
+#endif
+    grapheme_view(grapheme_iterator<I, S>, S) -> grapheme_view<I, S>;
+
+#if BOOST_TEXT_USE_CONCEPTS
+    template<code_point_iter I, std::sentinel_for<I> S>
+#else
+    template<typename I, typename S>
+#endif
+    grapheme_view(I, S) -> grapheme_view<I, S>;
+#endif
 
 }}
 
@@ -122,7 +146,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     constexpr auto as_graphemes(Iter first, Sentinel last) noexcept;
 
     /** Returns a `grapheme_view` over the data in `r`, transcoding the data
-        if necessary. */
+        if necessary.  If `std::remove_reference_t<R>` is not a pointer, the
+        result is returned as a `borrowed_view_t` (C++20 and later only). */
     template<typename Range>
     constexpr auto as_graphemes(Range && r) noexcept;
 
@@ -132,9 +157,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         template<
             typename Range,
             bool Pointer =
-                detail::char_ptr<std::remove_reference_t<Range>>::value ||
-                detail::_16_ptr<std::remove_reference_t<Range>>::value ||
-                detail::cp_ptr<std::remove_reference_t<Range>>::value>
+                detail::is_char_ptr_v<std::remove_reference_t<Range>> ||
+                detail::is_16_ptr_v<std::remove_reference_t<Range>> ||
+                detail::is_cp_ptr_v<std::remove_reference_t<Range>>>
         struct as_graphemes_dispatch
         {
             static constexpr auto call(Range && r_) noexcept
@@ -151,12 +176,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             static constexpr auto call(Ptr p) noexcept
             {
                 auto r = boost::text::as_utf32(p);
-                return grapheme_view<decltype(r.begin()), null_sentinel>(
-                    r.begin(), null_sentinel{});
+                return grapheme_view<decltype(r.begin()), null_sentinel_t>(
+                    r.begin(), null_sentinel);
             }
         };
 
-        struct as_graphemes_impl : detail::pipeable<as_graphemes_impl>
+        struct as_graphemes_impl : range_adaptor_closure<as_graphemes_impl>
         {
             template<typename Iter, typename Sentinel>
             constexpr auto operator()(Iter first, Sentinel last) const noexcept
@@ -194,7 +219,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     namespace dtl {
-        struct as_graphemes_impl : detail::pipeable<as_graphemes_impl>
+        struct as_graphemes_impl : range_adaptor_closure<as_graphemes_impl>
         {
             template<utf_iter I, std::sentinel_for<I> S>
             constexpr auto operator()(I first, S last) const noexcept
@@ -210,11 +235,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<utf_range_like R>
             constexpr auto operator()(R && r) const noexcept
             {
-                auto intermediate = boost::text::as_utf32(r);
-                return grapheme_view<
-                    std::ranges::iterator_t<decltype(intermediate)>,
-                    std::ranges::sentinel_t<decltype(intermediate)>>(
-                    intermediate.begin(), intermediate.end());
+                if constexpr (
+                    !std::is_pointer_v<std::remove_reference_t<R>> &&
+                    !std::ranges::borrowed_range<R>) {
+                    return std::ranges::dangling{};
+                } else {
+                    auto intermediate = boost::text::as_utf32(r);
+                    return grapheme_view<
+                        std::ranges::iterator_t<decltype(intermediate)>,
+                        std::ranges::sentinel_t<decltype(intermediate)>>(
+                        intermediate.begin(), intermediate.end());
+                }
             }
         };
     }

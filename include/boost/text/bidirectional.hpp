@@ -11,6 +11,7 @@
 #include <boost/text/grapheme_break.hpp>
 #include <boost/text/line_break.hpp>
 #include <boost/text/paragraph_break.hpp>
+#include <boost/text/subrange.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 #include <boost/text/detail/bidirectional.hpp>
 #include <boost/text/detail/iterator.hpp>
@@ -240,30 +241,18 @@ namespace boost { namespace text {
 
         template<typename CPIter>
         struct level_run
+            : subrange<typename props_and_embeddings_t<CPIter>::iterator>
         {
             using iterator = typename props_and_embeddings_t<CPIter>::iterator;
-            using const_iterator =
-                typename props_and_embeddings_t<CPIter>::const_iterator;
 
             level_run(iterator first, iterator last, bool used) :
-                first_(first),
-                last_(last),
-                used_(used)
+                subrange<iterator>(first, last), used_(used)
             {}
 
             bool used() const noexcept { return used_; }
-
-            const_iterator begin() const noexcept { return first_; }
-            const_iterator end() const noexcept { return last_; }
-
-            iterator begin() noexcept { return first_; }
-            iterator end() noexcept { return last_; }
-
             bool use() noexcept { return used_ = true; }
 
         private:
-            iterator first_;
-            iterator last_;
             bool used_;
         };
 
@@ -276,13 +265,13 @@ namespace boost { namespace text {
                                   std::bidirectional_iterator_tag,
                                   prop_and_embedding_t<CPIter>>
         {
+            run_seq_iter() = default;
+
             run_seq_iter(
                 typename level_run<CPIter>::iterator it,
                 typename run_seq_runs_t<CPIter>::iterator runs_it,
                 typename run_seq_runs_t<CPIter>::iterator runs_end) :
-                it_(it),
-                runs_it_(runs_it),
-                runs_end_(runs_end)
+                it_(it), runs_it_(runs_it), runs_end_(runs_end)
             {}
 
             run_seq_iter & operator++() noexcept
@@ -727,28 +716,18 @@ namespace boost { namespace text {
 
         template<typename CPIter>
         struct bracket_pair
+            : subrange<typename run_sequence_t<CPIter>::iterator>
         {
             using iterator = typename run_sequence_t<CPIter>::iterator;
 
             bracket_pair(iterator first, iterator last) :
-                first_(first),
-                last_(last)
+                subrange<iterator>(first, last)
             {}
-
-            iterator begin() const noexcept { return first_; }
-            iterator end() const noexcept { return last_; }
-
-            iterator begin() noexcept { return first_; }
-            iterator end() noexcept { return last_; }
 
             friend bool operator<(bracket_pair lhs, bracket_pair rhs)
             {
-                return lhs.first_.base() < rhs.first_.base();
+                return lhs.begin().base() < rhs.begin().base();
             }
-
-        private:
-            iterator first_;
-            iterator last_;
         };
 
         template<typename CPIter>
@@ -1094,35 +1073,28 @@ namespace boost { namespace text {
 
         template<typename CPIter>
         struct reordered_run
+            : subrange<typename props_and_embeddings_t<CPIter>::iterator>
         {
             using iterator = typename props_and_embeddings_t<CPIter>::iterator;
-            using reverse_iterator = stl_interfaces::reverse_iterator<
-                typename props_and_embeddings_t<CPIter>::iterator>;
 
             reordered_run(iterator first, iterator last, bool reversed) :
-                first_(first),
-                last_(last),
-                reversed_(reversed)
+                subrange<iterator>(first, last), reversed_(reversed)
             {}
 
             bool reversed() const noexcept { return reversed_; }
-            int embedding() const noexcept { return first_->embedding_; }
+            int embedding() const noexcept { return this->begin()->embedding_; }
             void reverse() noexcept { reversed_ = !reversed_; }
 
-            iterator begin() const noexcept { return first_; }
-            iterator end() const noexcept { return last_; }
-            reverse_iterator rbegin() const noexcept
+            auto rbegin() const noexcept
             {
-                return stl_interfaces::make_reverse_iterator(last_);
+                return stl_interfaces::make_reverse_iterator(this->end());
             }
-            reverse_iterator rend() const noexcept
+            auto rend() const noexcept
             {
-                return stl_interfaces::make_reverse_iterator(first_);
+                return stl_interfaces::make_reverse_iterator(this->begin());
             }
 
         private:
-            iterator first_;
-            iterator last_;
             bool reversed_;
         };
 
@@ -1421,12 +1393,12 @@ namespace boost { namespace text {
         according to the Unicode line break algorithm.  This is the output
         type for the code point overloads of bidirectional_subranges(). */
     template<typename CPIter>
-    struct bidirectional_cp_subrange
+    struct bidirectional_cp_subrange : subrange<detail::fwd_rev_cp_iter<CPIter>>
     {
         using iterator = detail::fwd_rev_cp_iter<CPIter>;
 
         static_assert(
-            detail::is_cp_iter<CPIter>::value,
+            detail::is_cp_iter_v<CPIter>,
             "CPIter must be a code point iterator");
 
         bidirectional_cp_subrange() noexcept :
@@ -1437,9 +1409,7 @@ namespace boost { namespace text {
             iterator last,
             detail::bidi_line_break_kind b =
                 detail::bidi_line_break_kind::none) noexcept :
-            first_(first),
-            last_(last),
-            break_(b)
+            subrange<iterator>(first, last), break_(b)
         {}
 
         /** Returns true if this subrange ends with some kind of line
@@ -1461,13 +1431,7 @@ namespace boost { namespace text {
             return break_ == detail::bidi_line_break_kind::allowed;
         }
 
-        bool empty() const noexcept { return first_ == last_; }
-        iterator begin() const noexcept { return first_; }
-        iterator end() const noexcept { return last_; }
-
     private:
-        iterator first_;
-        iterator last_;
         detail::bidi_line_break_kind break_;
     };
 
@@ -1478,11 +1442,12 @@ namespace boost { namespace text {
         type for the grapheme overloads of bidirectional_subranges(). */
     template<typename CPIter>
     struct bidirectional_grapheme_subrange
+        : subrange<detail::fwd_rev_grapheme_iter<CPIter>>
     {
         using iterator = detail::fwd_rev_grapheme_iter<CPIter>;
 
         static_assert(
-            detail::is_cp_iter<CPIter>::value,
+            detail::is_cp_iter_v<CPIter>,
             "CPIter must be a code point iterator");
 
         bidirectional_grapheme_subrange() noexcept :
@@ -1493,17 +1458,15 @@ namespace boost { namespace text {
             iterator last,
             detail::bidi_line_break_kind b =
                 detail::bidi_line_break_kind::none) noexcept :
-            first_(first),
-            last_(last),
-            break_(b)
+            subrange<iterator>(first, last), break_(b)
         {}
         bidirectional_grapheme_subrange(
             detail::fwd_rev_cp_iter<CPIter> first,
             detail::fwd_rev_cp_iter<CPIter> last,
             detail::bidi_line_break_kind b =
                 detail::bidi_line_break_kind::none) noexcept :
-            first_(first, first, last),
-            last_(first, last, last),
+            subrange<iterator>(
+                iterator(first, first, last), iterator(first, last, last)),
             break_(b)
         {}
 
@@ -1526,13 +1489,7 @@ namespace boost { namespace text {
             return break_ == detail::bidi_line_break_kind::allowed;
         }
 
-        bool empty() const noexcept { return first_ == last_; }
-        iterator begin() const noexcept { return first_; }
-        iterator end() const noexcept { return last_; }
-
     private:
-        iterator first_;
-        iterator last_;
         detail::bidi_line_break_kind break_;
     };
 
@@ -2617,9 +2574,10 @@ namespace boost { namespace text {
     /** Represents a range of non-overlapping subranges.  Each subrange is a
         sequence of code points that are all in a consistent direction
         (left-to-right or right-to-left).  Each subrange is lazily produced;
-        an output subrange is not produced until a lazy range iterator is
-        dereferenced.  If C++20 coroutines are available (determined by
-        whether `__cpp_coroutines` is defined), `lazy_bidi_segment_range` will
+        an output subrange is not produced until an iterator is dereferenced.
+        If C++20 coroutines are available (determined by whether
+        `__cpp_impl_coroutine` and `__cpp_lib_coroutine` are defined, and the
+        value of `BOOST_TEXT_USE_COROUTINES`), `lazy_bidi_segment_range` will
         be an alias for a generator of `ResultType` elements. */
     template<
         typename CPIter,
@@ -2656,7 +2614,7 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns a lazy range of code point subranges in `[first, last)`; each
+    /** Returns a view of code point subranges in `[first, last)`; each
         subrange is one of three kinds: a forward-subrange; a
         reverse-subrange; or a one-code-point subrange used to subtitute a
         reversed bracketing code point (e.g. `'['`) for its couterpart
@@ -2681,8 +2639,8 @@ namespace boost { namespace text {
     detail::unspecified bidirectional_subranges(
         CPIter first, Sentinel last, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of code point subranges in `range`; each subrange
-        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+    /** Returns a view of code point subranges in `range`; each subrange is
+        one of three kinds: a forward-subrange; a reverse-subrange; or a
         one-code-point subrange used to subtitute a reversed bracketing code
         point (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
         iterator type used in the resulting subranges, so this distinction is
@@ -2709,8 +2667,8 @@ namespace boost { namespace text {
     detail::unspecified bidirectional_subranges(
         CPRange && range, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of grapheme subranges in `range`; each subrange
-        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+    /** Returns a view of grapheme subranges in `range`; each subrange is one
+        of three kinds: a forward-subrange; a reverse-subrange; or a
         one-grapheme subrange used to subtitute a reversed bracketing grapheme
         (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
         iterator type used in the resulting subranges, so this distinction is
@@ -2737,7 +2695,7 @@ namespace boost { namespace text {
     detail::unspecified bidirectional_subranges(
         GraphemeRange && range, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of code point subranges in `[first, last)`; each
+    /** Returns a view of code point subranges in `[first, last)`; each
         subrange is one of three kinds: a forward-subrange; a
         reverse-subrange; or a one-code-point subrange used to subtitute a
         reversed bracketing code point (e.g. `'['`) for its couterpart
@@ -2777,8 +2735,8 @@ namespace boost { namespace text {
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true);
 
-    /** Returns a lazy range of code point subranges in `range`; each subrange
-        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+    /** Returns a view of code point subranges in `range`; each subrange is
+        one of three kinds: a forward-subrange; a reverse-subrange; or a
         one-code-point subrange used to subtitute a reversed bracketing code
         point (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
         iterator type used in the resulting subranges, so this distinction is
@@ -2815,8 +2773,8 @@ namespace boost { namespace text {
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true);
 
-    /** Returns a lazy range of grapheme subranges in `range`; each subrange
-        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+    /** Returns a view of grapheme subranges in `range`; each subrange is one
+        of three kinds: a forward-subrange; a reverse-subrange; or a
         one-grapheme subrange used to subtitute a reversed bracketing grapheme
         (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
         iterator type used in the resulting subranges, so this distinction is
@@ -2884,9 +2842,14 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<
             bidirectional_cp_subrange<detail::iterator_t<CPRange>>>(
-            std::begin(range), std::end(range), paragraph_embedding_level);
+            detail::begin(range),
+            detail::end(range),
+            paragraph_embedding_level);
 #else
-        return {std::begin(range), std::end(range), paragraph_embedding_level};
+        return {
+            detail::begin(range),
+            detail::end(range),
+            paragraph_embedding_level};
 #endif
     }
 
@@ -2895,15 +2858,15 @@ namespace boost { namespace text {
         GraphemeRange && range, int paragraph_embedding_level = -1)
         -> detail::graph_rng_alg_ret_t<
             lazy_bidi_segment_range<
-                typename detail::iterator_t<GraphemeRange const>::iterator_type,
-                typename detail::iterator_t<GraphemeRange const>::iterator_type,
+                typename detail::iterator_t<GraphemeRange const>::iterator,
+                typename detail::iterator_t<GraphemeRange const>::iterator,
                 bidirectional_grapheme_subrange<typename detail::iterator_t<
-                    GraphemeRange const>::iterator_type>>,
+                    GraphemeRange const>::iterator>>,
             GraphemeRange>
     {
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<bidirectional_grapheme_subrange<
-            typename detail::iterator_t<GraphemeRange const>::iterator_type>>(
+            typename detail::iterator_t<GraphemeRange const>::iterator>>(
             range.begin().base(),
             range.end().base(),
             paragraph_embedding_level);
@@ -2968,13 +2931,13 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<
             bidirectional_cp_subrange<detail::iterator_t<CPRange>>>(
-            std::begin(range),
-            std::end(range),
+            detail::begin(range),
+            detail::end(range),
             paragraph_embedding_level,
             std::move(next));
 #else
-        return {std::begin(range),
-                std::end(range),
+        return {detail::begin(range),
+                detail::end(range),
                 paragraph_embedding_level,
                 std::move(next)};
 #endif
@@ -2989,10 +2952,10 @@ namespace boost { namespace text {
         bool break_overlong_lines = true)
         -> detail::graph_rng_alg_ret_t<
             lazy_bidi_segment_range<
-                typename detail::iterator_t<GraphemeRange const>::iterator_type,
-                typename detail::iterator_t<GraphemeRange const>::iterator_type,
+                typename detail::iterator_t<GraphemeRange const>::iterator,
+                typename detail::iterator_t<GraphemeRange const>::iterator,
                 bidirectional_grapheme_subrange<typename detail::iterator_t<
-                    GraphemeRange const>::iterator_type>,
+                    GraphemeRange const>::iterator>,
                 detail::next_allowed_line_break_within_extent_callable<
                     Extent,
                     CPExtentFunc>>,
@@ -3003,7 +2966,7 @@ namespace boost { namespace text {
                 next{max_extent, std::move(cp_extent), break_overlong_lines};
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<bidirectional_grapheme_subrange<
-            typename detail::iterator_t<GraphemeRange const>::iterator_type>>(
+            typename detail::iterator_t<GraphemeRange const>::iterator>>(
             range.begin().base(),
             range.end().base(),
             paragraph_embedding_level,

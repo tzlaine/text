@@ -288,7 +288,7 @@ namespace boost { namespace text { namespace detail {
         bool contains(KeyRange const & key) const noexcept
         {
             static_assert(std::is_same<
-                          std::decay_t<decltype(*std::begin(key))>,
+                          std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
             return impl_.contains(boost::text::as_utf16(key));
         }
@@ -340,7 +340,7 @@ namespace boost { namespace text { namespace detail {
         operator[](KeyRange const & key) const noexcept
         {
             static_assert(std::is_same<
-                          std::decay_t<decltype(*std::begin(key))>,
+                          std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
             return impl_[boost::text::as_utf16(key)];
         }
@@ -361,7 +361,7 @@ namespace boost { namespace text { namespace detail {
         bool insert(KeyRange const & key, value_type value)
         {
             static_assert(std::is_same<
-                          std::decay_t<decltype(*std::begin(key))>,
+                          std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
             return impl_.insert(
                 boost::text::as_utf16(key), std::move(value));
@@ -380,7 +380,7 @@ namespace boost { namespace text { namespace detail {
         void insert_or_assign(KeyRange const & key, value_type value)
         {
             static_assert(std::is_same<
-                          std::decay_t<decltype(*std::begin(key))>,
+                          std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
             return impl_.insert_or_assign(
                 boost::text::as_utf16(key), std::move(value));

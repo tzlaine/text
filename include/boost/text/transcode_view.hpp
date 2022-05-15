@@ -9,8 +9,8 @@
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/concepts.hpp>
 #include <boost/text/dangling.hpp>
-#include <boost/text/detail/pipeable_view.hpp>
 #include <boost/text/detail/unpack.hpp>
+#include <boost/text/view_adaptor.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
@@ -215,7 +215,7 @@ namespace boost { namespace text {
                                         .l_);
 
         iterator_t first_;
-        sentinel_t last_;
+        [[no_unique_address]] sentinel_t last_;
     };
 
     /** A view over UTF-16 code units. */
@@ -283,7 +283,7 @@ namespace boost { namespace text {
                                         .l_);
 
         iterator_t first_;
-        sentinel_t last_;
+        [[no_unique_address]] sentinel_t last_;
     };
 
     /** A view over UTF-32 code units. */
@@ -349,7 +349,7 @@ namespace boost { namespace text {
                                         .l_);
 
         iterator_t first_;
-        sentinel_t last_;
+        [[no_unique_address]] sentinel_t last_;
     };
 
 }}
@@ -361,15 +361,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             typename Impl,
             typename Range,
             bool Pointer =
-                detail::char_ptr<std::remove_reference_t<Range>>::value ||
-                detail::_16_ptr<std::remove_reference_t<Range>>::value ||
-                detail::cp_ptr<std::remove_reference_t<Range>>::value>
+                detail::is_char_ptr_v<std::remove_reference_t<Range>> ||
+                detail::is_16_ptr_v<std::remove_reference_t<Range>> ||
+                detail::is_cp_ptr_v<std::remove_reference_t<Range>>>
         struct as_utf8_dispatch
         {
-            static constexpr auto call(Range r) noexcept
-                -> decltype(Impl{}(std::begin(r), std::end(r)))
+            static constexpr auto call(Range && r) noexcept
+                -> decltype(Impl{}(detail::begin(r), detail::end(r)))
             {
-                return Impl{}(std::begin(r), std::end(r));
+                return Impl{}(detail::begin(r), detail::end(r));
             }
         };
 
@@ -377,13 +377,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf8_dispatch<Impl, Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
-                -> decltype(Impl{}(p, null_sentinel{}))
+                -> decltype(Impl{}(p, null_sentinel))
             {
-                return Impl{}(p, null_sentinel{});
+                return Impl{}(p, null_sentinel);
             }
         };
 
-        struct as_utf8_impl : detail::pipeable<as_utf8_impl>
+        struct as_utf8_impl : range_adaptor_closure<as_utf8_impl>
         {
             template<typename Iter, typename Sentinel>
             constexpr auto operator()(Iter first, Sentinel last) const noexcept
@@ -419,15 +419,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             typename Impl,
             typename Range,
             bool Pointer =
-                detail::char_ptr<std::remove_reference_t<Range>>::value ||
-                detail::_16_ptr<std::remove_reference_t<Range>>::value ||
-                detail::cp_ptr<std::remove_reference_t<Range>>::value>
+                detail::is_char_ptr_v<std::remove_reference_t<Range>> ||
+                detail::is_16_ptr_v<std::remove_reference_t<Range>> ||
+                detail::is_cp_ptr_v<std::remove_reference_t<Range>>>
         struct as_utf16_dispatch
         {
-            static constexpr auto call(Range r) noexcept
-                -> decltype(Impl{}(std::begin(r), std::end(r)))
+            static constexpr auto call(Range && r) noexcept
+                -> decltype(Impl{}(detail::begin(r), detail::end(r)))
             {
-                return Impl{}(std::begin(r), std::end(r));
+                return Impl{}(detail::begin(r), detail::end(r));
             }
         };
 
@@ -435,13 +435,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf16_dispatch<Impl, Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
-                -> decltype(Impl{}(p, null_sentinel{}))
+                -> decltype(Impl{}(p, null_sentinel))
             {
-                return Impl{}(p, null_sentinel{});
+                return Impl{}(p, null_sentinel);
             }
         };
 
-        struct as_utf16_impl : detail::pipeable<as_utf16_impl>
+        struct as_utf16_impl : range_adaptor_closure<as_utf16_impl>
         {
             template<typename Iter, typename Sentinel>
             constexpr auto operator()(Iter first, Sentinel last) const noexcept
@@ -477,15 +477,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             typename Impl,
             typename Range,
             bool Pointer =
-                detail::char_ptr<std::remove_reference_t<Range>>::value ||
-                detail::_16_ptr<std::remove_reference_t<Range>>::value ||
-                detail::cp_ptr<std::remove_reference_t<Range>>::value>
+                detail::is_char_ptr_v<std::remove_reference_t<Range>> ||
+                detail::is_16_ptr_v<std::remove_reference_t<Range>> ||
+                detail::is_cp_ptr_v<std::remove_reference_t<Range>>>
         struct as_utf32_dispatch
         {
-            static constexpr auto call(Range r) noexcept
-                -> decltype(Impl{}(std::begin(r), std::end(r)))
+            static constexpr auto call(Range && r) noexcept
+                -> decltype(Impl{}(detail::begin(r), detail::end(r)))
             {
-                return Impl{}(std::begin(r), std::end(r));
+                return Impl{}(detail::begin(r), detail::end(r));
             }
         };
 
@@ -493,13 +493,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf32_dispatch<Impl, Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
-                -> decltype(Impl{}(p, null_sentinel{}))
+                -> decltype(Impl{}(p, null_sentinel))
             {
-                return Impl{}(p, null_sentinel{});
+                return Impl{}(p, null_sentinel);
             }
         };
 
-        struct as_utf32_impl : detail::pipeable<as_utf32_impl>
+        struct as_utf32_impl : range_adaptor_closure<as_utf32_impl>
         {
             template<typename Iter, typename Sentinel>
             constexpr auto operator()(Iter first, Sentinel last) const noexcept
@@ -545,14 +545,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf8_view` over the data in `r`.  The view will transcode
         the data if necessary.  If `std::remove_reference_t<R>` is not a
-        pointer, the result is returned as a `borrowed_view_t`. */
+        pointer, the result is returned as a `borrowed_view_t` (C++20 and
+        later only). */
     template<utf_range_like R>
     constexpr detail::unspecified as_utf8(R && r) noexcept;
 
 #endif
 
     namespace dtl {
-        struct as_utf8_impl : detail::pipeable<as_utf8_impl>
+        struct as_utf8_impl : range_adaptor_closure<as_utf8_impl>
         {
             template<utf_iter I, std::sentinel_for<I> S>
             constexpr auto operator()(I first, S last) const noexcept
@@ -567,15 +568,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<utf_range_like R>
             constexpr auto operator()(R && r) const noexcept
             {
-                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
-                    return (*this)(r, null_sentinel{});
-                } else {
-                    auto intermediate =
-                        (*this)(std::ranges::begin(r), std::ranges::end(r));
-                    using result_type =
-                        borrowed_view_t<R, decltype(intermediate)>;
-                    return result_type{intermediate};
-                }
+                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>)
+                    return (*this)(r, null_sentinel);
+                else if constexpr (std::ranges::borrowed_range<R>)
+                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
+                else
+                    return std::ranges::dangling{};
             }
         };
     }
@@ -591,14 +589,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf16_view` over the data in `r` the data if necessary.  If
         `std::remove_reference_t<R>` is not a pointer, the result is returned
-        as a `borrowed_view_t`. */
+        as a `borrowed_view_t` (C++20 and later only). */
     template<utf_range_like R>
     constexpr detail::unspecified as_utf16(R && r) noexcept;
 
 #endif
 
     namespace dtl {
-        struct as_utf16_impl : detail::pipeable<as_utf16_impl>
+        struct as_utf16_impl : range_adaptor_closure<as_utf16_impl>
         {
             template<utf_iter I, std::sentinel_for<I> S>
             constexpr auto operator()(I first, S last) const noexcept
@@ -613,15 +611,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<utf_range_like R>
             constexpr auto operator()(R && r) const noexcept
             {
-                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
-                    return (*this)(r, null_sentinel{});
-                } else {
-                    auto intermediate =
-                        (*this)(std::ranges::begin(r), std::ranges::end(r));
-                    using result_type =
-                        borrowed_view_t<R, decltype(intermediate)>;
-                    return result_type{intermediate};
-                }
+                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>)
+                    return (*this)(r, null_sentinel);
+                else if constexpr (std::ranges::borrowed_range<R>)
+                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
+                else
+                    return std::ranges::dangling{};
             }
         };
     }
@@ -637,14 +632,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf32_view` over the data in `r`.  The view will transcode
         the data if necessary.  If `std::remove_reference_t<R>` is not a
-        pointer, the result is returned as a `borrowed_view_t`. */
+        pointer, the result is returned as a `borrowed_view_t` (C++20 and
+        later only). */
     template<utf_range_like R>
     constexpr detail::unspecified as_utf32(R && r) noexcept;
 
 #endif
 
     namespace dtl {
-        struct as_utf32_impl : detail::pipeable<as_utf32_impl>
+        struct as_utf32_impl : range_adaptor_closure<as_utf32_impl>
         {
             template<utf_iter I, std::sentinel_for<I> S>
             constexpr auto operator()(I first, S last) const noexcept
@@ -659,15 +655,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<utf_range_like R>
             constexpr auto operator()(R && r) const noexcept
             {
-                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
-                    return (*this)(r, null_sentinel{});
-                } else {
-                    auto intermediate =
-                        (*this)(std::ranges::begin(r), std::ranges::end(r));
-                    using result_type =
-                        borrowed_view_t<R, decltype(intermediate)>;
-                    return result_type{intermediate};
-                }
+                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>)
+                    return (*this)(r, null_sentinel);
+                else if constexpr (std::ranges::borrowed_range<R>)
+                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
+                else
+                    return std::ranges::dangling{};
             }
         };
     }

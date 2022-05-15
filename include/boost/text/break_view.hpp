@@ -114,7 +114,7 @@ namespace boost { namespace text {
         private:
             CPIter first_ = {};
             std::pair<CPIter, CPIter> seg_ = {};
-            CPSentinel last_ = {};
+            [[no_unique_address]] CPSentinel last_ = {};
             PrevFunc * prev_func_ = nullptr;
             NextFunc * next_func_ = nullptr;
         };
@@ -163,8 +163,8 @@ namespace boost { namespace text {
         controlled by the `PrevFunc` and `NextFunc` template parameters.  For
         instance, if `NextFunc` is next_paragraph_break, the subranges
         produced by break_view will be paragraphs.  Each subrange is lazily
-        produced; an output subrange is not produced until a lazy range
-        iterator is dereferenced. */
+        produced; an output subrange is not produced until a view iterator is
+        dereferenced. */
     template<
         typename CPIter,
         typename CPSentinel,
@@ -213,7 +213,7 @@ namespace boost { namespace text {
 
     private:
         iterator first_;
-        sentinel last_;
+        [[no_unique_address]] sentinel last_;
         PrevFunc prev_func_;
         NextFunc next_func_;
     };

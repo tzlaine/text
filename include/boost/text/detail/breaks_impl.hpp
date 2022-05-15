@@ -17,7 +17,7 @@ namespace boost { namespace text { namespace detail {
 #if BOOST_TEXT_USE_CONCEPTS
         bool UseSentinel = cp_sentinel_gr_rng<GraphemeRange>
 #else
-        bool UseSentinel = is_cp_sentinel_gr_rng<GraphemeRange>::value
+        bool UseSentinel = is_cp_sentinel_gr_rng_v<GraphemeRange>
 #endif
         >
     struct gr_rng_cp_last
@@ -57,7 +57,7 @@ namespace boost { namespace text { namespace detail {
         NextFunc<iterator_t<CPRange>, sentinel_t<CPRange>>>
     breaks_cr_impl(CPRange && range) noexcept
     {
-        return {std::begin(range), std::end(range), {}, {}};
+        return {detail::begin(range), detail::end(range), {}, {}};
     }
 
     template<

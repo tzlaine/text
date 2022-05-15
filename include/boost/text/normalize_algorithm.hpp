@@ -10,6 +10,7 @@
 #include <boost/text/concepts.hpp>
 #include <boost/text/normalize_fwd.hpp>
 #include <boost/text/stream_safe.hpp>
+#include <boost/text/subrange.hpp>
 #include <boost/text/detail/algorithm.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
@@ -30,23 +31,16 @@ namespace boost { namespace text {
         underlying sequence may be a sequence of `char` which is interpreted
         as UTF-8. */
     template<typename Iter>
-    struct replace_result : stl_interfaces::view_interface<replace_result<Iter>>
+    struct replace_result : subrange<Iter>
     {
         using iterator = Iter;
 
-        replace_result() : first_(), last_(first_) {}
+        replace_result() = default;
         replace_result(iterator first, iterator last) :
-            first_(first), last_(last)
+            subrange<iterator>(first, last)
         {}
 
-        iterator begin() const noexcept { return first_; }
-        iterator end() const noexcept { return last_; }
-
-        operator iterator() const noexcept { return begin(); }
-
-    private:
-        Iter first_;
-        Iter last_;
+        operator iterator() const noexcept { return this->begin(); }
     };
 
     namespace detail {
@@ -174,10 +168,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPRange && r,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
-        if (std::begin(r) == std::end(r))
+        if (detail::begin(r) == detail::end(r))
             return {at, at};
         return detail::replace_impl<false, Normalization>(
-            string, at, at, std::begin(r), std::end(r), insertion_norm);
+            string, at, at, detail::begin(r), detail::end(r), insertion_norm);
     }
 
     /** Erases the subsequence `[str_first, str_last)` within `string`,
@@ -356,13 +350,11 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename CPIter>
-    struct stable_cps_result_t
+    struct stable_cps_result_t : subrange<CPIter>
     {
-        bool empty() const noexcept { return first_ == last_; }
-        CPIter begin() const noexcept { return first_; }
-        CPIter end() const noexcept { return last_; }
-        CPIter first_;
-        CPIter last_;
+        stable_cps_result_t(CPIter first, CPIter last) :
+            subrange<CPIter>(first, last)
+        {}
     };
 
     template<typename T, typename R1, typename R2>
@@ -452,19 +444,13 @@ namespace boost { namespace text { namespace detail {
     };
 
     template<typename T, typename R1, typename R2>
-    struct cons_view_t : stl_interfaces::view_interface<cons_view_t<T, R1, R2>>
+    struct cons_view_t : subrange<cons_iter<T, R1, R2>>
     {
         using iterator = cons_iter<T, R1, R2>;
 
-        cons_view_t(iterator first, iterator last) : first_(first), last_(last)
+        cons_view_t(iterator first, iterator last) :
+            subrange<iterator>(first, last)
         {}
-
-        iterator begin() const noexcept { return first_; }
-        iterator end() const noexcept { return last_; }
-
-    private:
-        iterator first_;
-        iterator last_;
     };
 
     template<
