@@ -2813,169 +2813,198 @@ namespace boost { namespace text {
 
 #else
 
-    template<typename CPIter, typename Sentinel>
-    auto bidirectional_subranges(
-        CPIter first, Sentinel last, int paragraph_embedding_level = -1)
-        -> lazy_bidi_segment_range<
-            CPIter,
-            Sentinel,
-            bidirectional_cp_subrange<CPIter>>
+#if BOOST_TEXT_USE_CONCEPTS
+    template<code_point_iter I, std::sentinel_for<I> S>
+#else
+    template<typename I, typename S>
+#endif
+    auto
+    bidirectional_subranges(I first, S last, int paragraph_embedding_level = -1)
+#if !BOOST_TEXT_USE_CONCEPTS
+        -> lazy_bidi_segment_range<I, S, bidirectional_cp_subrange<I>>
+#endif
     {
 #if BOOST_TEXT_USE_COROUTINES
-        return detail::bidi_subranges<bidirectional_cp_subrange<CPIter>>(
+        return detail::bidi_subranges<bidirectional_cp_subrange<I>>(
             first, last, paragraph_embedding_level);
 #else
         return {first, last, paragraph_embedding_level};
 #endif
     }
 
-    template<typename CPRange>
-    auto
-    bidirectional_subranges(CPRange && range, int paragraph_embedding_level = -1)
+#if BOOST_TEXT_USE_CONCEPTS
+    template<code_point_range R>
+#else
+    template<typename R>
+#endif
+    auto bidirectional_subranges(R && r, int paragraph_embedding_level = -1)
+#if !BOOST_TEXT_USE_CONCEPTS
         -> detail::cp_rng_alg_ret_t<
             lazy_bidi_segment_range<
-                detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>,
-                bidirectional_cp_subrange<detail::iterator_t<CPRange>>>,
-            CPRange>
+                detail::iterator_t<R>,
+                detail::sentinel_t<R>,
+                bidirectional_cp_subrange<detail::iterator_t<R>>>,
+            R>
+#endif
     {
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<
-            bidirectional_cp_subrange<detail::iterator_t<CPRange>>>(
-            detail::begin(range),
-            detail::end(range),
-            paragraph_embedding_level);
+            bidirectional_cp_subrange<detail::iterator_t<R>>>(
+            detail::begin(r), detail::end(r), paragraph_embedding_level);
 #else
-        return {
-            detail::begin(range),
-            detail::end(range),
-            paragraph_embedding_level};
+        return {detail::begin(r), detail::end(r), paragraph_embedding_level};
 #endif
     }
 
-    template<typename GraphemeRange>
-    auto bidirectional_subranges(
-        GraphemeRange && range, int paragraph_embedding_level = -1)
+#if BOOST_TEXT_USE_CONCEPTS
+    template<grapheme_range R>
+#else
+    template<typename R>
+#endif
+    auto bidirectional_subranges(R && r, int paragraph_embedding_level = -1)
+#if !BOOST_TEXT_USE_CONCEPTS
         -> detail::graph_rng_alg_ret_t<
             lazy_bidi_segment_range<
-                typename detail::iterator_t<GraphemeRange const>::iterator,
-                typename detail::iterator_t<GraphemeRange const>::iterator,
-                bidirectional_grapheme_subrange<typename detail::iterator_t<
-                    GraphemeRange const>::iterator>>,
-            GraphemeRange>
+                typename detail::iterator_t<R const>::iterator,
+                typename detail::iterator_t<R const>::iterator,
+                bidirectional_grapheme_subrange<
+                    typename detail::iterator_t<R const>::iterator>>,
+            R>
+#endif
     {
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<bidirectional_grapheme_subrange<
-            typename detail::iterator_t<GraphemeRange const>::iterator>>(
-            range.begin().base(),
-            range.end().base(),
-            paragraph_embedding_level);
+            typename detail::iterator_t<R const>::iterator>>(
+            r.begin().base(), r.end().base(), paragraph_embedding_level);
 #else
-        return {range.begin().base(),
-                range.end().base(),
-                paragraph_embedding_level};
+        return {r.begin().base(), r.end().base(), paragraph_embedding_level};
 #endif
     }
 
+#if BOOST_TEXT_USE_CONCEPTS
     template<
-        typename CPIter,
-        typename Sentinel,
+        code_point_iter I,
+        std::sentinel_for<I> S,
         typename Extent,
-        typename CPExtentFunc>
+        line_break_cp_extent_func<I, Extent> Func>
+    requires std::integral<Extent> || std::floating_point<Extent>
+#else
+    template<typename I, typename S, typename Extent, typename Func>
+#endif
     auto bidirectional_subranges(
-        CPIter first,
-        Sentinel last,
+        I first,
+        S last,
         Extent max_extent,
-        CPExtentFunc cp_extent,
+        Func cp_extent,
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true)
+#if !BOOST_TEXT_USE_CONCEPTS
         -> lazy_bidi_segment_range<
-            CPIter,
-            Sentinel,
-            bidirectional_cp_subrange<CPIter>,
-            detail::next_allowed_line_break_within_extent_callable<
-                Extent,
-                CPExtentFunc>>
+            I,
+            S,
+            bidirectional_cp_subrange<I>,
+            detail::
+                next_allowed_line_break_within_extent_callable<Extent, Func>>
+#endif
     {
-        detail::
-            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
-                next{max_extent, std::move(cp_extent), break_overlong_lines};
+        detail::next_allowed_line_break_within_extent_callable<Extent, Func>
+            next{max_extent, std::move(cp_extent), break_overlong_lines};
 #if BOOST_TEXT_USE_COROUTINES
-        return detail::bidi_subranges<bidirectional_cp_subrange<CPIter>>(
+        return detail::bidi_subranges<bidirectional_cp_subrange<I>>(
             first, last, paragraph_embedding_level, std::move(next));
 #else
         return {first, last, paragraph_embedding_level, std::move(next)};
 #endif
     }
 
-    template<typename CPRange, typename Extent, typename CPExtentFunc>
+#if BOOST_TEXT_USE_CONCEPTS
+    template<
+        code_point_range R,
+        typename Extent,
+        line_break_cp_extent_func<detail::iterator_t<R>, Extent> Func>
+    requires std::integral<Extent> || std::floating_point<Extent>
+#else
+    template<typename R, typename Extent, typename Func>
+#endif
     auto bidirectional_subranges(
-        CPRange && range,
+        R && r,
         Extent max_extent,
-        CPExtentFunc cp_extent,
+        Func cp_extent,
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true)
+#if !BOOST_TEXT_USE_CONCEPTS
         -> detail::cp_rng_alg_ret_t<
             lazy_bidi_segment_range<
-                detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>,
-                bidirectional_cp_subrange<detail::iterator_t<CPRange>>,
+                detail::iterator_t<R>,
+                detail::sentinel_t<R>,
+                bidirectional_cp_subrange<detail::iterator_t<R>>,
                 detail::next_allowed_line_break_within_extent_callable<
                     Extent,
-                    CPExtentFunc>>,
-            CPRange>
+                    Func>>,
+            R>
+#endif
     {
-        detail::
-            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
-                next{max_extent, std::move(cp_extent), break_overlong_lines};
+        detail::next_allowed_line_break_within_extent_callable<Extent, Func>
+            next{max_extent, std::move(cp_extent), break_overlong_lines};
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<
-            bidirectional_cp_subrange<detail::iterator_t<CPRange>>>(
-            detail::begin(range),
-            detail::end(range),
+            bidirectional_cp_subrange<detail::iterator_t<R>>>(
+            detail::begin(r),
+            detail::end(r),
             paragraph_embedding_level,
             std::move(next));
 #else
-        return {detail::begin(range),
-                detail::end(range),
-                paragraph_embedding_level,
-                std::move(next)};
+        return {
+            detail::begin(r),
+            detail::end(r),
+            paragraph_embedding_level,
+            std::move(next)};
 #endif
     }
 
-    template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
+#if BOOST_TEXT_USE_CONCEPTS
+    template<
+        grapheme_range R,
+        typename Extent,
+        line_break_cp_extent_func<code_point_iterator_t<R>, Extent> Func>
+    requires std::integral<Extent> || std::floating_point<Extent>
+#else
+    template<typename R, typename Extent, typename Func>
+#endif
     auto bidirectional_subranges(
-        GraphemeRange && range,
+        R && r,
         Extent max_extent,
-        CPExtentFunc cp_extent,
+        Func cp_extent,
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true)
+#if !BOOST_TEXT_USE_CONCEPTS
         -> detail::graph_rng_alg_ret_t<
             lazy_bidi_segment_range<
-                typename detail::iterator_t<GraphemeRange const>::iterator,
-                typename detail::iterator_t<GraphemeRange const>::iterator,
-                bidirectional_grapheme_subrange<typename detail::iterator_t<
-                    GraphemeRange const>::iterator>,
+                typename detail::iterator_t<R const>::iterator,
+                typename detail::iterator_t<R const>::iterator,
+                bidirectional_grapheme_subrange<
+                    typename detail::iterator_t<R const>::iterator>,
                 detail::next_allowed_line_break_within_extent_callable<
                     Extent,
-                    CPExtentFunc>>,
-            GraphemeRange>
+                    Func>>,
+            R>
+#endif
     {
-        detail::
-            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
-                next{max_extent, std::move(cp_extent), break_overlong_lines};
+        detail::next_allowed_line_break_within_extent_callable<Extent, Func>
+            next{max_extent, std::move(cp_extent), break_overlong_lines};
 #if BOOST_TEXT_USE_COROUTINES
         return detail::bidi_subranges<bidirectional_grapheme_subrange<
-            typename detail::iterator_t<GraphemeRange const>::iterator>>(
-            range.begin().base(),
-            range.end().base(),
+            typename detail::iterator_t<R const>::iterator>>(
+            r.begin().base(),
+            r.end().base(),
             paragraph_embedding_level,
             std::move(next));
 #else
-        return {range.begin().base(),
-                range.end().base(),
-                paragraph_embedding_level,
-                std::move(next)};
+        return {
+            r.begin().base(),
+            r.end().base(),
+            paragraph_embedding_level,
+            std::move(next)};
 #endif
     }
 
