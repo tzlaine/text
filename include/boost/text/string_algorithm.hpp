@@ -290,8 +290,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         overloads exist to support operating on code points and graphemes;
         ranges and null-terminated strings; and different UTF formats.  This
         means that this overload set is compatible with `text`, `rope`, etc.
-        The result is returned as a `borrowed_subrange_t` in C++20 and
-        later. */
+        When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, utf_range_like R2>
     detail::unspecified find(R1 && r1, R2 && r2);
 
@@ -299,8 +299,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         overloads exist to support operating on code points and graphemes;
         ranges and null-terminated strings; and different UTF formats.  This
         means that this overload set is compatible with `text`, `rope`, etc.
-        The result is returned as a `borrowed_subrange_t` in C++20 and
-        later. */
+        When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, utf_range_like R2>
     detail::unspecified rfind(R1 && r1, R2 && r2);
 
@@ -308,8 +308,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc.  When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, utf_range_like R2>
     detail::unspecified find_first_of(R1 && r1, R2 && r2);
 
@@ -317,8 +317,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc.  When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, utf_range_like R2>
     detail::unspecified find_last_of(R1 && r1, R2 && r2);
 
@@ -326,8 +326,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc.  When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, utf_range_like R2>
     detail::unspecified find_first_not_of(R1 && r1, R2 && r2);
 
@@ -335,8 +335,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc.  When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, utf_range_like R2>
     detail::unspecified find_last_not_of(R1 && r1, R2 && r2);
 
@@ -344,8 +344,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<utf_range_like R1, utf_range_like R2>
     bool starts_with(R1 && r1, R2 && r2);
 
@@ -353,8 +352,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<utf_range_like R1, utf_range_like R2>
     bool ends_with(R1 && r1, R2 && r2);
 
@@ -362,8 +360,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<utf_range_like R1, utf_range_like R2>
     bool contains(R1 && r1, R2 && r2);
 
@@ -485,8 +482,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         overloads exist to support operating on code points and graphemes;
         ranges and null-terminated strings; and different UTF formats.  This
         means that this overload set is compatible with `text`, `rope`, etc.
-        The result is returned as a `borrowed_subrange_t` in C++20 and
-        later. */
+        When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, grapheme_range R2>
     detail::unspecified find(R1 && r1, R2 && r2);
 
@@ -512,8 +509,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         overloads exist to support operating on code points and graphemes;
         ranges and null-terminated strings; and different UTF formats.  This
         means that this overload set is compatible with `text`, `rope`, etc.
-        The result is returned as a `borrowed_subrange_t` in C++20 and
-        later. */
+        When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, grapheme_range R2>
     detail::unspecified rfind(R1 && r1, R2 && r2);
 
@@ -539,8 +536,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc.  When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, grapheme_range R2>
     detail::unspecified find_first_of(R1 && r1, R2 && r2);
 
@@ -566,8 +563,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc.  When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, grapheme_range R2>
     detail::unspecified find_last_of(R1 && r1, R2 && r2);
 
@@ -593,8 +590,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc.  When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, grapheme_range R2>
     detail::unspecified find_first_not_of(R1 && r1, R2 && r2);
 
@@ -620,8 +617,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc.  When `R1` is not a pointer, the result is returned as a
+        `borrowed_subrange_t` in C++20 and later. */
     template<utf_range_like R1, grapheme_range R2>
     detail::unspecified find_last_not_of(R1 && r1, R2 && r2);
 
@@ -629,8 +626,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<grapheme_range R1, grapheme_range R2>
     bool starts_with(R1 && r1, R2 && r2);
 
@@ -638,8 +634,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<grapheme_range R1, utf_range_like R2>
     bool starts_with(R1 && r1, R2 && r2);
 
@@ -647,8 +642,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<utf_range_like R1, grapheme_range R2>
     bool starts_with(R1 && r1, R2 && r2);
 
@@ -656,8 +650,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<grapheme_range R1, grapheme_range R2>
     bool ends_with(R1 && r1, R2 && r2);
 
@@ -665,8 +658,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<grapheme_range R1, utf_range_like R2>
     bool ends_with(R1 && r1, R2 && r2);
 
@@ -674,8 +666,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<utf_range_like R1, grapheme_range R2>
     bool ends_with(R1 && r1, R2 && r2);
 
@@ -683,8 +674,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<grapheme_range R1, grapheme_range R2>
     bool contains(R1 && r1, R2 && r2);
 
@@ -692,8 +682,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<grapheme_range R1, utf_range_like R2>
     bool contains(R1 && r1, R2 && r2);
 
@@ -701,8 +690,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Compatibility overloads exist to support operating on code points and
         graphemes; ranges and null-terminated strings; and different UTF
         formats.  This means that this overload set is compatible with `text`,
-        `rope`, etc.  The result is returned as a `borrowed_subrange_t` in
-        C++20 and later. */
+        `rope`, etc. */
     template<utf_range_like R1, grapheme_range R2>
     bool contains(R1 && r1, R2 && r2);
 

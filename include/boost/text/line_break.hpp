@@ -2251,8 +2251,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         the line that `it` is within is returned (even if `it` is already at
         the first code point of a line). */
     template<code_point_iter I, std::sentinel_for<I> S>
-    line_break_result<I> prev_allowed_line_break(
-        I first, I it, S last);
+    line_break_result<I> prev_allowed_line_break(I first, I it, S last);
 
     /** Returns true iff `it` is at the beginning of a line, or `it ==
         last`. */
@@ -2362,7 +2361,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         the first code point of a line).  A hard line break follows any code
         points with the property BK, CR (not followed by LF), LF, or NL. */
     template<code_point_range R>
-    std::ranges::iterator_t<R> prev_hard_line_break(
+    std::ranges::borrowed_iterator_t<R> prev_hard_line_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the nearest hard line break at or
@@ -2372,7 +2371,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         hard line break follows any code points with the property BK, CR (not
         followed by LF), LF, or NL. */
     template<grapheme_range R>
-    std::ranges::iterator_t<R> prev_hard_line_break(
+    std::ranges::borrowed_iterator_t<R> prev_hard_line_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Finds the next hard line break after `it`.  This will be the first
@@ -2382,7 +2381,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `it` is at the beginning of a line. */
     template<code_point_range R>
-    std::ranges::iterator_t<R> next_hard_line_break(
+    std::ranges::borrowed_iterator_t<R> next_hard_line_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the next hard line break after `it`.
@@ -2392,41 +2391,50 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `it` is at the beginning of a line. */
     template<grapheme_range R>
-    std::ranges::iterator_t<R> next_hard_line_break(
+    std::ranges::borrowed_iterator_t<R> next_hard_line_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Finds the nearest line break opportunity at or before before `it`.  If
-        `it == r.begin()`, that is returned.  Otherwise, the first code
-        point of the line that `it` is within is returned (even if `it` is
-        already at the first code point of a line. */
+        `it == r.begin()`, that is returned.  Otherwise, the first code point
+        of the line that `it` is within is returned (even if `it` is already
+        at the first code point of a line.  Returns a `line_break_result`; in
+        C++20 and later, if `std::ranges::borrowed_range<R>` is `false`, this
+        function returns a `std::ranges::dangling` instead. */
     template<code_point_range R>
-    line_break_result<std::ranges::iterator_t<R>> prev_allowed_line_break(
+    detail::unspecified prev_allowed_line_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the nearest line break opportunity at
         or before before `it`.  If `it == r.begin()`, that is returned.
         Otherwise, the first grapheme of the line that `it` is within is
-        returned (even if `it` is already at the first grapheme of a line). */
+        returned (even if `it` is already at the first grapheme of a line).
+        Returns a `line_break_result`; in C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns a
+        `std::ranges::dangling` instead. */
     template<grapheme_range R>
-    auto prev_allowed_line_break(
+    detail::unspecified prev_allowed_line_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Finds the next line break opportunity after `it`.  This will be the
-        first code point after the current line, or `r.end()` if no next
-        line exists.
+        first code point after the current line, or `r.end()` if no next line
+        exists.  Returns a `line_break_result`; in C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns a
+        `std::ranges::dangling` instead.
 
         \pre `it` is at the beginning of a line. */
     template<code_point_range R>
-    line_break_result<std::ranges::iterator_t<R>> next_allowed_line_break(
+    detail::unspecified next_allowed_line_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the next line break opportunity after
         `it`.  This will be the first grapheme after the current line, or
-        `r.end()` if no next line exists.
+        `r.end()` if no next line exists.  Returns a `line_break_result`; in
+        C++20 and later, if `std::ranges::borrowed_range<R>` is `false`, this
+        function returns a `std::ranges::dangling` instead.
 
         \pre `it` is at the beginning of a line. */
     template<grapheme_range R>
-    line_break_result<std::ranges::iterator_t<R>> next_allowed_line_break(
+    detail::unspecified next_allowed_line_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Returns true iff `it` is at the beginning of a line (considering only
@@ -2577,16 +2585,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     utf32_view<I> line(I first, I it, S last);
 
     /** Returns the bounds of the line (using hard line breaks) that `it` lies
-        within, as a utf32_view. */
+        within.  Returns a `utf32_view`; in C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns a
+        `std::ranges::dangling` instead. */
     template<code_point_range R>
-    utf32_view<std::ranges::iterator_t<R>> line(
-        R && r, std::ranges::iterator_t<R> it);
+    detail::unspecified line(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns grapheme range delimiting the bounds of the line (using hard
-        line breaks) that `it` lies within, as a grapheme_view. */
+        line breaks) that `it` lies within.  Returns a `grapheme_view`; in
+        C++20 and later, if `std::ranges::borrowed_range<R>` is `false`, this
+        function returns a `std::ranges::dangling` instead. */
     template<grapheme_range R>
-    grapheme_view<code_point_iterator_t<R>> line(
-        R && r, std::ranges::iterator_t<R> it);
+    detail::unspecified line(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns the bounds of the smallest chunk of text that could be broken
         off into a line, searching from `it` in either direction. */
@@ -2594,17 +2604,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     line_break_cp_view<I> allowed_line(I first, I it, S last);
 
     /** Returns the bounds of the smallest chunk of text that could be broken
-        off into a line, searching from `it` in either direction, as a
-        line_break_cp_view. */
+        off into a line, searching from `it` in either direction.  Returns a
+        `line_break_cp_view`; in C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns a
+        `std::ranges::dangling` instead. */
     template<code_point_range R>
-    line_break_cp_view<std::ranges::iterator_t<R>> allowed_line(
-        R && r, std::ranges::iterator_t<R> it);
+    detail::unspecified allowed_line(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme range delimiting the bounds of the line (using hard
-        line breaks) that `it` lies within, as a line_break_grapheme_view. */
+        line breaks) that `it` lies within.  Returns a
+        `line_break_grapheme_view`; in C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns a
+        `std::ranges::dangling` instead. */
     template<grapheme_range R>
-    line_break_grapheme_view<code_point_iterator_t<R>> allowed_line(
-        R && r, std::ranges::iterator_t<R> it);
+    detail::unspecified allowed_line(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a view of the code point ranges delimiting lines (using hard
         line breaks) in `[first, last)`. */
@@ -2962,28 +2975,28 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    std::ranges::iterator_t<R> prev_hard_line_break(
+    std::ranges::borrowed_iterator_t<R> prev_hard_line_break(
         R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_hard_line_break_cr_impl(r, it);
     }
 
     template<grapheme_range R>
-    std::ranges::iterator_t<R> prev_hard_line_break(
+    std::ranges::borrowed_iterator_t<R> prev_hard_line_break(
         R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_hard_line_break_gr_impl(r, it);
     }
 
     template<code_point_range R>
-    std::ranges::iterator_t<R> next_hard_line_break(
+    std::ranges::borrowed_iterator_t<R> next_hard_line_break(
         R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_hard_line_break_cr_impl(r, it);
     }
 
     template<grapheme_range R>
-    std::ranges::iterator_t<R> next_hard_line_break(
+    std::ranges::borrowed_iterator_t<R> next_hard_line_break(
         R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_hard_line_break_gr_impl(r, it);
@@ -2993,27 +3006,37 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     line_break_result<std::ranges::iterator_t<R>> prev_allowed_line_break(
         R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::prev_allowed_line_break_cr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::prev_allowed_line_break_cr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     template<grapheme_range R>
     auto prev_allowed_line_break(R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::prev_allowed_line_break_gr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::prev_allowed_line_break_gr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     template<code_point_range R>
-    line_break_result<std::ranges::iterator_t<R>> next_allowed_line_break(
-        R && r, std::ranges::iterator_t<R> it)
+    auto next_allowed_line_break(R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::next_allowed_line_break_cr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::next_allowed_line_break_cr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     template<grapheme_range R>
-    line_break_result<std::ranges::iterator_t<R>> next_allowed_line_break(
-        R && r, std::ranges::iterator_t<R> it)
+    auto next_allowed_line_break(R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::next_allowed_line_break_gr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::next_allowed_line_break_gr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     template<code_point_range R>
@@ -3047,17 +3070,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    utf32_view<std::ranges::iterator_t<R>> line(
-        R && r, std::ranges::iterator_t<R> it)
+    auto line(R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::line_cr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::line_cr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     template<grapheme_range R>
-    grapheme_view<code_point_iterator_t<R>> line(
-        R && r, std::ranges::iterator_t<R> it)
+    auto line(R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::line_gr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::line_gr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
@@ -3067,17 +3094,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    line_break_cp_view<std::ranges::iterator_t<R>> allowed_line(
-        R && r, std::ranges::iterator_t<R> it)
+    auto allowed_line(R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::allowed_line_cr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::allowed_line_cr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     template<grapheme_range R>
-    line_break_grapheme_view<code_point_iterator_t<R>> allowed_line(
-        R && r, std::ranges::iterator_t<R> it)
+    auto allowed_line(R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::allowed_line_gr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::allowed_line_gr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     namespace dtl {

@@ -161,15 +161,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         I first, S last, Searcher const & search);
 
     /** Returns the code point subrange within `r` in which `searcher` finds
-        its pattern.  If the pattern is not found, the resulting range will
-        be empty. */
+        its pattern.  If the pattern is not found, the resulting range will be
+        empty.  Returns a `collation_search_result`; in C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns
+        a `std::ranges::dangling` instead. */
     template<code_point_range R, searcher<I, S> Searcher>
-    collation_search_result<I> collation_search(
-        R && r, Searcher const & search);
+    detail::unspecified collation_search(R && r, Searcher const & search);
 
-    /** Returns the grapheme subrange within `r` in which `searcher` finds
-        its pattern.  If the pattern is not found, the resulting range will
-        be empty. */
+    /** Returns the grapheme subrange within `r` in which `searcher` finds its
+        pattern.  If the pattern is not found, the resulting range will be
+        empty.  Returns a `grapheme_view`; in C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns
+        a `std::ranges::dangling` instead. */
     template<grapheme_range R, searcher<I, S> Searcher>
     detail::unspecified collation_search(R && r, Searcher const & search);
 
@@ -242,9 +245,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             Searcher>
     auto collation_search(R && r, Searcher const & s)
     {
-        auto const cps = s(detail::begin(r), detail::end(r));
-        return detail::make_search_result(
-            detail::begin(r), cps.begin(), cps.end(), detail::end(r));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            auto const cps = s(detail::begin(r), detail::end(r));
+            return detail::make_search_result(
+                detail::begin(r), cps.begin(), cps.end(), detail::end(r));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<
@@ -252,15 +259,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         searcher<code_point_iterator_t<R>, code_point_sentinel_t<R>> Searcher>
     auto collation_search(R && r, Searcher const & s)
     {
-        using cp_iter_t = code_point_iterator_t<R>;
-        auto const cps = s(r.begin().base(), r.end().base());
-        auto const cp_result = detail::make_search_result(
-            r.begin().base(), cps.begin(), cps.end(), r.end().base());
-        return grapheme_view<cp_iter_t>{
-            r.begin().base(),
-            cp_result.begin(),
-            cp_result.end(),
-            r.end().base()};
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using cp_iter_t = code_point_iterator_t<R>;
+            auto const cps = s(r.begin().base(), r.end().base());
+            auto const cp_result = detail::make_search_result(
+                r.begin().base(), cps.begin(), cps.end(), r.end().base());
+            return grapheme_view<cp_iter_t>{
+                r.begin().base(),
+                cp_result.begin(),
+                cp_result.end(),
+                r.end().base()};
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
 }}}
@@ -1286,7 +1297,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none);
 
     /** Returns a simple_collation_searcher that will find the pattern `r`.  A
-        match must begin and end at a grapheme boundary. */
+        match must begin and end at a grapheme boundary.  In C++20 and later,
+        if `std::ranges::borrowed_range<R>` is `false`, this function
+        returns a `std::ranges::dangling`. */
     template<code_point_range R>
     detail::unspecified make_simple_collation_searcher(
         R && r,
@@ -1294,7 +1307,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none);
 
     /** Returns a simple_collation_searcher that will find the pattern `r`.
-        A match must begin and end at a grapheme boundary. */
+        A match must begin and end at a grapheme boundary.  In C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns
+        a `std::ranges::dangling`. */
     template<grapheme_range R>
     detail::unspecified make_simple_collation_searcher(
         R && r,
@@ -1303,7 +1318,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     /** Returns a simple_collation_searcher that will find the pattern `r`.
         Any occurence of the pattern must be found starting at and ending at a
-        boundary found by `break_fn` (e.g. a grapheme or word boundary). */
+        boundary found by `break_fn` (e.g. a grapheme or word boundary).  In
+        C++20 and later, if `std::ranges::borrowed_range<R>` is `false`,
+        this function returns a `std::ranges::dangling`. */
     template<code_point_range R, searcher_break_func BreakFunc>
     detail::unspecified make_simple_collation_searcher(
         R && r,
@@ -1312,8 +1329,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none);
 
     /** Returns a simple_collation_searcher that will find the pattern `r`.
-        Any occurence of the pattern must be found starting at and ending at
-        a boundary found by `break_fn` (e.g. a grapheme or word boundary). */
+        Any occurence of the pattern must be found starting at and ending at a
+        boundary found by `break_fn` (e.g. a grapheme or word boundary).  In
+        C++20 and later, if `std::ranges::borrowed_range<R>` is `false`,
+        this function returns a `std::ranges::dangling`. */
     template<grapheme_range R, searcher_break_func BreakFunc>
     detail::unspecified make_simple_collation_searcher(
         R && r,
@@ -1350,7 +1369,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none);
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
-        pattern `r`.  A match must begin and end at a grapheme boundary. */
+        pattern `r`.  A match must begin and end at a grapheme boundary.  In
+        C++20 and later, if `std::ranges::borrowed_range<R>` is `false`,
+        this function returns a `std::ranges::dangling`. */
     template<code_point_range R>
     detail::unspecified make_boyer_moore_horspool_collation_searcher(
         R && r,
@@ -1358,7 +1379,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none);
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
-        pattern `r`.  A match must begin and end at a grapheme boundary. */
+        pattern `r`.  A match must begin and end at a grapheme boundary.  In
+        C++20 and later, if `std::ranges::borrowed_range<R>` is `false`,
+        this function returns a `std::ranges::dangling`. */
     template<grapheme_range R>
     detail::unspecified make_boyer_moore_horspool_collation_searcher(
         R && r,
@@ -1367,8 +1390,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
         pattern `r`.  Any occurence of the pattern must be found starting at
-        and ending at a boundary found by `break_fn` (e.g. a grapheme or
-        word boundary. */
+        and ending at a boundary found by `break_fn` (e.g. a grapheme or word
+        boundary.  In C++20 and later, if `std::ranges::borrowed_range<R>`
+        is `false`, this function returns a `std::ranges::dangling`. */
     template<code_point_range R, searcher_break_func BreakFunc>
     detail::unspecified make_boyer_moore_horspool_collation_searcher(
         R && r,
@@ -1378,8 +1402,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
         pattern `r`.  Any occurence of the pattern must be found starting at
-        and ending at a boundary found by `break_fn` (e.g. a grapheme or
-        word boundary). */
+        and ending at a boundary found by `break_fn` (e.g. a grapheme or word
+        boundary).  In C++20 and later, if `std::ranges::borrowed_range<R>`
+        is `false`, this function returns a `std::ranges::dangling`. */
     template<grapheme_range R, searcher_break_func BreakFunc>
     detail::unspecified make_boyer_moore_horspool_collation_searcher(
         R && r,
@@ -1415,7 +1440,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none);
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern
-        `r`.  A match must begin and end at a grapheme boundary. */
+        `r`.  A match must begin and end at a grapheme boundary.  In C++20 and
+        later, if `std::ranges::borrowed_range<R>` is `false`, this
+        function returns a `std::ranges::dangling`. */
     template<code_point_range R>
     detail::unspecified make_boyer_moore_collation_searcher(
         R && r,
@@ -1423,7 +1450,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         collation_flags flags = collation_flags::none);
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern
-        `r`.  A match must begin and end at a grapheme boundaryy. */
+        `r`.  A match must begin and end at a grapheme boundaryy.  In C++20
+        and later, if `std::ranges::borrowed_range<R>` is `false`, this
+        function returns a `std::ranges::dangling`. */
     template<grapheme_range R>
     detail::unspecified make_boyer_moore_collation_searcher(
         R && r,
@@ -1433,7 +1462,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns a boyer_moore_collation_searcher that will find the pattern
         `r`.  Any occurence of the pattern must be found starting at and
         ending at a boundary found by `break_fn` (e.g. a grapheme or word
-        boundary). */
+        boundary).  In C++20 and later, if `std::ranges::borrowed_range<R>`
+        is `false`, this function returns a `std::ranges::dangling`. */
     template<code_point_range R, searcher_break_func BreakFunc>
     detail::unspecified make_boyer_moore_collation_searcher(
         R && r,
@@ -1444,7 +1474,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns a boyer_moore_collation_searcher that will find the pattern
         `r`.  Any occurence of the pattern must be found starting at and
         ending at a boundary found by `break_fn` (e.g. a grapheme or word
-        boundary). */
+        boundary).  In C++20 and later, if `std::ranges::borrowed_range<R>`
+        is `false`, this function returns a `std::ranges::dangling`. */
     template<grapheme_range R, searcher_break_func BreakFunc>
     detail::unspecified make_boyer_moore_collation_searcher(
         R && r,
@@ -1975,52 +2006,52 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    simple_collation_searcher<
-        std::ranges::iterator_t<R>,
-        std::ranges::sentinel_t<R>,
-        detail::coll_search_prev_grapheme_callable>
-    make_simple_collation_searcher(
+    auto make_simple_collation_searcher(
         R && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using r_iter = std::ranges::iterator_t<R>;
-        using r_sntl = std::ranges::sentinel_t<R>;
-        return simple_collation_searcher<
-            r_iter,
-            r_sntl,
-            detail::coll_search_prev_grapheme_callable>(
-            detail::begin(r),
-            detail::end(r),
-            detail::coll_search_prev_grapheme_callable{},
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using r_iter = std::ranges::iterator_t<R>;
+            using r_sntl = std::ranges::sentinel_t<R>;
+            return simple_collation_searcher<
+                r_iter,
+                r_sntl,
+                detail::coll_search_prev_grapheme_callable>(
+                detail::begin(r),
+                detail::end(r),
+                detail::coll_search_prev_grapheme_callable{},
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<grapheme_range R>
-    simple_collation_searcher<
-        code_point_iterator_t<R>,
-        code_point_sentinel_t<R>,
-        detail::coll_search_prev_grapheme_callable>
-    make_simple_collation_searcher(
+    auto make_simple_collation_searcher(
         R && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using cp_iter_t = code_point_iterator_t<R>;
-        return simple_collation_searcher<
-            cp_iter_t,
-            cp_iter_t,
-            detail::coll_search_prev_grapheme_callable>(
-            r.begin().base(),
-            r.end().base(),
-            detail::coll_search_prev_grapheme_callable{},
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using cp_iter_t = code_point_iterator_t<R>;
+            return simple_collation_searcher<
+                cp_iter_t,
+                cp_iter_t,
+                detail::coll_search_prev_grapheme_callable>(
+                r.begin().base(),
+                r.end().base(),
+                detail::coll_search_prev_grapheme_callable{},
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<
@@ -2028,51 +2059,51 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         searcher_break_func<
             std::ranges::iterator_t<R>,
             std::ranges::sentinel_t<R>> BreakFunc>
-    simple_collation_searcher<
-        std::ranges::iterator_t<R>,
-        std::ranges::sentinel_t<R>,
-        BreakFunc>
-    make_simple_collation_searcher(
+    auto make_simple_collation_searcher(
         R && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using r_iter = std::ranges::iterator_t<R>;
-        using r_sntl = std::ranges::sentinel_t<R>;
-        return simple_collation_searcher<r_iter, r_sntl, BreakFunc>(
-            detail::begin(r),
-            detail::end(r),
-            break_fn,
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using r_iter = std::ranges::iterator_t<R>;
+            using r_sntl = std::ranges::sentinel_t<R>;
+            return simple_collation_searcher<r_iter, r_sntl, BreakFunc>(
+                detail::begin(r),
+                detail::end(r),
+                break_fn,
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<
         grapheme_range R,
         searcher_break_func<code_point_iterator_t<R>, code_point_sentinel_t<R>>
             BreakFunc>
-    simple_collation_searcher<
-        code_point_iterator_t<R>,
-        code_point_sentinel_t<R>,
-        BreakFunc>
-    make_simple_collation_searcher(
+    auto make_simple_collation_searcher(
         R && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using cp_iter_t = code_point_iterator_t<R>;
-        return simple_collation_searcher<cp_iter_t, cp_iter_t, BreakFunc>(
-            r.begin().base(),
-            r.end().base(),
-            break_fn,
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using cp_iter_t = code_point_iterator_t<R>;
+            return simple_collation_searcher<cp_iter_t, cp_iter_t, BreakFunc>(
+                r.begin().base(),
+                r.end().base(),
+                break_fn,
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
 
@@ -2125,52 +2156,52 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    boyer_moore_horspool_collation_searcher<
-        std::ranges::iterator_t<R>,
-        std::ranges::sentinel_t<R>,
-        detail::coll_search_prev_grapheme_callable>
-    make_boyer_moore_horspool_collation_searcher(
+    auto make_boyer_moore_horspool_collation_searcher(
         R && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using r_iter = std::ranges::iterator_t<R>;
-        using r_sntl = std::ranges::sentinel_t<R>;
-        return boyer_moore_horspool_collation_searcher<
-            r_iter,
-            r_sntl,
-            detail::coll_search_prev_grapheme_callable>(
-            detail::begin(r),
-            detail::end(r),
-            detail::coll_search_prev_grapheme_callable{},
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using r_iter = std::ranges::iterator_t<R>;
+            using r_sntl = std::ranges::sentinel_t<R>;
+            return boyer_moore_horspool_collation_searcher<
+                r_iter,
+                r_sntl,
+                detail::coll_search_prev_grapheme_callable>(
+                detail::begin(r),
+                detail::end(r),
+                detail::coll_search_prev_grapheme_callable{},
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<grapheme_range R>
-    boyer_moore_horspool_collation_searcher<
-        code_point_iterator_t<R>,
-        code_point_sentinel_t<R>,
-        detail::coll_search_prev_grapheme_callable>
-    make_boyer_moore_horspool_collation_searcher(
+    auto make_boyer_moore_horspool_collation_searcher(
         R && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using cp_iter_t = code_point_iterator_t<R>;
-        return boyer_moore_horspool_collation_searcher<
-            cp_iter_t,
-            cp_iter_t,
-            detail::coll_search_prev_grapheme_callable>(
-            r.begin().base(),
-            r.end().base(),
-            detail::coll_search_prev_grapheme_callable{},
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using cp_iter_t = code_point_iterator_t<R>;
+            return boyer_moore_horspool_collation_searcher<
+                cp_iter_t,
+                cp_iter_t,
+                detail::coll_search_prev_grapheme_callable>(
+                r.begin().base(),
+                r.end().base(),
+                detail::coll_search_prev_grapheme_callable{},
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<
@@ -2178,57 +2209,57 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         searcher_break_func<
             std::ranges::iterator_t<R>,
             std::ranges::sentinel_t<R>> BreakFunc>
-    boyer_moore_horspool_collation_searcher<
-        std::ranges::iterator_t<R>,
-        std::ranges::sentinel_t<R>,
-        BreakFunc>
-    make_boyer_moore_horspool_collation_searcher(
+    auto make_boyer_moore_horspool_collation_searcher(
         R && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using r_iter = std::ranges::iterator_t<R>;
-        using r_sntl = std::ranges::sentinel_t<R>;
-        return boyer_moore_horspool_collation_searcher<
-            r_iter,
-            r_sntl,
-            BreakFunc>(
-            detail::begin(r),
-            detail::end(r),
-            break_fn,
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using r_iter = std::ranges::iterator_t<R>;
+            using r_sntl = std::ranges::sentinel_t<R>;
+            return boyer_moore_horspool_collation_searcher<
+                r_iter,
+                r_sntl,
+                BreakFunc>(
+                detail::begin(r),
+                detail::end(r),
+                break_fn,
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<
         grapheme_range R,
         searcher_break_func<code_point_iterator_t<R>, code_point_sentinel_t<R>>
             BreakFunc>
-    boyer_moore_horspool_collation_searcher<
-        code_point_iterator_t<R>,
-        code_point_sentinel_t<R>,
-        BreakFunc>
-    make_boyer_moore_horspool_collation_searcher(
+    auto make_boyer_moore_horspool_collation_searcher(
         R && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using cp_iter_t = code_point_iterator_t<R>;
-        return boyer_moore_horspool_collation_searcher<
-            cp_iter_t,
-            cp_iter_t,
-            BreakFunc>(
-            r.begin().base(),
-            r.end().base(),
-            break_fn,
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using cp_iter_t = code_point_iterator_t<R>;
+            return boyer_moore_horspool_collation_searcher<
+                cp_iter_t,
+                cp_iter_t,
+                BreakFunc>(
+                r.begin().base(),
+                r.end().base(),
+                break_fn,
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
 
@@ -2281,52 +2312,52 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    boyer_moore_collation_searcher<
-        std::ranges::iterator_t<R>,
-        std::ranges::sentinel_t<R>,
-        detail::coll_search_prev_grapheme_callable>
-    make_boyer_moore_collation_searcher(
+    auto make_boyer_moore_collation_searcher(
         R && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using r_iter = std::ranges::iterator_t<R>;
-        using r_sntl = std::ranges::sentinel_t<R>;
-        return boyer_moore_collation_searcher<
-            r_iter,
-            r_sntl,
-            detail::coll_search_prev_grapheme_callable>(
-            detail::begin(r),
-            detail::end(r),
-            detail::coll_search_prev_grapheme_callable{},
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using r_iter = std::ranges::iterator_t<R>;
+            using r_sntl = std::ranges::sentinel_t<R>;
+            return boyer_moore_collation_searcher<
+                r_iter,
+                r_sntl,
+                detail::coll_search_prev_grapheme_callable>(
+                detail::begin(r),
+                detail::end(r),
+                detail::coll_search_prev_grapheme_callable{},
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<grapheme_range R>
-    boyer_moore_collation_searcher<
-        code_point_iterator_t<R>,
-        code_point_sentinel_t<R>,
-        detail::coll_search_prev_grapheme_callable>
-    make_boyer_moore_collation_searcher(
+    auto make_boyer_moore_collation_searcher(
         R && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using cp_iter_t = code_point_iterator_t<R>;
-        return boyer_moore_collation_searcher<
-            cp_iter_t,
-            cp_iter_t,
-            detail::coll_search_prev_grapheme_callable>(
-            r.begin().base(),
-            r.end().base(),
-            detail::coll_search_prev_grapheme_callable{},
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using cp_iter_t = code_point_iterator_t<R>;
+            return boyer_moore_collation_searcher<
+                cp_iter_t,
+                cp_iter_t,
+                detail::coll_search_prev_grapheme_callable>(
+                r.begin().base(),
+                r.end().base(),
+                detail::coll_search_prev_grapheme_callable{},
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<
@@ -2334,51 +2365,54 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         searcher_break_func<
             std::ranges::iterator_t<R>,
             std::ranges::sentinel_t<R>> BreakFunc>
-    boyer_moore_collation_searcher<
-        std::ranges::iterator_t<R>,
-        std::ranges::sentinel_t<R>,
-        BreakFunc>
-    make_boyer_moore_collation_searcher(
+    auto make_boyer_moore_collation_searcher(
         R && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using r_iter = std::ranges::iterator_t<R>;
-        using r_sntl = std::ranges::sentinel_t<R>;
-        return boyer_moore_collation_searcher<r_iter, r_sntl, BreakFunc>(
-            detail::begin(r),
-            detail::end(r),
-            break_fn,
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using r_iter = std::ranges::iterator_t<R>;
+            using r_sntl = std::ranges::sentinel_t<R>;
+            return boyer_moore_collation_searcher<r_iter, r_sntl, BreakFunc>(
+                detail::begin(r),
+                detail::end(r),
+                break_fn,
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<
         grapheme_range R,
         searcher_break_func<code_point_iterator_t<R>, code_point_sentinel_t<R>>
             BreakFunc>
-    boyer_moore_collation_searcher<
-        code_point_iterator_t<R>,
-        code_point_sentinel_t<R>,
-        BreakFunc>
-    make_boyer_moore_collation_searcher(
+    auto make_boyer_moore_collation_searcher(
         R && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using cp_iter_t = code_point_iterator_t<R>;
-        return boyer_moore_collation_searcher<cp_iter_t, cp_iter_t, BreakFunc>(
-            r.begin().base(),
-            r.end().base(),
-            break_fn,
-            table,
-            detail::to_strength(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags));
+        if constexpr (std::ranges::borrowed_range<R>) {
+            using cp_iter_t = code_point_iterator_t<R>;
+            return boyer_moore_collation_searcher<
+                cp_iter_t,
+                cp_iter_t,
+                BreakFunc>(
+                r.begin().base(),
+                r.end().base(),
+                break_fn,
+                table,
+                detail::to_strength(flags),
+                detail::to_case_level(flags),
+                detail::to_weighting(flags));
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
 }}}
@@ -2418,24 +2452,28 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         found. Any occurence of the pattern must be found starting at and
         ending at a boundary found by `break_fn` (e.g. a grapheme or word
         boundary).  This function uses the same simple brute-force matching
-        approach as `std::search()`.*/
+        approach as `std::search()`.  Returns a `collation_search_result`; in
+        C++20 and later, if `std::ranges::borrowed_range<R1>` is `false`,
+        this function returns a `std::ranges::dangling` instead. */
     template<
         code_point_range R1,
         code_point_range R2,
         searcher_break_func BreakFunc>
-    collation_search_result<detail::unspecified> collation_search(
+    detail::unspecified collation_search(
         R1 && str,
         R2 && pattern,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
-    /** Returns a grapheme range indicating the first occurrence of
-       `pattern` in `str`, or an empty range if no such occurrence is found.
-        Any occurence of the pattern must be found starting at and ending at
-        a boundary found by `break_fn` (e.g. a grapheme or word boundary).
-        This function uses the same simple brute-force matching approach as
-        `std::search()`. */
+    /** Returns a grapheme range indicating the first occurrence of `pattern`
+        in `str`, or an empty range if no such occurrence is found.  Any
+        occurence of the pattern must be found starting at and ending at a
+        boundary found by `break_fn` (e.g. a grapheme or word boundary).  This
+        function uses the same simple brute-force matching approach as
+        `std::search()`.  Returns a `grapheme_view`; in C++20 and later, if
+        `std::ranges::borrowed_range<R1>` is `false`, this function returns
+        a `std::ranges::dangling` instead. */
     template<
         grapheme_range R1,
         grapheme_range R2,
@@ -2545,9 +2583,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         `pattern` in `str`, or an empty range if no such occurrence is
         found. A match must begin and end at a grapheme boundary.  This
         function uses the same simple brute-force matching approach as
-        `std::search()`. */
+        `std::search()`.  Returns a `collation_search_result`; in C++20 and
+        later, if `std::ranges::borrowed_range<R1>` is `false`, this
+        function returns a `std::ranges::dangling` instead. */
     template<code_point_range R1, code_point_range R2>
-    collation_search_result<detail::unspecified> collation_search(
+    detail::unspecified collation_search(
         R1 && str,
         R2 && pattern,
         collation_table const & table,
@@ -2557,7 +2597,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         `pattern` in `str`, or an empty range if no such occurrence is
         found. A match must begin and end at a grapheme boundary.  This
         function uses the same simple brute-force matching approach as
-        `std::search()`. */
+        `std::search()`.  Returns a `grapheme_view`; in C++20 and later, if
+        `std::ranges::borrowed_range<R1>` is `false`, this function returns
+        a `std::ranges::dangling` instead. */
     template<grapheme_range R1, grapheme_range R2>
     detail::unspecified collation_search(
         R1 && str,
@@ -2675,17 +2717,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         searcher_break_func<
             std::ranges::iterator_t<R1>,
             std::ranges::sentinel_t<R1>> BreakFunc>
-    collation_search_result<std::ranges::iterator_t<R1>> collation_search(
+    auto collation_search(
         R1 && str,
         R2 && pattern,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        auto const s = boost::text::make_simple_collation_searcher(
-            pattern, break_fn, table, flags);
-        return boost::text::collation_search(
-            detail::begin(str), detail::end(str), s);
+        if constexpr (std::ranges::borrowed_range<R1>) {
+            auto const s = boost::text::make_simple_collation_searcher(
+                pattern, break_fn, table, flags);
+            return boost::text::collation_search(
+                detail::begin(str), detail::end(str), s);
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<
@@ -2694,29 +2740,33 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         searcher_break_func<
             code_point_iterator_t<R1>,
             code_point_sentinel_t<R1>> BreakFunc>
-    grapheme_view<code_point_iterator_t<R1>> collation_search(
+    auto collation_search(
         R1 && str,
         R2 && pattern,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using cp_iter_t = code_point_iterator_t<R1>;
-        auto const s = boost::text::make_simple_collation_searcher(
-            pattern.begin().base(),
-            pattern.end().base(),
-            break_fn,
-            table,
-            flags);
-        auto const cps = boost::text::collation_search(
-            str.begin().base(), str.end().base(), s);
-        auto const cp_result = detail::make_search_result(
-            str.begin().base(), cps.begin(), cps.end(), str.end().base());
-        return grapheme_view<cp_iter_t>{
-            str.begin().base(),
-            cp_result.begin(),
-            cp_result.end(),
-            str.end().base()};
+        if constexpr (std::ranges::borrowed_range<R1>) {
+            using cp_iter_t = code_point_iterator_t<R1>;
+            auto const s = boost::text::make_simple_collation_searcher(
+                pattern.begin().base(),
+                pattern.end().base(),
+                break_fn,
+                table,
+                flags);
+            auto const cps = boost::text::collation_search(
+                str.begin().base(), str.end().base(), s);
+            auto const cp_result = detail::make_search_result(
+                str.begin().base(), cps.begin(), cps.end(), str.end().base());
+            return grapheme_view<cp_iter_t>{
+                str.begin().base(),
+                cp_result.begin(),
+                cp_result.end(),
+                str.end().base()};
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<
@@ -2742,44 +2792,52 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R1, code_point_range R2>
-    collation_search_result<std::ranges::iterator_t<R1>> collation_search(
+    auto collation_search(
         R1 && str,
         R2 && pattern,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        auto const s = boost::text::make_simple_collation_searcher(
-            pattern,
-            detail::coll_search_prev_grapheme_callable{},
-            table,
-            flags);
-        return boost::text::collation_search(
-            detail::begin(str), detail::end(str), s);
+        if constexpr (std::ranges::borrowed_range<R1>) {
+            auto const s = boost::text::make_simple_collation_searcher(
+                pattern,
+                detail::coll_search_prev_grapheme_callable{},
+                table,
+                flags);
+            return boost::text::collation_search(
+                detail::begin(str), detail::end(str), s);
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
     template<grapheme_range R1, grapheme_range R2>
-    grapheme_view<code_point_iterator_t<R1>> collation_search(
+    auto collation_search(
         R1 && str,
         R2 && pattern,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        using cp_iter_t = code_point_iterator_t<R1>;
-        auto const s = boost::text::make_simple_collation_searcher(
-            pattern.begin().base(),
-            pattern.end().base(),
-            detail::coll_search_prev_grapheme_callable{},
-            table,
-            flags);
-        auto const cps = boost::text::collation_search(
-            str.begin().base(), str.end().base(), s);
-        auto const cp_result = detail::make_search_result(
-            str.begin().base(), cps.begin(), cps.end(), str.end().base());
-        return grapheme_view<cp_iter_t>{
-            str.begin().base(),
-            cp_result.begin(),
-            cp_result.end(),
-            str.end().base()};
+        if constexpr (std::ranges::borrowed_range<R1>) {
+            using cp_iter_t = code_point_iterator_t<R1>;
+            auto const s = boost::text::make_simple_collation_searcher(
+                pattern.begin().base(),
+                pattern.end().base(),
+                detail::coll_search_prev_grapheme_callable{},
+                table,
+                flags);
+            auto const cps = boost::text::collation_search(
+                str.begin().base(), str.end().base(), s);
+            auto const cp_result = detail::make_search_result(
+                str.begin().base(), cps.begin(), cps.end(), str.end().base());
+            return grapheme_view<cp_iter_t>{
+                str.begin().base(),
+                cp_result.begin(),
+                cp_result.end(),
+                str.end().base()};
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
 }}}

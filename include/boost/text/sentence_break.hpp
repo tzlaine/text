@@ -798,7 +798,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         the sentence that `it` is within is returned (even if `it` is already
         at the first code point of a sentence). */
     template<code_point_range R>
-    std::ranges::iterator_t<R> prev_sentence_break(
+    std::ranges::borrowed_iterator_t<R> prev_sentence_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the nearest sentence break at or before
@@ -806,7 +806,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         first grapheme of the sentence that `it` is within is returned (even
         if `it` is already at the first grapheme of a sentence). */
     template<grapheme_range R>
-    std::ranges::iterator_t<R> prev_sentence_break(
+    std::ranges::borrowed_iterator_t<R> prev_sentence_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Finds the next sentence break after `it`.  This will be the first code
@@ -815,7 +815,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `it` is at the beginning of a sentence. */
     template<code_point_range R>
-    std::ranges::iterator_t<R> next_sentence_break(
+    std::ranges::borrowed_iterator_t<R> next_sentence_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the next sentence break after `it`.
@@ -824,7 +824,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `it` is at the beginning of a sentence. */
     template<grapheme_range R>
-    std::ranges::iterator_t<R> next_sentence_break(
+    std::ranges::borrowed_iterator_t<R> next_sentence_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Returns true iff `it` is at the beginning of a sentence, or `it ==
@@ -846,17 +846,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<code_point_iter I, std::sentinel_for<I> S>
     utf32_view<I> sentence(I first, I it, S last);
 
-    /** Returns the bounds of the sentence that `it` lies within, as a
-        utf32_view. */
+    /** Returns the bounds of the sentence that `it` lies within.  Returns a
+        `utf32_view`; in C++20 and later, if `std::ranges::borrowed_range<R>`
+        is `false`, this function returns a `std::ranges::dangling`
+        instead. */
     template<code_point_range R>
-    utf32_view<std::ranges::iterator_t<R>> sentence(
-        R && r, std::ranges::iterator_t<R> it);
+    detail::unspecified sentence(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns grapheme range delimiting the bounds of the sentence that `it`
-        lies within, as a grapheme_view. */
+        lies within.  Returns a `grapheme_view`; in C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns a
+        `std::ranges::dangling` instead. */
     template<grapheme_range R>
-    grapheme_view<code_point_iterator_t<R>> sentence(
-        R && r, std::ranges::iterator_t<R> it);
+    detail::unspecified sentence(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a view of the code point ranges delimiting sentences in
         `[first, last)`. */
@@ -1034,28 +1036,28 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    std::ranges::iterator_t<R> prev_sentence_break(
+    std::ranges::borrowed_iterator_t<R> prev_sentence_break(
         R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_sentence_break_cp_impl(r, it);
     }
 
     template<grapheme_range R>
-    std::ranges::iterator_t<R> prev_sentence_break(
+    std::ranges::borrowed_iterator_t<R> prev_sentence_break(
         R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_sentence_break_gr_impl(r, it);
     }
 
     template<code_point_range R>
-    std::ranges::iterator_t<R> next_sentence_break(
+    std::ranges::borrowed_iterator_t<R> next_sentence_break(
         R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_sentence_break_cp_impl(r, it);
     }
 
     template<grapheme_range R>
-    std::ranges::iterator_t<R> next_sentence_break(
+    std::ranges::borrowed_iterator_t<R> next_sentence_break(
         R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_sentence_break_gr_impl(r, it);
@@ -1088,17 +1090,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    utf32_view<std::ranges::iterator_t<R>> sentence(
-        R && r, std::ranges::iterator_t<R> it)
+    auto sentence(R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::sentence_cr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::sentence_cr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     template<grapheme_range R>
-    grapheme_view<code_point_iterator_t<R>> sentence(
-        R && r, std::ranges::iterator_t<R> it)
+    auto sentence(R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::sentence_gr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::sentence_gr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     namespace dtl {

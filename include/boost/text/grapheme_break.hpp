@@ -331,7 +331,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         the grapheme that `it` is within is returned (even if `it` is already
         at the first code point of a grapheme). */
     template<code_point_range R>
-    std::ranges::iterator_t<R> prev_grapheme_break(
+    std::ranges::borrowed_iterator_t<R> prev_grapheme_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Finds the next grapheme break after `it`.  This will be the first code
@@ -340,7 +340,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `it` is at the beginning of a grapheme. */
     template<code_point_range R>
-    std::ranges::iterator_t<R> next_grapheme_break(
+    std::ranges::borrowed_iterator_t<R> next_grapheme_break(
         R && r, std::ranges::iterator_t<R> it);
 
     /** Returns true iff `it` is at the beginning of a grapheme, or `it ==
@@ -424,7 +424,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    std::ranges::iterator_t<R> prev_grapheme_break(
+    std::ranges::borrowed_iterator_t<R> prev_grapheme_break(
         R && r, std::ranges::iterator_t<R> it)
     {
         return boost::text::prev_grapheme_break(
@@ -432,7 +432,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    std::ranges::iterator_t<R> next_grapheme_break(
+    std::ranges::borrowed_iterator_t<R> next_grapheme_break(
         R && r, std::ranges::iterator_t<R> it)
     {
         return boost::text::next_grapheme_break(it, detail::end(r));

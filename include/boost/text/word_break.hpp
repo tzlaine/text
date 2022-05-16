@@ -1221,7 +1221,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         code_point_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> prev_word_break(
+    std::ranges::borrowed_iterator_t<R> prev_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
@@ -1238,7 +1238,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         grapheme_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> prev_word_break(
+    std::ranges::borrowed_iterator_t<R> prev_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
@@ -1255,7 +1255,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         code_point_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> next_word_break(
+    std::ranges::borrowed_iterator_t<R> next_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
@@ -1273,7 +1273,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         grapheme_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> next_word_break(
+    std::ranges::borrowed_iterator_t<R> next_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
@@ -1488,7 +1488,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{});
 
-    /** Returns the bounds of the word that `it` lies within, as a utf32_view.
+    /** Returns the bounds of the word that `it` lies within.  Returns a
+        `utf32_view`; in C++20 and later, if `std::ranges::borrowed_range<R>`
+        is `false`, this function returns a `std::ranges::dangling` instead.
 
         See the Text Segmentation section of the tutorial for WordPropFunc
         semantics. */
@@ -1496,14 +1498,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         code_point_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    utf32_view<std::ranges::iterator_t<R>> word(
+    detail::undefined word(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{});
 
     /** Returns grapheme range delimiting the bounds of the word that `it`
-        lies within, as a grapheme_view.
+        lies within.  Returns a `grapheme_view`; in C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns a
+        `std::ranges::dangling` instead.
 
         See the Text Segmentation section of the tutorial for WordPropFunc
         semantics. */
@@ -1511,7 +1515,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         grapheme_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    grapheme_view<code_point_iterator_t<R>> word(
+    detail::undefined word(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
@@ -1748,7 +1752,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         code_point_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> prev_word_break(
+    std::ranges::borrowed_iterator_t<R> prev_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
@@ -1761,7 +1765,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         grapheme_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> prev_word_break(
+    std::ranges::borrowed_iterator_t<R> prev_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
@@ -1774,7 +1778,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         code_point_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> next_word_break(
+    std::ranges::borrowed_iterator_t<R> next_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
@@ -1787,7 +1791,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         grapheme_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> next_word_break(
+    std::ranges::borrowed_iterator_t<R> next_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
@@ -1856,26 +1860,32 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         code_point_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    utf32_view<std::ranges::iterator_t<R>> word(
+    auto word(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        return detail::word_cr_impl(r, it, word_prop, word_break);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::word_cr_impl(r, it, word_prop, word_break);
+        else
+            return std::ranges::dangling{};
     }
 
     template<
         grapheme_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    grapheme_view<code_point_iterator_t<R>> word(
+    auto word(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        return detail::word_gr_impl(r, it, word_prop, word_break);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::word_gr_impl(r, it, word_prop, word_break);
+        else
+            return std::ranges::dangling{};
     }
 
     namespace dtl {
