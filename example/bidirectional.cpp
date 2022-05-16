@@ -45,7 +45,7 @@ boost::text::text const memory_order_text =
 When I type "Hello, bidirectional world" into Google translate English->Arabic, it produces "مرحبا ، عالم ثنائي الاتجاه".  I have no idea if it's correct.
 */
 boost::text::rope bidirectional_text;
-for (auto range : boost::text::bidirectional_subranges(memory_order_text)) {
+for (auto range : memory_order_text | boost::text::bidirectional_subranges) {
     for (auto grapheme : range) {
         // We can take each grapheme and print it out directly ...
         std::cout << grapheme;
@@ -91,7 +91,7 @@ translate English->Arabic, it produces "ثنائي الاتجاه
 */
 std::cout << "**************************************************\n";
 for (auto range :
-     boost::text::bidirectional_subranges(memory_order_text, 60, extent)) {
+     memory_order_text | boost::text::bidirectional_subranges(60, extent)) {
     for (auto grapheme : range) {
         std::cout << grapheme;
     }
