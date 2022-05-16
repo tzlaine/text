@@ -6,8 +6,8 @@
 #ifndef BOOST_TEXT_CASE_MAPPING_HPP
 #define BOOST_TEXT_CASE_MAPPING_HPP
 
+#include <boost/text/in_out_result.hpp>
 #include <boost/text/word_break.hpp>
-
 #include <boost/text/detail/case_constants.hpp>
 #include <boost/text/detail/case_mapping_data.hpp>
 #include <boost/text/detail/normalization_data.hpp>
@@ -48,6 +48,11 @@ namespace boost { namespace text {
 
 #endif
     };
+
+    /** An alias for `in_out_result` returned by algorithms that perform a
+        case-mapping copy. */
+    template<typename Iter, typename OutIter>
+    using case_mapping_result = in_out_result<Iter, OutIter>;
 
     namespace detail {
         // Data and algorithm for handling Greek special-casing comes from
@@ -536,7 +541,7 @@ namespace boost { namespace text {
         enum class final_sigma_state_t { none, after, before_after };
 
         template<typename CPIter, typename Sentinel, typename OutIter>
-        OutIter map_case(
+        case_mapping_result<CPIter, OutIter> map_case(
             CPIter first,
             CPIter it,
             Sentinel last,
@@ -780,26 +785,188 @@ namespace boost { namespace text {
                 ++it;
             }
 
-            return out;
+            return {it, out};
         }
     }
+}}
 
-#ifdef BOOST_TEXT_DOXYGEN
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
+
+#if defined(BOOST_TEXT_DOXYGEN)
 
     /** Returns true if no code point in `[first, last)` would change in a
         call to to_lower(), and false otherwise. */
     template<code_point_iter I, std::sentinel_for<I> S>
     bool is_lower(I first, S last);
 
-    /** Returns true if no code point in `range` would change in a call to
+    /** Returns true if no code point in `r` would change in a call to
         to_lower(), and false otherwise. */
     template<code_point_range R>
     bool is_lower(R && r);
 
-    /** Returns true if no grapheme in `range` would change in a call to
+    /** Returns true if no grapheme in `r` would change in a call to
         to_lower(), and false otherwise. */
     template<grapheme_range R>
     bool is_lower(R && r);
+
+    /** Writes the code point sequence comprising the lower-case form of
+        `[first, last)` to `out`, using language-specific handling as
+        indicated by `lang`.  The normalization of the result is undefined. */
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        std::weakly_incrementable O>
+    requires std::indirectly_copyable<I, O>
+    case_mapping_result<I, O>
+    to_lower(I first, S last, O out, case_language lang = case_language::other);
+
+    /** Writes the code point sequence comprising the lower-case form of `r`
+        to `out`, using language-specific handling as indicated by `lang`.
+        The normalization of the result is undefined. */
+    template<code_point_range R, std::weakly_incrementable O>
+    requires std::indirectly_copyable<std::ranges::iterator_t<R>, O>
+    case_mapping_result<std::ranges::borrowed_iterator_t<R>, O>
+    to_lower(R && r, O out, case_language lang = case_language::other);
+
+    /** Writes the code point sequence comprising the lower-case form of `r`
+        to `out`, using language-specific handling as indicated by `lang`.
+        The normalization of the result is undefined.  Returns a
+        `case_mapping_result`.  Note that the type of the result's `.in`
+        member may not be `std::ranges::iterator_t<R>`, since the result may
+        be a new iterator that results from reconstituting unpacked iterators
+        out of the input.  The type of `.in` will model `grapheme_iter`.  The
+        `.in` member of the result is a `borrowed_iterator_t` in C++20 and
+        later. */
+    template<grapheme_range R, std::weakly_incrementable O>
+    requires std::indirectly_copyable<code_point_iterator_t<R>, O>
+    detail::unspecified
+    to_lower(R && r, O out, case_language lang = case_language::other);
+
+    /** Returns true if no code point in `[first, last)` would change in a
+        call to to_title(), and false otherwise. */
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        typename NextWordBreakFunc = next_word_break_callable>
+    bool is_title(
+        I first,
+        S last,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
+
+    /** Returns true if no code point in `r` would change in a call to
+        to_title(), and false otherwise. */
+    template<
+        code_point_range R,
+        typename NextWordBreakFunc = next_word_break_callable>
+    bool is_title(
+        R && r,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
+
+    /** Returns true if no grapheme in `r` would change in a call to
+        to_title(), and false otherwise. */
+    template<
+        grapheme_range R,
+        typename NextWordBreakFunc = next_word_break_callable>
+    bool is_title(
+        R && r,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
+
+    /** Writes the code point sequence comprising the title-case form of
+        `[first, last)` to `out`, using language-specific handling as
+        indicated by `lang`.  The normalization of the result is undefined. */
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        std::weakly_incrementable O,
+        typename NextWordBreakFunc = next_word_break_callable>
+    requires std::indirectly_copyable<I, O>
+    case_mapping_result<I, O>
+    to_title(
+        I first,
+        S last,
+        O out,
+        case_language lang = case_language::other,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
+
+    /** Writes the code point sequence comprising the title-case form of `r`
+        to `out`, using language-specific handling as indicated by `lang`.
+        The normalization of the result is undefined. */
+    template<
+        code_point_range R,
+        std::weakly_incrementable O,
+        typename NextWordBreakFunc = next_word_break_callable>
+    requires std::indirectly_copyable<std::ranges::iterator_t<R>, O>
+    case_mapping_result<std::ranges::borrowed_iterator_t<R>, O>
+    to_title(
+        R && r,
+        O out,
+        case_language lang = case_language::other,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
+
+    /** Writes the code point sequence comprising the title-case form of `r`
+        to `out`, using language-specific handling as indicated by `lang`.
+        The normalization of the result is undefined.  Returns a
+        `case_mapping_result`.  Note that the type of the result's `.in`
+        member may not be `std::ranges::iterator_t<R>`, since the result may
+        be a new iterator that results from reconstituting unpacked iterators
+        out of the input.  The type of `.in` will model `grapheme_iter`.  The
+        `.in` member of the result is a `borrowed_iterator_t` in C++20 and
+        later. */
+    template<
+        grapheme_range R,
+        std::weakly_incrementable O,
+        typename NextWordBreakFunc = next_word_break_callable>
+    requires std::indirectly_copyable<code_point_iterator_t<R>, O>
+    detail::unspecified to_title(
+        R && r,
+        O out,
+        case_language lang = case_language::other,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
+
+    /** Returns true if no code point in `[first, last)` would change in a
+        call to to_upper(), and false otherwise. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    bool is_upper(I first, S last);
+
+    /** Returns true if no code point in `r` would change in a call to
+        to_upper(), and false otherwise. */
+    template<code_point_range R>
+    bool is_upper(R && r);
+
+    /** Returns true if no grapheme in `r` would change in a call to
+        to_upper(), and false otherwise. */
+    template<grapheme_range R>
+    bool is_upper(R && r);
+
+    /** Writes code point sequence comprising the the upper-case form of
+        `[first, last)` to `out`, using language-specific handling as
+        indicated by `lang`.  The normalization of the result is undefined. */
+    template<code_point_iter I, std::sentinel_for<I> S, std::weakly_incrementable O>
+    requires std::indirectly_copyable<I, O>
+    case_mapping_result<I, O>
+    to_upper(I first, S last, O out, case_language lang = case_language::other);
+
+    /** Writes code point sequence comprising the the upper-case form of `r`
+        to `out`, using language-specific handling as indicated by `lang`.
+        The normalization of the result is undefined. */
+    template<code_point_range R, std::weakly_incrementable O>
+    requires std::indirectly_copyable<std::ranges::iterator_t<R>, O>
+    case_mapping_result<std::ranges::borrowed_iterator_t<R>, O>
+    to_upper(R && r, O out, case_language lang = case_language::other);
+
+    /** Writes the code point sequence comprising the upper-case form of `r`
+        to `out`, using language-specific handling as indicated by `lang`.
+        The normalization of the result is undefined.  Returns a
+        `case_mapping_result`.  Note that the type of the result's `.in`
+        member may not be `std::ranges::iterator_t<R>`, since the result may
+        be a new iterator that results from reconstituting unpacked iterators
+        out of the input.  The type of `.in` will model `grapheme_iter`.  The
+        `.in` member of the result is a `borrowed_iterator_t` in C++20 and
+        later. */
+    template<grapheme_range R, std::weakly_incrementable O>
+    requires std::indirectly_copyable<code_point_iterator_t<R>, O>
+    detail::unspecified
+    to_upper(R && r, O out, case_language lang = case_language::other);
 
 #else
 
@@ -815,49 +982,18 @@ namespace boost { namespace text {
     auto is_lower(CPRange && range)
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        return is_lower(detail::begin(range), detail::end(range));
+        return v1::is_lower(detail::begin(range), detail::end(range));
     }
 
     template<typename GraphemeRange>
     auto is_lower(GraphemeRange && range)
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
-        return is_lower(range.begin().base(), range.end().base());
+        return v1::is_lower(range.begin().base(), range.end().base());
     }
 
-#endif
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Writes the code point sequence comprising the lower-case form of
-        `[first, last)` to `out`, using language-specific handling as
-        indicated by `lang`.  The normalization of the result is undefined. */
-    template<
-        code_point_iter I,
-        std::sentinel_for<I> S,
-        std::weakly_incrementable O>
-    requires indirectly_copyable<I, O>
-    O to_lower(
-        I first, S last, O out, case_language lang = case_language::other);
-
-    /** Writes the code point sequence comprising the lower-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined. */
-    template<code_point_range R, std::weakly_incrementable O>
-    requires indirectly_copyable<I, O>
-    O to_lower(R && r, O out, case_language lang = case_language::other);
-
-    /** Writes the code point sequence comprising the lower-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined. */
-    template<grapheme_range R, std::weakly_incrementable O>
-    requires indirectly_copyable<I, O>
-    O to_lower(R && r, O out, case_language lang = case_language::other);
-
-#else
-
     template<typename CPIter, typename Sentinel, typename OutIter>
-    OutIter to_lower(
+    auto to_lower(
         CPIter first,
         Sentinel last,
         OutIter out,
@@ -878,57 +1014,32 @@ namespace boost { namespace text {
         CPRange && range,
         OutIter out,
         case_language lang = case_language::other)
-        -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
+        ->detail::cp_rng_alg_ret_t<
+            case_mapping_result<detail::iterator_t<CPRange>, OutIter>,
+            CPRange>
     {
-        return boost::text::to_lower(
+        return v1::to_lower(
             detail::begin(range), detail::end(range), out, lang);
     }
 
-    template<typename GraphemeRange, typename OutIter>
+    template<
+        typename GraphemeRange,
+        typename OutIter,
+        typename Enable = detail::graph_rng_alg_ret_t<void, GraphemeRange>>
     auto to_lower(
         GraphemeRange && range,
         OutIter out,
         case_language lang = case_language::other)
-        -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
-        return boost::text::to_lower(
-            range.begin().base(), range.end().base(), out, lang);
+        auto result =
+            v1::to_lower(range.begin().base(), range.end().base(), out, lang);
+        grapheme_iterator<
+            decltype(range.begin().base()),
+            decltype(range.end().base())>
+            in(range.begin().base(), result.in, range.end().base());
+        return case_mapping_result<decltype(in), OutIter>{
+            in, std::move(result.out)};
     }
-
-#endif
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Returns true if no code point in `[first, last)` would change in a
-        call to to_title(), and false otherwise. */
-    template<
-        code_point_iter I,
-        std::sentinel_for<I> S,
-        typename NextWordBreakFunc = next_word_break_callable>
-    bool is_title(
-        I first,
-        S last,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
-
-    /** Returns true if no code point in `range` would change in a call to
-        to_title(), and false otherwise. */
-    template<
-        code_point_range R,
-        typename NextWordBreakFunc = next_word_break_callable>
-    bool is_title(
-        R && r,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
-
-    /** Returns true if no grapheme in `range` would change in a call to
-        to_title(), and false otherwise. */
-    template<
-        grapheme_range R,
-        typename NextWordBreakFunc = next_word_break_callable>
-    bool is_title(
-        R && r,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
-
-#else
 
     template<
         typename CPIter,
@@ -960,7 +1071,7 @@ namespace boost { namespace text {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{})
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        return boost::text::is_title(
+        return v1::is_title(
             detail::begin(range), detail::end(range), next_word_break);
     }
 
@@ -972,63 +1083,16 @@ namespace boost { namespace text {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{})
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
-        return boost::text::is_title(
+        return v1::is_title(
             range.begin().base(), range.end().base(), next_word_break);
     }
-
-#endif
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Writes the code point sequence comprising the title-case form of
-        `[first, last)` to `out`, using language-specific handling as
-        indicated by `lang`.  The normalization of the result is undefined. */
-    template<
-        code_point_iter I,
-        std::sentinel_for<I> S,
-        typename O,
-        typename NextWordBreakFunc = next_word_break_callable>
-    O to_title(
-        I first,
-        S last,
-        O out,
-        case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
-
-    /** Writes the code point sequence comprising the title-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined. */
-    template<
-        code_point_range R,
-        typename O,
-        typename NextWordBreakFunc = next_word_break_callable>
-    O to_title(
-        R && r,
-        O out,
-        case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
-
-    /** Writes the code point sequence comprising the title-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined. */
-    template<
-        grapheme_range R,
-        typename O,
-        typename NextWordBreakFunc = next_word_break_callable>
-    O to_title(
-        R && r,
-        O out,
-        case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
-
-#else
 
     template<
         typename CPIter,
         typename Sentinel,
         typename OutIter,
         typename NextWordBreakFunc = next_word_break_callable>
-    OutIter to_title(
+    auto to_title(
         CPIter first,
         Sentinel last,
         OutIter out,
@@ -1039,7 +1103,9 @@ namespace boost { namespace text {
         detail::lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
             std::move(next), {first, last}, {last}};
 
+        CPIter in = first;
         for (auto r : words) {
+            in = r.end();
             out = map_case(
                 first,
                 r.begin(),
@@ -1047,10 +1113,10 @@ namespace boost { namespace text {
                 out,
                 lang,
                 detail::to_title_map(),
-                detail::map_case_mode::title);
+                detail::map_case_mode::title).out;
         }
 
-        return out;
+        return case_mapping_result<CPIter, OutIter>{in, std::move(out)};
     }
 
     template<
@@ -1062,9 +1128,11 @@ namespace boost { namespace text {
         OutIter out,
         case_language lang = case_language::other,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{})
-        -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
+        ->detail::cp_rng_alg_ret_t<
+            case_mapping_result<detail::iterator_t<CPRange>, OutIter>,
+            CPRange>
     {
-        return boost::text::to_title(
+        return v1::to_title(
             detail::begin(range),
             detail::end(range),
             out,
@@ -1075,42 +1143,27 @@ namespace boost { namespace text {
     template<
         typename GraphemeRange,
         typename OutIter,
-        typename NextWordBreakFunc = next_word_break_callable>
+        typename NextWordBreakFunc = next_word_break_callable,
+        typename Enable = detail::graph_rng_alg_ret_t<void, GraphemeRange>>
     auto to_title(
         GraphemeRange && range,
         OutIter out,
         case_language lang = case_language::other,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{})
-        -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
-        return boost::text::to_title(
+        auto result = v1::to_title(
             range.begin().base(),
             range.end().base(),
             out,
             lang,
             next_word_break);
+        grapheme_iterator<
+            decltype(range.begin().base()),
+            decltype(range.end().base())>
+            in(range.begin().base(), result.in, range.end().base());
+        return case_mapping_result<decltype(in), OutIter>{
+            in, std::move(result.out)};
     }
-
-#endif
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Returns true if no code point in `[first, last)` would change in a
-        call to to_upper(), and false otherwise. */
-    template<code_point_iter I, std::sentinel_for<I> S>
-    bool is_upper(I first, S last);
-
-    /** Returns true if no code point in `range` would change in a call to
-        to_upper(), and false otherwise. */
-    template<code_point_range R>
-    bool is_upper(R && r);
-
-    /** Returns true if no grapheme in `range` would change in a call to
-        to_upper(), and false otherwise. */
-    template<grapheme_range R>
-    bool is_upper(R && r);
-
-#else
 
     template<typename CPIter, typename Sentinel>
     bool is_upper(CPIter first, Sentinel last)
@@ -1124,51 +1177,18 @@ namespace boost { namespace text {
     auto is_upper(CPRange && range)
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        return boost::text::is_upper(detail::begin(range), detail::end(range));
+        return v1::is_upper(detail::begin(range), detail::end(range));
     }
 
     template<typename GraphemeRange>
     auto is_upper(GraphemeRange && range)
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
-        return boost::text::is_upper(range.begin().base(), range.end().base());
+        return v1::is_upper(range.begin().base(), range.end().base());
     }
 
-#endif
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Writes code point sequence comprising the the upper-case form of
-        `[first, last)` to `out`, using language-specific handling as
-        indicated by `lang`.  The normalization of the result is undefined. */
-    template<code_point_iter I, std::sentinel_for<I> S, std::weakly_incrementable O>
-    requires indirectly_copyable<I, O> O
-    to_upper(I first, S last, O out, case_language lang = case_language::other);
-
-    /** Writes code point sequence comprising the the upper-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined. */
-    template<code_point_range R, std::weakly_incrementable O>
-    requires indirectly_copyable<I, O>
-    O to_upper(
-        R && r,
-        O out,
-        case_language lang = case_language::other);
-
-    /** Writes the code point sequence comprising the upper-case form of
-        `range` to `out`, using language-specific handling as indicated by
-        `lang`.  The normalization of the result is undefined. */
-    template<grapheme_range R, std::weakly_incrementable O>
-    requires indirectly_copyable<I, O>
-    O to_upper(
-        R && r,
-        O out,
-        case_language lang = case_language::other);
-
-#else
-
     template<typename CPIter, typename Sentinel, typename OutIter>
-    OutIter to_upper(
+    auto to_upper(
         CPIter first,
         Sentinel last,
         OutIter out,
@@ -1189,25 +1209,280 @@ namespace boost { namespace text {
         CPRange && range,
         OutIter out,
         case_language lang = case_language::other)
-        -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
+        ->detail::cp_rng_alg_ret_t<
+            case_mapping_result<detail::iterator_t<CPRange>, OutIter>,
+            CPRange>
     {
-        return boost::text::to_upper(
+        return v1::to_upper(
             detail::begin(range), detail::end(range), out, lang);
     }
 
-    template<typename GraphemeRange, typename OutIter>
+    template<
+        typename GraphemeRange,
+        typename OutIter,
+        typename Enable = detail::graph_rng_alg_ret_t<void, GraphemeRange>>
     auto to_upper(
         GraphemeRange && range,
         OutIter out,
         case_language lang = case_language::other)
-        -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
-        return boost::text::to_upper(
-            range.begin().base(), range.end().base(), out, lang);
+        auto result =
+            v1::to_upper(range.begin().base(), range.end().base(), out, lang);
+        grapheme_iterator<
+            decltype(range.begin().base()),
+            decltype(range.end().base())>
+            in(range.begin().base(), result.in, range.end().base());
+        return case_mapping_result<decltype(in), OutIter>{
+            in, std::move(result.out)};
     }
 
 #endif
 
-}}
+}}}
+
+
+#if BOOST_TEXT_USE_CONCEPTS
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    template<code_point_iter I, std::sentinel_for<I> S>
+    bool is_lower(I first, S last)
+    {
+        return boost::text::all_of(first, last, [](uint32_t cp) {
+            return !detail::changes_when_lowered(cp);
+        });
+    }
+
+    template<code_point_range R>
+    bool is_lower(R && r)
+    {
+        return v2::is_lower(detail::begin(r), detail::end(r));
+    }
+
+    template<grapheme_range R>
+    bool is_lower(R && r)
+    {
+        return v2::is_lower(r.begin().base(), r.end().base());
+    }
+
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        std::weakly_incrementable O>
+    requires std::indirectly_copyable<I, O> case_mapping_result<I, O>
+    to_lower(
+        I first, S last, O out, case_language lang = case_language::other)
+    {
+        return map_case(
+            first,
+            first,
+            last,
+            out,
+            lang,
+            detail::to_lower_map(),
+            detail::map_case_mode::lower);
+    }
+
+    template<code_point_range R, std::weakly_incrementable O>
+    requires std::indirectly_copyable<std::ranges::iterator_t<R>, O>
+    case_mapping_result<std::ranges::borrowed_iterator_t<R>, O>
+    to_lower(R && r, O out, case_language lang = case_language::other)
+    {
+        return v2::to_lower(detail::begin(r), detail::end(r), out, lang);
+    }
+
+    template<grapheme_range R, std::weakly_incrementable O>
+    requires std::indirectly_copyable<code_point_iterator_t<R>, O>
+    auto to_lower(R && r, O out, case_language lang = case_language::other)
+    {
+        auto [in_, out_] =
+            v2::to_lower(r.begin().base(), r.end().base(), out, lang);
+        if constexpr (std::ranges::borrowed_range<R>) {
+            return case_mapping_result{
+                grapheme_iterator(r.begin().base(), in_, r.end().base()),
+                std::move(out_)};
+        } else {
+            return case_mapping_result{
+                std::ranges::dangling{}, std::move(out_)};
+        }
+    }
+
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        typename NextWordBreakFunc = next_word_break_callable>
+    bool is_title(
+        I first,
+        S last,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
+    {
+        NextWordBreakFunc next;
+        detail::lazy_segment_range<I, S, NextWordBreakFunc> words{
+            std::move(next), {first, last}, {last}};
+        for (auto r : words) {
+            auto it = r.begin();
+            if (detail::changes_when_titled(*it))
+                return false;
+            if (!is_lower(++it, r.end()))
+                return false;
+        }
+        return true;
+    }
+
+    template<
+        code_point_range R,
+        typename NextWordBreakFunc = next_word_break_callable>
+    bool is_title(
+        R && r, NextWordBreakFunc next_word_break = NextWordBreakFunc{})
+    {
+        return v2::is_title(detail::begin(r), detail::end(r), next_word_break);
+    }
+
+    template<
+        grapheme_range R,
+        typename NextWordBreakFunc = next_word_break_callable>
+    bool is_title(
+        R && r, NextWordBreakFunc next_word_break = NextWordBreakFunc{})
+    {
+        return v2::is_title(r.begin().base(), r.end().base(), next_word_break);
+    }
+
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        std::weakly_incrementable O,
+        typename NextWordBreakFunc = next_word_break_callable>
+    requires std::indirectly_copyable<I, O>
+    case_mapping_result<I, O>
+    to_title(
+        I first,
+        S last,
+        O out,
+        case_language lang = case_language::other,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
+    {
+        NextWordBreakFunc next;
+        detail::lazy_segment_range<I, S, NextWordBreakFunc> words{
+            std::move(next), {first, last}, {last}};
+
+        I in = first;
+        for (auto r : words) {
+            in = r.end();
+            out = map_case(
+                first,
+                r.begin(),
+                r.end(),
+                out,
+                lang,
+                detail::to_title_map(),
+                detail::map_case_mode::title).out;
+        }
+
+        return {in, out};
+    }
+
+    template<
+        code_point_range R,
+        std::weakly_incrementable O,
+        typename NextWordBreakFunc = next_word_break_callable>
+    requires std::indirectly_copyable<std::ranges::iterator_t<R>, O>
+    case_mapping_result<std::ranges::borrowed_iterator_t<R>, O>
+    to_title(
+        R && r,
+        O out,
+        case_language lang = case_language::other,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
+    {
+        return v2::to_title(
+            detail::begin(r), detail::end(r), out, lang, next_word_break);
+    }
+
+    template<
+        grapheme_range R,
+        std::weakly_incrementable O,
+        typename NextWordBreakFunc = next_word_break_callable>
+    requires std::indirectly_copyable<code_point_iterator_t<R>, O>
+    auto to_title(
+        R && r,
+        O out,
+        case_language lang = case_language::other,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
+    {
+        auto [in_, out_] = v2::to_title(
+            r.begin().base(), r.end().base(), out, lang, next_word_break);
+        if constexpr (std::ranges::borrowed_range<R>) {
+            return case_mapping_result{
+                grapheme_iterator(r.begin().base(), in_, r.end().base()),
+                std::move(out_)};
+        } else {
+            return case_mapping_result{
+                std::ranges::dangling{}, std::move(out_)};
+        }
+    }
+
+    template<code_point_iter I, std::sentinel_for<I> S>
+    bool is_upper(I first, S last)
+    {
+        return boost::text::all_of(first, last, [](uint32_t cp) {
+            return !detail::changes_when_uppered(cp);
+        });
+    }
+
+    template<code_point_range R>
+    bool is_upper(R && r)
+    {
+        return v2::is_upper(detail::begin(r), detail::end(r));
+    }
+
+    template<grapheme_range R>
+    bool is_upper(R && r)
+    {
+        return v2::is_upper(r.begin().base(), r.end().base());
+    }
+
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        std::weakly_incrementable O>
+    requires std::indirectly_copyable<I, O>
+    case_mapping_result<I, O>
+    to_upper(I first, S last, O out, case_language lang = case_language::other)
+    {
+        return detail::map_case(
+            first,
+            first,
+            last,
+            out,
+            lang,
+            detail::to_upper_map(),
+            detail::map_case_mode::upper);
+    }
+
+    template<code_point_range R, std::weakly_incrementable O>
+    requires std::indirectly_copyable<std::ranges::iterator_t<R>, O>
+    case_mapping_result<std::ranges::borrowed_iterator_t<R>, O>
+    to_upper(R && r, O out, case_language lang = case_language::other)
+    {
+        return v2::to_upper(detail::begin(r), detail::end(r), out, lang);
+    }
+
+    template<grapheme_range R, std::weakly_incrementable O>
+    requires std::indirectly_copyable<code_point_iterator_t<R>, O>
+    auto to_upper(R && r, O out, case_language lang = case_language::other)
+    {
+        auto [in_, out_] =
+            v2::to_upper(r.begin().base(), r.end().base(), out, lang);
+        if constexpr (std::ranges::borrowed_range<R>) {
+            return case_mapping_result{
+                grapheme_iterator(r.begin().base(), in_, r.end().base()),
+                std::move(out_)};
+        } else {
+            return case_mapping_result{
+                std::ranges::dangling{}, std::move(out_)};
+        }
+    }
+}}}
+
+#endif
 
 #endif

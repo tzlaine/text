@@ -331,7 +331,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Copies the stream-safe portion of `[first, last)` to the beginning of
         `[first, last)`, and returns an iterator to the end of the copied
         range.  Note that the type returned may not be `I`, since the result
-        may be a new iterator that results from reconstituted unpacked
+        may be a new iterator that results from reconstituting unpacked
         iterators out of the input.  The type returned will model
         `code_point_iter`.
 
@@ -342,7 +342,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Copies the stream-safe portion of `r` to the beginning of `r`, and
         returns an iterator to the end of the copied range.  Note that the
         type returned may not be `I`, since the result may be a new iterator
-        that results from reconstituted unpacked iterators out of the input.
+        that results from reconstituting unpacked iterators out of the input.
         The type returned will model `code_point_iter`.  The result is
         returned as a `borrowed_iterator_t` in C++20 and later.
 
