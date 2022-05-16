@@ -128,7 +128,7 @@ namespace boost { namespace text {
 
         /** Constructs a `basic_text` from a sequence of `char_type`. */
 #if BOOST_TEXT_USE_CONCEPTS
-        template<code_unit_iterator<utf_format> I, std::sentinel_for<I> S>
+        template<code_unit_iter<utf_format> I, std::sentinel_for<I> S>
         basic_text(I first, S last) :
 #else
         template<typename CPIter, typename Sentinel>
@@ -407,7 +407,7 @@ namespace boost { namespace text {
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
 #if BOOST_TEXT_USE_CONCEPTS
-        template<code_unit_iterator<utf_format> I>
+        template<code_unit_iter<utf_format> I>
         replace_result<iterator>
         replace(const_iterator first1, const_iterator last1, I first2, I last2)
 #else

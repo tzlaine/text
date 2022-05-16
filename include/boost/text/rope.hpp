@@ -363,7 +363,7 @@ namespace boost { namespace text {
             \pre !std::less(first1.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last1.base().base()) */
 #if BOOST_TEXT_USE_CONCEPTS
-        template<code_unit_iterator<utf_format> I>
+        template<code_unit_iter<utf_format> I>
         replace_result<const_iterator>
         replace(const_iterator first1, const_iterator last1, I first2, I last2)
 #else
