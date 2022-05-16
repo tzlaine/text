@@ -214,8 +214,7 @@ namespace boost { namespace text {
     };
 
     template<typename I, typename S>
-    BOOST_TEXT_CXX14_CONSTEXPR auto
-    operator==(stream_safe_iterator<I, S> const & lhs, S rhs)
+    constexpr auto operator==(stream_safe_iterator<I, S> const & lhs, S rhs)
         -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs.base();
@@ -227,8 +226,7 @@ namespace boost { namespace text {
         return rhs.base() == lhs;
     }
     template<typename I, typename S>
-    BOOST_TEXT_CXX14_CONSTEXPR auto
-    operator!=(stream_safe_iterator<I, S> const & lhs, S rhs)
+    constexpr auto operator!=(stream_safe_iterator<I, S> const & lhs, S rhs)
         -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs.base();

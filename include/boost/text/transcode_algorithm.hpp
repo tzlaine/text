@@ -71,8 +71,7 @@ namespace boost { namespace text {
 
     namespace detail {
         template<typename OutIter>
-        BOOST_TEXT_CXX14_CONSTEXPR OutIter
-        read_into_utf8_iter(uint32_t cp, OutIter out)
+        constexpr OutIter read_into_utf8_iter(uint32_t cp, OutIter out)
         {
             if (cp < 0x80) {
                 *out = static_cast<char>(cp);
@@ -103,8 +102,7 @@ namespace boost { namespace text {
         }
 
         template<typename OutIter>
-        BOOST_TEXT_CXX14_CONSTEXPR OutIter
-        read_into_utf16_iter(uint32_t cp, OutIter out)
+        constexpr OutIter read_into_utf16_iter(uint32_t cp, OutIter out)
         {
             uint16_t const high_surrogate_base = 0xd7c0;
             uint16_t const low_surrogate_base = 0xdc00;

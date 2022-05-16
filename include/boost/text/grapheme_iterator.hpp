@@ -127,12 +127,12 @@ namespace boost { namespace text {
             return retval;
         }
 
-        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        friend constexpr bool
         operator==(grapheme_iterator lhs, grapheme_iterator rhs)
         {
             return lhs.base() == rhs.base();
         }
-        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        friend constexpr bool
         operator!=(grapheme_iterator lhs, grapheme_iterator rhs)
         {
             return !(lhs == rhs);
@@ -186,7 +186,7 @@ namespace boost { namespace text {
         typename Enable = std::enable_if_t<
             std::is_same<Sentinel1, null_sentinel_t>::value !=
             std::is_same<Sentinel2, null_sentinel_t>::value>>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         grapheme_iterator<Iter1, Sentinel1> const & lhs,
         grapheme_iterator<Iter2, Sentinel2> const & rhs)
         -> decltype(lhs.base() == rhs.base())
@@ -202,7 +202,7 @@ namespace boost { namespace text {
         typename Enable = std::enable_if_t<
             std::is_same<Sentinel1, null_sentinel_t>::value !=
             std::is_same<Sentinel2, null_sentinel_t>::value>>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         grapheme_iterator<Iter1, Sentinel1> const & lhs,
         grapheme_iterator<Iter2, Sentinel2> const & rhs)
         -> decltype(!(lhs == rhs))
@@ -211,7 +211,7 @@ namespace boost { namespace text {
     }
 
     template<typename CPIter, typename Sentinel>
-    BOOST_TEXT_CXX14_CONSTEXPR auto
+    constexpr auto
     operator==(grapheme_iterator<CPIter, Sentinel> it, Sentinel s)
         -> decltype(it.base() == s)
     {
@@ -219,7 +219,7 @@ namespace boost { namespace text {
     }
 
     template<typename CPIter, typename Sentinel>
-    BOOST_TEXT_CXX14_CONSTEXPR auto
+    constexpr auto
     operator==(Sentinel s, grapheme_iterator<CPIter, Sentinel> it)
         -> decltype(it.base() == s)
     {
@@ -227,7 +227,7 @@ namespace boost { namespace text {
     }
 
     template<typename CPIter, typename Sentinel>
-    BOOST_TEXT_CXX14_CONSTEXPR auto
+    constexpr auto
     operator!=(grapheme_iterator<CPIter, Sentinel> it, Sentinel s)
         -> decltype(it.base() != s)
     {
@@ -235,7 +235,7 @@ namespace boost { namespace text {
     }
 
     template<typename CPIter, typename Sentinel>
-    BOOST_TEXT_CXX14_CONSTEXPR auto
+    constexpr auto
     operator!=(Sentinel s, grapheme_iterator<CPIter, Sentinel> it)
         -> decltype(it.base() != s)
     {

@@ -80,7 +80,7 @@ namespace boost { namespace text { namespace detail {
             os.width(0);
         }
 
-        inline BOOST_TEXT_CXX14_CONSTEXPR char const *
+        inline constexpr char const *
         strchr(char const * first, char const * last, char c)
         {
             while (first != last) {
@@ -91,7 +91,7 @@ namespace boost { namespace text { namespace detail {
             return last;
         }
 
-        inline BOOST_TEXT_CXX14_CONSTEXPR char const *
+        inline constexpr char const *
         strrchr(char const * first, char const * last, char c)
         {
             char const * it = last;

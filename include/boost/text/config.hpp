@@ -69,20 +69,6 @@ namespace boost { namespace text { namespace detail {
 #    define BOOST_TEXT_NAMESPACE_V2 namespace v2
 #endif
 
-// Nothing before GCC 6 has proper C++14 constexpr support.
-#if defined(__GNUC__) && __GNUC__ < 6 && !defined(__clang__)
-#    define BOOST_TEXT_CXX14_CONSTEXPR
-#    define BOOST_TEXT_NO_CXX14_CONSTEXPR
-#elif defined(_MSC_VER) && _MSC_VER <= 1916
-#    define BOOST_TEXT_CXX14_CONSTEXPR
-#    define BOOST_TEXT_NO_CXX14_CONSTEXPR
-#else
-#    define BOOST_TEXT_CXX14_CONSTEXPR BOOST_CXX14_CONSTEXPR
-#    if defined(BOOST_NO_CXX14_CONSTEXPR)
-#        define BOOST_TEXT_NO_CXX14_CONSTEXPR
-#    endif
-#endif
-
 // Implements separate compilation features as described in
 // http://www.boost.org/more/separate_compilation.html
 

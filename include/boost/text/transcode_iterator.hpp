@@ -42,8 +42,7 @@ namespace boost { namespace text {
         {};
 
         template<typename OutIter>
-        inline BOOST_TEXT_CXX14_CONSTEXPR OutIter
-        read_into_buf(uint32_t cp, OutIter buf)
+        inline constexpr OutIter read_into_buf(uint32_t cp, OutIter buf)
         {
             if (cp < 0x80) {
                 *buf = static_cast<char>(cp);
@@ -74,15 +73,13 @@ namespace boost { namespace text {
         }
 
         template<typename OutIter>
-        BOOST_TEXT_CXX14_CONSTEXPR OutIter
-        write_cp_utf8(uint32_t cp, OutIter out)
+        constexpr OutIter write_cp_utf8(uint32_t cp, OutIter out)
         {
             return detail::read_into_buf(cp, out);
         }
 
         template<typename OutIter>
-        BOOST_TEXT_CXX14_CONSTEXPR OutIter
-        write_cp_utf16(uint32_t cp, OutIter out)
+        constexpr OutIter write_cp_utf16(uint32_t cp, OutIter out)
         {
             if (cp < 0x10000) {
                 *out = static_cast<uint16_t>(cp);
@@ -120,19 +117,19 @@ namespace boost { namespace text {
     constexpr uint32_t replacement_character() { return 0xfffd; }
 
     /** Returns true iff `c` is a Unicode surrogate. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool surrogate(uint32_t c)
+    inline constexpr bool surrogate(uint32_t c)
     {
         return high_surrogate_min <= c && c <= low_surrogate_max;
     }
 
     /** Returns true iff `c` is a Unicode high surrogate. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool high_surrogate(uint32_t c)
+    inline constexpr bool high_surrogate(uint32_t c)
     {
         return high_surrogate_min <= c && c <= high_surrogate_max;
     }
 
     /** Returns true iff `c` is a Unicode low surrogate. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool low_surrogate(uint32_t c)
+    inline constexpr bool low_surrogate(uint32_t c)
     {
         return low_surrogate_min <= c && c <= low_surrogate_max;
     }
@@ -140,7 +137,7 @@ namespace boost { namespace text {
     /** Returns true iff `c` is a Unicode reserved noncharacter.
 
         \see Unicode 3.4/D14 */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool reserved_noncharacter(uint32_t c)
+    inline constexpr bool reserved_noncharacter(uint32_t c)
     {
         bool const byte01_reserved = (c & 0xffff) >= 0xfffe;
         bool const byte2_at_most_0x10 = ((c & 0xff0000u) >> 16) <= 0x10;
@@ -151,7 +148,7 @@ namespace boost { namespace text {
     /** Returns true iff `c` is a valid Unicode code point.
 
         \see Unicode 3.9/D90 */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool valid_code_point(uint32_t c)
+    inline constexpr bool valid_code_point(uint32_t c)
     {
         return c <= 0x10ffff && !surrogate(c) && !reserved_noncharacter(c);
     }
@@ -170,8 +167,7 @@ namespace boost { namespace text {
         point, returns the number of bytes occupied by that code point (in the
         range `[1, 4]`).  Returns a value < 0 if `first_unit` is not a valid
         initial UTF-8 code unit. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR int
-    utf8_code_units(unsigned char first_unit)
+    inline constexpr int utf8_code_units(unsigned char first_unit)
     {
         return first_unit <= 0x7f ? 1
                : boost::text::lead_code_unit(first_unit)
@@ -183,7 +179,7 @@ namespace boost { namespace text {
         point, returns the number of code units occupied by that code point
         (in the range `[1, 2]`).  Returns a negative value if `first_unit` is
         not a valid initial UTF-16 code unit. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR int utf16_code_units(uint16_t first_unit)
+    inline constexpr int utf16_code_units(uint16_t first_unit)
     {
         if (boost::text::low_surrogate(first_unit))
             return -1;
@@ -200,8 +196,8 @@ namespace boost { namespace text {
             constexpr optional_iter() : it_(), valid_(false) {}
             constexpr optional_iter(Iter it) : it_(it), valid_(true) {}
 
-            BOOST_TEXT_CXX14_CONSTEXPR operator bool() const { return valid_; }
-            BOOST_TEXT_CXX14_CONSTEXPR Iter operator*() const
+            constexpr operator bool() const { return valid_; }
+            constexpr Iter operator*() const
             {
                 BOOST_ASSERT(valid_);
                 return it_;
@@ -212,13 +208,13 @@ namespace boost { namespace text {
                 return it_;
             }
 
-            friend BOOST_TEXT_CXX14_CONSTEXPR bool
+            friend constexpr bool
             operator==(optional_iter lhs, optional_iter rhs)
             {
                 return lhs.valid_ == rhs.valid_ &&
                        (!lhs.valid_ || lhs.it_ == rhs.it_);
             }
-            friend BOOST_TEXT_CXX14_CONSTEXPR bool
+            friend constexpr bool
             operator!=(optional_iter lhs, optional_iter rhs)
             {
                 return !(lhs == rhs);
@@ -231,8 +227,7 @@ namespace boost { namespace text {
 
         // Follow Table 3-7 in Unicode 3.9/D92
         template<typename Iter>
-        BOOST_TEXT_CXX14_CONSTEXPR optional_iter<Iter>
-        end_of_invalid_utf8(Iter it)
+        constexpr optional_iter<Iter> end_of_invalid_utf8(Iter it)
         {
             BOOST_ASSERT(!boost::text::continuation(*it));
 
@@ -314,7 +309,7 @@ namespace boost { namespace text {
         }
 
         template<typename Iter>
-        BOOST_TEXT_CXX14_CONSTEXPR Iter decrement(Iter it)
+        constexpr Iter decrement(Iter it)
         {
             Iter retval = it;
 
@@ -348,7 +343,7 @@ namespace boost { namespace text {
         }
 
         template<typename Iter>
-        BOOST_TEXT_CXX14_CONSTEXPR Iter decrement(Iter first, Iter it)
+        constexpr Iter decrement(Iter first, Iter it)
         {
             Iter retval = it;
 
@@ -636,7 +631,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 #endif
 
     template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter>
+    constexpr detail::enable_utf8_cp_t<Iter>
     find_invalid_encoding(Iter first, Iter last)
     {
         while (first != last) {
@@ -654,7 +649,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter>
+    constexpr detail::enable_utf16_cp_t<Iter>
     find_invalid_encoding(Iter first, Iter last)
     {
         while (first != last) {
@@ -672,21 +667,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool> encoded(
+    constexpr detail::enable_utf8_cp_t<Iter, bool> encoded(
         Iter first, Iter last)
     {
         return v1::find_invalid_encoding(first, last) == last;
     }
 
     template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool> encoded(
+    constexpr detail::enable_utf16_cp_t<Iter, bool> encoded(
         Iter first, Iter last)
     {
         return v1::find_invalid_encoding(first, last) == last;
     }
 
     template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool>
+    constexpr detail::enable_utf8_cp_t<Iter, bool>
     starts_encoded(Iter first, Iter last)
     {
         if (first == last)
@@ -700,7 +695,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool>
+    constexpr detail::enable_utf16_cp_t<Iter, bool>
     starts_encoded(Iter first, Iter last)
     {
         if (first == last)
@@ -714,7 +709,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool>
+    constexpr detail::enable_utf8_cp_t<Iter, bool>
     ends_encoded(Iter first, Iter last)
     {
         if (first == last)
@@ -728,7 +723,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool>
+    constexpr detail::enable_utf16_cp_t<Iter, bool>
     ends_encoded(Iter first, Iter last)
     {
         if (first == last)
@@ -988,25 +983,25 @@ namespace boost { namespace text {
     }
 
     template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(T * p, null_sentinel_t)
+    constexpr auto operator==(T * p, null_sentinel_t)
         -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return detail::null_sent_eq_dispatch<T *>::call(p);
     }
     template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(T * p, null_sentinel_t)
+    constexpr auto operator!=(T * p, null_sentinel_t)
         -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return !detail::null_sent_eq_dispatch<T *>::call(p);
     }
     template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(null_sentinel_t, T * p)
+    constexpr auto operator==(null_sentinel_t, T * p)
         -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return detail::null_sent_eq_dispatch<T *>::call(p);
     }
     template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(null_sentinel_t, T * p)
+    constexpr auto operator!=(null_sentinel_t, T * p)
         -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return !detail::null_sent_eq_dispatch<T *>::call(p);
@@ -1066,8 +1061,7 @@ namespace boost { namespace text {
         constexpr utf_32_to_8_iterator() :
             first_(), it_(), last_(), index_(4), buf_()
         {}
-        explicit BOOST_TEXT_CXX14_CONSTEXPR
-        utf_32_to_8_iterator(I first, I it, S last) :
+        explicit constexpr utf_32_to_8_iterator(I first, I it, S last) :
             first_(first), it_(it), last_(last), index_(0), buf_()
         {
             if (it_ != last_)
@@ -1095,17 +1089,17 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const { return first_; }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return last_; }
+        constexpr I begin() const { return first_; }
+        constexpr S end() const { return last_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR char operator*() const
+        constexpr char operator*() const
         {
             return buf_[index_];
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const { return it_; }
+        constexpr I base() const { return it_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_8_iterator & operator++()
+        constexpr utf_32_to_8_iterator & operator++()
         {
             ++index_;
             if (at_buf_end()) {
@@ -1118,7 +1112,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_8_iterator & operator--()
+        constexpr utf_32_to_8_iterator & operator--()
         {
             if (0 < index_) {
                 --index_;
@@ -1137,7 +1131,7 @@ namespace boost { namespace text {
             typename I2,
             typename S2,
             typename ErrorHandler2>
-        friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+        friend constexpr auto operator==(
             utf_32_to_8_iterator<I1, S1, ErrorHandler2> const & lhs,
             utf_32_to_8_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
@@ -1157,12 +1151,9 @@ namespace boost { namespace text {
     private:
         constexpr bool buf_empty() const { return index_ == 4; }
 
-        constexpr bool at_buf_end() const
-        {
-            return buf_[index_] == '\0';
-        }
+        constexpr bool at_buf_end() const { return buf_[index_] == '\0'; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR char * read_into_buf()
+        constexpr char * read_into_buf()
         {
             uint32_t cp = static_cast<uint32_t>(*it_);
             index_ = 0;
@@ -1191,7 +1182,7 @@ namespace boost { namespace text {
     };
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
@@ -1199,7 +1190,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         Sentinel lhs,
         utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() == lhs)
@@ -1208,7 +1199,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
@@ -1216,7 +1207,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         Sentinel lhs,
         utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() != lhs)
@@ -1230,7 +1221,7 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_32_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_32_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) -> decltype(lhs.base() == rhs.base())
@@ -1244,7 +1235,7 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_32_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_32_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) -> decltype(!(lhs == rhs))
@@ -1368,8 +1359,7 @@ namespace boost { namespace text {
         : detail::trans_iter<utf_8_to_32_iterator<I, S, ErrorHandler>, uint32_t>
     {
         constexpr utf_8_to_32_iterator() : first_(), it_(), last_() {}
-        explicit constexpr utf_8_to_32_iterator(I first, I it, S last)
-            :
+        explicit constexpr utf_8_to_32_iterator(I first, I it, S last) :
             first_(first), it_(it), last_(last)
         {}
 #if BOOST_TEXT_USE_CONCEPTS
@@ -1392,10 +1382,10 @@ namespace boost { namespace text {
             last_(other.last_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const { return first_; }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return last_; }
+        constexpr I begin() const { return first_; }
+        constexpr S end() const { return last_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
+        constexpr uint32_t operator*() const
         {
             BOOST_ASSERT(!at_end(it_));
             unsigned char curr_c = *it_;
@@ -1404,16 +1394,16 @@ namespace boost { namespace text {
             return get_value().value_;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const { return it_; }
+        constexpr I base() const { return it_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_32_iterator & operator++()
+        constexpr utf_8_to_32_iterator & operator++()
         {
             BOOST_ASSERT(it_ != last_);
             it_ = increment();
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_32_iterator & operator--()
+        constexpr utf_8_to_32_iterator & operator--()
         {
             BOOST_ASSERT(it_ != first_);
             it_ = detail::decrement(first_, it_);
@@ -1439,7 +1429,7 @@ namespace boost { namespace text {
             I it_;
         };
 
-        BOOST_TEXT_CXX14_CONSTEXPR bool check_continuation(
+        constexpr bool check_continuation(
             unsigned char c,
             unsigned char lo = 0x80,
             unsigned char hi = 0xbf) const
@@ -1454,7 +1444,7 @@ namespace boost { namespace text {
             }
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR bool at_end(I it) const
+        constexpr bool at_end(I it) const
         {
             if (it == last_) {
                 ErrorHandler{}(
@@ -1466,7 +1456,7 @@ namespace boost { namespace text {
             }
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR get_value_result get_value() const
+        constexpr get_value_result get_value() const
         {
             // It turns out that this naive implementation is faster than the
             // table implementation for the converting iterators.
@@ -1659,7 +1649,7 @@ namespace boost { namespace text {
 #endif
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I increment() const
+        constexpr I increment() const
         {
             unsigned char curr_c = *it_;
             if (curr_c < 0x80)
@@ -1695,7 +1685,7 @@ namespace boost { namespace text {
     };
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
@@ -1703,7 +1693,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         Sentinel lhs,
         utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() == lhs)
@@ -1712,7 +1702,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
@@ -1720,7 +1710,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         Sentinel lhs,
         utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() != lhs)
@@ -1734,7 +1724,7 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_8_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_8_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) -> decltype(lhs.base() == rhs.base())
@@ -1748,7 +1738,7 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_8_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_8_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) -> decltype(!(lhs == rhs))
@@ -1955,8 +1945,7 @@ namespace boost { namespace text {
         constexpr utf_32_to_16_iterator() :
             first_(), it_(), last_(), index_(2), buf_()
         {}
-        explicit BOOST_TEXT_CXX14_CONSTEXPR
-        utf_32_to_16_iterator(I first, I it, S last) :
+        explicit constexpr utf_32_to_16_iterator(I first, I it, S last) :
             first_(first), it_(it), last_(last), index_(0), buf_()
         {
             if (it_ != last_)
@@ -1985,17 +1974,17 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const { return first_; }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return last_; }
+        constexpr I begin() const { return first_; }
+        constexpr S end() const { return last_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR uint16_t operator*() const
+        constexpr uint16_t operator*() const
         {
             return buf_[index_];
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const { return it_; }
+        constexpr I base() const { return it_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_16_iterator & operator++()
+        constexpr utf_32_to_16_iterator & operator++()
         {
             ++index_;
             if (at_buf_end()) {
@@ -2008,7 +1997,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_16_iterator & operator--()
+        constexpr utf_32_to_16_iterator & operator--()
         {
             if (0 < index_) {
                 --index_;
@@ -2027,7 +2016,7 @@ namespace boost { namespace text {
             typename I2,
             typename S2,
             typename ErrorHandler2>
-        friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+        friend constexpr auto operator==(
             utf_32_to_16_iterator<I1, S1, ErrorHandler2> const & lhs,
             utf_32_to_16_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
@@ -2047,7 +2036,7 @@ namespace boost { namespace text {
     private:
         constexpr bool at_buf_end() const { return buf_[index_] == 0; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR uint16_t * read_into_buf()
+        constexpr uint16_t * read_into_buf()
         {
             auto const last = detail::write_cp_utf16(*it_, buf_.data());
             *last = 0;
@@ -2073,7 +2062,7 @@ namespace boost { namespace text {
     };
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
@@ -2081,7 +2070,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         Sentinel lhs,
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const &
             rhs) -> decltype(rhs.base() == lhs)
@@ -2090,7 +2079,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
@@ -2098,7 +2087,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         Sentinel lhs,
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const &
             rhs) -> decltype(rhs.base() != lhs)
@@ -2112,7 +2101,7 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_32_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_32_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) -> decltype(lhs.base() == rhs.base())
@@ -2126,7 +2115,7 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_32_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_32_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) -> decltype(!(lhs == rhs))
@@ -2269,8 +2258,7 @@ namespace boost { namespace text {
 #endif
 
         constexpr utf_16_to_32_iterator() : first_(), it_(), last_() {}
-        explicit constexpr utf_16_to_32_iterator(I first, I it, S last)
-            :
+        explicit constexpr utf_16_to_32_iterator(I first, I it, S last) :
             first_(first), it_(it), last_(last)
         {}
 #if BOOST_TEXT_USE_CONCEPTS
@@ -2292,27 +2280,25 @@ namespace boost { namespace text {
             first_(other.first_), it_(other.it_), last_(other.last_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const { return first_; }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return last_; }
+        constexpr I begin() const { return first_; }
+        constexpr S end() const { return last_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
+        constexpr uint32_t operator*() const
         {
             BOOST_ASSERT(!at_end(it_));
             return get_value(*it_).value_;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const { return it_; }
+        constexpr I base() const { return it_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
-        operator++()
+        constexpr utf_16_to_32_iterator & operator++()
         {
             BOOST_ASSERT(it_ != last_);
             it_ = increment();
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
-        operator--()
+        constexpr utf_16_to_32_iterator & operator--()
         {
             BOOST_ASSERT(it_ != first_);
             if (boost::text::low_surrogate(*--it_)) {
@@ -2342,7 +2328,7 @@ namespace boost { namespace text {
             I it_;
         };
 
-        BOOST_TEXT_CXX14_CONSTEXPR bool at_end(I it) const
+        constexpr bool at_end(I it) const
         {
             if (it == last_) {
                 ErrorHandler{}(
@@ -2354,8 +2340,7 @@ namespace boost { namespace text {
             }
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR get_value_result
-        get_value(uint16_t curr) const
+        constexpr get_value_result get_value(uint16_t curr) const
         {
             uint32_t value = 0;
             I next = std::next(it_);
@@ -2385,7 +2370,7 @@ namespace boost { namespace text {
             return get_value_result{value, next};
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I increment() const
+        constexpr I increment() const
         {
             return get_value(*it_).it_;
         }
@@ -2418,7 +2403,7 @@ namespace boost { namespace text {
     };
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
@@ -2426,7 +2411,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         Sentinel lhs,
         utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const &
             rhs) -> decltype(rhs.base() == lhs)
@@ -2435,7 +2420,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
@@ -2443,7 +2428,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         Sentinel lhs,
         utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const &
             rhs) -> decltype(rhs.base() != lhs)
@@ -2457,7 +2442,7 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_16_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_16_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) -> decltype(lhs.base() == rhs.base())
@@ -2471,7 +2456,7 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_16_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_16_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) -> decltype(!(lhs == rhs))
@@ -2671,7 +2656,7 @@ namespace boost { namespace text {
         constexpr utf_16_to_8_iterator() :
             first_(), it_(), last_(), index_(4), buf_()
         {}
-        explicit BOOST_TEXT_CXX14_CONSTEXPR
+        explicit constexpr
         utf_16_to_8_iterator(I first, I it, S last) :
             first_(first), it_(it), last_(last), index_(0), buf_()
         {
@@ -2700,17 +2685,14 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const { return first_; }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return last_; }
+        constexpr I begin() const { return first_; }
+        constexpr S end() const { return last_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR char operator*() const
-        {
-            return buf_[index_];
-        }
+        constexpr char operator*() const { return buf_[index_]; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const { return it_; }
+        constexpr I base() const { return it_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_8_iterator & operator++()
+        constexpr utf_16_to_8_iterator & operator++()
         {
             ++index_;
             if (at_buf_end()) {
@@ -2723,7 +2705,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_8_iterator & operator--()
+        constexpr utf_16_to_8_iterator & operator--()
         {
             if (0 < index_) {
                 --index_;
@@ -2742,7 +2724,7 @@ namespace boost { namespace text {
             typename I2,
             typename S2,
             typename ErrorHandler2>
-        friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+        friend constexpr auto operator==(
             utf_16_to_8_iterator<I1, S1, ErrorHandler2> const & lhs,
             utf_16_to_8_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
@@ -2760,7 +2742,7 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
-        BOOST_TEXT_CXX14_CONSTEXPR bool at_end(I it) const
+        constexpr bool at_end(I it) const
         {
             if (it == last_) {
                 ErrorHandler{}(
@@ -2772,12 +2754,9 @@ namespace boost { namespace text {
             }
         }
 
-        constexpr bool at_buf_end() const
-        {
-            return buf_[index_] == '\0';
-        }
+        constexpr bool at_buf_end() const { return buf_[index_] == '\0'; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR char * read_into_buf()
+        constexpr char * read_into_buf()
         {
             I next = it_;
 
@@ -2808,7 +2787,7 @@ namespace boost { namespace text {
             return retval;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR void increment()
+        constexpr void increment()
         {
             if (boost::text::high_surrogate(*it_)) {
                 ++it_;
@@ -2819,7 +2798,7 @@ namespace boost { namespace text {
             }
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR void decrement()
+        constexpr void decrement()
         {
             if (boost::text::low_surrogate(*--it_)) {
                 if (it_ != first_)
@@ -2851,7 +2830,7 @@ namespace boost { namespace text {
     };
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
@@ -2859,7 +2838,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         Sentinel lhs,
         utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() == lhs)
@@ -2868,7 +2847,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
@@ -2876,7 +2855,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         Sentinel lhs,
         utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() != lhs)
@@ -2890,7 +2869,7 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_16_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_16_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) -> decltype(lhs.base() == rhs.base())
@@ -2904,7 +2883,7 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_16_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_16_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) -> decltype(!(lhs == rhs))
@@ -3075,8 +3054,7 @@ namespace boost { namespace text {
         : detail::trans_iter<utf_8_to_16_iterator<I, S, ErrorHandler>, uint16_t>
     {
         constexpr utf_8_to_16_iterator() : it_(), index_(2), buf_() {}
-        explicit BOOST_TEXT_CXX14_CONSTEXPR
-        utf_8_to_16_iterator(I first, I it, S last) :
+        explicit constexpr utf_8_to_16_iterator(I first, I it, S last) :
             it_(first, it, last), index_(0), buf_()
         {
             if (it_.it_ != it_.last_)
@@ -3102,23 +3080,20 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const
-        {
-            return it_.begin();
-        }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return it_.end(); }
+        constexpr I begin() const { return it_.begin(); }
+        constexpr S end() const { return it_.end(); }
 
-        BOOST_TEXT_CXX14_CONSTEXPR uint16_t operator*() const
+        constexpr uint16_t operator*() const
         {
             return buf_[index_];
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const
+        constexpr I base() const
         {
             return it_.base();
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_16_iterator & operator++()
+        constexpr utf_8_to_16_iterator & operator++()
         {
             ++index_;
             if (at_buf_end()) {
@@ -3131,7 +3106,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_16_iterator & operator--()
+        constexpr utf_8_to_16_iterator & operator--()
         {
             if (0 < index_) {
                 --index_;
@@ -3150,7 +3125,7 @@ namespace boost { namespace text {
             typename I2,
             typename S2,
             typename ErrorHandler2>
-        friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+        friend constexpr auto operator==(
             utf_8_to_16_iterator<I1, S1, ErrorHandler2> const & lhs,
             utf_8_to_16_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
@@ -3170,7 +3145,7 @@ namespace boost { namespace text {
     private:
         constexpr bool at_buf_end() const { return buf_[index_] == 0; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR uint16_t * read_into_buf()
+        constexpr uint16_t * read_into_buf()
         {
             auto const last = detail::write_cp_utf16(*it_, buf_.data());
             *last = 0;
@@ -3194,7 +3169,7 @@ namespace boost { namespace text {
     };
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
@@ -3202,7 +3177,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         Sentinel lhs,
         utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() == lhs)
@@ -3211,7 +3186,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
@@ -3219,7 +3194,7 @@ namespace boost { namespace text {
     }
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         Sentinel lhs,
         utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() != lhs)
@@ -3233,10 +3208,10 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+    constexpr auto operator==(
         utf_8_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
-        utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) -> decltype(lhs.base() == rhs.base())
+        utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const & rhs)
+        -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
     }
@@ -3247,10 +3222,10 @@ namespace boost { namespace text {
         typename Iter2,
         typename Sentinel2,
         typename ErrorHandler>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+    constexpr auto operator!=(
         utf_8_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
-        utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) -> decltype(!(lhs == rhs))
+        utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const & rhs)
+        -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
     }
