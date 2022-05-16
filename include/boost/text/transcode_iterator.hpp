@@ -145,12 +145,21 @@ namespace boost { namespace text {
                (0xfdd0 <= c && c <= 0xfdef);
     }
 
-    /** Returns true iff `c` is a valid Unicode code point.
+    /** Returns true iff `c` is a valid Unicode scalar value.
 
         \see Unicode 3.9/D90 */
-    inline constexpr bool valid_code_point(uint32_t c)
+    inline constexpr bool scalar_value(uint32_t c)
     {
-        return c <= 0x10ffff && !surrogate(c) && !reserved_noncharacter(c);
+        return c <= 0x10ffff && !surrogate(c);
+    }
+
+    /** Returns true iff `c` is a Unicode scalar value not in the reserved
+        range.
+
+        \see Unicode 3.9/D90 */
+    inline constexpr bool unreserved_scalar_value(uint32_t c)
+    {
+        return scalar_value(c) && !reserved_noncharacter(c);
     }
 
     /** Returns true iff `c` is a UTF-8 lead code unit (which must be followed
@@ -2362,9 +2371,10 @@ namespace boost { namespace text {
                 value = curr;
             }
 
-            if (!valid_code_point(value)) {
+            if (!unreserved_scalar_value(value)) {
                 value = ErrorHandler{}(
-                    "UTF-16 sequence results in invalid UTF-32 code point.");
+                    "UTF-16 sequence results in a non-scalar value, or a "
+                    "reserved scalar value UTF-32 code point.");
             }
 
             return get_value_result{value, next};
