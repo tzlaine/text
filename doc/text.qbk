@@ -56,8 +56,6 @@
 
 [/ Links ]
 
-[/ TODO: Change v1:: to v2:: throughout, once we have a Doxygen that can process concepts. ]
-
 [def _Text_                Boost.Text]
 [def _CharRng_             [link boost_text__proposed_.concepts `utf8_range`]]
 [def _GrIter_              [link boost_text__proposed_.concepts `grapheme_iter`]]
