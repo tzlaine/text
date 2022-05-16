@@ -217,12 +217,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/notes/tn5 */
     template<nf Normalization, code_point_iter I, std::sentinel_for<I> S>
-    bool normalized(I first, S last) noexcept;
+    bool normalized(I first, S last);
 
     /** Returns true iff the given sequence of code points is in Unicode
         normalization form `Normalization`. */
     template<nf Normalization, code_point_range R>
-    bool normalized(R && r) noexcept;
+    bool normalized(R && r);
 
 #else
 
@@ -251,9 +251,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<nf Normalization, typename CPIter, typename Sentinel>
-    auto normalized(
-        CPIter first,
-        Sentinel last) noexcept->detail::cp_iter_ret_t<bool, CPIter>
+    auto normalized(CPIter first, Sentinel last)
+        ->detail::cp_iter_ret_t<bool, CPIter>
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         detail::null_appender appender;
@@ -263,7 +262,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<nf Normalization, typename CPRange>
-    bool normalized(CPRange && r) noexcept
+    bool normalized(CPRange && r)
     {
         return v1::normalized<Normalization>(detail::begin(r), detail::end(r));
     }
@@ -301,7 +300,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<nf Normalization, code_point_iter I, std::sentinel_for<I> S>
-    bool normalized(I first, S last) noexcept
+    bool normalized(I first, S last)
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         detail::null_appender appender;
@@ -311,7 +310,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<nf Normalization, code_point_range R>
-    bool normalized(R && r) noexcept
+    bool normalized(R && r)
     {
         return boost::text::normalized<Normalization>(
             std::ranges::begin(r), std::ranges::end(r));

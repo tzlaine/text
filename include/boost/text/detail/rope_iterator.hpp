@@ -21,11 +21,11 @@ namespace boost { namespace text { namespace detail {
     {
         using const_rope_iterator = const_vector_iterator<Char, String>;
 
-        const_rope_view_iterator() noexcept : which_(which::r) {}
-        explicit const_rope_view_iterator(const_rope_iterator it) noexcept :
+        const_rope_view_iterator() : which_(which::r) {}
+        explicit const_rope_view_iterator(const_rope_iterator it) :
             r_(it), which_(which::r)
         {}
-        explicit const_rope_view_iterator(Char const * it) noexcept :
+        explicit const_rope_view_iterator(Char const * it) :
             tv_(it), which_(which::tv)
         {}
 
@@ -35,7 +35,7 @@ namespace boost { namespace text { namespace detail {
             return r_;
         }
 
-        Char operator*() const noexcept
+        Char operator*() const
         {
             switch (which_) {
             case which::r: return *r_;
@@ -44,7 +44,7 @@ namespace boost { namespace text { namespace detail {
             return '\0'; // This should never execute.
         }
 
-        const_rope_view_iterator & operator+=(std::ptrdiff_t n) noexcept
+        const_rope_view_iterator & operator+=(std::ptrdiff_t n)
         {
             switch (which_) {
             case which::r: r_ += n; break;
@@ -54,7 +54,7 @@ namespace boost { namespace text { namespace detail {
         }
 
         friend std::ptrdiff_t operator-(
-            const_rope_view_iterator lhs, const_rope_view_iterator rhs) noexcept
+            const_rope_view_iterator lhs, const_rope_view_iterator rhs)
         {
             BOOST_ASSERT(lhs.which_ == rhs.which_);
             switch (lhs.which_) {

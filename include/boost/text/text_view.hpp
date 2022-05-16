@@ -60,7 +60,7 @@ namespace boost { namespace text {
         using const_text_iterator = const_iterator;
 
         /** Default ctor. */
-        basic_text_view() noexcept : first_(), last_() {}
+        basic_text_view() : first_(), last_() {}
 
         /** Constructs a `basic_text_view` from a pair of
             `const_text_iterators`.
@@ -68,49 +68,49 @@ namespace boost { namespace text {
             \pre boost::text::normalized<normalization>(first.base(),
             last.base()) */
         basic_text_view(
-            const_text_iterator first, const_text_iterator last) noexcept :
+            const_text_iterator first, const_text_iterator last) :
             first_(first), last_(last)
         {
             BOOST_ASSERT(boost::text::normalized<normalization>(
                 first.base(), last.base()));
         }
 
-        const_iterator begin() const noexcept { return first_; }
-        const_iterator end() const noexcept { return last_; }
+        const_iterator begin() const { return first_; }
+        const_iterator end() const { return last_; }
 
-        const_iterator cbegin() const noexcept { return begin(); }
-        const_iterator cend() const noexcept { return end(); }
+        const_iterator cbegin() const { return begin(); }
+        const_iterator cend() const { return end(); }
 
-        const_reverse_iterator rbegin() const noexcept
+        const_reverse_iterator rbegin() const
         {
             return reverse_iterator(end());
         }
-        const_reverse_iterator rend() const noexcept
+        const_reverse_iterator rend() const
         {
             return reverse_iterator(begin());
         }
 
-        const_reverse_iterator crbegin() const noexcept { return rbegin(); }
-        const_reverse_iterator crend() const noexcept { return rend(); }
+        const_reverse_iterator crbegin() const { return rbegin(); }
+        const_reverse_iterator crend() const { return rend(); }
 
-        bool empty() const noexcept { return first_ == last_; }
+        bool empty() const { return first_ == last_; }
 
         /** Returns the number of code units referred to by `*this`, not
             including the null terminator. */
-        size_type storage_code_units() const noexcept
+        size_type storage_code_units() const
         {
             return last_.base().base() - first_.base().base();
         }
 
         /** Returns the number of graphemes in `*this`.  This operation is
             O(n). */
-        size_type distance() const noexcept
+        size_type distance() const
         {
             return std::distance(begin(), end());
         }
 
         /** Swaps `*this` with `rhs`. */
-        void swap(basic_text_view & rhs) noexcept
+        void swap(basic_text_view & rhs)
         {
             std::swap(first_, rhs.first_);
             std::swap(last_, rhs.last_);
@@ -152,13 +152,13 @@ namespace boost { namespace text {
 #endif
 
         friend bool
-        operator==(basic_text_view lhs, basic_text_view rhs) noexcept
+        operator==(basic_text_view lhs, basic_text_view rhs)
         {
             return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
 
         friend bool
-        operator!=(basic_text_view lhs, basic_text_view rhs) noexcept
+        operator!=(basic_text_view lhs, basic_text_view rhs)
         {
             return !(lhs == rhs);
         }
@@ -172,7 +172,7 @@ namespace boost { namespace text {
 
     private:
         static iterator
-        make_iter(char_type * first, char_type * it, char_type * last) noexcept
+        make_iter(char_type * first, char_type * it, char_type * last)
         {
             return iterator{
                 detail::text_transcode_iterator_t<char_type const>{

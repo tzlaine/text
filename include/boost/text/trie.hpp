@@ -41,52 +41,52 @@ namespace boost { namespace text {
             return *this;
         }
 
-        explicit operator bool() const & noexcept { return t_ != nullptr; }
-        explicit operator bool() & noexcept { return t_ != nullptr; }
-        explicit operator bool() && noexcept { return t_ != nullptr; }
+        explicit operator bool() const & { return t_ != nullptr; }
+        explicit operator bool() & { return t_ != nullptr; }
+        explicit operator bool() && { return t_ != nullptr; }
 
-        T const & operator*() const noexcept
+        T const & operator*() const
         {
             BOOST_ASSERT(t_);
             return *t_;
         }
-        T const * operator->() const noexcept
+        T const * operator->() const
         {
             BOOST_ASSERT(t_);
             return t_;
         }
 
-        operator T const &() const & noexcept
+        operator T const &() const &
         {
             BOOST_ASSERT(t_);
             return *t_;
         }
 
-        operator T const &() const && noexcept
+        operator T const &() const &&
         {
             BOOST_ASSERT(t_);
             return *t_;
         }
 
-        T & operator*() noexcept
+        T & operator*()
         {
             BOOST_ASSERT(t_);
             return *t_;
         }
 
-        T * operator->() noexcept
+        T * operator->()
         {
             BOOST_ASSERT(t_);
             return t_;
         }
 
-        operator T &() & noexcept
+        operator T &() &
         {
             BOOST_ASSERT(t_);
             return *t_;
         }
 
-        operator T &() && noexcept
+        operator T &() &&
         {
             BOOST_ASSERT(t_);
             return *t_;
@@ -104,27 +104,27 @@ namespace boost { namespace text {
         optional_ref() : t_(nullptr) {}
         optional_ref(T & t) : t_(&t) {}
 
-        explicit operator bool() const & noexcept { return t_ != nullptr; }
-        explicit operator bool() && noexcept { return t_ != nullptr; }
+        explicit operator bool() const & { return t_ != nullptr; }
+        explicit operator bool() && { return t_ != nullptr; }
 
-        T & operator*() const noexcept
+        T & operator*() const
         {
             BOOST_ASSERT(t_);
             return *t_;
         }
-        T * operator->() const noexcept
+        T * operator->() const
         {
             BOOST_ASSERT(t_);
             return t_;
         }
 
-        operator T &() const & noexcept
+        operator T &() const &
         {
             BOOST_ASSERT(t_);
             return *t_;
         }
 
-        operator T &() const && noexcept
+        operator T &() const &&
         {
             BOOST_ASSERT(t_);
             return *t_;
@@ -150,27 +150,27 @@ namespace boost { namespace text {
             return *this;
         }
 
-        explicit operator bool() const & noexcept { return t_ != nullptr; }
-        explicit operator bool() && noexcept { return t_ != nullptr; }
+        explicit operator bool() const & { return t_ != nullptr; }
+        explicit operator bool() && { return t_ != nullptr; }
 
-        bool const & operator*() const noexcept
+        bool const & operator*() const
         {
             BOOST_ASSERT(t_);
             return *t_;
         }
-        bool const * operator->() const noexcept
+        bool const * operator->() const
         {
             BOOST_ASSERT(t_);
             return t_;
         }
 
-        bool & operator*() noexcept
+        bool & operator*()
         {
             BOOST_ASSERT(t_);
             return *t_;
         }
 
-        bool * operator->() noexcept
+        bool * operator->()
         {
             BOOST_ASSERT(t_);
             return t_;
@@ -187,15 +187,15 @@ namespace boost { namespace text {
         optional_ref() : t_(nullptr) {}
         optional_ref(bool const & t) : t_(&t) {}
 
-        explicit operator bool() const & noexcept { return t_ != nullptr; }
-        explicit operator bool() && noexcept { return t_ != nullptr; }
+        explicit operator bool() const & { return t_ != nullptr; }
+        explicit operator bool() && { return t_ != nullptr; }
 
-        bool const & operator*() const noexcept
+        bool const & operator*() const
         {
             BOOST_ASSERT(t_);
             return *t_;
         }
-        bool const * operator->() const noexcept
+        bool const * operator->() const
         {
             BOOST_ASSERT(t_);
             return t_;
@@ -213,7 +213,7 @@ namespace boost { namespace text {
 
         struct no_index_within_parent_t
         {
-            std::size_t value() const noexcept
+            std::size_t value() const
             {
                 BOOST_ASSERT(!"This should never be called.");
                 return 0;
@@ -232,7 +232,7 @@ namespace boost { namespace text {
                     KeySize>> const & child,
                 std::ptrdiff_t offset,
                 Iter it,
-                Iter end) noexcept
+                Iter end)
             {}
 
             template<typename Key, typename Value, std::size_t KeySize>
@@ -240,11 +240,11 @@ namespace boost { namespace text {
                                 no_index_within_parent_t,
                                 Key,
                                 Value,
-                                KeySize>> const & child) noexcept
+                                KeySize>> const & child)
             {}
 
             template<typename Iter>
-            void erase(Iter it, Iter end) noexcept
+            void erase(Iter it, Iter end)
             {}
         };
 
@@ -254,8 +254,8 @@ namespace boost { namespace text {
             Char * first_;
             Char * last_;
 
-            Char * begin() const noexcept { return first_; }
-            Char * end() const noexcept { return last_; }
+            Char * begin() const { return first_; }
+            Char * end() const { return last_; }
         };
 
         struct void_type
@@ -271,14 +271,12 @@ namespace boost { namespace text {
 
         template<typename KeyT, typename ValueT>
         trie_element(trie_element<KeyT, ValueT> const & rhs) :
-            key(rhs.key),
-            value(rhs.value)
+            key(rhs.key), value(rhs.value)
         {}
 
         template<typename KeyT, typename ValueT>
         trie_element(trie_element<KeyT, ValueT> && rhs) :
-            key(std::move(rhs.key)),
-            value(std::move(rhs.value))
+            key(std::move(rhs.key)), value(std::move(rhs.value))
         {}
 
         template<typename KeyT, typename ValueT>
@@ -410,15 +408,13 @@ namespace boost { namespace text {
 
         template<typename Iter, typename Sentinel>
         trie(Iter first, Sentinel last, Compare const & comp = Compare()) :
-            size_(0),
-            comp_(comp)
+            size_(0), comp_(comp)
         {
             insert(first, last);
         }
         template<typename Range>
         explicit trie(Range r, Compare const & comp = Compare()) :
-            size_(0),
-            comp_(comp)
+            size_(0), comp_(comp)
         {
             insert(detail::begin(r), detail::end(r));
         }
@@ -438,12 +434,22 @@ namespace boost { namespace text {
             return *this;
         }
 
-        bool empty() const noexcept { return size_ == 0; }
-        size_type size() const noexcept { return size_; }
+        bool empty() const { return size_ == 0; }
+        size_type size() const { return size_; }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-#define BOOST_TRIE_C_STR_OVERLOAD(rtype, func, quals)                          \
+#define BOOST_TRIE_C_STR_OVERLOAD(rtype, func)                                 \
+    template<typename Char, std::size_t N>                                     \
+    rtype func(Char const(&chars)[N])                                          \
+    {                                                                          \
+        static_assert(                                                         \
+            std::is_same<Char, key_element_type>::value,                       \
+            "Only well-formed when Char is Key::value_type.");                 \
+        return func(detail::char_range<Char const>{chars, chars + N - 1});     \
+    }
+
+#define BOOST_TRIE_C_STR_OVERLOAD_QUALS(rtype, func, quals)                    \
     template<typename Char, std::size_t N>                                     \
     rtype func(Char const(&chars)[N]) quals                                    \
     {                                                                          \
@@ -457,7 +463,7 @@ namespace boost { namespace text {
 
         /** Returns true if `key` is found in *this. */
         template<typename KeyRange>
-        bool contains(KeyRange const & key) const noexcept
+        bool contains(KeyRange const & key) const
         {
             auto first = detail::begin(key);
             auto const last = detail::end(key);
@@ -466,14 +472,13 @@ namespace boost { namespace text {
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_C_STR_OVERLOAD(bool, contains, const noexcept)
+        BOOST_TRIE_C_STR_OVERLOAD_QUALS(bool, contains, const)
 #endif
 
         /** Returns the longest subsequence of `[first, last)` found in *this,
             whether or not it is a match. */
         template<typename KeyIter, typename Sentinel>
         match_result longest_subsequence(KeyIter first, Sentinel last) const
-            noexcept
         {
             return longest_match_impl<false>(first, last);
         }
@@ -481,40 +486,38 @@ namespace boost { namespace text {
         /** Returns the longest subsequence of `key` found in *this, whether
            or not it is a match. */
         template<typename KeyRange>
-        match_result longest_subsequence(KeyRange const & key) const noexcept
+        match_result longest_subsequence(KeyRange const & key) const
         {
             return longest_subsequence(detail::begin(key), detail::end(key));
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_C_STR_OVERLOAD(
-            match_result, longest_subsequence, const noexcept)
+        BOOST_TRIE_C_STR_OVERLOAD_QUALS(match_result, longest_subsequence, const)
 #endif
 
         /** Returns the longest matching subsequence of `[first, last)` found
             in *this. */
         template<typename KeyIter, typename Sentinel>
-        match_result longest_match(KeyIter first, Sentinel last) const noexcept
+        match_result longest_match(KeyIter first, Sentinel last) const
         {
             return longest_match_impl<true>(first, last);
         }
 
         /** Returns the longest matching subsequence of `key` found in
-            *this. */
+         *this. */
         template<typename KeyRange>
-        match_result longest_match(KeyRange const & key) const noexcept
+        match_result longest_match(KeyRange const & key) const
         {
             return longest_match(detail::begin(key), detail::end(key));
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_C_STR_OVERLOAD(match_result, longest_match, const noexcept)
+        BOOST_TRIE_C_STR_OVERLOAD_QUALS(match_result, longest_match, const)
 #endif
 
         /** Returns the result of extending `prev` by one element, `e`. */
         template<typename KeyElementT>
         match_result extend_subsequence(match_result prev, KeyElementT e) const
-            noexcept
         {
             auto e_ptr = &e;
             return extend_subsequence_impl<false>(
@@ -525,9 +528,10 @@ namespace boost { namespace text {
             of `[first, last)` found in *this. */
         template<typename KeyIter, typename Sentinel>
         match_result extend_subsequence(
-            match_result prev, KeyIter first, Sentinel last) const noexcept
+            match_result prev, KeyIter first, Sentinel last) const
         {
-            return extend_subsequence_impl<false>(match_result{prev}, first, last);
+            return extend_subsequence_impl<false>(
+                match_result{prev}, first, last);
         }
 
         /** Returns the result of extending `prev` by one element, `e`, if
@@ -535,7 +539,6 @@ namespace boost { namespace text {
             match. */
         template<typename KeyElementT>
         match_result extend_match(match_result prev, KeyElementT e) const
-            noexcept
         {
             BOOST_ASSERT(prev.match);
             auto e_ptr = &e;
@@ -548,7 +551,6 @@ namespace boost { namespace text {
         template<typename KeyIter, typename Sentinel>
         match_result
         extend_match(match_result prev, KeyIter first, Sentinel last) const
-            noexcept
         {
             BOOST_ASSERT(prev.match);
             return extend_subsequence_impl<true>(prev, first, last);
@@ -568,7 +570,6 @@ namespace boost { namespace text {
             `key` in *this (if any). */
         template<typename KeyRange>
         optional_ref<value_type const> operator[](KeyRange const & key) const
-            noexcept
         {
             auto first = detail::begin(key);
             auto const last = detail::end(key);
@@ -579,21 +580,20 @@ namespace boost { namespace text {
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_C_STR_OVERLOAD(
-            optional_ref<value_type const>, operator[], const noexcept)
+        BOOST_TRIE_C_STR_OVERLOAD_QUALS(
+            optional_ref<value_type const>, operator[], const)
 #endif
 
         /** Returns an optional reference to the const value associated with
             `match` in *this (if any). */
         optional_ref<value_type const> operator[](match_result match) const
-            noexcept
         {
             if (!match.match)
                 return {};
             return *to_node_ptr(match.node)->value();
         }
 
-        void clear() noexcept
+        void clear()
         {
             header_ = node_t();
             size_ = 0;
@@ -602,7 +602,7 @@ namespace boost { namespace text {
         /** Returns an optional reference to the value associated with `key`
            in *this (if any). */
         template<typename KeyRange>
-        optional_ref<value_type> operator[](KeyRange const & key) noexcept
+        optional_ref<value_type> operator[](KeyRange const & key)
         {
             auto first = detail::begin(key);
             auto const last = detail::end(key);
@@ -613,13 +613,12 @@ namespace boost { namespace text {
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_C_STR_OVERLOAD(
-            optional_ref<value_type>, operator[], noexcept)
+        BOOST_TRIE_C_STR_OVERLOAD(optional_ref<value_type>, operator[])
 #endif
 
         /** Returns an optional reference to the value associated with `match`
             in *this (if any). */
-        optional_ref<value_type> operator[](match_result match) noexcept
+        optional_ref<value_type> operator[](match_result match)
         {
             if (!match.match)
                 return {};
@@ -670,7 +669,7 @@ namespace boost { namespace text {
         }
 
         /** Inserts the sequence of key/value pairs `[first, last)` into
-            *this. */
+         *this. */
         template<typename Iter, typename Sentinel>
         void insert(Iter first, Sentinel last)
         {
@@ -746,7 +745,7 @@ namespace boost { namespace text {
 
         /** Erases the key/value pair associated with `match` from *this.
             Returns true if the key is found in *this, false otherwise. */
-        bool erase(match_result match) noexcept
+        bool erase(match_result match)
         {
             auto node = const_cast<node_t *>(to_node_ptr(match.node));
             if (node == &header_)
@@ -775,7 +774,7 @@ namespace boost { namespace text {
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_C_STR_OVERLOAD(bool, erase, noexcept)
+        BOOST_TRIE_C_STR_OVERLOAD(bool, erase)
 #endif
 
         void swap(trie & other)
@@ -806,8 +805,8 @@ namespace boost { namespace text {
         }
 
         template<bool StopAtMatch, typename KeyIter, typename Sentinel>
-        match_result longest_match_impl(
-            KeyIter & first, Sentinel last) const noexcept
+        match_result
+        longest_match_impl(KeyIter & first, Sentinel last) const
         {
             return extend_subsequence_impl<StopAtMatch>(
                 match_result{&header_, 0, false, true}, first, last);
@@ -815,7 +814,7 @@ namespace boost { namespace text {
 
         template<bool StopAtMatch, typename KeyIter, typename Sentinel>
         match_result extend_subsequence_impl(
-            match_result prev, KeyIter & first, Sentinel last) const noexcept
+            match_result prev, KeyIter & first, Sentinel last) const
         {
             if (to_node_ptr(prev.node) == &header_) {
                 if (header_.empty())
@@ -930,40 +929,40 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            auto max_size() const noexcept { return KeySize; }
+            auto max_size() const { return KeySize; }
 
-            optional<Value> const & value() const noexcept { return value_; }
+            optional<Value> const & value() const { return value_; }
 
             Value & child_value(std::size_t i) const
             {
                 return *children_[i]->value_;
             }
 
-            trie_node_t * parent() const noexcept { return parent_; }
+            trie_node_t * parent() const { return parent_; }
 
-            bool empty() const noexcept { return children_.size() == 0; }
+            bool empty() const { return children_.size() == 0; }
 
-            const_iterator end() const noexcept { return children_.end(); }
+            const_iterator end() const { return children_.end(); }
 
-            std::size_t index_within_parent() const noexcept
+            std::size_t index_within_parent() const
             {
                 return index_within_parent_.value();
             }
 
-            bool before_child_subtree(key_element const & e) const noexcept
+            bool before_child_subtree(key_element const & e) const
             {
                 return e < key_element(0);
             }
 
             template<typename Compare>
             const_iterator
-            lower_bound(key_element const & e, Compare const &) const noexcept
+            lower_bound(key_element const & e, Compare const &) const
             {
                 return children_.empty() ? children_.end() : children_.begin() + e;
             }
             template<typename Compare>
             const_iterator
-            find(key_element const & e, Compare const & comp) const noexcept
+            find(key_element const & e, Compare const & comp) const
             {
                 auto const it = lower_bound(e, comp);
                 if (children_.empty() || !*it)
@@ -973,16 +972,16 @@ namespace boost { namespace text {
 
             template<typename Compare>
             trie_node_t const *
-            child(key_element const & e, Compare const &) const noexcept
+            child(key_element const & e, Compare const &) const
             {
                 return children_[e].get();
             }
-            trie_node_t const * child(std::size_t i) const noexcept
+            trie_node_t const * child(std::size_t i) const
             {
                 return children_[i].get();
             }
 
-            key_element const & key(std::size_t i) const noexcept
+            key_element const & key(std::size_t i) const
             {
                 BOOST_ASSERT(key_element(i) == i);
                 return key_element(i);
@@ -1021,7 +1020,7 @@ namespace boost { namespace text {
                 std::swap(index_within_parent_, other.index_within_parent_);
             }
 
-            optional<Value> & value() noexcept { return value_; }
+            optional<Value> & value() { return value_; }
 
             template<typename Compare>
             iterator insert(
@@ -1044,13 +1043,13 @@ namespace boost { namespace text {
                 index_within_parent_.insert_ptr(child);
                 return children_.insert(children_.begin(), std::move(child));
             }
-            void erase(std::size_t i) noexcept
+            void erase(std::size_t i)
             {
                 auto it = children_.begin() + i;
                 it->reset(nullptr);
                 index_within_parent_.erase(it, children_.end());
             }
-            void erase(trie_node_t const * child) noexcept
+            void erase(trie_node_t const * child)
             {
                 auto const it = std::find_if(
                     children_.begin(),
@@ -1064,12 +1063,12 @@ namespace boost { namespace text {
 
             template<typename Compare>
             iterator
-            lower_bound(key_element const & e, Compare const &) noexcept
+            lower_bound(key_element const & e, Compare const &)
             {
                 return children_.begin() + e;
             }
             template<typename Compare>
-            iterator find(key_element const & e, Compare const & comp) noexcept
+            iterator find(key_element const & e, Compare const & comp)
             {
                 if (children_.empty())
                     return children_.end();
@@ -1080,11 +1079,11 @@ namespace boost { namespace text {
             }
 
             template<typename Compare>
-            trie_node_t * child(key_element const & e, Compare const &) noexcept
+            trie_node_t * child(key_element const & e, Compare const &)
             {
                 return children_[e].get();
             }
-            trie_node_t * child(std::size_t i) noexcept
+            trie_node_t * child(std::size_t i)
             {
                 return children_[i].get();
             }
@@ -1181,47 +1180,47 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            optional<Value> const & value() const noexcept { return value_; }
+            optional<Value> const & value() const { return value_; }
 
             Value & child_value(std::size_t i) const
             {
                 return *children_[i]->value_;
             }
 
-            trie_node_t * parent() const noexcept { return parent_; }
-            trie_node_t * min_child() const noexcept
+            trie_node_t * parent() const { return parent_; }
+            trie_node_t * min_child() const
             {
                 return children_.front().get();
             }
-            trie_node_t * max_child() const noexcept
+            trie_node_t * max_child() const
             {
                 return children_.back().get();
             }
 
-            bool empty() const noexcept { return children_.size() == 0; }
-            std::size_t size() const noexcept { return children_.size(); }
+            bool empty() const { return children_.size() == 0; }
+            std::size_t size() const { return children_.size(); }
 
-            bool min_value() const noexcept
+            bool min_value() const
             {
                 return !!children_.front()->value_;
             }
-            bool max_value() const noexcept
+            bool max_value() const
             {
                 return !!children_.back()->value_;
             }
 
-            const_iterator begin() const noexcept { return children_.begin(); }
-            const_iterator end() const noexcept { return children_.end(); }
+            const_iterator begin() const { return children_.begin(); }
+            const_iterator end() const { return children_.end(); }
 
-            key_iterator key_begin() const noexcept { return keys_.begin(); }
-            key_iterator key_end() const noexcept { return keys_.end(); }
+            key_iterator key_begin() const { return keys_.begin(); }
+            key_iterator key_end() const { return keys_.end(); }
 
-            std::size_t index_within_parent() const noexcept
+            std::size_t index_within_parent() const
             {
                 return index_within_parent_.value();
             }
 
-            bool before_child_subtree(key_element const & e) const noexcept
+            bool before_child_subtree(key_element const & e) const
             {
                 return keys_.empty() || e < keys_.front();
             }
@@ -1229,7 +1228,6 @@ namespace boost { namespace text {
             template<typename Compare>
             const_iterator
             lower_bound(key_element const & e, Compare const & comp) const
-                noexcept
             {
                 auto const it =
                     std::lower_bound(keys_.begin(), keys_.end(), e, comp);
@@ -1237,7 +1235,7 @@ namespace boost { namespace text {
             }
             template<typename Compare>
             const_iterator
-            find(key_element const & e, Compare const & comp) const noexcept
+            find(key_element const & e, Compare const & comp) const
             {
                 auto const it = lower_bound(e, comp);
                 auto const end_ = end();
@@ -1248,19 +1246,19 @@ namespace boost { namespace text {
 
             template<typename Compare>
             trie_node_t const *
-            child(key_element const & e, Compare const & comp) const noexcept
+            child(key_element const & e, Compare const & comp) const
             {
                 auto const it = find(e, comp);
                 if (it == children_.end())
                     return nullptr;
                 return it->get();
             }
-            trie_node_t const * child(std::size_t i) const noexcept
+            trie_node_t const * child(std::size_t i) const
             {
                 return children_[i].get();
             }
 
-            key_element const & key(std::size_t i) const noexcept
+            key_element const & key(std::size_t i) const
             {
                 return keys_[i];
             }
@@ -1289,10 +1287,10 @@ namespace boost { namespace text {
                 std::swap(index_within_parent_, other.index_within_parent_);
             }
 
-            optional<Value> & value() noexcept { return value_; }
+            optional<Value> & value() { return value_; }
 
-            iterator begin() noexcept { return children_.begin(); }
-            iterator end() noexcept { return children_.end(); }
+            iterator begin() { return children_.begin(); }
+            iterator end() { return children_.end(); }
 
             template<typename Compare>
             iterator insert(
@@ -1315,7 +1313,7 @@ namespace boost { namespace text {
                 index_within_parent_.insert_ptr(child);
                 return children_.insert(children_.begin(), std::move(child));
             }
-            void erase(std::size_t i) noexcept
+            void erase(std::size_t i)
             {
                 // This empty-keys situation happens only in the header node.
                 if (!keys_.empty())
@@ -1323,7 +1321,7 @@ namespace boost { namespace text {
                 auto it = children_.erase(children_.begin() + i);
                 index_within_parent_.erase(it, children_.end());
             }
-            void erase(trie_node_t const * child) noexcept
+            void erase(trie_node_t const * child)
             {
                 auto const it = std::find_if(
                     children_.begin(),
@@ -1337,14 +1335,14 @@ namespace boost { namespace text {
 
             template<typename Compare>
             iterator
-            lower_bound(key_element const & e, Compare const & comp) noexcept
+            lower_bound(key_element const & e, Compare const & comp)
             {
                 auto const it = const_this()->lower_bound(e, comp);
                 return children_.begin() +
                        (it - const_iterator(children_.begin()));
             }
             template<typename Compare>
-            iterator find(key_element const & e, Compare const & comp) noexcept
+            iterator find(key_element const & e, Compare const & comp)
             {
                 auto const it = const_this()->find(e, comp);
                 return children_.begin() +
@@ -1353,11 +1351,11 @@ namespace boost { namespace text {
 
             template<typename Compare>
             trie_node_t *
-            child(key_element const & e, Compare const & comp) noexcept
+            child(key_element const & e, Compare const & comp)
             {
                 return const_cast<trie_node_t *>(const_this()->child(e, comp));
             }
-            trie_node_t * child(std::size_t i) noexcept
+            trie_node_t * child(std::size_t i)
             {
                 return const_cast<trie_node_t *>(const_this()->child(i));
             }

@@ -58,9 +58,9 @@ namespace boost { namespace text {
         using iterator = I;
         using sentinel = S;
 
-        constexpr collation_search_result() noexcept {}
+        constexpr collation_search_result() {}
         constexpr collation_search_result(
-            iterator first, iterator last) noexcept :
+            iterator first, iterator last) :
             subrange<I>(first, last)
         {}
 
@@ -276,7 +276,7 @@ namespace std {
     {
         using argument_type = boost::text::detail::collation_element;
         using result_type = std::size_t;
-        result_type operator()(argument_type ce) const noexcept
+        result_type operator()(argument_type ce) const
         {
             return (result_type(ce.l1_) << 32) | (ce.l2_ << 16) | ce.l3_;
         }
@@ -292,7 +292,7 @@ namespace boost { namespace text {
         {
             template<typename CPIter, typename Sentinel>
             CPIter
-            operator()(CPIter first, CPIter it, Sentinel last) const noexcept
+            operator()(CPIter first, CPIter it, Sentinel last) const
             {
                 return boost::text::prev_grapheme_break(first, it, last);
             }
@@ -301,7 +301,7 @@ namespace boost { namespace text {
         collation_element inline adjust_ce_for_search(
             collation_element ce,
             collation_strength strength,
-            case_level case_lvl) noexcept
+            case_level case_lvl)
         {
             auto const strength_for_copies =
                 case_lvl == case_level::on
@@ -913,7 +913,7 @@ namespace boost { namespace text {
 #else
         template<typename I, typename S>
 #endif
-        I operator()(I first, I it, S last) const noexcept
+        I operator()(I first, I it, S last) const
         {
             return it;
         }

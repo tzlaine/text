@@ -43,9 +43,9 @@ namespace boost { namespace text { namespace detail {
             prev_column_(prev_it->column())
         {}
 
-        string_view prev_msg() const noexcept { return prev_msg_; }
-        int prev_line() const noexcept { return prev_line_; }
-        int prev_column() const noexcept { return prev_column_; }
+        string_view prev_msg() const { return prev_msg_; }
+        int prev_line() const { return prev_line_; }
+        int prev_column() const { return prev_column_; }
 
     private:
         std::string prev_msg_;
@@ -412,7 +412,7 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
-    inline bool strength_matches_op(int str, token_kind op) noexcept
+    inline bool strength_matches_op(int str, token_kind op)
     {
         return str == 0 || op == token_kind::equal ||
                op == token_kind::equal_star ||

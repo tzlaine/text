@@ -37,7 +37,7 @@ namespace boost { namespace text {
         };
 
         inline bool
-        operator<(bidi_prop_interval lhs, bidi_prop_interval rhs) noexcept
+        operator<(bidi_prop_interval lhs, bidi_prop_interval rhs)
         {
             return lhs.hi_ <= rhs.lo_;
         }
@@ -50,7 +50,7 @@ namespace boost { namespace text {
 
     /** Returns the bidirectional algorithm property associated with code
         point `cp`. */
-    inline bidi_property bidi_prop(uint32_t cp) noexcept
+    inline bidi_property bidi_prop(uint32_t cp)
     {
         static auto const map = detail::make_bidi_prop_map();
         static auto const intervals = detail::make_bidi_prop_intervals();
@@ -69,7 +69,7 @@ namespace boost { namespace text {
     }
 
     namespace detail {
-        inline bool isolate_initiator(bidi_property prop) noexcept
+        inline bool isolate_initiator(bidi_property prop)
         {
             return prop == bidi_property::LRI || prop == bidi_property::RLI ||
                    prop == bidi_property::FSI;
@@ -82,7 +82,7 @@ namespace boost { namespace text {
                 typename std::iterator_traits<CPIter>::value_type;
 
             value_type cp() const { return *it_; }
-            bidi_property prop() const noexcept { return (bidi_property)prop_; }
+            bidi_property prop() const { return (bidi_property)prop_; }
 
             CPIter it_;
             int embedding_ : 8;
@@ -106,13 +106,13 @@ namespace boost { namespace text {
 
         template<typename CPIter>
         inline bidi_property
-        bidi_prop(prop_and_embedding_t<CPIter> pae) noexcept
+        bidi_prop(prop_and_embedding_t<CPIter> pae)
         {
             return pae.prop();
         }
 
         template<typename Iter, typename Sentinel>
-        Iter matching_pdi(Iter it, Sentinel last) noexcept
+        Iter matching_pdi(Iter it, Sentinel last)
         {
             if (it == last)
                 return it;
@@ -136,7 +136,7 @@ namespace boost { namespace text {
         }
 
         template<typename Iter>
-        bool has_matching_pdi(Iter it, Iter last) noexcept
+        bool has_matching_pdi(Iter it, Iter last)
         {
             return detail::matching_pdi(it, last) != last;
         }
@@ -157,7 +157,7 @@ namespace boost { namespace text {
         int const bidi_max_depth = 125;
 
         template<typename CPIter, typename Sentinel>
-        int p2_p3(CPIter first, Sentinel last) noexcept
+        int p2_p3(CPIter first, Sentinel last)
         {
             // https://unicode.org/reports/tr9/#P2
             using boost::text::bidi_prop;
@@ -205,16 +205,16 @@ namespace boost { namespace text {
             props_and_embeddings_cp_iterator() : it_() {}
             props_and_embeddings_cp_iterator(iterator_t it) : it_(it) {}
 
-            iterator_t base() const noexcept { return it_; }
+            iterator_t base() const { return it_; }
 
-            uint32_t const operator*() const noexcept { return it_->cp(); }
+            uint32_t const operator*() const { return it_->cp(); }
 
-            props_and_embeddings_cp_iterator & operator++() noexcept
+            props_and_embeddings_cp_iterator & operator++()
             {
                 ++it_;
                 return *this;
             }
-            props_and_embeddings_cp_iterator & operator--() noexcept
+            props_and_embeddings_cp_iterator & operator--()
             {
                 --it_;
                 return *this;
@@ -222,7 +222,7 @@ namespace boost { namespace text {
 
             friend bool operator==(
                 props_and_embeddings_cp_iterator lhs,
-                props_and_embeddings_cp_iterator rhs) noexcept
+                props_and_embeddings_cp_iterator rhs)
             {
                 return lhs.it_ == rhs.it_;
             }
@@ -249,8 +249,8 @@ namespace boost { namespace text {
                 subrange<iterator>(first, last), used_(used)
             {}
 
-            bool used() const noexcept { return used_; }
-            bool use() noexcept { return used_ = true; }
+            bool used() const { return used_; }
+            bool use() { return used_ = true; }
 
         private:
             bool used_;
@@ -274,7 +274,7 @@ namespace boost { namespace text {
                 it_(it), runs_it_(runs_it), runs_end_(runs_end)
             {}
 
-            run_seq_iter & operator++() noexcept
+            run_seq_iter & operator++()
             {
                 ++it_;
                 if (it_ == runs_it_->end()) {
@@ -289,7 +289,7 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            run_seq_iter & operator--() noexcept
+            run_seq_iter & operator--()
             {
                 if (it_ == runs_it_->begin()) {
                     --runs_it_;
@@ -299,7 +299,7 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            prop_and_embedding_t<CPIter> & operator*() const noexcept
+            prop_and_embedding_t<CPIter> & operator*() const
             {
                 return *it_;
             }
@@ -340,31 +340,31 @@ namespace boost { namespace text {
                 eos_(eos)
             {}
 
-            run_seq_runs_t<CPIter> const & runs() const noexcept
+            run_seq_runs_t<CPIter> const & runs() const
             {
                 return runs_;
             }
-            int embedding() const noexcept { return embedding_; }
-            bidi_property sos() const noexcept { return sos_; }
-            bidi_property eos() const noexcept { return eos_; }
+            int embedding() const { return embedding_; }
+            bidi_property sos() const { return sos_; }
+            bidi_property eos() const { return eos_; }
 
-            bool empty() noexcept { return begin() == end(); }
+            bool empty() { return begin() == end(); }
 
-            iterator begin() noexcept
+            iterator begin()
             {
                 return iterator{
                     runs_.begin()->begin(), runs_.begin(), runs_.end()};
             }
-            iterator end() noexcept
+            iterator end()
             {
                 auto const back_it = std::prev(runs_.end());
                 return iterator{back_it->end(), back_it, runs_.end()};
             }
 
-            run_seq_runs_t<CPIter> & runs() noexcept { return runs_; }
-            void embedding(int e) noexcept { embedding_ = e; }
-            void sos(bidi_property p) noexcept { sos_ = p; }
-            void eos(bidi_property p) noexcept { eos_ = p; }
+            run_seq_runs_t<CPIter> & runs() { return runs_; }
+            void embedding(int e) { embedding_ = e; }
+            void sos(bidi_property p) { sos_ = p; }
+            void eos(bidi_property p) { eos_ = p; }
 
         private:
             run_seq_runs_t<CPIter> runs_;
@@ -535,7 +535,7 @@ namespace boost { namespace text {
 
         // https://unicode.org/reports/tr9/#W1
         template<typename CPIter>
-        inline void w1(run_sequence_t<CPIter> & seq) noexcept
+        inline void w1(run_sequence_t<CPIter> & seq)
         {
             auto prev_prop = seq.sos();
             for (auto & elem : seq) {
@@ -558,7 +558,7 @@ namespace boost { namespace text {
             run_sequence_t<CPIter> & seq,
             Pred strong,
             bidi_property trigger,
-            bidi_property replacement) noexcept
+            bidi_property replacement)
         {
             auto en = [](prop_and_embedding_t<CPIter> pae) {
                 return pae.prop() == bidi_property::EN;
@@ -582,7 +582,7 @@ namespace boost { namespace text {
 
         // https://unicode.org/reports/tr9/#W2
         template<typename CPIter>
-        inline void w2(run_sequence_t<CPIter> & seq) noexcept
+        inline void w2(run_sequence_t<CPIter> & seq)
         {
             detail::w2_w7_impl(
                 seq,
@@ -597,7 +597,7 @@ namespace boost { namespace text {
 
         // https://unicode.org/reports/tr9/#W3
         template<typename CPIter>
-        inline void w3(run_sequence_t<CPIter> & seq) noexcept
+        inline void w3(run_sequence_t<CPIter> & seq)
         {
             for (auto & elem : seq) {
                 if (elem.prop() == bidi_property::AL)
@@ -607,7 +607,7 @@ namespace boost { namespace text {
 
         // https://unicode.org/reports/tr9/#W4
         template<typename CPIter>
-        inline void w4(run_sequence_t<CPIter> & seq) noexcept
+        inline void w4(run_sequence_t<CPIter> & seq)
         {
             if (seq.empty())
                 return;
@@ -643,7 +643,7 @@ namespace boost { namespace text {
         struct set_prop_func_t
         {
             prop_and_embedding_t<CPIter>
-            operator()(prop_and_embedding_t<CPIter> pae) noexcept
+            operator()(prop_and_embedding_t<CPIter> pae)
             {
                 pae.prop_ = (uint8_t)prop_;
                 return pae;
@@ -652,14 +652,14 @@ namespace boost { namespace text {
         };
 
         template<typename CPIter>
-        inline set_prop_func_t<CPIter> set_prop(bidi_property prop) noexcept
+        inline set_prop_func_t<CPIter> set_prop(bidi_property prop)
         {
             return set_prop_func_t<CPIter>{prop};
         }
 
         // https://unicode.org/reports/tr9/#W5
         template<typename CPIter>
-        inline void w5(run_sequence_t<CPIter> & seq) noexcept
+        inline void w5(run_sequence_t<CPIter> & seq)
         {
             using iter_t = decltype(seq.begin());
             boost::text::foreach_subrange_if(
@@ -684,7 +684,7 @@ namespace boost { namespace text {
 
         // https://unicode.org/reports/tr9/#W6
         template<typename CPIter>
-        inline void w6(run_sequence_t<CPIter> & seq) noexcept
+        inline void w6(run_sequence_t<CPIter> & seq)
         {
             std::transform(
                 seq.begin(),
@@ -702,7 +702,7 @@ namespace boost { namespace text {
 
         // https://unicode.org/reports/tr9/#W7
         template<typename CPIter>
-        inline void w7(run_sequence_t<CPIter> & seq) noexcept
+        inline void w7(run_sequence_t<CPIter> & seq)
         {
             detail::w2_w7_impl(
                 seq,
@@ -839,7 +839,7 @@ namespace boost { namespace text {
 
         template<typename CPIter>
         inline bool
-        neutral_or_isolate(prop_and_embedding_t<CPIter> pae) noexcept
+        neutral_or_isolate(prop_and_embedding_t<CPIter> pae)
         {
             return pae.prop() == bidi_property::B ||
                    pae.prop() == bidi_property::S ||
@@ -855,7 +855,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         inline void
         n0(run_sequence_t<CPIter> & seq,
-           bracket_pairs_t<CPIter> const & bracket_pairs) noexcept
+           bracket_pairs_t<CPIter> const & bracket_pairs)
         {
             auto prev_strong_prop = seq.sos();
 
@@ -935,7 +935,7 @@ namespace boost { namespace text {
 
         // https://unicode.org/reports/tr9/#N1
         template<typename CPIter>
-        inline void n1(run_sequence_t<CPIter> & seq) noexcept
+        inline void n1(run_sequence_t<CPIter> & seq)
         {
             auto num_to_r = [](prop_and_embedding_t<CPIter> pae) {
                 if (pae.prop() == bidi_property::EN ||
@@ -978,7 +978,7 @@ namespace boost { namespace text {
 
         // https://unicode.org/reports/tr9/#N2
         template<typename CPIter>
-        inline void n2(run_sequence_t<CPIter> & seq) noexcept
+        inline void n2(run_sequence_t<CPIter> & seq)
         {
             auto const seq_embedding_prop =
                 detail::even(seq.embedding()) ? bidi_property::L : bidi_property::R;
@@ -996,7 +996,7 @@ namespace boost { namespace text {
         // https://unicode.org/reports/tr9/#I1
         // https://unicode.org/reports/tr9/#I2
         template<typename CPIter>
-        inline void i1_i2(run_sequence_t<CPIter> & seq) noexcept
+        inline void i1_i2(run_sequence_t<CPIter> & seq)
         {
             bool const even_ = detail::even(seq.embedding());
             for (auto & elem : seq) {
@@ -1081,15 +1081,15 @@ namespace boost { namespace text {
                 subrange<iterator>(first, last), reversed_(reversed)
             {}
 
-            bool reversed() const noexcept { return reversed_; }
-            int embedding() const noexcept { return this->begin()->embedding_; }
-            void reverse() noexcept { reversed_ = !reversed_; }
+            bool reversed() const { return reversed_; }
+            int embedding() const { return this->begin()->embedding_; }
+            void reverse() { reversed_ = !reversed_; }
 
-            auto rbegin() const noexcept
+            auto rbegin() const
             {
                 return stl_interfaces::make_reverse_iterator(this->end());
             }
-            auto rend() const noexcept
+            auto rend() const
             {
                 return stl_interfaces::make_reverse_iterator(this->begin());
             }
@@ -1156,28 +1156,28 @@ namespace boost { namespace text {
             using mirrors_array_t = remove_cv_ref_t<decltype(bidi_mirroreds())>;
             using kind_t = fwd_rev_cp_iter_kind;
 
-            fwd_rev_cp_iter() noexcept : it_(), ait_(), kind_(kind_t::user_it)
+            fwd_rev_cp_iter() : it_(), ait_(), kind_(kind_t::user_it)
             {}
-            fwd_rev_cp_iter(CPIter it) noexcept :
+            fwd_rev_cp_iter(CPIter it) :
                 it_(std::move(it)),
                 ait_(),
                 kind_(kind_t::user_it)
             {}
             fwd_rev_cp_iter(
-                stl_interfaces::reverse_iterator<CPIter> rit) noexcept :
+                stl_interfaces::reverse_iterator<CPIter> rit) :
                 it_(rit.base()),
                 ait_(),
                 kind_(kind_t::rev_user_it)
             {}
             fwd_rev_cp_iter(
                 mirrors_array_t::const_iterator ait,
-                fwd_rev_cp_iter_kind k) noexcept :
+                fwd_rev_cp_iter_kind k) :
                 it_(),
                 ait_(ait),
                 kind_(k)
             {}
 
-            fwd_rev_cp_iter & operator++() noexcept
+            fwd_rev_cp_iter & operator++()
             {
                 if (kind_ == kind_t::user_it)
                     ++it_;
@@ -1187,7 +1187,7 @@ namespace boost { namespace text {
                     ++ait_;
                 return *this;
             }
-            fwd_rev_cp_iter & operator--() noexcept
+            fwd_rev_cp_iter & operator--()
             {
                 if (kind_ == kind_t::user_it)
                     --it_;
@@ -1198,7 +1198,7 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            uint32_t operator*() const noexcept
+            uint32_t operator*() const
             {
                 if (kind_ == kind_t::user_it)
                     return *it_;
@@ -1210,7 +1210,7 @@ namespace boost { namespace text {
 
             friend bool operator==(
                 fwd_rev_cp_iter const & lhs,
-                fwd_rev_cp_iter const & rhs) noexcept
+                fwd_rev_cp_iter const & rhs)
             {
                 BOOST_ASSERT(lhs.kind_ == rhs.kind_);
                 if (lhs.kind_ == kind_t::mirror_array_it)
@@ -1248,7 +1248,7 @@ namespace boost { namespace text {
             using mirrors_array_t = remove_cv_ref_t<decltype(bidi_mirroreds())>;
             using kind_t = fwd_rev_cp_iter_kind;
 
-            fwd_rev_grapheme_iter() noexcept :
+            fwd_rev_grapheme_iter() :
                 grapheme_(),
                 first_(),
                 last_(),
@@ -1258,7 +1258,7 @@ namespace boost { namespace text {
             fwd_rev_grapheme_iter(
                 fwd_rev_cp_iter<CPIter> first,
                 fwd_rev_cp_iter<CPIter> it,
-                fwd_rev_cp_iter<CPIter> last) noexcept :
+                fwd_rev_cp_iter<CPIter> last) :
                 grapheme_(),
                 first_(),
                 last_(),
@@ -1295,7 +1295,7 @@ namespace boost { namespace text {
                 }
             }
 
-            fwd_rev_grapheme_iter & operator++() noexcept
+            fwd_rev_grapheme_iter & operator++()
             {
                 if (kind_ == kind_t::user_it) {
                     auto const first = grapheme_.end().it_;
@@ -1320,7 +1320,7 @@ namespace boost { namespace text {
                 }
                 return *this;
             }
-            fwd_rev_grapheme_iter & operator--() noexcept
+            fwd_rev_grapheme_iter & operator--()
             {
                 if (kind_ == kind_t::user_it) {
                     auto const last = grapheme_.begin().it_;
@@ -1346,11 +1346,11 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            value_t operator*() const noexcept { return grapheme_; }
+            value_t operator*() const { return grapheme_; }
 
             friend bool operator==(
                 fwd_rev_grapheme_iter const & lhs,
-                fwd_rev_grapheme_iter const & rhs) noexcept
+                fwd_rev_grapheme_iter const & rhs)
             {
                 BOOST_ASSERT(lhs.kind_ == rhs.kind_);
                 return lhs.kind_ == kind_t::rev_user_it
@@ -1379,7 +1379,7 @@ namespace boost { namespace text {
         struct bidi_next_hard_line_break_callable
         {
             template<typename BreakResult, typename Sentinel>
-            BreakResult operator()(BreakResult result, Sentinel last) noexcept
+            BreakResult operator()(BreakResult result, Sentinel last)
             {
                 return BreakResult{next_hard_line_break(result.iter, last),
                                    true};
@@ -1401,32 +1401,32 @@ namespace boost { namespace text {
             detail::is_cp_iter_v<CPIter>,
             "CPIter must be a code point iterator");
 
-        bidirectional_cp_subrange() noexcept :
+        bidirectional_cp_subrange() :
             break_(detail::bidi_line_break_kind::none)
         {}
         bidirectional_cp_subrange(
             iterator first,
             iterator last,
             detail::bidi_line_break_kind b =
-                detail::bidi_line_break_kind::none) noexcept :
+                detail::bidi_line_break_kind::none) :
             subrange<iterator>(first, last), break_(b)
         {}
 
         /** Returns true if this subrange ends with some kind of line
             break. */
-        bool line_break() const noexcept
+        bool line_break() const
         {
             return hard_break() || allowed_break();
         }
 
         /** Returns true if this subrange ends with a hard line break. */
-        bool hard_break() const noexcept
+        bool hard_break() const
         {
             return break_ == detail::bidi_line_break_kind::hard;
         }
 
         /** Returns true if this subrange ends with an allowed line break. */
-        bool allowed_break() const noexcept
+        bool allowed_break() const
         {
             return break_ == detail::bidi_line_break_kind::allowed;
         }
@@ -1450,21 +1450,21 @@ namespace boost { namespace text {
             detail::is_cp_iter_v<CPIter>,
             "CPIter must be a code point iterator");
 
-        bidirectional_grapheme_subrange() noexcept :
+        bidirectional_grapheme_subrange() :
             break_(detail::bidi_line_break_kind::none)
         {}
         bidirectional_grapheme_subrange(
             iterator first,
             iterator last,
             detail::bidi_line_break_kind b =
-                detail::bidi_line_break_kind::none) noexcept :
+                detail::bidi_line_break_kind::none) :
             subrange<iterator>(first, last), break_(b)
         {}
         bidirectional_grapheme_subrange(
             detail::fwd_rev_cp_iter<CPIter> first,
             detail::fwd_rev_cp_iter<CPIter> last,
             detail::bidi_line_break_kind b =
-                detail::bidi_line_break_kind::none) noexcept :
+                detail::bidi_line_break_kind::none) :
             subrange<iterator>(
                 iterator(first, first, last), iterator(first, last, last)),
             break_(b)
@@ -1472,19 +1472,19 @@ namespace boost { namespace text {
 
         /** Returns true if this subrange ends with some kind of line
             break. */
-        bool line_break() const noexcept
+        bool line_break() const
         {
             return hard_break() || allowed_break();
         }
 
         /** Returns true if this subrange ends with a hard line break. */
-        bool hard_break() const noexcept
+        bool hard_break() const
         {
             return break_ == detail::bidi_line_break_kind::hard;
         }
 
         /** Returns true if this subrange ends with an allowed line break. */
-        bool allowed_break() const noexcept
+        bool allowed_break() const
         {
             return break_ == detail::bidi_line_break_kind::allowed;
         }
@@ -1500,7 +1500,7 @@ namespace boost { namespace text {
             next_line_break_t() : impl_() {}
             next_line_break_t(Impl && impl) : impl_(std::move(impl)) {}
 
-            BreakResult operator()(BreakResult result, Sentinel last) noexcept
+            BreakResult operator()(BreakResult result, Sentinel last)
             {
                 return impl_(result, last);
             }
@@ -1835,14 +1835,14 @@ namespace boost { namespace text {
         {
             mirrored(int & mirror_index) : mirror_index_(mirror_index) {}
 
-            bool operator()(uint32_t cp) const noexcept
+            bool operator()(uint32_t cp) const
             {
                 mirror_index_ = detail::bidi_mirroring(cp);
                 return mirror_index_ != -1;
             }
 
             template<typename CPIter2>
-            bool operator()(grapheme_ref<CPIter2> grapheme) const noexcept
+            bool operator()(grapheme_ref<CPIter2> grapheme) const
             {
                 BOOST_ASSERT(!grapheme.empty());
                 if (std::next(grapheme.begin()) != grapheme.end())
@@ -1884,7 +1884,7 @@ namespace boost { namespace text {
                 CPIter first,
                 Sentinel last,
                 int paragraph_embedding_level,
-                NextLineBreakFunc next) noexcept :
+                NextLineBreakFunc next) :
                 paragraph_embedding_level_(paragraph_embedding_level),
                 paragraphs_(paragraphs(first, last)),
                 paragraphs_it_(paragraphs_.begin()),
@@ -1918,7 +1918,7 @@ namespace boost { namespace text {
 
             using out_values_t = container::small_vector<OutValueType, 16>;
 
-            bool at_end() const noexcept
+            bool at_end() const
             {
                 return paragraphs_it_ == paragraphs_last_ &&
                        lines_it_ == lines_last_ &&
@@ -2512,28 +2512,28 @@ namespace boost { namespace text {
                   std::bidirectional_iterator_tag,
                   ResultType>
         {
-            const_lazy_bidi_segment_iterator() noexcept : state_(nullptr) {}
+            const_lazy_bidi_segment_iterator() : state_(nullptr) {}
             const_lazy_bidi_segment_iterator(bidi_subrange_state<
                                              CPIter,
                                              Sentinel,
                                              NextLineBreakFunc,
-                                             ResultType> & state) noexcept :
+                                             ResultType> & state) :
                 state_(&state)
             {}
 
-            ResultType operator*() const noexcept
+            ResultType operator*() const
             {
                 return state_->get_value();
             }
 
-            const_lazy_bidi_segment_iterator & operator++() noexcept
+            const_lazy_bidi_segment_iterator & operator++()
             {
                 return *this;
             }
 
             friend bool operator==(
                 const_lazy_bidi_segment_iterator lhs,
-                const_lazy_bidi_segment_iterator rhs) noexcept
+                const_lazy_bidi_segment_iterator rhs)
             {
                 return lhs.state_->at_end();
             }
@@ -2592,17 +2592,17 @@ namespace boost { namespace text {
             ResultType,
             NextLineBreakFunc>;
 
-        lazy_bidi_segment_range() noexcept : state_() {}
+        lazy_bidi_segment_range() : state_() {}
         lazy_bidi_segment_range(
             CPIter first,
             Sentinel last,
             int paragraph_embedding_level,
-            NextLineBreakFunc next = NextLineBreakFunc{}) noexcept :
+            NextLineBreakFunc next = NextLineBreakFunc{}) :
             state_(first, last, paragraph_embedding_level, std::move(next))
         {}
 
-        iterator begin() noexcept { return iterator(state_); }
-        iterator end() noexcept { return iterator(); }
+        iterator begin() { return iterator(state_); }
+        iterator end() { return iterator(); }
 
     private:
         detail::

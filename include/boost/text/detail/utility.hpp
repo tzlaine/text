@@ -22,14 +22,14 @@ namespace boost { namespace text { namespace detail {
 
 #ifdef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
-        inline std::ptrdiff_t strlen(char const * c_str) noexcept
+        inline std::ptrdiff_t strlen(char const * c_str)
         {
             return ::strlen(c_str);
         }
 
 #else
 
-        inline constexpr std::ptrdiff_t strlen(char const * c_str) noexcept
+        inline constexpr std::ptrdiff_t strlen(char const * c_str)
         {
             BOOST_ASSERT(c_str);
             std::size_t retval = 0;
@@ -81,7 +81,7 @@ namespace boost { namespace text { namespace detail {
         }
 
         inline BOOST_TEXT_CXX14_CONSTEXPR char const *
-        strchr(char const * first, char const * last, char c) noexcept
+        strchr(char const * first, char const * last, char c)
         {
             while (first != last) {
                 if (*first == c)
@@ -92,7 +92,7 @@ namespace boost { namespace text { namespace detail {
         }
 
         inline BOOST_TEXT_CXX14_CONSTEXPR char const *
-        strrchr(char const * first, char const * last, char c) noexcept
+        strrchr(char const * first, char const * last, char c)
         {
             char const * it = last;
             while (first != it) {
@@ -103,13 +103,13 @@ namespace boost { namespace text { namespace detail {
         }
 
         template<typename T>
-        constexpr T min_(T lhs, T rhs) noexcept
+        constexpr T min_(T lhs, T rhs)
         {
             return lhs < rhs ? lhs : rhs;
         }
 
         template<typename T>
-        constexpr T max_(T lhs, T rhs) noexcept
+        constexpr T max_(T lhs, T rhs)
         {
             return lhs < rhs ? rhs : lhs;
         }
@@ -120,7 +120,7 @@ namespace boost { namespace text { namespace detail {
             char const * l_first,
             char const * l_last,
             char const * r_first,
-            char const * r_last) noexcept
+            char const * r_last)
         {
             auto const iters =
                 algorithm::mismatch(l_first, l_last, r_first, r_last);
@@ -144,7 +144,7 @@ namespace boost { namespace text { namespace detail {
             char const * l_first,
             char const * l_last,
             char const * r_first,
-            char const * r_last) noexcept
+            char const * r_last)
         {
             auto const l_size = l_last - l_first;
             auto const r_size = r_last - r_first;
@@ -185,7 +185,7 @@ namespace boost { namespace text { namespace detail {
 
         template<typename Iter1, typename Iter2>
         int generalized_compare(
-            Iter1 l_first, Iter1 l_last, Iter2 r_first, Iter2 r_last) noexcept
+            Iter1 l_first, Iter1 l_last, Iter2 r_first, Iter2 r_last)
         {
             auto const iters =
                 algorithm::mismatch(l_first, l_last, r_first, r_last);

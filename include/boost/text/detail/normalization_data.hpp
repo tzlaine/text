@@ -153,7 +153,7 @@ namespace boost { namespace text { namespace detail {
             low_table[lo] = value_proj(value);
         }
 
-        T const & operator[](LookupT key) const noexcept
+        T const & operator[](LookupT key) const
         {
             auto const hi = key >> low_bits;
             auto const lo = key & low_mask;
@@ -164,14 +164,14 @@ namespace boost { namespace text { namespace detail {
         }
 
         friend bool operator==(
-            two_stage_table const & lhs, two_stage_table const & rhs) noexcept
+            two_stage_table const & lhs, two_stage_table const & rhs)
         {
             return lhs.low_tables_ == rhs.low_tables_ &&
                    lhs.high_table_ == rhs.high_table_ &&
                    lhs.default_ == rhs.default_;
         }
         friend bool operator!=(
-            two_stage_table const & lhs, two_stage_table const & rhs) noexcept
+            two_stage_table const & lhs, two_stage_table const & rhs)
         {
             return !(lhs == rhs);
         }
@@ -195,12 +195,12 @@ namespace boost { namespace text { namespace detail {
         SCount = LCount * NCount
     };
 
-    inline constexpr bool hangul_syllable(uint32_t cp) noexcept
+    inline constexpr bool hangul_syllable(uint32_t cp)
     {
         return SBase <= cp && cp < SBase + SCount;
     }
 
-    inline constexpr bool hangul_lv(uint32_t cp) noexcept
+    inline constexpr bool hangul_lv(uint32_t cp)
     {
         return hangul_syllable(cp) && (cp - SBase) % TCount == 0;
     }
@@ -208,7 +208,7 @@ namespace boost { namespace text { namespace detail {
     // Hangul decomposition as described in Unicode 11.0 Section 3.12.
     template<int Capacity, typename T = uint32_t>
     inline code_points<Capacity, T>
-    decompose_hangul_syllable(uint32_t cp) noexcept
+    decompose_hangul_syllable(uint32_t cp)
     {
         BOOST_ASSERT(hangul_syllable(cp));
 
@@ -227,12 +227,12 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
-    inline constexpr uint64_t key(uint64_t cp0, uint32_t cp1) noexcept
+    inline constexpr uint64_t key(uint64_t cp0, uint32_t cp1)
     {
         return (cp0 << 32) | cp1;
     }
 
-    inline int ccc(uint32_t cp) noexcept
+    inline int ccc(uint32_t cp)
     {
         static const two_stage_table<int, 18, 10> table(
             detail::cp_props_map().begin(),
@@ -252,7 +252,7 @@ namespace boost { namespace text { namespace detail {
     /** Returns yes, no, or maybe if the given code point indicates that the
         sequence in which it is found in normalization form Normalization. */
     template<nf Normalization>
-    quick_check quick_check_code_point(uint32_t cp) noexcept
+    quick_check quick_check_code_point(uint32_t cp)
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         switch (Normalization) {
@@ -324,7 +324,7 @@ namespace boost { namespace text { namespace detail {
 
     struct decomposition
     {
-        bool empty() const noexcept { return first_ == last_; }
+        bool empty() const { return first_ == last_; }
 
         uint32_t const * first_;
         uint32_t const * last_;
@@ -333,7 +333,7 @@ namespace boost { namespace text { namespace detail {
     /** Returns a range of CPs that is the compatible decomposistion of `cp`.
         The result will be an empty range if `cp` has no such
         decomposition. */
-    inline decomposition compatible_decompose(uint32_t cp) noexcept
+    inline decomposition compatible_decompose(uint32_t cp)
     {
         static const two_stage_table<cp_range_, 18, 10> table(
             detail::cp_props_map().begin(),
@@ -358,7 +358,7 @@ namespace boost { namespace text { namespace detail {
 
         \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
     template<nf Normalization>
-    bool stable_code_point(uint32_t cp) noexcept
+    bool stable_code_point(uint32_t cp)
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         constexpr nf form = Normalization == nf::fcc ? nf::c : Normalization;

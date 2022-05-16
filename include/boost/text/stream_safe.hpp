@@ -151,23 +151,23 @@ namespace boost { namespace text {
         using iterator = I;
         using sentinel = S;
 
-        stream_safe_iterator() noexcept : first_(), it_(), last_() {}
-        stream_safe_iterator(iterator first, sentinel last) noexcept :
+        stream_safe_iterator() : first_(), it_(), last_() {}
+        stream_safe_iterator(iterator first, sentinel last) :
             first_(first),
             it_(first),
             last_(last),
             nonstarters_(it_ != last_ && detail::ccc(*it_) ? 1 : 0)
         {}
 
-        uint32_t operator*() const noexcept
+        uint32_t operator*() const
         {
             BOOST_ASSERT(it_ != last_);
             return *it_;
         }
 
-        constexpr I base() const noexcept { return it_; }
+        constexpr I base() const { return it_; }
 
-        stream_safe_iterator & operator++() noexcept
+        stream_safe_iterator & operator++()
         {
             BOOST_ASSERT(it_ != last_);
             ++it_;
@@ -175,7 +175,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        stream_safe_iterator & operator--() noexcept
+        stream_safe_iterator & operator--()
         {
             BOOST_ASSERT(it_ != first_);
             if (0 < nonstarters_) {
@@ -193,7 +193,7 @@ namespace boost { namespace text {
         }
 
         friend bool
-        operator==(stream_safe_iterator lhs, stream_safe_iterator rhs) noexcept
+        operator==(stream_safe_iterator lhs, stream_safe_iterator rhs)
         {
             return lhs.base() == rhs.base();
         }
@@ -267,13 +267,13 @@ namespace boost { namespace text {
         using iterator = I;
         using sentinel = S;
 
-        constexpr stream_safe_view() noexcept {}
-        constexpr stream_safe_view(iterator first, sentinel last) noexcept :
+        constexpr stream_safe_view() {}
+        constexpr stream_safe_view(iterator first, sentinel last) :
             first_(first), last_(last)
         {}
 
-        constexpr iterator begin() const noexcept { return first_; }
-        constexpr sentinel end() const noexcept { return last_; }
+        constexpr iterator begin() const { return first_; }
+        constexpr sentinel end() const { return last_; }
 
         friend constexpr bool
         operator==(stream_safe_view lhs, stream_safe_view rhs)
@@ -288,14 +288,14 @@ namespace boost { namespace text {
 
     namespace detail {
         template<typename I, typename S>
-        constexpr auto as_stream_safe_impl(I first, S last) noexcept
+        constexpr auto as_stream_safe_impl(I first, S last)
         {
             using iterator = stream_safe_iterator<I, S>;
             return stream_safe_view<iterator, S>{iterator{first, last}, last};
         }
 
         template<typename I>
-        constexpr auto as_stream_safe_impl(I first, I last) noexcept
+        constexpr auto as_stream_safe_impl(I first, I last)
         {
             using iterator = stream_safe_iterator<I>;
             return stream_safe_view<iterator>{
@@ -318,8 +318,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         std::sentinel_for<I> S,
         std::weakly_incrementable O>
     requires std::indirectly_copyable<I, O>
-    constexpr copy_result<I, O> stream_safe_copy(
-        I first, S last, O out) noexcept;
+    constexpr copy_result<I, O> stream_safe_copy(I first, S last, O out);
 
     /** Writes sequence `r` to `out`, ensuring Stream-Safe Text Format.
 
@@ -327,7 +326,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<code_point_range R, std::weakly_incrementable O>
     requires std::indirectly_copyable<detail::iterator_t<R>, O>
     constexpr copy_result<std::ranges::borrowed_iterator_t<R>, O>
-    stream_safe_copy(R && r, O out) noexcept;
+    stream_safe_copy(R && r, O out);
 
     /** Copies the stream-safe portion of `[first, last)` to the beginning of
         `[first, last)`, and returns an iterator to the end of the copied
@@ -338,7 +337,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<code_point_iter I, std::sentinel_for<I> S>
-    constexpr code_point_iter auto stream_safe(I first, S last) noexcept;
+    constexpr code_point_iter auto stream_safe(I first, S last);
 
     /** Copies the stream-safe portion of `r` to the beginning of `r`, and
         returns an iterator to the end of the copied range.  Note that the
@@ -349,45 +348,44 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<code_point_range R>
-    constexpr detail::unspecified stream_safe(R && r) noexcept;
+    constexpr detail::unspecified stream_safe(R && r);
 
     /** Returns true iff `[first, last)` is in stream-safe format.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<code_point_iter I, std::sentinel_for<I> S>
-    constexpr bool is_stream_safe(I first, S last) noexcept;
+    constexpr bool is_stream_safe(I first, S last);
 
     /** Returns true iff `r` is in stream-safe format.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<code_point_range R>
-    constexpr bool is_stream_safe(R && r) noexcept;
+    constexpr bool is_stream_safe(R && r);
 
     /** Returns a `stream_safe_view` of the range `[first, last)`.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<code_point_iter I, std::sentinel_for<I> S>
-    constexpr detail::unspecified as_stream_safe(I first, S last) noexcept;
+    constexpr detail::unspecified as_stream_safe(I first, S last);
 
     /** Returns a `stream_safe_view` of the range `r`.  The result is returned
         as a `borrowed_view_t` in C++20 and later.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<code_point_range R>
-    constexpr detail::unspecified as_stream_safe(R && r) noexcept;
+    constexpr detail::unspecified as_stream_safe(R && r);
 
 #endif
 
     template<typename CPIter, typename Sentinel, typename OutIter>
-    constexpr auto stream_safe_copy(
-        CPIter first, Sentinel last, OutIter out) noexcept
+    constexpr auto stream_safe_copy(CPIter first, Sentinel last, OutIter out)
         ->detail::cp_iter_ret_t<copy_result<CPIter, OutIter>, CPIter>
     {
         return detail::stream_safe_copy_impl(first, last, out);
     }
 
     template<typename CPRange, typename OutIter>
-    constexpr auto stream_safe_copy(CPRange && r, OutIter out) noexcept
+    constexpr auto stream_safe_copy(CPRange && r, OutIter out)
         ->decltype(boost::text::v1::stream_safe_copy(
             detail::begin(r), detail::end(r), out))
     {
@@ -395,34 +393,34 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename CPIter, typename Sentinel>
-    constexpr auto stream_safe(
-        CPIter first,
-        Sentinel last) noexcept->detail::cp_iter_ret_t<CPIter, CPIter>
+    constexpr auto stream_safe(CPIter first, Sentinel last)
+        ->detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::stream_safe_impl(first, last);
     }
 
     template<typename CPRange>
-    constexpr auto stream_safe(CPRange && r) noexcept
-        ->decltype(boost::text::v1::stream_safe(detail::begin(r), detail::end(r)))
+    constexpr auto stream_safe(CPRange && r)
+        ->decltype(boost::text::v1::stream_safe(
+            detail::begin(r), detail::end(r)))
     {
         return v1::stream_safe(detail::begin(r), detail::end(r));
     }
 
     template<typename CPIter, typename Sentinel>
-    constexpr auto is_stream_safe(
-        CPIter first,
-        Sentinel last) noexcept->detail::cp_iter_ret_t<bool, CPIter>
+    constexpr auto is_stream_safe(CPIter first, Sentinel last)
+        ->detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::is_stream_safe_impl(first, last);
     }
 
     template<typename CPRange>
-    constexpr auto is_stream_safe(CPRange && r) noexcept
+    constexpr auto is_stream_safe(CPRange && r)
         ->decltype(boost::text::v1::is_stream_safe(
             detail::begin(r), detail::end(r)))
     {
-        return boost::text::v1::is_stream_safe(detail::begin(r), detail::end(r));
+        return boost::text::v1::is_stream_safe(
+            detail::begin(r), detail::end(r));
     }
 
     namespace dtl {
@@ -430,7 +428,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         {
             template<typename CPIter, typename Sentinel>
             constexpr auto
-            operator()(CPIter first, Sentinel last) const noexcept
+            operator()(CPIter first, Sentinel last) const
                 -> detail::cp_iter_ret_t<
                     stream_safe_view<
                         stream_safe_iterator<CPIter, Sentinel>,
@@ -442,7 +440,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
             template<typename CPIter>
             constexpr auto
-            operator()(CPIter first, CPIter last) const noexcept
+            operator()(CPIter first, CPIter last) const
                 -> detail::cp_iter_ret_t<
                     stream_safe_view<stream_safe_iterator<CPIter>>,
                     CPIter>
@@ -451,7 +449,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
 
             template<typename CPRange>
-            constexpr auto operator()(CPRange && r) const noexcept
+            constexpr auto operator()(CPRange && r) const
                 -> decltype((*this)(detail::begin(r), detail::end(r)))
             {
                 return (*this)(detail::begin(r), detail::end(r));
@@ -478,8 +476,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I> S,
         std::weakly_incrementable O>
     requires std::indirectly_copyable<I, O>
-    constexpr copy_result<I, O> stream_safe_copy(
-        I first, S last, O out) noexcept
+    constexpr copy_result<I, O> stream_safe_copy(I first, S last, O out)
     {
         return detail::stream_safe_copy_impl(first, last, out);
     }
@@ -487,20 +484,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<code_point_range R, std::weakly_incrementable O>
     requires std::indirectly_copyable<detail::iterator_t<R>, O>
     constexpr copy_result<std::ranges::borrowed_iterator_t<R>, O>
-    stream_safe_copy(R && r, O out) noexcept
+    stream_safe_copy(R && r, O out)
     {
         return detail::stream_safe_copy_impl(
             std::ranges::begin(r), std::ranges::end(r), out);
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    constexpr code_point_iter auto stream_safe(I first, S last) noexcept
+    constexpr code_point_iter auto stream_safe(I first, S last)
     {
         return detail::stream_safe_impl(first, last);
     }
 
     template<code_point_range R>
-    constexpr auto stream_safe(R && r) noexcept
+    constexpr auto stream_safe(R && r)
     {
         if constexpr (std::ranges::borrowed_range<R>) {
             return v2::stream_safe(std::ranges::begin(r), std::ranges::end(r));
@@ -511,13 +508,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    constexpr bool is_stream_safe(I first, S last) noexcept
+    constexpr bool is_stream_safe(I first, S last)
     {
         return detail::is_stream_safe_impl(first, last);
     }
 
     template<code_point_range R>
-    constexpr bool is_stream_safe(R && r) noexcept
+    constexpr bool is_stream_safe(R && r)
     {
         return boost::text::is_stream_safe(
             std::ranges::begin(r), std::ranges::end(r));
@@ -528,20 +525,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         {
             template<code_point_iter I, std::sentinel_for<I> S>
             constexpr stream_safe_view<stream_safe_iterator<I, S>, S>
-            operator()(I first, S last) const noexcept
+            operator()(I first, S last) const
             {
                 return detail::as_stream_safe_impl(first, last);
             }
 
             template<code_point_iter I>
             constexpr stream_safe_view<stream_safe_iterator<I>>
-            operator()(I first, I last) const noexcept
+            operator()(I first, I last) const
             {
                 return detail::as_stream_safe_impl(first, last);
             }
 
             template<code_point_range R>
-            constexpr auto operator()(R && r) const noexcept
+            constexpr auto operator()(R && r) const
             {
                 if constexpr (std::ranges::borrowed_range<R>)
                     return (*this)(std::ranges::begin(r), std::ranges::end(r));

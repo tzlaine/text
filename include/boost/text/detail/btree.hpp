@@ -32,33 +32,33 @@ namespace boost { namespace text { namespace detail {
     template<typename T, typename Segment>
     struct node_ptr
     {
-        node_ptr() noexcept : ptr_() {}
-        explicit node_ptr(node_t<T, Segment> const * node) noexcept : ptr_(node)
+        node_ptr() : ptr_() {}
+        explicit node_ptr(node_t<T, Segment> const * node) : ptr_(node)
         {}
 
-        explicit operator bool() const noexcept { return ptr_.get(); }
+        explicit operator bool() const { return ptr_.get(); }
 
-        node_t<T, Segment> const * operator->() const noexcept
+        node_t<T, Segment> const * operator->() const
         {
             return ptr_.get();
         }
 
-        leaf_node_t<T, Segment> const * as_leaf() const noexcept;
-        interior_node_t<T, Segment> const * as_interior() const noexcept;
+        leaf_node_t<T, Segment> const * as_leaf() const;
+        interior_node_t<T, Segment> const * as_interior() const;
 
-        node_t<T, Segment> const * get() const noexcept { return ptr_.get(); }
+        node_t<T, Segment> const * get() const { return ptr_.get(); }
 
         node_ptr<T, Segment> write() const;
 
-        void swap(node_ptr & rhs) noexcept { ptr_.swap(rhs.ptr_); }
+        void swap(node_ptr & rhs) { ptr_.swap(rhs.ptr_); }
 
-        bool operator==(node_ptr const & rhs) const noexcept
+        bool operator==(node_ptr const & rhs) const
         {
             return ptr_ == rhs.ptr_;
         }
 
-        leaf_node_t<T, Segment> * as_leaf() noexcept;
-        interior_node_t<T, Segment> * as_interior() noexcept;
+        leaf_node_t<T, Segment> * as_leaf();
+        interior_node_t<T, Segment> * as_interior();
 
     private:
         intrusive_ptr<node_t<T, Segment> const> ptr_;
@@ -70,7 +70,7 @@ namespace boost { namespace text { namespace detail {
         reference(
             node_ptr<T, Segment> const & node,
             std::size_t lo,
-            std::size_t hi) noexcept;
+            std::size_t hi);
 
         node_ptr<T, Segment> seg_;
         std::size_t lo_;
@@ -78,7 +78,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     template<typename T>
-    void * placement_address(void * buf, std::size_t buf_size) noexcept
+    void * placement_address(void * buf, std::size_t buf_size)
     {
         std::size_t const alignment = alignof(T);
         std::size_t const size = sizeof(T);
@@ -88,8 +88,8 @@ namespace boost { namespace text { namespace detail {
     template<typename T, typename Segment>
     struct node_t
     {
-        explicit node_t(bool leaf) noexcept : leaf_(leaf) { refs_ = 0; }
-        node_t(node_t const & rhs) noexcept : leaf_(rhs.leaf_) { refs_ = 0; }
+        explicit node_t(bool leaf) : leaf_(leaf) { refs_ = 0; }
+        node_t(node_t const & rhs) : leaf_(rhs.leaf_) { refs_ = 0; }
         node_t & operator=(node_t const & rhs) = delete;
 
         mutable std::atomic<int> refs_;
@@ -100,7 +100,7 @@ namespace boost { namespace text { namespace detail {
     constexpr unsigned int max_children = 16;
 
     template<typename T, typename Segment>
-    inline std::size_t size(node_t<T, Segment> const * node) noexcept;
+    inline std::size_t size(node_t<T, Segment> const * node);
 
     using keys_t = container::static_vector<std::size_t, max_children>;
 
@@ -113,7 +113,7 @@ namespace boost { namespace text { namespace detail {
     template<typename T, typename Segment>
     struct interior_node_t : node_t<T, Segment>
     {
-        interior_node_t() noexcept : node_t<T, Segment>(false) {}
+        interior_node_t() : node_t<T, Segment>(false) {}
 
         void * operator new(std::size_t) = delete;
 
@@ -141,7 +141,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename T, typename Segment>
-    constexpr std::size_t node_buf_size() noexcept
+    constexpr std::size_t node_buf_size()
     {
         return max_(alignof(Segment), alignof(reference<T, Segment>)) +
                max_(sizeof(Segment), sizeof(reference<T, Segment>));
@@ -153,7 +153,7 @@ namespace boost { namespace text { namespace detail {
         enum class which : char { seg, ref };
         using segment_type = Segment;
 
-        leaf_node_t() noexcept : leaf_node_t(segment_type()) {}
+        leaf_node_t() : leaf_node_t(segment_type()) {}
 
         leaf_node_t(segment_type const & t) :
             node_t<T, Segment>(true), buf_ptr_(nullptr), which_(which::seg)
@@ -164,7 +164,7 @@ namespace boost { namespace text { namespace detail {
             buf_ptr_ = new (at) segment_type(t);
         }
 
-        leaf_node_t(segment_type && t) noexcept :
+        leaf_node_t(segment_type && t) :
             node_t<T, Segment>(true), buf_ptr_(nullptr), which_(which::seg)
         {
             auto at =
@@ -199,7 +199,7 @@ namespace boost { namespace text { namespace detail {
         leaf_node_t(leaf_node_t &&) = delete;
         leaf_node_t & operator=(leaf_node_t &&) = delete;
 
-        ~leaf_node_t() noexcept
+        ~leaf_node_t()
         {
             if (!buf_ptr_)
                 return;
@@ -211,7 +211,7 @@ namespace boost { namespace text { namespace detail {
             }
         }
 
-        std::size_t size() const noexcept
+        std::size_t size() const
         {
             switch (which_) {
             case which::seg: return as_seg().size(); break;
@@ -223,25 +223,25 @@ namespace boost { namespace text { namespace detail {
             return -std::size_t(1); // This should never execute.
         }
 
-        segment_type const & as_seg() const noexcept
+        segment_type const & as_seg() const
         {
             BOOST_ASSERT(which_ == which::seg);
             return *static_cast<segment_type *>(buf_ptr_);
         }
 
-        reference<T, Segment> const & as_reference() const noexcept
+        reference<T, Segment> const & as_reference() const
         {
             BOOST_ASSERT(which_ == which::ref);
             return *static_cast<reference<T, Segment> *>(buf_ptr_);
         }
 
-        segment_type & as_seg() noexcept
+        segment_type & as_seg()
         {
             BOOST_ASSERT(which_ == which::seg);
             return *static_cast<segment_type *>(buf_ptr_);
         }
 
-        reference<T, Segment> & as_reference() noexcept
+        reference<T, Segment> & as_reference()
         {
             BOOST_ASSERT(which_ == which::ref);
             return *static_cast<reference<T, Segment> *>(buf_ptr_);
@@ -254,7 +254,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename Segment>
     inline leaf_node_t<T, Segment> const *
-    node_ptr<T, Segment>::as_leaf() const noexcept
+    node_ptr<T, Segment>::as_leaf() const
     {
         BOOST_ASSERT(ptr_);
         BOOST_ASSERT(ptr_->leaf_);
@@ -263,7 +263,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename Segment>
     inline interior_node_t<T, Segment> const *
-    node_ptr<T, Segment>::as_interior() const noexcept
+    node_ptr<T, Segment>::as_interior() const
     {
         BOOST_ASSERT(ptr_);
         BOOST_ASSERT(!ptr_->leaf_);
@@ -282,7 +282,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename T, typename Segment>
-    inline leaf_node_t<T, Segment> * node_ptr<T, Segment>::as_leaf() noexcept
+    inline leaf_node_t<T, Segment> * node_ptr<T, Segment>::as_leaf()
     {
         BOOST_ASSERT(ptr_);
         BOOST_ASSERT(ptr_->leaf_);
@@ -292,7 +292,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename Segment>
     inline interior_node_t<T, Segment> *
-    node_ptr<T, Segment>::as_interior() noexcept
+    node_ptr<T, Segment>::as_interior()
     {
         BOOST_ASSERT(ptr_);
         BOOST_ASSERT(!ptr_->leaf_);
@@ -323,7 +323,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename T, typename Segment>
-    inline std::size_t size(node_t<T, Segment> const * node) noexcept
+    inline std::size_t size(node_t<T, Segment> const * node)
     {
         if (!node) {
             return 0;
@@ -340,50 +340,50 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename Segment>
     inline children_t<T, Segment> const &
-    children(node_ptr<T, Segment> const & node) noexcept
+    children(node_ptr<T, Segment> const & node)
     {
         return node.as_interior()->children_;
     }
 
     template<typename T, typename Segment>
     inline children_t<T, Segment> &
-    children(node_ptr<T, Segment> & node) noexcept
+    children(node_ptr<T, Segment> & node)
     {
         return node.as_interior()->children_;
     }
 
     template<typename T, typename Segment>
-    inline keys_t const & keys(node_ptr<T, Segment> const & node) noexcept
+    inline keys_t const & keys(node_ptr<T, Segment> const & node)
     {
         return node.as_interior()->keys_;
     }
 
     template<typename T, typename Segment>
-    inline keys_t & keys(node_ptr<T, Segment> & node) noexcept
+    inline keys_t & keys(node_ptr<T, Segment> & node)
     {
         return node.as_interior()->keys_;
     }
 
     template<typename T, typename Segment>
-    inline std::size_t num_children(node_ptr<T, Segment> const & node) noexcept
+    inline std::size_t num_children(node_ptr<T, Segment> const & node)
     {
         return detail::children(node).size();
     }
 
     template<typename T, typename Segment>
-    inline std::size_t num_keys(node_ptr<T, Segment> const & node) noexcept
+    inline std::size_t num_keys(node_ptr<T, Segment> const & node)
     {
         return detail::keys(node).size();
     }
 
     template<typename T, typename Segment>
-    inline bool full(node_ptr<T, Segment> const & node) noexcept
+    inline bool full(node_ptr<T, Segment> const & node)
     {
         return detail::num_children(node) == max_children;
     }
 
     template<typename T, typename Segment>
-    inline bool almost_full(node_ptr<T, Segment> const & node) noexcept
+    inline bool almost_full(node_ptr<T, Segment> const & node)
     {
         return detail::num_children(node) == max_children - 1;
     }
@@ -396,7 +396,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename Segment>
     inline std::size_t
-    offset(interior_node_t<T, Segment> const * node, std::size_t i) noexcept
+    offset(interior_node_t<T, Segment> const * node, std::size_t i)
     {
         BOOST_ASSERT(i <= node->keys_.size());
         if (i == 0)
@@ -406,14 +406,14 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename Segment>
     inline std::size_t
-    offset(node_ptr<T, Segment> const & node, std::size_t i) noexcept
+    offset(node_ptr<T, Segment> const & node, std::size_t i)
     {
         return detail::offset(node.as_interior(), i);
     }
 
     template<typename T, typename Segment>
     inline std::size_t
-    find_child(interior_node_t<T, Segment> const * node, std::size_t n) noexcept
+    find_child(interior_node_t<T, Segment> const * node, std::size_t n)
     {
         std::size_t i = 0;
         auto const sizes = node->keys_.size();
@@ -441,7 +441,7 @@ namespace boost { namespace text { namespace detail {
         node_ptr<T, Segment> const & node,
         std::size_t n,
         LeafFunc const & leaf_func,
-        IntFunc const & int_func) noexcept
+        IntFunc const & int_func)
     {
         BOOST_ASSERT(node);
         BOOST_ASSERT(n <= detail::size(node.get()));
@@ -460,7 +460,7 @@ namespace boost { namespace text { namespace detail {
     inline void find_leaf(
         node_ptr<T, Segment> const & node,
         std::size_t n,
-        found_leaf<T, Segment> & retval) noexcept
+        found_leaf<T, Segment> & retval)
     {
         auto leaf_func =
             [&retval](node_ptr<T, Segment> const & node, std::size_t n) {
@@ -485,7 +485,7 @@ namespace boost { namespace text { namespace detail {
     inline void find_element(
         node_ptr<T, Segment> const & node,
         std::size_t n,
-        found_element<T, Segment> & retval) noexcept
+        found_element<T, Segment> & retval)
     {
         BOOST_ASSERT(node);
         detail::find_leaf(node, n, retval.leaf_);
@@ -509,7 +509,7 @@ namespace boost { namespace text { namespace detail {
     inline reference<T, Segment>::reference(
         node_ptr<T, Segment> const & seg_node,
         std::size_t lo,
-        std::size_t hi) noexcept :
+        std::size_t hi) :
         seg_(seg_node), lo_(lo), hi_(hi)
     {
         BOOST_ASSERT(seg_node);
@@ -588,13 +588,13 @@ namespace boost { namespace text { namespace detail {
         Iter first_;
         Iter last_;
 
-        Iter begin() const noexcept { return first_; }
-        Iter end() const noexcept { return last_; }
+        Iter begin() const { return first_; }
+        Iter end() const { return last_; }
     };
 
     template<typename Container>
     reversed_range<typename Container::const_reverse_iterator>
-    reverse(Container const & c) noexcept
+    reverse(Container const & c)
     {
         return {c.rbegin(), c.rend()};
     }
@@ -612,7 +612,7 @@ namespace boost { namespace text { namespace detail {
     inline void bump_along_path_to_leaf(
         node_ptr<T, Segment> const & node,
         std::size_t n,
-        std::size_t bump) noexcept
+        std::size_t bump)
     {
         auto leaf_func = [](node_ptr<T, Segment> const &, std::size_t) {};
         auto int_func = [bump](
@@ -629,7 +629,7 @@ namespace boost { namespace text { namespace detail {
     inline void insert_child(
         interior_node_t<T, Segment> * node,
         std::size_t i,
-        node_ptr<T, Segment> && child) noexcept
+        node_ptr<T, Segment> && child)
     {
         auto const child_size = detail::size(child.get());
         node->children_.insert(node->children_.begin() + i, std::move(child));
@@ -643,7 +643,7 @@ namespace boost { namespace text { namespace detail {
     inline void erase_child(
         interior_node_t<T, Segment> * node,
         std::size_t i,
-        erasure_adjustments adj = adjust_keys) noexcept
+        erasure_adjustments adj = adjust_keys)
     {
         auto const child_size = detail::size(node->children_[i].get());
         node->children_.erase(node->children_.begin() + i);

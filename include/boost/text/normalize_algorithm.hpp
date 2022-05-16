@@ -40,7 +40,7 @@ namespace boost { namespace text {
             subrange<iterator>(first, last)
         {}
 
-        operator iterator() const noexcept { return this->begin(); }
+        operator iterator() const { return this->begin(); }
     };
 
     namespace detail {
@@ -321,7 +321,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 namespace boost { namespace text { namespace detail {
 
     template<nf Normalization, typename CPIter>
-    CPIter last_stable_cp(CPIter first, CPIter last) noexcept
+    CPIter last_stable_cp(CPIter first, CPIter last)
     {
         auto const it = find_if_backward(
             first, last, detail::stable_code_point<Normalization>);
@@ -331,7 +331,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<nf Normalization, typename CPIter>
-    CPIter first_stable_cp(CPIter first, CPIter last) noexcept
+    CPIter first_stable_cp(CPIter first, CPIter last)
     {
         auto const it =
             find_if(first, last, detail::stable_code_point<Normalization>);
@@ -381,7 +381,7 @@ namespace boost { namespace text { namespace detail {
             in_r1_(false)
         {}
 
-        cons_iter & operator++() noexcept
+        cons_iter & operator++()
         {
             if (in_r1_) {
                 BOOST_ASSERT(it1_ != r1_last_);
@@ -394,7 +394,7 @@ namespace boost { namespace text { namespace detail {
             return *this;
         }
 
-        cons_iter & operator--() noexcept
+        cons_iter & operator--()
         {
             if (!in_r1_) {
                 if (it2_ == r2_first_) {
@@ -409,7 +409,7 @@ namespace boost { namespace text { namespace detail {
             return *this;
         }
 
-        T operator*() const noexcept { return in_r1_ ? *it1_ : *it2_; }
+        T operator*() const { return in_r1_ ? *it1_ : *it2_; }
 
         friend bool operator==(cons_iter lhs, cons_iter rhs)
         {

@@ -40,12 +40,12 @@ namespace boost { namespace text {
         /** Default ctor.
 
             \post size() == 0 && begin() == end() */
-        basic_unencoded_rope_view() noexcept :
+        basic_unencoded_rope_view() :
             ref_(rope_ref()), which_(which::r)
         {}
 
         basic_unencoded_rope_view(
-            basic_unencoded_rope_view const & other) noexcept :
+            basic_unencoded_rope_view const & other) :
             ref_(string_view()), which_(other.which_)
         {
             switch (which_) {
@@ -74,12 +74,12 @@ namespace boost { namespace text {
 
         /** Constructs a `basic_unencoded_rope_view` covering the entire given
             string. */
-        basic_unencoded_rope_view(string const & s) noexcept :
+        basic_unencoded_rope_view(string const & s) :
             ref_(string_view(s.data(), s.size())), which_(which::tv)
         {}
 
         /** Forbid construction from a temporary `string`. */
-        basic_unencoded_rope_view(string && r) noexcept = delete;
+        basic_unencoded_rope_view(string && r) = delete;
 
         /** Constructs a substring of `s`, comprising the elements at offsets
             `[lo, hi)`.  If either of `lo` or `hi` is a negative value `x`,
@@ -101,13 +101,13 @@ namespace boost { namespace text {
 
         /** Constructs a `basic_unencoded_rope_view` from a null-terminated C
             string. */
-        basic_unencoded_rope_view(value_type const * c_str) noexcept :
+        basic_unencoded_rope_view(value_type const * c_str) :
             ref_(string_view(c_str)), which_(which::tv)
         {}
 
         /** Constructs a `basic_unencoded_rope_view` covering the entire given
             `string_view`. */
-        basic_unencoded_rope_view(string_view sv) noexcept :
+        basic_unencoded_rope_view(string_view sv) :
             ref_(sv), which_(which::tv)
         {}
 
@@ -134,7 +134,7 @@ namespace boost { namespace text {
             }
         }
 
-        const_iterator begin() const noexcept
+        const_iterator begin() const
         {
             switch (which_) {
             case which::r:
@@ -143,7 +143,7 @@ namespace boost { namespace text {
             }
             return const_iterator(); // This should never execute.
         }
-        const_iterator end() const noexcept
+        const_iterator end() const
         {
             switch (which_) {
             case which::r:
@@ -153,20 +153,20 @@ namespace boost { namespace text {
             return const_iterator(); // This should never execute.
         }
 
-        const_iterator cbegin() const noexcept { return begin(); }
-        const_iterator cend() const noexcept { return end(); }
+        const_iterator cbegin() const { return begin(); }
+        const_iterator cend() const { return end(); }
 
-        const_reverse_iterator rbegin() const noexcept
+        const_reverse_iterator rbegin() const
         {
             return const_reverse_iterator{end()};
         }
-        const_reverse_iterator rend() const noexcept
+        const_reverse_iterator rend() const
         {
             return const_reverse_iterator{begin()};
         }
 
-        const_reverse_iterator crbegin() const noexcept { return rbegin(); }
-        const_reverse_iterator crend() const noexcept { return rend(); }
+        const_reverse_iterator crbegin() const { return rbegin(); }
+        const_reverse_iterator crend() const { return rend(); }
 
         /** Returns a substring of `*this`, comprising the elements at offsets
             `[lo, hi)`.  If either of `lo` or `hi` is a negative value `x`,
@@ -203,7 +203,7 @@ namespace boost { namespace text {
         /** Lexicographical compare.  Returns a value `< 0` when `*this` is
             lexicographically less than `rhs`, `0` if `*this == rhs`, and a
             value `> 0` if `*this` is lexicographically greater than `rhs`. */
-        int compare(basic_unencoded_rope_view rhs) const noexcept
+        int compare(basic_unencoded_rope_view rhs) const
         {
             if (which_ == which::tv && rhs.which_ == which::tv)
                 return ref_.tv_.compare(rhs.ref_.tv_);
@@ -214,7 +214,7 @@ namespace boost { namespace text {
         }
 
         basic_unencoded_rope_view &
-        operator=(basic_unencoded_rope_view const & other) noexcept
+        operator=(basic_unencoded_rope_view const & other)
         {
             which_ = other.which_;
             switch (which_) {
@@ -226,32 +226,32 @@ namespace boost { namespace text {
 
         /** Assignment from a `basic_unencoded_rope`. */
         basic_unencoded_rope_view &
-        operator=(basic_unencoded_rope<Char, String> const & r) noexcept
+        operator=(basic_unencoded_rope<Char, String> const & r)
         {
             return *this = basic_unencoded_rope_view(r);
         }
 
         /** Assignment from a `string`. */
-        basic_unencoded_rope_view & operator=(string const & s) noexcept
+        basic_unencoded_rope_view & operator=(string const & s)
         {
             return *this = basic_unencoded_rope_view(s);
         }
 
         /** Forbid assignment from a `basic_unencoded_rope`. */
         basic_unencoded_rope_view &
-        operator=(basic_unencoded_rope<Char, String> && r) noexcept = delete;
+        operator=(basic_unencoded_rope<Char, String> && r) = delete;
 
         /** Forbid assignment from a `string`. */
-        basic_unencoded_rope_view & operator=(string && s) noexcept = delete;
+        basic_unencoded_rope_view & operator=(string && s) = delete;
 
         /** Assignment from a null-terminated C string. */
-        basic_unencoded_rope_view & operator=(value_type const * c_str) noexcept
+        basic_unencoded_rope_view & operator=(value_type const * c_str)
         {
             return *this = basic_unencoded_rope_view(c_str);
         }
 
         /** Assignment from a `string_view`. */
-        basic_unencoded_rope_view & operator=(string_view sv) noexcept
+        basic_unencoded_rope_view & operator=(string_view sv)
         {
             return *this = basic_unencoded_rope_view(sv);
         }
@@ -284,42 +284,42 @@ namespace boost { namespace text {
 
         friend bool operator==(
             basic_unencoded_rope_view lhs,
-            basic_unencoded_rope_view rhs) noexcept
+            basic_unencoded_rope_view rhs)
         {
             return lhs.compare(rhs) == 0;
         }
 
         friend bool operator!=(
             basic_unencoded_rope_view lhs,
-            basic_unencoded_rope_view rhs) noexcept
+            basic_unencoded_rope_view rhs)
         {
             return lhs.compare(rhs) != 0;
         }
 
         friend bool operator<(
             basic_unencoded_rope_view lhs,
-            basic_unencoded_rope_view rhs) noexcept
+            basic_unencoded_rope_view rhs)
         {
             return lhs.compare(rhs) < 0;
         }
 
         friend bool operator<=(
             basic_unencoded_rope_view lhs,
-            basic_unencoded_rope_view rhs) noexcept
+            basic_unencoded_rope_view rhs)
         {
             return lhs.compare(rhs) <= 0;
         }
 
         friend bool operator>(
             basic_unencoded_rope_view lhs,
-            basic_unencoded_rope_view rhs) noexcept
+            basic_unencoded_rope_view rhs)
         {
             return lhs.compare(rhs) > 0;
         }
 
         friend bool operator>=(
             basic_unencoded_rope_view lhs,
-            basic_unencoded_rope_view rhs) noexcept
+            basic_unencoded_rope_view rhs)
         {
             return lhs.compare(rhs) >= 0;
         }

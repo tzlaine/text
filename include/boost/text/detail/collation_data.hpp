@@ -54,17 +54,17 @@ namespace boost { namespace text { namespace detail {
 #endif
 
     inline bool
-    operator==(collation_element lhs, collation_element rhs) noexcept
+    operator==(collation_element lhs, collation_element rhs)
     {
         return lhs.l1_ == rhs.l1_ && lhs.l2_ == rhs.l2_ && lhs.l3_ == rhs.l3_ &&
                lhs.l4_ == rhs.l4_;
     }
     inline bool
-    operator!=(collation_element lhs, collation_element rhs) noexcept
+    operator!=(collation_element lhs, collation_element rhs)
     {
         return !(lhs == rhs);
     }
-    inline bool operator<(collation_element lhs, collation_element rhs) noexcept
+    inline bool operator<(collation_element lhs, collation_element rhs)
     {
         if (rhs.l1_ < lhs.l1_)
             return false;
@@ -84,12 +84,12 @@ namespace boost { namespace text { namespace detail {
         return lhs.l4_ < rhs.l4_;
     }
     inline bool
-    operator<=(collation_element lhs, collation_element rhs) noexcept
+    operator<=(collation_element lhs, collation_element rhs)
     {
         return lhs == rhs || lhs < rhs;
     }
 
-    inline collation_strength ce_strength(collation_element ce) noexcept
+    inline collation_strength ce_strength(collation_element ce)
     {
         if (ce.l1_)
             return collation_strength::primary;
@@ -102,7 +102,7 @@ namespace boost { namespace text { namespace detail {
         return collation_strength::identical;
     }
 
-    inline bool variable(collation_element ce) noexcept
+    inline bool variable(collation_element ce)
     {
         auto const lo = min_variable_collation_weight;
         auto const hi = max_variable_collation_weight;
@@ -132,8 +132,8 @@ namespace boost { namespace text { namespace detail {
     {
         using iterator = collation_element const *;
 
-        constexpr collation_elements() noexcept : first_(0u), last_(0u) {}
-        constexpr collation_elements(uint16_t first, uint16_t last) noexcept :
+        constexpr collation_elements() : first_(0u), last_(0u) {}
+        constexpr collation_elements(uint16_t first, uint16_t last) :
             first_(first),
             last_(last)
         {}
@@ -141,36 +141,36 @@ namespace boost { namespace text { namespace detail {
             uint16_t first,
             uint16_t last,
             unsigned char lead_primary,
-            unsigned char lead_primary_shifted) noexcept :
+            unsigned char lead_primary_shifted) :
             first_(first),
             last_(last),
             lead_primary_(lead_primary),
             lead_primary_shifted_(lead_primary_shifted)
         {}
 
-        iterator begin(collation_element const * elements) const noexcept
+        iterator begin(collation_element const * elements) const
         {
             return elements + first_;
         }
-        iterator end(collation_element const * elements) const noexcept
+        iterator end(collation_element const * elements) const
         {
             return elements + last_;
         }
 
-        uint16_t first() const noexcept { return first_; }
-        uint16_t last() const noexcept { return last_; }
+        uint16_t first() const { return first_; }
+        uint16_t last() const { return last_; }
 
-        unsigned char lead_primary(variable_weighting weighting) const noexcept
+        unsigned char lead_primary(variable_weighting weighting) const
         {
             return weighting == variable_weighting::non_ignorable
                        ? lead_primary_
                        : lead_primary_shifted_;
         }
 
-        int size() const noexcept { return last_ - first_; }
-        explicit operator bool() const noexcept { return first_ != last_; }
+        int size() const { return last_ - first_; }
+        explicit operator bool() const { return first_ != last_; }
 
-        void fill_non_ignorables(collation_element const * elements) noexcept
+        void fill_non_ignorables(collation_element const * elements)
         {
             for (auto it = begin(elements), last = end(elements); it != last;
                  ++it) {
@@ -181,21 +181,21 @@ namespace boost { namespace text { namespace detail {
             }
         }
 
-        void reset_non_ignorables() noexcept
+        void reset_non_ignorables()
         {
             lead_primary_ = 0;
             lead_primary_shifted_ = 0;
         }
 
         friend bool
-        operator==(collation_elements lhs, collation_elements rhs) noexcept
+        operator==(collation_elements lhs, collation_elements rhs)
         {
             return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_ &&
                    lhs.lead_primary_ == rhs.lead_primary_ &&
                    lhs.lead_primary_shifted_ == rhs.lead_primary_shifted_;
         }
         friend bool
-        operator!=(collation_elements lhs, collation_elements rhs) noexcept
+        operator!=(collation_elements lhs, collation_elements rhs)
         {
             return !(lhs == rhs);
         }
@@ -216,29 +216,29 @@ namespace boost { namespace text { namespace detail {
 
         struct storage_t
         {
-            constexpr storage_t() noexcept : values_{} {}
-            constexpr storage_t(uint32_t x) noexcept : values_{x} {}
-            constexpr storage_t(uint32_t x, uint32_t y) noexcept : values_{x, y}
+            constexpr storage_t() : values_{} {}
+            constexpr storage_t(uint32_t x) : values_{x} {}
+            constexpr storage_t(uint32_t x, uint32_t y) : values_{x, y}
             {}
-            constexpr storage_t(uint32_t x, uint32_t y, uint32_t z) noexcept :
+            constexpr storage_t(uint32_t x, uint32_t y, uint32_t z) :
                 values_{x, y, z}
             {}
             uint32_t values_[N];
         };
 
-        constexpr collation_trie_key() noexcept : cps_(), size_(0) {}
-        constexpr collation_trie_key(storage_t cps, int size) noexcept :
+        constexpr collation_trie_key() : cps_(), size_(0) {}
+        constexpr collation_trie_key(storage_t cps, int size) :
             cps_(cps),
             size_(size)
         {}
 
-        const_iterator begin() const noexcept { return cps_.values_; }
-        const_iterator end() const noexcept { return begin() + size_; }
+        const_iterator begin() const { return cps_.values_; }
+        const_iterator end() const { return begin() + size_; }
 
-        iterator begin() noexcept { return cps_.values_; }
-        iterator end() noexcept { return begin() + size_; }
+        iterator begin() { return cps_.values_; }
+        iterator end() { return begin() + size_; }
 
-        iterator insert(iterator at, uint32_t cp) noexcept
+        iterator insert(iterator at, uint32_t cp)
         {
             BOOST_ASSERT(at == end());
             BOOST_ASSERT(size_ < N);
@@ -247,7 +247,7 @@ namespace boost { namespace text { namespace detail {
             return at;
         }
 
-        iterator erase(iterator at) noexcept
+        iterator erase(iterator at)
         {
             BOOST_ASSERT(at == std::prev(end()));
             --size_;
@@ -285,7 +285,7 @@ namespace boost { namespace text { namespace detail {
         using match_result = typename impl_type::match_result;
 
         template<typename KeyRange>
-        bool contains(KeyRange const & key) const noexcept
+        bool contains(KeyRange const & key) const
         {
             static_assert(std::is_same<
                           std::decay_t<decltype(*detail::begin(key))>,
@@ -295,7 +295,6 @@ namespace boost { namespace text { namespace detail {
 
         template<typename KeyIter, typename Sentinel>
         match_result longest_subsequence(KeyIter first, Sentinel last) const
-            noexcept
         {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
@@ -303,19 +302,19 @@ namespace boost { namespace text { namespace detail {
                 boost::text::as_utf16(first, last));
         }
 
-        match_result longest_subsequence(uint16_t cu) const noexcept
+        match_result longest_subsequence(uint16_t cu) const
         {
             return impl_.longest_subsequence(&cu, &cu + 1);
         }
 
-        match_result longest_subsequence(uint32_t cp) const noexcept
+        match_result longest_subsequence(uint32_t cp) const
         {
             auto const r = boost::text::as_utf16(&cp, &cp + 1);
             return impl_.longest_subsequence(r.begin(), r.end());
         }
 
         template<typename KeyIter, typename Sentinel>
-        match_result longest_match(KeyIter first, Sentinel last) const noexcept
+        match_result longest_match(KeyIter first, Sentinel last) const
         {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
@@ -323,13 +322,11 @@ namespace boost { namespace text { namespace detail {
         }
 
         match_result extend_subsequence(match_result prev, uint16_t cu) const
-            noexcept
         {
             return impl_.extend_subsequence(prev, cu);
         }
 
         match_result extend_subsequence(match_result prev, uint32_t cp) const
-            noexcept
         {
             auto const r = boost::text::as_utf16(&cp, &cp + 1);
             return impl_.extend_subsequence(prev, r.begin(), r.end());
@@ -337,7 +334,7 @@ namespace boost { namespace text { namespace detail {
 
         template<typename KeyRange>
         boost::text::optional_ref<value_type const>
-        operator[](KeyRange const & key) const noexcept
+        operator[](KeyRange const & key) const
         {
             static_assert(std::is_same<
                           std::decay_t<decltype(*detail::begin(key))>,
@@ -346,7 +343,7 @@ namespace boost { namespace text { namespace detail {
         }
 
         boost::text::optional_ref<value_type const>
-        operator[](match_result match) const noexcept
+        operator[](match_result match) const
         {
             return impl_[match];
         }
@@ -386,7 +383,7 @@ namespace boost { namespace text { namespace detail {
                 boost::text::as_utf16(key), std::move(value));
         }
 
-        bool erase(match_result match) noexcept { return impl_.erase(match); }
+        bool erase(match_result match) { return impl_.erase(match); }
 
         friend bool
         operator==(collation_trie_t const & lhs, collation_trie_t const & rhs)
@@ -443,7 +440,7 @@ namespace boost { namespace text { namespace detail {
         bool simple_;
         bool compressible_;
 
-        friend bool operator==(reorder_group lhs, reorder_group rhs) noexcept
+        friend bool operator==(reorder_group lhs, reorder_group rhs)
         {
             return !strcmp(lhs.name_, rhs.name_) && lhs.first_ == rhs.first_ &&
                    lhs.last_ == rhs.last_ && lhs.simple_ == rhs.simple_ &&
@@ -460,7 +457,7 @@ namespace boost { namespace text { namespace detail {
         return retval;
     }
 
-    inline optional<reorder_group> find_reorder_group(string_view name) noexcept
+    inline optional<reorder_group> find_reorder_group(string_view name)
     {
         if (name == "Hrkt")
             name = "Hira";
@@ -478,13 +475,13 @@ namespace boost { namespace text { namespace detail {
     }
 
     BOOST_TEXT_DECL
-    uint32_t default_table_min_nonstarter() noexcept;
+    uint32_t default_table_min_nonstarter();
 
     BOOST_TEXT_DECL
-    uint32_t default_table_max_nonstarter() noexcept;
+    uint32_t default_table_max_nonstarter();
 
     BOOST_TEXT_DECL
-    unsigned char const * default_table_nonstarters_ptr() noexcept;
+    unsigned char const * default_table_nonstarters_ptr();
 
     template<typename OutIter>
     struct lzw_to_coll_elem_iter

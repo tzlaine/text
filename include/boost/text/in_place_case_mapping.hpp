@@ -16,7 +16,7 @@ namespace boost { namespace text {
     /** Changes the case of `t` to lower-case, using language-specific
         handling as indicated by `lang`. */
     inline void in_place_to_lower(
-        text & t, case_language lang = case_language::other) noexcept
+        text & t, case_language lang = case_language::other)
     {
         std::string s;
         boost::text::to_lower(
@@ -35,7 +35,7 @@ namespace boost { namespace text {
     /** Changes the case of `r` to lower-case, using language-specific
         handling as indicated by `lang`. */
     inline void in_place_to_lower(
-        rope & r, case_language lang = case_language::other) noexcept
+        rope & r, case_language lang = case_language::other)
     {
         std::string s;
         boost::text::to_lower(
@@ -55,7 +55,7 @@ namespace boost { namespace text {
     void in_place_to_title(
         text & t,
         case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
     {
         std::string s;
         boost::text::to_title(
@@ -81,7 +81,7 @@ namespace boost { namespace text {
     void in_place_to_title(
         rope & r,
         case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
     {
         std::string s;
         boost::text::to_title(
@@ -96,7 +96,7 @@ namespace boost { namespace text {
     /** Changes the case of `t` to upper-case, using language-specific
         handling as indicated by `lang`. */
     inline void in_place_to_upper(
-        text & t, case_language lang = case_language::other) noexcept
+        text & t, case_language lang = case_language::other)
     {
         std::string s;
         boost::text::to_upper(
@@ -115,7 +115,7 @@ namespace boost { namespace text {
     /** Changes the case of `r` to upper-case, using language-specific
         handling as indicated by `lang`. */
     inline void in_place_to_upper(
-        rope & r, case_language lang = case_language::other) noexcept
+        rope & r, case_language lang = case_language::other)
     {
         std::string s;
         boost::text::to_upper(

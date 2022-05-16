@@ -26,7 +26,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename CPIter, typename Sentinel>
     CPIter
-    prev_paragraph_break_impl(CPIter first, CPIter it, Sentinel last) noexcept
+    prev_paragraph_break_impl(CPIter first, CPIter it, Sentinel last)
     {
         // CRLF special case.
         if (it != first && it != last && *std::prev(it) == 0xd && *it == 0xa)
@@ -39,7 +39,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename CPIter, typename Sentinel>
-    CPIter next_paragraph_break_impl(CPIter first, Sentinel last) noexcept
+    CPIter next_paragraph_break_impl(CPIter first, Sentinel last)
     {
         if (first == last)
             return first;
@@ -58,7 +58,7 @@ namespace boost { namespace text { namespace detail {
     template<typename CPIter, typename Sentinel>
     struct next_paragraph_callable
     {
-        auto operator()(CPIter it, Sentinel last) const noexcept
+        auto operator()(CPIter it, Sentinel last) const
             -> cp_iter_ret_t<CPIter, CPIter>
         {
             return detail::next_paragraph_break_impl(it, last);
@@ -68,7 +68,7 @@ namespace boost { namespace text { namespace detail {
     template<typename CPIter>
     struct prev_paragraph_callable
     {
-        auto operator()(CPIter first, CPIter it, CPIter last) const noexcept
+        auto operator()(CPIter first, CPIter it, CPIter last) const
             -> cp_iter_ret_t<CPIter, CPIter>
         {
             return detail::prev_paragraph_break_impl(first, it, last);
@@ -78,7 +78,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename CPRange, typename CPIter>
     iterator_t<CPRange>
-    prev_paragraph_break_cr_impl(CPRange && range, CPIter it) noexcept
+    prev_paragraph_break_cr_impl(CPRange && range, CPIter it)
     {
         return detail::prev_paragraph_break_impl(
             detail::begin(range), it, detail::end(range));
@@ -86,7 +86,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename GraphemeRange, typename GraphemeIter>
     iterator_t<GraphemeRange> prev_paragraph_break_gr_impl(
-        GraphemeRange && range, GraphemeIter it) noexcept
+        GraphemeRange && range, GraphemeIter it)
     {
         using cp_iter_t = decltype(range.begin().base());
         return {
@@ -100,14 +100,14 @@ namespace boost { namespace text { namespace detail {
 
     template<typename CPRange, typename CPIter>
     iterator_t<CPRange>
-    next_paragraph_break_cr_impl(CPRange && range, CPIter it) noexcept
+    next_paragraph_break_cr_impl(CPRange && range, CPIter it)
     {
         return detail::next_paragraph_break_impl(it, detail::end(range));
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
     iterator_t<GraphemeRange> next_paragraph_break_gr_impl(
-        GraphemeRange && range, GraphemeIter it) noexcept
+        GraphemeRange && range, GraphemeIter it)
     {
         using cp_iter_t = decltype(range.begin().base());
         return {
@@ -119,7 +119,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename CPIter, typename Sentinel>
     bool
-    at_paragraph_break_impl(CPIter first, CPIter it, Sentinel last) noexcept
+    at_paragraph_break_impl(CPIter first, CPIter it, Sentinel last)
     {
         if (it == last)
             return true;
@@ -127,7 +127,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename CPRange, typename CPIter>
-    bool at_paragraph_break_cr_impl(CPRange && range, CPIter it) noexcept
+    bool at_paragraph_break_cr_impl(CPRange && range, CPIter it)
     {
         if (it == detail::end(range))
             return true;
@@ -137,7 +137,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename GraphemeRange, typename GraphemeIter>
     bool
-    at_paragraph_break_gr_impl(GraphemeRange && range, GraphemeIter it) noexcept
+    at_paragraph_break_gr_impl(GraphemeRange && range, GraphemeIter it)
     {
         if (it == detail::end(range))
             return true;
@@ -149,7 +149,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename CPIter, typename Sentinel>
     utf32_view<CPIter>
-    paragraph_impl(CPIter first, CPIter it, Sentinel last) noexcept
+    paragraph_impl(CPIter first, CPIter it, Sentinel last)
     {
         first = detail::prev_paragraph_break_impl(first, it, last);
         return utf32_view<CPIter>{
@@ -158,7 +158,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename CPRange, typename CPIter>
     utf32_view<iterator_t<CPRange>>
-    paragraph_cr_impl(CPRange && range, CPIter it) noexcept
+    paragraph_cr_impl(CPRange && range, CPIter it)
     {
         auto first = detail::prev_paragraph_break_impl(
             detail::begin(range), it, detail::end(range));
@@ -167,7 +167,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto paragraph_gr_impl(GraphemeRange && range, GraphemeIter it) noexcept
+    auto paragraph_gr_impl(GraphemeRange && range, GraphemeIter it)
         -> grapheme_view<decltype(range.begin().base())>
     {
         using cp_iter_t = decltype(range.begin().base());
@@ -193,7 +193,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         paragraph that `it` is within is returned (even if `it` is already at
         the first code point of a paragraph). */
     template<code_point_iter I, std::sentinel_for<I> S>
-    I prev_paragraph_break(I first, I it, S last) noexcept;
+    I prev_paragraph_break(I first, I it, S last);
 
     /** Finds the next paragraph break after `first`.  This will be the first
         code point after the current paragraph, or `last` if no next paragraph
@@ -201,7 +201,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `first` is at the beginning of a paragraph. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    I next_paragraph_break(I first, S last) noexcept;
+    I next_paragraph_break(I first, S last);
 
     /** Finds the nearest paragraph break at or before before `it`.  If `it ==
         r.begin()`, that is returned.  Otherwise, the first code point of the
@@ -209,7 +209,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         the first code point of a paragraph). */
     template<code_point_range R>
     std::ranges::iterator_t<R> prev_paragraph_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the nearest paragraph break at or
         before before `it`.  If `it == r.begin()`, that is returned.
@@ -218,7 +218,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         paragraph). */
     template<grapheme_range R>
     std::ranges::iterator_t<R> prev_paragraph_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Finds the next paragraph break after `it`.  This will be the first
         code point after the current paragraph, or `r.end()` if no next
@@ -227,7 +227,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         \pre `it` is at the beginning of a paragraph. */
     template<code_point_range R>
     std::ranges::iterator_t<R> next_paragraph_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the next paragraph break after `it`.
         This will be the first grapheme after the current paragraph, or
@@ -236,59 +236,59 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         \pre `it` is at the beginning of a paragraph. */
     template<grapheme_range R>
     std::ranges::iterator_t<R> next_paragraph_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns true iff `it` is at the beginning of a paragraph, or `it ==
         last`. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    bool at_paragraph_break(I first, I it, S last) noexcept;
+    bool at_paragraph_break(I first, I it, S last);
 
     /** Returns true iff `it` is at the beginning of a paragraph, or `it ==
         std::ranges::end(r)`. */
     template<code_point_range R>
-    bool at_paragraph_break(R && r, std::ranges::iterator_t<R> it) noexcept;
+    bool at_paragraph_break(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns true iff `it` is at the beginning of a paragraph, or `it ==
         std::ranges::end(r)`. */
     template<grapheme_range R>
-    bool at_paragraph_break(R && r, std::ranges::iterator_t<R> it) noexcept;
+    bool at_paragraph_break(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns the bounds of the paragraph that `it` lies within. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    utf32_view<I> paragraph(I first, I it, S last) noexcept;
+    utf32_view<I> paragraph(I first, I it, S last);
 
     /** Returns the bounds of the paragraph that `it` lies within, as a
         utf32_view. */
     template<code_point_range R>
     utf32_view<std::ranges::iterator_t<R>> paragraph(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns grapheme range delimiting the bounds of the paragraph that
         `it` lies within, as a grapheme_view. */
     template<grapheme_range R>
     grapheme_view<code_point_iterator_t<R>> paragraph(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a view of the code point ranges delimiting paragraphs in
         `[first, last)`. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    detail::unspecified paragraphs(I first, S last) noexcept;
+    detail::unspecified paragraphs(I first, S last);
 
     /** Returns a view of the code point ranges delimiting paragraphs in `r`.
         The result is returned as a `borrowed_view_t` in C++20 and later. */
     template<code_point_range R>
-    detail::unspecified paragraphs(R && r) noexcept;
+    detail::unspecified paragraphs(R && r);
 
     /** Returns a view of the grapheme ranges delimiting paragraphs in
         `r`.  The result is returned as a `borrowed_view_t` in C++20 and
         later. */
     template<grapheme_range R>
-    detail::unspecified paragraphs(R && r) noexcept;
+    detail::unspecified paragraphs(R && r);
 
 #else
 
     template<typename CPIter, typename Sentinel>
-    auto prev_paragraph_break(CPIter first, CPIter it, Sentinel last) noexcept
+    auto prev_paragraph_break(CPIter first, CPIter it, Sentinel last)
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::prev_paragraph_break_impl(first, it, last);
@@ -297,20 +297,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename CPIter, typename Sentinel>
     auto next_paragraph_break(
         CPIter first,
-        Sentinel last) noexcept->detail::cp_iter_ret_t<CPIter, CPIter>
+        Sentinel last)->detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::next_paragraph_break_impl(first, last);
     }
 
     template<typename CPRange, typename CPIter>
-    auto prev_paragraph_break(CPRange && range, CPIter it) noexcept
+    auto prev_paragraph_break(CPRange && range, CPIter it)
         ->detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return detail::prev_paragraph_break_cr_impl(range, it);
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto prev_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept
+    auto prev_paragraph_break(GraphemeRange && range, GraphemeIter it)
         ->detail::graph_rng_alg_ret_t<
             detail::iterator_t<GraphemeRange const>,
             GraphemeRange>
@@ -319,14 +319,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename CPRange, typename CPIter>
-    auto next_paragraph_break(CPRange && range, CPIter it) noexcept
+    auto next_paragraph_break(CPRange && range, CPIter it)
         ->detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return detail::next_paragraph_break_cr_impl(range, it);
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto next_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept
+    auto next_paragraph_break(GraphemeRange && range, GraphemeIter it)
         ->detail::graph_rng_alg_ret_t<
             detail::iterator_t<GraphemeRange const>,
             GraphemeRange>
@@ -335,7 +335,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename CPIter, typename Sentinel>
-    auto at_paragraph_break(CPIter first, CPIter it, Sentinel last) noexcept
+    auto at_paragraph_break(CPIter first, CPIter it, Sentinel last)
         ->detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::at_paragraph_break_impl(first, it, last);
@@ -344,13 +344,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename CPRange, typename CPIter>
     auto at_paragraph_break(
         CPRange && range,
-        CPIter it) noexcept->detail::cp_rng_alg_ret_t<bool, CPRange>
+        CPIter it)->detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return detail::at_paragraph_break_cr_impl(range, it);
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto at_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept
+    auto at_paragraph_break(GraphemeRange && range, GraphemeIter it)
         ->detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         return detail::at_paragraph_break_gr_impl(range, it);
@@ -358,20 +358,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename CPIter, typename Sentinel>
     utf32_view<CPIter> paragraph(
-        CPIter first, CPIter it, Sentinel last) noexcept
+        CPIter first, CPIter it, Sentinel last)
     {
         return detail::paragraph_impl(first, it, last);
     }
 
     template<typename CPRange, typename CPIter>
-    auto paragraph(CPRange && range, CPIter it) noexcept -> detail::
+    auto paragraph(CPRange && range, CPIter it) -> detail::
         cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
         return detail::paragraph_cr_impl(range, it);
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto paragraph(GraphemeRange && range, GraphemeIter it) noexcept
+    auto paragraph(GraphemeRange && range, GraphemeIter it)
         ->detail::graph_rng_alg_ret_t<
             grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
@@ -383,7 +383,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct paragraphs_impl : range_adaptor_closure<paragraphs_impl>
         {
             template<typename CPIter, typename Sentinel>
-            auto operator()(CPIter first, Sentinel last) const noexcept
+            auto operator()(CPIter first, Sentinel last) const
                 -> decltype(detail::breaks_impl<
                             detail::prev_paragraph_callable,
                             detail::next_paragraph_callable>(first, last))
@@ -394,7 +394,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
 
             template<typename CPRange>
-            auto operator()(CPRange && range) const noexcept
+            auto operator()(CPRange && range) const
                 -> detail::cp_rng_alg_ret_t<
                     decltype(detail::breaks_cr_impl<
                              detail::prev_paragraph_callable,
@@ -407,7 +407,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
 
             template<typename GraphemeRange>
-            auto operator()(GraphemeRange && range) const noexcept
+            auto operator()(GraphemeRange && range) const
                 -> detail::graph_rng_alg_ret_t<
                     decltype(detail::breaks_gr_impl<
                              detail::prev_paragraph_callable,
@@ -438,79 +438,79 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    I prev_paragraph_break(I first, I it, S last) noexcept
+    I prev_paragraph_break(I first, I it, S last)
     {
         return detail::prev_paragraph_break_impl(first, it, last);
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    I next_paragraph_break(I first, S last) noexcept
+    I next_paragraph_break(I first, S last)
     {
         return detail::next_paragraph_break_impl(first, last);
     }
 
     template<code_point_range R>
     std::ranges::iterator_t<R> prev_paragraph_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_paragraph_break_cr_impl(r, it);
     }
 
     template<grapheme_range R>
     std::ranges::iterator_t<R> prev_paragraph_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_paragraph_break_gr_impl(r, it);
     }
 
     template<code_point_range R>
     std::ranges::iterator_t<R> next_paragraph_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_paragraph_break_cr_impl(r, it);
     }
 
     template<grapheme_range R>
     std::ranges::iterator_t<R> next_paragraph_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_paragraph_break_gr_impl(r, it);
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    bool at_paragraph_break(I first, I it, S last) noexcept
+    bool at_paragraph_break(I first, I it, S last)
     {
         return detail::at_paragraph_break_impl(first, it, last);
     }
 
     template<code_point_range R>
-    bool at_paragraph_break(R && r, std::ranges::iterator_t<R> it) noexcept
+    bool at_paragraph_break(R && r, std::ranges::iterator_t<R> it)
     {
         return detail::at_paragraph_break_cr_impl(r, it);
     }
 
     template<grapheme_range R>
-    bool at_paragraph_break(R && r, std::ranges::iterator_t<R> it) noexcept
+    bool at_paragraph_break(R && r, std::ranges::iterator_t<R> it)
     {
         return detail::at_paragraph_break_gr_impl(r, it);
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    utf32_view<I> paragraph(I first, I it, S last) noexcept
+    utf32_view<I> paragraph(I first, I it, S last)
     {
         return detail::paragraph_impl(first, it, last);
     }
 
     template<code_point_range R>
     utf32_view<std::ranges::iterator_t<R>> paragraph(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::paragraph_cr_impl(r, it);
     }
 
     template<grapheme_range R>
     grapheme_view<code_point_iterator_t<R>> paragraph(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::paragraph_gr_impl(r, it);
     }
@@ -519,7 +519,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         struct paragraphs_impl : range_adaptor_closure<paragraphs_impl>
         {
             template<code_point_iter I, std::sentinel_for<I> S>
-            auto operator()(I first, S last) const noexcept
+            auto operator()(I first, S last) const
             {
                 return detail::breaks_impl<
                     detail::prev_paragraph_callable,
@@ -527,7 +527,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
 
             template<code_point_range R>
-            auto operator()(R && r) const noexcept
+            auto operator()(R && r) const
             {
                 if constexpr (std::ranges::borrowed_range<R>) {
                     return detail::breaks_cr_impl<
@@ -539,7 +539,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
 
             template<grapheme_range R>
-            auto operator()(R && r) const noexcept
+            auto operator()(R && r) const
             {
                 if constexpr (std::ranges::borrowed_range<R>) {
                     return detail::breaks_gr_impl<

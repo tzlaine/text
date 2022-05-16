@@ -62,7 +62,7 @@ namespace boost { namespace text {
         /** Default ctor.
 
             \post size() == 0 && begin() == end() */
-        basic_unencoded_rope() noexcept {}
+        basic_unencoded_rope() {}
 
         basic_unencoded_rope(basic_unencoded_rope const &) = default;
         basic_unencoded_rope(basic_unencoded_rope &&) noexcept = default;
@@ -139,10 +139,10 @@ namespace boost { namespace text {
             return *this;
         }
 
-        const_iterator begin() noexcept { return seg_vec_.begin(); }
-        const_iterator end() noexcept { return seg_vec_.end(); }
+        const_iterator begin() { return seg_vec_.begin(); }
+        const_iterator end() { return seg_vec_.end(); }
 
-        size_type max_size() const noexcept { return seg_vec_.max_size(); }
+        size_type max_size() const { return seg_vec_.max_size(); }
 
         template<typename... Args>
         const_reference emplace_front(Args &&... args)
@@ -178,7 +178,7 @@ namespace boost { namespace text {
         /** Lexicographical compare.  Returns a value `< 0` when `*this` is
             lexicographically less than `rhs, `0` if `*this == rhs`, and a
             value `> 0` if `*this` is lexicographically greater than `rhs`. */
-        int compare(basic_unencoded_rope rhs) const noexcept
+        int compare(basic_unencoded_rope rhs) const
         {
             if (this->empty())
                 return rhs.empty() ? 0 : -1;
@@ -186,7 +186,7 @@ namespace boost { namespace text {
                 begin(), end(), rhs.begin(), rhs.end());
         }
 
-        operator unencoded_rope_view() const noexcept;
+        operator unencoded_rope_view() const;
 
         /** Erases the portion of `*this` delimited by `[first, last)`.
 
@@ -376,7 +376,7 @@ namespace boost { namespace text {
             between two `basic_unencoded_rope`s that are likely to have
             originated from the same initial `basic_unencoded_rope`, and may
             have since been mutated. */
-        bool equal_root(basic_unencoded_rope other) const noexcept
+        bool equal_root(basic_unencoded_rope other) const
         {
             return seg_vec_.equal_root(other.seg_vec_);
         }
@@ -392,84 +392,84 @@ namespace boost { namespace text {
         }
 
         friend bool
-        operator==(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator==(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) == 0;
         }
 
         friend bool
-        operator==(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator==(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) == 0;
         }
 
         friend bool
-        operator!=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator!=(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) != 0;
         }
 
         friend bool
-        operator!=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator!=(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) != 0;
         }
 
         friend bool
-        operator<(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator<(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) < 0;
         }
 
         friend bool
-        operator<(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator<(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) < 0;
         }
 
         friend bool
-        operator<=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator<=(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) <= 0;
         }
 
         friend bool
-        operator<=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator<=(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) <= 0;
         }
 
         friend bool
-        operator>(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator>(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) > 0;
         }
 
         friend bool
-        operator>(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator>(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) > 0;
         }
 
         friend bool
-        operator>=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator>=(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) >= 0;
         }
 
         friend bool
-        operator>=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator>=(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) >= 0;
@@ -918,7 +918,7 @@ namespace boost { namespace text {
 
     template<typename Char, typename String>
     basic_unencoded_rope<Char, String>::
-    operator basic_unencoded_rope_view<Char, String>() const noexcept
+    operator basic_unencoded_rope_view<Char, String>() const
     {
         return unencoded_rope_view(*this, 0, this->size());
     }

@@ -49,10 +49,10 @@ namespace boost { namespace text {
             storage_(std::move(bytes))
         {}
 
-        std::size_t size() const noexcept { return storage_.size(); }
+        std::size_t size() const { return storage_.size(); }
 
-        const_iterator begin() const noexcept { return storage_.begin(); }
-        const_iterator end() const noexcept { return storage_.end(); }
+        const_iterator begin() const { return storage_.begin(); }
+        const_iterator end() const { return storage_.end(); }
 
         friend bool
         operator==(text_sort_key const & lhs, text_sort_key const & rhs)
@@ -111,7 +111,7 @@ namespace boost { namespace text {
     /** Returns 0 if the given sort keys are equal, a value < 0 if `lhs` is
         less than `rhs`, and a value > 0 otherwise. */
     inline int
-    compare(text_sort_key const & lhs, text_sort_key const & rhs) noexcept
+    compare(text_sort_key const & lhs, text_sort_key const & rhs)
     {
         return boost::text::lexicographical_compare_three_way(
             lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
@@ -232,7 +232,7 @@ namespace boost { namespace text {
             return out;
         }
 
-        inline bool ignorable(collation_element ce) noexcept
+        inline bool ignorable(collation_element ce)
         {
             return ce.l1_ == 0;
         }
@@ -662,7 +662,7 @@ namespace boost { namespace text {
             collation_element ce,
             collation_strength strength,
             case_first case_1st,
-            case_level case_lvl) noexcept
+            case_level case_lvl)
         {
             if (case_1st == case_first::off && case_lvl == case_level::off) {
                 ce.l3_ &= disable_case_level_mask;

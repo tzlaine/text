@@ -638,7 +638,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_8_dispatch
         {
             static constexpr auto
-            call(Range && r, std::ptrdiff_t n, OutIter out) noexcept
+            call(Range && r, std::ptrdiff_t n, OutIter out)
                 -> transcode_result<decltype(detail::begin(r)), OutIter>
             {
                 auto const u = detail::unpack_iterator_and_sentinel(
@@ -653,7 +653,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_8_dispatch<UseN, Ptr, OutIter, true, false>
         {
             static constexpr auto
-            call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
+            call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_8<UseN>(
                     detail::utf16_tag{}, p, null_sentinel, n, out);
@@ -664,7 +664,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_8_dispatch<UseN, Ptr, OutIter, false, true>
         {
             static constexpr auto
-            call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
+            call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_8<UseN>(
                     detail::utf32_tag{}, p, null_sentinel, n, out);
@@ -680,7 +680,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_16_dispatch
         {
             static constexpr auto
-            call(Range && r, std::ptrdiff_t n, OutIter out) noexcept
+            call(Range && r, std::ptrdiff_t n, OutIter out)
                 -> transcode_result<decltype(detail::begin(r)), OutIter>
             {
                 auto const u = detail::unpack_iterator_and_sentinel(
@@ -695,7 +695,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_16_dispatch<UseN, Ptr, OutIter, true, false>
         {
             static constexpr auto
-            call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
+            call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_16<UseN>(
                     detail::utf8_tag{}, p, null_sentinel, n, out);
@@ -706,7 +706,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_16_dispatch<UseN, Ptr, OutIter, false, true>
         {
             static constexpr auto
-            call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
+            call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_16<UseN>(
                     detail::utf32_tag{}, p, null_sentinel, n, out);
@@ -722,7 +722,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_32_dispatch
         {
             static constexpr auto
-            call(Range && r, std::ptrdiff_t n, OutIter out) noexcept
+            call(Range && r, std::ptrdiff_t n, OutIter out)
                 -> transcode_result<decltype(detail::begin(r)), OutIter>
             {
                 auto const u = detail::unpack_iterator_and_sentinel(
@@ -737,7 +737,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_32_dispatch<UseN, Ptr, OutIter, true, false>
         {
             static constexpr auto
-            call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
+            call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_32<UseN>(
                     detail::utf8_tag{}, p, null_sentinel, n, out);
@@ -748,7 +748,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_32_dispatch<UseN, Ptr, OutIter, false, true>
         {
             static constexpr auto
-            call(Ptr p, std::ptrdiff_t n, OutIter out) noexcept
+            call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_32<UseN>(
                     detail::utf16_tag{}, p, null_sentinel, n, out);

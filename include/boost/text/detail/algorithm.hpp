@@ -849,8 +849,7 @@ namespace boost { namespace text { namespace detail {
 
 
 
-    inline std::size_t
-    hash_combine_(std::size_t seed, std::size_t value) noexcept
+    inline std::size_t hash_combine_(std::size_t seed, std::size_t value)
     {
         return seed ^= value + 0x9e3779b9 + (seed << 6) + (seed >> 2);
     }
@@ -879,7 +878,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     template<typename CharRange>
-    std::size_t hash_char_range(CharRange const & r) noexcept
+    std::size_t hash_char_range(CharRange const & r)
     {
         auto first = r.begin();
         auto last = r.end();
@@ -905,7 +904,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename GraphemeRange>
-    std::size_t hash_grapheme_range(GraphemeRange const & r) noexcept
+    std::size_t hash_grapheme_range(GraphemeRange const & r)
     {
         std::size_t cps = 0;
         std::size_t retval = std::accumulate(

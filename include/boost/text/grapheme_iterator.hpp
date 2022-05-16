@@ -52,12 +52,12 @@ namespace boost { namespace text {
             "bidirectional.");
 #endif
 
-        constexpr grapheme_iterator() noexcept :
+        constexpr grapheme_iterator() :
             first_(), grapheme_first_(), grapheme_last_(), last_()
         {}
 
         constexpr grapheme_iterator(
-            iterator first, iterator it, sentinel last) noexcept :
+            iterator first, iterator it, sentinel last) :
             first_(detail::unpack_iterator_and_sentinel(first, last).f_),
             grapheme_first_(detail::unpack_iterator_and_sentinel(it, last).f_),
             grapheme_last_(detail::unpack_iterator_and_sentinel(
@@ -84,18 +84,18 @@ namespace boost { namespace text {
             last_(other.last_)
         {}
 
-        constexpr reference operator*() const noexcept
+        constexpr reference operator*() const
         {
             return value_type(gr_begin(), gr_end());
         }
-        constexpr pointer operator->() const noexcept
+        constexpr pointer operator->() const
         {
             return pointer(**this);
         }
 
-        constexpr iterator base() const noexcept { return gr_begin(); }
+        constexpr iterator base() const { return gr_begin(); }
 
-        constexpr grapheme_iterator & operator++() noexcept
+        constexpr grapheme_iterator & operator++()
         {
             iterator next_break =
                 boost::text::next_grapheme_break(gr_end(), seq_end());
@@ -104,14 +104,14 @@ namespace boost { namespace text {
                 detail::unpack_iterator_and_sentinel(next_break, seq_end()).f_;
             return *this;
         }
-        constexpr grapheme_iterator operator++(int) noexcept
+        constexpr grapheme_iterator operator++(int)
         {
             grapheme_iterator retval = *this;
             ++*this;
             return retval;
         }
 
-        constexpr grapheme_iterator & operator--() noexcept
+        constexpr grapheme_iterator & operator--()
         {
             iterator prev_break = boost::text::prev_grapheme_break(
                 seq_begin(), std::prev(gr_begin()), seq_end());
@@ -120,7 +120,7 @@ namespace boost { namespace text {
                 detail::unpack_iterator_and_sentinel(prev_break, seq_end()).f_;
             return *this;
         }
-        constexpr grapheme_iterator operator--(int) noexcept
+        constexpr grapheme_iterator operator--(int)
         {
             grapheme_iterator retval = *this;
             --*this;
@@ -128,12 +128,12 @@ namespace boost { namespace text {
         }
 
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
-        operator==(grapheme_iterator lhs, grapheme_iterator rhs) noexcept
+        operator==(grapheme_iterator lhs, grapheme_iterator rhs)
         {
             return lhs.base() == rhs.base();
         }
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
-        operator!=(grapheme_iterator lhs, grapheme_iterator rhs) noexcept
+        operator!=(grapheme_iterator lhs, grapheme_iterator rhs)
         {
             return !(lhs == rhs);
         }
@@ -148,19 +148,19 @@ namespace boost { namespace text {
                          std::declval<iterator>(), std::declval<sentinel>())
                          .l_);
 
-        constexpr iterator seq_begin() const noexcept
+        constexpr iterator seq_begin() const
         {
             return detail::make_iter<iterator>(first_, first_, last_);
         }
-        constexpr iterator gr_begin() const noexcept
+        constexpr iterator gr_begin() const
         {
             return detail::make_iter<iterator>(first_, grapheme_first_, last_);
         }
-        constexpr iterator gr_end() const noexcept
+        constexpr iterator gr_end() const
         {
             return detail::make_iter<iterator>(first_, grapheme_last_, last_);
         }
-        constexpr sentinel seq_end() const noexcept
+        constexpr sentinel seq_end() const
         {
             return detail::make_iter<sentinel>(first_, last_, last_);
         }
@@ -188,7 +188,7 @@ namespace boost { namespace text {
             std::is_same<Sentinel2, null_sentinel_t>::value>>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         grapheme_iterator<Iter1, Sentinel1> const & lhs,
-        grapheme_iterator<Iter2, Sentinel2> const & rhs) noexcept
+        grapheme_iterator<Iter2, Sentinel2> const & rhs)
         -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base();
@@ -204,7 +204,7 @@ namespace boost { namespace text {
             std::is_same<Sentinel2, null_sentinel_t>::value>>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         grapheme_iterator<Iter1, Sentinel1> const & lhs,
-        grapheme_iterator<Iter2, Sentinel2> const & rhs) noexcept
+        grapheme_iterator<Iter2, Sentinel2> const & rhs)
         -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
@@ -212,7 +212,7 @@ namespace boost { namespace text {
 
     template<typename CPIter, typename Sentinel>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    operator==(grapheme_iterator<CPIter, Sentinel> it, Sentinel s) noexcept
+    operator==(grapheme_iterator<CPIter, Sentinel> it, Sentinel s)
         -> decltype(it.base() == s)
     {
         return it.base() == s;
@@ -220,7 +220,7 @@ namespace boost { namespace text {
 
     template<typename CPIter, typename Sentinel>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    operator==(Sentinel s, grapheme_iterator<CPIter, Sentinel> it) noexcept
+    operator==(Sentinel s, grapheme_iterator<CPIter, Sentinel> it)
         -> decltype(it.base() == s)
     {
         return it.base() == s;
@@ -228,7 +228,7 @@ namespace boost { namespace text {
 
     template<typename CPIter, typename Sentinel>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    operator!=(grapheme_iterator<CPIter, Sentinel> it, Sentinel s) noexcept
+    operator!=(grapheme_iterator<CPIter, Sentinel> it, Sentinel s)
         -> decltype(it.base() != s)
     {
         return it.base() != s;
@@ -236,7 +236,7 @@ namespace boost { namespace text {
 
     template<typename CPIter, typename Sentinel>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    operator!=(Sentinel s, grapheme_iterator<CPIter, Sentinel> it) noexcept
+    operator!=(Sentinel s, grapheme_iterator<CPIter, Sentinel> it)
         -> decltype(it.base() != s)
     {
         return it.base() != s;

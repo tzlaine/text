@@ -36,11 +36,11 @@ namespace boost { namespace text {
 #ifdef BOOST_TEXT_DOXYGEN
 
         template<typename CPIter, typename Sentinel>
-        CPIter operator()(CPIter it, Sentinel last) const noexcept;
+        CPIter operator()(CPIter it, Sentinel last) const;
 #else
 
         template<typename CPIter, typename Sentinel>
-        auto operator()(CPIter it, Sentinel last) const noexcept
+        auto operator()(CPIter it, Sentinel last) const
             -> detail::cp_iter_ret_t<CPIter, CPIter>
         {
             return boost::text::next_word_break(it, last);
@@ -61,7 +61,7 @@ namespace boost { namespace text {
             has_other_greek_diacritic = 0x20000
         };
 
-        inline uint32_t greek_case_data(uint32_t cp) noexcept
+        inline uint32_t greek_case_data(uint32_t cp)
         {
             // [U+0370, U+0400)
             constexpr static uint32_t _0370_0400[144] = {
@@ -483,7 +483,7 @@ namespace boost { namespace text {
             }
         }
 
-        inline uint32_t greek_diacritic_data(uint32_t cp) noexcept
+        inline uint32_t greek_diacritic_data(uint32_t cp)
         {
             switch (cp) {
             case 0x0300:
@@ -505,7 +505,7 @@ namespace boost { namespace text {
             return 0;
         }
 
-        inline uint16_t lang_to_condition(case_language lang) noexcept
+        inline uint16_t lang_to_condition(case_language lang)
         {
             switch (lang) {
             case case_language::azerbaijani:
@@ -519,7 +519,7 @@ namespace boost { namespace text {
             return 0;
         }
 
-        inline bool ccc_230_0(uint32_t cp) noexcept
+        inline bool ccc_230_0(uint32_t cp)
         {
             auto const ccc_ = detail::ccc(cp);
             return ccc_ == 230 || ccc_ == 0;
@@ -543,7 +543,7 @@ namespace boost { namespace text {
             OutIter out,
             case_language lang,
             case_map_t const & map,
-            map_case_mode mode) noexcept
+            map_case_mode mode)
         {
             uint16_t const lang_conditions = lang_to_condition(lang);
 
@@ -789,22 +789,22 @@ namespace boost { namespace text {
     /** Returns true if no code point in `[first, last)` would change in a
         call to to_lower(), and false otherwise. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    bool is_lower(I first, S last) noexcept;
+    bool is_lower(I first, S last);
 
     /** Returns true if no code point in `range` would change in a call to
         to_lower(), and false otherwise. */
     template<code_point_range R>
-    bool is_lower(R && r) noexcept;
+    bool is_lower(R && r);
 
     /** Returns true if no grapheme in `range` would change in a call to
         to_lower(), and false otherwise. */
     template<grapheme_range R>
-    bool is_lower(R && r) noexcept;
+    bool is_lower(R && r);
 
 #else
 
     template<typename CPIter, typename Sentinel>
-    bool is_lower(CPIter first, Sentinel last) noexcept
+    bool is_lower(CPIter first, Sentinel last)
     {
         return boost::text::all_of(first, last, [](uint32_t cp) {
             return !detail::changes_when_lowered(cp);
@@ -812,14 +812,14 @@ namespace boost { namespace text {
     }
 
     template<typename CPRange>
-    auto is_lower(CPRange && range) noexcept
+    auto is_lower(CPRange && range)
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return is_lower(detail::begin(range), detail::end(range));
     }
 
     template<typename GraphemeRange>
-    auto is_lower(GraphemeRange && range) noexcept
+    auto is_lower(GraphemeRange && range)
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         return is_lower(range.begin().base(), range.end().base());
@@ -838,21 +838,21 @@ namespace boost { namespace text {
         std::weakly_incrementable O>
     requires indirectly_copyable<I, O>
     O to_lower(
-        I first, S last, O out, case_language lang = case_language::other) noexcept;
+        I first, S last, O out, case_language lang = case_language::other);
 
     /** Writes the code point sequence comprising the lower-case form of
         `range` to `out`, using language-specific handling as indicated by
         `lang`.  The normalization of the result is undefined. */
     template<code_point_range R, std::weakly_incrementable O>
     requires indirectly_copyable<I, O>
-    O to_lower(R && r, O out, case_language lang = case_language::other) noexcept;
+    O to_lower(R && r, O out, case_language lang = case_language::other);
 
     /** Writes the code point sequence comprising the lower-case form of
         `range` to `out`, using language-specific handling as indicated by
         `lang`.  The normalization of the result is undefined. */
     template<grapheme_range R, std::weakly_incrementable O>
     requires indirectly_copyable<I, O>
-    O to_lower(R && r, O out, case_language lang = case_language::other) noexcept;
+    O to_lower(R && r, O out, case_language lang = case_language::other);
 
 #else
 
@@ -861,7 +861,7 @@ namespace boost { namespace text {
         CPIter first,
         Sentinel last,
         OutIter out,
-        case_language lang = case_language::other) noexcept
+        case_language lang = case_language::other)
     {
         return map_case(
             first,
@@ -877,7 +877,7 @@ namespace boost { namespace text {
     auto to_lower(
         CPRange && range,
         OutIter out,
-        case_language lang = case_language::other) noexcept
+        case_language lang = case_language::other)
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return boost::text::to_lower(
@@ -888,7 +888,7 @@ namespace boost { namespace text {
     auto to_lower(
         GraphemeRange && range,
         OutIter out,
-        case_language lang = case_language::other) noexcept
+        case_language lang = case_language::other)
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
         return boost::text::to_lower(
@@ -908,7 +908,7 @@ namespace boost { namespace text {
     bool is_title(
         I first,
         S last,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
 
     /** Returns true if no code point in `range` would change in a call to
         to_title(), and false otherwise. */
@@ -917,7 +917,7 @@ namespace boost { namespace text {
         typename NextWordBreakFunc = next_word_break_callable>
     bool is_title(
         R && r,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
 
     /** Returns true if no grapheme in `range` would change in a call to
         to_title(), and false otherwise. */
@@ -926,7 +926,7 @@ namespace boost { namespace text {
         typename NextWordBreakFunc = next_word_break_callable>
     bool is_title(
         R && r,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
 
 #else
 
@@ -937,7 +937,7 @@ namespace boost { namespace text {
     bool is_title(
         CPIter first,
         Sentinel last,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
     {
         NextWordBreakFunc next;
         detail::lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
@@ -957,7 +957,7 @@ namespace boost { namespace text {
         typename NextWordBreakFunc = next_word_break_callable>
     auto is_title(
         CPRange && range,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return boost::text::is_title(
@@ -969,7 +969,7 @@ namespace boost { namespace text {
         typename NextWordBreakFunc = next_word_break_callable>
     auto is_title(
         GraphemeRange && range,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         return boost::text::is_title(
@@ -993,7 +993,7 @@ namespace boost { namespace text {
         S last,
         O out,
         case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
 
     /** Writes the code point sequence comprising the title-case form of
         `range` to `out`, using language-specific handling as indicated by
@@ -1006,7 +1006,7 @@ namespace boost { namespace text {
         R && r,
         O out,
         case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
 
     /** Writes the code point sequence comprising the title-case form of
         `range` to `out`, using language-specific handling as indicated by
@@ -1019,7 +1019,7 @@ namespace boost { namespace text {
         R && r,
         O out,
         case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{});
 
 #else
 
@@ -1033,7 +1033,7 @@ namespace boost { namespace text {
         Sentinel last,
         OutIter out,
         case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
     {
         NextWordBreakFunc next;
         detail::lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
@@ -1061,7 +1061,7 @@ namespace boost { namespace text {
         CPRange && range,
         OutIter out,
         case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return boost::text::to_title(
@@ -1080,7 +1080,7 @@ namespace boost { namespace text {
         GraphemeRange && range,
         OutIter out,
         case_language lang = case_language::other,
-        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{})
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
         return boost::text::to_title(
@@ -1098,22 +1098,22 @@ namespace boost { namespace text {
     /** Returns true if no code point in `[first, last)` would change in a
         call to to_upper(), and false otherwise. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    bool is_upper(I first, S last) noexcept;
+    bool is_upper(I first, S last);
 
     /** Returns true if no code point in `range` would change in a call to
         to_upper(), and false otherwise. */
     template<code_point_range R>
-    bool is_upper(R && r) noexcept;
+    bool is_upper(R && r);
 
     /** Returns true if no grapheme in `range` would change in a call to
         to_upper(), and false otherwise. */
     template<grapheme_range R>
-    bool is_upper(R && r) noexcept;
+    bool is_upper(R && r);
 
 #else
 
     template<typename CPIter, typename Sentinel>
-    bool is_upper(CPIter first, Sentinel last) noexcept
+    bool is_upper(CPIter first, Sentinel last)
     {
         return boost::text::all_of(first, last, [](uint32_t cp) {
             return !detail::changes_when_uppered(cp);
@@ -1121,14 +1121,14 @@ namespace boost { namespace text {
     }
 
     template<typename CPRange>
-    auto is_upper(CPRange && range) noexcept
+    auto is_upper(CPRange && range)
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return boost::text::is_upper(detail::begin(range), detail::end(range));
     }
 
     template<typename GraphemeRange>
-    auto is_upper(GraphemeRange && range) noexcept
+    auto is_upper(GraphemeRange && range)
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         return boost::text::is_upper(range.begin().base(), range.end().base());
@@ -1143,7 +1143,7 @@ namespace boost { namespace text {
         indicated by `lang`.  The normalization of the result is undefined. */
     template<code_point_iter I, std::sentinel_for<I> S, std::weakly_incrementable O>
     requires indirectly_copyable<I, O> O
-    to_upper(I first, S last, O out, case_language lang = case_language::other) noexcept;
+    to_upper(I first, S last, O out, case_language lang = case_language::other);
 
     /** Writes code point sequence comprising the the upper-case form of
         `range` to `out`, using language-specific handling as indicated by
@@ -1153,7 +1153,7 @@ namespace boost { namespace text {
     O to_upper(
         R && r,
         O out,
-        case_language lang = case_language::other) noexcept;
+        case_language lang = case_language::other);
 
     /** Writes the code point sequence comprising the upper-case form of
         `range` to `out`, using language-specific handling as indicated by
@@ -1163,7 +1163,7 @@ namespace boost { namespace text {
     O to_upper(
         R && r,
         O out,
-        case_language lang = case_language::other) noexcept;
+        case_language lang = case_language::other);
 
 #else
 
@@ -1172,7 +1172,7 @@ namespace boost { namespace text {
         CPIter first,
         Sentinel last,
         OutIter out,
-        case_language lang = case_language::other) noexcept
+        case_language lang = case_language::other)
     {
         return detail::map_case(
             first,
@@ -1188,7 +1188,7 @@ namespace boost { namespace text {
     auto to_upper(
         CPRange && range,
         OutIter out,
-        case_language lang = case_language::other) noexcept
+        case_language lang = case_language::other)
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return boost::text::to_upper(
@@ -1199,7 +1199,7 @@ namespace boost { namespace text {
     auto to_upper(
         GraphemeRange && range,
         OutIter out,
-        case_language lang = case_language::other) noexcept
+        case_language lang = case_language::other)
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
         return boost::text::to_upper(

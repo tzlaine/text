@@ -33,8 +33,7 @@ namespace boost { namespace text {
     }
 
     namespace detail {
-        constexpr bool
-        in(unsigned char lo, unsigned char c, unsigned char hi) noexcept
+        constexpr bool in(unsigned char lo, unsigned char c, unsigned char hi)
         {
             return lo <= c && c <= hi;
         }
@@ -97,8 +96,7 @@ namespace boost { namespace text {
             return out;
         }
 
-        inline constexpr uint32_t
-        surrogates_to_cp(uint16_t hi, uint16_t lo) noexcept
+        inline constexpr uint32_t surrogates_to_cp(uint16_t hi, uint16_t lo)
         {
             return uint32_t((hi - high_surrogate_base) << 10) +
                    (lo - low_surrogate_base);
@@ -119,22 +117,22 @@ namespace boost { namespace text {
         sequence when converting between two encodings.
 
         \see Unicode 3.2/C10 */
-    constexpr uint32_t replacement_character() noexcept { return 0xfffd; }
+    constexpr uint32_t replacement_character() { return 0xfffd; }
 
     /** Returns true iff `c` is a Unicode surrogate. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool surrogate(uint32_t c) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool surrogate(uint32_t c)
     {
         return high_surrogate_min <= c && c <= low_surrogate_max;
     }
 
     /** Returns true iff `c` is a Unicode high surrogate. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool high_surrogate(uint32_t c) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool high_surrogate(uint32_t c)
     {
         return high_surrogate_min <= c && c <= high_surrogate_max;
     }
 
     /** Returns true iff `c` is a Unicode low surrogate. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool low_surrogate(uint32_t c) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool low_surrogate(uint32_t c)
     {
         return low_surrogate_min <= c && c <= low_surrogate_max;
     }
@@ -142,8 +140,7 @@ namespace boost { namespace text {
     /** Returns true iff `c` is a Unicode reserved noncharacter.
 
         \see Unicode 3.4/D14 */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    reserved_noncharacter(uint32_t c) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool reserved_noncharacter(uint32_t c)
     {
         bool const byte01_reserved = (c & 0xffff) >= 0xfffe;
         bool const byte2_at_most_0x10 = ((c & 0xff0000u) >> 16) <= 0x10;
@@ -154,44 +151,39 @@ namespace boost { namespace text {
     /** Returns true iff `c` is a valid Unicode code point.
 
         \see Unicode 3.9/D90 */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool valid_code_point(uint32_t c) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool valid_code_point(uint32_t c)
     {
         return c <= 0x10ffff && !surrogate(c) && !reserved_noncharacter(c);
     }
 
     /** Returns true iff `c` is a UTF-8 lead code unit (which must be followed
         by 1-3 following units). */
-    constexpr bool lead_code_unit(unsigned char c) noexcept
+    constexpr bool lead_code_unit(unsigned char c)
     {
         return uint8_t(c - 0xc2) <= 0x32;
     }
 
     /** Returns true iff `c` is a UTF-8 continuation code unit. */
-    constexpr bool continuation(unsigned char c) noexcept
-    {
-        return (int8_t)c < -0x40;
-    }
+    constexpr bool continuation(unsigned char c) { return (int8_t)c < -0x40; }
 
     /** Given the first (and possibly only) code unit of a UTF-8-encoded code
         point, returns the number of bytes occupied by that code point (in the
         range `[1, 4]`).  Returns a value < 0 if `first_unit` is not a valid
         initial UTF-8 code unit. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
-    utf8_code_units(unsigned char first_unit) noexcept
+    utf8_code_units(unsigned char first_unit)
     {
-        return first_unit <= 0x7f
-                   ? 1
-                   : boost::text::lead_code_unit(first_unit)
-                         ? int(0xe0 <= first_unit) + int(0xf0 <= first_unit) + 2
-                         : -1;
+        return first_unit <= 0x7f ? 1
+               : boost::text::lead_code_unit(first_unit)
+                   ? int(0xe0 <= first_unit) + int(0xf0 <= first_unit) + 2
+                   : -1;
     }
 
     /** Given the first (and possibly only) code unit of a UTF-16-encoded code
         point, returns the number of code units occupied by that code point
         (in the range `[1, 2]`).  Returns a negative value if `first_unit` is
         not a valid initial UTF-16 code unit. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR int
-    utf16_code_units(uint16_t first_unit) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR int utf16_code_units(uint16_t first_unit)
     {
         if (boost::text::low_surrogate(first_unit))
             return -1;
@@ -208,29 +200,26 @@ namespace boost { namespace text {
             constexpr optional_iter() : it_(), valid_(false) {}
             constexpr optional_iter(Iter it) : it_(it), valid_(true) {}
 
-            BOOST_TEXT_CXX14_CONSTEXPR operator bool() const noexcept
-            {
-                return valid_;
-            }
-            BOOST_TEXT_CXX14_CONSTEXPR Iter operator*() const noexcept
+            BOOST_TEXT_CXX14_CONSTEXPR operator bool() const { return valid_; }
+            BOOST_TEXT_CXX14_CONSTEXPR Iter operator*() const
             {
                 BOOST_ASSERT(valid_);
                 return it_;
             }
-            Iter & operator*() noexcept
+            Iter & operator*()
             {
                 BOOST_ASSERT(valid_);
                 return it_;
             }
 
             friend BOOST_TEXT_CXX14_CONSTEXPR bool
-            operator==(optional_iter lhs, optional_iter rhs) noexcept
+            operator==(optional_iter lhs, optional_iter rhs)
             {
                 return lhs.valid_ == rhs.valid_ &&
                        (!lhs.valid_ || lhs.it_ == rhs.it_);
             }
             friend BOOST_TEXT_CXX14_CONSTEXPR bool
-            operator!=(optional_iter lhs, optional_iter rhs) noexcept
+            operator!=(optional_iter lhs, optional_iter rhs)
             {
                 return !(lhs == rhs);
             }
@@ -243,7 +232,7 @@ namespace boost { namespace text {
         // Follow Table 3-7 in Unicode 3.9/D92
         template<typename Iter>
         BOOST_TEXT_CXX14_CONSTEXPR optional_iter<Iter>
-        end_of_invalid_utf8(Iter it) noexcept
+        end_of_invalid_utf8(Iter it)
         {
             BOOST_ASSERT(!boost::text::continuation(*it));
 
@@ -325,7 +314,7 @@ namespace boost { namespace text {
         }
 
         template<typename Iter>
-        BOOST_TEXT_CXX14_CONSTEXPR Iter decrement(Iter it) noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR Iter decrement(Iter it)
         {
             Iter retval = it;
 
@@ -359,7 +348,7 @@ namespace boost { namespace text {
         }
 
         template<typename Iter>
-        BOOST_TEXT_CXX14_CONSTEXPR Iter decrement(Iter first, Iter it) noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR Iter decrement(Iter first, Iter it)
         {
             Iter retval = it;
 
@@ -571,9 +560,9 @@ namespace boost { namespace text {
 
             trans_ins_iter() {}
             trans_ins_iter(Iter it) : it_(it) {}
-            Derived & operator*() noexcept { return derived(); }
-            Derived & operator++() noexcept { return derived(); }
-            Derived operator++(int)noexcept { return derived(); }
+            Derived & operator*() { return derived(); }
+            Derived & operator++() { return derived(); }
+            Derived operator++(int) { return derived(); }
             Iter base() const { return it_; }
 
         protected:
@@ -602,53 +591,53 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         UTF-8 encoded, or `last` if no such code unit is found. */
     template<utf8_iter I>
     requires std::random_access_iterator<I>
-    constexpr I find_invalid_encoding(I first, I last) noexcept;
+    constexpr I find_invalid_encoding(I first, I last);
 
     /** Returns the first code unit in `[first, last)` that is not properly
         UTF-16 encoded, or `last` if no such code unit is found. */
     template<utf16_iter I>
     requires std::random_access_iterator<I>
-    constexpr I find_invalid_encoding(I first, I last) noexcept;
+    constexpr I find_invalid_encoding(I first, I last);
 
     /** Returns true iff `[first, last)` is properly UTF-8 encoded. */
     template<utf8_iter I>
     requires std::random_access_iterator<I>
-    constexpr bool encoded(I first, I last) noexcept;
+    constexpr bool encoded(I first, I last);
 
     /** Returns true iff `[first, last)` is properly UTF-16 encoded */
     template<utf16_iter I>
     requires std::random_access_iterator<I>
-    constexpr bool encoded(I first, I last) noexcept;
+    constexpr bool encoded(I first, I last);
 
     /** Returns true iff `[first, last)` is empty or the initial UTF-8 code
         units in `[first, last)` form a valid Unicode code point. */
     template<utf8_iter I>
     requires std::random_access_iterator<I>
-    constexpr bool starts_encoded(I first, I last) noexcept;
+    constexpr bool starts_encoded(I first, I last);
 
     /** Returns true iff `[first, last)` is empty or the initial UTF-16 code
         units in `[first, last)` form a valid Unicode code point. */
     template<utf16_iter I>
     requires std::random_access_iterator<I>
-    constexpr bool starts_encoded(I first, I last) noexcept;
+    constexpr bool starts_encoded(I first, I last);
 
     /** Returns true iff `[first, last)` is empty or the final UTF-8 code
        units in `[first, last)` form a valid Unicode code point. */
     template<utf8_iter I>
     requires std::random_access_iterator<I>
-    constexpr bool ends_encoded(I first, I last) noexcept;
+    constexpr bool ends_encoded(I first, I last);
 
     /** Returns true iff `[first, last)` is empty or the final UTF-16 code
        units in `[first, last)` form a valid Unicode code point. */
     template<utf16_iter I>
     requires std::random_access_iterator<I>
-    constexpr bool ends_encoded(I first, I last) noexcept;
+    constexpr bool ends_encoded(I first, I last);
 
 #endif
 
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter>
-    find_invalid_encoding(Iter first, Iter last) noexcept
+    find_invalid_encoding(Iter first, Iter last)
     {
         while (first != last) {
             int const cp_bytes = boost::text::utf8_code_units(*first);
@@ -666,7 +655,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter>
-    find_invalid_encoding(Iter first, Iter last) noexcept
+    find_invalid_encoding(Iter first, Iter last)
     {
         while (first != last) {
             int const cp_units = boost::text::utf16_code_units(*first);
@@ -684,21 +673,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool> encoded(
-        Iter first, Iter last) noexcept
+        Iter first, Iter last)
     {
         return v1::find_invalid_encoding(first, last) == last;
     }
 
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool> encoded(
-        Iter first, Iter last) noexcept
+        Iter first, Iter last)
     {
         return v1::find_invalid_encoding(first, last) == last;
     }
 
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool>
-    starts_encoded(Iter first, Iter last) noexcept
+    starts_encoded(Iter first, Iter last)
     {
         if (first == last)
             return true;
@@ -712,7 +701,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool>
-    starts_encoded(Iter first, Iter last) noexcept
+    starts_encoded(Iter first, Iter last)
     {
         if (first == last)
             return true;
@@ -726,7 +715,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool>
-    ends_encoded(Iter first, Iter last) noexcept
+    ends_encoded(Iter first, Iter last)
     {
         if (first == last)
             return true;
@@ -740,7 +729,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool>
-    ends_encoded(Iter first, Iter last) noexcept
+    ends_encoded(Iter first, Iter last)
     {
         if (first == last)
             return true;
@@ -761,7 +750,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
-    constexpr I find_invalid_encoding(I first, I last) noexcept
+    constexpr I find_invalid_encoding(I first, I last)
     // clang-format on
     {
         while (first != last) {
@@ -781,7 +770,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
-    constexpr I find_invalid_encoding(I first, I last) noexcept
+    constexpr I find_invalid_encoding(I first, I last)
     // clang-format on
     {
         while (first != last) {
@@ -801,7 +790,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
-    constexpr bool encoded(I first, I last) noexcept
+    constexpr bool encoded(I first, I last)
     // clang-format on
     {
         return boost::text::find_invalid_encoding(first, last) == last;
@@ -810,7 +799,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
-    constexpr bool encoded(I first, I last) noexcept
+    constexpr bool encoded(I first, I last)
     // clang-format on
     {
         return boost::text::find_invalid_encoding(first, last) == last;
@@ -819,7 +808,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
-    constexpr bool starts_encoded(I first, I last) noexcept
+    constexpr bool starts_encoded(I first, I last)
     // clang-format on
     {
         if (first == last)
@@ -835,7 +824,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
-    constexpr bool starts_encoded(I first, I last) noexcept
+    constexpr bool starts_encoded(I first, I last)
     // clang-format on
     {
         if (first == last)
@@ -851,7 +840,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
-    constexpr bool ends_encoded(I first, I last) noexcept
+    constexpr bool ends_encoded(I first, I last)
     // clang-format on
     {
         if (first == last)
@@ -867,7 +856,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
-    constexpr bool ends_encoded(I first, I last) noexcept
+    constexpr bool ends_encoded(I first, I last)
     // clang-format on
     {
         if (first == last)
@@ -890,7 +879,7 @@ namespace boost { namespace text {
         provides the Unicode replacement character on errors. */
     struct use_replacement_character
     {
-        constexpr uint32_t operator()(char const *) const noexcept
+        constexpr uint32_t operator()(char const *) const
         {
             return replacement_character();
         }
@@ -912,7 +901,7 @@ namespace boost { namespace text {
         4-byte integral value, iff the pointer is null. */
     struct null_sentinel_t
     {
-        constexpr null_sentinel_t base() const noexcept { return {}; }
+        constexpr null_sentinel_t base() const { return {}; }
     };
 
 #if defined(__cpp_inline_variables)
@@ -994,31 +983,31 @@ namespace boost { namespace text {
         template<typename Ptr>
         struct null_sent_eq_dispatch<Ptr, true>
         {
-            static constexpr bool call(Ptr p) noexcept { return *p == 0; }
+            static constexpr bool call(Ptr p) { return *p == 0; }
         };
     }
 
     template<typename T>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(T * p, null_sentinel_t)
-        ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
+        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return detail::null_sent_eq_dispatch<T *>::call(p);
     }
     template<typename T>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(T * p, null_sentinel_t)
-        ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
+        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return !detail::null_sent_eq_dispatch<T *>::call(p);
     }
     template<typename T>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(null_sentinel_t, T * p)
-        ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
+        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return detail::null_sent_eq_dispatch<T *>::call(p);
     }
     template<typename T>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(null_sentinel_t, T * p)
-        ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
+        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
         return !detail::null_sent_eq_dispatch<T *>::call(p);
     }
@@ -1058,9 +1047,6 @@ namespace boost { namespace text {
     struct utf_32_to_8_iterator
         : detail::trans_iter<utf_32_to_8_iterator<I, S, ErrorHandler>, char>
     {
-        static bool const throw_on_error =
-            !noexcept(std::declval<ErrorHandler>()(0));
-
 #if !BOOST_TEXT_USE_CONCEPTS
         static_assert(
             std::is_same<
@@ -1077,11 +1063,11 @@ namespace boost { namespace text {
             "4-byte value_type.");
 #endif
 
-        constexpr utf_32_to_8_iterator() noexcept :
+        constexpr utf_32_to_8_iterator() :
             first_(), it_(), last_(), index_(4), buf_()
         {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
-        utf_32_to_8_iterator(I first, I it, S last) noexcept :
+        utf_32_to_8_iterator(I first, I it, S last) :
             first_(first), it_(it), last_(last), index_(0), buf_()
         {
             if (it_ != last_)
@@ -1100,7 +1086,7 @@ namespace boost { namespace text {
                 std::is_convertible<S2, S>::value>>
 #endif
         constexpr utf_32_to_8_iterator(
-            utf_32_to_8_iterator<I2, S2, ErrorHandler> const & other) noexcept :
+            utf_32_to_8_iterator<I2, S2, ErrorHandler> const & other) :
             // clang-format on
             first_(other.first_),
             it_(other.it_),
@@ -1109,19 +1095,17 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return last_; }
 
         BOOST_TEXT_CXX14_CONSTEXPR char operator*() const
-            noexcept(!throw_on_error)
         {
             return buf_[index_];
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const { return it_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_8_iterator &
-        operator++() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_8_iterator & operator++()
         {
             ++index_;
             if (at_buf_end()) {
@@ -1134,8 +1118,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_8_iterator &
-        operator--() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_8_iterator & operator--()
         {
             if (0 < index_) {
                 --index_;
@@ -1156,11 +1139,11 @@ namespace boost { namespace text {
             typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
             utf_32_to_8_iterator<I1, S1, ErrorHandler2> const & lhs,
-            utf_32_to_8_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
+            utf_32_to_8_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
 
         friend bool
-        operator==(utf_32_to_8_iterator lhs, utf_32_to_8_iterator rhs) noexcept
+        operator==(utf_32_to_8_iterator lhs, utf_32_to_8_iterator rhs)
         {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
         }
@@ -1172,15 +1155,14 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
-        constexpr bool buf_empty() const noexcept { return index_ == 4; }
+        constexpr bool buf_empty() const { return index_ == 4; }
 
-        constexpr bool at_buf_end() const noexcept
+        constexpr bool at_buf_end() const
         {
             return buf_[index_] == '\0';
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR char *
-        read_into_buf() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR char * read_into_buf()
         {
             uint32_t cp = static_cast<uint32_t>(*it_);
             index_ = 0;
@@ -1211,7 +1193,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
+        Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
     }
@@ -1219,7 +1201,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
-        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
+        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
@@ -1228,7 +1210,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
+        Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
     }
@@ -1236,7 +1218,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
-        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
+        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
@@ -1251,7 +1233,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_32_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_32_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(lhs.base() == rhs.base())
+            rhs) -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
     }
@@ -1265,7 +1247,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_32_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_32_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(!(lhs == rhs))
+            rhs) -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
     }
@@ -1280,8 +1262,8 @@ namespace boost { namespace text {
     struct utf_32_to_8_out_iterator
         : detail::trans_ins_iter<utf_32_to_8_out_iterator<Iter>, Iter>
     {
-        utf_32_to_8_out_iterator() noexcept {}
-        explicit utf_32_to_8_out_iterator(Iter it) noexcept :
+        utf_32_to_8_out_iterator() {}
+        explicit utf_32_to_8_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_32_to_8_out_iterator<Iter>, Iter>(it)
         {}
 
@@ -1305,9 +1287,9 @@ namespace boost { namespace text {
                                              utf_32_to_8_insert_iterator<Cont>,
                                              std::insert_iterator<Cont>>
     {
-        utf_32_to_8_insert_iterator() noexcept {}
+        utf_32_to_8_insert_iterator() {}
         utf_32_to_8_insert_iterator(
-            Cont & c, typename Cont::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_32_to_8_insert_iterator<Cont>,
                 std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it))
@@ -1329,8 +1311,8 @@ namespace boost { namespace text {
               utf_32_to_8_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_32_to_8_front_insert_iterator() noexcept {}
-        explicit utf_32_to_8_front_insert_iterator(Cont & c) noexcept :
+        utf_32_to_8_front_insert_iterator() {}
+        explicit utf_32_to_8_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_32_to_8_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
@@ -1353,8 +1335,8 @@ namespace boost { namespace text {
               utf_32_to_8_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_32_to_8_back_insert_iterator() noexcept {}
-        explicit utf_32_to_8_back_insert_iterator(Cont & c) noexcept :
+        utf_32_to_8_back_insert_iterator() {}
+        explicit utf_32_to_8_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_32_to_8_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
@@ -1385,11 +1367,8 @@ namespace boost { namespace text {
     struct utf_8_to_32_iterator
         : detail::trans_iter<utf_8_to_32_iterator<I, S, ErrorHandler>, uint32_t>
     {
-        static bool const throw_on_error =
-            !noexcept(std::declval<ErrorHandler>()(0));
-
-        constexpr utf_8_to_32_iterator() noexcept : first_(), it_(), last_() {}
-        explicit constexpr utf_8_to_32_iterator(I first, I it, S last) noexcept
+        constexpr utf_8_to_32_iterator() : first_(), it_(), last_() {}
+        explicit constexpr utf_8_to_32_iterator(I first, I it, S last)
             :
             first_(first), it_(it), last_(last)
         {}
@@ -1406,18 +1385,17 @@ namespace boost { namespace text {
                 std::is_convertible<S2, S>::value>>
 #endif
         constexpr utf_8_to_32_iterator(
-            utf_8_to_32_iterator<I2, S2, ErrorHandler> const & other) noexcept :
+            utf_8_to_32_iterator<I2, S2, ErrorHandler> const & other) :
             // clang-format on
             first_(other.first_),
             it_(other.it_),
             last_(other.last_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return last_; }
 
         BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
-            noexcept(!throw_on_error)
         {
             BOOST_ASSERT(!at_end(it_));
             unsigned char curr_c = *it_;
@@ -1426,18 +1404,16 @@ namespace boost { namespace text {
             return get_value().value_;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const { return it_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_32_iterator &
-        operator++() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_32_iterator & operator++()
         {
             BOOST_ASSERT(it_ != last_);
             it_ = increment();
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_32_iterator &
-        operator--() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_32_iterator & operator--()
         {
             BOOST_ASSERT(it_ != first_);
             it_ = detail::decrement(first_, it_);
@@ -1445,7 +1421,7 @@ namespace boost { namespace text {
         }
 
         friend bool
-        operator==(utf_8_to_32_iterator lhs, utf_8_to_32_iterator rhs) noexcept
+        operator==(utf_8_to_32_iterator lhs, utf_8_to_32_iterator rhs)
         {
             return lhs.base() == rhs.base();
         }
@@ -1466,7 +1442,7 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR bool check_continuation(
             unsigned char c,
             unsigned char lo = 0x80,
-            unsigned char hi = 0xbf) const noexcept(!throw_on_error)
+            unsigned char hi = 0xbf) const
         {
             if (detail::in(lo, c, hi)) {
                 return true;
@@ -1479,7 +1455,6 @@ namespace boost { namespace text {
         }
 
         BOOST_TEXT_CXX14_CONSTEXPR bool at_end(I it) const
-            noexcept(!throw_on_error)
         {
             if (it == last_) {
                 ErrorHandler{}(
@@ -1492,7 +1467,6 @@ namespace boost { namespace text {
         }
 
         BOOST_TEXT_CXX14_CONSTEXPR get_value_result get_value() const
-            noexcept(!throw_on_error)
         {
             // It turns out that this naive implementation is faster than the
             // table implementation for the converting iterators.
@@ -1685,7 +1659,7 @@ namespace boost { namespace text {
 #endif
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I increment() const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR I increment() const
         {
             unsigned char curr_c = *it_;
             if (curr_c < 0x80)
@@ -1723,7 +1697,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
+        Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
     }
@@ -1731,7 +1705,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
-        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
+        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
@@ -1740,7 +1714,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
+        Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
     }
@@ -1748,7 +1722,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
-        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
+        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
@@ -1763,7 +1737,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_8_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_8_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(lhs.base() == rhs.base())
+            rhs) -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base();
     }
@@ -1777,7 +1751,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_8_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_8_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(!(lhs == rhs))
+            rhs) -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
     }
@@ -1827,8 +1801,8 @@ namespace boost { namespace text {
     struct utf_8_to_32_out_iterator
         : detail::trans_ins_iter<utf_8_to_32_out_iterator<Iter>, Iter>
     {
-        utf_8_to_32_out_iterator() noexcept {}
-        explicit utf_8_to_32_out_iterator(Iter it) noexcept :
+        utf_8_to_32_out_iterator() {}
+        explicit utf_8_to_32_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_8_to_32_out_iterator<Iter>, Iter>(it),
             state_(detail::invalid_table_state)
         {}
@@ -1859,9 +1833,9 @@ namespace boost { namespace text {
                                              utf_8_to_32_insert_iterator<Cont>,
                                              std::insert_iterator<Cont>>
     {
-        utf_8_to_32_insert_iterator() noexcept {}
+        utf_8_to_32_insert_iterator() {}
         utf_8_to_32_insert_iterator(
-            Cont & c, typename Cont::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_8_to_32_insert_iterator<Cont>,
                 std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it)),
@@ -1890,8 +1864,8 @@ namespace boost { namespace text {
               utf_8_to_32_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_8_to_32_front_insert_iterator() noexcept {}
-        explicit utf_8_to_32_front_insert_iterator(Cont & c) noexcept :
+        utf_8_to_32_front_insert_iterator() {}
+        explicit utf_8_to_32_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_8_to_32_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
@@ -1921,8 +1895,8 @@ namespace boost { namespace text {
               utf_8_to_32_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_8_to_32_back_insert_iterator() noexcept {}
-        explicit utf_8_to_32_back_insert_iterator(Cont & c) noexcept :
+        utf_8_to_32_back_insert_iterator() {}
+        explicit utf_8_to_32_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_8_to_32_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
@@ -1961,9 +1935,6 @@ namespace boost { namespace text {
         : detail::
               trans_iter<utf_32_to_16_iterator<I, S, ErrorHandler>, uint16_t>
     {
-        static bool const throw_on_error =
-            !noexcept(std::declval<ErrorHandler>()(0));
-
 #if !BOOST_TEXT_USE_CONCEPTS
         static_assert(
             std::is_same<
@@ -1981,11 +1952,11 @@ namespace boost { namespace text {
             "4-byte value_type.");
 #endif
 
-        constexpr utf_32_to_16_iterator() noexcept :
+        constexpr utf_32_to_16_iterator() :
             first_(), it_(), last_(), index_(2), buf_()
         {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
-        utf_32_to_16_iterator(I first, I it, S last) noexcept :
+        utf_32_to_16_iterator(I first, I it, S last) :
             first_(first), it_(it), last_(last), index_(0), buf_()
         {
             if (it_ != last_)
@@ -2004,7 +1975,7 @@ namespace boost { namespace text {
                 std::is_convertible<S2, S>::value>>
 #endif
         constexpr utf_32_to_16_iterator(
-            utf_32_to_16_iterator<I2, S2, ErrorHandler> const & other) noexcept
+            utf_32_to_16_iterator<I2, S2, ErrorHandler> const & other)
             // clang-format on
             :
             first_(other.first_),
@@ -2014,19 +1985,17 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return last_; }
 
         BOOST_TEXT_CXX14_CONSTEXPR uint16_t operator*() const
-            noexcept(!throw_on_error)
         {
             return buf_[index_];
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const { return it_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_16_iterator &
-        operator++() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_16_iterator & operator++()
         {
             ++index_;
             if (at_buf_end()) {
@@ -2039,8 +2008,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_16_iterator &
-        operator--() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_16_iterator & operator--()
         {
             if (0 < index_) {
                 --index_;
@@ -2061,11 +2029,11 @@ namespace boost { namespace text {
             typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
             utf_32_to_16_iterator<I1, S1, ErrorHandler2> const & lhs,
-            utf_32_to_16_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
+            utf_32_to_16_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
 
         friend bool operator==(
-            utf_32_to_16_iterator lhs, utf_32_to_16_iterator rhs) noexcept
+            utf_32_to_16_iterator lhs, utf_32_to_16_iterator rhs)
         {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
         }
@@ -2077,10 +2045,9 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
-        constexpr bool at_buf_end() const noexcept { return buf_[index_] == 0; }
+        constexpr bool at_buf_end() const { return buf_[index_] == 0; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR uint16_t *
-        read_into_buf() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR uint16_t * read_into_buf()
         {
             auto const last = detail::write_cp_utf16(*it_, buf_.data());
             *last = 0;
@@ -2108,7 +2075,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
+        Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
     }
@@ -2117,7 +2084,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const &
-            rhs) noexcept -> decltype(rhs.base() == lhs)
+            rhs) -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
     }
@@ -2125,7 +2092,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
+        Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
     }
@@ -2134,7 +2101,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const &
-            rhs) noexcept -> decltype(rhs.base() != lhs)
+            rhs) -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
     }
@@ -2148,7 +2115,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_32_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_32_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(lhs.base() == rhs.base())
+            rhs) -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
     }
@@ -2162,7 +2129,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_32_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_32_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(!(lhs == rhs))
+            rhs) -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
     }
@@ -2177,8 +2144,8 @@ namespace boost { namespace text {
     struct utf_32_to_16_out_iterator
         : detail::trans_ins_iter<utf_32_to_16_out_iterator<Iter>, Iter>
     {
-        utf_32_to_16_out_iterator() noexcept {}
-        explicit utf_32_to_16_out_iterator(Iter it) noexcept :
+        utf_32_to_16_out_iterator() {}
+        explicit utf_32_to_16_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_32_to_16_out_iterator<Iter>, Iter>(it)
         {}
 
@@ -2203,9 +2170,9 @@ namespace boost { namespace text {
               utf_32_to_16_insert_iterator<Cont>,
               std::insert_iterator<Cont>>
     {
-        utf_32_to_16_insert_iterator() noexcept {}
+        utf_32_to_16_insert_iterator() {}
         utf_32_to_16_insert_iterator(
-            Cont & c, typename Cont::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_32_to_16_insert_iterator<Cont>,
                 std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it))
@@ -2227,8 +2194,8 @@ namespace boost { namespace text {
               utf_32_to_16_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_32_to_16_front_insert_iterator() noexcept {}
-        explicit utf_32_to_16_front_insert_iterator(Cont & c) noexcept :
+        utf_32_to_16_front_insert_iterator() {}
+        explicit utf_32_to_16_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_32_to_16_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
@@ -2251,8 +2218,8 @@ namespace boost { namespace text {
               utf_32_to_16_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_32_to_16_back_insert_iterator() noexcept {}
-        explicit utf_32_to_16_back_insert_iterator(Cont & c) noexcept :
+        utf_32_to_16_back_insert_iterator() {}
+        explicit utf_32_to_16_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_32_to_16_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
@@ -2284,9 +2251,6 @@ namespace boost { namespace text {
         : detail::
               trans_iter<utf_16_to_32_iterator<I, S, ErrorHandler>, uint32_t>
     {
-        static bool const throw_on_error =
-            !noexcept(std::declval<ErrorHandler>()(0));
-
 #if !BOOST_TEXT_USE_CONCEPTS
         static_assert(
             std::is_same<
@@ -2304,8 +2268,8 @@ namespace boost { namespace text {
             "2-byte value_type.");
 #endif
 
-        constexpr utf_16_to_32_iterator() noexcept : first_(), it_(), last_() {}
-        explicit constexpr utf_16_to_32_iterator(I first, I it, S last) noexcept
+        constexpr utf_16_to_32_iterator() : first_(), it_(), last_() {}
+        explicit constexpr utf_16_to_32_iterator(I first, I it, S last)
             :
             first_(first), it_(it), last_(last)
         {}
@@ -2322,26 +2286,25 @@ namespace boost { namespace text {
                 std::is_convertible<S2, S>::value>>
 #endif
         constexpr utf_16_to_32_iterator(
-            utf_16_to_32_iterator<I2, S2, ErrorHandler> const & other) noexcept
+            utf_16_to_32_iterator<I2, S2, ErrorHandler> const & other)
             :
         // clang-format off
             first_(other.first_), it_(other.it_), last_(other.last_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return last_; }
 
         BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
-            noexcept(!throw_on_error)
         {
             BOOST_ASSERT(!at_end(it_));
             return get_value(*it_).value_;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const { return it_; }
 
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
-        operator++() noexcept(!throw_on_error)
+        operator++()
         {
             BOOST_ASSERT(it_ != last_);
             it_ = increment();
@@ -2349,7 +2312,7 @@ namespace boost { namespace text {
         }
 
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
-        operator--() noexcept(!throw_on_error)
+        operator--()
         {
             BOOST_ASSERT(it_ != first_);
             if (boost::text::low_surrogate(*--it_)) {
@@ -2361,7 +2324,7 @@ namespace boost { namespace text {
         }
 
         friend bool operator==(
-            utf_16_to_32_iterator lhs, utf_16_to_32_iterator rhs) noexcept
+            utf_16_to_32_iterator lhs, utf_16_to_32_iterator rhs)
         {
             return lhs.base() == rhs.base();
         }
@@ -2380,7 +2343,6 @@ namespace boost { namespace text {
         };
 
         BOOST_TEXT_CXX14_CONSTEXPR bool at_end(I it) const
-            noexcept(!throw_on_error)
         {
             if (it == last_) {
                 ErrorHandler{}(
@@ -2393,7 +2355,7 @@ namespace boost { namespace text {
         }
 
         BOOST_TEXT_CXX14_CONSTEXPR get_value_result
-        get_value(uint16_t curr) const noexcept(!throw_on_error)
+        get_value(uint16_t curr) const
         {
             uint32_t value = 0;
             I next = std::next(it_);
@@ -2423,7 +2385,7 @@ namespace boost { namespace text {
             return get_value_result{value, next};
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I increment() const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR I increment() const
         {
             return get_value(*it_).it_;
         }
@@ -2458,7 +2420,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
+        Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
     }
@@ -2467,7 +2429,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
         utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const &
-            rhs) noexcept -> decltype(rhs.base() == lhs)
+            rhs) -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
     }
@@ -2475,7 +2437,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
+        Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
     }
@@ -2484,7 +2446,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
         utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const &
-            rhs) noexcept -> decltype(rhs.base() != lhs)
+            rhs) -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
     }
@@ -2498,7 +2460,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_16_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_16_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(lhs.base() == rhs.base())
+            rhs) -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base();
     }
@@ -2512,7 +2474,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_16_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_16_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(!(lhs == rhs))
+            rhs) -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
     }
@@ -2560,8 +2522,8 @@ namespace boost { namespace text {
     struct utf_16_to_32_out_iterator
         : detail::trans_ins_iter<utf_16_to_32_out_iterator<Iter>, Iter>
     {
-        utf_16_to_32_out_iterator() noexcept {}
-        explicit utf_16_to_32_out_iterator(Iter it) noexcept :
+        utf_16_to_32_out_iterator() {}
+        explicit utf_16_to_32_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_16_to_32_out_iterator<Iter>, Iter>(it),
             prev_cu_(0)
         {}
@@ -2592,9 +2554,9 @@ namespace boost { namespace text {
               utf_16_to_32_insert_iterator<Cont>,
               std::insert_iterator<Cont>>
     {
-        utf_16_to_32_insert_iterator() noexcept {}
+        utf_16_to_32_insert_iterator() {}
         utf_16_to_32_insert_iterator(
-            Cont & c, typename Cont::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_16_to_32_insert_iterator<Cont>,
                 std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it)),
@@ -2622,8 +2584,8 @@ namespace boost { namespace text {
               utf_16_to_32_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_16_to_32_front_insert_iterator() noexcept {}
-        explicit utf_16_to_32_front_insert_iterator(Cont & c) noexcept :
+        utf_16_to_32_front_insert_iterator() {}
+        explicit utf_16_to_32_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_16_to_32_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
@@ -2652,8 +2614,8 @@ namespace boost { namespace text {
               utf_16_to_32_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_16_to_32_back_insert_iterator() noexcept {}
-        explicit utf_16_to_32_back_insert_iterator(Cont & c) noexcept :
+        utf_16_to_32_back_insert_iterator() {}
+        explicit utf_16_to_32_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_16_to_32_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
@@ -2690,9 +2652,6 @@ namespace boost { namespace text {
     struct utf_16_to_8_iterator
         : detail::trans_iter<utf_16_to_8_iterator<I, S, ErrorHandler>, char>
     {
-        static bool const throw_on_error =
-            !noexcept(std::declval<ErrorHandler>()(0));
-
 #if !BOOST_TEXT_USE_CONCEPTS
         static_assert(
             std::is_same<
@@ -2709,11 +2668,11 @@ namespace boost { namespace text {
             "2-byte value_type.");
 #endif
 
-        constexpr utf_16_to_8_iterator() noexcept :
+        constexpr utf_16_to_8_iterator() :
             first_(), it_(), last_(), index_(4), buf_()
         {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
-        utf_16_to_8_iterator(I first, I it, S last) noexcept :
+        utf_16_to_8_iterator(I first, I it, S last) :
             first_(first), it_(it), last_(last), index_(0), buf_()
         {
             if (it_ != last_)
@@ -2732,7 +2691,7 @@ namespace boost { namespace text {
                 std::is_convertible<S2, S>::value>>
 #endif
         constexpr utf_16_to_8_iterator(
-            utf_16_to_8_iterator<I2, S2> const & other) noexcept :
+            utf_16_to_8_iterator<I2, S2> const & other) :
             // clang-format on
             first_(other.first_),
             it_(other.it_),
@@ -2741,19 +2700,17 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept { return first_; }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return last_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const { return first_; }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return last_; }
 
         BOOST_TEXT_CXX14_CONSTEXPR char operator*() const
-            noexcept(!throw_on_error)
         {
             return buf_[index_];
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const { return it_; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_8_iterator &
-        operator++() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_8_iterator & operator++()
         {
             ++index_;
             if (at_buf_end()) {
@@ -2766,8 +2723,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_8_iterator &
-        operator--() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_8_iterator & operator--()
         {
             if (0 < index_) {
                 --index_;
@@ -2788,11 +2744,11 @@ namespace boost { namespace text {
             typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
             utf_16_to_8_iterator<I1, S1, ErrorHandler2> const & lhs,
-            utf_16_to_8_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
+            utf_16_to_8_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
 
         friend bool
-        operator==(utf_16_to_8_iterator lhs, utf_16_to_8_iterator rhs) noexcept
+        operator==(utf_16_to_8_iterator lhs, utf_16_to_8_iterator rhs)
         {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
         }
@@ -2805,7 +2761,6 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
     private:
         BOOST_TEXT_CXX14_CONSTEXPR bool at_end(I it) const
-            noexcept(!throw_on_error)
         {
             if (it == last_) {
                 ErrorHandler{}(
@@ -2817,13 +2772,12 @@ namespace boost { namespace text {
             }
         }
 
-        constexpr bool at_buf_end() const noexcept
+        constexpr bool at_buf_end() const
         {
             return buf_[index_] == '\0';
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR char *
-        read_into_buf() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR char * read_into_buf()
         {
             I next = it_;
 
@@ -2854,7 +2808,7 @@ namespace boost { namespace text {
             return retval;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR void increment() noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR void increment()
         {
             if (boost::text::high_surrogate(*it_)) {
                 ++it_;
@@ -2865,7 +2819,7 @@ namespace boost { namespace text {
             }
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR void decrement() noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR void decrement()
         {
             if (boost::text::low_surrogate(*--it_)) {
                 if (it_ != first_)
@@ -2899,7 +2853,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
+        Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
     }
@@ -2907,7 +2861,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
-        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
+        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
@@ -2916,7 +2870,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
+        Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
     }
@@ -2924,7 +2878,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
-        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
+        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
@@ -2939,7 +2893,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_16_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_16_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(lhs.base() == rhs.base())
+            rhs) -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
     }
@@ -2953,7 +2907,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_16_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_16_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(!(lhs == rhs))
+            rhs) -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
     }
@@ -2995,8 +2949,8 @@ namespace boost { namespace text {
     struct utf_16_to_8_out_iterator
         : detail::trans_ins_iter<utf_16_to_8_out_iterator<Iter>, Iter>
     {
-        utf_16_to_8_out_iterator() noexcept {}
-        explicit utf_16_to_8_out_iterator(Iter it) noexcept :
+        utf_16_to_8_out_iterator() {}
+        explicit utf_16_to_8_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_16_to_8_out_iterator<Iter>, Iter>(it),
             prev_cu_(0)
         {}
@@ -3026,9 +2980,9 @@ namespace boost { namespace text {
                                              utf_16_to_8_insert_iterator<Cont>,
                                              std::insert_iterator<Cont>>
     {
-        utf_16_to_8_insert_iterator() noexcept {}
+        utf_16_to_8_insert_iterator() {}
         utf_16_to_8_insert_iterator(
-            Cont & c, typename Cont::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_16_to_8_insert_iterator<Cont>,
                 std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it)),
@@ -3056,8 +3010,8 @@ namespace boost { namespace text {
               utf_16_to_8_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_16_to_8_front_insert_iterator() noexcept {}
-        explicit utf_16_to_8_front_insert_iterator(Cont & c) noexcept :
+        utf_16_to_8_front_insert_iterator() {}
+        explicit utf_16_to_8_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_16_to_8_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
@@ -3086,8 +3040,8 @@ namespace boost { namespace text {
               utf_16_to_8_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_16_to_8_back_insert_iterator() noexcept {}
-        explicit utf_16_to_8_back_insert_iterator(Cont & c) noexcept :
+        utf_16_to_8_back_insert_iterator() {}
+        explicit utf_16_to_8_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_16_to_8_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
@@ -3120,12 +3074,9 @@ namespace boost { namespace text {
     struct utf_8_to_16_iterator
         : detail::trans_iter<utf_8_to_16_iterator<I, S, ErrorHandler>, uint16_t>
     {
-        static bool const throw_on_error =
-            !noexcept(std::declval<ErrorHandler>()(0));
-
-        constexpr utf_8_to_16_iterator() noexcept : it_(), index_(2), buf_() {}
+        constexpr utf_8_to_16_iterator() : it_(), index_(2), buf_() {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
-        utf_8_to_16_iterator(I first, I it, S last) noexcept :
+        utf_8_to_16_iterator(I first, I it, S last) :
             it_(first, it, last), index_(0), buf_()
         {
             if (it_.it_ != it_.last_)
@@ -3144,32 +3095,30 @@ namespace boost { namespace text {
                 std::is_convertible<S2, S>::value>>
 #endif
         constexpr utf_8_to_16_iterator(
-            utf_8_to_16_iterator<I2, S2, ErrorHandler> const & other) noexcept :
+            utf_8_to_16_iterator<I2, S2, ErrorHandler> const & other) :
             // clang-format on
             it_(other.it_),
             index_(other.index_),
             buf_(other.buf_)
         {}
 
-        BOOST_TEXT_CXX14_CONSTEXPR I begin() const noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR I begin() const
         {
             return it_.begin();
         }
-        BOOST_TEXT_CXX14_CONSTEXPR S end() const noexcept { return it_.end(); }
+        BOOST_TEXT_CXX14_CONSTEXPR S end() const { return it_.end(); }
 
         BOOST_TEXT_CXX14_CONSTEXPR uint16_t operator*() const
-            noexcept(!throw_on_error)
         {
             return buf_[index_];
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const
         {
             return it_.base();
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_16_iterator &
-        operator++() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_16_iterator & operator++()
         {
             ++index_;
             if (at_buf_end()) {
@@ -3182,8 +3131,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_16_iterator &
-        operator--() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_16_iterator & operator--()
         {
             if (0 < index_) {
                 --index_;
@@ -3204,11 +3152,11 @@ namespace boost { namespace text {
             typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
             utf_8_to_16_iterator<I1, S1, ErrorHandler2> const & lhs,
-            utf_8_to_16_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
+            utf_8_to_16_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
 
         friend bool
-        operator==(utf_8_to_16_iterator lhs, utf_8_to_16_iterator rhs) noexcept
+        operator==(utf_8_to_16_iterator lhs, utf_8_to_16_iterator rhs)
         {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
         }
@@ -3220,10 +3168,9 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
-        constexpr bool at_buf_end() const noexcept { return buf_[index_] == 0; }
+        constexpr bool at_buf_end() const { return buf_[index_] == 0; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR uint16_t *
-        read_into_buf() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR uint16_t * read_into_buf()
         {
             auto const last = detail::write_cp_utf16(*it_, buf_.data());
             *last = 0;
@@ -3249,7 +3196,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
+        Sentinel rhs) -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
     }
@@ -3257,7 +3204,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
-        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
+        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
@@ -3266,7 +3213,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
+        Sentinel rhs) -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
     }
@@ -3274,7 +3221,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
-        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
+        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & rhs)
         -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
@@ -3289,7 +3236,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_8_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(lhs.base() == rhs.base())
+            rhs) -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
     }
@@ -3303,7 +3250,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_8_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
-            rhs) noexcept -> decltype(!(lhs == rhs))
+            rhs) -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
     }
@@ -3351,8 +3298,8 @@ namespace boost { namespace text {
     struct utf_8_to_16_out_iterator
         : detail::trans_ins_iter<utf_8_to_16_out_iterator<Iter>, Iter>
     {
-        utf_8_to_16_out_iterator() noexcept {}
-        explicit utf_8_to_16_out_iterator(Iter it) noexcept :
+        utf_8_to_16_out_iterator() {}
+        explicit utf_8_to_16_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_8_to_16_out_iterator<Iter>, Iter>(it),
             state_(detail::invalid_table_state)
         {}
@@ -3383,9 +3330,9 @@ namespace boost { namespace text {
                                              utf_8_to_16_insert_iterator<Cont>,
                                              std::insert_iterator<Cont>>
     {
-        utf_8_to_16_insert_iterator() noexcept {}
+        utf_8_to_16_insert_iterator() {}
         utf_8_to_16_insert_iterator(
-            Cont & c, typename Cont::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_8_to_16_insert_iterator<Cont>,
                 std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it)),
@@ -3414,8 +3361,8 @@ namespace boost { namespace text {
               utf_8_to_16_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_8_to_16_front_insert_iterator() noexcept {}
-        explicit utf_8_to_16_front_insert_iterator(Cont & c) noexcept :
+        utf_8_to_16_front_insert_iterator() {}
+        explicit utf_8_to_16_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_8_to_16_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
@@ -3445,8 +3392,8 @@ namespace boost { namespace text {
               utf_8_to_16_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_8_to_16_back_insert_iterator() noexcept {}
-        explicit utf_8_to_16_back_insert_iterator(Cont & c) noexcept :
+        utf_8_to_16_back_insert_iterator() {}
+        explicit utf_8_to_16_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_8_to_16_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
@@ -3481,7 +3428,7 @@ namespace boost { namespace text { namespace detail {
     struct make_utf8_dispatch<detail::utf8_tag>
     {
         template<typename Iter, typename Sentinel>
-        static constexpr Iter call(Iter first, Iter it, Sentinel last) noexcept
+        static constexpr Iter call(Iter first, Iter it, Sentinel last)
         {
             return it;
         }
@@ -3492,7 +3439,7 @@ namespace boost { namespace text { namespace detail {
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_16_to_8_iterator<Iter, Sentinel>
-        call(Iter first, Iter it, Sentinel last) noexcept
+        call(Iter first, Iter it, Sentinel last)
         {
             return utf_16_to_8_iterator<Iter, Sentinel>(first, it, last);
         }
@@ -3503,7 +3450,7 @@ namespace boost { namespace text { namespace detail {
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_32_to_8_iterator<Iter, Sentinel>
-        call(Iter first, Iter it, Sentinel last) noexcept
+        call(Iter first, Iter it, Sentinel last)
         {
             return utf_32_to_8_iterator<Iter, Sentinel>(first, it, last);
         }
@@ -3517,7 +3464,7 @@ namespace boost { namespace text { namespace detail {
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_8_to_16_iterator<Iter, Sentinel>
-        call(Iter first, Iter it, Sentinel last) noexcept
+        call(Iter first, Iter it, Sentinel last)
         {
             return utf_8_to_16_iterator<Iter, Sentinel>(first, it, last);
         }
@@ -3527,7 +3474,7 @@ namespace boost { namespace text { namespace detail {
     struct make_utf16_dispatch<detail::utf16_tag>
     {
         template<typename Iter, typename Sentinel>
-        static constexpr Iter call(Iter first, Iter it, Sentinel last) noexcept
+        static constexpr Iter call(Iter first, Iter it, Sentinel last)
         {
             return it;
         }
@@ -3538,7 +3485,7 @@ namespace boost { namespace text { namespace detail {
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_32_to_16_iterator<Iter, Sentinel>
-        call(Iter first, Iter it, Sentinel last) noexcept
+        call(Iter first, Iter it, Sentinel last)
         {
             return utf_32_to_16_iterator<Iter, Sentinel>(first, it, last);
         }
@@ -3552,7 +3499,7 @@ namespace boost { namespace text { namespace detail {
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_8_to_32_iterator<Iter, Sentinel>
-        call(Iter first, Iter it, Sentinel last) noexcept
+        call(Iter first, Iter it, Sentinel last)
         {
             return utf_8_to_32_iterator<Iter, Sentinel>(first, it, last);
         }
@@ -3563,7 +3510,7 @@ namespace boost { namespace text { namespace detail {
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_16_to_32_iterator<Iter, Sentinel>
-        call(Iter first, Iter it, Sentinel last) noexcept
+        call(Iter first, Iter it, Sentinel last)
         {
             return utf_16_to_32_iterator<Iter, Sentinel>(first, it, last);
         }
@@ -3573,7 +3520,7 @@ namespace boost { namespace text { namespace detail {
     struct make_utf32_dispatch<detail::utf32_tag>
     {
         template<typename Iter, typename Sentinel>
-        static constexpr Iter call(Iter first, Iter it, Sentinel last) noexcept
+        static constexpr Iter call(Iter first, Iter it, Sentinel last)
         {
             return it;
         }
@@ -3669,47 +3616,47 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns a `utf_32_to_8_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint8_t> O>
-    utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it) noexcept;
+    utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it);
 
     /** Returns a `utf_8_to_32_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint32_t> O>
-    utf_8_to_32_out_iterator<O> utf_8_to_32_out(O it) noexcept;
+    utf_8_to_32_out_iterator<O> utf_8_to_32_out(O it);
 
     /** Returns a `utf_32_to_16_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint16_t> O>
-    utf_32_to_16_out_iterator<O> utf_32_to_16_out(O it) noexcept;
+    utf_32_to_16_out_iterator<O> utf_32_to_16_out(O it);
 
     /** Returns a `utf_16_to_32_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint32_t> O>
-    utf_16_to_32_out_iterator<O> utf_16_to_32_out(O it) noexcept;
+    utf_16_to_32_out_iterator<O> utf_16_to_32_out(O it);
 
     /** Returns a `utf_16_to_8_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint8_t> O>
-    utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it) noexcept;
+    utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it);
 
     /** Returns a `utf_8_to_16_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint16_t> O>
-    utf_8_to_16_out_iterator<O> utf_8_to_16_out(O it) noexcept;
+    utf_8_to_16_out_iterator<O> utf_8_to_16_out(O it);
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-8. */
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto utf8_iterator(I first, I it, S last) noexcept;
+    auto utf8_iterator(I first, I it, S last);
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-16. */
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto utf16_iterator(I first, I it, S last) noexcept;
+    auto utf16_iterator(I first, I it, S last);
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-32. */
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto utf32_iterator(I first, I it, S last) noexcept;
+    auto utf32_iterator(I first, I it, S last);
 
     /** Returns a inserting iterator that transcodes from UTF-8 to UTF-8,
         UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
@@ -3718,7 +3665,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename Cont>
     requires requires { typename Cont::value_type; } &&
              std::is_integral_v<typename Cont::value_type>
-    auto from_utf8_inserter(Cont & c, typename Cont::iterator it) noexcept;
+    auto from_utf8_inserter(Cont & c, typename Cont::iterator it);
 
     /** Returns a inserting iterator that transcodes from UTF-16 to UTF-8,
         UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
@@ -3727,7 +3674,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename Cont>
     requires requires { typename Cont::value_type; } &&
              std::is_integral_v<typename Cont::value_type>
-    auto from_utf16_inserter(Cont & c, typename Cont::iterator it) noexcept;
+    auto from_utf16_inserter(Cont & c, typename Cont::iterator it);
 
     /** Returns a inserting iterator that transcodes from UTF-32 to UTF-8,
         UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
@@ -3736,7 +3683,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename Cont>
     requires requires { typename Cont::value_type; } &&
              std::is_integral_v<typename Cont::value_type>
-    auto from_utf32_inserter(Cont & c, typename Cont::iterator it) noexcept;
+    auto from_utf32_inserter(Cont & c, typename Cont::iterator it);
 
     /** Returns a back-inserting iterator that transcodes from UTF-8 to UTF-8,
         UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
@@ -3745,7 +3692,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename Cont>
     requires requires { typename Cont::value_type; } &&
              std::is_integral_v<typename Cont::value_type>
-    auto from_utf8_back_inserter(Cont & c) noexcept;
+    auto from_utf8_back_inserter(Cont & c);
 
     /** Returns a back-inserting iterator that transcodes from UTF-16 to UTF-8,
         UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
@@ -3754,7 +3701,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename Cont>
     requires requires { typename Cont::value_type; } &&
              std::is_integral_v<typename Cont::value_type>
-    auto from_utf16_back_inserter(Cont & c) noexcept;
+    auto from_utf16_back_inserter(Cont & c);
 
     /** Returns a back-inserting iterator that transcodes from UTF-32 to UTF-8,
         UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
@@ -3763,7 +3710,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename Cont>
     requires requires { typename Cont::value_type; } &&
              std::is_integral_v<typename Cont::value_type>
-    auto from_utf32_back_inserter(Cont & c) noexcept;
+    auto from_utf32_back_inserter(Cont & c);
 
     /** Returns a front-inserting iterator that transcodes from UTF-8 to UTF-8,
         UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
@@ -3772,7 +3719,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename Cont>
     requires requires { typename Cont::value_type; } &&
              std::is_integral_v<typename Cont::value_type>
-    auto from_utf8_front_inserter(Cont & c) noexcept;
+    auto from_utf8_front_inserter(Cont & c);
 
     /** Returns a front-inserting iterator that transcodes from UTF-16 to UTF-8,
         UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
@@ -3781,7 +3728,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename Cont>
     requires requires { typename Cont::value_type; } &&
              std::is_integral_v<typename Cont::value_type>
-    auto from_utf16_front_inserter(Cont & c) noexcept;
+    auto from_utf16_front_inserter(Cont & c);
 
     /** Returns a front-inserting iterator that transcodes from UTF-32 to UTF-8,
         UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
@@ -3790,48 +3737,48 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename Cont>
     requires requires { typename Cont::value_type; } &&
              std::is_integral_v<typename Cont::value_type>
-    auto from_utf32_front_inserter(Cont & c) noexcept;
+    auto from_utf32_front_inserter(Cont & c);
 
 #endif
 
     template<typename Iter>
-    utf_32_to_8_out_iterator<Iter> utf_32_to_8_out(Iter it) noexcept
+    utf_32_to_8_out_iterator<Iter> utf_32_to_8_out(Iter it)
     {
         return utf_32_to_8_out_iterator<Iter>(it);
     }
 
     template<typename Iter>
-    utf_8_to_32_out_iterator<Iter> utf_8_to_32_out(Iter it) noexcept
+    utf_8_to_32_out_iterator<Iter> utf_8_to_32_out(Iter it)
     {
         return utf_8_to_32_out_iterator<Iter>(it);
     }
 
     template<typename Iter>
-    utf_32_to_16_out_iterator<Iter> utf_32_to_16_out(Iter it) noexcept
+    utf_32_to_16_out_iterator<Iter> utf_32_to_16_out(Iter it)
     {
         return utf_32_to_16_out_iterator<Iter>(it);
     }
 
     template<typename Iter>
-    utf_16_to_32_out_iterator<Iter> utf_16_to_32_out(Iter it) noexcept
+    utf_16_to_32_out_iterator<Iter> utf_16_to_32_out(Iter it)
     {
         return utf_16_to_32_out_iterator<Iter>(it);
     }
 
     template<typename Iter>
-    utf_16_to_8_out_iterator<Iter> utf_16_to_8_out(Iter it) noexcept
+    utf_16_to_8_out_iterator<Iter> utf_16_to_8_out(Iter it)
     {
         return utf_16_to_8_out_iterator<Iter>(it);
     }
 
     template<typename Iter>
-    utf_8_to_16_out_iterator<Iter> utf_8_to_16_out(Iter it) noexcept
+    utf_8_to_16_out_iterator<Iter> utf_8_to_16_out(Iter it)
     {
         return utf_8_to_16_out_iterator<Iter>(it);
     }
 
     template<typename Iter, typename Sentinel>
-    auto utf8_iterator(Iter first, Iter it, Sentinel last) noexcept
+    auto utf8_iterator(Iter first, Iter it, Sentinel last)
     {
         auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
         auto const unpacked_it =
@@ -3842,7 +3789,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Iter, typename Sentinel>
-    auto utf16_iterator(Iter first, Iter it, Sentinel last) noexcept
+    auto utf16_iterator(Iter first, Iter it, Sentinel last)
     {
         auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
         auto const unpacked_it =
@@ -3853,7 +3800,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Iter, typename Sentinel>
-    auto utf32_iterator(Iter first, Iter it, Sentinel last) noexcept
+    auto utf32_iterator(Iter first, Iter it, Sentinel last)
     {
         auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
         auto const unpacked_it =
@@ -3864,7 +3811,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Cont>
-    auto from_utf8_inserter(Cont & c, typename Cont::iterator it) noexcept
+    auto from_utf8_inserter(Cont & c, typename Cont::iterator it)
     {
         using result_type = detail::from_utf8_dispatch_t<
             Cont,
@@ -3875,7 +3822,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Cont>
-    auto from_utf16_inserter(Cont & c, typename Cont::iterator it) noexcept
+    auto from_utf16_inserter(Cont & c, typename Cont::iterator it)
     {
         using result_type = detail::from_utf16_dispatch_t<
             Cont,
@@ -3886,7 +3833,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Cont>
-    auto from_utf32_inserter(Cont & c, typename Cont::iterator it) noexcept
+    auto from_utf32_inserter(Cont & c, typename Cont::iterator it)
     {
         using result_type = detail::from_utf32_dispatch_t<
             Cont,
@@ -3897,7 +3844,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Cont>
-    auto from_utf8_back_inserter(Cont & c) noexcept
+    auto from_utf8_back_inserter(Cont & c)
     {
         using result_type = detail::from_utf8_dispatch_t<
             Cont,
@@ -3908,7 +3855,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Cont>
-    auto from_utf16_back_inserter(Cont & c) noexcept
+    auto from_utf16_back_inserter(Cont & c)
     {
         using result_type = detail::from_utf16_dispatch_t<
             Cont,
@@ -3919,7 +3866,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Cont>
-    auto from_utf32_back_inserter(Cont & c) noexcept
+    auto from_utf32_back_inserter(Cont & c)
     {
         using result_type = detail::from_utf32_dispatch_t<
             Cont,
@@ -3930,7 +3877,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Cont>
-    auto from_utf8_front_inserter(Cont & c) noexcept
+    auto from_utf8_front_inserter(Cont & c)
     {
         using result_type = detail::from_utf8_dispatch_t<
             Cont,
@@ -3941,7 +3888,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Cont>
-    auto from_utf16_front_inserter(Cont & c) noexcept
+    auto from_utf16_front_inserter(Cont & c)
     {
         using result_type = detail::from_utf16_dispatch_t<
             Cont,
@@ -3952,7 +3899,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename Cont>
-    auto from_utf32_front_inserter(Cont & c) noexcept
+    auto from_utf32_front_inserter(Cont & c)
     {
         using result_type = detail::from_utf32_dispatch_t<
             Cont,
@@ -3969,55 +3916,55 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<std::output_iterator<uint8_t> O>
-    utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it) noexcept
+    utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it)
     {
         return utf_32_to_8_out_iterator<O>(it);
     }
 
     template<std::output_iterator<uint32_t> O>
-    utf_8_to_32_out_iterator<O> utf_8_to_32_out(O it) noexcept
+    utf_8_to_32_out_iterator<O> utf_8_to_32_out(O it)
     {
         return utf_8_to_32_out_iterator<O>(it);
     }
 
     template<std::output_iterator<uint16_t> O>
-    utf_32_to_16_out_iterator<O> utf_32_to_16_out(O it) noexcept
+    utf_32_to_16_out_iterator<O> utf_32_to_16_out(O it)
     {
         return utf_32_to_16_out_iterator<O>(it);
     }
 
     template<std::output_iterator<uint32_t> O>
-    utf_16_to_32_out_iterator<O> utf_16_to_32_out(O it) noexcept
+    utf_16_to_32_out_iterator<O> utf_16_to_32_out(O it)
     {
         return utf_16_to_32_out_iterator<O>(it);
     }
 
     template<std::output_iterator<uint8_t> O>
-    utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it) noexcept
+    utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it)
     {
         return utf_16_to_8_out_iterator<O>(it);
     }
 
     template<std::output_iterator<uint16_t> O>
-    utf_8_to_16_out_iterator<O> utf_8_to_16_out(O it) noexcept
+    utf_8_to_16_out_iterator<O> utf_8_to_16_out(O it)
     {
         return utf_8_to_16_out_iterator<O>(it);
     }
 
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto utf8_iterator(I first, I it, S last) noexcept
+    auto utf8_iterator(I first, I it, S last)
     {
         return v1::utf8_iterator(first, it, last);
     }
 
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto utf16_iterator(I first, I it, S last) noexcept
+    auto utf16_iterator(I first, I it, S last)
     {
         return v1::utf16_iterator(first, it, last);
     }
 
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto utf32_iterator(I first, I it, S last) noexcept
+    auto utf32_iterator(I first, I it, S last)
     {
         return v1::utf32_iterator(first, it, last);
     }
@@ -4026,7 +3973,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         std::is_integral_v<typename Cont::value_type>
-    auto from_utf8_inserter(Cont & c, typename Cont::iterator it) noexcept
+    auto from_utf8_inserter(Cont & c, typename Cont::iterator it)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4042,7 +3989,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         std::is_integral_v<typename Cont::value_type>
-    auto from_utf16_inserter(Cont & c, typename Cont::iterator it) noexcept
+    auto from_utf16_inserter(Cont & c, typename Cont::iterator it)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4058,7 +4005,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         std::is_integral_v<typename Cont::value_type>
-    auto from_utf32_inserter(Cont & c, typename Cont::iterator it) noexcept
+    auto from_utf32_inserter(Cont & c, typename Cont::iterator it)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4074,7 +4021,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         std::is_integral_v<typename Cont::value_type>
-    auto from_utf8_back_inserter(Cont & c) noexcept
+    auto from_utf8_back_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4090,7 +4037,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         std::is_integral_v<typename Cont::value_type>
-    auto from_utf16_back_inserter(Cont & c) noexcept
+    auto from_utf16_back_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4106,7 +4053,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         std::is_integral_v<typename Cont::value_type>
-    auto from_utf32_back_inserter(Cont & c) noexcept
+    auto from_utf32_back_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4122,7 +4069,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         std::is_integral_v<typename Cont::value_type>
-    auto from_utf8_front_inserter(Cont & c) noexcept
+    auto from_utf8_front_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4138,7 +4085,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         std::is_integral_v<typename Cont::value_type>
-    auto from_utf16_front_inserter(Cont & c) noexcept
+    auto from_utf16_front_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4154,7 +4101,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         std::is_integral_v<typename Cont::value_type>
-    auto from_utf32_front_inserter(Cont & c) noexcept
+    auto from_utf32_front_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {

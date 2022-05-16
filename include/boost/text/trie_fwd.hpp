@@ -15,7 +15,6 @@ namespace boost { namespace text {
     {
         template<typename T>
         bool operator()(T const & lhs, T const & rhs) const
-            noexcept(noexcept(std::less<T>{}(lhs, rhs)))
         {
             return std::less<T>{}(lhs, rhs);
         }

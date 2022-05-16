@@ -65,7 +65,7 @@ namespace boost { namespace text { namespace detail {
         bool Pointer = std::is_pointer<std::remove_reference_t<R>>::value>
     struct as_utf32_common_view_dispatch
     {
-        static constexpr auto call(R & r) noexcept
+        static constexpr auto call(R & r)
             -> decltype(detail::as_utf32_no_sentinel_or_terminator(
                 detail::begin(r), detail::end(r)))
         {
@@ -78,7 +78,7 @@ namespace boost { namespace text { namespace detail {
     struct as_utf32_common_view_dispatch<Ptr, true>
     {
         using string_view_t = basic_string_view<std::remove_pointer_t<Ptr>>;
-        static constexpr auto call(Ptr p) noexcept
+        static constexpr auto call(Ptr p)
             -> decltype(boost::text::as_utf32(string_view_t(p)))
         {
             return boost::text::as_utf32(string_view_t(p));

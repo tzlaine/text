@@ -84,8 +84,7 @@ namespace boost { namespace text {
             line_property prop_;
         };
 
-        inline bool
-        operator<(line_prop_interval lhs, line_prop_interval rhs) noexcept
+        inline bool operator<(line_prop_interval lhs, line_prop_interval rhs)
         {
             return lhs.hi_ <= rhs.lo_;
         }
@@ -97,7 +96,7 @@ namespace boost { namespace text {
     }
 
     /** Returns the line property associated with code point `cp`. */
-    inline line_property line_prop(uint32_t cp) noexcept
+    inline line_property line_prop(uint32_t cp)
     {
         static auto const map = detail::make_line_prop_map();
         static auto const intervals = detail::make_line_prop_intervals();
@@ -128,28 +127,28 @@ namespace boost { namespace text {
     };
 
     template<typename CPIter, typename Sentinel>
-    auto operator==(line_break_result<CPIter> result, Sentinel s) noexcept
+    auto operator==(line_break_result<CPIter> result, Sentinel s)
         -> decltype(result.iter == s)
     {
         return result.iter == s;
     }
 
     template<typename CPIter>
-    auto operator==(CPIter it, line_break_result<CPIter> result) noexcept
+    auto operator==(CPIter it, line_break_result<CPIter> result)
         -> decltype(it == result.iter)
     {
         return it == result.iter;
     }
 
     template<typename CPIter, typename Sentinel>
-    auto operator!=(line_break_result<CPIter> result, Sentinel s) noexcept
+    auto operator!=(line_break_result<CPIter> result, Sentinel s)
         -> decltype(result.iter != s)
     {
         return result.iter != s;
     }
 
     template<typename CPIter, typename Sentinel>
-    auto operator!=(CPIter it, line_break_result<CPIter> result) noexcept
+    auto operator!=(CPIter it, line_break_result<CPIter> result)
         -> decltype(it != result.iter)
     {
         return it != result.iter;
@@ -171,7 +170,7 @@ namespace boost { namespace text {
         {}
 
         /** Returns true if the end of *this is a hard line break boundary. */
-        bool hard_break() const noexcept { return hard_break_; }
+        bool hard_break() const { return hard_break_; }
 
     private:
         bool hard_break_;
@@ -200,7 +199,7 @@ namespace boost { namespace text {
         {}
 
         /** Returns true if the end of *this is a hard line break boundary. */
-        bool hard_break() const noexcept { return hard_break_; }
+        bool hard_break() const { return hard_break_; }
 
     private:
         bool hard_break_;
@@ -225,13 +224,13 @@ namespace boost { namespace text {
         // break has 'XX'.  However, due to Rule LB1, XX is replaced with AL,
         // so you'll see a lot of initializations from AL in this file.
 
-        inline bool skippable(line_property prop) noexcept
+        inline bool skippable(line_property prop)
         {
             return prop == line_property::CM || prop == line_property::ZWJ;
         }
 
         // Can represent the "X" in "X(CM|ZWJ)* -> X" in the LB9 rule.
-        inline bool lb9_x(line_property prop) noexcept
+        inline bool lb9_x(line_property prop)
         {
             return prop != line_property::BK && prop != line_property::CR &&
                    prop != line_property::LF && prop != line_property::NL &&
@@ -281,7 +280,7 @@ namespace boost { namespace text {
         }
 
         inline bool
-        table_line_break(line_property lhs, line_property rhs) noexcept
+        table_line_break(line_property lhs, line_property rhs)
         {
             // clang-format off
 // See chart at http://www.unicode.org/Public/10.0.0/ucd/auxiliary/LineBreakTest.html
@@ -473,7 +472,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             CPIter first,
             CPIter it,
             Sentinel last,
-            bool hard_breaks_only) noexcept
+            bool hard_breaks_only)
         {
             using result_t = line_break_result<CPIter>;
 
@@ -945,7 +944,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             bool hard_breaks_only,
             Extent max_extent,
             CPExtentFunc & cp_extent,
-            bool break_overlong_lines) noexcept
+            bool break_overlong_lines)
         {
             using result_t = line_break_result<CPIter>;
 
@@ -1343,14 +1342,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename CPIter, typename Sentinel>
         CPIter prev_hard_line_break_impl(
-            CPIter first, CPIter it, Sentinel last) noexcept
+            CPIter first, CPIter it, Sentinel last)
         {
             return detail::prev_line_break_impl(first, it, last, true).iter;
         }
 
         template<typename CPIter, typename Sentinel>
         bool
-        at_hard_line_break_impl(CPIter first, CPIter it, Sentinel last) noexcept
+        at_hard_line_break_impl(CPIter first, CPIter it, Sentinel last)
         {
             if (it == last)
                 return true;
@@ -1360,14 +1359,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename CPIter, typename Sentinel>
         line_break_result<CPIter> prev_allowed_line_break_impl(
-            CPIter first, CPIter it, Sentinel last) noexcept
+            CPIter first, CPIter it, Sentinel last)
         {
             return detail::prev_line_break_impl(first, it, last, false);
         }
 
         template<typename CPIter, typename Sentinel>
         bool at_allowed_line_break_impl(
-            CPIter first, CPIter it, Sentinel last) noexcept
+            CPIter first, CPIter it, Sentinel last)
         {
             if (it == last)
                 return true;
@@ -1376,7 +1375,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
 
         template<typename CPIter, typename Sentinel>
-        CPIter next_hard_line_break_impl(CPIter first, Sentinel last) noexcept
+        CPIter next_hard_line_break_impl(CPIter first, Sentinel last)
         {
             no_op_cp_extent<CPIter, int> no_op;
             return detail::next_line_break_impl(
@@ -1386,7 +1385,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename CPIter, typename Sentinel>
         line_break_result<CPIter>
-        next_allowed_line_break_impl(CPIter first, Sentinel last) noexcept
+        next_allowed_line_break_impl(CPIter first, Sentinel last)
         {
             no_op_cp_extent<CPIter, int> no_op;
             return detail::next_line_break_impl(
@@ -1396,7 +1395,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         template<typename CPIter, typename Sentinel>
         struct next_hard_line_break_callable
         {
-            auto operator()(CPIter it, Sentinel last) noexcept
+            auto operator()(CPIter it, Sentinel last)
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
                 return detail::next_hard_line_break_impl(it, last);
@@ -1490,10 +1489,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 ptr_ = new (aligned_ptr()) CPExtentFunc(f);
             }
 
-            explicit operator bool() const noexcept { return ptr_; }
-            CPExtentFunc const & operator*() const noexcept { return *ptr_; }
+            explicit operator bool() const { return ptr_; }
+            CPExtentFunc const & operator*() const { return *ptr_; }
 
-            CPExtentFunc & operator*() noexcept { return *ptr_; }
+            CPExtentFunc & operator*() { return *ptr_; }
 
         private:
             void * aligned_ptr()
@@ -1544,10 +1543,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 construct(f);
             }
 
-            explicit operator bool() const noexcept { return ptr_; }
-            CPExtentFunc const & operator*() const noexcept { return *ptr_; }
+            explicit operator bool() const { return ptr_; }
+            CPExtentFunc const & operator*() const { return *ptr_; }
 
-            CPExtentFunc & operator*() noexcept { return *ptr_; }
+            CPExtentFunc & operator*() { return *ptr_; }
 
         private:
             void construct(CPExtentFunc f)
@@ -1583,7 +1582,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
             template<typename BreakResult, typename Sentinel>
             BreakResult
-            operator()(BreakResult result, Sentinel last) const noexcept
+            operator()(BreakResult result, Sentinel last) const
             {
                 return detail::next_line_break_impl(
                     result.iter,
@@ -1595,7 +1594,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             }
 
             /** Moves the contained `CPExtentFunc` out of *this. */
-            CPExtentFunc extent_func() && noexcept
+            CPExtentFunc extent_func() &&
             {
                 BOOST_ASSERT(cp_extent_);
                 return std::move(*cp_extent_);
@@ -1610,7 +1609,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         template<typename CPIter>
         struct prev_hard_line_break_callable
         {
-            auto operator()(CPIter first, CPIter it, CPIter last) noexcept
+            auto operator()(CPIter first, CPIter it, CPIter last)
                 -> cp_iter_ret_t<CPIter, CPIter>
             {
                 return detail::prev_line_break_impl(first, it, last, true).iter;
@@ -1618,7 +1617,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         };
 
         template<typename CPRange, typename CPIter>
-        auto prev_hard_line_break_cr_impl(CPRange && range, CPIter it) noexcept
+        auto prev_hard_line_break_cr_impl(CPRange && range, CPIter it)
             -> iterator_t<CPRange>
         {
             return detail::prev_hard_line_break_impl(
@@ -1627,7 +1626,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename GraphemeRange, typename GraphemeIter>
         auto prev_hard_line_break_gr_impl(
-            GraphemeRange && range, GraphemeIter it) noexcept
+            GraphemeRange && range, GraphemeIter it)
             -> iterator_t<GraphemeRange>
         {
             using cp_iter_t = decltype(range.begin().base());
@@ -1641,7 +1640,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
 
         template<typename CPRange, typename CPIter>
-        auto next_hard_line_break_cr_impl(CPRange && range, CPIter it) noexcept
+        auto next_hard_line_break_cr_impl(CPRange && range, CPIter it)
             -> iterator_t<CPRange>
         {
             return detail::next_hard_line_break_impl(it, detail::end(range));
@@ -1649,7 +1648,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename GraphemeRange, typename GraphemeIter>
         auto next_hard_line_break_gr_impl(
-            GraphemeRange && range, GraphemeIter it) noexcept
+            GraphemeRange && range, GraphemeIter it)
             -> iterator_t<GraphemeRange>
         {
             using cp_iter_t = decltype(range.begin().base());
@@ -1662,7 +1661,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename CPRange, typename CPIter>
         auto
-        prev_allowed_line_break_cr_impl(CPRange && range, CPIter it) noexcept
+        prev_allowed_line_break_cr_impl(CPRange && range, CPIter it)
             -> line_break_result<iterator_t<CPRange>>
         {
             return detail::prev_allowed_line_break_impl<iterator_t<CPRange>>(
@@ -1671,7 +1670,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename GraphemeRange, typename GraphemeIter>
         auto prev_allowed_line_break_gr_impl(
-            GraphemeRange && range, GraphemeIter it) noexcept
+            GraphemeRange && range, GraphemeIter it)
             -> line_break_result<iterator_t<GraphemeRange>>
         {
             using cp_iter_t = decltype(range.begin().base());
@@ -1686,7 +1685,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename CPRange, typename CPIter>
         auto
-        next_allowed_line_break_cr_impl(CPRange && range, CPIter it) noexcept
+        next_allowed_line_break_cr_impl(CPRange && range, CPIter it)
             -> line_break_result<iterator_t<CPRange>>
         {
             return detail::next_allowed_line_break_impl<iterator_t<CPRange>>(
@@ -1695,7 +1694,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename GraphemeRange, typename GraphemeIter>
         auto next_allowed_line_break_gr_impl(
-            GraphemeRange && range, GraphemeIter it) noexcept
+            GraphemeRange && range, GraphemeIter it)
             -> line_break_result<iterator_t<GraphemeRange>>
         {
             using cp_iter_t = decltype(range.begin().base());
@@ -1707,7 +1706,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
 
         template<typename CPRange, typename CPIter>
-        bool at_hard_line_break_cr_impl(CPRange && range, CPIter it) noexcept
+        bool at_hard_line_break_cr_impl(CPRange && range, CPIter it)
         {
             if (it == detail::end(range))
                 return true;
@@ -1717,7 +1716,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename GraphemeRange, typename GraphemeIter>
         bool at_hard_line_break_gr_impl(
-            GraphemeRange && range, GraphemeIter it) noexcept
+            GraphemeRange && range, GraphemeIter it)
         {
             if (it == detail::end(range))
                 return true;
@@ -1728,7 +1727,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
 
         template<typename CPRange, typename CPIter>
-        bool at_allowed_line_break_cr_impl(CPRange && range, CPIter it) noexcept
+        bool at_allowed_line_break_cr_impl(CPRange && range, CPIter it)
         {
             if (it == detail::end(range))
                 return true;
@@ -1738,7 +1737,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename GraphemeRange, typename GraphemeIter>
         bool at_allowed_line_break_gr_impl(
-            GraphemeRange && range, GraphemeIter it) noexcept
+            GraphemeRange && range, GraphemeIter it)
         {
             if (it == detail::end(range))
                 return true;
@@ -1750,7 +1749,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename CPIter, typename Sentinel>
         utf32_view<CPIter>
-        line_impl(CPIter first, CPIter it, Sentinel last) noexcept
+        line_impl(CPIter first, CPIter it, Sentinel last)
         {
             first = detail::prev_hard_line_break_impl(first, it, last);
             return utf32_view<CPIter>{
@@ -1758,7 +1757,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
 
         template<typename CPRange, typename CPIter>
-        auto line_cr_impl(CPRange && range, CPIter it) noexcept
+        auto line_cr_impl(CPRange && range, CPIter it)
             -> utf32_view<iterator_t<CPRange>>
         {
             auto first = detail::prev_hard_line_break_impl<iterator_t<CPRange>>(
@@ -1769,7 +1768,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
 
         template<typename GraphemeRange, typename GraphemeIter>
-        auto line_gr_impl(GraphemeRange && range, GraphemeIter it) noexcept
+        auto line_gr_impl(GraphemeRange && range, GraphemeIter it)
             -> grapheme_view<decltype(range.begin().base())>
         {
             using cp_iter_t = decltype(range.begin().base());
@@ -1799,10 +1798,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                   std::forward_iterator_tag,
                   CPRange>
         {
-            forward_allowed_break_iterator() noexcept = default;
+            forward_allowed_break_iterator() = default;
 
             forward_allowed_break_iterator(
-                CPIter first, CPSentinel last, NextFunc * next_func) noexcept :
+                CPIter first, CPSentinel last, NextFunc * next_func) :
                 seg_({first, false}, {first, false}),
                 last_(last),
                 next_func_(next_func)
@@ -1810,12 +1809,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 seg_.second = (*next_func_)(seg_.first, last_);
             }
 
-            CPRange operator*() const noexcept
+            CPRange operator*() const
             {
                 return CPRange{seg_.first, seg_.second};
             }
 
-            forward_allowed_break_iterator & operator++() noexcept
+            forward_allowed_break_iterator & operator++()
             {
                 auto const next_it = (*next_func_)(seg_.second, last_);
                 seg_.first = seg_.second;
@@ -1825,7 +1824,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
             friend bool operator==(
                 forward_allowed_break_iterator lhs,
-                forward_allowed_break_iterator rhs) noexcept
+                forward_allowed_break_iterator rhs)
             {
                 return lhs.seg_ == rhs.seg_;
             }
@@ -1836,7 +1835,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     std::is_same<Sentinel, CPSentinel>::value,
                 bool>
             operator==(
-                forward_allowed_break_iterator lhs, Sentinel rhs) noexcept
+                forward_allowed_break_iterator lhs, Sentinel rhs)
             {
                 return lhs.seg_.first == rhs;
             }
@@ -1921,13 +1920,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 Extent,
                 CPExtentFunc>>::type;
 
-        forward_line_break_view() noexcept {}
+        forward_line_break_view() {}
         forward_line_break_view(
             CPIter first,
             CPSentinel last,
             Extent max_extent,
             CPExtentFunc cp_extent,
-            bool break_overlong_lines) noexcept :
+            bool break_overlong_lines) :
             next_(max_extent, std::move(cp_extent), break_overlong_lines),
             first_(first, last, &next_)
         {
@@ -1940,11 +1939,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     CPExtentFunc>>::call(first, last, &next_);
         }
 
-        iterator begin() const noexcept { return first_; }
-        sentinel end() const noexcept { return last_; }
+        iterator begin() const { return first_; }
+        sentinel end() const { return last_; }
 
         /** Moves the contained `CPExtentFunc` out of *this. */
-        CPExtentFunc extent_func() && noexcept
+        CPExtentFunc extent_func() &&
         {
             return std::move(next_).extent_func();
         }
@@ -1969,7 +1968,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             Sentinel last,
             Extent max_extent,
             CPExtentFunc cp_extent,
-            bool break_overlong_lines = true) noexcept
+            bool break_overlong_lines = true)
         {
             return {
                 first,
@@ -1989,7 +1988,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             CPRange && range,
             Extent max_extent,
             CPExtentFunc cp_extent,
-            bool break_overlong_lines = true) noexcept
+            bool break_overlong_lines = true)
         {
             return {
                 detail::begin(range),
@@ -2004,7 +2003,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             GraphemeRange && range,
             Extent max_extent,
             CPExtentFunc cp_extent,
-            bool break_overlong_lines = true) noexcept
+            bool break_overlong_lines = true)
             -> forward_line_break_view<
                 gr_rng_cp_iter_t<GraphemeRange>,
                 gr_rng_cp_sent_t<GraphemeRange>,
@@ -2022,7 +2021,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename CPIter, typename Sentinel>
         line_break_cp_view<CPIter>
-        allowed_line_impl(CPIter first, CPIter it, Sentinel last) noexcept
+        allowed_line_impl(CPIter first, CPIter it, Sentinel last)
         {
             auto const first_ =
                 detail::prev_allowed_line_break_impl(first, it, last);
@@ -2032,7 +2031,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
 
         template<typename CPRange, typename CPIter>
-        auto allowed_line_cr_impl(CPRange && range, CPIter it) noexcept
+        auto allowed_line_cr_impl(CPRange && range, CPIter it)
             -> line_break_cp_view<iterator_t<CPRange>>
         {
             auto const first =
@@ -2046,7 +2045,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         template<typename GraphemeRange, typename GraphemeIter>
         auto
-        allowed_line_gr_impl(GraphemeRange && range, GraphemeIter it) noexcept
+        allowed_line_gr_impl(GraphemeRange && range, GraphemeIter it)
             -> line_break_grapheme_view<decltype(range.begin().base())>
         {
             auto const first =
@@ -2063,10 +2062,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                   std::bidirectional_iterator_tag,
                   Subrange>
         {
-            allowed_break_iterator() noexcept = default;
+            allowed_break_iterator() = default;
 
             // begin
-            allowed_break_iterator(CPIter first, CPSentinel last) noexcept :
+            allowed_break_iterator(CPIter first, CPSentinel last) :
                 first_(first), seg_({first, false}, {first, false}), last_(last)
             {
                 seg_.second = detail::next_allowed_line_break_impl(
@@ -2075,16 +2074,16 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
             // end
             allowed_break_iterator(
-                CPIter first, CPIter it, CPSentinel last) noexcept :
+                CPIter first, CPIter it, CPSentinel last) :
                 first_(first), seg_({it, false}, {it, false}), last_(last)
             {}
 
-            Subrange operator*() const noexcept
+            Subrange operator*() const
             {
                 return Subrange{seg_.first, seg_.second};
             }
 
-            allowed_break_iterator & operator++() noexcept
+            allowed_break_iterator & operator++()
             {
                 auto const next_it = detail::next_allowed_line_break_impl(
                     seg_.second.iter, last_);
@@ -2093,7 +2092,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 return *this;
             }
 
-            allowed_break_iterator & operator--() noexcept
+            allowed_break_iterator & operator--()
             {
                 if (seg_.first == first_) {
                     seg_.second.iter = first_;
@@ -2116,7 +2115,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             }
 
             friend bool operator==(
-                allowed_break_iterator lhs, allowed_break_iterator rhs) noexcept
+                allowed_break_iterator lhs, allowed_break_iterator rhs)
             {
                 return lhs.seg_ == rhs.seg_;
             }
@@ -2126,7 +2125,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 !std::is_same<CPIter, CPSentinel>::value &&
                     std::is_same<Sentinel, CPSentinel>::value,
                 bool>
-            operator==(allowed_break_iterator lhs, Sentinel rhs) noexcept
+            operator==(allowed_break_iterator lhs, Sentinel rhs)
             {
                 return lhs.seg_.first == rhs;
             }
@@ -2181,8 +2180,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         using sentinel = typename detail::
             make_allowed_break_iter_last<iterator, CPIter, CPSentinel>::type;
 
-        line_break_view() noexcept {}
-        line_break_view(CPIter first, CPSentinel last) noexcept :
+        line_break_view() {}
+        line_break_view(CPIter first, CPSentinel last) :
             first_(first, last)
         {
             last_ = detail::make_allowed_break_iter_last<
@@ -2191,8 +2190,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 CPSentinel>::call(first, last);
         }
 
-        iterator begin() const noexcept { return first_; }
-        sentinel end() const noexcept { return last_; }
+        iterator begin() const { return first_; }
+        sentinel end() const { return last_; }
 
     private:
         iterator first_;
@@ -2202,20 +2201,20 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     namespace detail {
         template<typename CPIter, typename Sentinel>
         line_break_view<CPIter, Sentinel>
-        allowed_lines_impl(CPIter first, Sentinel last) noexcept
+        allowed_lines_impl(CPIter first, Sentinel last)
         {
             return {first, last};
         }
 
         template<typename CPRange>
-        auto allowed_lines_cr_impl(CPRange && range) noexcept
+        auto allowed_lines_cr_impl(CPRange && range)
             -> line_break_view<iterator_t<CPRange>, sentinel_t<CPRange>>
         {
             return {detail::begin(range), detail::end(range)};
         }
 
         template<typename GraphemeRange>
-        auto allowed_lines_gr_impl(GraphemeRange && range) noexcept
+        auto allowed_lines_gr_impl(GraphemeRange && range)
             -> line_break_view<
                 gr_rng_cp_iter_t<GraphemeRange>,
                 gr_rng_cp_sent_t<GraphemeRange>,
@@ -2238,14 +2237,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         code point of a line).  A hard line break follows any code points with
         the property BK, CR (not followed by LF), LF, or NL. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    I prev_hard_line_break(I first, I it, S last) noexcept;
+    I prev_hard_line_break(I first, I it, S last);
 
     /** Returns true iff `it` is at the beginning of a line (considering only
         hard line breaks), or `it == last`.  A hard line break follows any
         code points with the property BK, CR (not followed by LF), LF, or
         NL. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    bool at_hard_line_break(I first, I it, S last) noexcept;
+    bool at_hard_line_break(I first, I it, S last);
 
     /** Finds the nearest line break opportunity at or before before `it`.  If
         `it == first`, that is returned.  Otherwise, the first code point of
@@ -2253,24 +2252,24 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         the first code point of a line). */
     template<code_point_iter I, std::sentinel_for<I> S>
     line_break_result<I> prev_allowed_line_break(
-        I first, I it, S last) noexcept;
+        I first, I it, S last);
 
     /** Returns true iff `it` is at the beginning of a line, or `it ==
         last`. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    bool at_allowed_line_break(I first, I it, S last) noexcept;
+    bool at_allowed_line_break(I first, I it, S last);
 
 #else
 
     template<typename CPIter, typename Sentinel>
-    auto prev_hard_line_break(CPIter first, CPIter it, Sentinel last) noexcept
+    auto prev_hard_line_break(CPIter first, CPIter it, Sentinel last)
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::prev_line_break_impl(first, it, last, true).iter;
     }
 
     template<typename CPIter, typename Sentinel>
-    auto at_hard_line_break(CPIter first, CPIter it, Sentinel last) noexcept
+    auto at_hard_line_break(CPIter first, CPIter it, Sentinel last)
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
         if (it == last)
@@ -2280,14 +2279,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename CPIter, typename Sentinel>
     auto
-    prev_allowed_line_break(CPIter first, CPIter it, Sentinel last) noexcept
+    prev_allowed_line_break(CPIter first, CPIter it, Sentinel last)
         -> detail::cp_iter_ret_t<line_break_result<CPIter>, CPIter>
     {
         return detail::prev_line_break_impl(first, it, last, false);
     }
 
     template<typename CPIter, typename Sentinel>
-    auto at_allowed_line_break(CPIter first, CPIter it, Sentinel last) noexcept
+    auto at_allowed_line_break(CPIter first, CPIter it, Sentinel last)
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
         if (it == last)
@@ -2305,13 +2304,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    I prev_hard_line_break(I first, I it, S last) noexcept
+    I prev_hard_line_break(I first, I it, S last)
     {
         return detail::prev_line_break_impl(first, it, last, true).iter;
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    bool at_hard_line_break(I first, I it, S last) noexcept
+    bool at_hard_line_break(I first, I it, S last)
     {
         if (it == last)
             return true;
@@ -2319,13 +2318,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    line_break_result<I> prev_allowed_line_break(I first, I it, S last) noexcept
+    line_break_result<I> prev_allowed_line_break(I first, I it, S last)
     {
         return detail::prev_line_break_impl(first, it, last, false);
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    bool at_allowed_line_break(I first, I it, S last) noexcept
+    bool at_allowed_line_break(I first, I it, S last)
     {
         if (it == last)
             return true;
@@ -2347,7 +2346,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `first` is at the beginning of a line. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    I next_hard_line_break(I first, S last) noexcept;
+    I next_hard_line_break(I first, S last);
 
     /** Finds the next line break opportunity after `first`. This will be the
         first code point after the current line, or `last` if no next line
@@ -2355,7 +2354,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `first` is at the beginning of a line. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    line_break_result<I> next_allowed_line_break(I first, S last) noexcept;
+    line_break_result<I> next_allowed_line_break(I first, S last);
 
     /** Finds the nearest hard line break at or before before `it`. If `it ==
         r.begin()`, that is returned.  Otherwise, the first code point of
@@ -2364,7 +2363,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         points with the property BK, CR (not followed by LF), LF, or NL. */
     template<code_point_range R>
     std::ranges::iterator_t<R> prev_hard_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the nearest hard line break at or
         before before `it`.  If `it == r.begin()`, that is returned.
@@ -2374,7 +2373,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         followed by LF), LF, or NL. */
     template<grapheme_range R>
     std::ranges::iterator_t<R> prev_hard_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Finds the next hard line break after `it`.  This will be the first
         code point after the current line, or `r.end()` if no next line
@@ -2384,7 +2383,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         \pre `it` is at the beginning of a line. */
     template<code_point_range R>
     std::ranges::iterator_t<R> next_hard_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the next hard line break after `it`.
         This will be the first grapheme after the current line, or
@@ -2394,7 +2393,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         \pre `it` is at the beginning of a line. */
     template<grapheme_range R>
     std::ranges::iterator_t<R> next_hard_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Finds the nearest line break opportunity at or before before `it`.  If
         `it == r.begin()`, that is returned.  Otherwise, the first code
@@ -2402,7 +2401,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         already at the first code point of a line. */
     template<code_point_range R>
     line_break_result<std::ranges::iterator_t<R>> prev_allowed_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the nearest line break opportunity at
         or before before `it`.  If `it == r.begin()`, that is returned.
@@ -2410,7 +2409,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         returned (even if `it` is already at the first grapheme of a line). */
     template<grapheme_range R>
     auto prev_allowed_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Finds the next line break opportunity after `it`.  This will be the
         first code point after the current line, or `r.end()` if no next
@@ -2419,7 +2418,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         \pre `it` is at the beginning of a line. */
     template<code_point_range R>
     line_break_result<std::ranges::iterator_t<R>> next_allowed_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the next line break opportunity after
         `it`.  This will be the first grapheme after the current line, or
@@ -2428,50 +2427,50 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         \pre `it` is at the beginning of a line. */
     template<grapheme_range R>
     line_break_result<std::ranges::iterator_t<R>> next_allowed_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns true iff `it` is at the beginning of a line (considering only
         hard line breaks), or `it == detail::end(range)`.  A hard line break
         follows any code points with the property BK, CR (not followed by LF),
         LF, or NL. */
     template<code_point_range R>
-    bool at_hard_line_break(R && r, std::ranges::iterator_t<R> it) noexcept;
+    bool at_hard_line_break(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns true iff `it` is at the beginning of a line (considering only
         hard line breaks), or `it == detail::end(range)`.  A hard line break
         follows any code points with the property BK, CR (not followed by LF),
         LF, or NL. */
     template<grapheme_range R>
-    bool at_hard_line_break(R && r, std::ranges::iterator_t<R> it) noexcept;
+    bool at_hard_line_break(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns true iff `it` is at the beginning of a line, or `it ==
         detail::end(range)`. */
     template<code_point_range R>
-    bool at_allowed_line_break(R && r, std::ranges::iterator_t<R> it) noexcept;
+    bool at_allowed_line_break(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns true iff `it` is at the beginning of a line, or `it ==
         detail::end(range)`. */
     template<grapheme_range R>
-    bool at_allowed_line_break(R && r, std::ranges::iterator_t<R> it) noexcept;
+    bool at_allowed_line_break(R && r, std::ranges::iterator_t<R> it);
 
 #else
 
     template<typename CPIter, typename Sentinel>
-    auto next_hard_line_break(CPIter first, Sentinel last) noexcept
+    auto next_hard_line_break(CPIter first, Sentinel last)
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::next_hard_line_break_impl(first, last);
     }
 
     template<typename CPIter, typename Sentinel>
-    auto next_allowed_line_break(CPIter first, Sentinel last) noexcept
+    auto next_allowed_line_break(CPIter first, Sentinel last)
         -> detail::cp_iter_ret_t<line_break_result<CPIter>, CPIter>
     {
         return detail::next_allowed_line_break_impl(first, last);
     }
 
     template<typename CPRange, typename CPIter>
-    auto prev_hard_line_break(CPRange && range, CPIter it) noexcept
+    auto prev_hard_line_break(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return detail::prev_hard_line_break_cr_impl(range, it);
@@ -2479,14 +2478,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto prev_hard_line_break(
-        GraphemeRange && range, GraphemeIter it) noexcept->detail::
+        GraphemeRange && range, GraphemeIter it)->detail::
         graph_rng_alg_ret_t<detail::iterator_t<GraphemeRange>, GraphemeRange>
     {
         return detail::prev_hard_line_break_gr_impl(range, it);
     }
 
     template<typename CPRange, typename CPIter>
-    auto next_hard_line_break(CPRange && range, CPIter it) noexcept
+    auto next_hard_line_break(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return detail::next_hard_line_break_cr_impl(range, it);
@@ -2494,14 +2493,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto next_hard_line_break(
-        GraphemeRange && range, GraphemeIter it) noexcept->detail::
+        GraphemeRange && range, GraphemeIter it)->detail::
         graph_rng_alg_ret_t<detail::iterator_t<GraphemeRange>, GraphemeRange>
     {
         return detail::next_hard_line_break_gr_impl(range, it);
     }
 
     template<typename CPRange, typename CPIter>
-    auto prev_allowed_line_break(CPRange && range, CPIter it) noexcept
+    auto prev_allowed_line_break(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<
             line_break_result<detail::iterator_t<CPRange>>,
             CPRange>
@@ -2511,7 +2510,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto prev_allowed_line_break(
-        GraphemeRange && range, GraphemeIter it) noexcept
+        GraphemeRange && range, GraphemeIter it)
         ->detail::graph_rng_alg_ret_t<
             line_break_result<detail::iterator_t<GraphemeRange>>,
             GraphemeRange>
@@ -2520,7 +2519,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename CPRange, typename CPIter>
-    auto next_allowed_line_break(CPRange && range, CPIter it) noexcept
+    auto next_allowed_line_break(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<
             line_break_result<detail::iterator_t<CPRange>>,
             CPRange>
@@ -2530,7 +2529,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto next_allowed_line_break(
-        GraphemeRange && range, GraphemeIter it) noexcept
+        GraphemeRange && range, GraphemeIter it)
         ->detail::graph_rng_alg_ret_t<
             line_break_result<detail::iterator_t<GraphemeRange>>,
             GraphemeRange>
@@ -2539,7 +2538,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename CPRange, typename CPIter>
-    auto at_hard_line_break(CPRange && range, CPIter it) noexcept
+    auto at_hard_line_break(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return detail::at_hard_line_break_cr_impl(range, it);
@@ -2547,14 +2546,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    at_hard_line_break(GraphemeRange && range, GraphemeIter it) noexcept
+    at_hard_line_break(GraphemeRange && range, GraphemeIter it)
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         return detail::at_hard_line_break_gr_impl(range, it);
     }
 
     template<typename CPRange, typename CPIter>
-    auto at_allowed_line_break(CPRange && range, CPIter it) noexcept
+    auto at_allowed_line_break(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return detail::at_allowed_line_break_cr_impl(range, it);
@@ -2562,7 +2561,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    at_allowed_line_break(GraphemeRange && range, GraphemeIter it) noexcept
+    at_allowed_line_break(GraphemeRange && range, GraphemeIter it)
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         return detail::at_allowed_line_break_gr_impl(range, it);
@@ -2575,72 +2574,72 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns the bounds of the line (using hard line breaks) that
         `it` lies within. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    utf32_view<I> line(I first, I it, S last) noexcept;
+    utf32_view<I> line(I first, I it, S last);
 
     /** Returns the bounds of the line (using hard line breaks) that `it` lies
         within, as a utf32_view. */
     template<code_point_range R>
     utf32_view<std::ranges::iterator_t<R>> line(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns grapheme range delimiting the bounds of the line (using hard
         line breaks) that `it` lies within, as a grapheme_view. */
     template<grapheme_range R>
     grapheme_view<code_point_iterator_t<R>> line(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns the bounds of the smallest chunk of text that could be broken
         off into a line, searching from `it` in either direction. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    line_break_cp_view<I> allowed_line(I first, I it, S last) noexcept;
+    line_break_cp_view<I> allowed_line(I first, I it, S last);
 
     /** Returns the bounds of the smallest chunk of text that could be broken
         off into a line, searching from `it` in either direction, as a
         line_break_cp_view. */
     template<code_point_range R>
     line_break_cp_view<std::ranges::iterator_t<R>> allowed_line(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme range delimiting the bounds of the line (using hard
         line breaks) that `it` lies within, as a line_break_grapheme_view. */
     template<grapheme_range R>
     line_break_grapheme_view<code_point_iterator_t<R>> allowed_line(
-        R && r, std::ranges::iterator_t<R> it) noexcept;
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a view of the code point ranges delimiting lines (using hard
         line breaks) in `[first, last)`. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    detail::unspecified lines(I first, S last) noexcept;
+    detail::unspecified lines(I first, S last);
 
     /** Returns a view of the code point ranges delimiting lines (using hard
         line breaks) in `r`.  The result is returned as a `borrowed_view_t` in
         C++20 and later. */
     template<code_point_range R>
-    detail::unspecified lines(R && r) noexcept;
+    detail::unspecified lines(R && r);
 
     /** Returns a view of the grapheme ranges delimiting lines (using hard
         line breaks) in `r`.  The result is returned as a `borrowed_view_t` in
         C++20 and later. */
     template<grapheme_range R>
-    detail::unspecified lines(R && r) noexcept;
+    detail::unspecified lines(R && r);
 
 #else
 
     template<typename CPIter, typename Sentinel>
-    utf32_view<CPIter> line(CPIter first, CPIter it, Sentinel last) noexcept
+    utf32_view<CPIter> line(CPIter first, CPIter it, Sentinel last)
     {
         return detail::line_impl(first, it, last);
     }
 
     template<typename CPRange, typename CPIter>
-    auto line(CPRange && range, CPIter it) noexcept -> detail::
+    auto line(CPRange && range, CPIter it) -> detail::
         cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
         return detail::line_cr_impl(range, it);
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto line(GraphemeRange && range, GraphemeIter it) noexcept
+    auto line(GraphemeRange && range, GraphemeIter it)
         -> detail::graph_rng_alg_ret_t<
             grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
@@ -2670,7 +2669,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         S last,
         Extent max_extent,
         ExtentFunc && cp_extent,
-        bool break_overlong_lines = true) noexcept;
+        bool break_overlong_lines = true);
 
     /** Returns a view of the code point ranges in `r` delimiting lines.
         A line that does not end in a hard break will end in a allowed break
@@ -2690,7 +2689,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         R && r,
         Extent max_extent,
         ExtentFunc cp_extent,
-        bool break_overlong_lines = true) noexcept;
+        bool break_overlong_lines = true);
 
     /** Returns a view of the grapheme ranges in `r` delimiting lines.  A
         line that does not end in a hard break will end in a allowed break
@@ -2709,39 +2708,39 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         R && r,
         Extent max_extent,
         ExtentFunc cp_extent,
-        bool break_overlong_lines = true) noexcept;
+        bool break_overlong_lines = true);
 
     /** Returns a view of the code point ranges delimiting allowed lines in
         `[first, last)`. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    detail::unspecified lines(I first, S last, allowed_breaks_t) noexcept;
+    detail::unspecified lines(I first, S last, allowed_breaks_t);
 
     /** Returns a view of the code point ranges delimiting allowed lines in
         `r`.  The result is returned as a `borrowed_view_t` in C++20 and
         later. */
     template<code_point_range R>
-    detail::unspecified lines(R && r, allowed_breaks_t) noexcept;
+    detail::unspecified lines(R && r, allowed_breaks_t);
 
     /** Returns a view of the grapheme ranges delimiting allowed lines in `r`.
         The result is returned as a `borrowed_view_t` in C++20 and later. */
     template<grapheme_range R>
-    detail::unspecified lines(R && r, allowed_breaks_t) noexcept;
+    detail::unspecified lines(R && r, allowed_breaks_t);
 
     /** Returns a view adaptor that can combined with a `code_point_range` or
         `grapheme_range` `r`, as in `r | lines(allowed_breaks)`. */
-    detail::unspecified lines(allowed_breaks_t) noexcept;
+    detail::unspecified lines(allowed_breaks_t);
 
 #else
 
     template<typename CPIter, typename Sentinel>
     line_break_cp_view<CPIter>
-    allowed_line(CPIter first, CPIter it, Sentinel last) noexcept
+    allowed_line(CPIter first, CPIter it, Sentinel last)
     {
         return detail::allowed_line_impl(first, it, last);
     }
 
     template<typename CPRange, typename CPIter>
-    auto allowed_line(CPRange && range, CPIter it) noexcept
+    auto allowed_line(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<
             line_break_cp_view<detail::iterator_t<CPRange>>,
             CPRange>
@@ -2750,7 +2749,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto allowed_line(GraphemeRange && range, GraphemeIter it) noexcept
+    auto allowed_line(GraphemeRange && range, GraphemeIter it)
         ->detail::graph_rng_alg_ret_t<
             line_break_grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
@@ -2770,7 +2769,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 typename Sentinel,
                 typename Enable = std::enable_if_t<
                     !is_detected<does_arithmetic, CPIter>::value>>
-            auto operator()(CPIter first, Sentinel last) const noexcept
+            auto operator()(CPIter first, Sentinel last) const
             {
                 return detail::breaks_impl<
                     detail::prev_hard_line_break_callable,
@@ -2778,7 +2777,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
 
             template<typename CPRange>
-            auto operator()(CPRange && r) const noexcept
+            auto operator()(CPRange && r) const
                 -> detail::cp_rng_alg_ret_t<
                     decltype(detail::breaks_cr_impl<
                              detail::prev_hard_line_break_callable,
@@ -2791,7 +2790,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
 
             template<typename GraphemeRange>
-            auto operator()(GraphemeRange && r) const noexcept
+            auto operator()(GraphemeRange && r) const
                 -> detail::graph_rng_alg_ret_t<
                     decltype(detail::breaks_gr_impl<
                              detail::prev_hard_line_break_callable,
@@ -2813,7 +2812,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 Sentinel last,
                 Extent max_extent,
                 ExtentFunc && cp_extent,
-                bool break_overlong_lines = true) const noexcept
+                bool break_overlong_lines = true) const
             {
                 return detail::lines_impl(
                     first,
@@ -2828,7 +2827,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 CPRange && r,
                 Extent max_extent,
                 ExtentFunc cp_extent,
-                bool break_overlong_lines = true) const noexcept
+                bool break_overlong_lines = true) const
                 -> detail::cp_rng_alg_ret_t<
                     forward_line_break_view<
                         detail::iterator_t<CPRange>,
@@ -2850,7 +2849,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 GraphemeRange && r,
                 Extent max_extent,
                 ExtentFunc cp_extent,
-                bool break_overlong_lines = true) const noexcept
+                bool break_overlong_lines = true) const
                 -> detail::graph_rng_alg_ret_t<
                     forward_line_break_view<
                         detail::gr_rng_cp_iter_t<GraphemeRange>,
@@ -2873,7 +2872,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             auto operator()(
                 Extent max_extent,
                 ExtentFunc cp_extent,
-                bool break_overlong_lines = true) const noexcept
+                bool break_overlong_lines = true) const
             {
                 using closure_func_type = decltype(boost::text::bind_back(
                     *this,
@@ -2889,13 +2888,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
             template<typename CPIter, typename Sentinel>
             auto operator()(
-                CPIter first, Sentinel last, allowed_breaks_t) const noexcept
+                CPIter first, Sentinel last, allowed_breaks_t) const
             {
                 return detail::allowed_lines_impl(first, last);
             }
 
             template<typename CPRange>
-            auto operator()(CPRange && r, allowed_breaks_t) const noexcept
+            auto operator()(CPRange && r, allowed_breaks_t) const
                 -> detail::cp_rng_alg_ret_t<
                     line_break_view<
                         detail::iterator_t<CPRange>,
@@ -2906,7 +2905,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
 
             template<typename GraphemeRange>
-            auto operator()(GraphemeRange && r, allowed_breaks_t) const noexcept
+            auto operator()(GraphemeRange && r, allowed_breaks_t) const
                 -> detail::graph_rng_alg_ret_t<
                     line_break_view<
                         detail::gr_rng_cp_iter_t<GraphemeRange>,
@@ -2918,7 +2917,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 return detail::allowed_lines_gr_impl(r);
             }
 
-            auto operator()(allowed_breaks_t ab) const noexcept
+            auto operator()(allowed_breaks_t ab) const
             {
                 using closure_func_type =
                     decltype(boost::text::bind_back(*this, std::move(ab)));
@@ -2951,132 +2950,132 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     //]
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    I next_hard_line_break(I first, S last) noexcept
+    I next_hard_line_break(I first, S last)
     {
         return detail::next_hard_line_break_impl(first, last);
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    line_break_result<I> next_allowed_line_break(I first, S last) noexcept
+    line_break_result<I> next_allowed_line_break(I first, S last)
     {
         return detail::next_allowed_line_break_impl(first, last);
     }
 
     template<code_point_range R>
     std::ranges::iterator_t<R> prev_hard_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_hard_line_break_cr_impl(r, it);
     }
 
     template<grapheme_range R>
     std::ranges::iterator_t<R> prev_hard_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_hard_line_break_gr_impl(r, it);
     }
 
     template<code_point_range R>
     std::ranges::iterator_t<R> next_hard_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_hard_line_break_cr_impl(r, it);
     }
 
     template<grapheme_range R>
     std::ranges::iterator_t<R> next_hard_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_hard_line_break_gr_impl(r, it);
     }
 
     template<code_point_range R>
     line_break_result<std::ranges::iterator_t<R>> prev_allowed_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_allowed_line_break_cr_impl(r, it);
     }
 
     template<grapheme_range R>
-    auto prev_allowed_line_break(R && r, std::ranges::iterator_t<R> it) noexcept
+    auto prev_allowed_line_break(R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_allowed_line_break_gr_impl(r, it);
     }
 
     template<code_point_range R>
     line_break_result<std::ranges::iterator_t<R>> next_allowed_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_allowed_line_break_cr_impl(r, it);
     }
 
     template<grapheme_range R>
     line_break_result<std::ranges::iterator_t<R>> next_allowed_line_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_allowed_line_break_gr_impl(r, it);
     }
 
     template<code_point_range R>
-    bool at_hard_line_break(R && r, std::ranges::iterator_t<R> it) noexcept
+    bool at_hard_line_break(R && r, std::ranges::iterator_t<R> it)
     {
         return detail::at_hard_line_break_cr_impl(r, it);
     }
 
     template<grapheme_range R>
-    bool at_hard_line_break(R && r, std::ranges::iterator_t<R> it) noexcept
+    bool at_hard_line_break(R && r, std::ranges::iterator_t<R> it)
     {
         return detail::at_hard_line_break_gr_impl(r, it);
     }
 
     template<code_point_range R>
-    bool at_allowed_line_break(R && r, std::ranges::iterator_t<R> it) noexcept
+    bool at_allowed_line_break(R && r, std::ranges::iterator_t<R> it)
     {
         return detail::at_allowed_line_break_cr_impl(r, it);
     }
 
     template<grapheme_range R>
-    bool at_allowed_line_break(R && r, std::ranges::iterator_t<R> it) noexcept
+    bool at_allowed_line_break(R && r, std::ranges::iterator_t<R> it)
     {
         return detail::at_allowed_line_break_gr_impl(r, it);
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    utf32_view<I> line(I first, I it, S last) noexcept
+    utf32_view<I> line(I first, I it, S last)
     {
         return detail::line_impl(first, it, last);
     }
 
     template<code_point_range R>
     utf32_view<std::ranges::iterator_t<R>> line(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::line_cr_impl(r, it);
     }
 
     template<grapheme_range R>
     grapheme_view<code_point_iterator_t<R>> line(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::line_gr_impl(r, it);
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    line_break_cp_view<I> allowed_line(I first, I it, S last) noexcept
+    line_break_cp_view<I> allowed_line(I first, I it, S last)
     {
         return detail::allowed_line_impl(first, it, last);
     }
 
     template<code_point_range R>
     line_break_cp_view<std::ranges::iterator_t<R>> allowed_line(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::allowed_line_cr_impl(r, it);
     }
 
     template<grapheme_range R>
     line_break_grapheme_view<code_point_iterator_t<R>> allowed_line(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::allowed_line_gr_impl(r, it);
     }
@@ -3085,7 +3084,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         struct lines_impl : range_adaptor_closure<lines_impl>
         {
             template<code_point_iter I, std::sentinel_for<I> S>
-            auto operator()(I first, S last) const noexcept
+            auto operator()(I first, S last) const
             {
                 return detail::breaks_impl<
                     detail::prev_hard_line_break_callable,
@@ -3093,7 +3092,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
 
             template<code_point_range R>
-            auto operator()(R && r) const noexcept
+            auto operator()(R && r) const
             {
                 if constexpr (std::ranges::borrowed_range<R>) {
                     return detail::breaks_cr_impl<
@@ -3105,7 +3104,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
 
             template<grapheme_range R>
-            auto operator()(R && r) const noexcept
+            auto operator()(R && r) const
             {
                 if constexpr (std::ranges::borrowed_range<R>) {
                     return detail::breaks_gr_impl<
@@ -3127,7 +3126,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 S last,
                 Extent max_extent,
                 ExtentFunc && cp_extent,
-                bool break_overlong_lines = true) const noexcept
+                bool break_overlong_lines = true) const
             {
                 return detail::lines_impl(
                     first,
@@ -3147,7 +3146,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 R && r,
                 Extent max_extent,
                 ExtentFunc cp_extent,
-                bool break_overlong_lines = true) const noexcept
+                bool break_overlong_lines = true) const
             {
                 if constexpr (std::ranges::borrowed_range<R>) {
                     return detail::lines_cr_impl(
@@ -3170,7 +3169,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 R && r,
                 Extent max_extent,
                 ExtentFunc cp_extent,
-                bool break_overlong_lines = true) const noexcept
+                bool break_overlong_lines = true) const
             {
                 if constexpr (std::ranges::borrowed_range<R>) {
                     return detail::lines_gr_impl(
@@ -3188,7 +3187,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             auto operator()(
                 Extent max_extent,
                 ExtentFunc cp_extent,
-                bool break_overlong_lines = true) const noexcept
+                bool break_overlong_lines = true) const
             {
                 return closure(boost::text::bind_back(
                     *this,
@@ -3198,13 +3197,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
 
             template<code_point_iter I, std::sentinel_for<I> S>
-            auto operator()(I first, S last, allowed_breaks_t) const noexcept
+            auto operator()(I first, S last, allowed_breaks_t) const
             {
                 return detail::allowed_lines_impl(first, last);
             }
 
             template<code_point_range R>
-            auto operator()(R && r, allowed_breaks_t) const noexcept
+            auto operator()(R && r, allowed_breaks_t) const
             {
                 if constexpr (std::ranges::borrowed_range<R>)
                     return detail::allowed_lines_cr_impl(r);
@@ -3213,7 +3212,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
 
             template<grapheme_range R>
-            auto operator()(R && r, allowed_breaks_t) const noexcept
+            auto operator()(R && r, allowed_breaks_t) const
             {
                 if constexpr (std::ranges::borrowed_range<R>)
                     return detail::allowed_lines_gr_impl(r);
@@ -3221,7 +3220,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     return std::ranges::dangling{};
             }
 
-            auto operator()(allowed_breaks_t ab) const noexcept
+            auto operator()(allowed_breaks_t ab) const
             {
                 return closure(boost::text::bind_back(*this, std::move(ab)));
             }

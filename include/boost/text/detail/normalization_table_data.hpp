@@ -43,76 +43,76 @@ namespace boost { namespace text { namespace detail {
             BOOST_ASSERT((min_maybe_yes & 7) == 0);
         }
 
-        uint16_t get_norm16(int32_t c) const noexcept
+        uint16_t get_norm16(int32_t c) const
         {
             return ((c & 0xfffffc00) == 0xd800) ? inert : trie.fast_get(c);
         }
 
-        bool algorithmic_no_no(uint16_t norm16) const noexcept
+        bool algorithmic_no_no(uint16_t norm16) const
         {
             return limit_no_no <= norm16 && norm16 < min_maybe_yes;
         }
-        bool decomp_yes(uint16_t norm16) const noexcept
+        bool decomp_yes(uint16_t norm16) const
         {
             return norm16 < min_yes_no || min_maybe_yes <= norm16;
         }
 
-        bool maybe(uint16_t norm16) const noexcept
+        bool maybe(uint16_t norm16) const
         {
             return min_maybe_yes <= norm16 && norm16 <= jamo_vt;
         }
-        bool maybe_or_non_zero_cc(uint16_t norm16) const noexcept
+        bool maybe_or_non_zero_cc(uint16_t norm16) const
         {
             return min_maybe_yes <= norm16;
         }
-        bool is_inert(uint16_t norm16) const noexcept
+        bool is_inert(uint16_t norm16) const
         {
             return norm16 == inert;
         }
-        bool get_jamo_vt(uint16_t norm16) const noexcept
+        bool get_jamo_vt(uint16_t norm16) const
         {
             return norm16 == jamo_vt;
         }
 
-        bool hangul_lv(uint16_t norm16) const noexcept
+        bool hangul_lv(uint16_t norm16) const
         {
             return norm16 == min_yes_no;
         }
-        bool hangul_lvt(uint16_t norm16) const noexcept
+        bool hangul_lvt(uint16_t norm16) const
         {
             return norm16 ==
                    (min_yes_no_mappings_only | has_comp_boundary_after);
         }
 
-        bool comp_yes_and_zero_cc(uint16_t norm16) const noexcept
+        bool comp_yes_and_zero_cc(uint16_t norm16) const
         {
             return norm16 < min_no_no;
         }
-        bool most_decomp_yes_and_zero_cc(uint16_t norm16) const noexcept
+        bool most_decomp_yes_and_zero_cc(uint16_t norm16) const
         {
             return norm16 < min_yes_no || norm16 == min_normal_maybe_yes ||
                    norm16 == jamo_vt;
         }
-        bool decomp_no_algorithmic(uint16_t norm16) const noexcept
+        bool decomp_no_algorithmic(uint16_t norm16) const
         {
             return limit_no_no <= norm16;
         }
 
-        int32_t map_algorithmic(int32_t c, uint16_t norm16) const noexcept
+        int32_t map_algorithmic(int32_t c, uint16_t norm16) const
         {
             return c + (norm16 >> delta_shift) - center_no_no_delta;
         }
-        int32_t get_algorithmic_delta(uint16_t norm16) const noexcept
+        int32_t get_algorithmic_delta(uint16_t norm16) const
         {
             return (norm16 >> delta_shift) - center_no_no_delta;
         }
 
-        uint16_t const * get_mapping(uint16_t norm16) const noexcept
+        uint16_t const * get_mapping(uint16_t norm16) const
         {
             return extra_data + (norm16 >> offset_shift);
         }
         uint16_t const *
-        get_compositions_list_for_decomp_yes(uint16_t norm16) const noexcept
+        get_compositions_list_for_decomp_yes(uint16_t norm16) const
         {
             if (norm16 < jamo_l || min_normal_maybe_yes <= norm16) {
                 return nullptr;
@@ -123,31 +123,31 @@ namespace boost { namespace text { namespace detail {
             }
         }
         uint16_t const *
-        get_compositions_list_for_composite(uint16_t norm16) const noexcept
+        get_compositions_list_for_composite(uint16_t norm16) const
         {
             uint16_t const * list = get_mapping(norm16);
             return list + 1 + (*list & mapping_length_mask);
         }
         uint16_t const *
-        get_compositions_list_for_maybe(uint16_t norm16) const noexcept
+        get_compositions_list_for_maybe(uint16_t norm16) const
         {
             return maybe_yes_compositions +
                    ((norm16 - min_maybe_yes) >> offset_shift);
         }
 
-        bool comp_boundary_before(int32_t c, uint16_t norm16) const noexcept
+        bool comp_boundary_before(int32_t c, uint16_t norm16) const
         {
             return c < min_comp_no_maybe_cp ||
                    norm16_comp_boundary_before(norm16);
         }
-        bool norm16_comp_boundary_before(uint16_t norm16) const noexcept
+        bool norm16_comp_boundary_before(uint16_t norm16) const
         {
             return norm16 < min_no_no_comp_no_maybe_cc ||
                    algorithmic_no_no(norm16);
         }
         template<typename Iter, typename Sentinel>
         bool
-        comp_boundary_before_utf16(Iter first, Sentinel last) const noexcept
+        comp_boundary_before_utf16(Iter first, Sentinel last) const
         {
             if (first == last || *first < min_comp_no_maybe_cp)
                 return true;
@@ -157,7 +157,7 @@ namespace boost { namespace text { namespace detail {
         }
         template<typename CharIter, typename Sentinel>
         bool
-        comp_boundary_before_utf8(CharIter first, Sentinel last) const noexcept
+        comp_boundary_before_utf8(CharIter first, Sentinel last) const
         {
             if (first == last)
                 return true;
@@ -166,7 +166,7 @@ namespace boost { namespace text { namespace detail {
         }
         template<typename Iter, typename Sentinel>
         bool comp_boundary_after_utf16(
-            Iter first, Sentinel last, bool only_contiguous) const noexcept
+            Iter first, Sentinel last, bool only_contiguous) const
         {
             if (first == last)
                 return true;
@@ -176,7 +176,7 @@ namespace boost { namespace text { namespace detail {
         }
         template<typename CharIter>
         bool comp_boundary_after_utf8(
-            CharIter first, CharIter last, bool only_contiguous) const noexcept
+            CharIter first, CharIter last, bool only_contiguous) const
         {
             if (first == last)
                 return true;
@@ -184,13 +184,13 @@ namespace boost { namespace text { namespace detail {
             return norm16_comp_boundary_after(norm16, only_contiguous);
         }
         bool norm16_comp_boundary_after(
-            uint16_t norm16, bool only_contiguous) const noexcept
+            uint16_t norm16, bool only_contiguous) const
         {
             return (norm16 & has_comp_boundary_after) != 0 &&
                    (!only_contiguous ||
                     trail_cc01_for_comp_boundary_after(norm16));
         }
-        bool trail_cc01_for_comp_boundary_after(uint16_t norm16) const noexcept
+        bool trail_cc01_for_comp_boundary_after(uint16_t norm16) const
         {
             return is_inert(norm16) ||
                    (decomp_no_algorithmic(norm16)
@@ -198,7 +198,7 @@ namespace boost { namespace text { namespace detail {
                         : *get_mapping(norm16) <= 0x1ff);
         }
 
-        uint8_t get_cc_from_no_no(uint16_t norm16) const noexcept
+        uint8_t get_cc_from_no_no(uint16_t norm16) const
         {
             uint16_t const * mapping = get_mapping(norm16);
             if (*mapping & mapping_has_ccc_lccc_word)
@@ -206,7 +206,7 @@ namespace boost { namespace text { namespace detail {
             return 0;
         }
         uint8_t
-        get_trail_cc_from_comp_yes_and_zero_cc(uint16_t norm16) const noexcept
+        get_trail_cc_from_comp_yes_and_zero_cc(uint16_t norm16) const
         {
             if (norm16 <= min_yes_no)
                 return 0;
@@ -214,7 +214,7 @@ namespace boost { namespace text { namespace detail {
         }
         template<typename Iter>
         uint8_t
-        get_previous_trail_cc_utf16(Iter first, Iter last) const noexcept
+        get_previous_trail_cc_utf16(Iter first, Iter last) const
         {
             if (first == last)
                 return 0;
@@ -231,7 +231,7 @@ namespace boost { namespace text { namespace detail {
         }
         template<typename CharIter>
         uint8_t
-        get_previous_trail_cc_utf8(CharIter first, CharIter last) const noexcept
+        get_previous_trail_cc_utf8(CharIter first, CharIter last) const
         {
             if (first == last)
                 return 0;
@@ -242,14 +242,14 @@ namespace boost { namespace text { namespace detail {
             return get_fcd_16(c);
         }
 
-        uint16_t const * get_compositions_list(uint16_t norm16) const noexcept
+        uint16_t const * get_compositions_list(uint16_t norm16) const
         {
             return decomp_yes(norm16)
                        ? get_compositions_list_for_decomp_yes(norm16)
                        : get_compositions_list_for_composite(norm16);
         }
 
-        uint16_t get_fcd_16(int32_t c) const noexcept
+        uint16_t get_fcd_16(int32_t c) const
         {
             if (c < min_decomp_no_cp) {
                 return 0;
@@ -259,7 +259,7 @@ namespace boost { namespace text { namespace detail {
             }
             return get_fcd_16_from_norm_data(c);
         }
-        uint16_t get_fcd_16_from_norm_data(int32_t c) const noexcept
+        uint16_t get_fcd_16_from_norm_data(int32_t c) const
         {
             uint16_t norm16 = get_norm16(c);
             if (limit_no_no <= norm16) {
@@ -285,7 +285,7 @@ namespace boost { namespace text { namespace detail {
                 norm16 |= *(mapping - 1) & 0xff00;
             return norm16;
         }
-        bool single_lead_might_have_non_zero_fcd_16(int32_t lead) const noexcept
+        bool single_lead_might_have_non_zero_fcd_16(int32_t lead) const
         {
             uint8_t bits = small_fcd[lead >> 8];
             if (bits == 0)
@@ -293,7 +293,7 @@ namespace boost { namespace text { namespace detail {
             return (bool)((bits >> ((lead >> 5) & 7)) & 1);
         }
 
-        uint8_t get_cc(uint16_t norm16) const noexcept
+        uint8_t get_cc(uint16_t norm16) const
         {
             if (min_normal_maybe_yes <= norm16)
                 return get_cc_from_normal_yes_or_maybe(norm16);
@@ -301,17 +301,17 @@ namespace boost { namespace text { namespace detail {
                 return 0;
             return get_cc_from_no_no(norm16);
         }
-        uint8_t get_cc_from_normal_yes_or_maybe(uint16_t norm16) const noexcept
+        uint8_t get_cc_from_normal_yes_or_maybe(uint16_t norm16) const
         {
             return norm16 >> offset_shift;
         }
-        uint8_t get_cc_from_yes_or_maybe(uint16_t norm16) const noexcept
+        uint8_t get_cc_from_yes_or_maybe(uint16_t norm16) const
         {
             return min_normal_maybe_yes <= norm16
                        ? get_cc_from_normal_yes_or_maybe(norm16)
                        : 0;
         }
-        uint8_t get_cc_from_yes_or_maybe_cp(int32_t c) const noexcept
+        uint8_t get_cc_from_yes_or_maybe_cp(int32_t c) const
         {
             if (c < min_comp_no_maybe_cp)
                 return 0;

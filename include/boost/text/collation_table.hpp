@@ -72,7 +72,7 @@ namespace boost { namespace text {
         inline uint32_t lead_byte(
             collation_element cce,
             nonsimple_reorders_t const & nonsimple_reorders,
-            std::array<uint32_t, 256> const & simple_reorders) noexcept
+            std::array<uint32_t, 256> const & simple_reorders)
         {
             auto const it = std::find_if(
                 nonsimple_reorders.begin(),
@@ -98,11 +98,11 @@ namespace boost { namespace text {
 
         inline bool less(
             temp_table_element::ces_t const & lhs,
-            temp_table_element::ces_t const & rhs) noexcept;
+            temp_table_element::ces_t const & rhs);
 
         inline bool less_equal(
             temp_table_element::ces_t const & lhs,
-            temp_table_element::ces_t const & rhs) noexcept
+            temp_table_element::ces_t const & rhs)
         {
             if (lhs == rhs)
                 return true;
@@ -282,32 +282,32 @@ namespace boost { namespace text {
             variable_weighting weighting = variable_weighting::non_ignorable,
             SizeOutIter * size_out = nullptr) const;
 
-        optional<l2_weight_order> l2_order() const noexcept
+        optional<l2_weight_order> l2_order() const
         {
             return data_->l2_order_;
         }
 
-        optional<case_first> case_1st() const noexcept
+        optional<case_first> case_1st() const
         {
             return data_->case_first_;
         }
 
-        optional<case_level> case_lvl() const noexcept
+        optional<case_level> case_lvl() const
         {
             return data_->case_level_;
         }
 
-        optional<variable_weighting> weighting() const noexcept
+        optional<variable_weighting> weighting() const
         {
             return data_->weighting_;
         }
 
-        detail::collation_trie_t const & trie() const noexcept
+        detail::collation_trie_t const & trie() const
         {
             return data_->trie_;
         }
 
-        bool nonstarter(uint32_t cp) const noexcept
+        bool nonstarter(uint32_t cp) const
         {
             if (cp < data_->nonstarter_first_ || data_->nonstarter_last_ <= cp)
                 return false;
@@ -334,7 +334,7 @@ namespace boost { namespace text {
         {}
 
         detail::collation_element const *
-        collation_elements_begin() const noexcept
+        collation_elements_begin() const
         {
             return data_->collation_elements_
                        ? data_->collation_elements_
@@ -353,7 +353,7 @@ namespace boost { namespace text {
 
         template<typename CharIter>
         friend CharIter
-        write_table(collation_table const & table, CharIter out) noexcept;
+        write_table(collation_table const & table, CharIter out);
         template<typename CharIter>
         friend read_table_result<CharIter> read_table(CharIter it);
 
@@ -491,7 +491,7 @@ namespace boost { namespace text {
 
         template<typename Iter>
         Iter last_ce_at_least_strength(
-            Iter first, Iter last, collation_strength strength) noexcept
+            Iter first, Iter last, collation_strength strength)
         {
             for (auto it = last; it != first;) {
                 if (detail::ce_strength(*--it) <= strength)
@@ -1280,7 +1280,7 @@ namespace std {
     {
         using argument_type = boost::text::detail::temp_table_element::ces_t;
         using result_type = std::size_t;
-        result_type operator()(argument_type const & ces) const noexcept
+        result_type operator()(argument_type const & ces) const
         {
             result_type retval = ces.size();
             for (auto ce : ces) {
@@ -1301,8 +1301,8 @@ namespace boost { namespace text {
 
         struct cp_rng
         {
-            uint32_t const * begin() const noexcept { return &cp_; }
-            uint32_t const * end() const noexcept { return &cp_ + 1; }
+            uint32_t const * begin() const { return &cp_; }
+            uint32_t const * end() const { return &cp_ + 1; }
 
             uint32_t cp_;
         };
@@ -1790,7 +1790,7 @@ namespace boost { namespace text {
 
         inline bool less(
             temp_table_element::ces_t const & lhs,
-            temp_table_element::ces_t const & rhs) noexcept
+            temp_table_element::ces_t const & rhs)
         {
             container::static_vector<uint32_t, 256> lhs_bytes;
             container::static_vector<uint32_t, 256> rhs_bytes;

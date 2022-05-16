@@ -79,16 +79,16 @@ namespace boost { namespace text {
                 detail::const_vector_iterator<char_type, string>>>;
 
         /** Default ctor. */
-        basic_rope_view() noexcept {}
+        basic_rope_view() {}
 
         /** Constructs a `basic_rope_view` from a `text`. */
-        basic_rope_view(text const & t) noexcept;
+        basic_rope_view(text const & t);
 
         /** Disable construction from a temporary `text`. */
-        basic_rope_view(text &&) noexcept = delete;
+        basic_rope_view(text &&) = delete;
 
         /** Constructs a `basic_rope_view` from a `text_view`. */
-        basic_rope_view(text_view tv) noexcept;
+        basic_rope_view(text_view tv);
 
         /** Constructs a `basic_rope_view` from a pair of
             `const_rope_iterators`.
@@ -96,50 +96,50 @@ namespace boost { namespace text {
              \pre boost::text::normalized<normalization>(first.base(),
              last.base()) */
         basic_rope_view(
-            const_rope_iterator first, const_rope_iterator last) noexcept;
+            const_rope_iterator first, const_rope_iterator last);
 
         /** Assignment from a `text`. */
-        basic_rope_view & operator=(text const & t) noexcept;
+        basic_rope_view & operator=(text const & t);
 
         /** Disallow assignment from a `text` rvalue. */
-        basic_rope_view & operator=(text &&) noexcept = delete;
+        basic_rope_view & operator=(text &&) = delete;
 
         /** Assignment from a `text_view`. */
-        basic_rope_view & operator=(text_view tv) noexcept;
+        basic_rope_view & operator=(text_view tv);
 
-        const_iterator begin() const noexcept;
-        const_iterator end() const noexcept;
+        const_iterator begin() const;
+        const_iterator end() const;
 
-        const_iterator cbegin() const noexcept { return begin(); }
-        const_iterator cend() const noexcept { return end(); }
+        const_iterator cbegin() const { return begin(); }
+        const_iterator cend() const { return end(); }
 
-        const_reverse_iterator rbegin() const noexcept
+        const_reverse_iterator rbegin() const
         {
             return reverse_iterator(end());
         }
-        const_reverse_iterator rend() const noexcept
+        const_reverse_iterator rend() const
         {
             return reverse_iterator(begin());
         }
 
-        const_reverse_iterator crbegin() const noexcept { return rbegin(); }
-        const_reverse_iterator crend() const noexcept { return rend(); }
+        const_reverse_iterator crbegin() const { return rbegin(); }
+        const_reverse_iterator crend() const { return rend(); }
 
-        bool empty() const noexcept { return begin() == end(); }
+        bool empty() const { return begin() == end(); }
 
         /** Returns the number of code units controlled by `*this`, not
             including the null terminator. */
-        size_type storage_code_units() const noexcept;
+        size_type storage_code_units() const;
 
         /** Returns the number of graphemes in `*this`.  This operation is
             O(n). */
-        size_type distance() const noexcept
+        size_type distance() const
         {
             return std::distance(begin(), end());
         }
 
         /** Swaps `*this` with `rhs`. */
-        void swap(basic_rope_view & rhs) noexcept;
+        void swap(basic_rope_view & rhs);
 
         /** Stream inserter; performs formatted output, in UTF-8 encoding. */
         friend std::ostream & operator<<(std::ostream & os, basic_rope_view rv)
@@ -177,13 +177,13 @@ namespace boost { namespace text {
 #endif
 
         friend bool
-        operator==(basic_rope_view lhs, basic_rope_view rhs) noexcept
+        operator==(basic_rope_view lhs, basic_rope_view rhs)
         {
             return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
         }
 
         friend bool
-        operator!=(basic_rope_view lhs, basic_rope_view rhs) noexcept
+        operator!=(basic_rope_view lhs, basic_rope_view rhs)
         {
             return !(lhs == rhs);
         }
@@ -191,22 +191,22 @@ namespace boost { namespace text {
 
         // Comparisons with text.
 
-        friend bool operator==(basic_rope_view const & lhs, text rhs) noexcept
+        friend bool operator==(basic_rope_view const & lhs, text rhs)
         {
             return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
 
-        friend bool operator==(text lhs, basic_rope_view const & rhs) noexcept
+        friend bool operator==(text lhs, basic_rope_view const & rhs)
         {
             return rhs == lhs;
         }
 
-        friend bool operator!=(basic_rope_view const & lhs, text rhs) noexcept
+        friend bool operator!=(basic_rope_view const & lhs, text rhs)
         {
             return !(lhs == rhs);
         }
 
-        friend bool operator!=(text lhs, basic_rope_view const & rhs) noexcept
+        friend bool operator!=(text lhs, basic_rope_view const & rhs)
         {
             return !(rhs == lhs);
         }
@@ -215,25 +215,25 @@ namespace boost { namespace text {
         // Comparisons with text_view.
 
         friend bool
-        operator==(basic_rope_view const & lhs, text_view rhs) noexcept
+        operator==(basic_rope_view const & lhs, text_view rhs)
         {
             return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
 
         friend bool
-        operator==(text_view lhs, basic_rope_view const & rhs) noexcept
+        operator==(text_view lhs, basic_rope_view const & rhs)
         {
             return rhs == lhs;
         }
 
         friend bool
-        operator!=(basic_rope_view const & lhs, text_view rhs) noexcept
+        operator!=(basic_rope_view const & lhs, text_view rhs)
         {
             return !(lhs == rhs);
         }
 
         friend bool
-        operator!=(text_view lhs, basic_rope_view const & rhs) noexcept
+        operator!=(text_view lhs, basic_rope_view const & rhs)
         {
             return !(rhs == lhs);
         }
@@ -248,7 +248,7 @@ namespace boost { namespace text {
     private:
         using urv_iter = detail::const_rope_view_iterator<char_type, string>;
         static iterator
-        make_iter(urv_iter first, urv_iter it, urv_iter last) noexcept
+        make_iter(urv_iter first, urv_iter it, urv_iter last)
         {
             return iterator{
                 detail::rope_transcode_iterator_t<char_type, urv_iter>{
@@ -317,21 +317,21 @@ namespace boost { namespace text {
 
     template<nf Normalization, typename Char, typename String>
     basic_rope_view<Normalization, Char, String>::basic_rope_view(
-        text const & t) noexcept :
+        text const & t) :
         view_(basic_string_view<char_type>(
             t.begin().base().base(), t.storage_code_units()))
     {}
 
     template<nf Normalization, typename Char, typename String>
     basic_rope_view<Normalization, Char, String>::basic_rope_view(
-        text_view tv) noexcept :
+        text_view tv) :
         view_(basic_string_view<char_type>(
             tv.begin().base().base(), tv.storage_code_units()))
     {}
 
     template<nf Normalization, typename Char, typename String>
     basic_rope_view<Normalization, Char, String>::basic_rope_view(
-        const_rope_iterator first, const_rope_iterator last) noexcept
+        const_rope_iterator first, const_rope_iterator last)
     {
         BOOST_ASSERT(
             boost::text::normalized<normalization>(first.base(), last.base()));
@@ -342,8 +342,7 @@ namespace boost { namespace text {
 
     template<nf Normalization, typename Char, typename String>
     basic_rope_view<Normalization, Char, String> &
-    basic_rope_view<Normalization, Char, String>::operator=(
-        text const & t) noexcept
+    basic_rope_view<Normalization, Char, String>::operator=(text const & t)
     {
         view_ = basic_string_view<char_type>(
             t.begin().base().base(), t.storage_code_units());
@@ -352,8 +351,7 @@ namespace boost { namespace text {
 
     template<nf Normalization, typename Char, typename String>
     basic_rope_view<Normalization, Char, String> &
-    basic_rope_view<Normalization, Char, String>::operator=(
-        text_view tv) noexcept
+    basic_rope_view<Normalization, Char, String>::operator=(text_view tv)
     {
         view_ = basic_string_view<char_type>(
             tv.begin().base().base(), tv.storage_code_units());
@@ -362,21 +360,20 @@ namespace boost { namespace text {
 
     template<nf Normalization, typename Char, typename String>
     typename basic_rope_view<Normalization, Char, String>::const_iterator
-    basic_rope_view<Normalization, Char, String>::begin() const noexcept
+    basic_rope_view<Normalization, Char, String>::begin() const
     {
         return make_iter(view_.begin(), view_.begin(), view_.end());
     }
     template<nf Normalization, typename Char, typename String>
     typename basic_rope_view<Normalization, Char, String>::const_iterator
-    basic_rope_view<Normalization, Char, String>::end() const noexcept
+    basic_rope_view<Normalization, Char, String>::end() const
     {
         return make_iter(view_.begin(), view_.end(), view_.end());
     }
 
     template<nf Normalization, typename Char, typename String>
     typename basic_rope_view<Normalization, Char, String>::size_type
-    basic_rope_view<Normalization, Char, String>::storage_code_units()
-        const noexcept
+    basic_rope_view<Normalization, Char, String>::storage_code_units() const
     {
         return view_.size();
     }

@@ -55,7 +55,7 @@ namespace boost { namespace text {
         /** Default ctor.
 
             \post `size() == 0 && begin() == end()` */
-        segmented_vector() noexcept : ptr_()
+        segmented_vector() : ptr_()
         {}
 
         explicit segmented_vector(size_type n) : ptr_() { resize(n); }
@@ -78,12 +78,12 @@ namespace boost { namespace text {
         segmented_vector & operator=(segmented_vector &&) noexcept = default;
         ~segmented_vector() {}
 
-        const_iterator begin() noexcept { return const_iterator(*this, 0); }
-        const_iterator end() noexcept { return const_iterator(*this, size()); }
+        const_iterator begin() { return const_iterator(*this, 0); }
+        const_iterator end() { return const_iterator(*this, size()); }
 
-        size_type size() const noexcept { return detail::size(ptr_.get()); }
-        size_type max_size() const noexcept { return PTRDIFF_MAX; }
-        void resize(size_type sz) noexcept
+        size_type size() const { return detail::size(ptr_.get()); }
+        size_type max_size() const { return PTRDIFF_MAX; }
+        void resize(size_type sz)
         {
             if (sz < size()) {
                 erase(begin() + sz, end());
@@ -92,7 +92,7 @@ namespace boost { namespace text {
                     ptr_, size(), detail::make_node(segment_type(size() - sz)));
             }
         }
-        void resize(size_type sz, T const & x) noexcept
+        void resize(size_type sz, T const & x)
         {
             if (sz < size()) {
                 erase(begin() + sz, end());
@@ -233,7 +233,7 @@ namespace boost { namespace text {
             between two `segmented_vector`s that are likely to have originated
             from the same initial `segmented_vector`, and may have since been
             mutated. */
-        bool equal_root(segmented_vector other) const noexcept
+        bool equal_root(segmented_vector other) const
         {
             return ptr_ == other.ptr_;
         }

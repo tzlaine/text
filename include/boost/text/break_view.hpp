@@ -30,14 +30,14 @@ namespace boost { namespace text {
                                     std::bidirectional_iterator_tag,
                                     CPRange>
         {
-            break_iterator() noexcept = default;
+            break_iterator() = default;
 
             // begin
             break_iterator(
                 CPIter first,
                 CPSentinel last,
                 PrevFunc * prev_func,
-                NextFunc * next_func) noexcept :
+                NextFunc * next_func) :
                 first_(first),
                 seg_(first, first),
                 last_(last),
@@ -53,7 +53,7 @@ namespace boost { namespace text {
                 CPIter it,
                 CPSentinel last,
                 PrevFunc * prev_func,
-                NextFunc * next_func) noexcept :
+                NextFunc * next_func) :
                 first_(first),
                 seg_(it, it),
                 last_(last),
@@ -61,12 +61,12 @@ namespace boost { namespace text {
                 next_func_(next_func)
             {}
 
-            CPRange operator*() const noexcept
+            CPRange operator*() const
             {
                 return CPRange{seg_.first, seg_.second};
             }
 
-            break_iterator & operator++() noexcept
+            break_iterator & operator++()
             {
                 auto const next_it = (*next_func_)(seg_.second, last_);
                 seg_.first = seg_.second;
@@ -74,7 +74,7 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            break_iterator & operator--() noexcept
+            break_iterator & operator--()
             {
                 if (seg_.first == first_) {
                     seg_.second = first_;
@@ -89,7 +89,7 @@ namespace boost { namespace text {
             }
 
             friend bool
-            operator==(break_iterator lhs, break_iterator rhs) noexcept
+            operator==(break_iterator lhs, break_iterator rhs)
             {
                 return lhs.seg_ == rhs.seg_;
             }
@@ -99,7 +99,7 @@ namespace boost { namespace text {
                 !std::is_same<CPIter, CPSentinel>::value &&
                     std::is_same<Sentinel, CPSentinel>::value,
                 bool>
-            operator==(break_iterator lhs, Sentinel rhs) noexcept
+            operator==(break_iterator lhs, Sentinel rhs)
             {
                 return lhs.seg_.first == rhs;
             }
@@ -184,12 +184,12 @@ namespace boost { namespace text {
             PrevFunc,
             NextFunc>::type;
 
-        break_view() noexcept {}
+        break_view() {}
         break_view(
             CPIter first,
             CPSentinel last,
             PrevFunc prev_func,
-            NextFunc next_func) noexcept :
+            NextFunc next_func) :
             first_(first, last, &prev_func_, &next_func_),
             prev_func_(std::move(prev_func)),
             next_func_(std::move(next_func))
@@ -202,14 +202,14 @@ namespace boost { namespace text {
                 NextFunc>::call(first, last, &prev_func_, &next_func_);
         }
 
-        iterator begin() const noexcept { return first_; }
-        sentinel end() const noexcept { return last_; }
+        iterator begin() const { return first_; }
+        sentinel end() const { return last_; }
 
         /** Moves the contained `PrevFunc` out of *this. */
-        PrevFunc && prev_func() && noexcept { return std::move(prev_func_); }
+        PrevFunc && prev_func() && { return std::move(prev_func_); }
 
         /** Moves the contained `NextFunc` out of *this. */
-        NextFunc && next_func() && noexcept { return std::move(next_func_); }
+        NextFunc && next_func() && { return std::move(next_func_); }
 
     private:
         iterator first_;

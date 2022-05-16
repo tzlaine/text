@@ -90,7 +90,7 @@ namespace boost { namespace text {
         basic_text() {}
 
         basic_text(basic_text const &) = default;
-        basic_text(basic_text &&) = default;
+        basic_text(basic_text &&) noexcept = default;
 
         /** Constructs a `basic_text` from a pair of iterators. */
         basic_text(const_iterator first, const_iterator last) :
@@ -179,7 +179,7 @@ namespace boost { namespace text {
         }
 
         basic_text & operator=(basic_text const &) = default;
-        basic_text & operator=(basic_text &&) = default;
+        basic_text & operator=(basic_text &&) noexcept = default;
 
         /** Assignment from a null-terminated string. */
         basic_text & operator=(char_type const * c_str)
@@ -201,24 +201,24 @@ namespace boost { namespace text {
         /** Assignment from a `rope_view`. */
         basic_text & operator=(rope_view rv);
 
-        operator text_view() const noexcept
+        operator text_view() const
         {
             return text_view(begin(), end());
         }
 
-        char_type * data() noexcept
+        char_type * data()
         {
             return const_cast<char_type *>(str_.data());
         }
-        char_type const * data() const noexcept { return str_.data(); }
+        char_type const * data() const { return str_.data(); }
 
-        char_type const * c_str() const noexcept { return str_.data(); }
+        char_type const * c_str() const { return str_.data(); }
 
-        const_reference front() const noexcept { return *begin(); }
-        const_reference back() const noexcept { return *rbegin(); }
+        const_reference front() const { return *begin(); }
+        const_reference back() const { return *rbegin(); }
 
-        reference front() noexcept { return *begin(); }
-        reference back() noexcept { return *rbegin(); }
+        reference front() { return *begin(); }
+        reference back() { return *rbegin(); }
 
         void push_back(grapheme const & g);
 
@@ -227,82 +227,82 @@ namespace boost { namespace text {
 
         void pop_back() { erase(std::prev(end())); }
 
-        iterator begin() noexcept
+        iterator begin()
         {
             auto const first = const_cast<char_type *>(str_.data());
             auto const last = first + str_.size();
             return make_iter(first, first, last);
         }
-        iterator end() noexcept
+        iterator end()
         {
             auto const first = const_cast<char_type *>(str_.data());
             auto const last = first + str_.size();
             return make_iter(first, last, last);
         }
 
-        const_iterator begin() const noexcept
+        const_iterator begin() const
         {
             auto const first = str_.data();
             auto const last = first + str_.size();
             return make_iter(first, first, last);
         }
-        const_iterator end() const noexcept
+        const_iterator end() const
         {
             auto const first = str_.data();
             auto const last = first + str_.size();
             return make_iter(first, last, last);
         }
 
-        const_iterator cbegin() const noexcept { return begin(); }
-        const_iterator cend() const noexcept { return end(); }
+        const_iterator cbegin() const { return begin(); }
+        const_iterator cend() const { return end(); }
 
-        reverse_iterator rbegin() noexcept { return make_reverse_iter(end()); }
-        reverse_iterator rend() noexcept { return make_reverse_iter(begin()); }
+        reverse_iterator rbegin() { return make_reverse_iter(end()); }
+        reverse_iterator rend() { return make_reverse_iter(begin()); }
 
-        const_reverse_iterator rbegin() const noexcept
+        const_reverse_iterator rbegin() const
         {
             return make_reverse_iter(end());
         }
-        const_reverse_iterator rend() const noexcept
+        const_reverse_iterator rend() const
         {
             return make_reverse_iter(begin());
         }
 
-        const_reverse_iterator crbegin() const noexcept { return rbegin(); }
-        const_reverse_iterator crend() const noexcept { return rend(); }
+        const_reverse_iterator crbegin() const { return rbegin(); }
+        const_reverse_iterator crend() const { return rend(); }
 
         /** Returns true iff `size() == 0`. */
-        bool empty() const noexcept { return str_.empty(); }
+        bool empty() const { return str_.empty(); }
 
         /** Returns the number of code units controlled by `*this`, not
             including the null terminator. */
-        size_type storage_code_units() const noexcept { return str_.size(); }
+        size_type storage_code_units() const { return str_.size(); }
 
         /** Returns the number of bytes of storage currently in use by
             `*this`. */
-        size_type capacity_bytes() const noexcept { return str_.capacity(); }
+        size_type capacity_bytes() const { return str_.capacity(); }
 
         /** Returns the number of graphemes in `*this`.  This operation is
             O(n). */
-        size_type distance() const noexcept
+        size_type distance() const
         {
             return std::distance(begin(), end());
         }
 
         /** Returns the maximum size in code units a `basic_text` can have. */
-        size_type max_code_units() const noexcept { return PTRDIFF_MAX; }
+        size_type max_code_units() const { return PTRDIFF_MAX; }
 
         /** Clear.
 
             \post size() == 0 && capacity() == 0; begin(), end() delimit an
             empty string */
-        void clear() noexcept { str_.clear(); }
+        void clear() { str_.clear(); }
 
         /** Erases the portion of `*this` delimited by `[first, last)`.
 
             \pre first <= last */
         replace_result<iterator>
-        erase(const_iterator first, const_iterator last) noexcept
+        erase(const_iterator first, const_iterator last)
         {
             auto const lo = first.base().base() - str_.data();
             auto const hi = last.base().base() - str_.data();
@@ -314,7 +314,7 @@ namespace boost { namespace text {
         /** Erases the grapheme at position `at`.
 
             \pre at != end() */
-        replace_result<iterator> erase(const_iterator at) noexcept
+        replace_result<iterator> erase(const_iterator at)
         {
             BOOST_ASSERT(at != end());
             return erase(at, std::next(at));
@@ -559,15 +559,15 @@ namespace boost { namespace text {
         void shrink_to_fit() { str_.shrink_to_fit(); }
 
         /** Swaps `*this` with rhs. */
-        void swap(basic_text & rhs) noexcept { str_.swap(rhs.str_); }
+        void swap(basic_text & rhs) { str_.swap(rhs.str_); }
 
         /** Removes and returns the underlying string from `*this`. */
-        string extract() && noexcept { return std::move(str_); }
+        string extract() && { return std::move(str_); }
 
         /** Replaces the underlying string in `*this`.
 
             \pre s is in normalization form NFD or FCC. */
-        void replace(string && s) noexcept { str_ = std::move(s); }
+        void replace(string && s) { str_ = std::move(s); }
 
         /** Appends `x` to `*this`.  `T` may be any type for which `*this = x`
             is well-formed. */
@@ -613,13 +613,13 @@ namespace boost { namespace text {
 #endif
 
         friend bool
-        operator==(basic_text const & lhs, basic_text const & rhs) noexcept
+        operator==(basic_text const & lhs, basic_text const & rhs)
         {
             return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
 
         friend bool
-        operator!=(basic_text const & lhs, basic_text const & rhs) noexcept
+        operator!=(basic_text const & lhs, basic_text const & rhs)
         {
             return !(lhs == rhs);
         }
@@ -627,22 +627,22 @@ namespace boost { namespace text {
 
         // Comparisons with text_view.
 
-        friend bool operator==(basic_text const & lhs, text_view rhs) noexcept
+        friend bool operator==(basic_text const & lhs, text_view rhs)
         {
             return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
 
-        friend bool operator==(text_view lhs, basic_text const & rhs) noexcept
+        friend bool operator==(text_view lhs, basic_text const & rhs)
         {
             return rhs == lhs;
         }
 
-        friend bool operator!=(basic_text const & lhs, text_view rhs) noexcept
+        friend bool operator!=(basic_text const & lhs, text_view rhs)
         {
             return !(lhs == rhs);
         }
 
-        friend bool operator!=(text_view lhs, basic_text const & rhs) noexcept
+        friend bool operator!=(text_view lhs, basic_text const & rhs)
         {
             return !(rhs == lhs);
         }
@@ -651,25 +651,25 @@ namespace boost { namespace text {
         // Comparisons with char_type const *.
 
         friend bool
-        operator==(basic_text const & lhs, char_type const * rhs) noexcept
+        operator==(basic_text const & lhs, char_type const * rhs)
         {
             return boost::text::equal(lhs.begin(), lhs.end(), rhs, null_sentinel);
         }
 
         friend bool
-        operator==(char_type const * lhs, basic_text const & rhs) noexcept
+        operator==(char_type const * lhs, basic_text const & rhs)
         {
             return rhs == lhs;
         }
 
         friend bool
-        operator!=(basic_text const & lhs, char_type const * rhs) noexcept
+        operator!=(basic_text const & lhs, char_type const * rhs)
         {
             return !(lhs == rhs);
         }
 
         friend bool
-        operator!=(char_type const * lhs, basic_text const & rhs) noexcept
+        operator!=(char_type const * lhs, basic_text const & rhs)
         {
             return !(rhs == lhs);
         }
@@ -782,7 +782,7 @@ namespace boost { namespace text {
 
     private:
         static iterator
-        make_iter(char_type * first, char_type * it, char_type * last) noexcept
+        make_iter(char_type * first, char_type * it, char_type * last)
         {
             return iterator{
                 detail::text_transcode_iterator_t<char_type>{
@@ -795,7 +795,7 @@ namespace boost { namespace text {
         static const_iterator make_iter(
             char_type const * first,
             char_type const * it,
-            char_type const * last) noexcept
+            char_type const * last)
         {
             return const_iterator{
                 detail::text_transcode_iterator_t<char_type const>{
@@ -808,7 +808,7 @@ namespace boost { namespace text {
 
         template<typename Iter>
         static stl_interfaces::reverse_iterator<Iter>
-        make_reverse_iter(Iter it) noexcept
+        make_reverse_iter(Iter it)
         {
             return stl_interfaces::reverse_iterator<Iter>{it};
         }

@@ -27,7 +27,7 @@ namespace boost { namespace text {
     struct grapheme_ref;
 
     /** Returns the number of code_units controlled by g. */
-    int storage_code_units(grapheme const & g) noexcept;
+    int storage_code_units(grapheme const & g);
 
     /** An owning sequence of code points that comprise an extended grapheme
         cluster. */
@@ -82,20 +82,20 @@ namespace boost { namespace text {
         }
 
         /** Returns true if *this contains no code points. */
-        bool empty() const noexcept { return chars_.empty(); }
+        bool empty() const { return chars_.empty(); }
 
         /** Returns the number of code points contained in *this.  This is an
             O(N) operation. */
-        int distance() const noexcept { return std::distance(begin(), end()); }
+        int distance() const { return std::distance(begin(), end()); }
 
-        const_iterator begin() const noexcept
+        const_iterator begin() const
         {
             auto const first = &*chars_.begin();
             auto const last = first + chars_.size();
             return grapheme::const_iterator{first, first, last};
         }
 
-        const_iterator end() const noexcept
+        const_iterator end() const
         {
             auto const first = &*chars_.begin();
             auto const last = first + chars_.size();
@@ -109,16 +109,16 @@ namespace boost { namespace text {
                 g.begin().base(), g.end().base() - g.begin().base());
         }
 
-        bool operator==(grapheme const & other) const noexcept
+        bool operator==(grapheme const & other) const
         {
             return chars_ == other.chars_;
         }
-        bool operator!=(grapheme const & other) const noexcept
+        bool operator!=(grapheme const & other) const
         {
             return chars_ != other.chars_;
         }
 
-        friend int storage_code_units(grapheme const & g) noexcept
+        friend int storage_code_units(grapheme const & g)
         {
             return g.chars_.size();
         }
@@ -140,13 +140,13 @@ namespace boost { namespace text {
         using iterator = I;
 
         /** Default ctor. */
-        constexpr grapheme_ref() noexcept = default;
+        constexpr grapheme_ref() = default;
 
         /** Constructs *this from the code points [first, last).
 
             \pre The code points in [first, last) comprise at most one
             grapheme. */
-        constexpr grapheme_ref(iterator first, iterator last) noexcept :
+        constexpr grapheme_ref(iterator first, iterator last) :
             utf32_view<iterator>(first, last)
         {
             BOOST_ASSERT(boost::text::next_grapheme_break(first, last) == last);
@@ -155,24 +155,24 @@ namespace boost { namespace text {
         /** Constructs *this from r.
 
             \pre The code points in r comprise at most one grapheme. */
-        constexpr grapheme_ref(utf32_view<iterator> r) noexcept :
+        constexpr grapheme_ref(utf32_view<iterator> r) :
             grapheme_ref(r.begin(), r.end())
         {}
 
         /** Constructs *this from g. */
-        constexpr grapheme_ref(grapheme const & g) noexcept :
+        constexpr grapheme_ref(grapheme const & g) :
             utf32_view<iterator>(g.begin(), g.end())
         {}
 
         /** Returns true if lhs the same sequence of code points as rhs. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
-        operator==(grapheme_ref lhs, grapheme_ref rhs) noexcept
+        operator==(grapheme_ref lhs, grapheme_ref rhs)
         {
             return algorithm::equal(
                 lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
-        operator!=(grapheme_ref lhs, grapheme_ref rhs) noexcept
+        operator!=(grapheme_ref lhs, grapheme_ref rhs)
         {
             return !(lhs == rhs);
         }
@@ -202,7 +202,7 @@ namespace boost { namespace text {
 #else
     template<typename I>
 #endif
-    int storage_code_units(grapheme_ref<I> g) noexcept
+    int storage_code_units(grapheme_ref<I> g)
     {
         return std::distance(g.begin().base(), g.end().base());
     }
@@ -214,7 +214,7 @@ namespace boost { namespace text {
     template<typename I1, typename I2>
 #endif
     constexpr bool
-    operator==(grapheme_ref<I1> lhs, grapheme_ref<I2> rhs) noexcept
+    operator==(grapheme_ref<I1> lhs, grapheme_ref<I2> rhs)
     {
         return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
@@ -226,7 +226,7 @@ namespace boost { namespace text {
     template<typename I1, typename I2>
 #endif
     constexpr bool
-    operator!=(grapheme_ref<I1> lhs, grapheme_ref<I2> rhs) noexcept
+    operator!=(grapheme_ref<I1> lhs, grapheme_ref<I2> rhs)
     {
         return !(lhs == rhs);
     }
@@ -238,7 +238,7 @@ namespace boost { namespace text {
     template<typename I>
 #endif
     constexpr bool
-    operator==(grapheme const & lhs, grapheme_ref<I> rhs) noexcept
+    operator==(grapheme const & lhs, grapheme_ref<I> rhs)
     {
         return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
@@ -250,7 +250,7 @@ namespace boost { namespace text {
     template<typename I>
 #endif
     constexpr bool
-    operator==(grapheme_ref<I> lhs, grapheme const & rhs) noexcept
+    operator==(grapheme_ref<I> lhs, grapheme const & rhs)
     {
         return rhs == lhs;
     }
@@ -262,7 +262,7 @@ namespace boost { namespace text {
     template<typename I>
 #endif
     constexpr bool
-    operator!=(grapheme const & lhs, grapheme_ref<I> rhs) noexcept
+    operator!=(grapheme const & lhs, grapheme_ref<I> rhs)
     {
         return !(lhs == rhs);
     }
@@ -274,7 +274,7 @@ namespace boost { namespace text {
     template<typename I>
 #endif
     constexpr bool
-    operator!=(grapheme_ref<I> rhs, grapheme const & lhs) noexcept
+    operator!=(grapheme_ref<I> rhs, grapheme const & lhs)
     {
         return !(rhs == lhs);
     }
