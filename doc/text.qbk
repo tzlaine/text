@@ -57,6 +57,7 @@
 [/ Links ]
 
 [def _Text_                Boost.Text]
+[def _rng_like_            [link boost_text__proposed_.concepts `utf_range_like`]]
 [def _CharRng_             [link boost_text__proposed_.concepts `utf8_range`]]
 [def _GrIter_              [link boost_text__proposed_.concepts `grapheme_iter`]]
 [def _GrRng_               [link boost_text__proposed_.concepts `grapheme_range`]]
@@ -115,6 +116,10 @@
 [def _norm_algo_header_    [link header.boost.text.normalize_algorithm_hpp normalize_algorithm.hpp]]
 [def _table_ser_           [link header.boost.text.table_serialization_hpp table_serialization.hpp]]
 [def _save_load_table_     [link header.boost.text.save_load_table_hpp save_load_table.hpp]]
+[def _str_alg_             [link header.boost.text.string_algorithm_hpp string_algorithm.hpp]]
+[def _alg_                 [link header.boost.text.algorithm_hpp algorithm.hpp]]
+[def _word_break_          [link header.boost.text.word_break_hpp word_break.hpp]]
+[def _trans_iter_          [link header.boost.text.transcode_iterator_hpp transcode_iterator.hpp]]
 
 [def _line_brk_res_        [classref boost::text::line_break_result `line_break_result`]]
 [def _line_brk_cp_v_       [classref boost::text::line_break_cp_view `line_break_cp_view`]]
