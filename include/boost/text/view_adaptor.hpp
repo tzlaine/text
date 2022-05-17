@@ -94,6 +94,28 @@ namespace boost { namespace text {
             0, (Func &&) f, (Args &&) args...);
     }
 
+#if defined(__cpp_lib_ranges) && 202202L <= __cpp_lib_ranges
+#define BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE 1
+#else
+#define BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
+#if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE && defined(__GNUC__) &&    \
+    12 <= __GNUC__
+#define BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE 1
+#else
+#define BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
+#if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE &&                         \
+    !BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE
+#define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 1
+#else
+#define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
+#if BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE
+
     /** TODO */
 #if BOOST_TEXT_USE_CONCEPTS
     template<typename D>
@@ -122,6 +144,20 @@ namespace boost { namespace text {
             is_detected_v<range_adaptor_closure_tag_expr, remove_cv_ref_t<T>>;
 #endif
     }
+
+#endif
+
+#if BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE
+
+    template<typename D>
+    using range_adaptor_closure = std::ranges::range_adaptor_closure<D>;
+
+#elif BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE
+
+    template<typename D>
+    using range_adaptor_closure = std::views::__adaptor::_RangeAdaptorClosure;
+
+#else
 
 #if BOOST_TEXT_USE_CONCEPTS
     template<typename D>
@@ -161,6 +197,8 @@ namespace boost { namespace text {
 
         using inheritance_tag_with_an_unlikely_name_ = int;
     };
+
+#endif
 
     /** TODO */
     template<typename F>
