@@ -1315,4 +1315,67 @@ above exist for _GrRng_, _CPRng_, and _CPIter_/sentinel inputs.
 
 [endsect]
 
+[section String Algorithms and Utilities]
+
+[heading String Algorithms]
+
+`std::string` has a bunch of member functions that are essentially algorithms
+hanging off of a string type for no reason.  Instead of repeating this with
+the types in the text layer, _Text_ instead provides these algorithms as free
+functions, like all the other C++ algorithms.  Unlike all the other C++
+algorithms, the _Text_ string algorithms work with _CPRngs_, _GrRngs_, and
+even pointers to null-terminated strings, in all the permutations you might
+need.  You can use ranges, just like with the algorithms in `std::ranges`:
+
+    assert(boost::text::starts_with(U"here", U"her")); // Like std::ranges::starts_with().
+
+You can use any range that models _rng_like_ or _GrRng_.  You can also compare
+a range to a C-style null-terminated string pointer, even if the C-style
+string is in a different UTF format:
+
+    char const * her = "her";
+    assert(boost::text::starts_with(U"here", her));
+
+And of course, the text-layer types are supported:
+
+    boost::text::rope here = "here";
+    boost::text::text_view her = "her";
+    assert(boost::text::starts_with(here, her));
+
+[tip If you like using the _StringAlgo_ library, the text layer types work
+with those as well.  Just be sure to use the code point iterators of your
+favorite text-layer type; _StringAlgo_ doesn't know anything about graphemes.]
+
+See _str_alg_ for a list of all the algorithms.
+
+[heading Utilities]
+
+There are a lot of small utility functions scattered throughout the _Text_
+headers.  My philosophy is that if I have to write a function `f()` to
+implement a major feature, and `f()` seems like it might be useful to someone,
+somewhere, ever, I'm going to keep `f()` publicly available, rather than
+putting in a `detail` namespace.  I'm not going to list all the avilable
+functions, but here are some pointers to where you can find them:
+
+- _trans_iter_ contains a variety of utility functions that give info on code
+  points and UTF-8 code units.  For instance, it contains
+  `replacement_character()`, which just gives you the value of the Unicode
+  replacement character, and `scalar_value()`, which tells you if a given
+  `unsigned int` is in the range of Unicode scalar values.
+
+- There are a couple of overloads of _to_str_ that can be used to construct a
+  `std::string` from a range of code points.
+
+- General-purpose algorithms can be found in _alg_.  These are essentially
+  back-ports of algorithms that are available anywhere from C++26 on back to
+  C++98.  They differ from the ones in `std` in that they are
+  sentinel-friendly, and some have different names, because they predate the
+  ones in the standard.
+
+- There are numerous `foo_prop()` functions, where `foo` is `word`, `line`,
+  etc.  These give the text segmentation- or algorithm-specific property for
+  any code point.  See `word_prop()` in _word_break_ for an example.
+
+[endsect]
+
 [endsect]

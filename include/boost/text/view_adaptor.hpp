@@ -86,7 +86,7 @@ namespace boost { namespace text {
             bind_back_t<std::decay_t<Func>, std::decay_t<Args>...>;
     }
 
-    /** TODO */
+    /** An implementation of `std::bind_back()` from C++23. */
     template<typename Func, typename... Args>
     constexpr auto bind_back(Func && f, Args &&... args)
     {
@@ -94,7 +94,32 @@ namespace boost { namespace text {
             0, (Func &&) f, (Args &&) args...);
     }
 
-    /** TODO */
+#if defined(__cpp_lib_ranges) && 202202L <= __cpp_lib_ranges
+#define BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE 1
+#else
+#define BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
+#if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE && defined(__GNUC__) &&    \
+    12 <= __GNUC__
+#define BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE 1
+#else
+#define BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
+#if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE &&                         \
+    !BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE
+#define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 1
+#else
+#define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
+#if BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE || defined(BOOST_TEXT_DOXYGEN)
+
+    /** A backwards-compatible implementation of C++23's
+        `std::ranges::range_adaptor_closure`.  `range_adaptor_closure` may be
+        a struct template or may be an alias, as required to maintain
+        compatability with the standard library's view adaptors. */
 #if BOOST_TEXT_USE_CONCEPTS
     template<typename D>
     requires std::is_class_v<D> && std::same_as<D, std::remove_cv_t<D>>
@@ -122,6 +147,20 @@ namespace boost { namespace text {
             is_detected_v<range_adaptor_closure_tag_expr, remove_cv_ref_t<T>>;
 #endif
     }
+
+#endif
+
+#if BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE
+
+    template<typename D>
+    using range_adaptor_closure = std::ranges::range_adaptor_closure<D>;
+
+#elif BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE
+
+    template<typename D>
+    using range_adaptor_closure = std::views::__adaptor::_RangeAdaptorClosure;
+
+#else
 
 #if BOOST_TEXT_USE_CONCEPTS
     template<typename D>
@@ -162,7 +201,12 @@ namespace boost { namespace text {
         using inheritance_tag_with_an_unlikely_name_ = int;
     };
 
-    /** TODO */
+#endif
+
+    /** An invocable consisting of a contained invocable `f`.  Calling
+        `operator()` with some argument `t` calls `f(t)` and returns the
+        result.  This type is typically used to capture a the result of a call
+        to `bind_back()`. */
     template<typename F>
     struct closure : range_adaptor_closure<closure<F>>
     {
@@ -211,7 +255,10 @@ namespace boost { namespace text {
 #endif
     }
 
-    /** TODO */
+    /** Adapts an invocable `f` as a view adaptor.  Calling
+        `operator(args...)` will either: call `f(args...)` and return the
+        result, if `f(args...)` is well-formed; or return
+        `closure(text::bind_back(f, args...))` otherwise. */
     template<typename F>
     struct adaptor
     {

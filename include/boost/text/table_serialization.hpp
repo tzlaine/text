@@ -13,7 +13,7 @@
 namespace boost { namespace text {
 
     template<typename CharIter>
-    CharIter write_table(collation_table const & table, CharIter out) noexcept;
+    CharIter write_table(collation_table const & table, CharIter out);
 
     /** The type returned by read_table().  Contains the resulting collation
         table and the final position of the iterator from which the table was
@@ -54,7 +54,7 @@ namespace boost { namespace text {
         Returns the final value of `out` after the write. */
     template<typename CharIter>
     CharIter
-    write_table(collation_table const & table_proper, CharIter out) noexcept
+    write_table(collation_table const & table_proper, CharIter out)
     {
         auto const & table = *table_proper.data_;
 

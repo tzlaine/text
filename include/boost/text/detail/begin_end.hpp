@@ -53,7 +53,7 @@ namespace boost { namespace text { namespace detail {
             void operator()(R (&&)[N]) const = delete;
 
             template<typename R, std::size_t N>
-            constexpr R * operator()(R (&array)[N]) const noexcept
+            constexpr R * operator()(R (&array)[N]) const
             {
                 return array;
             }
@@ -61,7 +61,7 @@ namespace boost { namespace text { namespace detail {
             template<typename R>
             constexpr std::
                 enable_if_t<has_member_begin_v<R>, member_return_t<R>>
-                operator()(R && r) const noexcept(noexcept(r.begin()))
+                operator()(R && r) const
             {
                 return r.begin();
             }
@@ -70,7 +70,7 @@ namespace boost { namespace text { namespace detail {
             constexpr std::enable_if_t<
                 !has_member_begin_v<R> && has_adl_begin_v<R>,
                 adl_return_t<R>>
-            operator()(R && r) const noexcept(noexcept(begin(r)))
+            operator()(R && r) const
             {
                 return begin(r);
             }
@@ -117,14 +117,14 @@ namespace boost { namespace text { namespace detail {
             void operator()(R (&&)[N]) const = delete;
 
             template<typename R, std::size_t N>
-            constexpr R * operator()(R (&array)[N]) const noexcept
+            constexpr R * operator()(R (&array)[N]) const
             {
                 return array + N;
             }
 
             template<typename R>
             constexpr std::enable_if_t<has_member_end_v<R>, member_return_t<R>>
-            operator()(R && r) const noexcept(noexcept(r.end()))
+            operator()(R && r) const
             {
                 return r.end();
             }
@@ -133,7 +133,7 @@ namespace boost { namespace text { namespace detail {
             constexpr std::enable_if_t<
                 !has_member_end_v<R> && has_adl_end_v<R>,
                 adl_return_t<R>>
-            operator()(R && r) const noexcept(noexcept(end(r)))
+            operator()(R && r) const
             {
                 return end(r);
             }

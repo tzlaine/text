@@ -105,7 +105,7 @@ namespace boost { namespace text {
         {
             index_within_parent_t() : value_(-1) {}
 
-            std::size_t value() const noexcept { return value_; }
+            std::size_t value() const { return value_; }
 
             template<
                 typename Key,
@@ -167,13 +167,7 @@ namespace boost { namespace text {
         }
 
         template<typename Key, typename Value, std::size_t KeySize>
-        Key reconstruct_key(
-            trie_iterator_state_t<Key, Value, KeySize>
-                state) noexcept(noexcept(std::declval<Key &>()
-                                             .insert(
-                                                 std::declval<Key &>().end(),
-                                                 state.parent_->key(
-                                                     state.index_))))
+        Key reconstruct_key(trie_iterator_state_t<Key, Value, KeySize> state)
         {
             Key retval;
             while (state.parent_->parent()) {
@@ -288,11 +282,11 @@ namespace boost { namespace text {
             return *this;
         }
 
-        bool empty() const noexcept { return size_ == 0; }
-        size_type size() const noexcept { return size_; }
-        size_type max_size() const noexcept { return PTRDIFF_MAX; }
+        bool empty() const { return size_ == 0; }
+        size_type size() const { return size_; }
+        size_type max_size() const { return PTRDIFF_MAX; }
 
-        const_iterator begin() const noexcept
+        const_iterator begin() const
         {
             iter_state_t state{&header_, 0};
             if (size_) {
@@ -302,7 +296,7 @@ namespace boost { namespace text {
             }
             return const_iterator(state);
         }
-        const_iterator end() const noexcept
+        const_iterator end() const
         {
             iter_state_t state{&header_, 0};
             if (size_) {
@@ -316,23 +310,33 @@ namespace boost { namespace text {
             }
             return const_iterator(state);
         }
-        const_iterator cbegin() const noexcept { return begin(); }
-        const_iterator cend() const noexcept { return end(); }
+        const_iterator cbegin() const { return begin(); }
+        const_iterator cend() const { return end(); }
 
-        const_reverse_iterator rbegin() const noexcept
+        const_reverse_iterator rbegin() const
         {
             return const_reverse_iterator{end()};
         }
-        const_reverse_iterator rend() const noexcept
+        const_reverse_iterator rend() const
         {
             return const_reverse_iterator{begin()};
         }
-        const_reverse_iterator crbegin() const noexcept { return rbegin(); }
-        const_reverse_iterator crend() const noexcept { return rend(); }
+        const_reverse_iterator crbegin() const { return rbegin(); }
+        const_reverse_iterator crend() const { return rend(); }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-#define BOOST_TRIE_MAP_C_STR_OVERLOAD(rtype, func, quals)                      \
+#define BOOST_TRIE_MAP_C_STR_OVERLOAD(rtype, func)                             \
+    template<typename Char, std::size_t N>                                     \
+    rtype func(Char const(&chars)[N])                                          \
+    {                                                                          \
+        static_assert(                                                         \
+            std::is_same<Char, key_element_type>::value,                       \
+            "Only well-formed when Char is Key::value_type.");                 \
+        return func(detail::char_range<Char const>{chars, chars + N - 1});     \
+    }
+
+#define BOOST_TRIE_MAP_C_STR_OVERLOAD_QUALS(rtype, func, quals)                \
     template<typename Char, std::size_t N>                                     \
     rtype func(Char const(&chars)[N]) quals                                    \
     {                                                                          \
@@ -346,20 +350,20 @@ namespace boost { namespace text {
 
         /** Returns true if `key` is found in *this. */
         template<typename KeyRange>
-        bool contains(KeyRange const & key) const noexcept
+        bool contains(KeyRange const & key) const
         {
             return find(key) != end();
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(bool, contains, const noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD_QUALS(bool, contains, const)
 #endif
 
         /** Returns the iterator pointing to the key/value pair associated
             with `key`, if `key` is found in *this.  Returns end()
             otherwise. */
         template<typename KeyRange>
-        const_iterator find(KeyRange const & key) const noexcept
+        const_iterator find(KeyRange const & key) const
         {
             auto first = detail::begin(key);
             auto const last = detail::end(key);
@@ -373,53 +377,51 @@ namespace boost { namespace text {
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(const_iterator, find, const noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD_QUALS(const_iterator, find, const)
 #endif
 
         /** Returns the iterator pointing to the first key/value pair whose
             key is not less than `key`.  Returns end() if no such key can be
             found. */
         template<typename KeyRange>
-        const_iterator lower_bound(KeyRange const & key) const noexcept
+        const_iterator lower_bound(KeyRange const & key) const
         {
             return bound_impl<true>(key);
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(
-            const_iterator, lower_bound, const noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD_QUALS(const_iterator, lower_bound, const)
 #endif
 
         /** Returns the iterator pointing to the first key/value pair whose
             key is not greater than `key`.  Returns end() if no such key can
             be found. */
         template<typename KeyRange>
-        const_iterator upper_bound(KeyRange const & key) const noexcept
+        const_iterator upper_bound(KeyRange const & key) const
         {
             return bound_impl<false>(key);
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(
-            const_iterator, upper_bound, const noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD_QUALS(const_iterator, upper_bound, const)
 #endif
 
         /** Returns the `const_range(lower_bound(key), upper_bound(key))`.*/
         template<typename KeyRange>
-        const_range equal_range(KeyRange const & key) const noexcept
+        const_range equal_range(KeyRange const & key) const
         {
             return {lower_bound(key), upper_bound(key)};
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(const_range, equal_range, const noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD_QUALS(const_range, equal_range, const)
 #endif
 
         /** Returns the longest subsequence of `[first, last)` found in *this,
             whether or not it is a match. */
         template<typename KeyIter, typename Sentinel>
         match_result longest_subsequence(KeyIter first, Sentinel last) const
-            noexcept
+           
         {
             return longest_match_impl(first, last);
         }
@@ -427,20 +429,20 @@ namespace boost { namespace text {
         /** Returns the longest subsequence of `key` found in *this, whether
             or not it is a match. */
         template<typename KeyRange>
-        match_result longest_subsequence(KeyRange const & key) const noexcept
+        match_result longest_subsequence(KeyRange const & key) const
         {
             return longest_subsequence(detail::begin(key), detail::end(key));
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(
-            match_result, longest_subsequence, const noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD_QUALS(
+            match_result, longest_subsequence, const)
 #endif
 
         /** Returns the longest matching subsequence of `[first, last)` found
             in *this. */
         template<typename KeyIter, typename Sentinel>
-        match_result longest_match(KeyIter first, Sentinel last) const noexcept
+        match_result longest_match(KeyIter first, Sentinel last) const
         {
             auto const retval = longest_match_impl(first, last);
             return back_up_to_match(retval);
@@ -449,20 +451,18 @@ namespace boost { namespace text {
         /** Returns the longest matching subsequence of `key` found in
             *this. */
         template<typename KeyRange>
-        match_result longest_match(KeyRange const & key) const noexcept
+        match_result longest_match(KeyRange const & key) const
         {
             return longest_match(detail::begin(key), detail::end(key));
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(
-            match_result, longest_match, const noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD_QUALS(match_result, longest_match, const)
 #endif
 
         /** Returns the result of extending `prev` by one element, `e`. */
         template<typename KeyElementT>
         match_result extend_subsequence(match_result prev, KeyElementT e) const
-            noexcept
         {
             auto e_ptr = &e;
             return extend_subsequence_impl(prev, e_ptr, e_ptr + 1);
@@ -472,7 +472,7 @@ namespace boost { namespace text {
             of `[first, last)` found in *this. */
         template<typename KeyIter, typename Sentinel>
         match_result extend_subsequence(
-            match_result prev, KeyIter first, Sentinel last) const noexcept
+            match_result prev, KeyIter first, Sentinel last) const
         {
             return extend_subsequence_impl(prev, first, last);
         }
@@ -482,7 +482,6 @@ namespace boost { namespace text {
            match. */
         template<typename KeyElementT>
         match_result extend_match(match_result prev, KeyElementT e) const
-            noexcept
         {
             BOOST_ASSERT(prev.match);
             auto e_ptr = &e;
@@ -496,7 +495,6 @@ namespace boost { namespace text {
         template<typename KeyIter, typename Sentinel>
         match_result
         extend_match(match_result prev, KeyIter first, Sentinel last) const
-            noexcept
         {
             BOOST_ASSERT(prev.match);
             auto const retval = extend_subsequence_impl(prev, first, last);
@@ -517,7 +515,6 @@ namespace boost { namespace text {
             `key` in *this (if any). */
         template<typename KeyRange>
         optional_ref<mapped_type const> operator[](KeyRange const & key) const
-            noexcept
         {
             auto it = find(key);
             if (it == end())
@@ -526,27 +523,26 @@ namespace boost { namespace text {
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(
-            optional_ref<mapped_type const>, operator[], const noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD_QUALS(
+            optional_ref<mapped_type const>, operator[], const)
 #endif
 
         /** Returns an optional reference to the const value associated with
             `match` in *this (if any). */
         optional_ref<mapped_type const> operator[](match_result match) const
-            noexcept
         {
             if (!match.match)
                 return {};
             return *to_node_ptr(match.node)->value();
         }
 
-        iterator begin() noexcept { return iterator(const_this()->begin()); }
-        iterator end() noexcept { return iterator(const_this()->end()); }
+        iterator begin() { return iterator(const_this()->begin()); }
+        iterator end() { return iterator(const_this()->end()); }
 
-        reverse_iterator rbegin() noexcept { return reverse_iterator{end()}; }
-        reverse_iterator rend() noexcept { return reverse_iterator{begin()}; }
+        reverse_iterator rbegin() { return reverse_iterator{end()}; }
+        reverse_iterator rend() { return reverse_iterator{begin()}; }
 
-        void clear() noexcept
+        void clear()
         {
             header_ = node_t();
             size_ = 0;
@@ -556,56 +552,56 @@ namespace boost { namespace text {
             with `key`, if `key` is found in *this.  Returns end()
             otherwise. */
         template<typename KeyRange>
-        iterator find(KeyRange const & key) noexcept
+        iterator find(KeyRange const & key)
         {
             return iterator(const_this()->find(key));
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(iterator, find, noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD(iterator, find)
 #endif
 
         /** Returns the iterator pointing to the first key/value pair whose
             key is not less than `key`.  Returns end() if no such key can be
             found. */
         template<typename KeyRange>
-        iterator lower_bound(KeyRange const & key) noexcept
+        iterator lower_bound(KeyRange const & key)
         {
             return iterator(const_this()->lower_bound(key));
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(iterator, lower_bound, noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD(iterator, lower_bound)
 #endif
 
         /** Returns the iterator pointing to the first key/value pair whose
             key is not greater than `key`.  Returns end() if no such key can
             be found. */
         template<typename KeyRange>
-        iterator upper_bound(KeyRange const & key) noexcept
+        iterator upper_bound(KeyRange const & key)
         {
             return iterator(const_this()->upper_bound(key));
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(iterator, upper_bound, noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD(iterator, upper_bound)
 #endif
 
         /** Returns the `const_range(lower_bound(key), upper_bound(key))`.*/
         template<typename KeyRange>
-        range equal_range(KeyRange const & key) noexcept
+        range equal_range(KeyRange const & key)
         {
             return {lower_bound(key), upper_bound(key)};
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(range, equal_range, noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD(range, equal_range)
 #endif
 
         /** Returns an optional reference to the value associated with `key`
             in *this (if any). */
         template<typename KeyRange>
-        optional_ref<mapped_type> operator[](KeyRange const & key) noexcept
+        optional_ref<mapped_type> operator[](KeyRange const & key)
         {
             auto it = find(key);
             if (it == end())
@@ -615,12 +611,12 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_MAP_C_STR_OVERLOAD(
-            optional_ref<mapped_type>, operator[], noexcept)
+            optional_ref<mapped_type>, operator[])
 #endif
 
         /** Returns an optional reference to the value associated with `match`
             in *this (if any). */
-        optional_ref<mapped_type> operator[](match_result match) noexcept
+        optional_ref<mapped_type> operator[](match_result match)
         {
             if (!match.match)
                 return {};
@@ -761,7 +757,7 @@ namespace boost { namespace text {
             *this. Returns true if the key is found in *this, false
             otherwise. */
         template<typename KeyRange>
-        bool erase(KeyRange const & key) noexcept
+        bool erase(KeyRange const & key)
         {
             auto it = find(key);
             if (it == end())
@@ -771,7 +767,7 @@ namespace boost { namespace text {
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
-        BOOST_TRIE_MAP_C_STR_OVERLOAD(bool, erase, noexcept)
+        BOOST_TRIE_MAP_C_STR_OVERLOAD(bool, erase)
 #endif
 
         /** Erases the key/value pair pointed to by `it` from *this.  Returns
@@ -885,7 +881,6 @@ namespace boost { namespace text {
 
         template<typename KeyIter, typename Sentinel>
         match_result longest_match_impl(KeyIter & first, Sentinel last) const
-            noexcept
         {
             return extend_subsequence_impl(
                 match_result{&header_, 0, false, true}, first, last);
@@ -893,7 +888,7 @@ namespace boost { namespace text {
 
         template<typename KeyIter, typename Sentinel>
         match_result extend_subsequence_impl(
-            match_result prev, KeyIter & first, Sentinel last) const noexcept
+            match_result prev, KeyIter & first, Sentinel last) const
         {
             if (to_node_ptr(prev.node) == &header_) {
                 if (header_.empty())
@@ -921,7 +916,7 @@ namespace boost { namespace text {
             return match_result{node, size, !!node->value(), node->empty()};
         }
 
-        static match_result back_up_to_match(match_result retval) noexcept
+        static match_result back_up_to_match(match_result retval)
         {
             auto node = to_node_ptr(retval.node);
             while (node->parent() && !node->value()) {
@@ -946,7 +941,7 @@ namespace boost { namespace text {
         }
 
         template<bool LowerBound, typename KeyRange>
-        const_iterator bound_impl(KeyRange const & key) const noexcept
+        const_iterator bound_impl(KeyRange const & key) const
         {
             auto first = detail::begin(key);
             auto const last = detail::end(key);
@@ -1017,9 +1012,9 @@ namespace boost { namespace text {
         using ptr_type = stl_interfaces::proxy_arrow_result<ref_type>;
 
     public:
-        const_trie_map_iterator() noexcept : state_{nullptr, 0} {}
+        const_trie_map_iterator() : state_{nullptr, 0} {}
 
-        const_trie_map_iterator(trie_match_result match_result) noexcept
+        const_trie_map_iterator(trie_match_result match_result)
         {
             BOOST_ASSERT(match_result.node);
             BOOST_ASSERT(match_result.match);
@@ -1032,20 +1027,18 @@ namespace boost { namespace text {
         }
 
         ref_type operator*() const
-            noexcept(noexcept(detail::reconstruct_key(state_)))
         {
             return ref_type{detail::reconstruct_key(state_),
                             state_.parent_->child_value(state_.index_)};
         }
         ptr_type operator->() const
-            noexcept(noexcept(detail::reconstruct_key(state_)))
         {
             ref_type && deref_result = **this;
             return ptr_type(
                 ref_type{std::move(deref_result.key), deref_result.value});
          }
 
-        const_trie_map_iterator & operator++() noexcept
+        const_trie_map_iterator & operator++()
         {
             auto node = to_node(state_);
             if (node && !node->empty()) {
@@ -1082,7 +1075,7 @@ namespace boost { namespace text {
 
             return *this;
         }
-        const_trie_map_iterator & operator--() noexcept
+        const_trie_map_iterator & operator--()
         {
             // Decrement-from-end case.
             if (state_.index_ == state_.parent_->size()) {
@@ -1113,7 +1106,7 @@ namespace boost { namespace text {
         }
 
         friend bool operator==(
-            const_trie_map_iterator lhs, const_trie_map_iterator rhs) noexcept
+            const_trie_map_iterator lhs, const_trie_map_iterator rhs)
         {
             return lhs.state_.parent_ == rhs.state_.parent_ &&
                    lhs.state_.index_ == rhs.state_.index_;
@@ -1157,40 +1150,38 @@ namespace boost { namespace text {
         using ptr_type = stl_interfaces::proxy_arrow_result<ref_type>;
 
     public:
-        trie_map_iterator() noexcept {}
+        trie_map_iterator() {}
 
-        trie_map_iterator(trie_match_result match_result) noexcept :
+        trie_map_iterator(trie_match_result match_result) :
             trie_map_iterator(const_trie_map_iterator<Key, Value>(match_result))
         {}
 
         ref_type operator*() const
-            noexcept(noexcept(detail::reconstruct_key(it_.state_)))
         {
             return ref_type{detail::reconstruct_key(it_.state_),
                             it_.state_.parent_->child_value(it_.state_.index_)};
         };
 
         ptr_type operator->() const
-            noexcept(noexcept(detail::reconstruct_key(it_.state_)))
         {
             ref_type && deref_result = **this;
             return ptr_type(
                 ref_type{std::move(deref_result.key), deref_result.value});
         }
 
-        trie_map_iterator & operator++() noexcept
+        trie_map_iterator & operator++()
         {
             ++it_;
             return *this;
         }
-        trie_map_iterator & operator--() noexcept
+        trie_map_iterator & operator--()
         {
             --it_;
             return *this;
         }
 
         friend bool
-        operator==(trie_map_iterator lhs, trie_map_iterator rhs) noexcept
+        operator==(trie_map_iterator lhs, trie_map_iterator rhs)
         {
             return lhs.it_ == rhs.it_;
         }

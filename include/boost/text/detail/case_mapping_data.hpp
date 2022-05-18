@@ -34,26 +34,26 @@ namespace boost { namespace text { namespace detail {
     {
         using iterator = case_mapping_to const *;
 
-        iterator begin(case_mapping_to const * elements) const noexcept
+        iterator begin(case_mapping_to const * elements) const
         {
             return elements + first_;
         }
-        iterator end(case_mapping_to const * elements) const noexcept
+        iterator end(case_mapping_to const * elements) const
         {
             return elements + last_;
         }
 
-        int size() const noexcept { return last_ - first_; }
-        explicit operator bool() const noexcept { return first_ != last_; }
+        int size() const { return last_ - first_; }
+        explicit operator bool() const { return first_ != last_; }
 
         uint16_t first_;
         uint16_t last_;
 
-        friend bool operator==(case_elements lhs, case_elements rhs) noexcept
+        friend bool operator==(case_elements lhs, case_elements rhs)
         {
             return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
         }
-        friend bool operator!=(case_elements lhs, case_elements rhs) noexcept
+        friend bool operator!=(case_elements lhs, case_elements rhs)
         {
             return !(lhs == rhs);
         }

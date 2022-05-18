@@ -38,22 +38,27 @@ namespace boost { namespace text {
 
         constexpr grapheme_view() : first_(), last_() {}
 
-        /** Construct a grapheme view that covers the entirety of the view
-            of graphemes that `begin()` and `end()` lie within. */
+        /** Construct a grapheme view that covers all the graphemes in
+            `[first, last)`. */
         constexpr grapheme_view(iterator first, sentinel last) :
             first_(first),
             last_(last)
         {}
 
-        /** Construct a grapheme view that covers the entirety of the view
-            of graphemes that `begin()` and `end()` lie within. */
+        /** Construct a grapheme view that covers all the graphemes in
+            `[first, last)`. */
         constexpr grapheme_view(I first, S last) :
             first_(first, first, last),
             last_(detail::make_iter<sentinel>(first, last, last))
         {}
 
-        /** Construct a view covering a subset of the view of graphemes that
-            `begin()` and `end()` lie within. */
+        /** Construct a grapheme view that covers only the graphemes in
+            `[view_first, view_last)`.
+
+            \note You should prefer this constructor over the
+            `grapheme_view(I, S)` constructor if you want to use `begin()` and
+            `end()` to traverse parts of `[first, last)` outside of
+            `[view_first, view_last)`. */
 #if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I2>
         // clang-format off
@@ -72,8 +77,8 @@ namespace boost { namespace text {
             last_(first, view_last, last)
         {}
 
-        constexpr iterator begin() const noexcept { return first_; }
-        constexpr sentinel end() const noexcept { return last_; }
+        constexpr iterator begin() const { return first_; }
+        constexpr sentinel end() const { return last_; }
 
         friend constexpr bool operator==(grapheme_view lhs, grapheme_view rhs)
         {
@@ -143,13 +148,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns a `grapheme_view` over the data in `[first, last)`, transcoding
         the data if necessary. */
     template<typename Iter, typename Sentinel>
-    constexpr auto as_graphemes(Iter first, Sentinel last) noexcept;
+    constexpr auto as_graphemes(Iter first, Sentinel last);
 
     /** Returns a `grapheme_view` over the data in `r`, transcoding the data
         if necessary.  If `std::remove_reference_t<R>` is not a pointer, the
         result is returned as a `borrowed_view_t` (C++20 and later only). */
     template<typename Range>
-    constexpr auto as_graphemes(Range && r) noexcept;
+    constexpr auto as_graphemes(Range && r);
 
 #endif
 
@@ -162,7 +167,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 detail::is_cp_ptr_v<std::remove_reference_t<Range>>>
         struct as_graphemes_dispatch
         {
-            static constexpr auto call(Range && r_) noexcept
+            static constexpr auto call(Range && r_)
             {
                 auto r = boost::text::as_utf32(r_);
                 return grapheme_view<decltype(r.begin()), decltype(r.end())>(
@@ -173,7 +178,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         template<typename Ptr>
         struct as_graphemes_dispatch<Ptr, true>
         {
-            static constexpr auto call(Ptr p) noexcept
+            static constexpr auto call(Ptr p)
             {
                 auto r = boost::text::as_utf32(p);
                 return grapheme_view<decltype(r.begin()), null_sentinel_t>(
@@ -184,7 +189,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_graphemes_impl : range_adaptor_closure<as_graphemes_impl>
         {
             template<typename Iter, typename Sentinel>
-            constexpr auto operator()(Iter first, Sentinel last) const noexcept
+            constexpr auto operator()(Iter first, Sentinel last) const
             {
                 auto unpacked =
                     detail::unpack_iterator_and_sentinel(first, last);
@@ -195,7 +200,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
 
             template<typename Range>
-            constexpr auto operator()(Range && r) const noexcept
+            constexpr auto operator()(Range && r) const
                 -> decltype(dtl::as_graphemes_dispatch<Range &&>::call(
                     (Range &&) r))
             {
@@ -214,7 +219,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -222,7 +227,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         struct as_graphemes_impl : range_adaptor_closure<as_graphemes_impl>
         {
             template<utf_iter I, std::sentinel_for<I> S>
-            constexpr auto operator()(I first, S last) const noexcept
+            constexpr auto operator()(I first, S last) const
             {
                 auto unpacked =
                     detail::unpack_iterator_and_sentinel(first, last);
@@ -233,7 +238,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
 
             template<utf_range_like R>
-            constexpr auto operator()(R && r) const noexcept
+            constexpr auto operator()(R && r) const
             {
                 if constexpr (
                     !std::is_pointer_v<std::remove_reference_t<R>> &&

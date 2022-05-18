@@ -62,7 +62,7 @@ namespace boost { namespace text {
         /** Default ctor.
 
             \post size() == 0 && begin() == end() */
-        basic_unencoded_rope() noexcept {}
+        basic_unencoded_rope() {}
 
         basic_unencoded_rope(basic_unencoded_rope const &) = default;
         basic_unencoded_rope(basic_unencoded_rope &&) noexcept = default;
@@ -139,10 +139,10 @@ namespace boost { namespace text {
             return *this;
         }
 
-        const_iterator begin() noexcept { return seg_vec_.begin(); }
-        const_iterator end() noexcept { return seg_vec_.end(); }
+        const_iterator begin() { return seg_vec_.begin(); }
+        const_iterator end() { return seg_vec_.end(); }
 
-        size_type max_size() const noexcept { return seg_vec_.max_size(); }
+        size_type max_size() const { return seg_vec_.max_size(); }
 
         template<typename... Args>
         const_reference emplace_front(Args &&... args)
@@ -178,7 +178,7 @@ namespace boost { namespace text {
         /** Lexicographical compare.  Returns a value `< 0` when `*this` is
             lexicographically less than `rhs, `0` if `*this == rhs`, and a
             value `> 0` if `*this` is lexicographically greater than `rhs`. */
-        int compare(basic_unencoded_rope rhs) const noexcept
+        int compare(basic_unencoded_rope rhs) const
         {
             if (this->empty())
                 return rhs.empty() ? 0 : -1;
@@ -186,7 +186,7 @@ namespace boost { namespace text {
                 begin(), end(), rhs.begin(), rhs.end());
         }
 
-        operator unencoded_rope_view() const noexcept;
+        operator unencoded_rope_view() const;
 
         /** Erases the portion of `*this` delimited by `[first, last)`.
 
@@ -273,44 +273,17 @@ namespace boost { namespace text {
             return *this;
         }
 
-#ifdef BOOST_TEXT_DOXYGEN
-
         /** Replaces the portion of `*this` delimited by `old_substr` with
             `r`.
 
-            This function only participates in overload resolution if
-            `replace(old_substr.begin().as_rope_iter(),
-            old_substr.end().as_rope_iter(), std::forward<Range>(r))` is
-            well-formed.
-
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Range>
-        basic_unencoded_rope &
-        replace(unencoded_rope_view old_substr, Range && r);
-
-        /** Replaces the portion of `*this` delimited by `old_substr` with
-            `[first, last)`.
-
-            This function only participates in overload resolution if
-            `replace(old_substr.begin().as_rope_iter(),
-            old_substr.end().as_rope_iter(), first, last)` is well-formed.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Iter, typename Sentinel>
-        basic_unencoded_rope &
-        replace(unencoded_rope_view old_substr, Iter first, Sentinel last);
-
-#else
-
-#if BOOST_TEXT_USE_CONCEPTS
         template<typename R>
+#if BOOST_TEXT_USE_CONCEPTS
             // clang-format off
         requires std::ranges::range<R> &&
             std::convertible_to<
                 std::ranges::range_reference_t<R>, value_type> ||
             std::convertible_to<R, value_type const *>
-#else
-        template<typename R>
 #endif
         auto replace(unencoded_rope_view const & old_substr, R && r)
             // clang-format on
@@ -319,6 +292,10 @@ namespace boost { namespace text {
             return replace_shim<R>(old_substr, (R &&) r);
         }
 
+        /** Replaces the portion of `*this` delimited by `old_substr` with
+            `[first, last)`.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
 #if BOOST_TEXT_USE_CONCEPTS
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
@@ -334,46 +311,16 @@ namespace boost { namespace text {
             return replace_shim<I, S>(old_substr, first, last);
         }
 
-#endif
-
-#ifdef BOOST_TEXT_DOXYGEN
-
         /** Inserts `r` into `*this` at position `at`.
 
-            This function only participates in overload resolution if
-            `replace(at, at, std::forward<Range>(r))` is well-formed.
-
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Range>
-        const_iterator insert(const_iterator at, Range && r);
-
-        /** Inserts `[first, last)` into `*this` at position `at`.
-
-            This function only participates in overload resolution if
-            `replace(at, at, first, last)` is well-formed.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Iter, typename Sentinel>
-        const_iterator insert(const_iterator at, Iter first, Sentinel last);
-
-        /** Appends `x` to `*this`.
-
-            This function only participates in overload resolution if
-            `*this = std::forward<T>(x)` is well-formed. */
-        template<typename T>
-        basic_unencoded_rope & operator+=(T && x);
-
-#else
-
-#if BOOST_TEXT_USE_CONCEPTS
         template<typename R>
+#if BOOST_TEXT_USE_CONCEPTS
             // clang-format off
             requires std::ranges::range<R> &&
                 std::convertible_to<
                     std::ranges::range_reference_t<R>, value_type> ||
                 std::convertible_to<R, value_type const *>
-#else
-        template<typename R>
 #endif
         auto insert(const_iterator at, R && r)
             // clang-format on
@@ -384,6 +331,9 @@ namespace boost { namespace text {
             return begin() + at_offset;
         }
 
+        /** Inserts `[first, last)` into `*this` at position `at`.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
 #if BOOST_TEXT_USE_CONCEPTS
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
@@ -400,14 +350,13 @@ namespace boost { namespace text {
             return begin() + at_offset;
         }
 
+        /** Appends `x` to `*this`. */
         template<typename T>
         auto operator+=(T && x) -> decltype(*this = std::forward<T>(x))
         {
             insert(end(), std::forward<T>(x));
             return *this;
         }
-
-#endif
 
         void swap(basic_unencoded_rope & other)
         {
@@ -427,7 +376,7 @@ namespace boost { namespace text {
             between two `basic_unencoded_rope`s that are likely to have
             originated from the same initial `basic_unencoded_rope`, and may
             have since been mutated. */
-        bool equal_root(basic_unencoded_rope other) const noexcept
+        bool equal_root(basic_unencoded_rope other) const
         {
             return seg_vec_.equal_root(other.seg_vec_);
         }
@@ -443,84 +392,84 @@ namespace boost { namespace text {
         }
 
         friend bool
-        operator==(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator==(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) == 0;
         }
 
         friend bool
-        operator==(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator==(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) == 0;
         }
 
         friend bool
-        operator!=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator!=(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) != 0;
         }
 
         friend bool
-        operator!=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator!=(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) != 0;
         }
 
         friend bool
-        operator<(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator<(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) < 0;
         }
 
         friend bool
-        operator<(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator<(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) < 0;
         }
 
         friend bool
-        operator<=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator<=(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) <= 0;
         }
 
         friend bool
-        operator<=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator<=(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) <= 0;
         }
 
         friend bool
-        operator>(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator>(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) > 0;
         }
 
         friend bool
-        operator>(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator>(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) > 0;
         }
 
         friend bool
-        operator>=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        operator>=(value_type const * lhs, basic_unencoded_rope rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs, null_sentinel, rhs.begin(), rhs.end()) >= 0;
         }
 
         friend bool
-        operator>=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        operator>=(basic_unencoded_rope lhs, value_type const * rhs)
         {
             return boost::text::lexicographical_compare_three_way(
                        lhs.begin(), lhs.end(), rhs, null_sentinel) >= 0;
@@ -969,7 +918,7 @@ namespace boost { namespace text {
 
     template<typename Char, typename String>
     basic_unencoded_rope<Char, String>::
-    operator basic_unencoded_rope_view<Char, String>() const noexcept
+    operator basic_unencoded_rope_view<Char, String>() const
     {
         return unencoded_rope_view(*this, 0, this->size());
     }

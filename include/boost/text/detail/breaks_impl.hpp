@@ -39,7 +39,7 @@ namespace boost { namespace text { namespace detail {
         typename CPIter,
         typename Sentinel>
     break_view<CPIter, Sentinel, PrevFunc<CPIter>, NextFunc<CPIter, Sentinel>>
-    breaks_impl(CPIter first, Sentinel last) noexcept
+    breaks_impl(CPIter first, Sentinel last)
     {
         return {first, last, {}, {}};
     }
@@ -55,7 +55,7 @@ namespace boost { namespace text { namespace detail {
         sentinel_t<CPRange>,
         PrevFunc<iterator_t<CPRange>>,
         NextFunc<iterator_t<CPRange>, sentinel_t<CPRange>>>
-    breaks_cr_impl(CPRange && range) noexcept
+    breaks_cr_impl(CPRange && range)
     {
         return {detail::begin(range), detail::end(range), {}, {}};
     }
@@ -74,7 +74,7 @@ namespace boost { namespace text { namespace detail {
             gr_rng_cp_iter_t<GraphemeRange>,
             gr_rng_cp_sent_t<GraphemeRange>>,
         grapheme_view<gr_rng_cp_iter_t<GraphemeRange>>>
-    breaks_gr_impl(GraphemeRange && range) noexcept
+    breaks_gr_impl(GraphemeRange && range)
     {
         return {
             range.begin().base(),

@@ -23,16 +23,16 @@ namespace boost { namespace text { namespace detail {
                                        T const &,
                                        T const *>
     {
-        const_vector_iterator() noexcept :
+        const_vector_iterator() :
             vec_(nullptr), n_(-1), leaf_(nullptr), leaf_start_(-1)
         {}
 
         const_vector_iterator(
-            segmented_vector<T, Segment> const & v, std::ptrdiff_t n) noexcept :
+            segmented_vector<T, Segment> const & v, std::ptrdiff_t n) :
             vec_(&v), n_(n), leaf_(nullptr), leaf_start_(0)
         {}
 
-        T const & operator*() const noexcept
+        T const & operator*() const
         {
             if (leaf_) {
                 return deref();
@@ -45,7 +45,7 @@ namespace boost { namespace text { namespace detail {
             }
         }
 
-        const_vector_iterator & operator+=(std::ptrdiff_t n) noexcept
+        const_vector_iterator & operator+=(std::ptrdiff_t n)
         {
             n_ += n;
             leaf_ = nullptr;
@@ -53,7 +53,7 @@ namespace boost { namespace text { namespace detail {
         }
 
         friend std::ptrdiff_t
-        operator-(const_vector_iterator lhs, const_vector_iterator rhs) noexcept
+        operator-(const_vector_iterator lhs, const_vector_iterator rhs)
         {
             BOOST_ASSERT(lhs.vec_ == rhs.vec_);
             return lhs.n_ - rhs.n_;
@@ -63,7 +63,7 @@ namespace boost { namespace text { namespace detail {
             typename segmented_vector<T, Segment>::segment_type;
 
         const_vector_iterator(
-            segmented_vector<T, Segment> const * v, std::ptrdiff_t n) noexcept :
+            segmented_vector<T, Segment> const * v, std::ptrdiff_t n) :
             vec_(v), n_(n), leaf_(nullptr), leaf_start_(0)
         {}
 

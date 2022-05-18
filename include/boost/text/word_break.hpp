@@ -51,7 +51,7 @@ namespace boost { namespace text {
         };
 
         inline bool
-        operator<(word_prop_interval lhs, word_prop_interval rhs) noexcept
+        operator<(word_prop_interval lhs, word_prop_interval rhs)
         {
             return lhs.hi_ <= rhs.lo_;
         }
@@ -63,7 +63,7 @@ namespace boost { namespace text {
     }
 
     /** Returns the word property associated with code point `cp`. */
-    inline word_property word_prop(uint32_t cp) noexcept
+    inline word_property word_prop(uint32_t cp)
     {
         static auto const map = detail::make_word_prop_map();
         static auto const intervals = detail::make_word_prop_intervals();
@@ -86,7 +86,7 @@ namespace boost { namespace text {
         functions. */
     struct word_prop_callable
     {
-        word_property operator()(uint32_t cp) const noexcept
+        word_property operator()(uint32_t cp) const
         {
             return boost::text::word_prop(cp);
         }
@@ -98,33 +98,33 @@ namespace boost { namespace text {
     struct untailored_word_break
     {
         bool operator()(
-            uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) const noexcept
+            uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) const
         {
             return false;
         }
     };
 
     namespace detail {
-        inline bool skippable(word_property prop) noexcept
+        inline bool skippable(word_property prop)
         {
             return prop == word_property::Extend ||
                    prop == word_property::Format || prop == word_property::ZWJ;
         }
 
-        inline bool linebreak(word_property prop) noexcept
+        inline bool linebreak(word_property prop)
         {
             return prop == word_property::CR || prop == word_property::LF ||
                    prop == word_property::Newline;
         }
 
-        inline bool ah_letter(word_property prop) noexcept
+        inline bool ah_letter(word_property prop)
         {
             return prop == word_property::ALetter ||
                    prop == word_property::Hebrew_Letter;
         }
 
         // Corresonds to (MidLetter | MidNumLetQ) in WB6 and WB7
-        inline bool mid_ah(word_property prop) noexcept
+        inline bool mid_ah(word_property prop)
         {
             return prop == word_property::MidLetter ||
                    prop == word_property::MidNumLet ||
@@ -132,7 +132,7 @@ namespace boost { namespace text {
         }
 
         // Corresonds to (MidNum | MidNumLetQ) in WB11 and WB12
-        inline bool mid_num(word_property prop) noexcept
+        inline bool mid_num(word_property prop)
         {
             return prop == word_property::MidNum ||
                    prop == word_property::MidNumLet ||
@@ -330,7 +330,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPIter it,
             Sentinel last,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
         {
             using detail::ph;
             using detail::cp_and_word_prop;
@@ -670,7 +670,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPIter first,
             Sentinel last,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
         {
             using detail::ph;
             using detail::cp_and_word_prop;
@@ -857,7 +857,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPRange && range,
             CPIter it,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
         {
             return detail::prev_word_break_impl(
                 detail::begin(range), it, detail::end(range), word_prop, word_break);
@@ -872,7 +872,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             GraphemeRange && range,
             GraphemeIter it,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
         {
             using cp_iter_t = decltype(range.begin().base());
             return {
@@ -895,7 +895,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPRange && range,
             CPIter it,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
         {
             return detail::next_word_break_impl(
                 it, detail::end(range), word_prop, word_break);
@@ -910,7 +910,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             GraphemeRange && range,
             GraphemeIter it,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
         {
             using cp_iter_t = decltype(range.begin().base());
             return {
@@ -933,7 +933,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPIter it,
             Sentinel last,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
         {
             if (it == last)
                 return true;
@@ -950,7 +950,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPRange && range,
             CPIter it,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
         {
             if (it == detail::end(range))
                 return true;
@@ -971,7 +971,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             GraphemeRange && range,
             GraphemeIter it,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
         {
             if (it == detail::end(range))
                 return true;
@@ -992,7 +992,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             typename WordBreakFunc>
         struct next_word_callable
         {
-            auto operator()(CPIter it, Sentinel last) const noexcept
+            auto operator()(CPIter it, Sentinel last) const
                 -> cp_iter_ret_t<CPIter, CPIter>
             {
                 return detail::next_word_break_impl(
@@ -1009,7 +1009,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             typename WordBreakFunc>
         struct prev_word_callable
         {
-            auto operator()(CPIter first, CPIter it, CPIter last) const noexcept
+            auto operator()(CPIter first, CPIter it, CPIter last) const
                 -> cp_iter_ret_t<CPIter, CPIter>
             {
                 return detail::prev_word_break_impl(
@@ -1030,7 +1030,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPIter it,
             Sentinel last,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
         {
             first = detail::prev_word_break_impl(
                 first, it, last, word_prop, word_break);
@@ -1048,7 +1048,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPRange && range,
             CPIter it,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
         {
             auto first = detail::prev_word_break_impl(
                 detail::begin(range), it, detail::end(range), word_prop, word_break);
@@ -1067,7 +1067,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             GraphemeRange && range,
             GraphemeIter it,
             WordPropFunc const & word_prop = WordPropFunc{},
-            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc const & word_break = WordBreakFunc{})
             -> grapheme_view<decltype(range.begin().base())>
         {
             using cp_iter_t = decltype(range.begin().base());
@@ -1094,7 +1094,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPIter first,
             Sentinel last,
             WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc word_break = WordBreakFunc{})
             -> break_view<
                 CPIter,
                 Sentinel,
@@ -1116,7 +1116,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         auto words_cr_impl(
             CPRange && range,
             WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc word_break = WordBreakFunc{})
             -> break_view<
                 iterator_t<CPRange>,
                 sentinel_t<CPRange>,
@@ -1144,7 +1144,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         auto words_gr_impl(
             GraphemeRange && range,
             WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc word_break = WordBreakFunc{}) noexcept
+            WordBreakFunc word_break = WordBreakFunc{})
             -> break_view<
                 gr_rng_cp_iter_t<GraphemeRange>,
                 gr_rng_cp_sent_t<GraphemeRange>,
@@ -1178,212 +1178,152 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         that `it` is within is returned (even if `it` is already at the first
         code point of a word).
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        See the Text Segmentation section of the tutorial for WordPropFunc
         semantics. */
     template<
-        typename CPIter,
-        typename Sentinel,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    CPIter prev_word_break(
-        CPIter first,
-        CPIter it,
-        Sentinel last,
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    I prev_word_break(
+        I first,
+        I it,
+        S last,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc const & word_break = WordBreakFunc{});
 
     /** Finds the next word break after `first`.  This will be the first code
         point after the current word, or `last` if no next word exists.
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        See the Text Segmentation section of the tutorial for WordPropFunc
         semantics.
 
         \pre `first` is at the beginning of a word. */
     template<
-        typename CPIter,
-        typename Sentinel,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    CPIter next_word_break(
-        CPIter first,
-        Sentinel last,
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    I next_word_break(
+        I first,
+        S last,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc const & word_break = WordBreakFunc{});
 
     /** Finds the nearest word break at or before before `it`.  If `it ==
-        range.begin()`, that is returned.  Otherwise, the first code point of
+        r.begin()`, that is returned.  Otherwise, the first code point of
         the word that `it` is within is returned (even if `it` is already at
         the first code point of a word).
 
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept and `WordPropFunc` models the WordPropFunc
-        concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        See the Text Segmentation section of the tutorial for WordPropFunc
         semantics. */
     template<
-        typename CPRange,
-        typename CPIter,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined prev_word_break(
-        CPRange && range,
-        CPIter it,
+        code_point_range R,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    std::ranges::borrowed_iterator_t<R> prev_word_break(
+        R && r,
+        std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc const & word_break = WordBreakFunc{});
 
     /** Returns a grapheme_iterator to the nearest word break at or before
-        before `it`.  If `it == range.begin()`, that is returned.  Otherwise,
+        before `it`.  If `it == r.begin()`, that is returned.  Otherwise,
         the first grapheme of the word that `it` is within is returned (even
         if `it` is already at the first grapheme of a word).
 
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
-        models the WordPropFunc concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        See the Text Segmentation section of the tutorial for WordPropFunc
         semantics. */
     template<
-        typename GraphemeRange,
-        typename GraphemeIter,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined prev_word_break(
-        GraphemeRange && range,
-        GraphemeIter it,
+        grapheme_range R,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    std::ranges::borrowed_iterator_t<R> prev_word_break(
+        R && r,
+        std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc const & word_break = WordBreakFunc{});
 
     /** Finds the next word break after `it`.  This will be the first code
-        point after the current word, or `range.end()` if no next word exists.
+        point after the current word, or `r.end()` if no next word exists.
 
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept and `WordPropFunc` models the WordPropFunc
-        concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        See the Text Segmentation section of the tutorial for WordPropFunc
         semantics.
 
         \pre `it` is at the beginning of a word. */
     template<
-        typename CPRange,
-        typename CPIter,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined next_word_break(
-        CPRange && range,
-        CPIter it,
+        code_point_range R,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    std::ranges::borrowed_iterator_t<R> next_word_break(
+        R && r,
+        std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{});
 
     /** Returns a grapheme_iterator to the next word break after `it`.  This
-        will be the first grapheme after the current word, or `range.end()` if
+        will be the first grapheme after the current word, or `r.end()` if
         no next word exists.
 
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
-        models the WordPropFunc concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        See the Text Segmentation section of the tutorial for WordPropFunc
         semantics.
 
         \pre `it` is at the beginning of a word. */
     template<
-        typename GraphemeRange,
-        typename GraphemeIter,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined next_word_break(
-        GraphemeRange && range,
-        GraphemeIter it,
+        grapheme_range R,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    std::ranges::borrowed_iterator_t<R> next_word_break(
+        R && r,
+        std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc const & word_break = WordBreakFunc{});
 
     /** Returns true iff `it` is at the beginning of a word, or `it == last`.
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        See the Text Segmentation section of the tutorial for WordPropFunc
         semantics. */
     template<
-        typename CPIter,
-        typename Sentinel,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
     bool at_word_break(
-        CPIter first,
-        CPIter it,
-        Sentinel last,
+        I first,
+        I it,
+        S last,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc const & word_break = WordBreakFunc{});
 
     /** Returns true iff `it` is at the beginning of a word, or `it ==
-        std::ranges::end(range)`.
+        std::ranges::end(r)`.
 
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept and `WordPropFunc` models the WordPropFunc
-        concept. */
-    template<
-        typename CPRange,
-        typename CPIter,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    bool at_word_break(
-        CPRange && range,
-        CPIter it,
-        WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
-
-    /** Returns true iff `it` is at the beginning of a word, or `it ==
-        std::ranges::end(range)`.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
-        models the WordPropFunc concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        See the Text Segmentation section of the tutorial for WordPropFunc
         semantics. */
     template<
-        typename GraphemeRange,
-        typename GraphemeIter,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
+        code_point_range R,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
     bool at_word_break(
-        GraphemeRange && range,
-        GraphemeIter it,
+        R && r,
+        std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc const & word_break = WordBreakFunc{});
+
+    /** Returns true iff `it` is at the beginning of a word, or `it ==
+        std::ranges::end(r)`.
+
+        See the Text Segmentation section of the tutorial for WordPropFunc
+        semantics. */
+    template<
+        grapheme_range R,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    bool at_word_break(
+        R && r,
+        std::ranges::iterator_t<R> it,
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{});
 
 #else
 
@@ -1398,7 +1338,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Sentinel last,
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break =
-            WordBreakFunc{}) noexcept->detail::cp_iter_ret_t<CPIter, CPIter>
+            WordBreakFunc{})->detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::prev_word_break_impl(
             first, it, last, word_prop, word_break);
@@ -1414,7 +1354,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Sentinel last,
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break =
-            WordBreakFunc{}) noexcept->detail::cp_iter_ret_t<CPIter, CPIter>
+            WordBreakFunc{})->detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::next_word_break_impl(first, last, word_prop, word_break);
     }
@@ -1428,7 +1368,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPRange && range,
         CPIter it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept->detail::
+        WordBreakFunc const & word_break = WordBreakFunc{})->detail::
         word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
         return detail::prev_word_break_cr_impl(range, it, word_prop, word_break);
@@ -1443,7 +1383,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
         ->detail::graph_word_prop_func_ret_t<
             detail::iterator_t<GraphemeRange>,
             WordPropFunc,
@@ -1461,7 +1401,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPRange && range,
         CPIter it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept->detail::
+        WordBreakFunc const & word_break = WordBreakFunc{})->detail::
         word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
         return detail::next_word_break_cr_impl(range, it, word_prop, word_break);
@@ -1476,7 +1416,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
         ->detail::graph_word_prop_func_ret_t<
             detail::iterator_t<GraphemeRange>,
             WordPropFunc,
@@ -1496,7 +1436,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         Sentinel last,
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break =
-            WordBreakFunc{}) noexcept->detail::cp_iter_ret_t<bool, CPIter>
+            WordBreakFunc{})->detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::at_word_break_impl(first, it, last, word_prop, word_break);
     }
@@ -1510,7 +1450,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPRange && range,
         CPIter it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
         ->detail::word_prop_func_ret_t<bool, WordPropFunc, CPRange>
     {
         return detail::at_word_break_cr_impl(range, it, word_prop, word_break);
@@ -1525,7 +1465,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
         ->detail::graph_word_prop_func_ret_t<bool, WordPropFunc, GraphemeRange>
     {
         return detail::at_word_break_gr_impl(range, it, word_prop, word_break);
@@ -1533,7 +1473,101 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 #endif
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Returns the bounds of the word that `it` lies within. */
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    utf32_view<I> word(
+        I first,
+        I it,
+        S last,
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{});
+
+    /** Returns the bounds of the word that `it` lies within.  Returns a
+        `utf32_view`; in C++20 and later, if `std::ranges::borrowed_range<R>`
+        is `false`, this function returns a `std::ranges::dangling` instead.
+
+        See the Text Segmentation section of the tutorial for WordPropFunc
+        semantics. */
+    template<
+        code_point_range R,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    detail::undefined word(
+        R && r,
+        std::ranges::iterator_t<R> it,
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{});
+
+    /** Returns grapheme range delimiting the bounds of the word that `it`
+        lies within.  Returns a `grapheme_view`; in C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns a
+        `std::ranges::dangling` instead.
+
+        See the Text Segmentation section of the tutorial for WordPropFunc
+        semantics. */
+    template<
+        grapheme_range R,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    detail::undefined word(
+        R && r,
+        std::ranges::iterator_t<R> it,
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{});
+
+    /** Returns a view of the code point ranges delimiting words in `[first,
+        last)`.  The result is returned as a `borrowed_view_t` in C++20 and
+        later.
+
+        See the Text Segmentation section of the tutorial for WordPropFunc
+        semantics. */
+    template<
+        code_point_iter I,
+        std::sentinel_for<I> S,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    detail::undefined words(
+        I first,
+        S last,
+        WordPropFunc word_prop = WordPropFunc{},
+        WordBreakFunc word_break = WordBreakFunc{});
+
+    /** Returns a view of the code point ranges delimiting words in `r`.  The
+        result is returned as a `borrowed_view_t` in C++20 and later.
+
+        See the Text Segmentation section of the tutorial for WordPropFunc
+        semantics. */
+    template<
+        code_point_range R,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    detail::undefined words(
+        R && r,
+        WordPropFunc word_prop = WordPropFunc{},
+        WordBreakFunc word_break = WordBreakFunc{});
+
+    /** Returns a view of the grapheme ranges delimiting words in `r`.  The
+        result is returned as a `borrowed_view_t` in C++20 and later.
+
+        See the Text Segmentation section of the tutorial for WordPropFunc
+        semantics. */
+    template<
+        grapheme_range R,
+        word_prop_func WordPropFunc = word_prop_callable,
+        word_break_func WordBreakFunc = untailored_word_break>
+    detail::undefined words(
+        R && r,
+        WordPropFunc word_prop = WordPropFunc{},
+        WordBreakFunc word_break = WordBreakFunc{});
+
+#else
+
     template<
         typename CPIter,
         typename Sentinel,
@@ -1544,125 +1578,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPIter it,
         Sentinel last,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
         return detail::word_impl(first, it, last, word_prop, word_break);
     }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Returns the bounds of the word that `it` lies within, as a utf32_view.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept and `WordPropFunc` models the WordPropFunc
-        concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
-        semantics. */
-    template<
-        typename CPRange,
-        typename CPIter,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined word(
-        CPRange && range,
-        CPIter it,
-        WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
-
-    /** Returns grapheme range delimiting the bounds of the word that `it`
-        lies within, as a grapheme_view.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
-        models the WordPropFunc concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
-        semantics. */
-    template<
-        typename GraphemeRange,
-        typename GraphemeIter,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined word(
-        GraphemeRange && range,
-        GraphemeIter it,
-        WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
-
-    /** Returns a view of the code point ranges delimiting words in `[first,
-        last)`.  The result is returned as a `borrowed_view_t` in C++20 and
-        later.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept and CPIter is equality comparable with
-        Sentinel.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
-        semantics. */
-    template<
-        typename CPIter,
-        typename Sentinel,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined words(
-        CPIter first,
-        Sentinel last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
-
-    /** Returns a view of the code point ranges delimiting words in `range`.
-        The result is returned as a `borrowed_view_t` in C++20 and later.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept and `WordPropFunc` models the WordPropFunc
-        concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
-        semantics. */
-    template<
-        typename CPRange,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined words(
-        CPRange && range,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
-
-    /** Returns a view of the grapheme ranges delimiting words in `range`.
-        The result is returned as a `borrowed_view_t` in C++20 and later.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
-        models the WordPropFunc concept.
-
-        WordPropFunc must be an invocable type whose signature is
-        `word_property (uint32_t cp)`.  WordBreakFunc must be an invocable
-        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
-        uint32_t)`.  See the Text Segmentation section of the tutorial for
-        semantics. */
-    template<
-        typename GraphemeRange,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = detail::undefined>
-    detail::undefined words(
-        GraphemeRange && range,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
-
-#else
 
     template<
         typename CPRange,
@@ -1673,7 +1592,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPRange && range,
         CPIter it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
         ->detail::word_prop_func_ret_t<
             utf32_view<detail::iterator_t<CPRange>>,
             WordPropFunc,
@@ -1691,7 +1610,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
         ->detail::graph_word_prop_func_ret_t<
             grapheme_view<decltype(range.begin().base())>,
             WordPropFunc,
@@ -1712,7 +1631,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 CPIter first,
                 Sentinel last,
                 WordPropFunc word_prop = WordPropFunc{},
-                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+                WordBreakFunc word_break = WordBreakFunc{}) const
                 -> detail::cp_iter_sntl_ret_t<
                     decltype(detail::words_impl(
                         first,
@@ -1733,7 +1652,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             auto operator()(
                 CPRange && range,
                 WordPropFunc word_prop = WordPropFunc{},
-                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+                WordBreakFunc word_break = WordBreakFunc{}) const
                 -> detail::word_prop_func_ret_t<
                     decltype(detail::words_cr_impl(
                         range, std::move(word_prop), std::move(word_break))),
@@ -1751,7 +1670,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             auto operator()(
                 GraphemeRange && range,
                 WordPropFunc word_prop = WordPropFunc{},
-                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+                WordBreakFunc word_break = WordBreakFunc{}) const
                 -> detail::graph_word_prop_func_ret_t<
                     decltype(detail::words_gr_impl(
                         range, std::move(word_prop), std::move(word_break))),
@@ -1776,7 +1695,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -1809,7 +1728,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I it,
         S last,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
         return detail::prev_word_break_impl(
             first, it, last, word_prop, word_break);
@@ -1824,7 +1743,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I first,
         S last,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
         return detail::next_word_break_impl(first, last, word_prop, word_break);
     }
@@ -1833,11 +1752,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         code_point_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> prev_word_break(
+    std::ranges::borrowed_iterator_t<R> prev_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
         return detail::prev_word_break_cr_impl(r, it, word_prop, word_break);
     }
@@ -1846,11 +1765,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         grapheme_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> prev_word_break(
+    std::ranges::borrowed_iterator_t<R> prev_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
         return detail::prev_word_break_gr_impl(r, it, word_prop, word_break);
     }
@@ -1859,11 +1778,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         code_point_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> next_word_break(
+    std::ranges::borrowed_iterator_t<R> next_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
         return detail::next_word_break_cr_impl(r, it, word_prop, word_break);
     }
@@ -1872,11 +1791,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         grapheme_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::iterator_t<R> next_word_break(
+    std::ranges::borrowed_iterator_t<R> next_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
         return detail::next_word_break_gr_impl(r, it, word_prop, word_break);
     }
@@ -1891,7 +1810,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I it,
         S last,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
         return detail::at_word_break_impl(first, it, last, word_prop, word_break);
     }
@@ -1904,7 +1823,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
         return detail::at_word_break_cr_impl(r, it, word_prop, word_break);
     }
@@ -1917,7 +1836,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
         return detail::at_word_break_gr_impl(r, it, word_prop, word_break);
     }
@@ -1932,7 +1851,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I it,
         S last,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
         return detail::word_impl(first, it, last, word_prop, word_break);
     }
@@ -1941,26 +1860,32 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         code_point_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    utf32_view<std::ranges::iterator_t<R>> word(
+    auto word(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        return detail::word_cr_impl(r, it, word_prop, word_break);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::word_cr_impl(r, it, word_prop, word_break);
+        else
+            return std::ranges::dangling{};
     }
 
     template<
         grapheme_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    grapheme_view<code_point_iterator_t<R>> word(
+    auto word(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
-        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        return detail::word_gr_impl(r, it, word_prop, word_break);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::word_gr_impl(r, it, word_prop, word_break);
+        else
+            return std::ranges::dangling{};
     }
 
     namespace dtl {
@@ -1975,7 +1900,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 I first,
                 S last,
                 WordPropFunc word_prop = WordPropFunc{},
-                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+                WordBreakFunc word_break = WordBreakFunc{}) const
             {
                 return detail::words_impl(
                     first, last, std::move(word_prop), std::move(word_break));
@@ -1988,7 +1913,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             auto operator()(
                 R && r,
                 WordPropFunc word_prop = WordPropFunc{},
-                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+                WordBreakFunc word_break = WordBreakFunc{}) const
             {
                 if constexpr (std::ranges::borrowed_range<R>) {
                     return detail::words_cr_impl(
@@ -2005,7 +1930,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             auto operator()(
                 R && r,
                 WordPropFunc word_prop = WordPropFunc{},
-                WordBreakFunc word_break = WordBreakFunc{}) const noexcept
+                WordBreakFunc word_break = WordBreakFunc{}) const
             {
                 if constexpr (std::ranges::borrowed_range<R>) {
                     return detail::words_gr_impl(

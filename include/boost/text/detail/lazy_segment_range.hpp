@@ -31,21 +31,21 @@ namespace boost { namespace text { namespace detail {
         [[no_unique_address]] Sentinel last_;
 
     public:
-        const_lazy_segment_iterator() noexcept :
+        const_lazy_segment_iterator() :
             next_func_(), prev_(), it_(), last_()
         {}
 
-        const_lazy_segment_iterator(CPIter it, Sentinel last) noexcept :
+        const_lazy_segment_iterator(CPIter it, Sentinel last) :
             next_func_(), prev_(it), it_(), last_(last)
         {}
 
-        const_lazy_segment_iterator(Sentinel last) noexcept :
+        const_lazy_segment_iterator(Sentinel last) :
             next_func_(), prev_(), it_(), last_(last)
         {}
 
-        CPRange operator*() const noexcept { return CPRange{prev_, it_}; }
+        CPRange operator*() const { return CPRange{prev_, it_}; }
 
-        const_lazy_segment_iterator & operator++() noexcept
+        const_lazy_segment_iterator & operator++()
         {
             auto const next_it = (*next_func_)(it_, last_);
             prev_ = it_;
@@ -53,7 +53,7 @@ namespace boost { namespace text { namespace detail {
             return *this;
         }
 
-        void set_next_func(NextFunc * next_func) noexcept
+        void set_next_func(NextFunc * next_func)
         {
             next_func_ = next_func;
             it_ = (*next_func_)(prev_, last_);
@@ -61,7 +61,7 @@ namespace boost { namespace text { namespace detail {
 
         friend bool operator==(
             const_lazy_segment_iterator lhs,
-            const_lazy_segment_iterator rhs) noexcept
+            const_lazy_segment_iterator rhs)
         {
             return lhs.prev_ == rhs.last_;
         }
@@ -95,18 +95,18 @@ namespace boost { namespace text { namespace detail {
         CPIter next_;
 
     public:
-        const_reverse_lazy_segment_iterator() noexcept :
+        const_reverse_lazy_segment_iterator() :
             prev_func_(), first_(), it_(), next_()
         {}
 
         const_reverse_lazy_segment_iterator(
-            CPIter first, CPIter it, CPIter last) noexcept :
+            CPIter first, CPIter it, CPIter last) :
             prev_func_(), first_(first), it_(it), next_(last)
         {}
 
-        CPRange operator*() const noexcept { return CPRange{it_, next_}; }
+        CPRange operator*() const { return CPRange{it_, next_}; }
 
-        const_reverse_lazy_segment_iterator & operator++() noexcept
+        const_reverse_lazy_segment_iterator & operator++()
         {
             if (it_ == first_) {
                 next_ = first_;
@@ -118,7 +118,7 @@ namespace boost { namespace text { namespace detail {
             return *this;
         }
 
-        void set_next_func(PrevFunc * prev_func) noexcept
+        void set_next_func(PrevFunc * prev_func)
         {
             prev_func_ = prev_func;
             ++*this;
@@ -126,7 +126,7 @@ namespace boost { namespace text { namespace detail {
 
         friend bool operator==(
             const_reverse_lazy_segment_iterator lhs,
-            const_reverse_lazy_segment_iterator rhs) noexcept
+            const_reverse_lazy_segment_iterator rhs)
         {
             return lhs.next_ == rhs.first_;
         }
@@ -154,22 +154,22 @@ namespace boost { namespace text { namespace detail {
     {
         using iterator = IteratorTemplate<CPIter, Sentinel, NextFunc, CPRange>;
 
-        lazy_segment_range() noexcept {}
+        lazy_segment_range() {}
         lazy_segment_range(
-            NextFunc next_func, iterator first, iterator last) noexcept :
+            NextFunc next_func, iterator first, iterator last) :
             next_func_(std::move(next_func)), first_(first), last_(last)
         {}
 
-        iterator begin() const noexcept
+        iterator begin() const
         {
             const_cast<iterator &>(first_).set_next_func(
                 const_cast<NextFunc *>(&next_func_));
             return first_;
         }
-        iterator end() const noexcept { return last_; }
+        iterator end() const { return last_; }
 
         /** Moves the contained `NextFunc` out of *this. */
-        NextFunc && next_func() && noexcept { return std::move(next_func_); }
+        NextFunc && next_func() && { return std::move(next_func_); }
 
     private:
         NextFunc next_func_;

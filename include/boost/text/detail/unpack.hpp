@@ -86,7 +86,7 @@ namespace boost { namespace text { namespace detail {
         false>
     {
         static constexpr auto
-        call(Iter first, Sentinel last, Repack repack) noexcept
+        call(Iter first, Sentinel last, Repack repack)
         {
             return detail::make_tagged_range(utf8_tag{}, first, last, repack);
         }
@@ -101,7 +101,7 @@ namespace boost { namespace text { namespace detail {
         false>
     {
         static constexpr auto
-        call(Iter first, Sentinel last, Repack repack) noexcept
+        call(Iter first, Sentinel last, Repack repack)
         {
             return detail::make_tagged_range(utf16_tag{}, first, last, repack);
         }
@@ -116,7 +116,7 @@ namespace boost { namespace text { namespace detail {
         true>
     {
         static constexpr auto
-        call(Iter first, Sentinel last, Repack repack) noexcept
+        call(Iter first, Sentinel last, Repack repack)
         {
             return detail::make_tagged_range(utf32_tag{}, first, last, repack);
         }
@@ -124,7 +124,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename Iter, typename Sentinel, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
-        Iter first, Sentinel last, Repack repack = no_op_repack{}) noexcept
+        Iter first, Sentinel last, Repack repack = no_op_repack{})
         -> decltype(unpack_iterator_and_sentinel_impl<
                     std::remove_cv_t<Iter>,
                     std::remove_cv_t<Sentinel>,
@@ -142,74 +142,74 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_8_to_32_iterator<Iter> first,
         utf_8_to_32_iterator<Iter> last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
     template<typename Iter, typename Sentinel, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_8_to_32_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
     // 32 -> 8
     template<typename Iter, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_32_to_8_iterator<Iter> first,
         utf_32_to_8_iterator<Iter> last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
     template<typename Iter, typename Sentinel, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_32_to_8_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
     // 16 -> 32
     template<typename Iter, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_16_to_32_iterator<Iter> first,
         utf_16_to_32_iterator<Iter> last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
     template<typename Iter, typename Sentinel, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_16_to_32_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
     // 32 -> 16
     template<typename Iter, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_32_to_16_iterator<Iter> first,
         utf_32_to_16_iterator<Iter> last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
     template<typename Iter, typename Sentinel, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_32_to_16_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
     // 8 -> 16
     template<typename Iter, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_8_to_16_iterator<Iter> first,
         utf_8_to_16_iterator<Iter> last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
     template<typename Iter, typename Sentinel, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_8_to_16_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
     // 16 -> 8
     template<typename Iter, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_16_to_8_iterator<Iter> first,
         utf_16_to_8_iterator<Iter> last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
     template<typename Iter, typename Sentinel, typename Repack = no_op_repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_16_to_8_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack = no_op_repack{}) noexcept;
+        Repack repack = no_op_repack{});
 
     // 8 -> 32
     template<typename Iter, typename Repack>
     constexpr auto unpack_iterator_and_sentinel(
         utf_8_to_32_iterator<Iter> first,
         utf_8_to_32_iterator<Iter> last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),
@@ -221,7 +221,7 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_8_to_32_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),
@@ -234,7 +234,7 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_32_to_8_iterator<Iter> first,
         utf_32_to_8_iterator<Iter> last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),
@@ -246,7 +246,7 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_32_to_8_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),
@@ -260,7 +260,7 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_16_to_32_iterator<Iter> first,
         utf_16_to_32_iterator<Iter> last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),
@@ -272,7 +272,7 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_16_to_32_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),
@@ -285,7 +285,7 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_32_to_16_iterator<Iter> first,
         utf_32_to_16_iterator<Iter> last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),
@@ -297,7 +297,7 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_32_to_16_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),
@@ -311,7 +311,7 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_8_to_16_iterator<Iter> first,
         utf_8_to_16_iterator<Iter> last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),
@@ -323,7 +323,7 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_8_to_16_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),
@@ -336,7 +336,7 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_16_to_8_iterator<Iter> first,
         utf_16_to_8_iterator<Iter> last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),
@@ -348,7 +348,7 @@ namespace boost { namespace text { namespace detail {
     constexpr auto unpack_iterator_and_sentinel(
         utf_16_to_8_iterator<Iter, Sentinel> first,
         Sentinel last,
-        Repack repack) noexcept
+        Repack repack)
     {
         return detail::unpack_iterator_and_sentinel(
             first.base(),

@@ -99,3 +99,115 @@ support, but that breaks when you build _Text_'s C++20 code, you can disable
 the `v2` namespace by defining _disable_concepts_m_.
 
 [endsect]
+
+[section Important _Text_ Conventions]
+
+[heading C++20's `std::ranges::dangling`]
+
+When you call an algorithm `template<std::forward_range R> foo(R && r)` in
+C++20, and you pass an rvalue for `r` that is not know to be a "borrowing
+range" like a view, the algorithm will often rerturn a `std::ranges::dangling`
+instead of the desired result.  This will probably cause your code to be
+ill-formed if you try to use the result.  THis lets you catch errors like
+this:
+
+    // decltype(it) is std::ranges::dangling.  If it were a proper iterator,
+    // "it" would now be a dangerous dangling reference, and using it would
+    // cause your progam to have undefined behavior.
+    auto it = std::ranges::find(std::vector<int>{/* ... */}, 42);
+
+_Text_ follows this convention.  If you call an algorithm `a` that returns an
+iterator or subrange, or that constructs a view, and you pass `a` an rvalue
+range in which to do its work, it will return a `std::ranges::dangling`.
+
+[heading The `as_` Prefix]
+
+Functions and view adaptors that begin with `as_` operate on values that model
+_rng_like_.  That is, they not only work with _CPRngs_ and/or _GrRngs_, but
+also null-terminated string pointers.  For instance, for some `char const *
+c_str = /* ... */`, `c_str | text::boost::as_utf32` creates a code point view
+of the contents of `c_str`, treated as a null-terminated string.
+
+[note Any pointer to an integral type whose size is 8-, 16-, or 32-bits will
+be treated as a null-terminated string.]
+
+[endsect]
+
+[section Peculiarities of _Text_ Iterators and Ranges]
+
+[heading _Text_ Iterators Are Constructed from More Than One Underlying Iterator]
+
+To do iteration in many text-handling contexts, you need to know the beginning
+and the end of the range you are iterating over, just to be able to do
+iteration correctly.  Note that this is not a safety issue, but a correctness
+one.
+
+For example, say we have a string `s` of UTF-8 code units that we would like
+to iterate over to produce UTF-32 code points.  If the last code unit in `s`
+is `0xe0`, we should expect two more code units to follow.  They are not
+present, though, becuase `0xe0` is the last code unit.  Now consider how you
+would implement `operator++()` for an iterator `it` that transcodes from UTF-8
+to UTF-32.  If you advance far enough to get the next UTF-32 code point in
+each call to `operator++()`, you may run off the end of `s` when you find
+`0xe0` and try to read two more code units.  Note that it does not matter that
+`it` probably comes from a range with an end-iterator or sentinel as its mate;
+*inside* `it`'s `operator++()` this is no help.  `it` must therefore have the
+end-iterator or sentinel as a data member.  The same logic applies to the
+other end of the range if `it` is bidirectional _emdash_ `it` must also have
+the iterator to the start of the underlying range as a data member.
+
+This unfortunate reality comes up over and over in the _Text_ iterators, not
+just the ones that are UTF transcoding iterators.  This is why iterators in
+_Text_ usually consist of three underlying iterators.
+
+[heading Often, Iterators from Subranges Can Only be Compared to Each Other]
+
+This follows directly from the effect described above.  Say you get a subrange
+from one iteration of a text segmentation algorithm:
+
+    char const * c_str = /* ... */;
+    auto const lines =
+        c_str | boost::text::as_graphemes |
+        boost::text::lines(boost::text::allowed_breaks);
+
+    int line_index = 0;
+    for (auto line : lines) {
+        auto first = lines.begin()->begin();
+        std::cout << "line " << line_index++ << " offsets: "
+                  << std::ranges::distance(first, line.begin())
+                  << " - "
+                  << std::ranges::distance(first, line.end()) // Oops.
+                  << "\n";
+    }
+
+This code does not halt.  The line marked with "Oops." will continue to count
+forever in the second iteration.  This happens because `first` is constructed
+from the iterators delimiting the first line, `*lines.begin()` (let's call
+that line `l` for brevity).  `first`'s underlying iterators are:
+`lines.begin()->begin().base()`, its lower bound, which points to the first
+code point in `l`; `lines.begin()->begin().base()`, which is the current
+position of `first` within `l`; and `lines.begin()->end().base()`, its upper
+bound, for one past the last code point in `l`.
+
+When evaluating `std::ranges::distance(first, line.end())`, `first` must be
+advanced until it is equal to `line.end()`.  However, there is an upper bound
+on how far we can advance `first`.  It cannot advance past its underlying
+upper bound iterator, which is equal to `lines.begin()->end().base()`, which
+will always be less than `line.end()`.
+
+I know all of that was complicated.  To keep things simple, follow this rule:
+
+[important When _Text_ gives you a subrange `s`, comparisons of `s.begin()` to
+`s.end()` are fine, and so is iteration between `s.begin()` and `s.end()`.
+However, iteration between either `s.begin()` or `s.end()` and any other
+iterator may result in undefined behavior.]
+
+[heading Sentinels Break Pre-C++10 Range-Based `for` Loops]
+
+Prior to C++20, range-based `for` loops require that the begin-iterator and
+the end-iterator have the same type.  This means that any range consisting of
+an iterator/sentinel pair will not work with pre-C++20 range-based `for`
+loops.  Writing it out the long way still works, of course, and in C++20 and
+later modes, everything just works.
+
+[endsect]

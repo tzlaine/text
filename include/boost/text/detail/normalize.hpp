@@ -134,7 +134,7 @@ namespace boost { namespace text { namespace detail {
             s_->resize(out - s_first, typename String::value_type{});
         }
 
-        typename String::iterator out() const noexcept { return s_->end(); }
+        typename String::iterator out() const { return s_->end(); }
 
     private:
         String * s_;
@@ -197,7 +197,7 @@ namespace boost { namespace text { namespace detail {
             return flush_disinhibitor<UTF16Appender>(*this);
         }
 
-        int size() const noexcept { return last_ - begin(); }
+        int size() const { return last_ - begin(); }
 
         uint16_t const * begin() const { return buf_.data(); }
         uint16_t const * end() const { return last_; }
@@ -413,7 +413,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename CharIter>
-    int32_t utf8_to_cp(CharIter first, CharIter last) noexcept
+    int32_t utf8_to_cp(CharIter first, CharIter last)
     {
         switch (last - first) {
         case 1: return first[0];
@@ -433,7 +433,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename CharIter>
-    int32_t previous_hangul_or_jamo(CharIter first, CharIter last) noexcept
+    int32_t previous_hangul_or_jamo(CharIter first, CharIter last)
     {
         if (3 <= (last - first)) {
             last -= 3;
@@ -450,7 +450,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename CharIter, typename Sentinel>
-    int32_t jamo_t_minus_base(CharIter first, Sentinel last) noexcept
+    int32_t jamo_t_minus_base(CharIter first, Sentinel last)
     {
         if (3 <= boost::text::distance(first, last) &&
             (uint8_t)*first == 0xe1) {

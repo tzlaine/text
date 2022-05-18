@@ -48,7 +48,7 @@ namespace boost { namespace text {
         };
 
         inline bool operator<(
-            sentence_prop_interval lhs, sentence_prop_interval rhs) noexcept
+            sentence_prop_interval lhs, sentence_prop_interval rhs)
         {
             return lhs.hi_ <= rhs.lo_;
         }
@@ -60,7 +60,7 @@ namespace boost { namespace text {
     }
 
     /** Returns the sentence property associated with code point `cp`. */
-    inline sentence_property sentence_prop(uint32_t cp) noexcept
+    inline sentence_property sentence_prop(uint32_t cp)
     {
         static auto const map = detail::make_sentence_prop_map();
         static auto const intervals = detail::make_sentence_prop_intervals();
@@ -79,26 +79,26 @@ namespace boost { namespace text {
     }
 
     namespace detail {
-        inline bool skippable(sentence_property prop) noexcept
+        inline bool skippable(sentence_property prop)
         {
             return prop == sentence_property::Extend ||
                    prop == sentence_property::Format;
         }
 
-        inline bool para_sep(sentence_property prop) noexcept
+        inline bool para_sep(sentence_property prop)
         {
             return prop == sentence_property::Sep ||
                    prop == sentence_property::CR ||
                    prop == sentence_property::LF;
         }
 
-        inline bool sa_term(sentence_property prop) noexcept
+        inline bool sa_term(sentence_property prop)
         {
             return prop == sentence_property::STerm ||
                    prop == sentence_property::ATerm;
         }
 
-        inline bool sb8_not(sentence_property prop) noexcept
+        inline bool sb8_not(sentence_property prop)
         {
             return prop != sentence_property::OLetter &&
                    prop != sentence_property::Upper &&
@@ -205,7 +205,7 @@ namespace boost { namespace text {
         }
 
         inline bool table_sentence_break(
-            sentence_property lhs, sentence_property rhs) noexcept
+            sentence_property lhs, sentence_property rhs)
         {
             // clang-format off
 // See chart at http://www.unicode.org/Public/10.0.0/ucd/auxiliary/SentenceBreakTest.html
@@ -239,7 +239,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         template<typename CPIter, typename Sentinel>
         CPIter prev_sentence_break_impl(
-            CPIter first, CPIter it, Sentinel last) noexcept
+            CPIter first, CPIter it, Sentinel last)
         {
             if (it == first)
                 return it;
@@ -490,7 +490,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         }
 
         template<typename CPIter, typename Sentinel>
-        CPIter next_sentence_break_impl(CPIter first, Sentinel last) noexcept
+        CPIter next_sentence_break_impl(CPIter first, Sentinel last)
         {
             if (first == last)
                 return first;
@@ -647,7 +647,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         template<typename CPIter, typename Sentinel>
         struct next_sentence_callable
         {
-            auto operator()(CPIter it, Sentinel last) noexcept
+            auto operator()(CPIter it, Sentinel last)
                 -> cp_iter_ret_t<CPIter, CPIter>
             {
                 return detail::next_sentence_break_impl(it, last);
@@ -657,7 +657,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         template<typename CPIter>
         struct prev_sentence_callable
         {
-            auto operator()(CPIter first, CPIter it, CPIter last) noexcept
+            auto operator()(CPIter first, CPIter it, CPIter last)
                 -> cp_iter_ret_t<CPIter, CPIter>
             {
                 return detail::prev_sentence_break_impl(first, it, last);
@@ -666,7 +666,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         template<typename CPRange, typename CPIter>
         iterator_t<CPRange>
-        prev_sentence_break_cp_impl(CPRange && range, CPIter it) noexcept
+        prev_sentence_break_cp_impl(CPRange && range, CPIter it)
         {
             return detail::prev_sentence_break_impl(
                 detail::begin(range), it, detail::end(range));
@@ -674,7 +674,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         template<typename GraphemeRange, typename GraphemeIter>
         iterator_t<GraphemeRange> prev_sentence_break_gr_impl(
-            GraphemeRange && range, GraphemeIter it) noexcept
+            GraphemeRange && range, GraphemeIter it)
         {
             using cp_iter_t = decltype(range.begin().base());
             return {
@@ -688,14 +688,14 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         template<typename CPRange, typename CPIter>
         iterator_t<CPRange>
-        next_sentence_break_cp_impl(CPRange && range, CPIter it) noexcept
+        next_sentence_break_cp_impl(CPRange && range, CPIter it)
         {
             return detail::next_sentence_break_impl(it, detail::end(range));
         }
 
         template<typename GraphemeRange, typename GraphemeIter>
         iterator_t<GraphemeRange> next_sentence_break_gr_impl(
-            GraphemeRange && range, GraphemeIter it) noexcept
+            GraphemeRange && range, GraphemeIter it)
         {
             using cp_iter_t = decltype(range.begin().base());
             return {
@@ -707,7 +707,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         template<typename CPIter, typename Sentinel>
         bool
-        at_sentence_break_impl(CPIter first, CPIter it, Sentinel last) noexcept
+        at_sentence_break_impl(CPIter first, CPIter it, Sentinel last)
         {
             if (it == last)
                 return true;
@@ -715,7 +715,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         }
 
         template<typename CPRange, typename CPIter>
-        bool at_sentence_break_cp_impl(CPRange && range, CPIter it) noexcept
+        bool at_sentence_break_cp_impl(CPRange && range, CPIter it)
         {
             if (it == detail::end(range))
                 return true;
@@ -725,7 +725,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         template<typename GraphemeRange, typename GraphemeIter>
         bool at_sentence_break_gr_impl(
-            GraphemeRange && range, GraphemeIter it) noexcept
+            GraphemeRange && range, GraphemeIter it)
         {
             if (it == detail::end(range))
                 return true;
@@ -737,7 +737,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         template<typename CPIter, typename Sentinel>
         utf32_view<CPIter>
-        sentence_impl(CPIter first, CPIter it, Sentinel last) noexcept
+        sentence_impl(CPIter first, CPIter it, Sentinel last)
         {
             first = detail::prev_sentence_break_impl(first, it, last);
             return utf32_view<CPIter>{
@@ -746,7 +746,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         template<typename CPRange, typename CPIter>
         utf32_view<iterator_t<CPRange>>
-        sentence_cr_impl(CPRange && range, CPIter it) noexcept
+        sentence_cr_impl(CPRange && range, CPIter it)
         {
             auto first = detail::prev_sentence_break_impl(
                 detail::begin(range), it, detail::end(range));
@@ -756,7 +756,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         }
 
         template<typename GraphemeRange, typename GraphemeIter>
-        auto sentence_gr_impl(GraphemeRange && range, GraphemeIter it) noexcept
+        auto sentence_gr_impl(GraphemeRange && range, GraphemeIter it)
             -> grapheme_view<decltype(range.begin().base())>
         {
             using cp_iter_t = decltype(range.begin().base());
@@ -781,113 +781,118 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Finds the nearest sentence break at or before before `it`.  If `it ==
         first`, that is returned.  Otherwise, the first code point of the
         sentence that `it` is within is returned (even if `it` is already at
-        the first code point of a sentence).
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    CPIter prev_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept;
+        the first code point of a sentence). */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    I prev_sentence_break(I first, I it, S last);
 
     /** Finds the next sentence break after `first`.  This will be the first
         code point after the current sentence, or `last` if no next sentence
         exists.
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
         \pre `first` is at the beginning of a sentence. */
-    template<typename CPIter, typename Sentinel>
-    CPIter next_sentence_break(CPIter first, Sentinel last) noexcept;
+    template<code_point_iter I, std::sentinel_for<I> S>
+    I next_sentence_break(I first, S last);
 
     /** Finds the nearest sentence break at or before before `it`.  If `it ==
-        range.begin()`, that is returned.  Otherwise, the first code point of
+        r.begin()`, that is returned.  Otherwise, the first code point of
         the sentence that `it` is within is returned (even if `it` is already
-        at the first code point of a sentence).
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename CPIter>
-    detail::unspecified
-    prev_sentence_break(CPRange && range, CPIter it) noexcept;
+        at the first code point of a sentence). */
+    template<code_point_range R>
+    std::ranges::borrowed_iterator_t<R> prev_sentence_break(
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the nearest sentence break at or before
-        before `it`.  If `it == range.begin()`, that is returned.  Otherwise,
-        the first grapheme of the sentence that `it` is within is returned
-        (even if `it` is already at the first grapheme of a sentence).
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    detail::unspecified
-    prev_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept;
+        before `it`.  If `it == r.begin()`, that is returned.  Otherwise, the
+        first grapheme of the sentence that `it` is within is returned (even
+        if `it` is already at the first grapheme of a sentence). */
+    template<grapheme_range R>
+    std::ranges::borrowed_iterator_t<R> prev_sentence_break(
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Finds the next sentence break after `it`.  This will be the first code
-        point after the current sentence, or `range.end()` if no next sentence
+        point after the current sentence, or `r.end()` if no next sentence
         exists.
 
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept.
-
         \pre `it` is at the beginning of a sentence. */
-    template<typename CPRange, typename CPIter>
-    detail::unspecified
-    next_sentence_break(CPRange && range, CPIter it) noexcept;
+    template<code_point_range R>
+    std::ranges::borrowed_iterator_t<R> next_sentence_break(
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns a grapheme_iterator to the next sentence break after `it`.
         This will be the first grapheme after the current sentence, or
-        `range.end()` if no next sentence exists.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept.
+        `r.end()` if no next sentence exists.
 
         \pre `it` is at the beginning of a sentence. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    detail::unspecified
-    next_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept;
+    template<grapheme_range R>
+    std::ranges::borrowed_iterator_t<R> next_sentence_break(
+        R && r, std::ranges::iterator_t<R> it);
 
     /** Returns true iff `it` is at the beginning of a sentence, or `it ==
-        last`.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    bool at_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept;
+        last`. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    bool at_sentence_break(I first, I it, S last);
 
     /** Returns true iff `it` is at the beginning of a sentence, or `it ==
-        std::ranges::end(range)`.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange, typename CPIter>
-    bool at_sentence_break(CPRange && range, CPIter it) noexcept;
+        std::ranges::end(r)`. */
+    template<code_point_range R>
+    bool at_sentence_break(R && r, std::ranges::iterator_t<R> it);
 
     /** Returns true iff `it` is at the beginning of a sentence, or `it ==
-        std::ranges::end(range)`.
+        std::ranges::end(r)`. */
+    template<grapheme_range R>
+    bool at_sentence_break(R && r, std::ranges::iterator_t<R> it);
 
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    bool
-    at_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept;
+    /** Returns the bounds of the sentence that `it` lies within. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    utf32_view<I> sentence(I first, I it, S last);
+
+    /** Returns the bounds of the sentence that `it` lies within.  Returns a
+        `utf32_view`; in C++20 and later, if `std::ranges::borrowed_range<R>`
+        is `false`, this function returns a `std::ranges::dangling`
+        instead. */
+    template<code_point_range R>
+    detail::unspecified sentence(R && r, std::ranges::iterator_t<R> it);
+
+    /** Returns grapheme range delimiting the bounds of the sentence that `it`
+        lies within.  Returns a `grapheme_view`; in C++20 and later, if
+        `std::ranges::borrowed_range<R>` is `false`, this function returns a
+        `std::ranges::dangling` instead. */
+    template<grapheme_range R>
+    detail::unspecified sentence(R && r, std::ranges::iterator_t<R> it);
+
+    /** Returns a view of the code point ranges delimiting sentences in
+        `[first, last)`. */
+    template<code_point_iter I, std::sentinel_for<I> S>
+    detail::unspecified sentences(I first, S last);
+
+    /** Returns a view of the code point ranges delimiting sentences in `r`.
+        The result is returned as a `borrowed_view_t` in C++20 and later. */
+    template<code_point_range R>
+    detail::unspecified sentences(R && r);
+
+    /** Returns a view of the grapheme ranges delimiting sentences in `r`.
+        The result is returned as a `borrowed_view_t` in C++20 and later. */
+    template<grapheme_range R>
+    detail::unspecified sentences(R && r);
 
 #else
 
     template<typename CPIter, typename Sentinel>
-    auto prev_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept
+    auto prev_sentence_break(CPIter first, CPIter it, Sentinel last)
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::prev_sentence_break_impl(first, it, last);
     }
 
     template<typename CPIter, typename Sentinel>
-    auto next_sentence_break(CPIter first, Sentinel last) noexcept
+    auto next_sentence_break(CPIter first, Sentinel last)
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::next_sentence_break_impl(first, last);
     }
 
     template<typename CPRange, typename CPIter>
-    auto prev_sentence_break(CPRange && range, CPIter it) noexcept
+    auto prev_sentence_break(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return detail::prev_sentence_break_cp_impl(range, it);
@@ -895,14 +900,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto prev_sentence_break(
-        GraphemeRange && range, GraphemeIter it) noexcept->detail::
+        GraphemeRange && range, GraphemeIter it)->detail::
         graph_rng_alg_ret_t<detail::iterator_t<GraphemeRange>, GraphemeRange>
     {
         return detail::prev_sentence_break_gr_impl(range, it);
     }
 
     template<typename CPRange, typename CPIter>
-    auto next_sentence_break(CPRange && range, CPIter it) noexcept
+    auto next_sentence_break(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return detail::next_sentence_break_cp_impl(range, it);
@@ -910,21 +915,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto next_sentence_break(
-        GraphemeRange && range, GraphemeIter it) noexcept->detail::
+        GraphemeRange && range, GraphemeIter it)->detail::
         graph_rng_alg_ret_t<detail::iterator_t<GraphemeRange>, GraphemeRange>
     {
         return detail::next_sentence_break_gr_impl(range, it);
     }
 
     template<typename CPIter, typename Sentinel>
-    auto at_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept
+    auto at_sentence_break(CPIter first, CPIter it, Sentinel last)
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::at_sentence_break_impl(first, it, last);
     }
 
     template<typename CPRange, typename CPIter>
-    auto at_sentence_break(CPRange && range, CPIter it) noexcept
+    auto at_sentence_break(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return detail::at_sentence_break_cp_impl(range, it);
@@ -932,73 +937,27 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    at_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept
+    at_sentence_break(GraphemeRange && range, GraphemeIter it)
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         return detail::at_sentence_break_gr_impl(range, it);
     }
 
-#endif
-
-    /** Returns the bounds of the sentence that `it` lies within. */
     template<typename CPIter, typename Sentinel>
-    utf32_view<CPIter> sentence(CPIter first, CPIter it, Sentinel last) noexcept
+    utf32_view<CPIter> sentence(CPIter first, CPIter it, Sentinel last)
     {
         return detail::sentence_impl(first, it, last);
     }
 
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Returns the bounds of the sentence that `it` lies within, as a
-        utf32_view.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    detail::unspecified sentence(CPRange && range, CPIter it) noexcept;
-
-    /** Returns grapheme range delimiting the bounds of the sentence that `it`
-        lies within, as a grapheme_view.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename GraphemeIter>
-    detail::unspecified
-    sentence(GraphemeRange && range, GraphemeIter it) noexcept;
-
-    /** Returns a view of the code point ranges delimiting sentences in
-        `[first, last)`. */
-    template<typename CPIter, typename Sentinel>
-    detail::unspecified sentences(CPIter first, Sentinel last) noexcept;
-
-    /** Returns a view of the code point ranges delimiting sentences in
-        `range`.  The result is returned as a `borrowed_view_t` in C++20 and
-        later.
-
-        This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
-    template<typename CPRange>
-    detail::unspecified sentences(CPRange && range) noexcept;
-
-    /** Returns a view of the grapheme ranges delimiting sentences in `range`.
-        The result is returned as a `borrowed_view_t` in C++20 and later.
-
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange>
-    detail::unspecified sentences(GraphemeRange && range) noexcept;
-
-#else
-
-    template<typename CPRange, typename CPIter>
-    auto sentence(CPRange && range, CPIter it) noexcept -> detail::
+    auto sentence(CPRange && range, CPIter it) -> detail::
         cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
         return detail::sentence_cr_impl(range, it);
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto sentence(GraphemeRange && range, GraphemeIter it) noexcept
+    auto sentence(GraphemeRange && range, GraphemeIter it)
         -> detail::graph_rng_alg_ret_t<
             grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
@@ -1010,7 +969,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct sentences_impl : range_adaptor_closure<sentences_impl>
         {
             template<typename CPIter, typename Sentinel>
-            auto operator()(CPIter first, Sentinel last) const noexcept
+            auto operator()(CPIter first, Sentinel last) const
                 -> decltype(detail::breaks_impl<
                             detail::prev_sentence_callable,
                             detail::next_sentence_callable>(first, last))
@@ -1021,7 +980,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
 
             template<typename CPRange>
-            auto operator()(CPRange && range) const noexcept
+            auto operator()(CPRange && range) const
                 -> detail::cp_rng_alg_ret_t<
                     decltype(detail::breaks_cr_impl<
                              detail::prev_sentence_callable,
@@ -1034,7 +993,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             }
 
             template<typename GraphemeRange>
-            auto operator()(GraphemeRange && range) const noexcept
+            auto operator()(GraphemeRange && range) const
                 -> detail::graph_rng_alg_ret_t<
                     decltype(detail::breaks_gr_impl<
                              detail::prev_sentence_callable,
@@ -1060,70 +1019,70 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    I prev_sentence_break(I first, I it, S last) noexcept
+    I prev_sentence_break(I first, I it, S last)
     {
         return detail::prev_sentence_break_impl(first, it, last);
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    I next_sentence_break(I first, S last) noexcept
+    I next_sentence_break(I first, S last)
     {
         return detail::next_sentence_break_impl(first, last);
     }
 
     template<code_point_range R>
-    std::ranges::iterator_t<R> prev_sentence_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+    std::ranges::borrowed_iterator_t<R> prev_sentence_break(
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_sentence_break_cp_impl(r, it);
     }
 
     template<grapheme_range R>
-    std::ranges::iterator_t<R> prev_sentence_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+    std::ranges::borrowed_iterator_t<R> prev_sentence_break(
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::prev_sentence_break_gr_impl(r, it);
     }
 
     template<code_point_range R>
-    std::ranges::iterator_t<R> next_sentence_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+    std::ranges::borrowed_iterator_t<R> next_sentence_break(
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_sentence_break_cp_impl(r, it);
     }
 
     template<grapheme_range R>
-    std::ranges::iterator_t<R> next_sentence_break(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+    std::ranges::borrowed_iterator_t<R> next_sentence_break(
+        R && r, std::ranges::iterator_t<R> it)
     {
         return detail::next_sentence_break_gr_impl(r, it);
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    bool at_sentence_break(I first, I it, S last) noexcept
+    bool at_sentence_break(I first, I it, S last)
     {
         return detail::at_sentence_break_impl(first, it, last);
     }
 
     template<code_point_range R>
-    bool at_sentence_break(R && r, std::ranges::iterator_t<R> it) noexcept
+    bool at_sentence_break(R && r, std::ranges::iterator_t<R> it)
     {
         return detail::at_sentence_break_cp_impl(r, it);
     }
 
     template<grapheme_range R>
-    bool at_sentence_break(R && r, std::ranges::iterator_t<R> it) noexcept
+    bool at_sentence_break(R && r, std::ranges::iterator_t<R> it)
     {
         return detail::at_sentence_break_gr_impl(r, it);
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    utf32_view<I> sentence(I first, I it, S last) noexcept
+    utf32_view<I> sentence(I first, I it, S last)
     {
         first = boost::text::prev_sentence_break(first, it, last);
         return utf32_view<I>{
@@ -1131,24 +1090,28 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R>
-    utf32_view<std::ranges::iterator_t<R>> sentence(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+    auto sentence(R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::sentence_cr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::sentence_cr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     template<grapheme_range R>
-    grapheme_view<code_point_iterator_t<R>> sentence(
-        R && r, std::ranges::iterator_t<R> it) noexcept
+    auto sentence(R && r, std::ranges::iterator_t<R> it)
     {
-        return detail::sentence_gr_impl(r, it);
+        if constexpr (std::ranges::borrowed_range<R>)
+            return detail::sentence_gr_impl(r, it);
+        else
+            return std::ranges::dangling{};
     }
 
     namespace dtl {
         struct sentences_impl : range_adaptor_closure<sentences_impl>
         {
             template<code_point_iter I, std::sentinel_for<I> S>
-            auto operator()(I first, S last) const noexcept
+            auto operator()(I first, S last) const
             {
                 return detail::breaks_impl<
                     detail::prev_sentence_callable,
@@ -1156,7 +1119,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
 
             template<code_point_range R>
-            auto operator()(R && r) const noexcept
+            auto operator()(R && r) const
             {
                 if constexpr (std::ranges::borrowed_range<R>) {
                     return detail::breaks_cr_impl<
@@ -1168,7 +1131,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
 
             template<grapheme_range R>
-            auto operator()(R && r) const noexcept
+            auto operator()(R && r) const
             {
                 if constexpr (std::ranges::borrowed_range<R>) {
                     return detail::breaks_gr_impl<
@@ -1182,8 +1145,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     inline constexpr dtl::sentences_impl sentences;
-    }
-}}
+
+}}}
 
 #endif
 

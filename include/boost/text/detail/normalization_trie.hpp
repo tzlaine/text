@@ -25,21 +25,21 @@ namespace boost { namespace text { namespace detail {
     // integrating their generated table data smoother.
     struct normalization_trie
     {
-        uint16_t fast_get(int32_t c) const noexcept
+        uint16_t fast_get(int32_t c) const
         {
             return data[cp_index_(c)];
         }
-        uint16_t fast_bmp_get(int32_t cp) const noexcept
+        uint16_t fast_bmp_get(int32_t cp) const
         {
             return data[fast_index_(cp)];
         }
-        uint16_t fast_supp_get(int32_t cp) const noexcept
+        uint16_t fast_supp_get(int32_t cp) const
         {
             return data[small_index_(cp)];
         }
 
         template<typename CharIter>
-        auto fast_u8_prev(CharIter first, CharIter & last) const noexcept
+        auto fast_u8_prev(CharIter first, CharIter & last) const
         {
             int32_t index = (uint8_t) * --last;
             if (0x80 <= index) {
@@ -51,7 +51,7 @@ namespace boost { namespace text { namespace detail {
         }
         template<typename Iter>
         auto fast_u16_prev(
-            Iter first, Iter & last, int32_t & cp) const noexcept
+            Iter first, Iter & last, int32_t & cp) const
         {
             cp = *--last;
             int32_t index;
@@ -73,7 +73,7 @@ namespace boost { namespace text { namespace detail {
 
         template<typename CharIter, typename Sentinel>
         auto fast_u8_next(
-            CharIter & first, Sentinel last) const noexcept
+            CharIter & first, Sentinel last) const
         {
             int32_t lead = (uint8_t)*first++;
             if (0x80 <= lead) {
@@ -114,7 +114,7 @@ namespace boost { namespace text { namespace detail {
         }
         template<typename Iter, typename Sentinel>
         auto
-        fast_u16_next(Iter & first, Sentinel last, int32_t & cp) const noexcept
+        fast_u16_next(Iter & first, Sentinel last, int32_t & cp) const
         {
             cp = *first++;
             int32_t index;
@@ -134,7 +134,7 @@ namespace boost { namespace text { namespace detail {
             return data[index];
         }
 
-        int32_t cp_index_(int32_t cp) const noexcept
+        int32_t cp_index_(int32_t cp) const
         {
             return cp <= 0xffff ? fast_index_(cp)
                                 : cp <= 0x10ffff
@@ -142,18 +142,18 @@ namespace boost { namespace text { namespace detail {
                                       : data_size - error_value_neg_data_offset;
         }
 
-        int32_t fast_index_(int32_t cp) const noexcept
+        int32_t fast_index_(int32_t cp) const
         {
             return (int32_t)index[cp >> fast_shift] + (cp & fast_data_mask);
         }
 
-        int32_t small_index_(int32_t cp) const noexcept
+        int32_t small_index_(int32_t cp) const
         {
             return high_start <= cp ? data_size - high_value_neg_data_offset
                                     : small_index_impl_(cp);
         }
 
-        int32_t small_index_impl_(int32_t cp) const noexcept
+        int32_t small_index_impl_(int32_t cp) const
         {
             int32_t i1 = cp >> shift_1;
             BOOST_ASSERT(0xffff < cp && cp < high_start);
@@ -175,7 +175,7 @@ namespace boost { namespace text { namespace detail {
         }
 
         int32_t
-        small_u8_index_(int32_t b1, uint8_t b2, uint8_t b3) const noexcept
+        small_u8_index_(int32_t b1, uint8_t b2, uint8_t b3) const
         {
             int32_t const cp = (b1 << 12) | (b2 << 6) | b3;
             if (high_start <= cp)
@@ -185,7 +185,7 @@ namespace boost { namespace text { namespace detail {
 
         template<typename CharIter>
         int32_t
-        u8_prev_index_(int32_t cp, CharIter first, CharIter last) const noexcept
+        u8_prev_index_(int32_t cp, CharIter first, CharIter last) const
         {
             int32_t i, length;
             if ((last - first) <= 7) {
@@ -202,7 +202,7 @@ namespace boost { namespace text { namespace detail {
 
         template<typename CharIter>
         static int32_t utf8_prev_cp(
-            CharIter it, int32_t start, int32_t * pi, int32_t c) noexcept
+            CharIter it, int32_t start, int32_t * pi, int32_t c)
         {
             int32_t i = *pi;
             if (boost::text::continuation(c) && i > start) {
@@ -248,11 +248,11 @@ namespace boost { namespace text { namespace detail {
             }
             return -1;
         }
-        static bool valid_lead3_and_t1(uint8_t lead, uint8_t t1) noexcept
+        static bool valid_lead3_and_t1(uint8_t lead, uint8_t t1)
         {
             return u8_lead3_t1_bits[lead & 0xf] & (1 << (t1 >> 5));
         }
-        static bool valid_lead4_and_t1(uint8_t lead, uint8_t t1) noexcept
+        static bool valid_lead4_and_t1(uint8_t lead, uint8_t t1)
         {
             return u8_lead4_t1_bits[t1 >> 4] & (1 << (lead & 7));
         }

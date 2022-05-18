@@ -7,8 +7,12 @@
 
 [heading C++20 Concepts]
 
-All of the concepts below apply to the pre-C++20 interfaces.  Interfaces that
-are meant for use in C++20 use these concepts:
+All interfaces in _Text_ are constrined either by SFINAE or C++20 concepts.
+The SFIANE constrains adhere as closely as possible to the C++20 concepts,
+listed here.  Even though the pre-C++20 code uses a naming convention for
+template parameters, the rest of the documentation will use the C++20 concept
+names.  See the bottom of this page for the mapping from pre-C++20 template
+parameter names to C++20 concept names.
 
 From concepts.hpp:
 

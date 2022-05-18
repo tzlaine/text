@@ -7,6 +7,7 @@
 #define BOOST_TEXT_REVERSE_HPP
 
 #include <boost/text/view_adaptor.hpp>
+#include <boost/text/detail/algorithm.hpp>
 
 
 namespace boost { namespace text {
@@ -37,7 +38,14 @@ namespace boost { namespace text {
             }
         };
 
+#if BOOST_TEXT_USE_CONCEPTS
         template<typename View>
+        requires std::is_object_v<View>
+#else
+        template<
+            typename View,
+            typename Enable = std::enable_if_t<std::is_object<View>::value>>
+#endif
         struct reverse_view : stl_interfaces::view_interface<reverse_view<View>>
         {
             using v_iter = iterator_t<View>;
@@ -53,7 +61,17 @@ namespace boost { namespace text {
             using iterator = std::reverse_iterator<v_iter>;
 
             constexpr reverse_view() = default;
-            constexpr explicit reverse_view(View && v) : v_{std::move(v)}
+
+#if BOOST_TEXT_USE_CONCEPTS
+            template<typename V>
+            requires std::is_same_v<std::remove_cvref_t<V>, View>
+#else
+            template<
+                typename V,
+                typename E = std::enable_if_t<
+                    std::is_same<detail::remove_cv_ref_t<V>, View>::value>>
+#endif
+            constexpr reverse_view(int, V && v) : v_{(V &&) v}
             {
                 first_ = set_rev_rng_first<
                     std::is_same<v_iter, v_sent>::value>::call(v_);
@@ -79,7 +97,10 @@ namespace boost { namespace text {
         struct is_reverse_view<reverse_view<T>> : std::true_type
         {};
 
-        template<typename R, bool ReverseView = is_reverse_view<R>::value>
+        template<
+            typename R,
+            bool ReverseView =
+                is_reverse_view<detail::remove_cv_ref_t<R>>::value>
         struct reverse_impl_impl
         {
             static constexpr auto call(R && r) { return ((R &&) r).base(); }
@@ -89,7 +110,7 @@ namespace boost { namespace text {
         {
             static constexpr auto call(R && r)
             {
-                return reverse_view<R>((R &&) r);
+                return reverse_view<detail::remove_cv_ref_t<R>>(0, (R &&) r);
             }
         };
 
@@ -105,7 +126,7 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_inline_variables)
     /** A simplified version of the `std::views::reverse` range adaptor for
-        pre-c++20 builds.  Prefer `std::views::reverse` if you have it. */
+        pre-C++20 builds.  Prefer `std::views::reverse` if you have it. */
     inline constexpr detail::reverse_impl reverse;
 #else
     namespace {
@@ -115,7 +136,7 @@ namespace boost { namespace text {
 
 }}
 
-#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace std::ranges {
     template<typename View>
