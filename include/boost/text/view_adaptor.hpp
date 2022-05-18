@@ -94,6 +94,8 @@ namespace boost { namespace text {
             0, (Func &&) f, (Args &&) args...);
     }
 
+#if !defined(BOOST_TEXT_DOXYGEN)
+
 #if defined(__cpp_lib_ranges) && 202202L <= __cpp_lib_ranges
 #define BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE 1
 #else
@@ -112,6 +114,8 @@ namespace boost { namespace text {
 #define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 1
 #else
 #define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
 #endif
 
 #if BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE || defined(BOOST_TEXT_DOXYGEN)

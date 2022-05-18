@@ -1354,7 +1354,7 @@ There are a lot of small utility functions scattered throughout the _Text_
 headers.  My philosophy is that if I have to write a function `f()` to
 implement a major feature, and `f()` seems like it might be useful to someone,
 somewhere, ever, I'm going to keep `f()` publicly available, rather than
-putting in a `detail` namespace.  I'm not going to list all the avilable
+putting in a `detail` namespace.  I'm not going to list all the available
 functions, but here are some pointers to where you can find them:
 
 - _trans_iter_ contains a variety of utility functions that give info on code
