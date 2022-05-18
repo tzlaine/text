@@ -108,17 +108,18 @@ When you call an algorithm `template<std::forward_range R> foo(R && r)` in
 C++20, and you pass an rvalue for `r` that is not know to be a "borrowing
 range" like a view, the algorithm will often rerturn a `std::ranges::dangling`
 instead of the desired result.  This will probably cause your code to be
-ill-formed if you try to use the result.  THis lets you catch errors like
+ill-formed if you try to use the result.  This lets you catch errors like
 this:
 
-    // decltype(it) is std::ranges::dangling.  If it were a proper iterator,
-    // "it" would now be a dangerous dangling reference, and using it would
+    // decltype(iter) is std::ranges::dangling.  If it were a proper iterator,
+    // "iter" would now be a dangerous dangling reference, and using it would
     // cause your progam to have undefined behavior.
-    auto it = std::ranges::find(std::vector<int>{/* ... */}, 42);
+    auto iter = std::ranges::find(std::vector<int>{/* ... */}, 42);
 
-_Text_ follows this convention.  If you call an algorithm `a` that returns an
-iterator or subrange, or that constructs a view, and you pass `a` an rvalue
-range in which to do its work, it will return a `std::ranges::dangling`.
+_Text_ follows this convention.  If you call an algorithm `alg` that returns
+an iterator or subrange, or that constructs a view, and you pass `alg` an
+rvalue range in which to do its work, it will return a
+`std::ranges::dangling`.
 
 [heading The `as_` Prefix]
 
@@ -126,7 +127,7 @@ Functions and view adaptors that begin with `as_` operate on values that model
 _rng_like_.  That is, they not only work with _CPRngs_ and/or _GrRngs_, but
 also null-terminated string pointers.  For instance, for some `char const *
 c_str = /* ... */`, `c_str | text::boost::as_utf32` creates a code point view
-of the contents of `c_str`, treated as a null-terminated string.
+of the contents of `c_str`, interpreting `c_str` as a null-terminated string.
 
 [note Any pointer to an integral type whose size is 8-, 16-, or 32-bits will
 be treated as a null-terminated string.]
@@ -181,19 +182,22 @@ from one iteration of a text segmentation algorithm:
     }
 
 This code does not halt.  The line marked with "Oops." will continue to count
-forever in the second iteration.  This happens because `first` is constructed
-from the iterators delimiting the first line, `*lines.begin()` (let's call
-that line `l` for brevity).  `first`'s underlying iterators are:
-`lines.begin()->begin().base()`, its lower bound, which points to the first
-code point in `l`; `lines.begin()->begin().base()`, which is the current
-position of `first` within `l`; and `lines.begin()->end().base()`, its upper
-bound, for one past the last code point in `l`.
+forever when it is executed in the second loop iteration.  This happens
+because `first` is constructed from the iterators delimiting the first line,
+`*lines.begin()` (let's call that line `l` for brevity).  `first`'s underlying
+iterators are: `l.begin().base()`, `first`'s lower bound, which points to the
+first code point in `l`; `l.begin().base()`, which is the current position of
+`first` within `l`; and `l.end().base()`, `first`'s upper bound, for one past
+the last code point in `l`.
 
 When evaluating `std::ranges::distance(first, line.end())`, `first` must be
 advanced until it is equal to `line.end()`.  However, there is an upper bound
 on how far we can advance `first`.  It cannot advance past its underlying
-upper bound iterator, which is equal to `lines.begin()->end().base()`, which
-will always be less than `line.end()`.
+upper bound iterator, which is equal to `l.end().base()` (which is
+`lines.begin()->end().base()`).  This upper bound will always be less than
+`line.end()`.  Remember, the `line` in `line.end()` is the line in the second
+iteration of the loop, but the line `l` (` == *lines.begin()`) is the line in
+the *first* iteration of the loop.
 
 I know all of that was complicated.  To keep things simple, follow this rule:
 
@@ -202,7 +206,7 @@ I know all of that was complicated.  To keep things simple, follow this rule:
 However, iteration between either `s.begin()` or `s.end()` and any other
 iterator may result in undefined behavior.]
 
-[heading Sentinels Break Pre-C++10 Range-Based `for` Loops]
+[heading Sentinels Break Pre-C++20 Range-Based `for` Loops]
 
 Prior to C++20, range-based `for` loops require that the begin-iterator and
 the end-iterator have the same type.  This means that any range consisting of
