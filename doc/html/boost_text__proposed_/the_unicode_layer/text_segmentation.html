@@ -98,8 +98,7 @@
         </p></td></tr>
 </table></div>
 <p>
-        And of course there are <a class="link" href="../concepts.html" title="Concepts">CPRange</a>
-        overloads as well:
+        And of course there are <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">code_point_range</span></code></a> overloads as well:
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">&gt;</span>
 <span class="keyword">auto</span> <span class="identifier">prev_X_break</span><span class="special">(</span><span class="identifier">CPRange</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">CPIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
@@ -112,10 +111,9 @@
 </pre>
 <p>
         For all kinds of breaks besides grapheme breaks, there are range overloads
-        that accept <a class="link" href="../concepts.html" title="Concepts">GraphemeRange</a>
-        ranges <a class="link" href="../concepts.html" title="Concepts">GraphemeIterator</a>
-        iterators instead. These provide convenient support for using the Unicode
-        layer algorithms with the text layer types like <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Type definition text">text</a></code> and <code class="computeroutput"><a class="link" href="../../boost/text/rope.html" title="Type definition rope">rope</a></code>.
+        that accept <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">grapheme_range</span></code></a> ranges <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">grapheme_iter</span></code></a> iterators instead.
+        These provide convenient support for using the Unicode layer algorithms with
+        the text layer types like <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Type definition text">text</a></code> and <code class="computeroutput"><a class="link" href="../../boost/text/rope.html" title="Type definition rope">rope</a></code>.
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">GraphemeIter</span><span class="special">&gt;</span>
 <span class="keyword">auto</span> <span class="identifier">prev_X_break</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">GraphemeIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
@@ -402,10 +400,10 @@
       </p>
 <p>
         The word breaking API can be used just as the grapheme break API, except
-        that it also has <a class="link" href="../concepts.html" title="Concepts">GraphemeRange</a>
-        overloads. Here are some example calls using only the <a class="link" href="../concepts.html" title="Concepts">GraphemeRange</a>
-        overloads, with a <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Type definition text">text</a></code>
-        as the <a class="link" href="../concepts.html" title="Concepts">GraphemeRange</a>:
+        that it also has <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">grapheme_range</span></code></a> overloads. Here are
+        some example calls using only the <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">grapheme_range</span></code></a> overloads, with a
+        <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Type definition text">text</a></code>
+        as the <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">grapheme_range</span></code></a>:
       </p>
 <p>
 </p>
@@ -879,8 +877,8 @@ deserunt mollit anim id est laborum.
 <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">line</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">lines</span><span class="special">(</span>
          <span class="identifier">cps</span><span class="special">,</span>
          <span class="number">60</span><span class="special">,</span>
-         <span class="special">[](</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span> <span class="identifier">first</span><span class="special">,</span>
-            <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span> <span class="identifier">last</span><span class="special">)</span>
+         <span class="special">[](</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">first</span><span class="special">,</span>
+            <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">last</span><span class="special">)</span>
              <span class="special">-&gt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span> <span class="special">{</span>
              <span class="comment">// estimated_width_of_graphemes() uses the same table-based width</span>
              <span class="comment">// determination that std::format() uses.  You can use anything</span>

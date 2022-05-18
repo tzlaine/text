@@ -31,41 +31,41 @@
   <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <a name="boost.text.break_view.sentinel"></a><span class="identifier">sentinel</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="break_view.html#boost.text.break_viewconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="break_view.html#idm16112-bb"><span class="identifier">break_view</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="break_view.html#idm16113-bb"><span class="identifier">break_view</span></a><span class="special">(</span><span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPSentinel</span><span class="special">,</span> <span class="identifier">PrevFunc</span><span class="special">,</span> <span class="identifier">NextFunc</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="break_view.html#idm16698-bb"><span class="identifier">break_view</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="break_view.html#idm16699-bb"><span class="identifier">break_view</span></a><span class="special">(</span><span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPSentinel</span><span class="special">,</span> <span class="identifier">PrevFunc</span><span class="special">,</span> <span class="identifier">NextFunc</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="break_view.html#idm16097-bb">public member functions</a></span>
-  <span class="identifier">iterator</span> <a class="link" href="break_view.html#idm16098-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">sentinel</span> <a class="link" href="break_view.html#idm16100-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">PrevFunc</span> <span class="special">&amp;&amp;</span> <a class="link" href="break_view.html#idm16102-bb"><span class="identifier">prev_func</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">NextFunc</span> <span class="special">&amp;&amp;</span> <a class="link" href="break_view.html#idm16107-bb"><span class="identifier">next_func</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="break_view.html#idm16683-bb">public member functions</a></span>
+  <span class="identifier">iterator</span> <a class="link" href="break_view.html#idm16684-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">sentinel</span> <a class="link" href="break_view.html#idm16686-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">PrevFunc</span> <span class="special">&amp;&amp;</span> <a class="link" href="break_view.html#idm16688-bb"><span class="identifier">prev_func</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">NextFunc</span> <span class="special">&amp;&amp;</span> <a class="link" href="break_view.html#idm16693-bb"><span class="identifier">next_func</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm17645"></a><h2>Description</h2>
-<p>Represents a bidirectionally-iterable range of non-overlapping code point subranges. Each code point subrange represents some semantically significant segment, the semantics of which are controlled by the <code class="computeroutput">PrevFunc</code> and <code class="computeroutput">NextFunc</code> template parameters. For instance, if <code class="computeroutput">NextFunc</code> is next_paragraph_break, the subranges produced by <a class="link" href="break_view.html" title="Struct template break_view">break_view</a> will be paragraphs. Each subrange is lazily produced; an output subrange is not produced until a lazy range iterator is dereferenced. </p>
+<a name="idm17956"></a><h2>Description</h2>
+<p>Represents a bidirectionally-iterable range of non-overlapping code point subranges. Each code point subrange represents some semantically significant segment, the semantics of which are controlled by the <code class="computeroutput">PrevFunc</code> and <code class="computeroutput">NextFunc</code> template parameters. For instance, if <code class="computeroutput">NextFunc</code> is next_paragraph_break, the subranges produced by <a class="link" href="break_view.html" title="Struct template break_view">break_view</a> will be paragraphs. Each subrange is lazily produced; an output subrange is not produced until a view iterator is dereferenced. </p>
 <div class="refsect2">
-<a name="idm17652"></a><h3>
+<a name="idm17963"></a><h3>
 <a name="boost.text.break_viewconstruct-copy-destruct"></a><code class="computeroutput">break_view</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm16112-bb"></a><span class="identifier">break_view</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm16113-bb"></a><span class="identifier">break_view</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">CPSentinel</span> last<span class="special">,</span> <span class="identifier">PrevFunc</span> prev_func<span class="special">,</span> 
-           <span class="identifier">NextFunc</span> next_func<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm16698-bb"></a><span class="identifier">break_view</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm16699-bb"></a><span class="identifier">break_view</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">CPSentinel</span> last<span class="special">,</span> <span class="identifier">PrevFunc</span> prev_func<span class="special">,</span> 
+           <span class="identifier">NextFunc</span> next_func<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm17682"></a><h3>
-<a name="idm16097-bb"></a><code class="computeroutput">break_view</code> public member functions</h3>
+<a name="idm17991"></a><h3>
+<a name="idm16683-bb"></a><code class="computeroutput">break_view</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm16098-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">sentinel</span> <a name="idm16100-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm16684-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">sentinel</span> <a name="idm16686-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">PrevFunc</span> <span class="special">&amp;&amp;</span> <a name="idm16102-bb"></a><span class="identifier">prev_func</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">PrevFunc</span> <span class="special">&amp;&amp;</span> <a name="idm16688-bb"></a><span class="identifier">prev_func</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p>Moves the contained <code class="computeroutput">PrevFunc</code> out of *this. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">NextFunc</span> <span class="special">&amp;&amp;</span> <a name="idm16107-bb"></a><span class="identifier">next_func</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">NextFunc</span> <span class="special">&amp;&amp;</span> <a name="idm16693-bb"></a><span class="identifier">next_func</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p>Moves the contained <code class="computeroutput">NextFunc</code> out of *this. </p>
 </li>
 </ol></div>

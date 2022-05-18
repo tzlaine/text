@@ -1,0 +1,151 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Peculiarities of Boost.Text Iterators and Ranges</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="prev" href="important__text__conventions.html" title="Important Boost.Text Conventions">
+<link rel="next" href="the_unicode_layer.html" title="The Unicode Layer">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="important__text__conventions.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="the_unicode_layer.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_text__proposed_.peculiarities_of__text__iterators_and_ranges"></a><a class="link" href="peculiarities_of__text__iterators_and_ranges.html" title="Peculiarities of Boost.Text Iterators and Ranges">Peculiarities
+    of Boost.Text Iterators and Ranges</a>
+</h2></div></div></div>
+<h4>
+<a name="boost_text__proposed_.peculiarities_of__text__iterators_and_ranges.h0"></a>
+      <span class="phrase"><a name="boost_text__proposed_.peculiarities_of__text__iterators_and_ranges.boost_text_iterators_are_constructed_from_more_than_one_underlying_iterator"></a></span><a class="link" href="peculiarities_of__text__iterators_and_ranges.html#boost_text__proposed_.peculiarities_of__text__iterators_and_ranges.boost_text_iterators_are_constructed_from_more_than_one_underlying_iterator">Boost.Text
+      Iterators Are Constructed from More Than One Underlying Iterator</a>
+    </h4>
+<p>
+      To do iteration in many text-handling contexts, you need to know the beginning
+      and the end of the range you are iterating over, just to be able to do iteration
+      correctly. Note that this is not a safety issue, but a correctness one.
+    </p>
+<p>
+      For example, say we have a string <code class="computeroutput"><span class="identifier">s</span></code>
+      of UTF-8 code units that we would like to iterate over to produce UTF-32 code
+      points. If the last code unit in <code class="computeroutput"><span class="identifier">s</span></code>
+      is <code class="computeroutput"><span class="number">0xe0</span></code>, we should expect two more
+      code units to follow. They are not present, though, becuase <code class="computeroutput"><span class="number">0xe0</span></code>
+      is the last code unit. Now consider how you would implement <code class="computeroutput"><span class="keyword">operator</span><span class="special">++()</span></code> for an iterator <code class="computeroutput"><span class="identifier">it</span></code>
+      that transcodes from UTF-8 to UTF-32. If you advance far enough to get the
+      next UTF-32 code point in each call to <code class="computeroutput"><span class="keyword">operator</span><span class="special">++()</span></code>, you may run off the end of <code class="computeroutput"><span class="identifier">s</span></code> when you find <code class="computeroutput"><span class="number">0xe0</span></code>
+      and try to read two more code units. Note that it does not matter that <code class="computeroutput"><span class="identifier">it</span></code> probably comes from a range with an end-iterator
+      or sentinel as its mate; <span class="bold"><strong>inside</strong></span> <code class="computeroutput"><span class="identifier">it</span></code>'s <code class="computeroutput"><span class="keyword">operator</span><span class="special">++()</span></code> this is no help. <code class="computeroutput"><span class="identifier">it</span></code>
+      must therefore have the end-iterator or sentinel as a data member. The same
+      logic applies to the other end of the range if <code class="computeroutput"><span class="identifier">it</span></code>
+      is bidirectional &#8212; <code class="computeroutput"><span class="identifier">it</span></code>
+      must also have the iterator to the start of the underlying range as a data
+      member.
+    </p>
+<p>
+      This unfortunate reality comes up over and over in the Boost.Text iterators,
+      not just the ones that are UTF transcoding iterators. This is why iterators
+      in Boost.Text usually consist of three underlying iterators.
+    </p>
+<h4>
+<a name="boost_text__proposed_.peculiarities_of__text__iterators_and_ranges.h1"></a>
+      <span class="phrase"><a name="boost_text__proposed_.peculiarities_of__text__iterators_and_ranges.often__iterators_from_subranges_can_only_be_compared_to_each_other"></a></span><a class="link" href="peculiarities_of__text__iterators_and_ranges.html#boost_text__proposed_.peculiarities_of__text__iterators_and_ranges.often__iterators_from_subranges_can_only_be_compared_to_each_other">Often,
+      Iterators from Subranges Can Only be Compared to Each Other</a>
+    </h4>
+<p>
+      This follows directly from the effect described above. Say you get a subrange
+      from one iteration of a text segmentation algorithm:
+    </p>
+<pre class="programlisting"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> <span class="identifier">c_str</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">lines</span> <span class="special">=</span>
+    <span class="identifier">c_str</span> <span class="special">|</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_graphemes</span> <span class="special">|</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">lines</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">allowed_breaks</span><span class="special">);</span>
+
+<span class="keyword">int</span> <span class="identifier">line_index</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">line</span> <span class="special">:</span> <span class="identifier">lines</span><span class="special">)</span> <span class="special">{</span>
+    <span class="keyword">auto</span> <span class="identifier">first</span> <span class="special">=</span> <span class="identifier">lines</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()-&gt;</span><span class="identifier">begin</span><span class="special">();</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"line "</span> <span class="special">&lt;&lt;</span> <span class="identifier">line_index</span><span class="special">++</span> <span class="special">&lt;&lt;</span> <span class="string">" offsets: "</span>
+              <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">line</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span>
+              <span class="special">&lt;&lt;</span> <span class="string">" - "</span>
+              <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">line</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="comment">// Oops.</span>
+              <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+      This code does not halt. The line marked with "Oops." will continue
+      to count forever when it is executed in the second loop iteration. This happens
+      because <code class="computeroutput"><span class="identifier">first</span></code> is constructed
+      from the iterators delimiting the first line, <code class="computeroutput"><span class="special">*</span><span class="identifier">lines</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span></code> (let's call that line <code class="computeroutput"><span class="identifier">l</span></code>
+      for brevity). <code class="computeroutput"><span class="identifier">first</span></code>'s underlying
+      iterators are: <code class="computeroutput"><span class="identifier">l</span><span class="special">.</span><span class="identifier">begin</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>,
+      <code class="computeroutput"><span class="identifier">first</span></code>'s lower bound, which
+      points to the first code point in <code class="computeroutput"><span class="identifier">l</span></code>;
+      <code class="computeroutput"><span class="identifier">l</span><span class="special">.</span><span class="identifier">begin</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>, which
+      is the current position of <code class="computeroutput"><span class="identifier">first</span></code>
+      within <code class="computeroutput"><span class="identifier">l</span></code>; and <code class="computeroutput"><span class="identifier">l</span><span class="special">.</span><span class="identifier">end</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>,
+      <code class="computeroutput"><span class="identifier">first</span></code>'s upper bound, for one
+      past the last code point in <code class="computeroutput"><span class="identifier">l</span></code>.
+    </p>
+<p>
+      When evaluating <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">line</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span></code>,
+      <code class="computeroutput"><span class="identifier">first</span></code> must be advanced until
+      it is equal to <code class="computeroutput"><span class="identifier">line</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span></code>. However,
+      there is an upper bound on how far we can advance <code class="computeroutput"><span class="identifier">first</span></code>.
+      It cannot advance past its underlying upper bound iterator, which is equal
+      to <code class="computeroutput"><span class="identifier">l</span><span class="special">.</span><span class="identifier">end</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code> (which is <code class="computeroutput"><span class="identifier">lines</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()-&gt;</span><span class="identifier">end</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>). This upper bound will always be less than
+      <code class="computeroutput"><span class="identifier">line</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span></code>. Remember,
+      the <code class="computeroutput"><span class="identifier">line</span></code> in <code class="computeroutput"><span class="identifier">line</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span></code>
+      is the line in the second iteration of the loop, but the line <code class="computeroutput"><span class="identifier">l</span></code> (<code class="computeroutput"> <span class="special">==</span>
+      <span class="special">*</span><span class="identifier">lines</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span></code>)
+      is the line in the <span class="bold"><strong>first</strong></span> iteration of the
+      loop.
+    </p>
+<p>
+      I know all of that was complicated. To keep things simple, follow this rule:
+    </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        When Boost.Text gives you a subrange <code class="computeroutput"><span class="identifier">s</span></code>,
+        comparisons of <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span></code>
+        to <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span></code> are
+        fine, and so is iteration between <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span></code> and <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span></code>.
+        However, iteration between either <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span></code> or <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span></code>
+        and any other iterator may result in undefined behavior.
+      </p></td></tr>
+</table></div>
+<h4>
+<a name="boost_text__proposed_.peculiarities_of__text__iterators_and_ranges.h2"></a>
+      <span class="phrase"><a name="boost_text__proposed_.peculiarities_of__text__iterators_and_ranges.sentinels_break_pre_c__20_range_based__code__phrase_role__keyword__for__phrase___code__loops"></a></span><a class="link" href="peculiarities_of__text__iterators_and_ranges.html#boost_text__proposed_.peculiarities_of__text__iterators_and_ranges.sentinels_break_pre_c__20_range_based__code__phrase_role__keyword__for__phrase___code__loops">Sentinels
+      Break Pre-C++20 Range-Based <code class="computeroutput"><span class="keyword">for</span></code>
+      Loops</a>
+    </h4>
+<p>
+      Prior to C++20, range-based <code class="computeroutput"><span class="keyword">for</span></code>
+      loops require that the begin-iterator and the end-iterator have the same type.
+      This means that any range consisting of an iterator/sentinel pair will not
+      work with pre-C++20 range-based <code class="computeroutput"><span class="keyword">for</span></code>
+      loops. Writing it out the long way still works, of course, and in C++20 and
+      later modes, everything just works.
+    </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="important__text__conventions.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="the_unicode_layer.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

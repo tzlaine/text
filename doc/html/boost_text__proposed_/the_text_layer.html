@@ -29,7 +29,7 @@
 <p>
       Each of these four types is a typedef of a general-purpose template. For instance,
       <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>
-      is a specialization of <code class="computeroutput"><a class="link" href="../boost/text/basic_text.html" title="Struct template basic_text">basic_text</a></code> that is normalized
+      is a specialization of <code class="computeroutput">basic_text</code> that is normalized
       NFC, with a code unit type of <code class="computeroutput"><span class="keyword">char</span></code>,
       and using <code class="computeroutput">std::string</code>
       as the underlying storage.
@@ -39,13 +39,13 @@
     </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-          <code class="computeroutput"><a class="link" href="../boost/text/basic_text.html" title="Struct template basic_text">basic_text</a></code>
+          <code class="computeroutput">basic_text</code>
         </li>
 <li class="listitem">
           <code class="computeroutput"><a class="link" href="../boost/text/basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a></code>
         </li>
 <li class="listitem">
-          <code class="computeroutput"><a class="link" href="../boost/text/basic_rope.html" title="Struct template basic_rope">basic_rope</a></code>
+          <code class="computeroutput">basic_rope</code>
         </li>
 <li class="listitem">
           <code class="computeroutput"><a class="link" href="../boost/text/basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a></code>
@@ -54,7 +54,7 @@
 <p>
       Each template can be configured: to maintain one of the five supported normalization
       forms; with a particular underlying code unit type; and, for those that have
-      underlying storage (<code class="computeroutput"><a class="link" href="../boost/text/basic_text.html" title="Struct template basic_text">basic_text</a></code> and <code class="computeroutput"><a class="link" href="../boost/text/basic_rope.html" title="Struct template basic_rope">basic_rope</a></code>), with the type of
+      underlying storage (<code class="computeroutput">basic_text</code> and <code class="computeroutput">basic_rope</code>), with the type of
       storage container to use. The UTF format each template uses is deduced from
       the code point type. For instance, <code class="computeroutput"><span class="keyword">char</span></code>
       and <code class="computeroutput"><span class="identifier">char8_t</span></code> imply UTF-8, whereas
@@ -132,7 +132,7 @@
 <span class="comment">// interfaces.</span>
 
 <span class="comment">// This returns a view into a temporary.  Don't do this.</span>
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_ref</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_ref</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&gt;</span>
 <span class="identifier">find_first_dot_bad</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t</span><span class="special">)</span>
 <span class="special">{</span>
     <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">grapheme</span> <span class="special">:</span> <span class="identifier">t</span><span class="special">)</span> <span class="special">{</span>
@@ -147,8 +147,7 @@
             <span class="keyword">return</span> <span class="identifier">grapheme</span><span class="special">;</span>
         <span class="special">}</span>
     <span class="special">}</span>
-    <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_ref</span><span class="special">&lt;</span>
-        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;();</span>
+    <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_ref</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&gt;();</span>
 <span class="special">}</span>
 
 <span class="comment">// This returns a grapheme that owns its code point storage, so it cannot</span>
@@ -192,8 +191,8 @@
 </tr>
 <tr><td align="left" valign="top"><p>
         The grapheme is the unit of work within the text layer. When using text layer
-        types, you should always use the <a class="link" href="concepts.html" title="Concepts">GraphemeRange</a>
-        overloads of the Unicode algorithms.
+        types, you should always use the <a class="link" href="concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">grapheme_range</span></code></a> overloads of the
+        Unicode algorithms.
       </p></td></tr>
 </table></div>
 <h4>

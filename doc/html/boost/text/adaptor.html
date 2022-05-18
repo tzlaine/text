@@ -1,0 +1,67 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Struct template adaptor</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/view_adaptor_hpp.html" title="Header &lt;boost/text/view_adaptor.hpp&gt;">
+<link rel="prev" href="closure.html" title="Struct template closure">
+<link rel="next" href="bind_back.html" title="Function template bind_back">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="closure.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/view_adaptor_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="bind_back.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.adaptor"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct template adaptor</span></h2>
+<p>boost::text::adaptor</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/view_adaptor_hpp.html" title="Header &lt;boost/text/view_adaptor.hpp&gt;">boost/text/view_adaptor.hpp</a>&gt;
+
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> F<span class="special">&gt;</span> 
+<span class="keyword">struct</span> <a class="link" href="adaptor.html" title="Struct template adaptor">adaptor</a> <span class="special">{</span>
+  <span class="comment">// <a class="link" href="adaptor.html#boost.text.adaptorconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="adaptor.html#idm26468-bb"><span class="identifier">adaptor</span></a><span class="special">(</span><span class="identifier">F</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="adaptor.html#idm26460-bb">public member functions</a></span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> 
+    <span class="identifier">requires</span> <span class="keyword">constexpr</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invocable</span><span class="special">&lt;</span> <span class="identifier">F</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">Args</span><span class="special">...</span> <span class="special">&gt;</span> <span class="keyword">auto</span> 
+    <a class="link" href="adaptor.html#idm26461-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm55516"></a><h2>Description</h2>
+<p>Adapts an invocable <code class="computeroutput">f</code> as a view adaptor. Calling <code class="computeroutput">operator(args...)</code> will either: call <code class="computeroutput">f(args...)</code> and return the result, if <code class="computeroutput">f(args...)</code> is well-formed; or return <code class="computeroutput">closure(text::bind_back(f, args...))</code> otherwise. </p>
+<div class="refsect2">
+<a name="idm55524"></a><h3>
+<a name="boost.text.adaptorconstruct-copy-destruct"></a><code class="computeroutput">adaptor</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idm26468-bb"></a><span class="identifier">adaptor</span><span class="special">(</span><span class="identifier">F</span> f<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+</div>
+<div class="refsect2">
+<a name="idm55538"></a><h3>
+<a name="idm26460-bb"></a><code class="computeroutput">adaptor</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> 
+  <span class="identifier">requires</span> <span class="keyword">constexpr</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invocable</span><span class="special">&lt;</span> <span class="identifier">F</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">Args</span><span class="special">...</span> <span class="special">&gt;</span> <span class="keyword">auto</span> 
+  <a name="idm26461-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span> args<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="closure.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/view_adaptor_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="bind_back.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>String Algorithms and Utilities</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../the_unicode_layer.html" title="The Unicode Layer">
+<link rel="prev" href="bidirectional_text.html" title="Bidirectional Text">
+<link rel="next" href="../a_bit_about_ropes.html" title="A Bit About Ropes">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="bidirectional_text.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../the_unicode_layer.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../a_bit_about_ropes.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_text__proposed_.the_unicode_layer.string_algorithms_and_utilities"></a><a class="link" href="string_algorithms_and_utilities.html" title="String Algorithms and Utilities">String
+      Algorithms and Utilities</a>
+</h3></div></div></div>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.string_algorithms_and_utilities.h0"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.string_algorithms_and_utilities.string_algorithms"></a></span><a class="link" href="string_algorithms_and_utilities.html#boost_text__proposed_.the_unicode_layer.string_algorithms_and_utilities.string_algorithms">String
+        Algorithms</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code> has a bunch of member functions
+        that are essentially algorithms hanging off of a string type for no reason.
+        Instead of repeating this with the types in the text layer, Boost.Text instead
+        provides these algorithms as free functions, like all the other C++ algorithms.
+        Unlike all the other C++ algorithms, the Boost.Text string algorithms work
+        with <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">code_point_range</span></code>s</a>,
+        <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">grapheme_range</span></code>s</a>,
+        and even pointers to null-terminated strings, in all the permutations you
+        might need. You can use ranges, just like with the algorithms in <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span></code>:
+      </p>
+<pre class="programlisting"><span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">starts_with</span><span class="special">(</span><span class="identifier">U</span><span class="string">"here"</span><span class="special">,</span> <span class="identifier">U</span><span class="string">"her"</span><span class="special">));</span> <span class="comment">// Like std::ranges::starts_with().</span>
+</pre>
+<p>
+        You can use any range that models <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">utf_range_like</span></code></a> or <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">grapheme_range</span></code></a>. You can also compare
+        a range to a C-style null-terminated string pointer, even if the C-style
+        string is in a different UTF format:
+      </p>
+<pre class="programlisting"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> <span class="identifier">her</span> <span class="special">=</span> <span class="string">"her"</span><span class="special">;</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">starts_with</span><span class="special">(</span><span class="identifier">U</span><span class="string">"here"</span><span class="special">,</span> <span class="identifier">her</span><span class="special">));</span>
+</pre>
+<p>
+        And of course, the text-layer types are supported:
+      </p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">rope</span> <span class="identifier">here</span> <span class="special">=</span> <span class="string">"here"</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">her</span> <span class="special">=</span> <span class="string">"her"</span><span class="special">;</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">starts_with</span><span class="special">(</span><span class="identifier">here</span><span class="special">,</span> <span class="identifier">her</span><span class="special">));</span>
+</pre>
+<div class="tip"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="../../images/tip.png"></td>
+<th align="left">Tip</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          If you like using the <a href="https://www.boost.org/doc/libs/1_68_0/doc/html/string_algo.html" target="_top">Boost.StringAlgo</a>
+          library, the text layer types work with those as well. Just be sure to
+          use the code point iterators of your favorite text-layer type; <a href="https://www.boost.org/doc/libs/1_68_0/doc/html/string_algo.html" target="_top">Boost.StringAlgo</a>
+          doesn't know anything about graphemes.
+        </p></td></tr>
+</table></div>
+<p>
+        See <a class="link" href="../../">string_algorithm.hpp</a>
+        for a list of all the algorithms.
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.string_algorithms_and_utilities.h1"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.string_algorithms_and_utilities.utilities"></a></span><a class="link" href="string_algorithms_and_utilities.html#boost_text__proposed_.the_unicode_layer.string_algorithms_and_utilities.utilities">Utilities</a>
+      </h5>
+<p>
+        There are a lot of small utility functions scattered throughout the Boost.Text
+        headers. My philosophy is that if I have to write a function <code class="computeroutput"><span class="identifier">f</span><span class="special">()</span></code> to
+        implement a major feature, and <code class="computeroutput"><span class="identifier">f</span><span class="special">()</span></code> seems like it might be useful to someone,
+        somewhere, ever, I'm going to keep <code class="computeroutput"><span class="identifier">f</span><span class="special">()</span></code> publicly available, rather than putting
+        in a <code class="computeroutput"><span class="identifier">detail</span></code> namespace. I'm
+        not going to list all the available functions, but here are some pointers
+        to where you can find them:
+      </p>
+<p>
+        - <a class="link" href="../../header/boost/text/transcode_iterator_hpp.html" title="Header &lt;boost/text/transcode_iterator.hpp&gt;">transcode_iterator.hpp</a>
+        contains a variety of utility functions that give info on code points and
+        UTF-8 code units. For instance, it contains <code class="computeroutput"><span class="identifier">replacement_character</span><span class="special">()</span></code>, which just gives you the value of the
+        Unicode replacement character, and <code class="computeroutput"><span class="identifier">scalar_value</span><span class="special">()</span></code>, which tells you if a given <code class="computeroutput"><span class="keyword">unsigned</span> <span class="keyword">int</span></code>
+        is in the range of Unicode scalar values.
+      </p>
+<p>
+        - There are a couple of overloads of <code class="computeroutput">to_string()</code>
+        that can be used to construct a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
+        from a range of code points.
+      </p>
+<p>
+        - General-purpose algorithms can be found in <a class="link" href="../../header/boost/text/algorithm_hpp.html" title="Header &lt;boost/text/algorithm.hpp&gt;">algorithm.hpp</a>.
+        These are essentially back-ports of algorithms that are available anywhere
+        from C++26 on back to C++98. They differ from the ones in <code class="computeroutput"><span class="identifier">std</span></code>
+        in that they are sentinel-friendly, and some have different names, because
+        they predate the ones in the standard.
+      </p>
+<p>
+        - There are numerous <code class="computeroutput"><span class="identifier">foo_prop</span><span class="special">()</span></code> functions, where <code class="computeroutput"><span class="identifier">foo</span></code>
+        is <code class="computeroutput"><span class="identifier">word</span></code>, <code class="computeroutput"><span class="identifier">line</span></code>,
+        etc. These give the text segmentation- or algorithm-specific property for
+        any code point. See <code class="computeroutput"><span class="identifier">word_prop</span><span class="special">()</span></code> in <a class="link" href="../../header/boost/text/word_break_hpp.html" title="Header &lt;boost/text/word_break.hpp&gt;">word_break.hpp</a>
+        for an example.
+      </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="bidirectional_text.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../the_unicode_layer.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../a_bit_about_ropes.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -53,13 +53,13 @@
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf8_iterator.html" title="Function template utf8_iterator">utf8_iterator()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf8_iterator_idm22891.html" title="Function template utf8_iterator">utf8_iterator()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf16_iterator.html" title="Function template utf16_iterator">utf16_iterator()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf16_iterator_idm22908.html" title="Function template utf16_iterator">utf16_iterator()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf32_iterator.html" title="Function template utf32_iterator">utf32_iterator()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf32_iterator_idm22925.html" title="Function template utf32_iterator">utf32_iterator()</a></code>
           </li>
 </ul></div>
 <p>
@@ -214,16 +214,16 @@
         the transcoding iterators accept an underlying input range that may be delimited
         by different types: the range is represented as an iterator-sentinel pair,
         instead of a pair of iterators. Boost.Text provides a null-terminated string
-        sentinel, <code class="computeroutput"><a class="link" href="../../boost/text/null_sentinel.html" title="Struct null_sentinel">null_sentinel</a></code>,
-        which can be used to represent a null-terminated string as a pointer-<code class="computeroutput"><a class="link" href="../../boost/text/null_sentinel.html" title="Struct null_sentinel">null_sentinel</a></code>
+        sentinel, <code class="computeroutput"><a class="link" href="../../boost/text/null_sentinel_t.html" title="Struct null_sentinel_t">null_sentinel_t</a></code>,
+        which can be used to represent a null-terminated string as a pointer-<code class="computeroutput"><a class="link" href="../../boost/text/null_sentinel_t.html" title="Struct null_sentinel_t">null_sentinel_t</a></code>
         pair.
       </p>
 <p>
         Each transcoding iterator contains three elements: the <code class="computeroutput"><span class="special">[</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">)</span></code> of
         the underlying range, and the current position within that range. In the
         worst case, a transcoding iterator is the size of three pointers. If the
-        underlying range is end-delimited by a <code class="computeroutput"><a class="link" href="../../boost/text/null_sentinel.html" title="Struct null_sentinel">null_sentinel</a></code>, it may be a
-        bit smaller.
+        underlying range is end-delimited by a <code class="computeroutput"><a class="link" href="../../boost/text/null_sentinel_t.html" title="Struct null_sentinel_t">null_sentinel_t</a></code>, it may be
+        a bit smaller.
       </p>
 <h5>
 <a name="boost_text__proposed_.the_unicode_layer.encoding_and_normalization.h1"></a>
@@ -322,7 +322,7 @@
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_utf32</span><span class="special">(</span><span class="identifier">str</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">str</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
 
 <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">utf32_range_from_utf8_iter_and_sentinel</span> <span class="special">=</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_utf32</span><span class="special">(</span><span class="identifier">str</span><span class="special">.</span><span class="identifier">c_str</span><span class="special">(),</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">null_sentinel</span><span class="special">{});</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_utf32</span><span class="special">(</span><span class="identifier">str</span><span class="special">.</span><span class="identifier">c_str</span><span class="special">(),</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">null_sentinel</span><span class="special">);</span>
 </pre>
 <p>
         These functions also support null-terminated strings; you can just pass a
@@ -436,7 +436,7 @@
 <p>
         When you only need to transcode from one UTF encoding to another, use the
         transcoding algorithms instead of the transcoding iterators. The algorithms
-        are quite a bit faster in most cases (<code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf3_idm22148.html" title="Function template transcode_to_utf32">transcode_to_utf32()</a></code>
+        are quite a bit faster in most cases (<code class="computeroutput"><a class="link" href="../../header/boost/text/transcode_algorithm_hpp.html#boost.text.v1.transcode_to_utf3_idm21833">transcode_to_utf32()</a></code>
         is particularly faster when given UTF-8 input, as it uses SIMD instructions
         when available).
       </p>
@@ -446,13 +446,13 @@
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf8_idm22088.html" title="Function template transcode_to_utf8">transcode_to_utf8()</a></code>
+            <code class="computeroutput"><a class="link" href="../../header/boost/text/transcode_algorithm_hpp.html#boost.text.v1.transcode_to_utf8_idm21701">transcode_to_utf8()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf1_idm22118.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
+            <code class="computeroutput"><a class="link" href="../../header/boost/text/transcode_algorithm_hpp.html#boost.text.v1.transcode_to_utf1_idm21767">transcode_to_utf16()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf3_idm22148.html" title="Function template transcode_to_utf32">transcode_to_utf32()</a></code>
+            <code class="computeroutput"><a class="link" href="../../header/boost/text/transcode_algorithm_hpp.html#boost.text.v1.transcode_to_utf3_idm21833">transcode_to_utf32()</a></code>
           </li>
 </ul></div>
 <p>
@@ -614,8 +614,8 @@
         where <code class="computeroutput"><span class="identifier">X</span></code> is one of the enumerators
         of <code class="computeroutput">nf</code>
         ("Normalization Form"). Range and iterator-based overloads are
-        provided. The iterator interfaces require iterators that model <a class="link" href="../concepts.html" title="Concepts">CPIter</a>,
-        and ranges that model <a class="link" href="../concepts.html" title="Concepts">CPRange</a>.
+        provided. The iterator interfaces require iterators that model <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">code_point_iter</span></code></a>, and ranges that
+        model <a class="link" href="../concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">code_point_range</span></code></a>.
         There are also algorithms that can check if a code point sequence is in a
         certain normalization form.
       </p>
@@ -718,7 +718,7 @@
             <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_erase.html" title="Function template normalize_erase">normalize_erase()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_insert_idm18768.html" title="Function template normalize_insert">normalize_insert()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_insert_idm19176.html" title="Function template normalize_insert">normalize_insert()</a></code>
           </li>
 <li class="listitem">
             <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_replace.html" title="Function template normalize_replace">normalize_replace()</a></code>

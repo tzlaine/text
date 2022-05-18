@@ -23,8 +23,12 @@
       Concepts</a>
     </h4>
 <p>
-      All of the concepts below apply to the pre-C++20 interfaces. Interfaces that
-      are meant for use in C++20 use these concepts:
+      All interfaces in Boost.Text are constrined either by SFINAE or C++20 concepts.
+      The SFIANE constrains adhere as closely as possible to the C++20 concepts,
+      listed here. Even though the pre-C++20 code uses a naming convention for template
+      parameters, the rest of the documentation will use the C++20 concept names.
+      See the bottom of this page for the mapping from pre-C++20 template parameter
+      names to C++20 concept names.
     </p>
 <p>
       From concepts.hpp:
@@ -44,7 +48,7 @@
 <span class="identifier">concept</span> <span class="identifier">utf32_code_unit</span> <span class="special">=</span> <span class="identifier">code_unit</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf32</span><span class="special">&gt;;</span>
 
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span> <span class="identifier">F</span><span class="special">&gt;</span>
-<span class="identifier">concept</span> <span class="identifier">code_unit_iterator</span> <span class="special">=</span>
+<span class="identifier">concept</span> <span class="identifier">code_unit_iter</span> <span class="special">=</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">bidirectional_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span> <span class="identifier">code_unit</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">iter_value_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">F</span><span class="special">&gt;;</span>
 
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span> <span class="identifier">F</span><span class="special">&gt;</span>
@@ -60,7 +64,7 @@
     <span class="identifier">code_unit</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">range_value_t</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">F</span><span class="special">&gt;;</span>
 
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-<span class="identifier">concept</span> <span class="identifier">utf8_iter</span> <span class="special">=</span> <span class="identifier">code_unit_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">&gt;;</span>
+<span class="identifier">concept</span> <span class="identifier">utf8_iter</span> <span class="special">=</span> <span class="identifier">code_unit_iter</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">&gt;;</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 <span class="identifier">concept</span> <span class="identifier">utf8_pointer</span> <span class="special">=</span> <span class="identifier">code_unit_pointer</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">&gt;;</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
@@ -69,7 +73,7 @@
 <span class="identifier">concept</span> <span class="identifier">contiguous_utf8_range</span> <span class="special">=</span> <span class="identifier">contiguous_code_unit_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">&gt;;</span>
 
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-<span class="identifier">concept</span> <span class="identifier">utf16_iter</span> <span class="special">=</span> <span class="identifier">code_unit_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf16</span><span class="special">&gt;;</span>
+<span class="identifier">concept</span> <span class="identifier">utf16_iter</span> <span class="special">=</span> <span class="identifier">code_unit_iter</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf16</span><span class="special">&gt;;</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 <span class="identifier">concept</span> <span class="identifier">utf16_pointer</span> <span class="special">=</span> <span class="identifier">code_unit_pointer</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf16</span><span class="special">&gt;;</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
@@ -79,7 +83,7 @@
     <span class="identifier">contiguous_code_unit_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf16</span><span class="special">&gt;;</span>
 
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-<span class="identifier">concept</span> <span class="identifier">utf32_iter</span> <span class="special">=</span> <span class="identifier">code_unit_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf32</span><span class="special">&gt;;</span>
+<span class="identifier">concept</span> <span class="identifier">utf32_iter</span> <span class="special">=</span> <span class="identifier">code_unit_iter</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf32</span><span class="special">&gt;;</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 <span class="identifier">concept</span> <span class="identifier">utf32_pointer</span> <span class="special">=</span> <span class="identifier">code_unit_pointer</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">format</span><span class="special">::</span><span class="identifier">utf32</span><span class="special">&gt;;</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
@@ -121,7 +125,7 @@
     <span class="comment">// clang-format off</span>
     <span class="identifier">grapheme_iter</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&amp;&amp;</span>
     <span class="identifier">requires</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">t</span><span class="special">)</span> <span class="special">{</span>
-    <span class="special">{</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span> <span class="special">}</span> <span class="special">-&gt;</span> <span class="identifier">code_unit_iterator</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;;</span>
+    <span class="special">{</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span> <span class="special">}</span> <span class="special">-&gt;</span> <span class="identifier">code_unit_iter</span><span class="special">&lt;</span><span class="identifier">F</span><span class="special">&gt;;</span>
     <span class="comment">// clang-format on</span>
 <span class="special">};</span>
 

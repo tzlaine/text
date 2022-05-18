@@ -26,31 +26,31 @@
 <span class="keyword">struct</span> <a class="link" href="const_trie_set_iterator.html" title="Struct template const_trie_set_iterator">const_trie_set_iterator</a> <span class="special">:</span> <span class="keyword">public</span> stl_interfaces::proxy_iterator_interface&lt; const_trie_set_iterator&lt; Key &gt;, std::bidirectional_iterator_tag, Key &gt;
 <span class="special">{</span>
   <span class="comment">// <a class="link" href="const_trie_set_iterator.html#boost.text.const_trie_set_iteratorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="const_trie_set_iterator.html#idm25134-bb"><span class="identifier">const_trie_set_iterator</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="const_trie_set_iterator.html#idm25135-bb"><span class="identifier">const_trie_set_iterator</span></a><span class="special">(</span><a class="link" href="trie_match_result.html" title="Struct trie_match_result">trie_match_result</a><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="const_trie_set_iterator.html#idm24983-bb"><span class="identifier">const_trie_set_iterator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="const_trie_set_iterator.html#idm24984-bb"><span class="identifier">const_trie_set_iterator</span></a><span class="special">(</span><a class="link" href="trie_match_result.html" title="Struct trie_match_result">trie_match_result</a><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="const_trie_set_iterator.html#idm25129-bb">public member functions</a></span>
-  <span class="identifier">Key</span> <a class="link" href="const_trie_set_iterator.html#idm25130-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">proxy_arrow_result</span><span class="special">&lt;</span> <span class="identifier">Key</span> <span class="special">&gt;</span> <a class="link" href="const_trie_set_iterator.html#idm25132-bb"><span class="keyword">operator</span><span class="special">-&gt;</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="const_trie_set_iterator.html#idm24978-bb">public member functions</a></span>
+  <span class="identifier">Key</span> <a class="link" href="const_trie_set_iterator.html#idm24979-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">proxy_arrow_result</span><span class="special">&lt;</span> <span class="identifier">Key</span> <span class="special">&gt;</span> <a class="link" href="const_trie_set_iterator.html#idm24981-bb"><span class="keyword">operator</span><span class="special">-&gt;</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm53153"></a><h2>Description</h2>
+<a name="idm49797"></a><h2>Description</h2>
 <div class="refsect2">
-<a name="idm53155"></a><h3>
+<a name="idm49799"></a><h3>
 <a name="boost.text.const_trie_set_iteratorconstruct-copy-destruct"></a><code class="computeroutput">const_trie_set_iterator</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm25134-bb"></a><span class="identifier">const_trie_set_iterator</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm25135-bb"></a><span class="identifier">const_trie_set_iterator</span><span class="special">(</span><a class="link" href="trie_match_result.html" title="Struct trie_match_result">trie_match_result</a> match_result<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm24983-bb"></a><span class="identifier">const_trie_set_iterator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm24984-bb"></a><span class="identifier">const_trie_set_iterator</span><span class="special">(</span><a class="link" href="trie_match_result.html" title="Struct trie_match_result">trie_match_result</a> match_result<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm53179"></a><h3>
-<a name="idm25129-bb"></a><code class="computeroutput">const_trie_set_iterator</code> public member functions</h3>
+<a name="idm49821"></a><h3>
+<a name="idm24978-bb"></a><code class="computeroutput">const_trie_set_iterator</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">Key</span> <a name="idm25130-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">proxy_arrow_result</span><span class="special">&lt;</span> <span class="identifier">Key</span> <span class="special">&gt;</span> <a name="idm25132-bb"></a><span class="keyword">operator</span><span class="special">-&gt;</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">Key</span> <a name="idm24979-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">proxy_arrow_result</span><span class="special">&lt;</span> <span class="identifier">Key</span> <span class="special">&gt;</span> <a name="idm24981-bb"></a><span class="keyword">operator</span><span class="special">-&gt;</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

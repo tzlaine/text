@@ -1,0 +1,85 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Important Boost.Text Conventions</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="prev" href="the__v1__and__v2__namespaces__and_the_use_of_c__20_concepts.html" title="The v1 and v2 Namespaces, and the Use of C++20 Concepts">
+<link rel="next" href="peculiarities_of__text__iterators_and_ranges.html" title="Peculiarities of Boost.Text Iterators and Ranges">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="the__v1__and__v2__namespaces__and_the_use_of_c__20_concepts.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="peculiarities_of__text__iterators_and_ranges.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_text__proposed_.important__text__conventions"></a><a class="link" href="important__text__conventions.html" title="Important Boost.Text Conventions">Important
+    Boost.Text Conventions</a>
+</h2></div></div></div>
+<h4>
+<a name="boost_text__proposed_.important__text__conventions.h0"></a>
+      <span class="phrase"><a name="boost_text__proposed_.important__text__conventions.c__20_s__code__phrase_role__identifier__std__phrase__phrase_role__special______phrase__phrase_role__identifier__ranges__phrase__phrase_role__special______phrase__phrase_role__identifier__dangling__phrase___code_"></a></span><a class="link" href="important__text__conventions.html#boost_text__proposed_.important__text__conventions.c__20_s__code__phrase_role__identifier__std__phrase__phrase_role__special______phrase__phrase_role__identifier__ranges__phrase__phrase_role__special______phrase__phrase_role__identifier__dangling__phrase___code_">C++20's
+      <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">dangling</span></code></a>
+    </h4>
+<p>
+      When you call an algorithm <code class="computeroutput"><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_range</span> <span class="identifier">R</span><span class="special">&gt;</span> <span class="identifier">foo</span><span class="special">(</span><span class="identifier">R</span> <span class="special">&amp;&amp;</span>
+      <span class="identifier">r</span><span class="special">)</span></code>
+      in C++20, and you pass an rvalue for <code class="computeroutput"><span class="identifier">r</span></code>
+      that is not know to be a "borrowing range" like a view, the algorithm
+      will often rerturn a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">dangling</span></code> instead of the desired result. This
+      will probably cause your code to be ill-formed if you try to use the result.
+      This lets you catch errors like this:
+    </p>
+<pre class="programlisting"><span class="comment">// decltype(iter) is std::ranges::dangling.  If it were a proper iterator,</span>
+<span class="comment">// "iter" would now be a dangerous dangling reference, and using it would</span>
+<span class="comment">// cause your progam to have undefined behavior.</span>
+<span class="keyword">auto</span> <span class="identifier">iter</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">find</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;{/*</span> <span class="special">...</span> <span class="special">*/},</span> <span class="number">42</span><span class="special">);</span>
+</pre>
+<p>
+      Boost.Text follows this convention. If you call an algorithm <code class="computeroutput"><span class="identifier">alg</span></code> that returns an iterator or subrange,
+      or that constructs a view, and you pass <code class="computeroutput"><span class="identifier">alg</span></code>
+      an rvalue range in which to do its work, it will return a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">dangling</span></code>.
+    </p>
+<h4>
+<a name="boost_text__proposed_.important__text__conventions.h1"></a>
+      <span class="phrase"><a name="boost_text__proposed_.important__text__conventions.the__code__phrase_role__identifier__as___phrase___code__prefix"></a></span><a class="link" href="important__text__conventions.html#boost_text__proposed_.important__text__conventions.the__code__phrase_role__identifier__as___phrase___code__prefix">The
+      <code class="computeroutput"><span class="identifier">as_</span></code> Prefix</a>
+    </h4>
+<p>
+      Functions and view adaptors that begin with <code class="computeroutput"><span class="identifier">as_</span></code>
+      operate on values that model <a class="link" href="concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">utf_range_like</span></code></a>. That is, they not
+      only work with <a class="link" href="concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">code_point_range</span></code>s</a> and/or <a class="link" href="concepts.html" title="Concepts"><code class="computeroutput"><span class="identifier">grapheme_range</span></code>s</a>, but also null-terminated
+      string pointers. For instance, for some <code class="computeroutput"><span class="keyword">char</span>
+      <span class="keyword">const</span> <span class="special">*</span> <span class="identifier">c_str</span> <span class="special">=</span> <span class="comment">/* ... */</span></code>, <code class="computeroutput"><span class="identifier">c_str</span>
+      <span class="special">|</span> <span class="identifier">text</span><span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">as_utf32</span></code> creates a code point view of the
+      contents of <code class="computeroutput"><span class="identifier">c_str</span></code>, interpreting
+      <code class="computeroutput"><span class="identifier">c_str</span></code> as a null-terminated
+      string.
+    </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        Any pointer to an integral type whose size is 8-, 16-, or 32-bits will be
+        treated as a null-terminated string.
+      </p></td></tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="the__v1__and__v2__namespaces__and_the_use_of_c__20_concepts.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="peculiarities_of__text__iterators_and_ranges.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
