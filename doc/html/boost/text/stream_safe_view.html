@@ -1,10 +1,10 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Struct template stream_safe_view</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../../header/boost/text/stream_safe_hpp.html" title="Header &lt;boost/text/stream_safe.hpp&gt;">
 <link rel="prev" href="stream_safe_iterator.html" title="Struct template stream_safe_iterator">
 <link rel="next" href="copy_result.html" title="Type definition copy_result">
@@ -31,15 +31,15 @@
   <span class="keyword">typedef</span> <span class="identifier">S</span> <a name="boost.text.stream_safe_view.sentinel"></a><span class="identifier">sentinel</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="stream_safe_view.html#boost.text.stream_safe_viewconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="stream_safe_view.html#idm20363-bb"><span class="identifier">stream_safe_view</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="stream_safe_view.html#idm20364-bb"><span class="identifier">stream_safe_view</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">sentinel</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="stream_safe_view.html#idm21975-bb"><span class="identifier">stream_safe_view</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="stream_safe_view.html#idm21976-bb"><span class="identifier">stream_safe_view</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">sentinel</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="stream_safe_view.html#idm20358-bb">public member functions</a></span>
-  <span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a class="link" href="stream_safe_view.html#idm20359-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a class="link" href="stream_safe_view.html#idm20361-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="stream_safe_view.html#idm21970-bb">public member functions</a></span>
+  <span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a class="link" href="stream_safe_view.html#idm21971-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a class="link" href="stream_safe_view.html#idm21973-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm32251"></a><h2>Description</h2>
+<a name="idm37271"></a><h2>Description</h2>
 <p>A view that adapts a non-stream safe sequence of code points to a stream-safe sequence of code points.</p>
 <p><span class="bold"><strong>See Also:</strong></span></p>
 <p><a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">https://unicode.org/reports/tr15/#Stream_Safe_Text_Format</a> </p>
@@ -48,28 +48,28 @@
 <p>
 </p>
 <div class="refsect2">
-<a name="idm32259"></a><h3>
+<a name="idm37279"></a><h3>
 <a name="boost.text.stream_safe_viewconstruct-copy-destruct"></a><code class="computeroutput">stream_safe_view</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm20363-bb"></a><span class="identifier">stream_safe_view</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm20364-bb"></a><span class="identifier">stream_safe_view</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">sentinel</span> last<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm21975-bb"></a><span class="identifier">stream_safe_view</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm21976-bb"></a><span class="identifier">stream_safe_view</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">sentinel</span> last<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm32283"></a><h3>
-<a name="idm20358-bb"></a><code class="computeroutput">stream_safe_view</code> public member functions</h3>
+<a name="idm37303"></a><h3>
+<a name="idm21970-bb"></a><code class="computeroutput">stream_safe_view</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a name="idm20359-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a name="idm20361-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a name="idm21971-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a name="idm21973-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

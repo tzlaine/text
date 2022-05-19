@@ -1,11 +1,11 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Performance Considerations</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
-<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../index.html" title="Chapter 1. Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="prev" href="the_text_layer.html" title="The Text Layer">
 <link rel="next" href="segmented_vector_.html" title="segmented_vector">
 </head>
@@ -37,11 +37,11 @@
       methods (smaller is better). The input was around half a megabyte of text from
       Wikipedia. "Iterators" is using <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span></code> from
       <code class="computeroutput"><a class="link" href="../boost/text/utf_8_to_16_iterator.html" title="Struct template utf_8_to_16_iterator">utf_8_to_16_iterator</a></code>
-      to a pointer; "Algorithm std::back_inserter" is using <code class="computeroutput"><a class="link" href="../header/boost/text/transcode_algorithm_hpp.html#boost.text.v1.transcode_to_utf1_idm21767">transcode_to_utf16()</a></code> in the SIMD code path, and
+      to a pointer; "Algorithm std::back_inserter" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm24502.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code> in the SIMD code path, and
       outputting to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">back_insert_iterator</span></code>; "Algorithm using
-      SIMD" is using <code class="computeroutput"><a class="link" href="../header/boost/text/transcode_algorithm_hpp.html#boost.text.v1.transcode_to_utf1_idm21767">transcode_to_utf16()</a></code>
+      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm24502.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
       from pointer to pointer in the SIMD-using code path; "Algorithm no SIMD"
-      is using <code class="computeroutput"><a class="link" href="../header/boost/text/transcode_algorithm_hpp.html#boost.text.v1.transcode_to_utf1_idm21767">transcode_to_utf16()</a></code>
+      is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm24502.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
       from pointer to pointer in the non-SIMD code path; and "ICU" is is
       using <code class="computeroutput"><span class="identifier">UnicodeString</span><span class="special">::</span><span class="identifier">fromUTF8</span><span class="special">()</span></code>.
     </p>
@@ -101,8 +101,8 @@
       methods, except that the iterator method is a lot faster.
     </p>
 <p>
-      Note that the SIMD algorithm is quite fast. It &#8212; and all the SIMD code
-      &#8212; was originally developed by Bob Steagall, and presented at C++Now
+      Note that the SIMD algorithm is quite fast. It — and all the SIMD code
+      — was originally developed by Bob Steagall, and presented at C++Now
       in 2018. Thanks, Bob!
     </p>
 <h4>
@@ -252,7 +252,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -1,11 +1,11 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>The Text Layer</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
-<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../index.html" title="Chapter 1. Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="prev" href="a_bit_about_ropes.html" title="A Bit About Ropes">
 <link rel="next" href="performance_considerations.html" title="Performance Considerations">
 </head>
@@ -24,12 +24,12 @@
       <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>,
       and <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Type definition unencoded_rope_view">unencoded_rope_view</a></code>,
       respectively. In fact, each of the text layer types has a single data member
-      &#8212; an object of the corresponding unencoded type.
+      — an object of the corresponding unencoded type.
     </p>
 <p>
       Each of these four types is a typedef of a general-purpose template. For instance,
       <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>
-      is a specialization of <code class="computeroutput">basic_text</code> that is normalized
+      is a specialization of <code class="computeroutput"><a class="link" href="../boost/text/basic_text.html" title="Struct template basic_text">basic_text</a></code> that is normalized
       NFC, with a code unit type of <code class="computeroutput"><span class="keyword">char</span></code>,
       and using <code class="computeroutput">std::string</code>
       as the underlying storage.
@@ -39,13 +39,13 @@
     </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-          <code class="computeroutput">basic_text</code>
+          <code class="computeroutput"><a class="link" href="../boost/text/basic_text.html" title="Struct template basic_text">basic_text</a></code>
         </li>
 <li class="listitem">
           <code class="computeroutput"><a class="link" href="../boost/text/basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a></code>
         </li>
 <li class="listitem">
-          <code class="computeroutput">basic_rope</code>
+          <code class="computeroutput"><a class="link" href="../boost/text/basic_rope.html" title="Struct template basic_rope">basic_rope</a></code>
         </li>
 <li class="listitem">
           <code class="computeroutput"><a class="link" href="../boost/text/basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a></code>
@@ -54,7 +54,7 @@
 <p>
       Each template can be configured: to maintain one of the five supported normalization
       forms; with a particular underlying code unit type; and, for those that have
-      underlying storage (<code class="computeroutput">basic_text</code> and <code class="computeroutput">basic_rope</code>), with the type of
+      underlying storage (<code class="computeroutput"><a class="link" href="../boost/text/basic_text.html" title="Struct template basic_text">basic_text</a></code> and <code class="computeroutput"><a class="link" href="../boost/text/basic_rope.html" title="Struct template basic_rope">basic_rope</a></code>), with the type of
       storage container to use. The UTF format each template uses is deduced from
       the code point type. For instance, <code class="computeroutput"><span class="keyword">char</span></code>
       and <code class="computeroutput"><span class="identifier">char8_t</span></code> imply UTF-8, whereas
@@ -244,7 +244,7 @@
 
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">strlen</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">begin</span><span class="special">().</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">())</span> <span class="special">==</span> <span class="number">25</span><span class="special">);</span>
 
-<span class="identifier">t</span> <span class="special">=</span> <span class="string">"This is a short s&#233;ance."</span><span class="special">;</span> <span class="comment">// &#233; occupies two UTF-8 code units.</span>
+<span class="identifier">t</span> <span class="special">=</span> <span class="string">"This is a short séance."</span><span class="special">;</span> <span class="comment">// é occupies two UTF-8 code units.</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">strlen</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">begin</span><span class="special">().</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">())</span> <span class="special">==</span> <span class="number">24</span><span class="special">);</span>
 </pre>
 <p>
@@ -328,7 +328,7 @@
           <code class="computeroutput"><span class="special">&lt;=</span></code>, <code class="computeroutput"><span class="special">&gt;</span></code>,
           and <code class="computeroutput"><span class="special">&gt;=</span></code>). This is because
           this would lead to implicit ordering based on the type's binary representation,
-          and not on some collation. This is wrong in some &#8212; but not all &#8212;
+          and not on some collation. This is wrong in some — but not all —
           contexts, making it bad candidate for implicit semantics.
         </li>
 <li class="listitem">
@@ -406,11 +406,11 @@
 <span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t</span><span class="special">(</span><span class="string">"e"</span><span class="special">);</span>
 
 <span class="keyword">auto</span> <span class="identifier">v</span> <span class="special">=</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">combining_diaeresis</span><span class="special">);</span>
-<span class="identifier">assert</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">distance</span><span class="special">()</span> <span class="special">==</span> <span class="number">1</span><span class="special">);</span>    <span class="comment">// No new grapheme!  We now have the single code point '&#235;'.</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">distance</span><span class="special">()</span> <span class="special">==</span> <span class="number">1</span><span class="special">);</span>    <span class="comment">// No new grapheme!  We now have the single code point 'ë'.</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">v</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">==</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">begin</span><span class="special">());</span>
 
 <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">combining_diaeresis</span><span class="special">);</span>
-<span class="identifier">assert</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">distance</span><span class="special">()</span> <span class="special">==</span> <span class="number">1</span><span class="special">);</span>    <span class="comment">// Still no new grapheme.  We now have a grapheme with the code points '&#235;' and '&#168;'.</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">distance</span><span class="special">()</span> <span class="special">==</span> <span class="number">1</span><span class="special">);</span>    <span class="comment">// Still no new grapheme.  We now have a grapheme with the code points 'ë' and '¨'.</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">v</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">==</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">begin</span><span class="special">());</span>
 </pre>
 <p>
@@ -427,7 +427,7 @@
       the Right String Type</a>
     </h4>
 <div class="table">
-<a name="boost_text__proposed_.the_text_layer.t0"></a><p class="title"><b>Table&#160;1.7.&#160;Picking the Right Text Type</b></p>
+<a name="boost_text__proposed_.the_text_layer.t0"></a><p class="title"><b>Table 1.7. Picking the Right Text Type</b></p>
 <div class="table-contents"><table class="table" summary="Picking the Right Text Type">
 <colgroup>
 <col>
@@ -589,7 +589,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

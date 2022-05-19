@@ -1,10 +1,10 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Function template bidirectional_subranges</title>
 <link rel="stylesheet" href="../../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../../../header/boost/text/bidirectional_hpp.html" title="Header &lt;boost/text/bidirectional.hpp&gt;">
 <link rel="prev" href="../../../header/boost/text/bidirectional_hpp.html" title="Header &lt;boost/text/bidirectional.hpp&gt;">
 <link rel="next" href="bidirectional_sub_idm16458.html" title="Function template bidirectional_subranges">
@@ -27,7 +27,7 @@
   <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <span class="identifier">bidirectional_subranges</span><span class="special">(</span><span class="identifier">I</span> first<span class="special">,</span> <span class="identifier">S</span> last<span class="special">,</span> 
                                       <span class="keyword">int</span> paragraph_embedding_level <span class="special">=</span> <span class="special">-</span><span class="number">1</span><span class="special">)</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm17021"></a><h2>Description</h2>
+<a name="idm17030"></a><h2>Description</h2>
 <p>Returns a view of code point subranges in <code class="computeroutput">[first, last)</code>; each subrange is one of three kinds: a forward-subrange; a reverse-subrange; or a one-code-point subrange used to subtitute a reversed bracketing code point (e.g. <span style="color: red">&lt;lsquo&gt;&lt;/lsquo&gt;</span><span style="color: red">&lt;rsquo&gt;&lt;/rsquo&gt;</span>['<code class="computeroutput">) for its couterpart (e.g.</code>']'`). There is a single iterator type used in the resulting subranges, so this distinction is not exposed in the subrange API.</p>
 <p>Line breaks are determined within the algorithm by calling <code class="computeroutput">lines(first, last)</code>; only hard line breaks are considered.</p>
 <p>If a non-negative <code class="computeroutput">paragraph_embedding_level</code> is provided, it will be used instead of the initial paragraph embedding level computed by the bidirectional algorithm. This applies to all paragraphs found in <code class="computeroutput">[first, last)</code>.</p>
@@ -36,7 +36,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

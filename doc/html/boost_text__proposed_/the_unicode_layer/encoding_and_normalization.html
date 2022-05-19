@@ -1,10 +1,10 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Encoding and Normalization</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../the_unicode_layer.html" title="The Unicode Layer">
 <link rel="prev" href="../the_unicode_layer.html" title="The Unicode Layer">
 <link rel="next" href="text_segmentation.html" title="Text Segmentation">
@@ -53,13 +53,13 @@
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf8_iterator_idm22891.html" title="Function template utf8_iterator">utf8_iterator()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf8_iterator_idm25607.html" title="Function template utf8_iterator">utf8_iterator()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf16_iterator_idm22908.html" title="Function template utf16_iterator">utf16_iterator()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf16_iterator_idm25624.html" title="Function template utf16_iterator">utf16_iterator()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf32_iterator_idm22925.html" title="Function template utf32_iterator">utf32_iterator()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/utf32_iterator_idm25641.html" title="Function template utf32_iterator">utf32_iterator()</a></code>
           </li>
 </ul></div>
 <p>
@@ -436,7 +436,7 @@
 <p>
         When you only need to transcode from one UTF encoding to another, use the
         transcoding algorithms instead of the transcoding iterators. The algorithms
-        are quite a bit faster in most cases (<code class="computeroutput"><a class="link" href="../../header/boost/text/transcode_algorithm_hpp.html#boost.text.v1.transcode_to_utf3_idm21833">transcode_to_utf32()</a></code>
+        are quite a bit faster in most cases (<code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf3_idm24569.html" title="Function template transcode_to_utf32">transcode_to_utf32()</a></code>
         is particularly faster when given UTF-8 input, as it uses SIMD instructions
         when available).
       </p>
@@ -446,13 +446,13 @@
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../header/boost/text/transcode_algorithm_hpp.html#boost.text.v1.transcode_to_utf8_idm21701">transcode_to_utf8()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf8_idm24435.html" title="Function template transcode_to_utf8">transcode_to_utf8()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../header/boost/text/transcode_algorithm_hpp.html#boost.text.v1.transcode_to_utf1_idm21767">transcode_to_utf16()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf1_idm24502.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../header/boost/text/transcode_algorithm_hpp.html#boost.text.v1.transcode_to_utf3_idm21833">transcode_to_utf32()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf3_idm24569.html" title="Function template transcode_to_utf32">transcode_to_utf32()</a></code>
           </li>
 </ul></div>
 <p>
@@ -606,7 +606,7 @@
         form called FCC that is described in <a href="https://unicode.org/notes/tn5" target="_top">Unicode
         Technical Note #5</a>. FCC is just as compact as the most compact official
         form, NFC, except in a few degenerate cases. FCC is particularly useful when
-        doing collation &#8212; the collation algorithm requires its inputs to be
+        doing collation — the collation algorithm requires its inputs to be
         normalized NFD or FCC, and FCC is much faster to normalize to.
       </p>
 <p>
@@ -621,7 +621,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="comment">// &#4365;&#4452;&#9676;&#820;&#4526; HANGUL SYLLABLE JJYAE, COMBINING TILDE OVERLAY, HANGUL JONGSEONG TIKEUT</span>
+<pre class="programlisting"><span class="comment">// 쨰◌̴ᆮ HANGUL SYLLABLE JJYAE, COMBINING TILDE OVERLAY, HANGUL JONGSEONG TIKEUT</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">,</span> <span class="number">4</span><span class="special">&gt;</span> <span class="keyword">const</span> <span class="identifier">nfd</span> <span class="special">=</span> <span class="special">{{</span> <span class="number">0x110D</span><span class="special">,</span> <span class="number">0x1164</span><span class="special">,</span> <span class="number">0x0334</span><span class="special">,</span> <span class="number">0x11AE</span> <span class="special">}};</span>
 <span class="comment">// Iterator interface.</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">normalized</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">d</span><span class="special">&gt;(</span><span class="identifier">nfd</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">nfd</span><span class="special">.</span><span class="identifier">end</span><span class="special">()));</span>
@@ -654,7 +654,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="comment">// &#4365;&#4452;&#9676;&#820;&#4526; HANGUL SYLLABLE JJYAE, COMBINING TILDE OVERLAY, HANGUL JONGSEONG TIKEUT</span>
+<pre class="programlisting"><span class="comment">// 쨰◌̴ᆮ HANGUL SYLLABLE JJYAE, COMBINING TILDE OVERLAY, HANGUL JONGSEONG TIKEUT</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">,</span> <span class="number">4</span><span class="special">&gt;</span> <span class="keyword">const</span> <span class="identifier">nfd</span> <span class="special">=</span> <span class="special">{{</span> <span class="number">0x110D</span><span class="special">,</span> <span class="number">0x1164</span><span class="special">,</span> <span class="number">0x0334</span><span class="special">,</span> <span class="number">0x11AE</span> <span class="special">}};</span>
 <span class="comment">// Iterator interface.</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">normalized</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">d</span><span class="special">&gt;(</span><span class="identifier">nfd</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">nfd</span><span class="special">.</span><span class="identifier">end</span><span class="special">()));</span>
@@ -680,7 +680,7 @@
 <p>
         This is much more performant than the <code class="computeroutput"><span class="identifier">normalize</span><span class="special">()</span></code> function, because the output iterator used
         by <code class="computeroutput"><span class="identifier">normalize</span><span class="special">()</span></code>
-        slows things down quite a bit &#8212; <code class="computeroutput"><span class="identifier">normalize</span><span class="special">()</span></code> can be factors slower than <code class="computeroutput"><span class="identifier">normalize_append</span><span class="special">()</span></code>.
+        slows things down quite a bit — <code class="computeroutput"><span class="identifier">normalize</span><span class="special">()</span></code> can be factors slower than <code class="computeroutput"><span class="identifier">normalize_append</span><span class="special">()</span></code>.
         <code class="computeroutput"><span class="identifier">normalize_append</span><span class="special">()</span></code>
         will only append to UTF-8 and UTF-16 containers (UTF-32-encoded containers
         are very uncommon, and so are not supported).
@@ -718,7 +718,7 @@
             <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_erase.html" title="Function template normalize_erase">normalize_erase()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_insert_idm19176.html" title="Function template normalize_insert">normalize_insert()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_insert_idm19884.html" title="Function template normalize_insert">normalize_insert()</a></code>
           </li>
 <li class="listitem">
             <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_replace.html" title="Function template normalize_replace">normalize_replace()</a></code>
@@ -760,7 +760,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

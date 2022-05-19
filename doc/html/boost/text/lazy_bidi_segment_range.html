@@ -1,10 +1,10 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Struct template lazy_bidi_segment_range</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../../header/boost/text/bidirectional_hpp.html" title="Header &lt;boost/text/bidirectional.hpp&gt;">
 <link rel="prev" href="bidirectional_gra_idm16351.html" title="Struct template bidirectional_grapheme_subrange">
 <link rel="next" href="bidi_prop.html" title="Function bidi_prop">
@@ -38,10 +38,10 @@
   <span class="identifier">iterator</span> <a class="link" href="lazy_bidi_segment_range.html#idm16417-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm17700"></a><h2>Description</h2>
+<a name="idm17709"></a><h2>Description</h2>
 <p>Represents a range of non-overlapping subranges. Each subrange is a sequence of code points that are all in a consistent direction (left-to-right or right-to-left). Each subrange is lazily produced; an output subrange is not produced until an iterator is dereferenced. If C++20 coroutines are available (determined by whether <code class="computeroutput">__cpp_impl_coroutine</code> and <code class="computeroutput">__cpp_lib_coroutine</code> are defined, and the value of <code class="computeroutput">BOOST_TEXT_USE_COROUTINES</code>), <code class="computeroutput"><a class="link" href="lazy_bidi_segment_range.html" title="Struct template lazy_bidi_segment_range">lazy_bidi_segment_range</a></code> will be an alias for a generator of <code class="computeroutput">ResultType</code> elements. </p>
 <div class="refsect2">
-<a name="idm17709"></a><h3>
+<a name="idm17718"></a><h3>
 <a name="boost.text.lazy_bidi_segment_rangeconstruct-copy-destruct"></a><code class="computeroutput">lazy_bidi_segment_range</code> 
         public
        construct/copy/destruct</h3>
@@ -53,7 +53,7 @@
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm17741"></a><h3>
+<a name="idm17750"></a><h3>
 <a name="idm16414-bb"></a><code class="computeroutput">lazy_bidi_segment_range</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm16415-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
@@ -64,7 +64,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

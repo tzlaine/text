@@ -1,10 +1,10 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Type definition text</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../../header/boost/text/text_fwd_hpp.html" title="Header &lt;boost/text/text_fwd.hpp&gt;">
 <link rel="prev" href="../../header/boost/text/text_fwd_hpp.html" title="Header &lt;boost/text/text_fwd.hpp&gt;">
 <link rel="next" href="text_view.html" title="Type definition text_view">
@@ -23,15 +23,15 @@
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/text_fwd_hpp.html" title="Header &lt;boost/text/text_fwd.hpp&gt;">boost/text/text_fwd.hpp</a>&gt;
 
 </span>
-<span class="keyword">typedef</span> <span class="special">(</span><span class="identifier">utf8_code_unit</span><span class="special">&lt;</span> <span class="identifier">Char</span> <span class="special">&gt;</span><span class="special">||</span><span class="identifier">utf16_code_unit</span><span class="special">&lt;</span> <span class="identifier">Char</span> <span class="special">&gt;</span><span class="special">)</span> <span class="special">&amp;&amp;</span><span class="identifier">std</span> <span class="identifier">basic_text</span><span class="special">&lt;</span> <span class="identifier">nf</span><span class="special">::</span><span class="identifier">c</span><span class="special">,</span> <span class="keyword">char</span> <span class="special">&gt;</span> <span class="identifier">text</span><span class="special">;</span></pre></div>
+<span class="keyword">typedef</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a><span class="special">&lt;</span> <span class="identifier">nf</span><span class="special">::</span><span class="identifier">c</span><span class="special">,</span> <span class="keyword">char</span> <span class="special">&gt;</span> <span class="identifier">text</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm34271"></a><h2>Description</h2>
-<p>A mutable sequence of graphemes over an underlying container of contiguous null-terminated code units. The underlying storage is a <code class="computeroutput">String</code>, and is kept in normalization form <code class="computeroutput">Normalization</code>. The <code class="computeroutput">String</code> is responsible for maintaining null-termination. The specialization of <code class="computeroutput">basic_text</code> that should be used in most situations. </p>
+<a name="idm43218"></a><h2>Description</h2>
+<p>The specialization of <code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code> that should be used in most situations. </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

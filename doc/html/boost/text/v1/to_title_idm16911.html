@@ -1,10 +1,10 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Function template to_title</title>
 <link rel="stylesheet" href="../../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../../../header/boost/text/case_mapping_hpp.html" title="Header &lt;boost/text/case_mapping.hpp&gt;">
 <link rel="prev" href="to_title_idm16887.html" title="Function template to_title">
 <link rel="next" href="is_upper_idm16943.html" title="Function template is_upper">
@@ -29,13 +29,13 @@
                        <span class="identifier">case_language</span> lang <span class="special">=</span> <span class="identifier">case_language</span><span class="special">::</span><span class="identifier">other</span><span class="special">,</span> 
                        <span class="identifier">NextWordBreakFunc</span> next_word_break <span class="special">=</span> <span class="identifier">NextWordBreakFunc</span><span class="special">{</span><span class="special">}</span><span class="special">)</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm19104"></a><h2>Description</h2>
+<a name="idm18988"></a><h2>Description</h2>
 <p>Writes the code point sequence comprising the title-case form of <code class="computeroutput">r</code> to <code class="computeroutput">out</code>, using language-specific handling as indicated by <code class="computeroutput">lang</code>. The normalization of the result is undefined. Returns a <code class="computeroutput">case_mapping_result</code>. Note that the type of the result's <code class="computeroutput">.in</code> member may not be <code class="computeroutput">std::ranges::iterator_t&lt;R&gt;</code>, since the result may be a new iterator that results from reconstituting unpacked iterators out of the input. The type of <code class="computeroutput">.in</code> will model <code class="computeroutput">grapheme_iter</code>. The <code class="computeroutput">.in</code> member of the result is a <code class="computeroutput">borrowed_iterator_t</code> in C++20 and later. </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

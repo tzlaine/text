@@ -1,17 +1,17 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Struct template trie_set_iterator</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../../header/boost/text/trie_set_hpp.html" title="Header &lt;boost/text/trie_set.hpp&gt;">
-<link rel="prev" href="../../header/boost/text/trie_set_hpp.html" title="Header &lt;boost/text/trie_set.hpp&gt;">
-<link rel="next" href="const_trie_set_iterator.html" title="Struct template const_trie_set_iterator">
+<link rel="prev" href="trie_set.html" title="Struct template trie_set">
+<link rel="next" href="../../header/boost/text/unencoded_rope_hpp.html" title="Header &lt;boost/text/unencoded_rope.hpp&gt;">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="../../header/boost/text/trie_set_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_set_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="const_trie_set_iterator.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="trie_set.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_set_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../header/boost/text/unencoded_rope_hpp.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.text.trie_set_iterator"></a><div class="titlepage"></div>
@@ -26,34 +26,34 @@
 <span class="keyword">struct</span> <a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <span class="special">:</span> <span class="keyword">public</span> stl_interfaces::proxy_iterator_interface&lt; trie_set_iterator&lt; Key &gt;, std::bidirectional_iterator_tag, Key &gt;
 <span class="special">{</span>
   <span class="comment">// <a class="link" href="trie_set_iterator.html#boost.text.trie_set_iteratorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="trie_set_iterator.html#idm24973-bb"><span class="identifier">trie_set_iterator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="trie_set_iterator.html#idm28262-bb"><span class="identifier">trie_set_iterator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="trie_set_iterator.html#idm24968-bb">public member functions</a></span>
-  <span class="identifier">Key</span> <a class="link" href="trie_set_iterator.html#idm24969-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">proxy_arrow_result</span><span class="special">&lt;</span> <span class="identifier">Key</span> <span class="special">&gt;</span> <a class="link" href="trie_set_iterator.html#idm24971-bb"><span class="keyword">operator</span><span class="special">-&gt;</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="trie_set_iterator.html#idm28257-bb">public member functions</a></span>
+  <span class="identifier">Key</span> <a class="link" href="trie_set_iterator.html#idm28258-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">proxy_arrow_result</span><span class="special">&lt;</span> <span class="identifier">Key</span> <span class="special">&gt;</span> <a class="link" href="trie_set_iterator.html#idm28260-bb"><span class="keyword">operator</span><span class="special">-&gt;</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm49692"></a><h2>Description</h2>
+<a name="idm60658"></a><h2>Description</h2>
 <div class="refsect2">
-<a name="idm49694"></a><h3>
+<a name="idm60660"></a><h3>
 <a name="boost.text.trie_set_iteratorconstruct-copy-destruct"></a><code class="computeroutput">trie_set_iterator</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idm24973-bb"></a><span class="identifier">trie_set_iterator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idm28262-bb"></a><span class="identifier">trie_set_iterator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idm49707"></a><h3>
-<a name="idm24968-bb"></a><code class="computeroutput">trie_set_iterator</code> public member functions</h3>
+<a name="idm60673"></a><h3>
+<a name="idm28257-bb"></a><code class="computeroutput">trie_set_iterator</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">Key</span> <a name="idm24969-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">proxy_arrow_result</span><span class="special">&lt;</span> <span class="identifier">Key</span> <span class="special">&gt;</span> <a name="idm24971-bb"></a><span class="keyword">operator</span><span class="special">-&gt;</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">Key</span> <a name="idm28258-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">proxy_arrow_result</span><span class="special">&lt;</span> <span class="identifier">Key</span> <span class="special">&gt;</span> <a name="idm28260-bb"></a><span class="keyword">operator</span><span class="special">-&gt;</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -61,7 +61,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../../header/boost/text/trie_set_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_set_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="const_trie_set_iterator.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="trie_set.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_set_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../header/boost/text/unencoded_rope_hpp.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

@@ -1,10 +1,10 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Text Segmentation</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../the_unicode_layer.html" title="The Unicode Layer">
 <link rel="prev" href="encoding_and_normalization.html" title="Encoding and Normalization">
 <link rel="next" href="case_mapping.html" title="Case Mapping">
@@ -40,7 +40,7 @@
         <code class="computeroutput"><span class="identifier">prev_X_break</span><span class="special">()</span></code>
         returns <code class="computeroutput"><span class="identifier">it</span></code> if <code class="computeroutput"><span class="identifier">it</span></code> is already at a break, or the break
         before <code class="computeroutput"><span class="identifier">it</span></code> otherwise. There
-        is one exception to this &#8212; even though there is always an implicit
+        is one exception to this — even though there is always an implicit
         break at the end of a sequence of code points, if <code class="computeroutput"><span class="identifier">it</span></code>
         == <code class="computeroutput"><span class="identifier">last</span></code>, the previous break
         is still returned, if any.
@@ -83,7 +83,7 @@
         <code class="computeroutput"><span class="identifier">Xs</span><span class="special">()</span></code>
         returns a view of subranges of <code class="computeroutput"><span class="special">[</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">)</span></code>.
         Each subrange is an <code class="computeroutput"><span class="identifier">X</span></code>. <code class="computeroutput"><span class="identifier">Xs</span></code> is a view adaptor, and can be used in
-        pipe expressions &#8212; without parameters &#8212; as in <code class="computeroutput"><span class="identifier">r</span> <span class="special">|</span> <span class="identifier">Xs</span></code>.
+        pipe expressions — without parameters — as in <code class="computeroutput"><span class="identifier">r</span> <span class="special">|</span> <span class="identifier">Xs</span></code>.
       </p>
 <div class="note"><table border="0" summary="Note">
 <tr>
@@ -238,16 +238,16 @@
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.words"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.words">Words</a>
       </h5>
 <p>
-        Word breaks occur where you'd expect &#8212; at the beginnings and ends
-        of words &#8212; but they also occur where you might not expect &#8212;
+        Word breaks occur where you'd expect — at the beginnings and ends
+        of words — but they also occur where you might not expect —
         at the beginnings and ends of the code point sequences <span class="bold"><strong>between</strong></span>
         words. Here is an example of word breaks taken from <a href="https://unicode.org/reports/tr29" target="_top">Unicode
         Text Segmention</a>. The string <code class="computeroutput"><span class="string">"The
-        quick (&#8220;brown&#8221;) fox can&#8217;t jump 32.3 feet, right?"</span></code>
+        quick (“brown”) fox can’t jump 32.3 feet, right?"</span></code>
         is broken up into words like this:
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t0"></a><p class="title"><b>Table&#160;1.1.&#160;Word Break Example</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t0"></a><p class="title"><b>Table 1.1. Word Break Example</b></p>
 <div class="table-contents"><table class="table" summary="Word Break Example">
 <colgroup>
 <col>
@@ -302,7 +302,7 @@
               </td>
 <td>
                 <p>
-                  <code class="computeroutput"><span class="string">"&#8220;"</span></code>
+                  <code class="computeroutput"><span class="string">"“"</span></code>
                 </p>
               </td>
 <td>
@@ -312,7 +312,7 @@
               </td>
 <td>
                 <p>
-                  <code class="computeroutput"><span class="string">"&#8221;"</span></code>
+                  <code class="computeroutput"><span class="string">"”"</span></code>
                 </p>
               </td>
 <td>
@@ -337,7 +337,7 @@
               </td>
 <td>
                 <p>
-                  <code class="computeroutput"><span class="string">"can&#8217;t"</span></code>
+                  <code class="computeroutput"><span class="string">"can’t"</span></code>
                 </p>
               </td>
 <td>
@@ -408,7 +408,7 @@
 <p>
 </p>
 <pre class="programlisting"><span class="comment">// Using GraphemeRange/GraphemeIterator overloads...</span>
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">cps</span><span class="special">(</span><span class="string">"The quick (\"brown\") fox can&#8217;t jump 32.3 feet, right?"</span><span class="special">);</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">cps</span><span class="special">(</span><span class="string">"The quick (\"brown\") fox can’t jump 32.3 feet, right?"</span><span class="special">);</span>
 
 <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">first</span> <span class="special">=</span> <span class="identifier">cps</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
 
@@ -461,7 +461,7 @@
         </p></blockquote></div>
 <p>
         French and Italian words are not meant to be broken after an apostrophe,
-        but the default algorithm finds <code class="computeroutput"><span class="string">"l&#8217;objectif"</span></code>
+        but the default algorithm finds <code class="computeroutput"><span class="string">"l’objectif"</span></code>
         to be a single word.
       </p>
 <p>
@@ -524,7 +524,7 @@
         use case:
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t1"></a><p class="title"><b>Table&#160;1.2.&#160;`MidLetter` Candidates</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t1"></a><p class="title"><b>Table 1.2. `MidLetter` Candidates</b></p>
 <div class="table-contents"><table class="table" summary="`MidLetter` Candidates">
 <colgroup><col></colgroup>
 <thead><tr><th>
@@ -540,57 +540,57 @@
               </td></tr>
 <tr><td>
                 <p>
-                  U+055A ( &#1370; ) ARMENIAN APOSTROPHE
+                  U+055A ( ՚ ) ARMENIAN APOSTROPHE
                 </p>
               </td></tr>
 <tr><td>
                 <p>
-                  U+058A ( &#1418; ) ARMENIAN HYPHEN
+                  U+058A ( ֊ ) ARMENIAN HYPHEN
                 </p>
               </td></tr>
 <tr><td>
                 <p>
-                  U+0F0B ( &#3851; ) TIBETAN MARK INTERSYLLABIC TSHEG
+                  U+0F0B ( ་ ) TIBETAN MARK INTERSYLLABIC TSHEG
                 </p>
               </td></tr>
 <tr><td>
                 <p>
-                  U+1806 ( &#6150; ) MONGOLIAN TODO SOFT HYPHEN
+                  U+1806 ( ᠆ ) MONGOLIAN TODO SOFT HYPHEN
                 </p>
               </td></tr>
 <tr><td>
                 <p>
-                  U+2010 ( &#8208; ) HYPHEN
+                  U+2010 ( ‐ ) HYPHEN
                 </p>
               </td></tr>
 <tr><td>
                 <p>
-                  U+2011 ( &#8209; ) NON-BREAKING HYPHEN
+                  U+2011 ( ‑ ) NON-BREAKING HYPHEN
                 </p>
               </td></tr>
 <tr><td>
                 <p>
-                  U+201B ( &#8219; ) SINGLE HIGH-REVERSED-9 QUOTATION MARK
+                  U+201B ( ‛ ) SINGLE HIGH-REVERSED-9 QUOTATION MARK
                 </p>
               </td></tr>
 <tr><td>
                 <p>
-                  U+30A0 ( &#12448; ) KATAKANA-HIRAGANA DOUBLE HYPHEN
+                  U+30A0 ( ゠ ) KATAKANA-HIRAGANA DOUBLE HYPHEN
                 </p>
               </td></tr>
 <tr><td>
                 <p>
-                  U+30FB ( &#12539; ) KATAKANA MIDDLE DOT
+                  U+30FB ( ・ ) KATAKANA MIDDLE DOT
                 </p>
               </td></tr>
 <tr><td>
                 <p>
-                  U+FE63 ( &#65123; ) SMALL HYPHEN-MINUS
+                  U+FE63 ( ﹣ ) SMALL HYPHEN-MINUS
                 </p>
               </td></tr>
 <tr><td>
                 <p>
-                  U+FF0D ( &#65293; ) FULLWIDTH HYPHEN-MINUS
+                  U+FF0D ( － ) FULLWIDTH HYPHEN-MINUS
                 </p>
               </td></tr>
 </tbody>
@@ -599,13 +599,13 @@
 <br class="table-break"><p>
         Another example from <a href="https://unicode.org/reports/tr29" target="_top">Unicode
         Text Segmention</a> is to treat spaces as <code class="computeroutput"><span class="identifier">MidNum</span></code>
-        to support languages that use spaces as thousands separators, as in <code class="computeroutput"><span class="string">"&#8364;1 234,56"</span></code>. <code class="computeroutput"><span class="identifier">MidNum</span></code>
+        to support languages that use spaces as thousands separators, as in <code class="computeroutput"><span class="string">"€1 234,56"</span></code>. <code class="computeroutput"><span class="identifier">MidNum</span></code>
         is like <code class="computeroutput"><span class="identifier">MidLetter</span></code>, but for
         the interior code points of numbers instead of words containing letters.
         Here are the space code points you might want to do that with:
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t2"></a><p class="title"><b>Table&#160;1.3.&#160;`MidNum` Candidates</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t2"></a><p class="title"><b>Table 1.3. `MidNum` Candidates</b></p>
 <div class="table-contents"><table class="table" summary="`MidNum` Candidates">
 <colgroup><col></colgroup>
 <thead><tr><th>
@@ -669,7 +669,7 @@
 </pre>
 <p>
         Returning <code class="computeroutput"><span class="keyword">true</span></code> indicates that
-        <code class="computeroutput"><span class="special">[</span><span class="identifier">prev</span><span class="special">,</span> <span class="identifier">curr</span><span class="special">]</span></code> straddles a word break &#8212; <code class="computeroutput"><span class="identifier">prev</span></code> is the last code point of one word,
+        <code class="computeroutput"><span class="special">[</span><span class="identifier">prev</span><span class="special">,</span> <span class="identifier">curr</span><span class="special">]</span></code> straddles a word break — <code class="computeroutput"><span class="identifier">prev</span></code> is the last code point of one word,
         and <code class="computeroutput"><span class="identifier">curr</span></code> is the first code
         point of the next. If provided, this custom break function is evaluated before
         any of the Unicode word break rules.
@@ -744,7 +744,7 @@
 <p>
         The line breaking algorithm produces many more line breaks, but all non-hard
         line breaks are places where it is <span class="bold"><strong>possible</strong></span>
-        to break the line &#8212; though it is not necessary to do so. These are
+        to break the line — though it is not necessary to do so. These are
         known as <span class="emphasis"><em>allowed</em></span> line breaks. Higher-level program logic
         must determine which of these allowed breaks is to be used, for example to
         fit in available horizontal space.
@@ -759,7 +759,7 @@
           the Unicode line breaking rules <span class="bold"><strong>and</strong></span> there
           could be an allowed line break. Line breaks always occur at the beginning
           and end of any sequence, but Boost.Text does not report those as hard breaks
-          &#8212; the fact that they are hard breaks is implicit.
+          — the fact that they are hard breaks is implicit.
         </p></td></tr>
 </table></div>
 <p>
@@ -769,10 +769,10 @@
         versions. For the <code class="computeroutput"><span class="identifier">allowed</span></code>
         overloads, you may need to know, once you have the break position, whether
         it was a hard line break. The <code class="computeroutput"><span class="identifier">allowed</span></code>
-        overloads therefore return a struct, <code class="computeroutput">line_break_result</code>. It has an
+        overloads therefore return a struct, <code class="computeroutput"><a class="link" href="../../boost/text/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code>. It has an
         <code class="computeroutput"><span class="special">.</span><span class="identifier">iter</span></code>
         member to indicate the location, and a <code class="computeroutput"><span class="special">.</span><span class="identifier">hard_break</span></code> member to indicate whether that
-        location is a hard line break. Overloads of <code class="computeroutput"><span class="keyword">operator</span><span class="special">==()</span></code> and <code class="computeroutput"><span class="keyword">operator</span><span class="special">!=()</span></code> are defined between <code class="computeroutput">line_break_result</code> and its iterator
+        location is a hard line break. Overloads of <code class="computeroutput"><span class="keyword">operator</span><span class="special">==()</span></code> and <code class="computeroutput"><span class="keyword">operator</span><span class="special">!=()</span></code> are defined between <code class="computeroutput"><a class="link" href="../../boost/text/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code> and its iterator
         type so that you can treat it as an iterator in generic code if you don't
         care about the hard line break information:
       </p>
@@ -819,7 +819,7 @@
         and <code class="computeroutput"><span class="identifier">next</span></code> functions for allowed
         beaks returned extra information, the other allowed-break functions do as
         well. The rest of the API produces code point or grapheme ranges, and the
-        allowed-break versions produce <code class="computeroutput">line_break_cp_views</code> or <code class="computeroutput">line_break_grapheme_views</code>
+        allowed-break versions produce <code class="computeroutput"><a class="link" href="../../boost/text/line_break_cp_view.html" title="Struct template line_break_cp_view">line_break_cp_views</a></code> or <code class="computeroutput"><a class="link" href="../../boost/text/line_break_grapheme_view.html" title="Struct template line_break_grapheme_view">line_break_grapheme_views</a></code>
         instead, respectively:
       </p>
 <p>
@@ -897,7 +897,7 @@ deserunt mollit anim id est laborum.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

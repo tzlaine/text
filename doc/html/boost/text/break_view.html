@@ -1,10 +1,10 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Struct template break_view</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../../header/boost/text/break_view_hpp.html" title="Header &lt;boost/text/break_view.hpp&gt;">
 <link rel="prev" href="../../header/boost/text/break_view_hpp.html" title="Header &lt;boost/text/break_view.hpp&gt;">
 <link rel="next" href="../../header/boost/text/case_mapping_hpp.html" title="Header &lt;boost/text/case_mapping.hpp&gt;">
@@ -41,10 +41,10 @@
   <span class="identifier">NextFunc</span> <span class="special">&amp;&amp;</span> <a class="link" href="break_view.html#idm16693-bb"><span class="identifier">next_func</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm17956"></a><h2>Description</h2>
+<a name="idm17965"></a><h2>Description</h2>
 <p>Represents a bidirectionally-iterable range of non-overlapping code point subranges. Each code point subrange represents some semantically significant segment, the semantics of which are controlled by the <code class="computeroutput">PrevFunc</code> and <code class="computeroutput">NextFunc</code> template parameters. For instance, if <code class="computeroutput">NextFunc</code> is next_paragraph_break, the subranges produced by <a class="link" href="break_view.html" title="Struct template break_view">break_view</a> will be paragraphs. Each subrange is lazily produced; an output subrange is not produced until a view iterator is dereferenced. </p>
 <div class="refsect2">
-<a name="idm17963"></a><h3>
+<a name="idm17972"></a><h3>
 <a name="boost.text.break_viewconstruct-copy-destruct"></a><code class="computeroutput">break_view</code> 
         public
        construct/copy/destruct</h3>
@@ -55,7 +55,7 @@
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm17991"></a><h3>
+<a name="idm18000"></a><h3>
 <a name="idm16683-bb"></a><code class="computeroutput">break_view</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm16684-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
@@ -74,7 +74,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

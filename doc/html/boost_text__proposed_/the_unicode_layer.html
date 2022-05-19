@@ -1,11 +1,11 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>The Unicode Layer</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
-<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../index.html" title="Chapter 1. Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="prev" href="peculiarities_of__text__iterators_and_ranges.html" title="Peculiarities of Boost.Text Iterators and Ranges">
 <link rel="next" href="the_unicode_layer/encoding_and_normalization.html" title="Encoding and Normalization">
 </head>
@@ -61,14 +61,14 @@
       and a <code class="computeroutput"><span class="identifier">uint32_t</span></code> in UTF-32. A
       <span class="emphasis"><em>code point</em></span> is a 32-bit integral value that represents
       a single Unicode value. Examples are U+0041 "A" "LATIN CAPITAL
-      LETTER A" and U+0308 "&#168;" "COMBINING DIAERESIS".
+      LETTER A" and U+0308 "¨" "COMBINING DIAERESIS".
     </p>
 <p>
       There are four different Unicode normalization forms. Normalization is necessary
       because Unicode requires that certain combinations of code points be considered
       identical. For instance, the two code points mentioned above, U+0041 U+0308,
-      appear like this: "A&#776;", and the code point U+00C4 appears like this:
-      "A&#776;". Since these two sequences are not visually distinct, all the
+      appear like this: "Ä", and the code point U+00C4 appears like this:
+      "Ä". Since these two sequences are not visually distinct, all the
       algorithms must treat them as the same thing. Therefore, <code class="computeroutput"><span class="identifier">u8</span><span class="string">"\U00000041\U00000308"</span> <span class="special">==</span>
       <span class="identifier">u8</span><span class="string">"\U000000C4"</span></code>
       must evaluate to <code class="computeroutput"><span class="keyword">true</span></code> for the
@@ -79,7 +79,7 @@
       An <span class="emphasis"><em>extended grapheme cluster</em></span>, or just <span class="emphasis"><em>grapheme</em></span>,
       is a sequence of code points that appears to the end-user to be a single character.
       For example, the code points (U+0041 U+0308) form a grapheme, since they appear
-      when rendered to be the single character "A&#776;".
+      when rendered to be the single character "Ä".
     </p>
 <h4>
 <a name="boost_text__proposed_.the_unicode_layer.h1"></a>
@@ -170,7 +170,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

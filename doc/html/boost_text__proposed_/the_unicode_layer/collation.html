@@ -1,10 +1,10 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Collation</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../the_unicode_layer.html" title="The Unicode Layer">
 <link rel="prev" href="case_mapping.html" title="Case Mapping">
 <link rel="next" href="searching.html" title="Searching">
@@ -34,8 +34,8 @@
         <span class="special">&lt;</span> <span class="identifier">A</span></code>
         is the proper order. There may be yet other languages for which <code class="computeroutput"><span class="identifier">A</span> <span class="special">==</span> <span class="identifier">B</span></code>
         is the proper order. As a concrete example, in Swedish <code class="computeroutput"><span class="identifier">z</span>
-        <span class="special">&lt;</span> <span class="error">&#246;</span></code>,
-        whereas in German <code class="computeroutput"><span class="error">&#246;</span> <span class="special">&lt;</span>
+        <span class="special">&lt;</span> <span class="error">ö</span></code>,
+        whereas in German <code class="computeroutput"><span class="error">ö</span> <span class="special">&lt;</span>
         <span class="identifier">z</span></code>.
       </p>
 <p>
@@ -61,8 +61,8 @@
         <span class="special">&lt;</span> <span class="identifier">G</span></code>.
         Some languages sort based on accents, and some do not; collation must know
         whether <code class="computeroutput"><span class="identifier">o</span> <span class="special">&lt;</span>
-        <span class="error">&#244;</span></code> or <code class="computeroutput"><span class="identifier">o</span>
-        <span class="special">==</span> <span class="error">&#244;</span></code>.
+        <span class="error">ô</span></code> or <code class="computeroutput"><span class="identifier">o</span>
+        <span class="special">==</span> <span class="error">ô</span></code>.
       </p>
 <p>
         To handle this correctly, collation sort keys are created with support for
@@ -77,7 +77,7 @@
         From the Unicode documentation:
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.collation.t0"></a><p class="title"><b>Table&#160;1.4.&#160;Comparison Levels</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.collation.t0"></a><p class="title"><b>Table 1.4. Comparison Levels</b></p>
 <div class="table-contents"><table class="table" summary="Comparison Levels">
 <colgroup>
 <col>
@@ -132,7 +132,7 @@
               </td>
 <td>
                 <p>
-                  role &lt; r&#244;le &lt; roles
+                  role &lt; rôle &lt; roles
                 </p>
               </td>
 </tr>
@@ -149,7 +149,7 @@
               </td>
 <td>
                 <p>
-                  role &lt; Role &lt; r&#244;le
+                  role &lt; Role &lt; rôle
                 </p>
               </td>
 </tr>
@@ -166,7 +166,7 @@
               </td>
 <td>
                 <p>
-                  role &lt; &#8220;role&#8221; &lt; Role
+                  role &lt; “role” &lt; Role
                 </p>
               </td>
 </tr>
@@ -174,8 +174,8 @@
 </table></div>
 </div>
 <br class="table-break"><p>
-        When forming a sort key, all the L1 weights come first &#8212; for all code
-        points in the sequence &#8212; then all the L2 weights, then the L3 weights,
+        When forming a sort key, all the L1 weights come first — for all code
+        points in the sequence — then all the L2 weights, then the L3 weights,
         etc. This means that any L1 difference is treated as more important than
         any L2 difference, and any L2 difference trumps any L3 difference, etc.
       </p>
@@ -205,7 +205,7 @@
       </p>
 <pre class="programlisting"><span class="special">[</span><span class="identifier">normalization</span> <span class="identifier">on</span><span class="special">]</span>
 <span class="special">[</span><span class="identifier">reorder</span> <span class="identifier">Grek</span><span class="special">]</span>
-<span class="special">&amp;</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">n</span><span class="error">&#771;</span><span class="special">&lt;&lt;&lt;</span><span class="identifier">N</span><span class="error">&#771;</span>
+<span class="special">&amp;</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">n</span><span class="error">̃</span><span class="special">&lt;&lt;&lt;</span><span class="identifier">N</span><span class="error">̃</span>
 <span class="special">&amp;</span><span class="identifier">C</span><span class="special">&lt;</span><span class="identifier">ch</span><span class="special">&lt;&lt;&lt;</span><span class="identifier">Ch</span><span class="special">&lt;&lt;&lt;</span><span class="identifier">CH</span>
 <span class="special">&amp;</span><span class="identifier">l</span><span class="special">&lt;</span><span class="identifier">ll</span><span class="special">&lt;&lt;&lt;</span><span class="identifier">Ll</span><span class="special">&lt;&lt;&lt;</span><span class="identifier">LL</span>
 </pre>
@@ -229,7 +229,7 @@
 </tr>
 <tr><td align="left" valign="top"><p>
           Collation tailoring is quite expensive for some languages, typically the
-          CJK (Chinese, Japanese, and Korean) language tailorings &#8212; sometimes
+          CJK (Chinese, Japanese, and Korean) language tailorings — sometimes
           as much as multiple seconds. There is serialization of collation tables
           to/from a buffer or to/from a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span></code>.
           This enables you to do expensive tailorings offline, and just load the
@@ -258,7 +258,7 @@
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">default_collation_table</span><span class="special">();</span>
 
 <span class="comment">// The Danish town of Arrhus changed the town's name in 2010.  Go figure.</span>
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_old</span> <span class="special">=</span> <span class="string">"&#197;rhus"</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_old</span> <span class="special">=</span> <span class="string">"Århus"</span><span class="special">;</span>
 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_new</span> <span class="special">=</span> <span class="string">"Aarhus"</span><span class="special">;</span>
 
 <span class="comment">// This is fine for one-off comparisons.  Beware though that creating sort</span>
@@ -266,7 +266,7 @@
 <span class="comment">// computes its result.</span>
 <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">collation</span> <span class="special">=</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collate</span><span class="special">(</span><span class="identifier">aarhus_old</span><span class="special">,</span> <span class="identifier">aarhus_new</span><span class="special">,</span> <span class="identifier">default_table</span><span class="special">);</span>
-<span class="comment">// "&#197;rhus" &lt; "Aarhus" using the default collation, because accents are</span>
+<span class="comment">// "Århus" &lt; "Aarhus" using the default collation, because accents are</span>
 <span class="comment">// considered after the primary weights of the characters.</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="number">0</span> <span class="special">&lt;</span> <span class="identifier">collation</span><span class="special">);</span>
 
@@ -292,7 +292,7 @@
 <pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_table</span> <span class="identifier">da_table</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">tailored_collation_table</span><span class="special">(</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">data</span><span class="special">::</span><span class="identifier">da</span><span class="special">::</span><span class="identifier">standard_collation_tailoring</span><span class="special">());</span>
 
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_old</span> <span class="special">=</span> <span class="string">"&#197;rhus"</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_old</span> <span class="special">=</span> <span class="string">"Århus"</span><span class="special">;</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">,</span> <span class="number">6</span><span class="special">&gt;</span> <span class="keyword">const</span> <span class="identifier">aarhus_new</span> <span class="special">=</span> <span class="special">{{</span><span class="char">'A'</span><span class="special">,</span> <span class="char">'a'</span><span class="special">,</span> <span class="char">'r'</span><span class="special">,</span> <span class="char">'h'</span><span class="special">,</span> <span class="char">'u'</span><span class="special">,</span> <span class="char">'s'</span><span class="special">}};</span>
 
 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_sort_key</span> <span class="identifier">aarhus_new_key</span> <span class="special">=</span>
@@ -300,7 +300,7 @@
 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_sort_key</span> <span class="identifier">aarhus_old_key</span> <span class="special">=</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_sort_key</span><span class="special">(</span><span class="identifier">aarhus_old</span><span class="special">,</span> <span class="identifier">da_table</span><span class="special">);</span>
 
-<span class="comment">// Under Danish collation with a default configuration, "Aarhus" &lt; "&#197;rhus".</span>
+<span class="comment">// Under Danish collation with a default configuration, "Aarhus" &lt; "Århus".</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">aarhus_old_key</span> <span class="special">&lt;</span> <span class="identifier">aarhus_new_key</span><span class="special">);</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">compare</span><span class="special">(</span><span class="identifier">aarhus_old_key</span><span class="special">,</span> <span class="identifier">aarhus_new_key</span><span class="special">)</span> <span class="special">&lt;</span> <span class="number">0</span><span class="special">);</span>
 </pre>
@@ -332,13 +332,13 @@
 <span class="keyword">int</span> <span class="identifier">result</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
 
 <span class="comment">// No configuration, which implies tertiary strength.</span>
-<span class="identifier">result</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collate</span><span class="special">(</span><span class="string">"resume"</span><span class="identifier">_t</span><span class="special">,</span> <span class="string">"R&#201;SUM&#201;"</span><span class="identifier">_t</span><span class="special">,</span> <span class="identifier">default_table</span><span class="special">);</span>
+<span class="identifier">result</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collate</span><span class="special">(</span><span class="string">"resume"</span><span class="identifier">_t</span><span class="special">,</span> <span class="string">"RÉSUMÉ"</span><span class="identifier">_t</span><span class="special">,</span> <span class="identifier">default_table</span><span class="special">);</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">result</span> <span class="special">&lt;</span> <span class="number">0</span><span class="special">);</span>
 
 <span class="comment">// Ignore everything but the letters themselves.</span>
 <span class="identifier">result</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collate</span><span class="special">(</span>
     <span class="string">"resume"</span><span class="identifier">_t</span><span class="special">,</span>
-    <span class="string">"R&#201;SUM&#201;"</span><span class="identifier">_t</span><span class="special">,</span>
+    <span class="string">"RÉSUMÉ"</span><span class="identifier">_t</span><span class="special">,</span>
     <span class="identifier">default_table</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_flags</span><span class="special">::</span><span class="identifier">ignore_accents</span> <span class="special">|</span>
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_flags</span><span class="special">::</span><span class="identifier">ignore_case</span> <span class="special">|</span>
@@ -348,26 +348,26 @@
 <span class="comment">// Ignore accents; case is still considered of course.</span>
 <span class="identifier">result</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collate</span><span class="special">(</span>
     <span class="string">"resume"</span><span class="identifier">_t</span><span class="special">,</span>
-    <span class="string">"R&#233;sum&#233;"</span><span class="identifier">_t</span><span class="special">,</span>
+    <span class="string">"Résumé"</span><span class="identifier">_t</span><span class="special">,</span>
     <span class="identifier">default_table</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_flags</span><span class="special">::</span><span class="identifier">ignore_accents</span><span class="special">);</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">result</span> <span class="special">&lt;</span> <span class="number">0</span><span class="special">);</span>
 <span class="identifier">result</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collate</span><span class="special">(</span>
     <span class="string">"resume"</span><span class="identifier">_t</span><span class="special">,</span>
-    <span class="string">"r&#233;sum&#233;"</span><span class="identifier">_t</span><span class="special">,</span>
+    <span class="string">"résumé"</span><span class="identifier">_t</span><span class="special">,</span>
     <span class="identifier">default_table</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_flags</span><span class="special">::</span><span class="identifier">ignore_accents</span><span class="special">);</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">result</span> <span class="special">==</span> <span class="number">0</span><span class="special">);</span>
 
 <span class="comment">// Ignore case; accents are still considered of course.</span>
 <span class="identifier">result</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collate</span><span class="special">(</span>
-    <span class="string">"r&#233;sum&#233;"</span><span class="identifier">_t</span><span class="special">,</span>
-    <span class="string">"R&#233;sum&#233;"</span><span class="identifier">_t</span><span class="special">,</span>
+    <span class="string">"résumé"</span><span class="identifier">_t</span><span class="special">,</span>
+    <span class="string">"Résumé"</span><span class="identifier">_t</span><span class="special">,</span>
     <span class="identifier">default_table</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_flags</span><span class="special">::</span><span class="identifier">ignore_case</span><span class="special">);</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">result</span> <span class="special">==</span> <span class="number">0</span><span class="special">);</span>
 <span class="identifier">result</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collate</span><span class="special">(</span>
-    <span class="string">"r&#233;sum&#233;"</span><span class="identifier">_t</span><span class="special">,</span>
+    <span class="string">"résumé"</span><span class="identifier">_t</span><span class="special">,</span>
     <span class="string">"Resume"</span><span class="identifier">_t</span><span class="special">,</span>
     <span class="identifier">default_table</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_flags</span><span class="special">::</span><span class="identifier">ignore_case</span><span class="special">);</span>
@@ -436,7 +436,7 @@
 <pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_table</span> <span class="identifier">da_table</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">tailored_collation_table</span><span class="special">(</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">data</span><span class="special">::</span><span class="identifier">da</span><span class="special">::</span><span class="identifier">standard_collation_tailoring</span><span class="special">());</span>
 
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_old</span> <span class="special">=</span> <span class="string">"&#197;rhus"</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_old</span> <span class="special">=</span> <span class="string">"Århus"</span><span class="special">;</span>
 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_new</span> <span class="special">=</span> <span class="string">"Aarhus"</span><span class="special">;</span>
 
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">multiset</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">&gt;</span> <span class="identifier">set1</span><span class="special">;</span> <span class="comment">// So far so good, ...</span>
@@ -475,7 +475,7 @@
 <span class="identifier">set2</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_old</span><span class="special">);</span>  <span class="comment">// Yay!</span>
 <span class="identifier">set2</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_new</span><span class="special">);</span>
 
-<span class="comment">// Prints "Aarhus &#197;rhus", which is not collation-correct.</span>
+<span class="comment">// Prints "Aarhus Århus", which is not collation-correct.</span>
 <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">t</span> <span class="special">:</span> <span class="identifier">set2</span><span class="special">)</span> <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">t</span> <span class="special">&lt;&lt;</span> <span class="string">" "</span><span class="special">;</span>
 <span class="special">}</span>
@@ -517,7 +517,7 @@
 <span class="identifier">set3</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_old</span><span class="special">);</span>
 <span class="identifier">set3</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_new</span><span class="special">);</span>
 
-<span class="comment">// Prints "&#197;rhus Aarhus".  Cool!</span>
+<span class="comment">// Prints "Århus Aarhus".  Cool!</span>
 <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">t</span> <span class="special">:</span> <span class="identifier">set3</span><span class="special">)</span> <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">t</span> <span class="special">&lt;&lt;</span> <span class="string">" "</span><span class="special">;</span>
 <span class="special">}</span>
@@ -556,7 +556,7 @@
         in the other example above.
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.collation.t1"></a><p class="title"><b>Table&#160;1.5.&#160;Code Point Binary Comparison Vs. Unretained Key Collation</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.collation.t1"></a><p class="title"><b>Table 1.5. Code Point Binary Comparison Vs. Unretained Key Collation</b></p>
 <div class="table-contents"><table class="table" summary="Code Point Binary Comparison Vs. Unretained Key Collation">
 <colgroup>
 <col>
@@ -731,7 +731,7 @@
 <span class="identifier">set4</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_old</span><span class="special">);</span>
 <span class="identifier">set4</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_new</span><span class="special">);</span>
 
-<span class="comment">// Prints "&#197;rhus Aarhus", which is collation-correct, but only by accident.</span>
+<span class="comment">// Prints "Århus Aarhus", which is collation-correct, but only by accident.</span>
 <span class="comment">// The UTF-8 representation happens to compare that way.</span>
 <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">t</span> <span class="special">:</span> <span class="identifier">set4</span><span class="special">)</span> <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">t</span> <span class="special">&lt;&lt;</span> <span class="string">" "</span><span class="special">;</span>
@@ -744,7 +744,7 @@
         And here are the two binary comparison approaches compared to each other:
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.collation.t2"></a><p class="title"><b>Table&#160;1.6.&#160;Code Point Binary Comparison Vs. `char` Binary Comparison (Tree Set)</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.collation.t2"></a><p class="title"><b>Table 1.6. Code Point Binary Comparison Vs. `char` Binary Comparison (Tree Set)</b></p>
 <div class="table-contents"><table class="table" summary="Code Point Binary Comparison Vs. `char` Binary Comparison (Tree Set)">
 <colgroup>
 <col>
@@ -924,7 +924,7 @@
 <li class="listitem">
             When using sequences of code points with associative containers, consider
             using binary comparison if you <span class="bold"><strong>don't</strong></span>
-            care about the sort order being collation-correct &#8212; that is, when
+            care about the sort order being collation-correct — that is, when
             the user will not see the sort order.
           </li>
 <li class="listitem">
@@ -936,7 +936,7 @@
             If you <span class="bold"><strong>do</strong></span> care about the sort order
             being collation-correct, you should only use a container that retains
             the sort keys if the sort keys are very long-lived, and are used very
-            often &#8212; often enough to justify the 10x increased cost of generating
+            often — often enough to justify the 10x increased cost of generating
             a full sort key.
           </li>
 </ul></div>
@@ -955,7 +955,7 @@
 <pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_table</span> <span class="identifier">da_table</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">tailored_collation_table</span><span class="special">(</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">data</span><span class="special">::</span><span class="identifier">da</span><span class="special">::</span><span class="identifier">standard_collation_tailoring</span><span class="special">());</span>
 
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_old</span> <span class="special">=</span> <span class="string">"&#197;rhus"</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_old</span> <span class="special">=</span> <span class="string">"Århus"</span><span class="special">;</span>
 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_new</span> <span class="special">=</span> <span class="string">"Aarhus"</span><span class="special">;</span>
 
 <span class="comment">// This works.</span>
@@ -996,7 +996,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -1,11 +1,11 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Examples</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
-<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="home" href="../index.html" title="Chapter 1. Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="prev" href="trie__trie_map__and_trie_set_.html" title="trie, trie_map, and trie_set">
 <link rel="next" href="configuration.html" title="Configuration">
 </head>
@@ -52,7 +52,7 @@
       It stores the file to edit in a single <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code>, and uses Boost.Text's line
       breaking algorithm to determine what portions of the <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code> are on each line. Each character
       cell in the editor is a grapheme, not a code point or code unit. It probably
-      mis-renders graphemes containing multiple combining code points &#8212; again,
+      mis-renders graphemes containing multiple combining code points — again,
       it's very minimal. However, all the logic is done in terms of graphemes.
     </p>
 <p>
@@ -956,7 +956,7 @@
       Finally, we see an implementation that's pretty complicated. Part of the reason
       for this is that I've chosen to treat hard line breaks specially, so there's
       special handling for inserting one. But the main complication is that graphemes
-      themselves are complicated. This is because they are context sensitive &#8212;
+      themselves are complicated. This is because they are context sensitive —
       the code points before and after a grapheme may affect that grapheme's boundaries.
       The next function explains why. Note that erases don't have to deal with this,
       because they always deal in whole graphemes.
@@ -1066,7 +1066,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
