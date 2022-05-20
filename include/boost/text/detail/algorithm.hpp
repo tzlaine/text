@@ -149,8 +149,11 @@ namespace boost { namespace text { namespace detail {
         typename T::iterator::iterator_category;
 
     template<typename T>
+    using iterator_pointer_expr = std::is_pointer<typename T::iterator>;
+
+    template<typename T>
     using iterator_category_ = typename std::conditional<
-        std::is_pointer<typename T::iterator>::value,
+        detected_or_t<std::false_type, iterator_pointer_expr>::value,
         std::random_access_iterator_tag,
         detected_t<nonpointer_iterator_category_, T>>::type;
 
