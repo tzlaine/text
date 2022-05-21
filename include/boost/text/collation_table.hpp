@@ -1759,7 +1759,10 @@ namespace boost { namespace text {
             report_warnings};
 
         detail::parse(
-            tailoring.begin(), tailoring.end(), callbacks, tailoring_filename);
+            tailoring.data(),
+            tailoring.data() + tailoring.size(),
+            callbacks,
+            tailoring_filename);
 
         for (auto & ce : table.data_->collation_element_vec_) {
             ce.l1_ = detail::replace_lead_byte(
