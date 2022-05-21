@@ -57,7 +57,7 @@ TEST(parser, exceptions)
         text::string_view sv = "";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -65,7 +65,7 @@ TEST(parser, exceptions)
         text::string_view sv = "a";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -74,7 +74,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& \\ufffd < a";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -82,7 +82,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& a < \\ufffd";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -90,7 +90,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& a <* \\ufffd";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -98,7 +98,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& a <* \\ufffc-\\ufffd";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -106,7 +106,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& a <* \\ufffc-\\U00010000";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -114,21 +114,21 @@ TEST(parser, exceptions)
         text::string_view sv = "& a <* -";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
     {
         text::string_view sv = "& a <* a-";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
     {
         text::string_view sv = "& a <* a--";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -136,7 +136,7 @@ TEST(parser, exceptions)
         text::string_view sv = "&[before a] a < b";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -144,7 +144,7 @@ TEST(parser, exceptions)
         text::string_view sv = "&[before 1";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -152,7 +152,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& [last implicit] < b";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -160,7 +160,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& [last trailing] < b";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -168,7 +168,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& [first foo] < b";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -176,7 +176,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& [first tertiary ignorable";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -184,7 +184,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& a < b |";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -192,7 +192,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& a <";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -200,7 +200,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& a <*";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -208,7 +208,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& a &";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -216,7 +216,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& a <* \\u0300";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -224,7 +224,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& [before 1] a <<* b";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -232,7 +232,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& [before 3] a < b";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -240,7 +240,7 @@ TEST(parser, exceptions)
         text::string_view sv = "&";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -248,7 +248,7 @@ TEST(parser, exceptions)
         text::string_view sv = "& a";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -257,7 +257,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -265,7 +265,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[foo]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -273,7 +273,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[|]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -281,7 +281,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[import foo]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -289,7 +289,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[import";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -297,7 +297,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[optimize [foo";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -305,7 +305,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[optimize [foo]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -313,7 +313,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[optimize [";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -321,7 +321,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[optimize";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -329,7 +329,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[optimize []";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -337,7 +337,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[suppressContractions [foo";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -345,7 +345,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[suppressContractions [foo]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -353,7 +353,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[suppressContractions";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -361,7 +361,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[suppressContractions [";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -369,7 +369,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[suppressContractions []";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -377,7 +377,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[strength]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -385,7 +385,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[strength";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -393,7 +393,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[strength foo]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -401,7 +401,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[strength I";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -409,7 +409,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[alternate]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -417,7 +417,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[alternate";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -425,7 +425,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[alternate foo]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -433,7 +433,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[alternate shifted";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -441,7 +441,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[backwards]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -449,7 +449,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[backwards";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -457,7 +457,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[backwards 1]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -465,7 +465,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[backwards 2";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -473,7 +473,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[caseLevel]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -481,7 +481,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[caseLevel";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -489,7 +489,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[caseLevel foo]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -497,7 +497,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[caseLevel on";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -505,7 +505,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[caseFirst]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -513,7 +513,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[caseFirst";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -521,7 +521,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[caseFirst foo]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -529,7 +529,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[caseFirst uppser";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -537,7 +537,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[reorder]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -545,7 +545,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[reorder";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -553,7 +553,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[reorder space] [reorder punct]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -561,7 +561,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[reorder Common]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -569,7 +569,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[reorder Inherited]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -577,7 +577,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[reorder Zzzz others]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -585,7 +585,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[reorder Grek Grek]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 
@@ -593,7 +593,7 @@ TEST(parser, exceptions)
         text::string_view sv = "[reorder rando_calrissian]";
         EXPECT_THROW(
             text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
+                sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"),
             text::parse_error);
     }
 }
@@ -621,7 +621,7 @@ TEST(parser, options)
 
         text::string_view sv = "[suppressContractions [abc]]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, expected);
     }
 
@@ -645,27 +645,27 @@ TEST(parser, options)
 
         sv = "[strength 1]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::collation_strength::primary);
 
         sv = "[strength 2]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::collation_strength::secondary);
 
         sv = "[strength 3]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::collation_strength::tertiary);
 
         sv = "[strength 4]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::collation_strength::quaternary);
 
         sv = "[strength I]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::collation_strength::identical);
     }
 
@@ -691,12 +691,12 @@ TEST(parser, options)
 
         sv = "[alternate non-ignorable]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::variable_weighting::non_ignorable);
 
         sv = "[alternate shifted]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::variable_weighting::shifted);
     }
 
@@ -720,7 +720,7 @@ TEST(parser, options)
 
         sv = "[backwards 2]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::l2_weight_order::backward);
     }
 
@@ -744,12 +744,12 @@ TEST(parser, options)
 
         sv = "[caseLevel on]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::case_level::on);
 
         sv = "[caseLevel off]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::case_level::off);
     }
 
@@ -773,17 +773,17 @@ TEST(parser, options)
 
         sv = "[caseFirst upper]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::case_first::upper);
 
         sv = "[caseFirst lower]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::case_first::lower);
 
         sv = "[caseFirst off]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, text::case_first::off);
     }
 
@@ -1532,7 +1532,7 @@ TEST(parser, options)
 
         text::string_view sv = "[reorder symbol others punct]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, expected);
     }
 
@@ -2281,7 +2281,7 @@ TEST(parser, options)
 
         text::string_view sv = "[reorder symbol punct Grek]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(result, expected) << result << expected;
     }
 
@@ -2300,7 +2300,7 @@ TEST(parser, options)
             [](std::string const & s) { std::cout << s; }};
         text::string_view sv = "[reorder Sinh Mtei Sylo Saur]";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
     }
 }
 
@@ -2341,61 +2341,61 @@ TEST(parser, rules)
 
         sv = "& a = b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(relation_result.op_, text::detail::token_kind::equal);
 
         sv = "& [before 1] a = b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
         EXPECT_EQ(relation_result.op_, text::detail::token_kind::equal);
 
         sv = "& a < b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::primary_before);
 
         sv = "& [before 1] a < b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::primary_before);
 
         sv = "& a << b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::secondary_before);
 
         sv = "& [before 2] a << b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::secondary_before);
 
         sv = "& a <<< b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::tertiary_before);
 
         sv = "& [before 3] a <<< b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::tertiary_before);
 
         sv = "& a <<<< b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::quaternary_before);
@@ -2403,61 +2403,61 @@ TEST(parser, rules)
 
         sv = "& a =* b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(relation_result.op_, text::detail::token_kind::equal);
 
         sv = "& [before 1] a =* b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
         EXPECT_EQ(relation_result.op_, text::detail::token_kind::equal);
 
         sv = "& a <* b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::primary_before);
 
         sv = "& [before 1] a <* b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::primary_before);
 
         sv = "& a <<* b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::secondary_before);
 
         sv = "& [before 2] a <<* b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::secondary_before);
 
         sv = "& a <<<* b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::tertiary_before);
 
         sv = "& [before 3] a <<<* b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::tertiary_before);
 
         sv = "& a <<<<* b";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
             relation_result.op_, text::detail::token_kind::quaternary_before);
@@ -2467,7 +2467,7 @@ TEST(parser, rules)
 
         sv = "& abc < xyz | 123 / foo";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
@@ -2478,7 +2478,7 @@ TEST(parser, rules)
 
         sv = "& abc < xyz / foo | 123";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
@@ -2489,7 +2489,7 @@ TEST(parser, rules)
 
         sv = "& abc < xyz | 123";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
@@ -2502,7 +2502,7 @@ TEST(parser, rules)
 
         sv = "& abc < xyz / foo";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
@@ -2515,7 +2515,7 @@ TEST(parser, rules)
 
         sv = "& abc < xyz";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
@@ -2533,7 +2533,7 @@ TEST(parser, rules)
 
         sv = "& abc < xyz | 123 / foo << foo";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(
@@ -2548,7 +2548,7 @@ TEST(parser, rules)
 
         sv = "& [last regular] < bar < xyz | foo / 123";
         EXPECT_NO_THROW(text::detail::parse(
-            sv.begin(), sv.end(), callbacks, "<test-string>"));
+            sv.data(), sv.data() + sv.size(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, last_regular);
         EXPECT_EQ(before_result, false);
         EXPECT_EQ(

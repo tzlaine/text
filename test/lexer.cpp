@@ -130,8 +130,8 @@ int main()
     {
         boost::text::string_view sv = "a-b";
         auto const lines_and_tokens = boost::text::detail::lex(
-            sv.begin(),
-            sv.end(),
+            sv.data(),
+            sv.data() + sv.size(),
             [](std::string const & s) { std::cout << s << "\n"; },
             "<test-string>");
 #ifndef NDEBUG
@@ -145,8 +145,8 @@ int main()
     {
         boost::text::string_view sv = "'a-b'";
         auto const lines_and_tokens = boost::text::detail::lex(
-            sv.begin(),
-            sv.end(),
+            sv.data(),
+            sv.data() + sv.size(),
             [](std::string const & s) { std::cout << s << "\n"; },
             "<test-string>");
 #ifndef NDEBUG
@@ -160,8 +160,8 @@ int main()
     {
         boost::text::string_view sv = "a\\-b";
         auto const lines_and_tokens = boost::text::detail::lex(
-            sv.begin(),
-            sv.end(),
+            sv.data(),
+            sv.data() + sv.size(),
             [](std::string const & s) { std::cout << s << "\n"; },
             "<test-string>");
 #ifndef NDEBUG

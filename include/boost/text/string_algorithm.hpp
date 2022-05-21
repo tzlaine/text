@@ -77,11 +77,13 @@ namespace boost { namespace text { namespace detail {
     template<typename Ptr>
     struct as_utf32_common_view_dispatch<Ptr, true>
     {
-        using string_view_t = basic_string_view<std::remove_pointer_t<Ptr>>;
-        static constexpr auto call(Ptr p)
-            -> decltype(boost::text::as_utf32(string_view_t(p)))
+        using char_type = std::remove_pointer_t<Ptr>;
+        using string_view_t = basic_string_view<char_type>;
+        static constexpr auto call(Ptr p) -> decltype(boost::text::as_utf32(
+            std::declval<char_type *>(), std::declval<char_type *>()))
         {
-            return boost::text::as_utf32(string_view_t(p));
+            string_view_t sv(p);
+            return boost::text::as_utf32(sv.data(), sv.data() + sv.size());
         }
     };
 
