@@ -9,8 +9,8 @@
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/concepts.hpp>
 #include <boost/text/dangling.hpp>
-#include <boost/text/detail/unpack.hpp>
 #include <boost/text/view_adaptor.hpp>
+#include <boost/text/detail/unpack.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
