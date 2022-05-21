@@ -88,11 +88,11 @@ endif ()
 ###############################################################################
 # GoogleTest
 ###############################################################################
-add_subdirectory(${CMAKE_SOURCE_DIR}/googletest-release-1.8.0)
+add_subdirectory(${CMAKE_SOURCE_DIR}/googletest-release-1.10.0)
 target_compile_definitions(gtest      PUBLIC GTEST_LANG_CXX11=1)
 target_compile_definitions(gtest_main PUBLIC GTEST_LANG_CXX11=1)
-target_include_directories(gtest      INTERFACE ${CMAKE_HOME_DIRECTORY}/googletest-release-1.8.0/googletest/include)
-target_include_directories(gtest_main INTERFACE ${CMAKE_HOME_DIRECTORY}/googletest-release-1.8.0/googletest/include)
+target_include_directories(gtest      INTERFACE $<BUILD_INTERFACE:${CMAKE_HOME_DIRECTORY}/googletest-release-1.10.0/googletest/include>)
+target_include_directories(gtest_main INTERFACE $<BUILD_INTERFACE:${CMAKE_HOME_DIRECTORY}/googletest-release-1.10.0/googletest/include>)
 
 
 ###############################################################################
