@@ -5,6 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 #include <boost/text/detail/parser.hpp>
 
+#include <boost/optional/optional_io.hpp>
+
 #include "parser_tests.hpp"
 
 #include <gtest/gtest.h>
@@ -21,6 +23,11 @@ dump(std::ostream & os, text::detail::collation_element cce)
 }
 
 namespace std {
+    // Just here to silence warnings.
+    ostream & operator<<(ostream & os, boost::text::detail::cp_seq_t const &)
+    {
+        return os << "boost::text::detail::cp_seq_t";
+    }
     ostream &
     operator<<(ostream & os, vector<text::detail::reorder_group> const & groups)
     {
