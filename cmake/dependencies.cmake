@@ -30,49 +30,22 @@ else ()
     endif()
     add_custom_target(
       boost_clone
-      COMMAND git submodule init libs/test
-      COMMAND git submodule init libs/algorithm
-      COMMAND git submodule init libs/align
-      COMMAND git submodule init libs/array
-      COMMAND git submodule init libs/atomic
-      COMMAND git submodule init libs/bind
-      COMMAND git submodule init libs/concept_check
-      COMMAND git submodule init libs/container
-      COMMAND git submodule init libs/container_hash
-      COMMAND git submodule init libs/endian
-      COMMAND git submodule init libs/exception
-      COMMAND git submodule init libs/filesystem
-      COMMAND git submodule init libs/function
-      COMMAND git submodule init libs/integer
-      COMMAND git submodule init libs/intrusive
-      COMMAND git submodule init libs/io
-      COMMAND git submodule init libs/iterator
-      COMMAND git submodule init libs/move
-      COMMAND git submodule init libs/mpl
-      COMMAND git submodule init libs/numeric
-      COMMAND git submodule init libs/optional
-      COMMAND git submodule init libs/preprocessor
-      COMMAND git submodule init libs/range
-      COMMAND git submodule init libs/smart_ptr
-      COMMAND git submodule init libs/static_assert
-      COMMAND git submodule init libs/stl_interfaces
-      COMMAND git submodule init libs/system
-      COMMAND git submodule init libs/type_index
-      COMMAND git submodule init libs/type_traits
-      COMMAND git submodule init libs/throw_exception
-      COMMAND git submodule init libs/utility
-      COMMAND git submodule init libs/assert
-      COMMAND git submodule init libs/config
-      COMMAND git submodule init libs/core
-      COMMAND git submodule init libs/predef
-      COMMAND git submodule init libs/detail
+      COMMAND git submodule init tools/boostdep
       COMMAND git submodule init tools/build
-      COMMAND git submodule init libs/headers
       COMMAND git submodule init tools/boost_install
+      COMMAND git submodule init libs/headers
+      COMMAND git submodule init libs/config
       COMMAND git submodule update --jobs 3 --depth 100
+      # Copy the relevant parts of this under the working dir, so depinst.py
+      # can see them.
+      COMMAND ${CMAKE_COMMAND} -E make_directory libs/text
+      COMMAND ${CMAKE_COMMAND} -E copy_directory ../../include ../../test ../../src libs/text
+      COMMAND ${CMAKE_COMMAND} -E make_directory libs/text/test
+      COMMAND ${CMAKE_COMMAND} -E copy ../../test/break_api.cpp libs/text/test
+      COMMAND python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" text
       COMMAND ${bootstrap_cmd}
       COMMAND ./b2 headers
-      COMMAND ./b2
+      COMMAND ./b2 -j2
       WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root
       DEPENDS boost_root_clone)
   endif()
