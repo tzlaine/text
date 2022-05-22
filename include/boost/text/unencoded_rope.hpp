@@ -104,8 +104,7 @@ namespace boost { namespace text {
             `value_type`. */
 #if BOOST_TEXT_USE_CONCEPTS
         template<std::input_iterator I, std::sentinel_for<I> S>
-        // clang-format off
-            requires std::convertible_to<std::iter_reference_t<I>, value_type>
+        requires std::convertible_to<std::iter_reference_t<I>, value_type>
 #else
         template<typename I, typename S>
 #endif
@@ -869,6 +868,9 @@ namespace boost { namespace text {
 namespace boost { namespace text {
 
     template<typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_unencoded_rope<Char, String>::basic_unencoded_rope(
         unencoded_rope_view rv)
     {
@@ -876,6 +878,9 @@ namespace boost { namespace text {
     }
 
     template<typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_unencoded_rope<Char, String> &
     basic_unencoded_rope<Char, String>::operator=(unencoded_rope_view rv)
     {
@@ -885,6 +890,9 @@ namespace boost { namespace text {
     }
 
     template<typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_unencoded_rope_view<Char, String>
     basic_unencoded_rope<Char, String>::operator()(
         std::ptrdiff_t lo, std::ptrdiff_t hi) const
@@ -900,6 +908,9 @@ namespace boost { namespace text {
     }
 
     template<typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_unencoded_rope<Char, String> &
     basic_unencoded_rope<Char, String>::erase(unencoded_rope_view rv)
     {
@@ -908,6 +919,9 @@ namespace boost { namespace text {
     }
 
     template<typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_unencoded_rope<Char, String> &
     basic_unencoded_rope<Char, String>::replace(
         const_iterator first, const_iterator last, unencoded_rope_view rv)
@@ -917,6 +931,9 @@ namespace boost { namespace text {
     }
 
     template<typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_unencoded_rope<Char, String>::
     operator basic_unencoded_rope_view<Char, String>() const
     {
@@ -924,6 +941,9 @@ namespace boost { namespace text {
     }
 
     template<typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     template<typename R>
     basic_unencoded_rope<Char, String> &
     basic_unencoded_rope<Char, String>::replace_shim(
@@ -937,6 +957,9 @@ namespace boost { namespace text {
     }
 
     template<typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     template<typename I, typename S>
     basic_unencoded_rope<Char, String> &
     basic_unencoded_rope<Char, String>::replace_shim(

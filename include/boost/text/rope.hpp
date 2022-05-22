@@ -960,22 +960,38 @@ namespace boost { namespace text {
 namespace boost { namespace text {
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires(utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_rope<Normalization, Char, String>::basic_rope(
         char_type const * c_str) :
         rope_(text(c_str).extract())
     {}
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires(utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_rope<Normalization, Char, String>::basic_rope(rope_view rv) :
         rope_(rv.begin().base().base(), rv.end().base().base())
     {}
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires(utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_rope<Normalization, Char, String>::basic_rope(text t) :
         rope_(std::move(t).extract())
     {}
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires(utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     template<typename CUIter, typename Sentinel>
     basic_rope<Normalization, Char, String>::basic_rope(
         CUIter first,
@@ -985,6 +1001,10 @@ namespace boost { namespace text {
     {}
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires(utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_rope<Normalization, Char, String> &
     basic_rope<Normalization, Char, String>::operator=(rope_view rv)
     {
@@ -994,6 +1014,10 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires(utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_rope<Normalization, Char, String> &
     basic_rope<Normalization, Char, String>::operator=(text t)
     {
@@ -1003,12 +1027,20 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires(utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     void basic_rope<Normalization, Char, String>::push_back(grapheme const & g)
     {
         replace(end(), end(), g);
     }
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires(utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     template<typename CPIter>
     void
     basic_rope<Normalization, Char, String>::push_back(grapheme_ref<CPIter> g)
@@ -1017,6 +1049,10 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires(utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     replace_result<
         typename basic_rope<Normalization, Char, String>::const_iterator>
     basic_rope<Normalization, Char, String>::replace(
@@ -1031,6 +1067,10 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires(utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     replace_result<
         typename basic_rope<Normalization, Char, String>::const_iterator>
     basic_rope<Normalization, Char, String>::replace(
@@ -1040,6 +1080,10 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires(utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     template<typename CPIter>
     replace_result<
         typename basic_rope<Normalization, Char, String>::const_iterator>
@@ -1115,6 +1159,10 @@ namespace boost { namespace text {
 
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires (utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+        std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     replace_result<typename basic_text<Normalization, Char, String>::iterator>
     basic_text<Normalization, Char, String>::replace(
         const_iterator first, const_iterator last, rope_view new_substr)
