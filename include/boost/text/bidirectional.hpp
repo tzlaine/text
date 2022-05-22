@@ -3064,7 +3064,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 return detail::bidi_subranges<bidirectional_cp_subrange<I>>(
                     first, last, paragraph_embedding_level);
 #else
-                return {first, last, paragraph_embedding_level};
+                return lazy_bidi_segment_range<
+                    I,
+                    S,
+                    bidirectional_cp_subrange<I>>{
+                    first, last, paragraph_embedding_level};
 #endif
             }
 
@@ -3078,7 +3082,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     detail::end(r),
                     paragraph_embedding_level);
 #else
-                return {
+                return lazy_bidi_segment_range<
+                    detail::iterator_t<R>,
+                    detail::sentinel_t<R>,
+                    bidirectional_cp_subrange<detail::iterator_t<R>>>{
                     detail::begin(r),
                     detail::end(r),
                     paragraph_embedding_level};
@@ -3095,7 +3102,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     r.end().base(),
                     paragraph_embedding_level);
 #else
-                return {
+                return lazy_bidi_segment_range<
+                    typename detail::iterator_t<R const>::iterator,
+                    typename detail::iterator_t<R const>::iterator,
+                    bidirectional_grapheme_subrange<
+                        typename detail::iterator_t<R const>::iterator>>{
                     r.begin().base(),
                     r.end().base(),
                     paragraph_embedding_level};
@@ -3133,7 +3144,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 return detail::bidi_subranges<bidirectional_cp_subrange<I>>(
                     first, last, paragraph_embedding_level, std::move(next));
 #else
-                return {
+                return lazy_bidi_segment_range<
+                    I,
+                    S,
+                    bidirectional_cp_subrange<I>,
+                    detail::next_allowed_line_break_within_extent_callable<
+                        Extent,
+                        Func>>{
                     first, last, paragraph_embedding_level, std::move(next)};
 #endif
             }
@@ -3164,7 +3181,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     paragraph_embedding_level,
                     std::move(next));
 #else
-                return {
+                return lazy_bidi_segment_range<
+                    detail::iterator_t<R>,
+                    detail::sentinel_t<R>,
+                    bidirectional_cp_subrange<detail::iterator_t<R>>,
+                    detail::next_allowed_line_break_within_extent_callable<
+                        Extent,
+                        Func>>{
                     detail::begin(r),
                     detail::end(r),
                     paragraph_embedding_level,
@@ -3199,7 +3222,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     paragraph_embedding_level,
                     std::move(next));
 #else
-                return {
+                return lazy_bidi_segment_range<
+                    typename detail::iterator_t<R const>::iterator,
+                    typename detail::iterator_t<R const>::iterator,
+                    bidirectional_grapheme_subrange<
+                        typename detail::iterator_t<R const>::iterator>,
+                    detail::next_allowed_line_break_within_extent_callable<
+                        Extent,
+                        Func>>{
                     r.begin().base(),
                     r.end().base(),
                     paragraph_embedding_level,
