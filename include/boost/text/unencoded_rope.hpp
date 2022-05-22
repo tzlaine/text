@@ -27,6 +27,13 @@
 
 
 namespace boost { namespace text {
+    namespace detail {
+        template<typename Char, typename String>
+        basic_unencoded_rope_view<Char, String> make_unencoded_rope_view(
+            basic_unencoded_rope<Char, String> const & r,
+            std::size_t offset_first,
+            std::size_t offset_last);
+    }
 
     template<typename Char, typename String>
 #if BOOST_TEXT_USE_CONCEPTS
@@ -185,7 +192,10 @@ namespace boost { namespace text {
                 begin(), end(), rhs.begin(), rhs.end());
         }
 
-        operator unencoded_rope_view() const;
+        operator unencoded_rope_view() const
+        {
+            return detail::make_unencoded_rope_view(*this, 0, this->size());
+        }
 
         /** Erases the portion of `*this` delimited by `[first, last)`.
 
@@ -930,14 +940,15 @@ namespace boost { namespace text {
         return *this;
     }
 
-    template<typename Char, typename String>
-#if BOOST_TEXT_USE_CONCEPTS
-    requires std::is_same_v<Char, std::ranges::range_value_t<String>>
-#endif
-    basic_unencoded_rope<Char, String>::
-    operator basic_unencoded_rope_view<Char, String>() const
-    {
-        return unencoded_rope_view(*this, 0, this->size());
+    namespace detail {
+        template<typename Char, typename String>
+        basic_unencoded_rope_view<Char, String> make_unencoded_rope_view(
+            basic_unencoded_rope<Char, String> const & r,
+            std::size_t offset_first,
+            std::size_t offset_last)
+        {
+            return unencoded_rope_view(r, offset_first, offset_last);
+        }
     }
 
     template<typename Char, typename String>
@@ -1036,6 +1047,9 @@ namespace boost { namespace text {
 #endif
 
     template<typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
     basic_unencoded_rope_view<Char, String>::basic_unencoded_rope_view(
         basic_unencoded_rope<Char, String> const & r,
         size_type lo,
