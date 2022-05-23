@@ -20,7 +20,8 @@ It's more interesting than it sounds.
 
 Online docs: https://tzlaine.github.io/text
 
-[![Build Status](https://travis-ci.org/tzlaine/text.svg?branch=master)](https://travis-ci.org/tzlaine/text)
+[![Ubuntu-22.04 - GCC 10,11](https://github.com/tzlaine/text/actions/workflows/ubuntu-22.04.yml/badge.svg)](https://github.com/tzlaine/text/actions/workflows/ubuntu-22.04.yml)
+
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/tzlaine/text?branch=master&svg=true)](https://ci.appveyor.com/project/tzlaine/text)
 [![codecov](./coverage.svg)](https://codecov.io/gh/tzlaine/text)
 [![License](https://img.shields.io/badge/license-boost-brightgreen.svg)](LICENSE_1_0.txt)
