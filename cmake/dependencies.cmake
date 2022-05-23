@@ -61,6 +61,7 @@ else ()
       COMMAND git submodule init libs/type_traits
       COMMAND git submodule init libs/throw_exception
       COMMAND git submodule init libs/utility
+      COMMAND git submodule init libs/winapi
       COMMAND git submodule init libs/assert
       COMMAND git submodule init libs/config
       COMMAND git submodule init libs/core
