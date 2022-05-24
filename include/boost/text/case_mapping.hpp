@@ -1269,7 +1269,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         code_point_iter I,
         std::sentinel_for<I> S,
         std::weakly_incrementable O>
-    requires std::indirectly_copyable<I, O> case_mapping_result<I, O>
+    requires indirectly_copyable<I, O> case_mapping_result<I, O>
     to_lower(
         I first, S last, O out, case_language lang = case_language::other)
     {
@@ -1284,7 +1284,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R, std::weakly_incrementable O>
-    requires std::indirectly_copyable<std::ranges::iterator_t<R>, O>
+    requires indirectly_copyable<std::ranges::iterator_t<R>, O>
     case_mapping_result<std::ranges::borrowed_iterator_t<R>, O>
     to_lower(R && r, O out, case_language lang = case_language::other)
     {
@@ -1292,17 +1292,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<grapheme_range R, std::weakly_incrementable O>
-    requires std::indirectly_copyable<code_point_iterator_t<R>, O>
+    requires indirectly_copyable<code_point_iterator_t<R>, O>
     auto to_lower(R && r, O out, case_language lang = case_language::other)
     {
         auto [in_, out_] =
             v2::to_lower(r.begin().base(), r.end().base(), out, lang);
         if constexpr (std::ranges::borrowed_range<R>) {
-            return case_mapping_result{
-                grapheme_iterator(r.begin().base(), in_, r.end().base()),
-                std::move(out_)};
+            auto in = grapheme_iterator(r.begin().base(), in_, r.end().base());
+            return case_mapping_result<decltype(in), O>{
+                std::move(in), std::move(out_)};
         } else {
-            return case_mapping_result{
+            return case_mapping_result<std::ranges::dangling, O>{
                 std::ranges::dangling{}, std::move(out_)};
         }
     }
@@ -1352,7 +1352,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I> S,
         std::weakly_incrementable O,
         typename NextWordBreakFunc = next_word_break_callable>
-    requires std::indirectly_copyable<I, O>
+    requires indirectly_copyable<I, O>
     case_mapping_result<I, O>
     to_title(
         I first,
@@ -1385,7 +1385,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         code_point_range R,
         std::weakly_incrementable O,
         typename NextWordBreakFunc = next_word_break_callable>
-    requires std::indirectly_copyable<std::ranges::iterator_t<R>, O>
+    requires indirectly_copyable<std::ranges::iterator_t<R>, O>
     case_mapping_result<std::ranges::borrowed_iterator_t<R>, O>
     to_title(
         R && r,
@@ -1401,7 +1401,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         grapheme_range R,
         std::weakly_incrementable O,
         typename NextWordBreakFunc = next_word_break_callable>
-    requires std::indirectly_copyable<code_point_iterator_t<R>, O>
+    requires indirectly_copyable<code_point_iterator_t<R>, O>
     auto to_title(
         R && r,
         O out,
@@ -1411,11 +1411,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         auto [in_, out_] = v2::to_title(
             r.begin().base(), r.end().base(), out, lang, next_word_break);
         if constexpr (std::ranges::borrowed_range<R>) {
-            return case_mapping_result{
-                grapheme_iterator(r.begin().base(), in_, r.end().base()),
-                std::move(out_)};
+            auto in = grapheme_iterator(r.begin().base(), in_, r.end().base());
+            return case_mapping_result<decltype(in), O>{
+                std::move(in), std::move(out_)};
         } else {
-            return case_mapping_result{
+            return case_mapping_result<std::ranges::dangling, O>{
                 std::ranges::dangling{}, std::move(out_)};
         }
     }
@@ -1444,7 +1444,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         code_point_iter I,
         std::sentinel_for<I> S,
         std::weakly_incrementable O>
-    requires std::indirectly_copyable<I, O>
+    requires indirectly_copyable<I, O>
     case_mapping_result<I, O>
     to_upper(I first, S last, O out, case_language lang = case_language::other)
     {
@@ -1459,7 +1459,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_range R, std::weakly_incrementable O>
-    requires std::indirectly_copyable<std::ranges::iterator_t<R>, O>
+    requires indirectly_copyable<std::ranges::iterator_t<R>, O>
     case_mapping_result<std::ranges::borrowed_iterator_t<R>, O>
     to_upper(R && r, O out, case_language lang = case_language::other)
     {
@@ -1467,17 +1467,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<grapheme_range R, std::weakly_incrementable O>
-    requires std::indirectly_copyable<code_point_iterator_t<R>, O>
+    requires indirectly_copyable<code_point_iterator_t<R>, O>
     auto to_upper(R && r, O out, case_language lang = case_language::other)
     {
         auto [in_, out_] =
             v2::to_upper(r.begin().base(), r.end().base(), out, lang);
         if constexpr (std::ranges::borrowed_range<R>) {
-            return case_mapping_result{
-                grapheme_iterator(r.begin().base(), in_, r.end().base()),
-                std::move(out_)};
+            auto in = grapheme_iterator(r.begin().base(), in_, r.end().base());
+            return case_mapping_result<decltype(in), O>{
+                std::move(in), std::move(out_)};
         } else {
-            return case_mapping_result{
+            return case_mapping_result<std::ranges::dangling, O>{
                 std::ranges::dangling{}, std::move(out_)};
         }
     }

@@ -22,11 +22,14 @@
 using namespace boost::text;
 using namespace boost::text::detail;
 
-#define TEST_STD_VIEWS                                                         \
-    202002L <= __cplusplus &&                                                  \
-        (defined(__clang_major__) && 14 <= __clang_major__ ||                  \
-         defined(__GNUC__) && 10 <= __GNUC__ ||                                \
-         defined(_MSC_VER) && 1929 <= _MSC_VER)
+#if 202002L <= __cplusplus &&                                                  \
+    (defined(__clang_major__) && 14 <= __clang_major__ ||                      \
+     defined(__GNUC__) && 10 <= __GNUC__ ||                                    \
+     defined(_MSC_VER) && 1929 <= _MSC_VER)
+#define TEST_STD_VIEWS 1
+#else
+#define TEST_STD_VIEWS 0
+#endif
 
 TEST(break_apis, grapheme_break)
 {

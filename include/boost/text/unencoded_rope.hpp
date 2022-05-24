@@ -289,9 +289,9 @@ namespace boost { namespace text {
         template<typename R>
 #if BOOST_TEXT_USE_CONCEPTS
             // clang-format off
-        requires std::ranges::range<R> &&
-            std::convertible_to<
-                std::ranges::range_reference_t<R>, value_type> ||
+        requires (std::ranges::range<R> &&
+                  std::convertible_to<
+                      std::ranges::range_reference_t<R>, value_type>) ||
             std::convertible_to<R, value_type const *>
 #endif
         auto replace(unencoded_rope_view const & old_substr, R && r)
@@ -326,10 +326,10 @@ namespace boost { namespace text {
         template<typename R>
 #if BOOST_TEXT_USE_CONCEPTS
             // clang-format off
-            requires std::ranges::range<R> &&
-                std::convertible_to<
-                    std::ranges::range_reference_t<R>, value_type> ||
-                std::convertible_to<R, value_type const *>
+        requires (std::ranges::range<R> &&
+                  std::convertible_to<
+                      std::ranges::range_reference_t<R>, value_type>) ||
+            std::convertible_to<R, value_type const *>
 #endif
         auto insert(const_iterator at, R && r)
             // clang-format on

@@ -19,7 +19,7 @@ namespace boost { namespace text {
             template<typename V>
             static auto call(V const & v)
             {
-                return std::make_reverse_iterator(v.end());
+                return stl_interfaces::make_reverse_iterator(v.end());
             }
         };
 
@@ -34,7 +34,7 @@ namespace boost { namespace text {
                 while (v_f != v_l) {
                     ++v_f;
                 }
-                return std::make_reverse_iterator(v_f);
+                return stl_interfaces::make_reverse_iterator(v_f);
             }
         };
 
@@ -58,7 +58,7 @@ namespace boost { namespace text {
                     value,
                 "A reversed view must have bidirectional iterators.");
 
-            using iterator = std::reverse_iterator<v_iter>;
+            using iterator = stl_interfaces::reverse_iterator<v_iter>;
 
             constexpr reverse_view() = default;
 
@@ -80,7 +80,7 @@ namespace boost { namespace text {
             constexpr iterator begin() const { return first_; }
             constexpr iterator end() const
             {
-                return std::make_reverse_iterator(v_.begin());
+                return stl_interfaces::make_reverse_iterator(v_.begin());
             }
 
             constexpr View base() const { return v_; }

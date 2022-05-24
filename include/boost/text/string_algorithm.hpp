@@ -1492,110 +1492,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    namespace dtl {
-        template<typename I1, typename S1, typename I2, typename S2>
-        std::ranges::subrange<I1> find(I1 first1, S1 last1, I2 first2, S2 last2)
-        {
-            return std::ranges::search(
-                first1, last1, first2, last2, std::equal_to{});
-        }
-
-        template<typename I1, typename I2>
-        std::ranges::subrange<I1>
-        rfind(I1 first1, I1 last1, I2 first2, I2 last2)
-        {
-            auto const result = std::ranges::search(
-                std::make_reverse_iterator(last1),
-                std::make_reverse_iterator(first1),
-                std::make_reverse_iterator(last2),
-                std::make_reverse_iterator(first2),
-                std::equal_to{});
-            if (result.empty())
-                return {last1, last1};
-            return {result.end().base(), result.begin().base()};
-        }
-
-        template<typename I1, typename S1, typename I2, typename S2>
-        I1 find_first_of(I1 first1, S1 last1, I2 first2, S2 last2)
-        {
-            return std::ranges::find_first_of(
-                first1, last1, first2, last2, std::equal_to{});
-        }
-
-        template<typename I1, typename I2>
-        I1 find_last_of(I1 first1, I1 last1, I2 first2, I2 last2)
-        {
-            auto const last1_ = std::make_reverse_iterator(first1);
-            auto const result = std::ranges::find_first_of(
-                std::make_reverse_iterator(last1),
-                last1_,
-                std::make_reverse_iterator(last2),
-                std::make_reverse_iterator(first2),
-                std::equal_to{});
-            if (result == last1_)
-                return last1;
-            return std::prev(result.base());
-        }
-
-        template<typename I1, typename S1, typename I2, typename S2>
-        I1 find_first_not_of(I1 first1, S1 last1, I2 first2, S2 last2)
-        {
-            return std::ranges::find_if(
-                first1, last1, [first2, last2](auto const & x) {
-                    return std::ranges::find_if(
-                               first2, last2, [&x](auto const & y) {
-                                   return x == y;
-                               }) == last2;
-                });
-        }
-
-        template<typename I1, typename I2>
-        I1 find_last_not_of(I1 first1_, I1 last1_, I2 first2_, I2 last2_)
-        {
-            auto const first1 = std::make_reverse_iterator(last1_);
-            auto const last1 = std::make_reverse_iterator(first1_);
-            auto const first2 = std::make_reverse_iterator(last2_);
-            auto const last2 = std::make_reverse_iterator(first2_);
-            auto const result = std::ranges::find_if(
-                first1, last1, [first2, last2](auto const & x) {
-                    return std::ranges::find_if(
-                               first2, last2, [&x](auto const & y) {
-                                   return x == y;
-                               }) == last2;
-                });
-            if (result == last1)
-                return last1_;
-            return std::prev(result.base());
-        }
-
-        template<typename I1, typename S1, typename I2, typename S2>
-        bool starts_with(I1 first1, S1 last1, I2 first2, S2 last2)
-        {
-            return std::ranges::mismatch(
-                       first1, last1, first2, last2, std::equal_to{})
-                       .in2 == last2;
-        }
-
-        template<typename I1, typename I2>
-        bool ends_with(I1 first1, I1 last1, I2 first2, I2 last2)
-        {
-            auto const target = std::make_reverse_iterator(first2);
-            return std::ranges::mismatch(
-                       std::make_reverse_iterator(last1),
-                       std::make_reverse_iterator(first1),
-                       std::make_reverse_iterator(last2),
-                       target,
-                       std::equal_to{})
-                       .in2 == target;
-        }
-
-        template<typename I1, typename S1, typename I2, typename S2>
-        bool contains(I1 first1, S1 last1, I2 first2, S2 last2)
-        {
-            return dtl::find(first1, last1, first2, last2).begin() != last1;
-        }
-    }
-
     // Code point iterator overloads.
 
     template<
@@ -1605,13 +1501,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I2> S2>
     std::ranges::subrange<I1> find(I1 first1, S1 last1, I2 first2, S2 last2)
     {
-        return dtl::find(first1, last1, first2, last2);
+        return v1::dtl::find(first1, last1, first2, last2);
     }
 
     template<code_point_iter I1, code_point_iter I2>
     std::ranges::subrange<I1> rfind(I1 first1, I1 last1, I2 first2, I2 last2)
     {
-        return dtl::rfind(first1, last1, first2, last2);
+        return v1::dtl::rfind(first1, last1, first2, last2);
     }
 
     template<
@@ -1621,13 +1517,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I2> S2>
     I1 find_first_of(I1 first1, S1 last1, I2 first2, S2 last2)
     {
-        return dtl::find_first_of(first1, last1, first2, last2);
+        return v1::dtl::find_first_of(first1, last1, first2, last2);
     }
 
     template<code_point_iter I1, code_point_iter I2>
     I1 find_last_of(I1 first1, I1 last1, I2 first2, I2 last2)
     {
-        return dtl::find_last_of(first1, last1, first2, last2);
+        return v1::dtl::find_last_of(first1, last1, first2, last2);
     }
 
     template<
@@ -1637,13 +1533,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I2> S2>
     I1 find_first_not_of(I1 first1, S1 last1, I2 first2, S2 last2)
     {
-        return dtl::find_first_not_of(first1, last1, first2, last2);
+        return v1::dtl::find_first_not_of(first1, last1, first2, last2);
     }
 
     template<code_point_iter I1, code_point_iter I2>
     I1 find_last_not_of(I1 first1, I1 last1, I2 first2, I2 last2)
     {
-        return dtl::find_last_not_of(first1, last1, first2, last2);
+        return v1::dtl::find_last_not_of(first1, last1, first2, last2);
     }
 
     template<
@@ -1653,13 +1549,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I2> S2>
     bool starts_with(I1 first1, S1 last1, I2 first2, S2 last2)
     {
-        return dtl::starts_with(first1, last1, first2, last2);
+        return v1::dtl::starts_with(first1, last1, first2, last2);
     }
 
     template<code_point_iter I1, code_point_iter I2>
     bool ends_with(I1 first1, I1 last1, I2 first2, I2 last2)
     {
-        return dtl::ends_with(first1, last1, first2, last2);
+        return v1::dtl::ends_with(first1, last1, first2, last2);
     }
 
     template<
@@ -1669,7 +1565,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I2> S2>
     bool contains(I1 first1, S1 last1, I2 first2, S2 last2)
     {
-        return dtl::contains(first1, last1, first2, last2);
+        return v1::dtl::contains(first1, last1, first2, last2);
     }
 
     // Code point range overloads.
@@ -1684,7 +1580,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ = detail::as_utf32_no_terminator(r1);
             auto r2_ = detail::as_utf32_no_terminator(r2);
-            return dtl::find(
+            return v1::dtl::find(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2_),
@@ -1702,7 +1598,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
             auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
-            return dtl::rfind(
+            return v1::dtl::rfind(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2_),
@@ -1720,7 +1616,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ = detail::as_utf32_no_terminator(r1);
             auto r2_ = detail::as_utf32_no_terminator(r2);
-            return dtl::find_first_of(
+            return v1::dtl::find_first_of(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2_),
@@ -1738,7 +1634,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
             auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
-            return dtl::find_last_of(
+            return v1::dtl::find_last_of(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2_),
@@ -1756,7 +1652,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ = detail::as_utf32_no_terminator(r1);
             auto r2_ = detail::as_utf32_no_terminator(r2);
-            return dtl::find_first_not_of(
+            return v1::dtl::find_first_not_of(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2_),
@@ -1774,7 +1670,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
             auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
-            return dtl::find_last_not_of(
+            return v1::dtl::find_last_not_of(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2_),
@@ -1787,7 +1683,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         auto r1_ = detail::as_utf32_no_terminator(r1);
         auto r2_ = detail::as_utf32_no_terminator(r2);
-        return dtl::starts_with(
+        return v1::dtl::starts_with(
             std::ranges::begin(r1_),
             std::ranges::end(r1_),
             std::ranges::begin(r2_),
@@ -1799,7 +1695,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         auto r1_ = detail::as_utf32_common_view_no_terminator(r1);
         auto r2_ = detail::as_utf32_common_view_no_terminator(r2);
-        return dtl::ends_with(
+        return v1::dtl::ends_with(
             std::ranges::begin(r1_),
             std::ranges::end(r1_),
             std::ranges::begin(r2_),
@@ -1811,7 +1707,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         auto r1_ = detail::as_utf32_no_terminator(r1);
         auto r2_ = detail::as_utf32_no_terminator(r2);
-        return dtl::contains(
+        return v1::dtl::contains(
             std::ranges::begin(r1_),
             std::ranges::end(r1_),
             std::ranges::begin(r2_),
@@ -1827,13 +1723,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I2> S2>
     std::ranges::subrange<I1> find(I1 first1, S1 last1, I2 first2, S2 last2)
     {
-        return dtl::find(first1, last1, first2, last2);
+        return v1::dtl::find(first1, last1, first2, last2);
     }
 
     template<grapheme_iter I1, grapheme_iter I2>
     std::ranges::subrange<I1> rfind(I1 first1, I1 last1, I2 first2, I2 last2)
     {
-        return dtl::rfind(first1, last1, first2, last2);
+        return v1::dtl::rfind(first1, last1, first2, last2);
     }
 
     template<
@@ -1843,13 +1739,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I2> S2>
     I1 find_first_of(I1 first1, S1 last1, I2 first2, S2 last2)
     {
-        return dtl::find_first_of(first1, last1, first2, last2);
+        return v1::dtl::find_first_of(first1, last1, first2, last2);
     }
 
     template<grapheme_iter I1, grapheme_iter I2>
     I1 find_last_of(I1 first1, I1 last1, I2 first2, I2 last2)
     {
-        return dtl::find_last_of(first1, last1, first2, last2);
+        return v1::dtl::find_last_of(first1, last1, first2, last2);
     }
 
     template<
@@ -1859,13 +1755,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I2> S2>
     I1 find_first_not_of(I1 first1, S1 last1, I2 first2, S2 last2)
     {
-        return dtl::find_first_not_of(first1, last1, first2, last2);
+        return v1::dtl::find_first_not_of(first1, last1, first2, last2);
     }
 
     template<grapheme_iter I1, grapheme_iter I2>
     I1 find_last_not_of(I1 first1, I1 last1, I2 first2, I2 last2)
     {
-        return dtl::find_last_not_of(first1, last1, first2, last2);
+        return v1::dtl::find_last_not_of(first1, last1, first2, last2);
     }
 
     template<
@@ -1875,13 +1771,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I2> S2>
     bool starts_with(I1 first1, S1 last1, I2 first2, S2 last2)
     {
-        return dtl::starts_with(first1, last1, first2, last2);
+        return v1::dtl::starts_with(first1, last1, first2, last2);
     }
 
     template<grapheme_iter I1, grapheme_iter I2>
     bool ends_with(I1 first1, I1 last1, I2 first2, I2 last2)
     {
-        return dtl::ends_with(first1, last1, first2, last2);
+        return v1::dtl::ends_with(first1, last1, first2, last2);
     }
 
     template<
@@ -1891,7 +1787,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I2> S2>
     bool contains(I1 first1, S1 last1, I2 first2, S2 last2)
     {
-        return dtl::contains(first1, last1, first2, last2);
+        return v1::dtl::contains(first1, last1, first2, last2);
     }
 
     // Grapheme range overloads.
@@ -1904,7 +1800,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             !std::ranges::borrowed_range<R1>) {
             return std::ranges::dangling{};
         } else {
-            return dtl::find(
+            return v1::dtl::find(
                 std::ranges::begin(r1),
                 std::ranges::end(r1),
                 std::ranges::begin(r2),
@@ -1921,7 +1817,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r2_ =
                 boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
-            return dtl::find(
+            return v1::dtl::find(
                 std::ranges::begin(r1),
                 std::ranges::end(r1),
                 std::ranges::begin(r2_),
@@ -1938,7 +1834,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ =
                 boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
-            return dtl::find(
+            return v1::dtl::find(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2),
@@ -1954,7 +1850,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             !std::ranges::borrowed_range<R1>) {
             return std::ranges::dangling{};
         } else {
-            return dtl::rfind(
+            return v1::dtl::rfind(
                 std::ranges::begin(r1),
                 std::ranges::end(r1),
                 std::ranges::begin(r2),
@@ -1971,7 +1867,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r2_ = boost::text::as_graphemes(
                 detail::as_utf32_common_view_no_terminator(r2));
-            return dtl::rfind(
+            return v1::dtl::rfind(
                 std::ranges::begin(r1),
                 std::ranges::end(r1),
                 std::ranges::begin(r2_),
@@ -1988,7 +1884,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ = boost::text::as_graphemes(
                 detail::as_utf32_common_view_no_terminator(r1));
-            return dtl::rfind(
+            return v1::dtl::rfind(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2),
@@ -2004,7 +1900,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             !std::ranges::borrowed_range<R1>) {
             return std::ranges::dangling{};
         } else {
-            return dtl::find_first_of(
+            return v1::dtl::find_first_of(
                 std::ranges::begin(r1),
                 std::ranges::end(r1),
                 std::ranges::begin(r2),
@@ -2021,7 +1917,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r2_ =
                 boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
-            return dtl::find_first_of(
+            return v1::dtl::find_first_of(
                 std::ranges::begin(r1),
                 std::ranges::end(r1),
                 std::ranges::begin(r2_),
@@ -2038,7 +1934,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ =
                 boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
-            return dtl::find_first_of(
+            return v1::dtl::find_first_of(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2),
@@ -2054,7 +1950,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             !std::ranges::borrowed_range<R1>) {
             return std::ranges::dangling{};
         } else {
-            return dtl::find_last_of(
+            return v1::dtl::find_last_of(
                 std::ranges::begin(r1),
                 std::ranges::end(r1),
                 std::ranges::begin(r2),
@@ -2071,7 +1967,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r2_ = boost::text::as_graphemes(
                 detail::as_utf32_common_view_no_terminator(r2));
-            return dtl::find_last_of(
+            return v1::dtl::find_last_of(
                 std::ranges::begin(r1),
                 std::ranges::end(r1),
                 std::ranges::begin(r2_),
@@ -2088,7 +1984,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ = boost::text::as_graphemes(
                 detail::as_utf32_common_view_no_terminator(r1));
-            return dtl::find_last_of(
+            return v1::dtl::find_last_of(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2),
@@ -2099,7 +1995,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<grapheme_range R1, grapheme_range R2>
     auto find_first_not_of(R1 && r1, R2 && r2)
     {
-        return dtl::find_first_not_of(
+        return v1::dtl::find_first_not_of(
             std::ranges::begin(r1),
             std::ranges::end(r1),
             std::ranges::begin(r2),
@@ -2115,7 +2011,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r2_ =
                 boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
-            return dtl::find_first_not_of(
+            return v1::dtl::find_first_not_of(
                 std::ranges::begin(r1),
                 std::ranges::end(r1),
                 std::ranges::begin(r2_),
@@ -2132,7 +2028,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ =
                 boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
-            return dtl::find_first_not_of(
+            return v1::dtl::find_first_not_of(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2),
@@ -2148,7 +2044,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             !std::ranges::borrowed_range<R1>) {
             return std::ranges::dangling{};
         } else {
-            return dtl::find_last_not_of(
+            return v1::dtl::find_last_not_of(
                 std::ranges::begin(r1),
                 std::ranges::end(r1),
                 std::ranges::begin(r2),
@@ -2165,7 +2061,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r2_ = boost::text::as_graphemes(
                 detail::as_utf32_common_view_no_terminator(r2));
-            return dtl::find_last_not_of(
+            return v1::dtl::find_last_not_of(
                 std::ranges::begin(r1),
                 std::ranges::end(r1),
                 std::ranges::begin(r2_),
@@ -2182,7 +2078,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto r1_ = boost::text::as_graphemes(
                 detail::as_utf32_common_view_no_terminator(r1));
-            return dtl::find_last_not_of(
+            return v1::dtl::find_last_not_of(
                 std::ranges::begin(r1_),
                 std::ranges::end(r1_),
                 std::ranges::begin(r2),
@@ -2193,7 +2089,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<grapheme_range R1, grapheme_range R2>
     bool starts_with(R1 && r1, R2 && r2)
     {
-        return dtl::starts_with(
+        return v1::dtl::starts_with(
             std::ranges::begin(r1),
             std::ranges::end(r1),
             std::ranges::begin(r2),
@@ -2204,7 +2100,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         auto r2_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
-        return dtl::starts_with(
+        return v1::dtl::starts_with(
             std::ranges::begin(r1),
             std::ranges::end(r1),
             std::ranges::begin(r2_),
@@ -2215,7 +2111,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         auto r1_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
-        return dtl::starts_with(
+        return v1::dtl::starts_with(
             std::ranges::begin(r1_),
             std::ranges::end(r1_),
             std::ranges::begin(r2),
@@ -2225,7 +2121,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<grapheme_range R1, grapheme_range R2>
     bool ends_with(R1 && r1, R2 && r2)
     {
-        return dtl::ends_with(
+        return v1::dtl::ends_with(
             std::ranges::begin(r1),
             std::ranges::end(r1),
             std::ranges::begin(r2),
@@ -2236,7 +2132,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         auto r2_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r2));
-        return dtl::ends_with(
+        return v1::dtl::ends_with(
             std::ranges::begin(r1),
             std::ranges::end(r1),
             std::ranges::begin(r2_),
@@ -2247,7 +2143,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         auto r1_ = boost::text::as_graphemes(
             detail::as_utf32_common_view_no_terminator(r1));
-        return dtl::ends_with(
+        return v1::dtl::ends_with(
             std::ranges::begin(r1_),
             std::ranges::end(r1_),
             std::ranges::begin(r2),
@@ -2257,7 +2153,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<grapheme_range R1, grapheme_range R2>
     bool contains(R1 && r1, R2 && r2)
     {
-        return dtl::contains(
+        return v1::dtl::contains(
             std::ranges::begin(r1),
             std::ranges::end(r1),
             std::ranges::begin(r2),
@@ -2268,7 +2164,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         auto r2_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r2));
-        return dtl::contains(
+        return v1::dtl::contains(
             std::ranges::begin(r1),
             std::ranges::end(r1),
             std::ranges::begin(r2_),
@@ -2279,7 +2175,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         auto r1_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
-        return dtl::contains(
+        return v1::dtl::contains(
             std::ranges::begin(r1_),
             std::ranges::end(r1_),
             std::ranges::begin(r2),
