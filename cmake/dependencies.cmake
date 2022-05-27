@@ -80,9 +80,7 @@ else ()
   add_library(boost INTERFACE)
   target_include_directories(boost INTERFACE ${CMAKE_BINARY_DIR}/boost_root)
   set(Boost_INCLUDE_DIR ${CMAKE_BINARY_DIR}/boost_root)
-  if (NOT LIMIT_TESTING_FOR_CI)
-    target_link_directories(boost INTERFACE ${CMAKE_BINARY_DIR}/boost_root/stage/lib)
-  endif()
+  target_link_directories(boost INTERFACE ${CMAKE_BINARY_DIR}/boost_root/stage/lib)
 endif ()
 
 
