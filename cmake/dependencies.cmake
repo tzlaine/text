@@ -11,6 +11,7 @@ find_package(Boost 1.71.0 COMPONENTS ${boost_components})
 if (Boost_INCLUDE_DIR)
   add_library(boost INTERFACE)
   target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIR})
+  target_link_directories(boost INTERFACE ${Boost_INCLUDE_DIR}/stage/lib)
 else ()
   if (NOT EXISTS ${CMAKE_BINARY_DIR}/boost_root)
     if (NOT BOOST_BRANCH)
@@ -60,6 +61,7 @@ else ()
       COMMAND git submodule init libs/type_traits
       COMMAND git submodule init libs/throw_exception
       COMMAND git submodule init libs/utility
+      COMMAND git submodule init libs/winapi
       COMMAND git submodule init libs/assert
       COMMAND git submodule init libs/config
       COMMAND git submodule init libs/core
@@ -78,20 +80,18 @@ else ()
   add_library(boost INTERFACE)
   target_include_directories(boost INTERFACE ${CMAKE_BINARY_DIR}/boost_root)
   set(Boost_INCLUDE_DIR ${CMAKE_BINARY_DIR}/boost_root)
-  if (NOT LIMIT_TESTING_FOR_CI)
-    target_link_directories(boost INTERFACE ${CMAKE_BINARY_DIR}/boost_root/stage/lib)
-  endif()
+  target_link_directories(boost INTERFACE ${CMAKE_BINARY_DIR}/boost_root/stage/lib)
 endif ()
 
 
 ###############################################################################
 # GoogleTest
 ###############################################################################
-add_subdirectory(${CMAKE_SOURCE_DIR}/googletest-release-1.8.0)
+add_subdirectory(${CMAKE_SOURCE_DIR}/googletest-release-1.10.0)
 target_compile_definitions(gtest      PUBLIC GTEST_LANG_CXX11=1)
 target_compile_definitions(gtest_main PUBLIC GTEST_LANG_CXX11=1)
-target_include_directories(gtest      INTERFACE ${CMAKE_HOME_DIRECTORY}/googletest-release-1.8.0/googletest/include)
-target_include_directories(gtest_main INTERFACE ${CMAKE_HOME_DIRECTORY}/googletest-release-1.8.0/googletest/include)
+target_include_directories(gtest      INTERFACE $<BUILD_INTERFACE:${CMAKE_HOME_DIRECTORY}/googletest-release-1.10.0/googletest/include>)
+target_include_directories(gtest_main INTERFACE $<BUILD_INTERFACE:${CMAKE_HOME_DIRECTORY}/googletest-release-1.10.0/googletest/include>)
 
 
 ###############################################################################

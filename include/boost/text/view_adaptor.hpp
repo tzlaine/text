@@ -8,6 +8,7 @@
 
 #include <boost/text/config.hpp>
 #include <boost/text/detail/algorithm.hpp>
+#include <boost/text/detail/view_closure.hpp>
 
 #include <tuple>
 #include <type_traits>
@@ -109,8 +110,16 @@ namespace boost { namespace text {
 #define BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE 0
 #endif
 
+#if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE && defined(_MSC_VER) &&    \
+    _MSC_VER <= 1929
+#define BOOST_TEXT_NEED_VS2019_COMPATIBLE_RANGE_ADAPTOR_CLOSURE 1
+#else
+#define BOOST_TEXT_NEED_VS2019_COMPATIBLE_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
 #if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE &&                         \
-    !BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE
+    !BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE &&                   \
+    !BOOST_TEXT_NEED_VS2019_COMPATIBLE_RANGE_ADAPTOR_CLOSURE
 #define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 1
 #else
 #define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 0
@@ -163,6 +172,11 @@ namespace boost { namespace text {
 
     template<typename D>
     using range_adaptor_closure = std::views::__adaptor::_RangeAdaptorClosure;
+
+#elif BOOST_TEXT_NEED_VS2019_COMPATIBLE_RANGE_ADAPTOR_CLOSURE
+
+    template<typename D>
+    using range_adaptor_closure = detail::pipeable<D>;
 
 #else
 

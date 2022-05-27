@@ -8,6 +8,9 @@
 
 #include <boost/text/config.hpp>
 
+#if BOOST_TEXT_USE_CONCEPTS
+#include <ranges>
+#endif
 #include <vector>
 
 

@@ -382,7 +382,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     namespace dtl {
-        struct paragraphs_impl : range_adaptor_closure<paragraphs_impl>
+        struct paragraphs_impl : detail::pipeable<paragraphs_impl>
         {
             template<typename CPIter, typename Sentinel>
             auto operator()(CPIter first, Sentinel last) const
@@ -522,7 +522,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     namespace dtl {
-        struct paragraphs_impl : range_adaptor_closure<paragraphs_impl>
+        struct paragraphs_impl : detail::pipeable<paragraphs_impl>
         {
             template<code_point_iter I, std::sentinel_for<I> S>
             auto operator()(I first, S last) const

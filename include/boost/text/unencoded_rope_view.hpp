@@ -139,7 +139,7 @@ namespace boost { namespace text {
             switch (which_) {
             case which::r:
                 return const_iterator(ref_.r_.r_->begin() + ref_.r_.lo_);
-            case which::tv: return const_iterator(ref_.tv_.begin());
+            case which::tv: return const_iterator(ref_.tv_.data());
             }
             return const_iterator(); // This should never execute.
         }
@@ -148,7 +148,8 @@ namespace boost { namespace text {
             switch (which_) {
             case which::r:
                 return const_iterator(ref_.r_.r_->begin() + ref_.r_.hi_);
-            case which::tv: return const_iterator(ref_.tv_.end());
+            case which::tv:
+                return const_iterator(ref_.tv_.data() + ref_.tv_.size());
             }
             return const_iterator(); // This should never execute.
         }

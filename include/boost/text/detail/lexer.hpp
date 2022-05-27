@@ -110,12 +110,12 @@ namespace boost { namespace text { namespace detail {
             bool const last_line = end <= i + 1;
             auto tok_end = lat.tokens_.end();
             if (last_line) {
-                os << (str.begin() + lat.line_starts_[i]);
+                os << (str.data() + lat.line_starts_[i]);
                 if (str.back() != '\n')
                     os << "\n";
             } else {
                 os.write(
-                    str.begin() + lat.line_starts_[i],
+                    str.data() + lat.line_starts_[i],
                     lat.line_starts_[i + 1] - lat.line_starts_[i]);
                 if (str[lat.line_starts_[i + 1] - 1] != '\n')
                     os << "\n";

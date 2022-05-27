@@ -473,14 +473,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         code_point_iter I,
         std::sentinel_for<I> S,
         std::weakly_incrementable O>
-    requires std::indirectly_copyable<I, O>
+    requires indirectly_copyable<I, O>
     constexpr copy_result<I, O> stream_safe_copy(I first, S last, O out)
     {
         return detail::stream_safe_copy_impl(first, last, out);
     }
 
     template<code_point_range R, std::weakly_incrementable O>
-    requires std::indirectly_copyable<detail::iterator_t<R>, O>
+    requires indirectly_copyable<detail::iterator_t<R>, O>
     constexpr copy_result<std::ranges::borrowed_iterator_t<R>, O>
     stream_safe_copy(R && r, O out)
     {

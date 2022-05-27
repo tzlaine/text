@@ -316,6 +316,9 @@ namespace boost { namespace text {
 namespace boost { namespace text {
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires utf8_code_unit<Char> || utf16_code_unit<Char>
+#endif
     basic_rope_view<Normalization, Char, String>::basic_rope_view(
         text const & t) :
         view_(basic_string_view<char_type>(
@@ -323,6 +326,9 @@ namespace boost { namespace text {
     {}
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires utf8_code_unit<Char> || utf16_code_unit<Char>
+#endif
     basic_rope_view<Normalization, Char, String>::basic_rope_view(
         text_view tv) :
         view_(basic_string_view<char_type>(
@@ -330,6 +336,9 @@ namespace boost { namespace text {
     {}
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires utf8_code_unit<Char> || utf16_code_unit<Char>
+#endif
     basic_rope_view<Normalization, Char, String>::basic_rope_view(
         const_rope_iterator first, const_rope_iterator last)
     {
@@ -341,6 +350,9 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires utf8_code_unit<Char> || utf16_code_unit<Char>
+#endif
     basic_rope_view<Normalization, Char, String> &
     basic_rope_view<Normalization, Char, String>::operator=(text const & t)
     {
@@ -350,6 +362,9 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires utf8_code_unit<Char> || utf16_code_unit<Char>
+#endif
     basic_rope_view<Normalization, Char, String> &
     basic_rope_view<Normalization, Char, String>::operator=(text_view tv)
     {
@@ -359,12 +374,18 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires utf8_code_unit<Char> || utf16_code_unit<Char>
+#endif
     typename basic_rope_view<Normalization, Char, String>::const_iterator
     basic_rope_view<Normalization, Char, String>::begin() const
     {
         return make_iter(view_.begin(), view_.begin(), view_.end());
     }
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires utf8_code_unit<Char> || utf16_code_unit<Char>
+#endif
     typename basic_rope_view<Normalization, Char, String>::const_iterator
     basic_rope_view<Normalization, Char, String>::end() const
     {
@@ -372,6 +393,9 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    requires utf8_code_unit<Char> || utf16_code_unit<Char>
+#endif
     typename basic_rope_view<Normalization, Char, String>::size_type
     basic_rope_view<Normalization, Char, String>::storage_code_units() const
     {

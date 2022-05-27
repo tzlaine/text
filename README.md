@@ -20,7 +20,8 @@ It's more interesting than it sounds.
 
 Online docs: https://tzlaine.github.io/text
 
-[![Build Status](https://travis-ci.org/tzlaine/text.svg?branch=master)](https://travis-ci.org/tzlaine/text)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/tzlaine/text?branch=master&svg=true)](https://ci.appveyor.com/project/tzlaine/text)
-[![codecov](./coverage.svg)](https://codecov.io/gh/tzlaine/text)
+[![Ubuntu-20.04 - GCC 9,10](https://github.com/tzlaine/text/actions/workflows/ubuntu-20.04.yml/badge.svg)](https://github.com/tzlaine/text/actions/workflows/ubuntu-20.04.yml) [![Ubuntu-22.04 - GCC 10,11](https://github.com/tzlaine/text/actions/workflows/ubuntu-22.04.yml/badge.svg)](https://github.com/tzlaine/text/actions/workflows/ubuntu-22.04.yml)
+
+[![Windows-2019 - Visual Studio 2019](https://github.com/tzlaine/text/actions/workflows/windows-2019.yml/badge.svg)](https://github.com/tzlaine/text/actions/workflows/windows-2019.yml) [![Windows-2022 - Visual Studio 2022](https://github.com/tzlaine/text/actions/workflows/windows-2022.yml/badge.svg)](https://github.com/tzlaine/text/actions/workflows/windows-2022.yml)
+
 [![License](https://img.shields.io/badge/license-boost-brightgreen.svg)](LICENSE_1_0.txt)

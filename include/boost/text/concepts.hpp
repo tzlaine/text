@@ -177,6 +177,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     //]
 
+    // Clang 13 defines __cpp_lib_concepts but not std::indirectly copyable.
+#if defined(__clang_major__) && __clang_major__ == 13
+    template<typename In, typename Out>
+    // clang-format off
+    concept indirectly_copyable =
+        std::indirectly_readable<In> &&
+        std::indirectly_writable<Out, std::iter_reference_t<In>>;
+    // clang-format on
+#else
+    template<typename In, typename Out>
+    concept indirectly_copyable = std::indirectly_copyable<In, Out>;
+#endif
+
 }}}
 
 #endif

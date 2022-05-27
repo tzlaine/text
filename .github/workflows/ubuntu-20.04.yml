@@ -1,0 +1,37 @@
+name: Ubuntu-20.04 - GCC 9,10
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Debug
+
+# See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+jobs:
+  build:
+    strategy:
+      matrix:
+        compiler_version: [g++-9, g++-10]
+        cxx_std: [14, 17]
+
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+  
+      - name: Configure CMake
+        # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+        # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DLIMIT_TESTING_FOR_CI=true -DCMAKE_CXX_COMPILER=${{matrix.compiler_version}} -DCXX_STD=${{matrix.cxx_std}}
+  
+      - name: Build
+        working-directory: ${{github.workspace}}/build
+        run: make -j2
+  
+      - name: Test
+        working-directory: ${{github.workspace}}/build
+        run: make check

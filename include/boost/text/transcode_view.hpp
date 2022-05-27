@@ -9,8 +9,8 @@
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/concepts.hpp>
 #include <boost/text/dangling.hpp>
-#include <boost/text/detail/unpack.hpp>
 #include <boost/text/view_adaptor.hpp>
+#include <boost/text/detail/unpack.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
@@ -200,7 +200,7 @@ namespace boost { namespace text {
             Defined on Windows only. */
         friend std::wostream & operator<<(std::wostream & os, utf8_view v)
         {
-            boost::text::transcode_utf_8_to_16(
+            boost::text::transcode_to_utf16(
                 v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
             return os;
         }

@@ -8,6 +8,7 @@
 
 #include <boost/text/algorithm.hpp>
 #include <boost/text/grapheme_view.hpp>
+#include <boost/text/view_adaptor.hpp>
 #include <boost/text/detail/breaks_impl.hpp>
 
 #include <boost/assert.hpp>

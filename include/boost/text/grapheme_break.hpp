@@ -7,10 +7,11 @@
 #define BOOST_TEXT_GRAPHEME_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
-#include <boost/text/view_adaptor.hpp>
+#include <boost/text/detail/pipeable_view.hpp>
 
 #include <boost/assert.hpp>
 
+#include <algorithm>
 #include <array>
 #include <unordered_map>
 

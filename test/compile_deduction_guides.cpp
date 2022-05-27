@@ -28,12 +28,14 @@ void grapheme_guides()
         static_assert(std::is_same_v<decltype(gr), grapheme_ref<int const *>>);
     }
 
+#if !defined(_MSC_VER)
     {
         grapheme_ref gr{grapheme{}};
         static_assert(std::is_same_v<
                       decltype(gr),
                       grapheme_ref<grapheme::const_iterator>>);
     }
+#endif
 }
 
 void grapheme_view_guides()
