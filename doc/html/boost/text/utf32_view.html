@@ -31,48 +31,48 @@
   <span class="keyword">typedef</span> <span class="identifier">S</span> <a name="boost.text.utf32_view.sentinel"></a><span class="identifier">sentinel</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="utf32_view.html#boost.text.utf32_viewconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="utf32_view.html#idm26569-bb"><span class="identifier">utf32_view</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="utf32_view.html#idm26570-bb"><span class="identifier">utf32_view</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">sentinel</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="utf32_view.html#idm26566-bb"><span class="identifier">utf32_view</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="utf32_view.html#idm26567-bb"><span class="identifier">utf32_view</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">sentinel</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="utf32_view.html#idm26564-bb">public member functions</a></span>
-  <span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a class="link" href="utf32_view.html#idm26565-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a class="link" href="utf32_view.html#idm26567-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="utf32_view.html#idm26561-bb">public member functions</a></span>
+  <span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a class="link" href="utf32_view.html#idm26562-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a class="link" href="utf32_view.html#idm26564-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="utf32_view.html#idm26575-bb">friend functions</a></span>
-  <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="utf32_view.html#idm26576-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> <a class="link" href="utf32_view.html#idm26585-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="utf32_view.html#idm26572-bb">friend functions</a></span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="utf32_view.html#idm26573-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> <a class="link" href="utf32_view.html#idm26582-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm53348"></a><h2>Description</h2>
+<a name="idm53345"></a><h2>Description</h2>
 <p>A view over UTF-32 code units. </p>
 <div class="refsect2">
-<a name="idm53351"></a><h3>
+<a name="idm53348"></a><h3>
 <a name="boost.text.utf32_viewconstruct-copy-destruct"></a><code class="computeroutput">utf32_view</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm26569-bb"></a><span class="identifier">utf32_view</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm26570-bb"></a><span class="identifier">utf32_view</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">sentinel</span> last<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm26566-bb"></a><span class="identifier">utf32_view</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm26567-bb"></a><span class="identifier">utf32_view</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">sentinel</span> last<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm53375"></a><h3>
-<a name="idm26564-bb"></a><code class="computeroutput">utf32_view</code> public member functions</h3>
+<a name="idm53372"></a><h3>
+<a name="idm26561-bb"></a><code class="computeroutput">utf32_view</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a name="idm26565-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a name="idm26567-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a name="idm26562-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a name="idm26564-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm53402"></a><h3>
-<a name="idm26575-bb"></a><code class="computeroutput">utf32_view</code> friend functions</h3>
+<a name="idm53399"></a><h3>
+<a name="idm26572-bb"></a><code class="computeroutput">utf32_view</code> friend functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm26576-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a> v<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm26573-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a> v<span class="special">)</span><span class="special">;</span></pre>
 <p>Stream inserter; performs unformatted output, in UTF-8 encoding. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> <a name="idm26585-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a> v<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> <a name="idm26582-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a> v<span class="special">)</span><span class="special">;</span></pre>
 <p>Stream inserter; performs unformatted output, in UTF-16 encoding. Defined on Windows only. </p>
 </li>
 </ol></div>

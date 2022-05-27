@@ -25,40 +25,40 @@
 </span>
 <span class="keyword">struct</span> <a class="link" href="collation_compare.html" title="Struct collation_compare">collation_compare</a> <span class="special">{</span>
   <span class="comment">// <a class="link" href="collation_compare.html#boost.text.collation_compareconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="collation_compare.html#idm18099-bb"><span class="identifier">collation_compare</span></a><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a><span class="special">,</span> <span class="identifier">collation_strength</span><span class="special">,</span> 
+  <a class="link" href="collation_compare.html#idm18096-bb"><span class="identifier">collation_compare</span></a><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a><span class="special">,</span> <span class="identifier">collation_strength</span><span class="special">,</span> 
                     <span class="identifier">case_first</span> <span class="special">=</span> <span class="identifier">case_first</span><span class="special">::</span><span class="identifier">off</span><span class="special">,</span> 
                     <span class="identifier">case_level</span> <span class="special">=</span> <span class="identifier">case_level</span><span class="special">::</span><span class="identifier">off</span><span class="special">,</span> 
                     <span class="identifier">variable_weighting</span> <span class="special">=</span> <span class="identifier">variable_weighting</span><span class="special">::</span><span class="identifier">non_ignorable</span><span class="special">,</span> 
                     <span class="identifier">l2_weight_order</span> <span class="special">=</span> <span class="identifier">l2_weight_order</span><span class="special">::</span><span class="identifier">forward</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="collation_compare.html#idm18117-bb"><span class="identifier">collation_compare</span></a><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a><span class="special">,</span> <span class="identifier">collation_flags</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="collation_compare.html#idm18114-bb"><span class="identifier">collation_compare</span></a><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a><span class="special">,</span> <span class="identifier">collation_flags</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="collation_compare.html#idm18083-bb">public member functions</a></span>
+  <span class="comment">// <a class="link" href="collation_compare.html#idm18080-bb">public member functions</a></span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">code_point_range</span> R1<span class="special">,</span> <span class="identifier">code_point_range</span> R2<span class="special">&gt;</span> 
-    <span class="keyword">bool</span> <a class="link" href="collation_compare.html#idm18084-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">R1</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">R2</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="keyword">bool</span> <a class="link" href="collation_compare.html#idm18081-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">R1</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">R2</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm22890"></a><h2>Description</h2>
+<a name="idm22887"></a><h2>Description</h2>
 <p>A function object suitable for use with standard algorithms that accept a comparison object. </p>
 <div class="refsect2">
-<a name="idm22893"></a><h3>
+<a name="idm22890"></a><h3>
 <a name="boost.text.collation_compareconstruct-copy-destruct"></a><code class="computeroutput">collation_compare</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm18099-bb"></a><span class="identifier">collation_compare</span><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a> table<span class="special">,</span> <span class="identifier">collation_strength</span> strength<span class="special">,</span> 
+<li class="listitem"><pre class="literallayout"><a name="idm18096-bb"></a><span class="identifier">collation_compare</span><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a> table<span class="special">,</span> <span class="identifier">collation_strength</span> strength<span class="special">,</span> 
                   <span class="identifier">case_first</span> case_1st <span class="special">=</span> <span class="identifier">case_first</span><span class="special">::</span><span class="identifier">off</span><span class="special">,</span> 
                   <span class="identifier">case_level</span> case_lvl <span class="special">=</span> <span class="identifier">case_level</span><span class="special">::</span><span class="identifier">off</span><span class="special">,</span> 
                   <span class="identifier">variable_weighting</span> weighting <span class="special">=</span> <span class="identifier">variable_weighting</span><span class="special">::</span><span class="identifier">non_ignorable</span><span class="special">,</span> 
                   <span class="identifier">l2_weight_order</span> l2_order <span class="special">=</span> <span class="identifier">l2_weight_order</span><span class="special">::</span><span class="identifier">forward</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm18117-bb"></a><span class="identifier">collation_compare</span><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a> table<span class="special">,</span> <span class="identifier">collation_flags</span> flags<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm18114-bb"></a><span class="identifier">collation_compare</span><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a> table<span class="special">,</span> <span class="identifier">collation_flags</span> flags<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm22944"></a><h3>
-<a name="idm18083-bb"></a><code class="computeroutput">collation_compare</code> public member functions</h3>
+<a name="idm22941"></a><h3>
+<a name="idm18080-bb"></a><code class="computeroutput">collation_compare</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">code_point_range</span> R1<span class="special">,</span> <span class="identifier">code_point_range</span> R2<span class="special">&gt;</span> 
-  <span class="keyword">bool</span> <a name="idm18084-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">R1</span> <span class="keyword">const</span> <span class="special">&amp;</span> r1<span class="special">,</span> <span class="identifier">R2</span> <span class="keyword">const</span> <span class="special">&amp;</span> r2<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+  <span class="keyword">bool</span> <a name="idm18081-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">R1</span> <span class="keyword">const</span> <span class="special">&amp;</span> r1<span class="special">,</span> <span class="identifier">R2</span> <span class="keyword">const</span> <span class="special">&amp;</span> r2<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p>Compares code point ranges <code class="computeroutput">R1</code> and <code class="computeroutput">R2</code>. </p>
 </li></ol></div>
 </div>

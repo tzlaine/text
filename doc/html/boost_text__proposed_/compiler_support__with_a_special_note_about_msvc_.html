@@ -23,13 +23,15 @@
       takes advantage of C++14 constexpr support for much of <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Type definition text_view">text_view</a></code>'s implementation.
     </p>
 <p>
-      Clang versions 3.6 and later (which corresponds to XCode versions 6.4 or later),
-      and GCC versions 5 and later all work.
+      For C++14 and C++17 builds:
     </p>
 <p>
-      MSVC support has been tested with Visual Studio 2017. Later versions are expected
-      to work as well. Note that Visual Studio 2017 does not have correct C++14
-      <code class="computeroutput"><span class="keyword">constexpr</span></code> support.
+      - Clang versions 6 and later and GCC versions 6 and later work.
+    </p>
+<p>
+      - Visual Studio 2019 and later work as well. Note that Visual Studio 2017 does
+      not have correct C++14 <code class="computeroutput"><span class="keyword">constexpr</span></code>
+      support.
     </p>
 <div class="important"><table border="0" summary="Important">
 <tr>
@@ -53,21 +55,9 @@
     </h4>
 <p>
       The C++20 interfaces provided by Boost.Text are only available when compiling
-      in C++20 mode. At the time of this writing, only GCC 10 is known to work in
-      C++20 mode.
+      in C++20 mode. At the time of this writing, GCC 10+, Clang 13+, and VS 2019+
+      are known to work in C++20 mode.
     </p>
-<div class="note"><table border="0" summary="Note">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
-<th align="left">Note</th>
-</tr>
-<tr><td align="left" valign="top"><p>
-        At the time of this writing, the C++20 interfaces include functions in the
-        <code class="computeroutput"><span class="identifier">v2</span></code> namespace and all the
-        types associated with transcoding and normalization. Eventually, all the
-        interfaces will be concept-constrained.
-      </p></td></tr>
-</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

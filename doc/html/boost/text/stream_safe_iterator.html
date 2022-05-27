@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../../header/boost/text/stream_safe_hpp.html" title="Header &lt;boost/text/stream_safe.hpp&gt;">
-<link rel="prev" href="v1/as_stream_safe_idm22124.html" title="Function template as_stream_safe">
+<link rel="prev" href="v1/as_stream_safe_idm22121.html" title="Function template as_stream_safe">
 <link rel="next" href="stream_safe_view.html" title="Struct template stream_safe_view">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="v1/as_stream_safe_idm22124.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/stream_safe_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="stream_safe_view.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="v1/as_stream_safe_idm22121.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/stream_safe_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="stream_safe_view.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.text.stream_safe_iterator"></a><div class="titlepage"></div>
@@ -31,17 +31,17 @@
   <span class="keyword">typedef</span> <span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">iterator_interface</span><span class="special">&lt;</span> <a class="link" href="stream_safe_iterator.html" title="Struct template stream_safe_iterator">stream_safe_iterator</a><span class="special">&lt;</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">S</span> <span class="special">&gt;</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">bidirectional_iterator_tag</span><span class="special">,</span> <span class="identifier">uint32_t</span><span class="special">,</span> <span class="identifier">uint32_t</span> <span class="special">&gt;</span> <a name="boost.text.stream_safe_iterator.base_type"></a><span class="identifier">base_type</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="stream_safe_iterator.html#boost.text.stream_safe_iteratorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="stream_safe_iterator.html#idm21946-bb"><span class="identifier">stream_safe_iterator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="stream_safe_iterator.html#idm21947-bb"><span class="identifier">stream_safe_iterator</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">sentinel</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="stream_safe_iterator.html#idm21943-bb"><span class="identifier">stream_safe_iterator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="stream_safe_iterator.html#idm21944-bb"><span class="identifier">stream_safe_iterator</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">sentinel</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="stream_safe_iterator.html#idm21935-bb">public member functions</a></span>
-  <span class="identifier">uint32_t</span> <a class="link" href="stream_safe_iterator.html#idm21936-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">constexpr</span> <span class="identifier">I</span> <a class="link" href="stream_safe_iterator.html#idm21938-bb"><span class="identifier">base</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <a class="link" href="stream_safe_iterator.html" title="Struct template stream_safe_iterator">stream_safe_iterator</a> <span class="special">&amp;</span> <a class="link" href="stream_safe_iterator.html#idm21940-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="stream_safe_iterator.html" title="Struct template stream_safe_iterator">stream_safe_iterator</a> <span class="special">&amp;</span> <a class="link" href="stream_safe_iterator.html#idm21943-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="stream_safe_iterator.html#idm21932-bb">public member functions</a></span>
+  <span class="identifier">uint32_t</span> <a class="link" href="stream_safe_iterator.html#idm21933-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <span class="identifier">I</span> <a class="link" href="stream_safe_iterator.html#idm21935-bb"><span class="identifier">base</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <a class="link" href="stream_safe_iterator.html" title="Struct template stream_safe_iterator">stream_safe_iterator</a> <span class="special">&amp;</span> <a class="link" href="stream_safe_iterator.html#idm21937-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="stream_safe_iterator.html" title="Struct template stream_safe_iterator">stream_safe_iterator</a> <span class="special">&amp;</span> <a class="link" href="stream_safe_iterator.html#idm21940-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm37104"></a><h2>Description</h2>
+<a name="idm37101"></a><h2>Description</h2>
 <p>An iterator that filters out all the non-stream-safe code points from a sequence of code points.</p>
 <p><span class="bold"><strong>See Also:</strong></span></p>
 <p><a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">https://unicode.org/reports/tr15/#Stream_Safe_Text_Format</a> </p>
@@ -50,23 +50,23 @@
 <p>
 </p>
 <div class="refsect2">
-<a name="idm37112"></a><h3>
+<a name="idm37109"></a><h3>
 <a name="boost.text.stream_safe_iteratorconstruct-copy-destruct"></a><code class="computeroutput">stream_safe_iterator</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm21946-bb"></a><span class="identifier">stream_safe_iterator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm21947-bb"></a><span class="identifier">stream_safe_iterator</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">sentinel</span> last<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm21943-bb"></a><span class="identifier">stream_safe_iterator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm21944-bb"></a><span class="identifier">stream_safe_iterator</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">sentinel</span> last<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm37136"></a><h3>
-<a name="idm21935-bb"></a><code class="computeroutput">stream_safe_iterator</code> public member functions</h3>
+<a name="idm37133"></a><h3>
+<a name="idm21932-bb"></a><code class="computeroutput">stream_safe_iterator</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">uint32_t</span> <a name="idm21936-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">I</span> <a name="idm21938-bb"></a><span class="identifier">base</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="stream_safe_iterator.html" title="Struct template stream_safe_iterator">stream_safe_iterator</a> <span class="special">&amp;</span> <a name="idm21940-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="stream_safe_iterator.html" title="Struct template stream_safe_iterator">stream_safe_iterator</a> <span class="special">&amp;</span> <a name="idm21943-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">uint32_t</span> <a name="idm21933-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">I</span> <a name="idm21935-bb"></a><span class="identifier">base</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="stream_safe_iterator.html" title="Struct template stream_safe_iterator">stream_safe_iterator</a> <span class="special">&amp;</span> <a name="idm21937-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="stream_safe_iterator.html" title="Struct template stream_safe_iterator">stream_safe_iterator</a> <span class="special">&amp;</span> <a name="idm21940-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>
@@ -81,7 +81,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="v1/as_stream_safe_idm22124.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/stream_safe_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="stream_safe_view.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="v1/as_stream_safe_idm22121.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/stream_safe_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="stream_safe_view.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

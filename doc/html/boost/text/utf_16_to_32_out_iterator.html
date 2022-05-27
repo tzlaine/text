@@ -7,11 +7,11 @@
 <link rel="home" href="../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../../header/boost/text/transcode_iterator_hpp.html" title="Header &lt;boost/text/transcode_iterator.hpp&gt;">
 <link rel="prev" href="utf_16_to_32_iterator.html" title="Struct template utf_16_to_32_iterator">
-<link rel="next" href="utf_16_to_8_back__idm24848.html" title="Struct template utf_16_to_8_back_insert_iterator">
+<link rel="next" href="utf_16_to_8_back__idm24845.html" title="Struct template utf_16_to_8_back_insert_iterator">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="utf_16_to_32_iterator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/transcode_iterator_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="utf_16_to_8_back__idm24848.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="utf_16_to_32_iterator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/transcode_iterator_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="utf_16_to_8_back__idm24845.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.text.utf_16_to_32_out_iterator"></a><div class="titlepage"></div>
@@ -25,31 +25,31 @@
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">output_iterator</span><span class="special">&lt;</span> <span class="identifier">uint32_t</span> <span class="special">&gt;</span> Iter<span class="special">&gt;</span> 
 <span class="keyword">struct</span> <a class="link" href="utf_16_to_32_out_iterator.html" title="Struct template utf_16_to_32_out_iterator">utf_16_to_32_out_iterator</a> <span class="special">{</span>
   <span class="comment">// <a class="link" href="utf_16_to_32_out_iterator.html#boost.text.utf_16_to_32_out_iteratorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="utf_16_to_32_out_iterator.html#idm24839-bb"><span class="identifier">utf_16_to_32_out_iterator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">explicit</span> <a class="link" href="utf_16_to_32_out_iterator.html#idm24840-bb"><span class="identifier">utf_16_to_32_out_iterator</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="utf_16_to_32_out_iterator.html" title="Struct template utf_16_to_32_out_iterator">utf_16_to_32_out_iterator</a> <span class="special">&amp;</span> <a class="link" href="utf_16_to_32_out_iterator.html#idm24843-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">uint16_t</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="utf_16_to_32_out_iterator.html#idm24836-bb"><span class="identifier">utf_16_to_32_out_iterator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="utf_16_to_32_out_iterator.html#idm24837-bb"><span class="identifier">utf_16_to_32_out_iterator</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="utf_16_to_32_out_iterator.html" title="Struct template utf_16_to_32_out_iterator">utf_16_to_32_out_iterator</a> <span class="special">&amp;</span> <a class="link" href="utf_16_to_32_out_iterator.html#idm24840-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">uint16_t</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="utf_16_to_32_out_iterator.html#idm24836-bb">public member functions</a></span>
-  <span class="identifier">Iter</span> <a class="link" href="utf_16_to_32_out_iterator.html#idm24837-bb"><span class="identifier">base</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="utf_16_to_32_out_iterator.html#idm24833-bb">public member functions</a></span>
+  <span class="identifier">Iter</span> <a class="link" href="utf_16_to_32_out_iterator.html#idm24834-bb"><span class="identifier">base</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm49496"></a><h2>Description</h2>
+<a name="idm49493"></a><h2>Description</h2>
 <p>An out iterator that converts UTF-16 to UTF-32. </p>
 <div class="refsect2">
-<a name="idm49499"></a><h3>
+<a name="idm49496"></a><h3>
 <a name="boost.text.utf_16_to_32_out_iteratorconstruct-copy-destruct"></a><code class="computeroutput">utf_16_to_32_out_iterator</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm24839-bb"></a><span class="identifier">utf_16_to_32_out_iterator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idm24840-bb"></a><span class="identifier">utf_16_to_32_out_iterator</span><span class="special">(</span><span class="identifier">Iter</span> it<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="utf_16_to_32_out_iterator.html" title="Struct template utf_16_to_32_out_iterator">utf_16_to_32_out_iterator</a> <span class="special">&amp;</span> <a name="idm24843-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">uint16_t</span> cu<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm24836-bb"></a><span class="identifier">utf_16_to_32_out_iterator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idm24837-bb"></a><span class="identifier">utf_16_to_32_out_iterator</span><span class="special">(</span><span class="identifier">Iter</span> it<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="utf_16_to_32_out_iterator.html" title="Struct template utf_16_to_32_out_iterator">utf_16_to_32_out_iterator</a> <span class="special">&amp;</span> <a name="idm24840-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">uint16_t</span> cu<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm49534"></a><h3>
-<a name="idm24836-bb"></a><code class="computeroutput">utf_16_to_32_out_iterator</code> public member functions</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="identifier">Iter</span> <a name="idm24837-bb"></a><span class="identifier">base</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
+<a name="idm49531"></a><h3>
+<a name="idm24833-bb"></a><code class="computeroutput">utf_16_to_32_out_iterator</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="identifier">Iter</span> <a name="idm24834-bb"></a><span class="identifier">base</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
 </div>
 </div>
 </div>
@@ -63,7 +63,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="utf_16_to_32_iterator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/transcode_iterator_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="utf_16_to_8_back__idm24848.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="utf_16_to_32_iterator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/transcode_iterator_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="utf_16_to_8_back__idm24845.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

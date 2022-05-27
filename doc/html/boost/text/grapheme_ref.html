@@ -7,11 +7,11 @@
 <link rel="home" href="../../index.html" title="Chapter 1. Boost.Text (Proposed)">
 <link rel="up" href="../../header/boost/text/grapheme_hpp.html" title="Header &lt;boost/text/grapheme.hpp&gt;">
 <link rel="prev" href="grapheme.html" title="Struct grapheme">
-<link rel="next" href="storage_code_unit_idm18417.html" title="Function storage_code_units">
+<link rel="next" href="storage_code_unit_idm18414.html" title="Function storage_code_units">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="grapheme.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/grapheme_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="storage_code_unit_idm18417.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="grapheme.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/grapheme_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="storage_code_unit_idm18414.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.text.grapheme_ref"></a><div class="titlepage"></div>
@@ -28,29 +28,29 @@
   <span class="keyword">typedef</span> <span class="identifier">I</span> <a name="boost.text.grapheme_ref.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="grapheme_ref.html#boost.text.grapheme_refconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="grapheme_ref.html#idm18378-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
-  <a class="link" href="grapheme_ref.html#idm18381-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="grapheme_ref.html#idm18391-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="grapheme_ref.html#idm18400-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="grapheme_ref.html#idm18375-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
+  <a class="link" href="grapheme_ref.html#idm18378-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="grapheme_ref.html#idm18388-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="grapheme_ref.html#idm18397-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="grapheme_ref.html#idm18406-bb">friend functions</a></span>
-  <span class="keyword">constexpr</span> <span class="keyword">bool</span> <a class="link" href="grapheme_ref.html#idm18407-bb"><span class="keyword">operator</span><span class="special">==</span></a><span class="special">(</span><a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">,</span> <a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="grapheme_ref.html#idm18403-bb">friend functions</a></span>
+  <span class="keyword">constexpr</span> <span class="keyword">bool</span> <a class="link" href="grapheme_ref.html#idm18404-bb"><span class="keyword">operator</span><span class="special">==</span></a><span class="special">(</span><a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">,</span> <a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm24094"></a><h2>Description</h2>
+<a name="idm24091"></a><h2>Description</h2>
 <p>A non-owning reference to a range of code points that comprise a grapheme. </p>
 <div class="refsect2">
-<a name="idm24097"></a><h3>
+<a name="idm24094"></a><h3>
 <a name="boost.text.grapheme_refconstruct-copy-destruct"></a><code class="computeroutput">grapheme_ref</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><a name="idm18378-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm18375-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre>
 <p>Default ctor. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm18381-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm18378-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs *this from the code points [first, last).</p>
 <p>
 </p>
@@ -66,7 +66,7 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm18391-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm18388-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> r<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs *this from r.</p>
 <p>
 </p>
@@ -82,16 +82,16 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm18400-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span> g<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm18397-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span> g<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs *this from g. </p>
 </li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm24162"></a><h3>
-<a name="idm18406-bb"></a><code class="computeroutput">grapheme_ref</code> friend functions</h3>
+<a name="idm24159"></a><h3>
+<a name="idm18403-bb"></a><code class="computeroutput">grapheme_ref</code> friend functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">constexpr</span> <span class="keyword">bool</span> <a name="idm18407-bb"></a><span class="keyword">operator</span><span class="special">==</span><span class="special">(</span><a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a> lhs<span class="special">,</span> <a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a> rhs<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">constexpr</span> <span class="keyword">bool</span> <a name="idm18404-bb"></a><span class="keyword">operator</span><span class="special">==</span><span class="special">(</span><a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a> lhs<span class="special">,</span> <a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a> rhs<span class="special">)</span><span class="special">;</span></pre>
 <p>Returns true if lhs the same sequence of code points as rhs. </p>
 </li></ol></div>
 </div>
@@ -107,7 +107,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="grapheme.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/grapheme_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="storage_code_unit_idm18417.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="grapheme.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/grapheme_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="storage_code_unit_idm18414.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

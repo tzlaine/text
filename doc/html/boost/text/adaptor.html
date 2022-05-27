@@ -25,25 +25,25 @@
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> F<span class="special">&gt;</span> 
 <span class="keyword">struct</span> <a class="link" href="adaptor.html" title="Struct template adaptor">adaptor</a> <span class="special">{</span>
   <span class="comment">// <a class="link" href="adaptor.html#boost.text.adaptorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="adaptor.html#idm29302-bb"><span class="identifier">adaptor</span></a><span class="special">(</span><span class="identifier">F</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="adaptor.html#idm29299-bb"><span class="identifier">adaptor</span></a><span class="special">(</span><span class="identifier">F</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="adaptor.html#idm29294-bb">public member functions</a></span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="link" href="adaptor.html#idm29295-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="adaptor.html#idm29291-bb">public member functions</a></span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="link" href="adaptor.html#idm29292-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm64282"></a><h2>Description</h2>
+<a name="idm64279"></a><h2>Description</h2>
 <p>Adapts an invocable <code class="computeroutput">f</code> as a view adaptor. Calling <code class="computeroutput">operator(args...)</code> will either: call <code class="computeroutput">f(args...)</code> and return the result, if <code class="computeroutput">f(args...)</code> is well-formed; or return <code class="computeroutput">closure(text::bind_back(f, args...))</code> otherwise. </p>
 <div class="refsect2">
-<a name="idm64290"></a><h3>
+<a name="idm64287"></a><h3>
 <a name="boost.text.adaptorconstruct-copy-destruct"></a><code class="computeroutput">adaptor</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idm29302-bb"></a><span class="identifier">adaptor</span><span class="special">(</span><span class="identifier">F</span> f<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idm29299-bb"></a><span class="identifier">adaptor</span><span class="special">(</span><span class="identifier">F</span> f<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idm64304"></a><h3>
-<a name="idm29294-bb"></a><code class="computeroutput">adaptor</code> public member functions</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a name="idm29295-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span> args<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
+<a name="idm64301"></a><h3>
+<a name="idm29291-bb"></a><code class="computeroutput">adaptor</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a name="idm29292-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span> args<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
 </div>
 </div>
 </div>

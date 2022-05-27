@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Function template from_utf32_front_inserter</title>
+<link rel="stylesheet" href="../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../../index.html" title="Chapter 1. Boost.Text (Proposed)">
+<link rel="up" href="../../../header/boost/text/transcode_iterator_hpp.html" title="Header &lt;boost/text/transcode_iterator.hpp&gt;">
+<link rel="prev" href="from_utf16_front__idm25738.html" title="Function template from_utf16_front_inserter">
+<link rel="next" href="from_utf8_inserte_idm25835.html" title="Function template from_utf8_inserter">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="from_utf16_front__idm25738.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/transcode_iterator_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="from_utf8_inserte_idm25835.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.v1.from_utf32_front__idm25749"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Function template from_utf32_front_inserter</span></h2>
+<p>boost::text::v1::from_utf32_front_inserter</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../../header/boost/text/transcode_iterator_hpp.html" title="Header &lt;boost/text/transcode_iterator.hpp&gt;">boost/text/transcode_iterator.hpp</a>&gt;
+
+</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Cont<span class="special">&gt;</span> <span class="keyword">auto</span> <span class="identifier">from_utf32_front_inserter</span><span class="special">(</span><span class="identifier">Cont</span> <span class="special">&amp;</span> c<span class="special">)</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm48492"></a><h2>Description</h2>
+<p>Returns a front-inserting iterator that transcodes from UTF-32 to UTF-8, UTF-16, or UTF-32. Which UTF the iterator transcodes to depends on <code class="computeroutput">sizeof(Cont::value_type)</code>: <code class="computeroutput">1</code> implies UTF-8; <code class="computeroutput">2</code> implies UTF-16; and any other size implies UTF-32. </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright © 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="from_utf16_front__idm25738.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/transcode_iterator_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="from_utf8_inserte_idm25835.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
