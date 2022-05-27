@@ -11,6 +11,7 @@
 
 #include <boost/assert.hpp>
 
+#include <algorithm>
 #include <array>
 #include <unordered_map>
 
