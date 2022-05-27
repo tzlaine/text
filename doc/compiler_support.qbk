@@ -8,12 +8,12 @@
 _Text_ is written against the C++14 standard.  Specifically, _Text_ takes
 advantage of C++14 constexpr support for much of _tv_'s implementation.
 
-Clang versions 3.6 and later (which corresponds to XCode versions 6.4 or
-later), and GCC versions 5 and later all work.
+For C++14 and C++17 builds:
 
-MSVC support has been tested with Visual Studio 2017.  Later versions are
-expected to work as well.  Note that Visual Studio 2017 does not have correct
-C++14 _ce_ support.
+- Clang versions 6 and later and GCC versions 6 and later work.
+
+- Visual Studio 2019 and later work as well.  Note that Visual Studio 2017
+  does not have correct C++14 _ce_ support.
 
 [important When building your own code that uses any of the collation
 tailoring headers (under `boost/text/data/`), you must configure MSVC's source
@@ -26,11 +26,7 @@ latter flag changes the execution encoding as well.]
 [heading C++20 Support]
 
 The C++20 interfaces provided by _Text_ are only available when compiling in
-C++20 mode.  At the time of this writing, only GCC 10 is known to work in
-C++20 mode.
-
-[note At the time of this writing, the C++20 interfaces include functions in
-the `v2` namespace and all the types associated with transcoding and
-normalization.  Eventually, all the interfaces will be concept-constrained. ]
+C++20 mode.  At the time of this writing, GCC 10+, Clang 13+, and VS 2019+ are
+known to work in C++20 mode.
 
 [endsect]
