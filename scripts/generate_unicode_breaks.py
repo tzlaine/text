@@ -36,11 +36,11 @@ static std::array<{0}_interval, {1}> retval = {{{{
 return retval;
 }}
 
-namespace {
+namespace {{
 constexpr std::array<unsigned char, {5}> compressed = {{{{
 {4}
 }}}};
-}
+}}
 
 std::unordered_map<uint32_t, {0}erty> make_{0}_map()
 {{
