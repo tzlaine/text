@@ -17,6 +17,501 @@
 
 TEST(normalization, nfc_044_000)
 {
+    // C4EB;C4EB;110A 1172 11BE;C4EB;110A 1172 11BE; 
+    // (쓫; 쓫; 쓫; 쓫; 쓫; ) HANGUL SYLLABLE SSYUC
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xC4EB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC4EB }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1172, 0x11BE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC4EB }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1172, 0x11BE }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfc_044_001)
+{
+    // C4EC;C4EC;110A 1172 11BF;C4EC;110A 1172 11BF; 
+    // (쓬; 쓬; 쓬; 쓬; 쓬; ) HANGUL SYLLABLE SSYUK
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xC4EC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC4EC }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1172, 0x11BF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC4EC }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1172, 0x11BF }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfc_044_002)
+{
+    // C4ED;C4ED;110A 1172 11C0;C4ED;110A 1172 11C0; 
+    // (쓭; 쓭; 쓭; 쓭; 쓭; ) HANGUL SYLLABLE SSYUT
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xC4ED }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC4ED }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1172, 0x11C0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC4ED }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1172, 0x11C0 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfc_044_003)
+{
+    // C4EE;C4EE;110A 1172 11C1;C4EE;110A 1172 11C1; 
+    // (쓮; 쓮; 쓮; 쓮; 쓮; ) HANGUL SYLLABLE SSYUP
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xC4EE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC4EE }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1172, 0x11C1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC4EE }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1172, 0x11C1 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfc_044_004)
+{
+    // C4EF;C4EF;110A 1172 11C2;C4EF;110A 1172 11C2; 
+    // (쓯; 쓯; 쓯; 쓯; 쓯; ) HANGUL SYLLABLE SSYUH
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xC4EF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC4EF }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1172, 0x11C2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC4EF }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1172, 0x11C2 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfc_044_005)
+{
     // C4F0;C4F0;110A 1173;C4F0;110A 1173; 
     // (쓰; 쓰; 쓰; 쓰; 쓰; ) HANGUL SYLLABLE SSEU
     {
@@ -114,7 +609,7 @@ TEST(normalization, nfc_044_000)
 }
 
 
-TEST(normalization, nfc_044_001)
+TEST(normalization, nfc_044_006)
 {
     // C4F1;C4F1;110A 1173 11A8;C4F1;110A 1173 11A8; 
     // (쓱; 쓱; 쓱; 쓱; 쓱; ) HANGUL SYLLABLE SSEUG
@@ -213,7 +708,7 @@ TEST(normalization, nfc_044_001)
 }
 
 
-TEST(normalization, nfc_044_002)
+TEST(normalization, nfc_044_007)
 {
     // C4F2;C4F2;110A 1173 11A9;C4F2;110A 1173 11A9; 
     // (쓲; 쓲; 쓲; 쓲; 쓲; ) HANGUL SYLLABLE SSEUGG
@@ -312,7 +807,7 @@ TEST(normalization, nfc_044_002)
 }
 
 
-TEST(normalization, nfc_044_003)
+TEST(normalization, nfc_044_008)
 {
     // C4F3;C4F3;110A 1173 11AA;C4F3;110A 1173 11AA; 
     // (쓳; 쓳; 쓳; 쓳; 쓳; ) HANGUL SYLLABLE SSEUGS
@@ -411,7 +906,7 @@ TEST(normalization, nfc_044_003)
 }
 
 
-TEST(normalization, nfc_044_004)
+TEST(normalization, nfc_044_009)
 {
     // C4F4;C4F4;110A 1173 11AB;C4F4;110A 1173 11AB; 
     // (쓴; 쓴; 쓴; 쓴; 쓴; ) HANGUL SYLLABLE SSEUN
@@ -510,7 +1005,7 @@ TEST(normalization, nfc_044_004)
 }
 
 
-TEST(normalization, nfc_044_005)
+TEST(normalization, nfc_044_010)
 {
     // C4F5;C4F5;110A 1173 11AC;C4F5;110A 1173 11AC; 
     // (쓵; 쓵; 쓵; 쓵; 쓵; ) HANGUL SYLLABLE SSEUNJ
@@ -609,7 +1104,7 @@ TEST(normalization, nfc_044_005)
 }
 
 
-TEST(normalization, nfc_044_006)
+TEST(normalization, nfc_044_011)
 {
     // C4F6;C4F6;110A 1173 11AD;C4F6;110A 1173 11AD; 
     // (쓶; 쓶; 쓶; 쓶; 쓶; ) HANGUL SYLLABLE SSEUNH
@@ -708,7 +1203,7 @@ TEST(normalization, nfc_044_006)
 }
 
 
-TEST(normalization, nfc_044_007)
+TEST(normalization, nfc_044_012)
 {
     // C4F7;C4F7;110A 1173 11AE;C4F7;110A 1173 11AE; 
     // (쓷; 쓷; 쓷; 쓷; 쓷; ) HANGUL SYLLABLE SSEUD
@@ -807,7 +1302,7 @@ TEST(normalization, nfc_044_007)
 }
 
 
-TEST(normalization, nfc_044_008)
+TEST(normalization, nfc_044_013)
 {
     // C4F8;C4F8;110A 1173 11AF;C4F8;110A 1173 11AF; 
     // (쓸; 쓸; 쓸; 쓸; 쓸; ) HANGUL SYLLABLE SSEUL
@@ -906,7 +1401,7 @@ TEST(normalization, nfc_044_008)
 }
 
 
-TEST(normalization, nfc_044_009)
+TEST(normalization, nfc_044_014)
 {
     // C4F9;C4F9;110A 1173 11B0;C4F9;110A 1173 11B0; 
     // (쓹; 쓹; 쓹; 쓹; 쓹; ) HANGUL SYLLABLE SSEULG
@@ -1005,7 +1500,7 @@ TEST(normalization, nfc_044_009)
 }
 
 
-TEST(normalization, nfc_044_010)
+TEST(normalization, nfc_044_015)
 {
     // C4FA;C4FA;110A 1173 11B1;C4FA;110A 1173 11B1; 
     // (쓺; 쓺; 쓺; 쓺; 쓺; ) HANGUL SYLLABLE SSEULM
@@ -1104,7 +1599,7 @@ TEST(normalization, nfc_044_010)
 }
 
 
-TEST(normalization, nfc_044_011)
+TEST(normalization, nfc_044_016)
 {
     // C4FB;C4FB;110A 1173 11B2;C4FB;110A 1173 11B2; 
     // (쓻; 쓻; 쓻; 쓻; 쓻; ) HANGUL SYLLABLE SSEULB
@@ -1203,7 +1698,7 @@ TEST(normalization, nfc_044_011)
 }
 
 
-TEST(normalization, nfc_044_012)
+TEST(normalization, nfc_044_017)
 {
     // C4FC;C4FC;110A 1173 11B3;C4FC;110A 1173 11B3; 
     // (쓼; 쓼; 쓼; 쓼; 쓼; ) HANGUL SYLLABLE SSEULS
@@ -1302,7 +1797,7 @@ TEST(normalization, nfc_044_012)
 }
 
 
-TEST(normalization, nfc_044_013)
+TEST(normalization, nfc_044_018)
 {
     // C4FD;C4FD;110A 1173 11B4;C4FD;110A 1173 11B4; 
     // (쓽; 쓽; 쓽; 쓽; 쓽; ) HANGUL SYLLABLE SSEULT
@@ -1401,7 +1896,7 @@ TEST(normalization, nfc_044_013)
 }
 
 
-TEST(normalization, nfc_044_014)
+TEST(normalization, nfc_044_019)
 {
     // C4FE;C4FE;110A 1173 11B5;C4FE;110A 1173 11B5; 
     // (쓾; 쓾; 쓾; 쓾; 쓾; ) HANGUL SYLLABLE SSEULP
@@ -1500,7 +1995,7 @@ TEST(normalization, nfc_044_014)
 }
 
 
-TEST(normalization, nfc_044_015)
+TEST(normalization, nfc_044_020)
 {
     // C4FF;C4FF;110A 1173 11B6;C4FF;110A 1173 11B6; 
     // (쓿; 쓿; 쓿; 쓿; 쓿; ) HANGUL SYLLABLE SSEULH
@@ -1599,7 +2094,7 @@ TEST(normalization, nfc_044_015)
 }
 
 
-TEST(normalization, nfc_044_016)
+TEST(normalization, nfc_044_021)
 {
     // C500;C500;110A 1173 11B7;C500;110A 1173 11B7; 
     // (씀; 씀; 씀; 씀; 씀; ) HANGUL SYLLABLE SSEUM
@@ -1698,7 +2193,7 @@ TEST(normalization, nfc_044_016)
 }
 
 
-TEST(normalization, nfc_044_017)
+TEST(normalization, nfc_044_022)
 {
     // C501;C501;110A 1173 11B8;C501;110A 1173 11B8; 
     // (씁; 씁; 씁; 씁; 씁; ) HANGUL SYLLABLE SSEUB
@@ -1797,7 +2292,7 @@ TEST(normalization, nfc_044_017)
 }
 
 
-TEST(normalization, nfc_044_018)
+TEST(normalization, nfc_044_023)
 {
     // C502;C502;110A 1173 11B9;C502;110A 1173 11B9; 
     // (씂; 씂; 씂; 씂; 씂; ) HANGUL SYLLABLE SSEUBS
@@ -1896,7 +2391,7 @@ TEST(normalization, nfc_044_018)
 }
 
 
-TEST(normalization, nfc_044_019)
+TEST(normalization, nfc_044_024)
 {
     // C503;C503;110A 1173 11BA;C503;110A 1173 11BA; 
     // (씃; 씃; 씃; 씃; 씃; ) HANGUL SYLLABLE SSEUS
@@ -1995,7 +2490,7 @@ TEST(normalization, nfc_044_019)
 }
 
 
-TEST(normalization, nfc_044_020)
+TEST(normalization, nfc_044_025)
 {
     // C504;C504;110A 1173 11BB;C504;110A 1173 11BB; 
     // (씄; 씄; 씄; 씄; 씄; ) HANGUL SYLLABLE SSEUSS
@@ -2094,7 +2589,7 @@ TEST(normalization, nfc_044_020)
 }
 
 
-TEST(normalization, nfc_044_021)
+TEST(normalization, nfc_044_026)
 {
     // C505;C505;110A 1173 11BC;C505;110A 1173 11BC; 
     // (씅; 씅; 씅; 씅; 씅; ) HANGUL SYLLABLE SSEUNG
@@ -2193,7 +2688,7 @@ TEST(normalization, nfc_044_021)
 }
 
 
-TEST(normalization, nfc_044_022)
+TEST(normalization, nfc_044_027)
 {
     // C506;C506;110A 1173 11BD;C506;110A 1173 11BD; 
     // (씆; 씆; 씆; 씆; 씆; ) HANGUL SYLLABLE SSEUJ
@@ -2292,7 +2787,7 @@ TEST(normalization, nfc_044_022)
 }
 
 
-TEST(normalization, nfc_044_023)
+TEST(normalization, nfc_044_028)
 {
     // C507;C507;110A 1173 11BE;C507;110A 1173 11BE; 
     // (씇; 씇; 씇; 씇; 씇; ) HANGUL SYLLABLE SSEUC
@@ -2391,7 +2886,7 @@ TEST(normalization, nfc_044_023)
 }
 
 
-TEST(normalization, nfc_044_024)
+TEST(normalization, nfc_044_029)
 {
     // C508;C508;110A 1173 11BF;C508;110A 1173 11BF; 
     // (씈; 씈; 씈; 씈; 씈; ) HANGUL SYLLABLE SSEUK
@@ -2490,7 +2985,7 @@ TEST(normalization, nfc_044_024)
 }
 
 
-TEST(normalization, nfc_044_025)
+TEST(normalization, nfc_044_030)
 {
     // C509;C509;110A 1173 11C0;C509;110A 1173 11C0; 
     // (씉; 씉; 씉; 씉; 씉; ) HANGUL SYLLABLE SSEUT
@@ -2589,7 +3084,7 @@ TEST(normalization, nfc_044_025)
 }
 
 
-TEST(normalization, nfc_044_026)
+TEST(normalization, nfc_044_031)
 {
     // C50A;C50A;110A 1173 11C1;C50A;110A 1173 11C1; 
     // (씊; 씊; 씊; 씊; 씊; ) HANGUL SYLLABLE SSEUP
@@ -2688,7 +3183,7 @@ TEST(normalization, nfc_044_026)
 }
 
 
-TEST(normalization, nfc_044_027)
+TEST(normalization, nfc_044_032)
 {
     // C50B;C50B;110A 1173 11C2;C50B;110A 1173 11C2; 
     // (씋; 씋; 씋; 씋; 씋; ) HANGUL SYLLABLE SSEUH
@@ -2787,7 +3282,7 @@ TEST(normalization, nfc_044_027)
 }
 
 
-TEST(normalization, nfc_044_028)
+TEST(normalization, nfc_044_033)
 {
     // C50C;C50C;110A 1174;C50C;110A 1174; 
     // (씌; 씌; 씌; 씌; 씌; ) HANGUL SYLLABLE SSYI
@@ -2886,7 +3381,7 @@ TEST(normalization, nfc_044_028)
 }
 
 
-TEST(normalization, nfc_044_029)
+TEST(normalization, nfc_044_034)
 {
     // C50D;C50D;110A 1174 11A8;C50D;110A 1174 11A8; 
     // (씍; 씍; 씍; 씍; 씍; ) HANGUL SYLLABLE SSYIG
@@ -2985,7 +3480,7 @@ TEST(normalization, nfc_044_029)
 }
 
 
-TEST(normalization, nfc_044_030)
+TEST(normalization, nfc_044_035)
 {
     // C50E;C50E;110A 1174 11A9;C50E;110A 1174 11A9; 
     // (씎; 씎; 씎; 씎; 씎; ) HANGUL SYLLABLE SSYIGG
@@ -3084,7 +3579,7 @@ TEST(normalization, nfc_044_030)
 }
 
 
-TEST(normalization, nfc_044_031)
+TEST(normalization, nfc_044_036)
 {
     // C50F;C50F;110A 1174 11AA;C50F;110A 1174 11AA; 
     // (씏; 씏; 씏; 씏; 씏; ) HANGUL SYLLABLE SSYIGS
@@ -3183,7 +3678,7 @@ TEST(normalization, nfc_044_031)
 }
 
 
-TEST(normalization, nfc_044_032)
+TEST(normalization, nfc_044_037)
 {
     // C510;C510;110A 1174 11AB;C510;110A 1174 11AB; 
     // (씐; 씐; 씐; 씐; 씐; ) HANGUL SYLLABLE SSYIN
@@ -3282,7 +3777,7 @@ TEST(normalization, nfc_044_032)
 }
 
 
-TEST(normalization, nfc_044_033)
+TEST(normalization, nfc_044_038)
 {
     // C511;C511;110A 1174 11AC;C511;110A 1174 11AC; 
     // (씑; 씑; 씑; 씑; 씑; ) HANGUL SYLLABLE SSYINJ
@@ -3381,7 +3876,7 @@ TEST(normalization, nfc_044_033)
 }
 
 
-TEST(normalization, nfc_044_034)
+TEST(normalization, nfc_044_039)
 {
     // C512;C512;110A 1174 11AD;C512;110A 1174 11AD; 
     // (씒; 씒; 씒; 씒; 씒; ) HANGUL SYLLABLE SSYINH
@@ -3480,7 +3975,7 @@ TEST(normalization, nfc_044_034)
 }
 
 
-TEST(normalization, nfc_044_035)
+TEST(normalization, nfc_044_040)
 {
     // C513;C513;110A 1174 11AE;C513;110A 1174 11AE; 
     // (씓; 씓; 씓; 씓; 씓; ) HANGUL SYLLABLE SSYID
@@ -3579,7 +4074,7 @@ TEST(normalization, nfc_044_035)
 }
 
 
-TEST(normalization, nfc_044_036)
+TEST(normalization, nfc_044_041)
 {
     // C514;C514;110A 1174 11AF;C514;110A 1174 11AF; 
     // (씔; 씔; 씔; 씔; 씔; ) HANGUL SYLLABLE SSYIL
@@ -3678,7 +4173,7 @@ TEST(normalization, nfc_044_036)
 }
 
 
-TEST(normalization, nfc_044_037)
+TEST(normalization, nfc_044_042)
 {
     // C515;C515;110A 1174 11B0;C515;110A 1174 11B0; 
     // (씕; 씕; 씕; 씕; 씕; ) HANGUL SYLLABLE SSYILG
@@ -3777,7 +4272,7 @@ TEST(normalization, nfc_044_037)
 }
 
 
-TEST(normalization, nfc_044_038)
+TEST(normalization, nfc_044_043)
 {
     // C516;C516;110A 1174 11B1;C516;110A 1174 11B1; 
     // (씖; 씖; 씖; 씖; 씖; ) HANGUL SYLLABLE SSYILM
@@ -3876,7 +4371,7 @@ TEST(normalization, nfc_044_038)
 }
 
 
-TEST(normalization, nfc_044_039)
+TEST(normalization, nfc_044_044)
 {
     // C517;C517;110A 1174 11B2;C517;110A 1174 11B2; 
     // (씗; 씗; 씗; 씗; 씗; ) HANGUL SYLLABLE SSYILB
@@ -3975,7 +4470,7 @@ TEST(normalization, nfc_044_039)
 }
 
 
-TEST(normalization, nfc_044_040)
+TEST(normalization, nfc_044_045)
 {
     // C518;C518;110A 1174 11B3;C518;110A 1174 11B3; 
     // (씘; 씘; 씘; 씘; 씘; ) HANGUL SYLLABLE SSYILS
@@ -4074,7 +4569,7 @@ TEST(normalization, nfc_044_040)
 }
 
 
-TEST(normalization, nfc_044_041)
+TEST(normalization, nfc_044_046)
 {
     // C519;C519;110A 1174 11B4;C519;110A 1174 11B4; 
     // (씙; 씙; 씙; 씙; 씙; ) HANGUL SYLLABLE SSYILT
@@ -4173,7 +4668,7 @@ TEST(normalization, nfc_044_041)
 }
 
 
-TEST(normalization, nfc_044_042)
+TEST(normalization, nfc_044_047)
 {
     // C51A;C51A;110A 1174 11B5;C51A;110A 1174 11B5; 
     // (씚; 씚; 씚; 씚; 씚; ) HANGUL SYLLABLE SSYILP
@@ -4272,7 +4767,7 @@ TEST(normalization, nfc_044_042)
 }
 
 
-TEST(normalization, nfc_044_043)
+TEST(normalization, nfc_044_048)
 {
     // C51B;C51B;110A 1174 11B6;C51B;110A 1174 11B6; 
     // (씛; 씛; 씛; 씛; 씛; ) HANGUL SYLLABLE SSYILH
@@ -4371,7 +4866,7 @@ TEST(normalization, nfc_044_043)
 }
 
 
-TEST(normalization, nfc_044_044)
+TEST(normalization, nfc_044_049)
 {
     // C51C;C51C;110A 1174 11B7;C51C;110A 1174 11B7; 
     // (씜; 씜; 씜; 씜; 씜; ) HANGUL SYLLABLE SSYIM
@@ -4470,7 +4965,7 @@ TEST(normalization, nfc_044_044)
 }
 
 
-TEST(normalization, nfc_044_045)
+TEST(normalization, nfc_044_050)
 {
     // C51D;C51D;110A 1174 11B8;C51D;110A 1174 11B8; 
     // (씝; 씝; 씝; 씝; 씝; ) HANGUL SYLLABLE SSYIB
@@ -4569,7 +5064,7 @@ TEST(normalization, nfc_044_045)
 }
 
 
-TEST(normalization, nfc_044_046)
+TEST(normalization, nfc_044_051)
 {
     // C51E;C51E;110A 1174 11B9;C51E;110A 1174 11B9; 
     // (씞; 씞; 씞; 씞; 씞; ) HANGUL SYLLABLE SSYIBS
@@ -4668,7 +5163,7 @@ TEST(normalization, nfc_044_046)
 }
 
 
-TEST(normalization, nfc_044_047)
+TEST(normalization, nfc_044_052)
 {
     // C51F;C51F;110A 1174 11BA;C51F;110A 1174 11BA; 
     // (씟; 씟; 씟; 씟; 씟; ) HANGUL SYLLABLE SSYIS
@@ -4767,7 +5262,7 @@ TEST(normalization, nfc_044_047)
 }
 
 
-TEST(normalization, nfc_044_048)
+TEST(normalization, nfc_044_053)
 {
     // C520;C520;110A 1174 11BB;C520;110A 1174 11BB; 
     // (씠; 씠; 씠; 씠; 씠; ) HANGUL SYLLABLE SSYISS
@@ -4866,7 +5361,7 @@ TEST(normalization, nfc_044_048)
 }
 
 
-TEST(normalization, nfc_044_049)
+TEST(normalization, nfc_044_054)
 {
     // C521;C521;110A 1174 11BC;C521;110A 1174 11BC; 
     // (씡; 씡; 씡; 씡; 씡; ) HANGUL SYLLABLE SSYING
@@ -4965,7 +5460,7 @@ TEST(normalization, nfc_044_049)
 }
 
 
-TEST(normalization, nfc_044_050)
+TEST(normalization, nfc_044_055)
 {
     // C522;C522;110A 1174 11BD;C522;110A 1174 11BD; 
     // (씢; 씢; 씢; 씢; 씢; ) HANGUL SYLLABLE SSYIJ
@@ -5064,7 +5559,7 @@ TEST(normalization, nfc_044_050)
 }
 
 
-TEST(normalization, nfc_044_051)
+TEST(normalization, nfc_044_056)
 {
     // C523;C523;110A 1174 11BE;C523;110A 1174 11BE; 
     // (씣; 씣; 씣; 씣; 씣; ) HANGUL SYLLABLE SSYIC
@@ -5163,7 +5658,7 @@ TEST(normalization, nfc_044_051)
 }
 
 
-TEST(normalization, nfc_044_052)
+TEST(normalization, nfc_044_057)
 {
     // C524;C524;110A 1174 11BF;C524;110A 1174 11BF; 
     // (씤; 씤; 씤; 씤; 씤; ) HANGUL SYLLABLE SSYIK
@@ -5262,7 +5757,7 @@ TEST(normalization, nfc_044_052)
 }
 
 
-TEST(normalization, nfc_044_053)
+TEST(normalization, nfc_044_058)
 {
     // C525;C525;110A 1174 11C0;C525;110A 1174 11C0; 
     // (씥; 씥; 씥; 씥; 씥; ) HANGUL SYLLABLE SSYIT
@@ -5361,7 +5856,7 @@ TEST(normalization, nfc_044_053)
 }
 
 
-TEST(normalization, nfc_044_054)
+TEST(normalization, nfc_044_059)
 {
     // C526;C526;110A 1174 11C1;C526;110A 1174 11C1; 
     // (씦; 씦; 씦; 씦; 씦; ) HANGUL SYLLABLE SSYIP
@@ -5460,7 +5955,7 @@ TEST(normalization, nfc_044_054)
 }
 
 
-TEST(normalization, nfc_044_055)
+TEST(normalization, nfc_044_060)
 {
     // C527;C527;110A 1174 11C2;C527;110A 1174 11C2; 
     // (씧; 씧; 씧; 씧; 씧; ) HANGUL SYLLABLE SSYIH
@@ -5559,7 +6054,7 @@ TEST(normalization, nfc_044_055)
 }
 
 
-TEST(normalization, nfc_044_056)
+TEST(normalization, nfc_044_061)
 {
     // C528;C528;110A 1175;C528;110A 1175; 
     // (씨; 씨; 씨; 씨; 씨; ) HANGUL SYLLABLE SSI
@@ -5658,7 +6153,7 @@ TEST(normalization, nfc_044_056)
 }
 
 
-TEST(normalization, nfc_044_057)
+TEST(normalization, nfc_044_062)
 {
     // C529;C529;110A 1175 11A8;C529;110A 1175 11A8; 
     // (씩; 씩; 씩; 씩; 씩; ) HANGUL SYLLABLE SSIG
@@ -5757,7 +6252,7 @@ TEST(normalization, nfc_044_057)
 }
 
 
-TEST(normalization, nfc_044_058)
+TEST(normalization, nfc_044_063)
 {
     // C52A;C52A;110A 1175 11A9;C52A;110A 1175 11A9; 
     // (씪; 씪; 씪; 씪; 씪; ) HANGUL SYLLABLE SSIGG
@@ -5856,7 +6351,7 @@ TEST(normalization, nfc_044_058)
 }
 
 
-TEST(normalization, nfc_044_059)
+TEST(normalization, nfc_044_064)
 {
     // C52B;C52B;110A 1175 11AA;C52B;110A 1175 11AA; 
     // (씫; 씫; 씫; 씫; 씫; ) HANGUL SYLLABLE SSIGS
@@ -5955,7 +6450,7 @@ TEST(normalization, nfc_044_059)
 }
 
 
-TEST(normalization, nfc_044_060)
+TEST(normalization, nfc_044_065)
 {
     // C52C;C52C;110A 1175 11AB;C52C;110A 1175 11AB; 
     // (씬; 씬; 씬; 씬; 씬; ) HANGUL SYLLABLE SSIN
@@ -6054,7 +6549,7 @@ TEST(normalization, nfc_044_060)
 }
 
 
-TEST(normalization, nfc_044_061)
+TEST(normalization, nfc_044_066)
 {
     // C52D;C52D;110A 1175 11AC;C52D;110A 1175 11AC; 
     // (씭; 씭; 씭; 씭; 씭; ) HANGUL SYLLABLE SSINJ
@@ -6153,7 +6648,7 @@ TEST(normalization, nfc_044_061)
 }
 
 
-TEST(normalization, nfc_044_062)
+TEST(normalization, nfc_044_067)
 {
     // C52E;C52E;110A 1175 11AD;C52E;110A 1175 11AD; 
     // (씮; 씮; 씮; 씮; 씮; ) HANGUL SYLLABLE SSINH
@@ -6252,7 +6747,7 @@ TEST(normalization, nfc_044_062)
 }
 
 
-TEST(normalization, nfc_044_063)
+TEST(normalization, nfc_044_068)
 {
     // C52F;C52F;110A 1175 11AE;C52F;110A 1175 11AE; 
     // (씯; 씯; 씯; 씯; 씯; ) HANGUL SYLLABLE SSID
@@ -6351,7 +6846,7 @@ TEST(normalization, nfc_044_063)
 }
 
 
-TEST(normalization, nfc_044_064)
+TEST(normalization, nfc_044_069)
 {
     // C530;C530;110A 1175 11AF;C530;110A 1175 11AF; 
     // (씰; 씰; 씰; 씰; 씰; ) HANGUL SYLLABLE SSIL
@@ -6450,7 +6945,7 @@ TEST(normalization, nfc_044_064)
 }
 
 
-TEST(normalization, nfc_044_065)
+TEST(normalization, nfc_044_070)
 {
     // C531;C531;110A 1175 11B0;C531;110A 1175 11B0; 
     // (씱; 씱; 씱; 씱; 씱; ) HANGUL SYLLABLE SSILG
@@ -6549,7 +7044,7 @@ TEST(normalization, nfc_044_065)
 }
 
 
-TEST(normalization, nfc_044_066)
+TEST(normalization, nfc_044_071)
 {
     // C532;C532;110A 1175 11B1;C532;110A 1175 11B1; 
     // (씲; 씲; 씲; 씲; 씲; ) HANGUL SYLLABLE SSILM
@@ -6648,7 +7143,7 @@ TEST(normalization, nfc_044_066)
 }
 
 
-TEST(normalization, nfc_044_067)
+TEST(normalization, nfc_044_072)
 {
     // C533;C533;110A 1175 11B2;C533;110A 1175 11B2; 
     // (씳; 씳; 씳; 씳; 씳; ) HANGUL SYLLABLE SSILB
@@ -6747,7 +7242,7 @@ TEST(normalization, nfc_044_067)
 }
 
 
-TEST(normalization, nfc_044_068)
+TEST(normalization, nfc_044_073)
 {
     // C534;C534;110A 1175 11B3;C534;110A 1175 11B3; 
     // (씴; 씴; 씴; 씴; 씴; ) HANGUL SYLLABLE SSILS
@@ -6846,7 +7341,7 @@ TEST(normalization, nfc_044_068)
 }
 
 
-TEST(normalization, nfc_044_069)
+TEST(normalization, nfc_044_074)
 {
     // C535;C535;110A 1175 11B4;C535;110A 1175 11B4; 
     // (씵; 씵; 씵; 씵; 씵; ) HANGUL SYLLABLE SSILT
@@ -6945,7 +7440,7 @@ TEST(normalization, nfc_044_069)
 }
 
 
-TEST(normalization, nfc_044_070)
+TEST(normalization, nfc_044_075)
 {
     // C536;C536;110A 1175 11B5;C536;110A 1175 11B5; 
     // (씶; 씶; 씶; 씶; 씶; ) HANGUL SYLLABLE SSILP
@@ -7044,7 +7539,7 @@ TEST(normalization, nfc_044_070)
 }
 
 
-TEST(normalization, nfc_044_071)
+TEST(normalization, nfc_044_076)
 {
     // C537;C537;110A 1175 11B6;C537;110A 1175 11B6; 
     // (씷; 씷; 씷; 씷; 씷; ) HANGUL SYLLABLE SSILH
@@ -7143,7 +7638,7 @@ TEST(normalization, nfc_044_071)
 }
 
 
-TEST(normalization, nfc_044_072)
+TEST(normalization, nfc_044_077)
 {
     // C538;C538;110A 1175 11B7;C538;110A 1175 11B7; 
     // (씸; 씸; 씸; 씸; 씸; ) HANGUL SYLLABLE SSIM
@@ -7242,7 +7737,7 @@ TEST(normalization, nfc_044_072)
 }
 
 
-TEST(normalization, nfc_044_073)
+TEST(normalization, nfc_044_078)
 {
     // C539;C539;110A 1175 11B8;C539;110A 1175 11B8; 
     // (씹; 씹; 씹; 씹; 씹; ) HANGUL SYLLABLE SSIB
@@ -7341,7 +7836,7 @@ TEST(normalization, nfc_044_073)
 }
 
 
-TEST(normalization, nfc_044_074)
+TEST(normalization, nfc_044_079)
 {
     // C53A;C53A;110A 1175 11B9;C53A;110A 1175 11B9; 
     // (씺; 씺; 씺; 씺; 씺; ) HANGUL SYLLABLE SSIBS
@@ -7440,7 +7935,7 @@ TEST(normalization, nfc_044_074)
 }
 
 
-TEST(normalization, nfc_044_075)
+TEST(normalization, nfc_044_080)
 {
     // C53B;C53B;110A 1175 11BA;C53B;110A 1175 11BA; 
     // (씻; 씻; 씻; 씻; 씻; ) HANGUL SYLLABLE SSIS
@@ -7539,7 +8034,7 @@ TEST(normalization, nfc_044_075)
 }
 
 
-TEST(normalization, nfc_044_076)
+TEST(normalization, nfc_044_081)
 {
     // C53C;C53C;110A 1175 11BB;C53C;110A 1175 11BB; 
     // (씼; 씼; 씼; 씼; 씼; ) HANGUL SYLLABLE SSISS
@@ -7638,7 +8133,7 @@ TEST(normalization, nfc_044_076)
 }
 
 
-TEST(normalization, nfc_044_077)
+TEST(normalization, nfc_044_082)
 {
     // C53D;C53D;110A 1175 11BC;C53D;110A 1175 11BC; 
     // (씽; 씽; 씽; 씽; 씽; ) HANGUL SYLLABLE SSING
@@ -7737,7 +8232,7 @@ TEST(normalization, nfc_044_077)
 }
 
 
-TEST(normalization, nfc_044_078)
+TEST(normalization, nfc_044_083)
 {
     // C53E;C53E;110A 1175 11BD;C53E;110A 1175 11BD; 
     // (씾; 씾; 씾; 씾; 씾; ) HANGUL SYLLABLE SSIJ
@@ -7836,7 +8331,7 @@ TEST(normalization, nfc_044_078)
 }
 
 
-TEST(normalization, nfc_044_079)
+TEST(normalization, nfc_044_084)
 {
     // C53F;C53F;110A 1175 11BE;C53F;110A 1175 11BE; 
     // (씿; 씿; 씿; 씿; 씿; ) HANGUL SYLLABLE SSIC
@@ -7935,7 +8430,7 @@ TEST(normalization, nfc_044_079)
 }
 
 
-TEST(normalization, nfc_044_080)
+TEST(normalization, nfc_044_085)
 {
     // C540;C540;110A 1175 11BF;C540;110A 1175 11BF; 
     // (앀; 앀; 앀; 앀; 앀; ) HANGUL SYLLABLE SSIK
@@ -8034,7 +8529,7 @@ TEST(normalization, nfc_044_080)
 }
 
 
-TEST(normalization, nfc_044_081)
+TEST(normalization, nfc_044_086)
 {
     // C541;C541;110A 1175 11C0;C541;110A 1175 11C0; 
     // (앁; 앁; 앁; 앁; 앁; ) HANGUL SYLLABLE SSIT
@@ -8133,7 +8628,7 @@ TEST(normalization, nfc_044_081)
 }
 
 
-TEST(normalization, nfc_044_082)
+TEST(normalization, nfc_044_087)
 {
     // C542;C542;110A 1175 11C1;C542;110A 1175 11C1; 
     // (앂; 앂; 앂; 앂; 앂; ) HANGUL SYLLABLE SSIP
@@ -8232,7 +8727,7 @@ TEST(normalization, nfc_044_082)
 }
 
 
-TEST(normalization, nfc_044_083)
+TEST(normalization, nfc_044_088)
 {
     // C543;C543;110A 1175 11C2;C543;110A 1175 11C2; 
     // (앃; 앃; 앃; 앃; 앃; ) HANGUL SYLLABLE SSIH
@@ -8331,7 +8826,7 @@ TEST(normalization, nfc_044_083)
 }
 
 
-TEST(normalization, nfc_044_084)
+TEST(normalization, nfc_044_089)
 {
     // C544;C544;110B 1161;C544;110B 1161; 
     // (아; 아; 아; 아; 아; ) HANGUL SYLLABLE A
@@ -8430,7 +8925,7 @@ TEST(normalization, nfc_044_084)
 }
 
 
-TEST(normalization, nfc_044_085)
+TEST(normalization, nfc_044_090)
 {
     // C545;C545;110B 1161 11A8;C545;110B 1161 11A8; 
     // (악; 악; 악; 악; 악; ) HANGUL SYLLABLE AG
@@ -8529,7 +9024,7 @@ TEST(normalization, nfc_044_085)
 }
 
 
-TEST(normalization, nfc_044_086)
+TEST(normalization, nfc_044_091)
 {
     // C546;C546;110B 1161 11A9;C546;110B 1161 11A9; 
     // (앆; 앆; 앆; 앆; 앆; ) HANGUL SYLLABLE AGG
@@ -8628,7 +9123,7 @@ TEST(normalization, nfc_044_086)
 }
 
 
-TEST(normalization, nfc_044_087)
+TEST(normalization, nfc_044_092)
 {
     // C547;C547;110B 1161 11AA;C547;110B 1161 11AA; 
     // (앇; 앇; 앇; 앇; 앇; ) HANGUL SYLLABLE AGS
@@ -8727,7 +9222,7 @@ TEST(normalization, nfc_044_087)
 }
 
 
-TEST(normalization, nfc_044_088)
+TEST(normalization, nfc_044_093)
 {
     // C548;C548;110B 1161 11AB;C548;110B 1161 11AB; 
     // (안; 안; 안; 안; 안; ) HANGUL SYLLABLE AN
@@ -8826,7 +9321,7 @@ TEST(normalization, nfc_044_088)
 }
 
 
-TEST(normalization, nfc_044_089)
+TEST(normalization, nfc_044_094)
 {
     // C549;C549;110B 1161 11AC;C549;110B 1161 11AC; 
     // (앉; 앉; 앉; 앉; 앉; ) HANGUL SYLLABLE ANJ
@@ -8925,7 +9420,7 @@ TEST(normalization, nfc_044_089)
 }
 
 
-TEST(normalization, nfc_044_090)
+TEST(normalization, nfc_044_095)
 {
     // C54A;C54A;110B 1161 11AD;C54A;110B 1161 11AD; 
     // (않; 않; 않; 않; 않; ) HANGUL SYLLABLE ANH
@@ -9024,7 +9519,7 @@ TEST(normalization, nfc_044_090)
 }
 
 
-TEST(normalization, nfc_044_091)
+TEST(normalization, nfc_044_096)
 {
     // C54B;C54B;110B 1161 11AE;C54B;110B 1161 11AE; 
     // (앋; 앋; 앋; 앋; 앋; ) HANGUL SYLLABLE AD
@@ -9123,7 +9618,7 @@ TEST(normalization, nfc_044_091)
 }
 
 
-TEST(normalization, nfc_044_092)
+TEST(normalization, nfc_044_097)
 {
     // C54C;C54C;110B 1161 11AF;C54C;110B 1161 11AF; 
     // (알; 알; 알; 알; 알; ) HANGUL SYLLABLE AL
@@ -9222,7 +9717,7 @@ TEST(normalization, nfc_044_092)
 }
 
 
-TEST(normalization, nfc_044_093)
+TEST(normalization, nfc_044_098)
 {
     // C54D;C54D;110B 1161 11B0;C54D;110B 1161 11B0; 
     // (앍; 앍; 앍; 앍; 앍; ) HANGUL SYLLABLE ALG
@@ -9321,7 +9816,7 @@ TEST(normalization, nfc_044_093)
 }
 
 
-TEST(normalization, nfc_044_094)
+TEST(normalization, nfc_044_099)
 {
     // C54E;C54E;110B 1161 11B1;C54E;110B 1161 11B1; 
     // (앎; 앎; 앎; 앎; 앎; ) HANGUL SYLLABLE ALM
@@ -9420,7 +9915,7 @@ TEST(normalization, nfc_044_094)
 }
 
 
-TEST(normalization, nfc_044_095)
+TEST(normalization, nfc_044_100)
 {
     // C54F;C54F;110B 1161 11B2;C54F;110B 1161 11B2; 
     // (앏; 앏; 앏; 앏; 앏; ) HANGUL SYLLABLE ALB
@@ -9519,7 +10014,7 @@ TEST(normalization, nfc_044_095)
 }
 
 
-TEST(normalization, nfc_044_096)
+TEST(normalization, nfc_044_101)
 {
     // C550;C550;110B 1161 11B3;C550;110B 1161 11B3; 
     // (앐; 앐; 앐; 앐; 앐; ) HANGUL SYLLABLE ALS
@@ -9618,7 +10113,7 @@ TEST(normalization, nfc_044_096)
 }
 
 
-TEST(normalization, nfc_044_097)
+TEST(normalization, nfc_044_102)
 {
     // C551;C551;110B 1161 11B4;C551;110B 1161 11B4; 
     // (앑; 앑; 앑; 앑; 앑; ) HANGUL SYLLABLE ALT
@@ -9717,7 +10212,7 @@ TEST(normalization, nfc_044_097)
 }
 
 
-TEST(normalization, nfc_044_098)
+TEST(normalization, nfc_044_103)
 {
     // C552;C552;110B 1161 11B5;C552;110B 1161 11B5; 
     // (앒; 앒; 앒; 앒; 앒; ) HANGUL SYLLABLE ALP
@@ -9816,7 +10311,7 @@ TEST(normalization, nfc_044_098)
 }
 
 
-TEST(normalization, nfc_044_099)
+TEST(normalization, nfc_044_104)
 {
     // C553;C553;110B 1161 11B6;C553;110B 1161 11B6; 
     // (앓; 앓; 앓; 앓; 앓; ) HANGUL SYLLABLE ALH
@@ -9915,7 +10410,7 @@ TEST(normalization, nfc_044_099)
 }
 
 
-TEST(normalization, nfc_044_100)
+TEST(normalization, nfc_044_105)
 {
     // C554;C554;110B 1161 11B7;C554;110B 1161 11B7; 
     // (암; 암; 암; 암; 암; ) HANGUL SYLLABLE AM
@@ -10014,7 +10509,7 @@ TEST(normalization, nfc_044_100)
 }
 
 
-TEST(normalization, nfc_044_101)
+TEST(normalization, nfc_044_106)
 {
     // C555;C555;110B 1161 11B8;C555;110B 1161 11B8; 
     // (압; 압; 압; 압; 압; ) HANGUL SYLLABLE AB
@@ -10113,7 +10608,7 @@ TEST(normalization, nfc_044_101)
 }
 
 
-TEST(normalization, nfc_044_102)
+TEST(normalization, nfc_044_107)
 {
     // C556;C556;110B 1161 11B9;C556;110B 1161 11B9; 
     // (앖; 앖; 앖; 앖; 앖; ) HANGUL SYLLABLE ABS
@@ -10212,7 +10707,7 @@ TEST(normalization, nfc_044_102)
 }
 
 
-TEST(normalization, nfc_044_103)
+TEST(normalization, nfc_044_108)
 {
     // C557;C557;110B 1161 11BA;C557;110B 1161 11BA; 
     // (앗; 앗; 앗; 앗; 앗; ) HANGUL SYLLABLE AS
@@ -10311,7 +10806,7 @@ TEST(normalization, nfc_044_103)
 }
 
 
-TEST(normalization, nfc_044_104)
+TEST(normalization, nfc_044_109)
 {
     // C558;C558;110B 1161 11BB;C558;110B 1161 11BB; 
     // (았; 았; 았; 았; 았; ) HANGUL SYLLABLE ASS
@@ -10410,7 +10905,7 @@ TEST(normalization, nfc_044_104)
 }
 
 
-TEST(normalization, nfc_044_105)
+TEST(normalization, nfc_044_110)
 {
     // C559;C559;110B 1161 11BC;C559;110B 1161 11BC; 
     // (앙; 앙; 앙; 앙; 앙; ) HANGUL SYLLABLE ANG
@@ -10509,7 +11004,7 @@ TEST(normalization, nfc_044_105)
 }
 
 
-TEST(normalization, nfc_044_106)
+TEST(normalization, nfc_044_111)
 {
     // C55A;C55A;110B 1161 11BD;C55A;110B 1161 11BD; 
     // (앚; 앚; 앚; 앚; 앚; ) HANGUL SYLLABLE AJ
@@ -10608,7 +11103,7 @@ TEST(normalization, nfc_044_106)
 }
 
 
-TEST(normalization, nfc_044_107)
+TEST(normalization, nfc_044_112)
 {
     // C55B;C55B;110B 1161 11BE;C55B;110B 1161 11BE; 
     // (앛; 앛; 앛; 앛; 앛; ) HANGUL SYLLABLE AC
@@ -10707,7 +11202,7 @@ TEST(normalization, nfc_044_107)
 }
 
 
-TEST(normalization, nfc_044_108)
+TEST(normalization, nfc_044_113)
 {
     // C55C;C55C;110B 1161 11BF;C55C;110B 1161 11BF; 
     // (앜; 앜; 앜; 앜; 앜; ) HANGUL SYLLABLE AK
@@ -10806,7 +11301,7 @@ TEST(normalization, nfc_044_108)
 }
 
 
-TEST(normalization, nfc_044_109)
+TEST(normalization, nfc_044_114)
 {
     // C55D;C55D;110B 1161 11C0;C55D;110B 1161 11C0; 
     // (앝; 앝; 앝; 앝; 앝; ) HANGUL SYLLABLE AT
@@ -10905,7 +11400,7 @@ TEST(normalization, nfc_044_109)
 }
 
 
-TEST(normalization, nfc_044_110)
+TEST(normalization, nfc_044_115)
 {
     // C55E;C55E;110B 1161 11C1;C55E;110B 1161 11C1; 
     // (앞; 앞; 앞; 앞; 앞; ) HANGUL SYLLABLE AP
@@ -11004,7 +11499,7 @@ TEST(normalization, nfc_044_110)
 }
 
 
-TEST(normalization, nfc_044_111)
+TEST(normalization, nfc_044_116)
 {
     // C55F;C55F;110B 1161 11C2;C55F;110B 1161 11C2; 
     // (앟; 앟; 앟; 앟; 앟; ) HANGUL SYLLABLE AH
@@ -11103,7 +11598,7 @@ TEST(normalization, nfc_044_111)
 }
 
 
-TEST(normalization, nfc_044_112)
+TEST(normalization, nfc_044_117)
 {
     // C560;C560;110B 1162;C560;110B 1162; 
     // (애; 애; 애; 애; 애; ) HANGUL SYLLABLE AE
@@ -11202,7 +11697,7 @@ TEST(normalization, nfc_044_112)
 }
 
 
-TEST(normalization, nfc_044_113)
+TEST(normalization, nfc_044_118)
 {
     // C561;C561;110B 1162 11A8;C561;110B 1162 11A8; 
     // (액; 액; 액; 액; 액; ) HANGUL SYLLABLE AEG
@@ -11301,7 +11796,7 @@ TEST(normalization, nfc_044_113)
 }
 
 
-TEST(normalization, nfc_044_114)
+TEST(normalization, nfc_044_119)
 {
     // C562;C562;110B 1162 11A9;C562;110B 1162 11A9; 
     // (앢; 앢; 앢; 앢; 앢; ) HANGUL SYLLABLE AEGG
@@ -11400,7 +11895,7 @@ TEST(normalization, nfc_044_114)
 }
 
 
-TEST(normalization, nfc_044_115)
+TEST(normalization, nfc_044_120)
 {
     // C563;C563;110B 1162 11AA;C563;110B 1162 11AA; 
     // (앣; 앣; 앣; 앣; 앣; ) HANGUL SYLLABLE AEGS
@@ -11499,7 +11994,7 @@ TEST(normalization, nfc_044_115)
 }
 
 
-TEST(normalization, nfc_044_116)
+TEST(normalization, nfc_044_121)
 {
     // C564;C564;110B 1162 11AB;C564;110B 1162 11AB; 
     // (앤; 앤; 앤; 앤; 앤; ) HANGUL SYLLABLE AEN
@@ -11598,7 +12093,7 @@ TEST(normalization, nfc_044_116)
 }
 
 
-TEST(normalization, nfc_044_117)
+TEST(normalization, nfc_044_122)
 {
     // C565;C565;110B 1162 11AC;C565;110B 1162 11AC; 
     // (앥; 앥; 앥; 앥; 앥; ) HANGUL SYLLABLE AENJ
@@ -11697,7 +12192,7 @@ TEST(normalization, nfc_044_117)
 }
 
 
-TEST(normalization, nfc_044_118)
+TEST(normalization, nfc_044_123)
 {
     // C566;C566;110B 1162 11AD;C566;110B 1162 11AD; 
     // (앦; 앦; 앦; 앦; 앦; ) HANGUL SYLLABLE AENH
@@ -11796,7 +12291,7 @@ TEST(normalization, nfc_044_118)
 }
 
 
-TEST(normalization, nfc_044_119)
+TEST(normalization, nfc_044_124)
 {
     // C567;C567;110B 1162 11AE;C567;110B 1162 11AE; 
     // (앧; 앧; 앧; 앧; 앧; ) HANGUL SYLLABLE AED
@@ -11895,7 +12390,7 @@ TEST(normalization, nfc_044_119)
 }
 
 
-TEST(normalization, nfc_044_120)
+TEST(normalization, nfc_044_125)
 {
     // C568;C568;110B 1162 11AF;C568;110B 1162 11AF; 
     // (앨; 앨; 앨; 앨; 앨; ) HANGUL SYLLABLE AEL
@@ -11994,7 +12489,7 @@ TEST(normalization, nfc_044_120)
 }
 
 
-TEST(normalization, nfc_044_121)
+TEST(normalization, nfc_044_126)
 {
     // C569;C569;110B 1162 11B0;C569;110B 1162 11B0; 
     // (앩; 앩; 앩; 앩; 앩; ) HANGUL SYLLABLE AELG
@@ -12093,7 +12588,7 @@ TEST(normalization, nfc_044_121)
 }
 
 
-TEST(normalization, nfc_044_122)
+TEST(normalization, nfc_044_127)
 {
     // C56A;C56A;110B 1162 11B1;C56A;110B 1162 11B1; 
     // (앪; 앪; 앪; 앪; 앪; ) HANGUL SYLLABLE AELM
@@ -12192,7 +12687,7 @@ TEST(normalization, nfc_044_122)
 }
 
 
-TEST(normalization, nfc_044_123)
+TEST(normalization, nfc_044_128)
 {
     // C56B;C56B;110B 1162 11B2;C56B;110B 1162 11B2; 
     // (앫; 앫; 앫; 앫; 앫; ) HANGUL SYLLABLE AELB
@@ -12291,7 +12786,7 @@ TEST(normalization, nfc_044_123)
 }
 
 
-TEST(normalization, nfc_044_124)
+TEST(normalization, nfc_044_129)
 {
     // C56C;C56C;110B 1162 11B3;C56C;110B 1162 11B3; 
     // (앬; 앬; 앬; 앬; 앬; ) HANGUL SYLLABLE AELS
@@ -12390,7 +12885,7 @@ TEST(normalization, nfc_044_124)
 }
 
 
-TEST(normalization, nfc_044_125)
+TEST(normalization, nfc_044_130)
 {
     // C56D;C56D;110B 1162 11B4;C56D;110B 1162 11B4; 
     // (앭; 앭; 앭; 앭; 앭; ) HANGUL SYLLABLE AELT
@@ -12489,7 +12984,7 @@ TEST(normalization, nfc_044_125)
 }
 
 
-TEST(normalization, nfc_044_126)
+TEST(normalization, nfc_044_131)
 {
     // C56E;C56E;110B 1162 11B5;C56E;110B 1162 11B5; 
     // (앮; 앮; 앮; 앮; 앮; ) HANGUL SYLLABLE AELP
@@ -12588,7 +13083,7 @@ TEST(normalization, nfc_044_126)
 }
 
 
-TEST(normalization, nfc_044_127)
+TEST(normalization, nfc_044_132)
 {
     // C56F;C56F;110B 1162 11B6;C56F;110B 1162 11B6; 
     // (앯; 앯; 앯; 앯; 앯; ) HANGUL SYLLABLE AELH
@@ -12687,7 +13182,7 @@ TEST(normalization, nfc_044_127)
 }
 
 
-TEST(normalization, nfc_044_128)
+TEST(normalization, nfc_044_133)
 {
     // C570;C570;110B 1162 11B7;C570;110B 1162 11B7; 
     // (앰; 앰; 앰; 앰; 앰; ) HANGUL SYLLABLE AEM
@@ -12786,7 +13281,7 @@ TEST(normalization, nfc_044_128)
 }
 
 
-TEST(normalization, nfc_044_129)
+TEST(normalization, nfc_044_134)
 {
     // C571;C571;110B 1162 11B8;C571;110B 1162 11B8; 
     // (앱; 앱; 앱; 앱; 앱; ) HANGUL SYLLABLE AEB
@@ -12885,7 +13380,7 @@ TEST(normalization, nfc_044_129)
 }
 
 
-TEST(normalization, nfc_044_130)
+TEST(normalization, nfc_044_135)
 {
     // C572;C572;110B 1162 11B9;C572;110B 1162 11B9; 
     // (앲; 앲; 앲; 앲; 앲; ) HANGUL SYLLABLE AEBS
@@ -12984,7 +13479,7 @@ TEST(normalization, nfc_044_130)
 }
 
 
-TEST(normalization, nfc_044_131)
+TEST(normalization, nfc_044_136)
 {
     // C573;C573;110B 1162 11BA;C573;110B 1162 11BA; 
     // (앳; 앳; 앳; 앳; 앳; ) HANGUL SYLLABLE AES
@@ -13083,7 +13578,7 @@ TEST(normalization, nfc_044_131)
 }
 
 
-TEST(normalization, nfc_044_132)
+TEST(normalization, nfc_044_137)
 {
     // C574;C574;110B 1162 11BB;C574;110B 1162 11BB; 
     // (앴; 앴; 앴; 앴; 앴; ) HANGUL SYLLABLE AESS
@@ -13182,7 +13677,7 @@ TEST(normalization, nfc_044_132)
 }
 
 
-TEST(normalization, nfc_044_133)
+TEST(normalization, nfc_044_138)
 {
     // C575;C575;110B 1162 11BC;C575;110B 1162 11BC; 
     // (앵; 앵; 앵; 앵; 앵; ) HANGUL SYLLABLE AENG
@@ -13281,7 +13776,7 @@ TEST(normalization, nfc_044_133)
 }
 
 
-TEST(normalization, nfc_044_134)
+TEST(normalization, nfc_044_139)
 {
     // C576;C576;110B 1162 11BD;C576;110B 1162 11BD; 
     // (앶; 앶; 앶; 앶; 앶; ) HANGUL SYLLABLE AEJ
@@ -13380,7 +13875,7 @@ TEST(normalization, nfc_044_134)
 }
 
 
-TEST(normalization, nfc_044_135)
+TEST(normalization, nfc_044_140)
 {
     // C577;C577;110B 1162 11BE;C577;110B 1162 11BE; 
     // (앷; 앷; 앷; 앷; 앷; ) HANGUL SYLLABLE AEC
@@ -13479,7 +13974,7 @@ TEST(normalization, nfc_044_135)
 }
 
 
-TEST(normalization, nfc_044_136)
+TEST(normalization, nfc_044_141)
 {
     // C578;C578;110B 1162 11BF;C578;110B 1162 11BF; 
     // (앸; 앸; 앸; 앸; 앸; ) HANGUL SYLLABLE AEK
@@ -13578,7 +14073,7 @@ TEST(normalization, nfc_044_136)
 }
 
 
-TEST(normalization, nfc_044_137)
+TEST(normalization, nfc_044_142)
 {
     // C579;C579;110B 1162 11C0;C579;110B 1162 11C0; 
     // (앹; 앹; 앹; 앹; 앹; ) HANGUL SYLLABLE AET
@@ -13677,7 +14172,7 @@ TEST(normalization, nfc_044_137)
 }
 
 
-TEST(normalization, nfc_044_138)
+TEST(normalization, nfc_044_143)
 {
     // C57A;C57A;110B 1162 11C1;C57A;110B 1162 11C1; 
     // (앺; 앺; 앺; 앺; 앺; ) HANGUL SYLLABLE AEP
@@ -13776,7 +14271,7 @@ TEST(normalization, nfc_044_138)
 }
 
 
-TEST(normalization, nfc_044_139)
+TEST(normalization, nfc_044_144)
 {
     // C57B;C57B;110B 1162 11C2;C57B;110B 1162 11C2; 
     // (앻; 앻; 앻; 앻; 앻; ) HANGUL SYLLABLE AEH
@@ -13875,7 +14370,7 @@ TEST(normalization, nfc_044_139)
 }
 
 
-TEST(normalization, nfc_044_140)
+TEST(normalization, nfc_044_145)
 {
     // C57C;C57C;110B 1163;C57C;110B 1163; 
     // (야; 야; 야; 야; 야; ) HANGUL SYLLABLE YA
@@ -13974,7 +14469,7 @@ TEST(normalization, nfc_044_140)
 }
 
 
-TEST(normalization, nfc_044_141)
+TEST(normalization, nfc_044_146)
 {
     // C57D;C57D;110B 1163 11A8;C57D;110B 1163 11A8; 
     // (약; 약; 약; 약; 약; ) HANGUL SYLLABLE YAG
@@ -14073,7 +14568,7 @@ TEST(normalization, nfc_044_141)
 }
 
 
-TEST(normalization, nfc_044_142)
+TEST(normalization, nfc_044_147)
 {
     // C57E;C57E;110B 1163 11A9;C57E;110B 1163 11A9; 
     // (앾; 앾; 앾; 앾; 앾; ) HANGUL SYLLABLE YAGG
@@ -14172,7 +14667,7 @@ TEST(normalization, nfc_044_142)
 }
 
 
-TEST(normalization, nfc_044_143)
+TEST(normalization, nfc_044_148)
 {
     // C57F;C57F;110B 1163 11AA;C57F;110B 1163 11AA; 
     // (앿; 앿; 앿; 앿; 앿; ) HANGUL SYLLABLE YAGS
@@ -14271,7 +14766,7 @@ TEST(normalization, nfc_044_143)
 }
 
 
-TEST(normalization, nfc_044_144)
+TEST(normalization, nfc_044_149)
 {
     // C580;C580;110B 1163 11AB;C580;110B 1163 11AB; 
     // (얀; 얀; 얀; 얀; 얀; ) HANGUL SYLLABLE YAN
@@ -14370,7 +14865,7 @@ TEST(normalization, nfc_044_144)
 }
 
 
-TEST(normalization, nfc_044_145)
+TEST(normalization, nfc_044_150)
 {
     // C581;C581;110B 1163 11AC;C581;110B 1163 11AC; 
     // (얁; 얁; 얁; 얁; 얁; ) HANGUL SYLLABLE YANJ
@@ -14469,7 +14964,7 @@ TEST(normalization, nfc_044_145)
 }
 
 
-TEST(normalization, nfc_044_146)
+TEST(normalization, nfc_044_151)
 {
     // C582;C582;110B 1163 11AD;C582;110B 1163 11AD; 
     // (얂; 얂; 얂; 얂; 얂; ) HANGUL SYLLABLE YANH
@@ -14568,7 +15063,7 @@ TEST(normalization, nfc_044_146)
 }
 
 
-TEST(normalization, nfc_044_147)
+TEST(normalization, nfc_044_152)
 {
     // C583;C583;110B 1163 11AE;C583;110B 1163 11AE; 
     // (얃; 얃; 얃; 얃; 얃; ) HANGUL SYLLABLE YAD
@@ -14667,7 +15162,7 @@ TEST(normalization, nfc_044_147)
 }
 
 
-TEST(normalization, nfc_044_148)
+TEST(normalization, nfc_044_153)
 {
     // C584;C584;110B 1163 11AF;C584;110B 1163 11AF; 
     // (얄; 얄; 얄; 얄; 얄; ) HANGUL SYLLABLE YAL
@@ -14766,7 +15261,7 @@ TEST(normalization, nfc_044_148)
 }
 
 
-TEST(normalization, nfc_044_149)
+TEST(normalization, nfc_044_154)
 {
     // C585;C585;110B 1163 11B0;C585;110B 1163 11B0; 
     // (얅; 얅; 얅; 얅; 얅; ) HANGUL SYLLABLE YALG
@@ -14865,7 +15360,7 @@ TEST(normalization, nfc_044_149)
 }
 
 
-TEST(normalization, nfc_044_150)
+TEST(normalization, nfc_044_155)
 {
     // C586;C586;110B 1163 11B1;C586;110B 1163 11B1; 
     // (얆; 얆; 얆; 얆; 얆; ) HANGUL SYLLABLE YALM
@@ -14964,7 +15459,7 @@ TEST(normalization, nfc_044_150)
 }
 
 
-TEST(normalization, nfc_044_151)
+TEST(normalization, nfc_044_156)
 {
     // C587;C587;110B 1163 11B2;C587;110B 1163 11B2; 
     // (얇; 얇; 얇; 얇; 얇; ) HANGUL SYLLABLE YALB
@@ -15063,7 +15558,7 @@ TEST(normalization, nfc_044_151)
 }
 
 
-TEST(normalization, nfc_044_152)
+TEST(normalization, nfc_044_157)
 {
     // C588;C588;110B 1163 11B3;C588;110B 1163 11B3; 
     // (얈; 얈; 얈; 얈; 얈; ) HANGUL SYLLABLE YALS
@@ -15162,7 +15657,7 @@ TEST(normalization, nfc_044_152)
 }
 
 
-TEST(normalization, nfc_044_153)
+TEST(normalization, nfc_044_158)
 {
     // C589;C589;110B 1163 11B4;C589;110B 1163 11B4; 
     // (얉; 얉; 얉; 얉; 얉; ) HANGUL SYLLABLE YALT
@@ -15261,7 +15756,7 @@ TEST(normalization, nfc_044_153)
 }
 
 
-TEST(normalization, nfc_044_154)
+TEST(normalization, nfc_044_159)
 {
     // C58A;C58A;110B 1163 11B5;C58A;110B 1163 11B5; 
     // (얊; 얊; 얊; 얊; 얊; ) HANGUL SYLLABLE YALP
@@ -15360,7 +15855,7 @@ TEST(normalization, nfc_044_154)
 }
 
 
-TEST(normalization, nfc_044_155)
+TEST(normalization, nfc_044_160)
 {
     // C58B;C58B;110B 1163 11B6;C58B;110B 1163 11B6; 
     // (얋; 얋; 얋; 얋; 얋; ) HANGUL SYLLABLE YALH
@@ -15459,7 +15954,7 @@ TEST(normalization, nfc_044_155)
 }
 
 
-TEST(normalization, nfc_044_156)
+TEST(normalization, nfc_044_161)
 {
     // C58C;C58C;110B 1163 11B7;C58C;110B 1163 11B7; 
     // (얌; 얌; 얌; 얌; 얌; ) HANGUL SYLLABLE YAM
@@ -15558,7 +16053,7 @@ TEST(normalization, nfc_044_156)
 }
 
 
-TEST(normalization, nfc_044_157)
+TEST(normalization, nfc_044_162)
 {
     // C58D;C58D;110B 1163 11B8;C58D;110B 1163 11B8; 
     // (얍; 얍; 얍; 얍; 얍; ) HANGUL SYLLABLE YAB
@@ -15657,7 +16152,7 @@ TEST(normalization, nfc_044_157)
 }
 
 
-TEST(normalization, nfc_044_158)
+TEST(normalization, nfc_044_163)
 {
     // C58E;C58E;110B 1163 11B9;C58E;110B 1163 11B9; 
     // (얎; 얎; 얎; 얎; 얎; ) HANGUL SYLLABLE YABS
@@ -15756,7 +16251,7 @@ TEST(normalization, nfc_044_158)
 }
 
 
-TEST(normalization, nfc_044_159)
+TEST(normalization, nfc_044_164)
 {
     // C58F;C58F;110B 1163 11BA;C58F;110B 1163 11BA; 
     // (얏; 얏; 얏; 얏; 얏; ) HANGUL SYLLABLE YAS
@@ -15855,7 +16350,7 @@ TEST(normalization, nfc_044_159)
 }
 
 
-TEST(normalization, nfc_044_160)
+TEST(normalization, nfc_044_165)
 {
     // C590;C590;110B 1163 11BB;C590;110B 1163 11BB; 
     // (얐; 얐; 얐; 얐; 얐; ) HANGUL SYLLABLE YASS
@@ -15954,7 +16449,7 @@ TEST(normalization, nfc_044_160)
 }
 
 
-TEST(normalization, nfc_044_161)
+TEST(normalization, nfc_044_166)
 {
     // C591;C591;110B 1163 11BC;C591;110B 1163 11BC; 
     // (양; 양; 양; 양; 양; ) HANGUL SYLLABLE YANG
@@ -16053,7 +16548,7 @@ TEST(normalization, nfc_044_161)
 }
 
 
-TEST(normalization, nfc_044_162)
+TEST(normalization, nfc_044_167)
 {
     // C592;C592;110B 1163 11BD;C592;110B 1163 11BD; 
     // (얒; 얒; 얒; 얒; 얒; ) HANGUL SYLLABLE YAJ
@@ -16152,7 +16647,7 @@ TEST(normalization, nfc_044_162)
 }
 
 
-TEST(normalization, nfc_044_163)
+TEST(normalization, nfc_044_168)
 {
     // C593;C593;110B 1163 11BE;C593;110B 1163 11BE; 
     // (얓; 얓; 얓; 얓; 얓; ) HANGUL SYLLABLE YAC
@@ -16251,7 +16746,7 @@ TEST(normalization, nfc_044_163)
 }
 
 
-TEST(normalization, nfc_044_164)
+TEST(normalization, nfc_044_169)
 {
     // C594;C594;110B 1163 11BF;C594;110B 1163 11BF; 
     // (얔; 얔; 얔; 얔; 얔; ) HANGUL SYLLABLE YAK
@@ -16350,7 +16845,7 @@ TEST(normalization, nfc_044_164)
 }
 
 
-TEST(normalization, nfc_044_165)
+TEST(normalization, nfc_044_170)
 {
     // C595;C595;110B 1163 11C0;C595;110B 1163 11C0; 
     // (얕; 얕; 얕; 얕; 얕; ) HANGUL SYLLABLE YAT
@@ -16449,7 +16944,7 @@ TEST(normalization, nfc_044_165)
 }
 
 
-TEST(normalization, nfc_044_166)
+TEST(normalization, nfc_044_171)
 {
     // C596;C596;110B 1163 11C1;C596;110B 1163 11C1; 
     // (얖; 얖; 얖; 얖; 얖; ) HANGUL SYLLABLE YAP
@@ -16548,7 +17043,7 @@ TEST(normalization, nfc_044_166)
 }
 
 
-TEST(normalization, nfc_044_167)
+TEST(normalization, nfc_044_172)
 {
     // C597;C597;110B 1163 11C2;C597;110B 1163 11C2; 
     // (얗; 얗; 얗; 얗; 얗; ) HANGUL SYLLABLE YAH
@@ -16647,7 +17142,7 @@ TEST(normalization, nfc_044_167)
 }
 
 
-TEST(normalization, nfc_044_168)
+TEST(normalization, nfc_044_173)
 {
     // C598;C598;110B 1164;C598;110B 1164; 
     // (얘; 얘; 얘; 얘; 얘; ) HANGUL SYLLABLE YAE
@@ -16746,7 +17241,7 @@ TEST(normalization, nfc_044_168)
 }
 
 
-TEST(normalization, nfc_044_169)
+TEST(normalization, nfc_044_174)
 {
     // C599;C599;110B 1164 11A8;C599;110B 1164 11A8; 
     // (얙; 얙; 얙; 얙; 얙; ) HANGUL SYLLABLE YAEG
@@ -16845,7 +17340,7 @@ TEST(normalization, nfc_044_169)
 }
 
 
-TEST(normalization, nfc_044_170)
+TEST(normalization, nfc_044_175)
 {
     // C59A;C59A;110B 1164 11A9;C59A;110B 1164 11A9; 
     // (얚; 얚; 얚; 얚; 얚; ) HANGUL SYLLABLE YAEGG
@@ -16944,7 +17439,7 @@ TEST(normalization, nfc_044_170)
 }
 
 
-TEST(normalization, nfc_044_171)
+TEST(normalization, nfc_044_176)
 {
     // C59B;C59B;110B 1164 11AA;C59B;110B 1164 11AA; 
     // (얛; 얛; 얛; 얛; 얛; ) HANGUL SYLLABLE YAEGS
@@ -17043,7 +17538,7 @@ TEST(normalization, nfc_044_171)
 }
 
 
-TEST(normalization, nfc_044_172)
+TEST(normalization, nfc_044_177)
 {
     // C59C;C59C;110B 1164 11AB;C59C;110B 1164 11AB; 
     // (얜; 얜; 얜; 얜; 얜; ) HANGUL SYLLABLE YAEN
@@ -17142,7 +17637,7 @@ TEST(normalization, nfc_044_172)
 }
 
 
-TEST(normalization, nfc_044_173)
+TEST(normalization, nfc_044_178)
 {
     // C59D;C59D;110B 1164 11AC;C59D;110B 1164 11AC; 
     // (얝; 얝; 얝; 얝; 얝; ) HANGUL SYLLABLE YAENJ
@@ -17241,7 +17736,7 @@ TEST(normalization, nfc_044_173)
 }
 
 
-TEST(normalization, nfc_044_174)
+TEST(normalization, nfc_044_179)
 {
     // C59E;C59E;110B 1164 11AD;C59E;110B 1164 11AD; 
     // (얞; 얞; 얞; 얞; 얞; ) HANGUL SYLLABLE YAENH
@@ -17340,7 +17835,7 @@ TEST(normalization, nfc_044_174)
 }
 
 
-TEST(normalization, nfc_044_175)
+TEST(normalization, nfc_044_180)
 {
     // C59F;C59F;110B 1164 11AE;C59F;110B 1164 11AE; 
     // (얟; 얟; 얟; 얟; 얟; ) HANGUL SYLLABLE YAED
@@ -17439,7 +17934,7 @@ TEST(normalization, nfc_044_175)
 }
 
 
-TEST(normalization, nfc_044_176)
+TEST(normalization, nfc_044_181)
 {
     // C5A0;C5A0;110B 1164 11AF;C5A0;110B 1164 11AF; 
     // (얠; 얠; 얠; 얠; 얠; ) HANGUL SYLLABLE YAEL
@@ -17538,7 +18033,7 @@ TEST(normalization, nfc_044_176)
 }
 
 
-TEST(normalization, nfc_044_177)
+TEST(normalization, nfc_044_182)
 {
     // C5A1;C5A1;110B 1164 11B0;C5A1;110B 1164 11B0; 
     // (얡; 얡; 얡; 얡; 얡; ) HANGUL SYLLABLE YAELG
@@ -17637,7 +18132,7 @@ TEST(normalization, nfc_044_177)
 }
 
 
-TEST(normalization, nfc_044_178)
+TEST(normalization, nfc_044_183)
 {
     // C5A2;C5A2;110B 1164 11B1;C5A2;110B 1164 11B1; 
     // (얢; 얢; 얢; 얢; 얢; ) HANGUL SYLLABLE YAELM
@@ -17736,7 +18231,7 @@ TEST(normalization, nfc_044_178)
 }
 
 
-TEST(normalization, nfc_044_179)
+TEST(normalization, nfc_044_184)
 {
     // C5A3;C5A3;110B 1164 11B2;C5A3;110B 1164 11B2; 
     // (얣; 얣; 얣; 얣; 얣; ) HANGUL SYLLABLE YAELB
@@ -17835,7 +18330,7 @@ TEST(normalization, nfc_044_179)
 }
 
 
-TEST(normalization, nfc_044_180)
+TEST(normalization, nfc_044_185)
 {
     // C5A4;C5A4;110B 1164 11B3;C5A4;110B 1164 11B3; 
     // (얤; 얤; 얤; 얤; 얤; ) HANGUL SYLLABLE YAELS
@@ -17934,7 +18429,7 @@ TEST(normalization, nfc_044_180)
 }
 
 
-TEST(normalization, nfc_044_181)
+TEST(normalization, nfc_044_186)
 {
     // C5A5;C5A5;110B 1164 11B4;C5A5;110B 1164 11B4; 
     // (얥; 얥; 얥; 얥; 얥; ) HANGUL SYLLABLE YAELT
@@ -18033,7 +18528,7 @@ TEST(normalization, nfc_044_181)
 }
 
 
-TEST(normalization, nfc_044_182)
+TEST(normalization, nfc_044_187)
 {
     // C5A6;C5A6;110B 1164 11B5;C5A6;110B 1164 11B5; 
     // (얦; 얦; 얦; 얦; 얦; ) HANGUL SYLLABLE YAELP
@@ -18132,7 +18627,7 @@ TEST(normalization, nfc_044_182)
 }
 
 
-TEST(normalization, nfc_044_183)
+TEST(normalization, nfc_044_188)
 {
     // C5A7;C5A7;110B 1164 11B6;C5A7;110B 1164 11B6; 
     // (얧; 얧; 얧; 얧; 얧; ) HANGUL SYLLABLE YAELH
@@ -18231,7 +18726,7 @@ TEST(normalization, nfc_044_183)
 }
 
 
-TEST(normalization, nfc_044_184)
+TEST(normalization, nfc_044_189)
 {
     // C5A8;C5A8;110B 1164 11B7;C5A8;110B 1164 11B7; 
     // (얨; 얨; 얨; 얨; 얨; ) HANGUL SYLLABLE YAEM
@@ -18330,7 +18825,7 @@ TEST(normalization, nfc_044_184)
 }
 
 
-TEST(normalization, nfc_044_185)
+TEST(normalization, nfc_044_190)
 {
     // C5A9;C5A9;110B 1164 11B8;C5A9;110B 1164 11B8; 
     // (얩; 얩; 얩; 얩; 얩; ) HANGUL SYLLABLE YAEB
@@ -18429,7 +18924,7 @@ TEST(normalization, nfc_044_185)
 }
 
 
-TEST(normalization, nfc_044_186)
+TEST(normalization, nfc_044_191)
 {
     // C5AA;C5AA;110B 1164 11B9;C5AA;110B 1164 11B9; 
     // (얪; 얪; 얪; 얪; 얪; ) HANGUL SYLLABLE YAEBS
@@ -18528,7 +19023,7 @@ TEST(normalization, nfc_044_186)
 }
 
 
-TEST(normalization, nfc_044_187)
+TEST(normalization, nfc_044_192)
 {
     // C5AB;C5AB;110B 1164 11BA;C5AB;110B 1164 11BA; 
     // (얫; 얫; 얫; 얫; 얫; ) HANGUL SYLLABLE YAES
@@ -18627,7 +19122,7 @@ TEST(normalization, nfc_044_187)
 }
 
 
-TEST(normalization, nfc_044_188)
+TEST(normalization, nfc_044_193)
 {
     // C5AC;C5AC;110B 1164 11BB;C5AC;110B 1164 11BB; 
     // (얬; 얬; 얬; 얬; 얬; ) HANGUL SYLLABLE YAESS
@@ -18726,7 +19221,7 @@ TEST(normalization, nfc_044_188)
 }
 
 
-TEST(normalization, nfc_044_189)
+TEST(normalization, nfc_044_194)
 {
     // C5AD;C5AD;110B 1164 11BC;C5AD;110B 1164 11BC; 
     // (얭; 얭; 얭; 얭; 얭; ) HANGUL SYLLABLE YAENG
@@ -18825,7 +19320,7 @@ TEST(normalization, nfc_044_189)
 }
 
 
-TEST(normalization, nfc_044_190)
+TEST(normalization, nfc_044_195)
 {
     // C5AE;C5AE;110B 1164 11BD;C5AE;110B 1164 11BD; 
     // (얮; 얮; 얮; 얮; 얮; ) HANGUL SYLLABLE YAEJ
@@ -18924,7 +19419,7 @@ TEST(normalization, nfc_044_190)
 }
 
 
-TEST(normalization, nfc_044_191)
+TEST(normalization, nfc_044_196)
 {
     // C5AF;C5AF;110B 1164 11BE;C5AF;110B 1164 11BE; 
     // (얯; 얯; 얯; 얯; 얯; ) HANGUL SYLLABLE YAEC
@@ -19023,7 +19518,7 @@ TEST(normalization, nfc_044_191)
 }
 
 
-TEST(normalization, nfc_044_192)
+TEST(normalization, nfc_044_197)
 {
     // C5B0;C5B0;110B 1164 11BF;C5B0;110B 1164 11BF; 
     // (얰; 얰; 얰; 얰; 얰; ) HANGUL SYLLABLE YAEK
@@ -19122,7 +19617,7 @@ TEST(normalization, nfc_044_192)
 }
 
 
-TEST(normalization, nfc_044_193)
+TEST(normalization, nfc_044_198)
 {
     // C5B1;C5B1;110B 1164 11C0;C5B1;110B 1164 11C0; 
     // (얱; 얱; 얱; 얱; 얱; ) HANGUL SYLLABLE YAET
@@ -19221,7 +19716,7 @@ TEST(normalization, nfc_044_193)
 }
 
 
-TEST(normalization, nfc_044_194)
+TEST(normalization, nfc_044_199)
 {
     // C5B2;C5B2;110B 1164 11C1;C5B2;110B 1164 11C1; 
     // (얲; 얲; 얲; 얲; 얲; ) HANGUL SYLLABLE YAEP
@@ -19231,501 +19726,6 @@ TEST(normalization, nfc_044_194)
         std::array<uint32_t, 3> const c3 = {{ 0x110B, 0x1164, 0x11C1 }};
         std::array<uint32_t, 1> const c4 = {{ 0xC5B2 }};
         std::array<uint32_t, 3> const c5 = {{ 0x110B, 0x1164, 0x11C1 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfc_044_195)
-{
-    // C5B3;C5B3;110B 1164 11C2;C5B3;110B 1164 11C2; 
-    // (얳; 얳; 얳; 얳; 얳; ) HANGUL SYLLABLE YAEH
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xC5B3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xC5B3 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x110B, 0x1164, 0x11C2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xC5B3 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x110B, 0x1164, 0x11C2 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfc_044_196)
-{
-    // C5B4;C5B4;110B 1165;C5B4;110B 1165; 
-    // (어; 어; 어; 어; 어; ) HANGUL SYLLABLE EO
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xC5B4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xC5B4 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x110B, 0x1165 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xC5B4 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x110B, 0x1165 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfc_044_197)
-{
-    // C5B5;C5B5;110B 1165 11A8;C5B5;110B 1165 11A8; 
-    // (억; 억; 억; 억; 억; ) HANGUL SYLLABLE EOG
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xC5B5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xC5B5 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x110B, 0x1165, 0x11A8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xC5B5 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x110B, 0x1165, 0x11A8 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfc_044_198)
-{
-    // C5B6;C5B6;110B 1165 11A9;C5B6;110B 1165 11A9; 
-    // (얶; 얶; 얶; 얶; 얶; ) HANGUL SYLLABLE EOGG
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xC5B6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xC5B6 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x110B, 0x1165, 0x11A9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xC5B6 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x110B, 0x1165, 0x11A9 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfc_044_199)
-{
-    // C5B7;C5B7;110B 1165 11AA;C5B7;110B 1165 11AA; 
-    // (얷; 얷; 얷; 얷; 얷; ) HANGUL SYLLABLE EOGS
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xC5B7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xC5B7 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x110B, 0x1165, 0x11AA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xC5B7 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x110B, 0x1165, 0x11AA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));

@@ -53,7 +53,7 @@ namespace boost { namespace text {
             return lhs.hi_ <= rhs.lo_;
         }
 
-        BOOST_TEXT_DECL std::array<grapheme_prop_interval, 6> const &
+        BOOST_TEXT_DECL std::array<grapheme_prop_interval, 5> const &
         make_grapheme_prop_intervals();
         BOOST_TEXT_DECL std::unordered_map<uint32_t, grapheme_property>
         make_grapheme_prop_map();

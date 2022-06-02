@@ -17,6 +17,6144 @@
 
 TEST(normalization, nfd_077_000)
 {
+    // 1D4C6;1D4C6;1D4C6;0071;0071; 
+    // (𝓆; 𝓆; 𝓆; q; q; ) MATHEMATICAL SCRIPT SMALL Q
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4C6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4C6 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4C6 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0071 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0071 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_001)
+{
+    // 1D4C7;1D4C7;1D4C7;0072;0072; 
+    // (𝓇; 𝓇; 𝓇; r; r; ) MATHEMATICAL SCRIPT SMALL R
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4C7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4C7 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4C7 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0072 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0072 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_002)
+{
+    // 1D4C8;1D4C8;1D4C8;0073;0073; 
+    // (𝓈; 𝓈; 𝓈; s; s; ) MATHEMATICAL SCRIPT SMALL S
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4C8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4C8 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4C8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0073 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0073 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_003)
+{
+    // 1D4C9;1D4C9;1D4C9;0074;0074; 
+    // (𝓉; 𝓉; 𝓉; t; t; ) MATHEMATICAL SCRIPT SMALL T
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4C9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4C9 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4C9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0074 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0074 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_004)
+{
+    // 1D4CA;1D4CA;1D4CA;0075;0075; 
+    // (𝓊; 𝓊; 𝓊; u; u; ) MATHEMATICAL SCRIPT SMALL U
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4CA }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4CA }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4CA }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0075 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0075 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_005)
+{
+    // 1D4CB;1D4CB;1D4CB;0076;0076; 
+    // (𝓋; 𝓋; 𝓋; v; v; ) MATHEMATICAL SCRIPT SMALL V
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4CB }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4CB }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4CB }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0076 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0076 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_006)
+{
+    // 1D4CC;1D4CC;1D4CC;0077;0077; 
+    // (𝓌; 𝓌; 𝓌; w; w; ) MATHEMATICAL SCRIPT SMALL W
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4CC }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4CC }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4CC }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0077 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0077 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_007)
+{
+    // 1D4CD;1D4CD;1D4CD;0078;0078; 
+    // (𝓍; 𝓍; 𝓍; x; x; ) MATHEMATICAL SCRIPT SMALL X
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4CD }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4CD }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4CD }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0078 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0078 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_008)
+{
+    // 1D4CE;1D4CE;1D4CE;0079;0079; 
+    // (𝓎; 𝓎; 𝓎; y; y; ) MATHEMATICAL SCRIPT SMALL Y
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4CE }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4CE }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4CE }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0079 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0079 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_009)
+{
+    // 1D4CF;1D4CF;1D4CF;007A;007A; 
+    // (𝓏; 𝓏; 𝓏; z; z; ) MATHEMATICAL SCRIPT SMALL Z
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4CF }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4CF }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4CF }};
+        std::array<uint32_t, 1> const c4 = {{ 0x007A }};
+        std::array<uint32_t, 1> const c5 = {{ 0x007A }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_010)
+{
+    // 1D4D0;1D4D0;1D4D0;0041;0041; 
+    // (𝓐; 𝓐; 𝓐; A; A; ) MATHEMATICAL BOLD SCRIPT CAPITAL A
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4D0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4D0 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4D0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0041 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0041 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_011)
+{
+    // 1D4D1;1D4D1;1D4D1;0042;0042; 
+    // (𝓑; 𝓑; 𝓑; B; B; ) MATHEMATICAL BOLD SCRIPT CAPITAL B
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4D1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4D1 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4D1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0042 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0042 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_012)
+{
+    // 1D4D2;1D4D2;1D4D2;0043;0043; 
+    // (𝓒; 𝓒; 𝓒; C; C; ) MATHEMATICAL BOLD SCRIPT CAPITAL C
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4D2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4D2 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4D2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0043 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0043 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_013)
+{
+    // 1D4D3;1D4D3;1D4D3;0044;0044; 
+    // (𝓓; 𝓓; 𝓓; D; D; ) MATHEMATICAL BOLD SCRIPT CAPITAL D
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4D3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4D3 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4D3 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0044 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0044 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_014)
+{
+    // 1D4D4;1D4D4;1D4D4;0045;0045; 
+    // (𝓔; 𝓔; 𝓔; E; E; ) MATHEMATICAL BOLD SCRIPT CAPITAL E
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4D4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4D4 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4D4 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0045 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0045 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_015)
+{
+    // 1D4D5;1D4D5;1D4D5;0046;0046; 
+    // (𝓕; 𝓕; 𝓕; F; F; ) MATHEMATICAL BOLD SCRIPT CAPITAL F
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4D5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4D5 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4D5 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0046 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0046 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_016)
+{
+    // 1D4D6;1D4D6;1D4D6;0047;0047; 
+    // (𝓖; 𝓖; 𝓖; G; G; ) MATHEMATICAL BOLD SCRIPT CAPITAL G
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4D6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4D6 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4D6 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0047 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0047 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_017)
+{
+    // 1D4D7;1D4D7;1D4D7;0048;0048; 
+    // (𝓗; 𝓗; 𝓗; H; H; ) MATHEMATICAL BOLD SCRIPT CAPITAL H
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4D7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4D7 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4D7 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0048 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0048 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_018)
+{
+    // 1D4D8;1D4D8;1D4D8;0049;0049; 
+    // (𝓘; 𝓘; 𝓘; I; I; ) MATHEMATICAL BOLD SCRIPT CAPITAL I
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4D8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4D8 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4D8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0049 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0049 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_019)
+{
+    // 1D4D9;1D4D9;1D4D9;004A;004A; 
+    // (𝓙; 𝓙; 𝓙; J; J; ) MATHEMATICAL BOLD SCRIPT CAPITAL J
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4D9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4D9 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4D9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x004A }};
+        std::array<uint32_t, 1> const c5 = {{ 0x004A }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_020)
+{
+    // 1D4DA;1D4DA;1D4DA;004B;004B; 
+    // (𝓚; 𝓚; 𝓚; K; K; ) MATHEMATICAL BOLD SCRIPT CAPITAL K
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4DA }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4DA }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4DA }};
+        std::array<uint32_t, 1> const c4 = {{ 0x004B }};
+        std::array<uint32_t, 1> const c5 = {{ 0x004B }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_021)
+{
+    // 1D4DB;1D4DB;1D4DB;004C;004C; 
+    // (𝓛; 𝓛; 𝓛; L; L; ) MATHEMATICAL BOLD SCRIPT CAPITAL L
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4DB }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4DB }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4DB }};
+        std::array<uint32_t, 1> const c4 = {{ 0x004C }};
+        std::array<uint32_t, 1> const c5 = {{ 0x004C }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_022)
+{
+    // 1D4DC;1D4DC;1D4DC;004D;004D; 
+    // (𝓜; 𝓜; 𝓜; M; M; ) MATHEMATICAL BOLD SCRIPT CAPITAL M
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4DC }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4DC }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4DC }};
+        std::array<uint32_t, 1> const c4 = {{ 0x004D }};
+        std::array<uint32_t, 1> const c5 = {{ 0x004D }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_023)
+{
+    // 1D4DD;1D4DD;1D4DD;004E;004E; 
+    // (𝓝; 𝓝; 𝓝; N; N; ) MATHEMATICAL BOLD SCRIPT CAPITAL N
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4DD }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4DD }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4DD }};
+        std::array<uint32_t, 1> const c4 = {{ 0x004E }};
+        std::array<uint32_t, 1> const c5 = {{ 0x004E }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_024)
+{
+    // 1D4DE;1D4DE;1D4DE;004F;004F; 
+    // (𝓞; 𝓞; 𝓞; O; O; ) MATHEMATICAL BOLD SCRIPT CAPITAL O
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4DE }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4DE }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4DE }};
+        std::array<uint32_t, 1> const c4 = {{ 0x004F }};
+        std::array<uint32_t, 1> const c5 = {{ 0x004F }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_025)
+{
+    // 1D4DF;1D4DF;1D4DF;0050;0050; 
+    // (𝓟; 𝓟; 𝓟; P; P; ) MATHEMATICAL BOLD SCRIPT CAPITAL P
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4DF }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4DF }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4DF }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0050 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0050 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_026)
+{
+    // 1D4E0;1D4E0;1D4E0;0051;0051; 
+    // (𝓠; 𝓠; 𝓠; Q; Q; ) MATHEMATICAL BOLD SCRIPT CAPITAL Q
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4E0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4E0 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4E0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0051 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0051 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_027)
+{
+    // 1D4E1;1D4E1;1D4E1;0052;0052; 
+    // (𝓡; 𝓡; 𝓡; R; R; ) MATHEMATICAL BOLD SCRIPT CAPITAL R
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4E1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4E1 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4E1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0052 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0052 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_028)
+{
+    // 1D4E2;1D4E2;1D4E2;0053;0053; 
+    // (𝓢; 𝓢; 𝓢; S; S; ) MATHEMATICAL BOLD SCRIPT CAPITAL S
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4E2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4E2 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4E2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0053 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0053 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_029)
+{
+    // 1D4E3;1D4E3;1D4E3;0054;0054; 
+    // (𝓣; 𝓣; 𝓣; T; T; ) MATHEMATICAL BOLD SCRIPT CAPITAL T
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4E3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4E3 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4E3 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0054 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0054 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_030)
+{
+    // 1D4E4;1D4E4;1D4E4;0055;0055; 
+    // (𝓤; 𝓤; 𝓤; U; U; ) MATHEMATICAL BOLD SCRIPT CAPITAL U
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4E4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4E4 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4E4 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0055 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0055 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_031)
+{
+    // 1D4E5;1D4E5;1D4E5;0056;0056; 
+    // (𝓥; 𝓥; 𝓥; V; V; ) MATHEMATICAL BOLD SCRIPT CAPITAL V
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4E5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4E5 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4E5 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0056 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0056 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_032)
+{
+    // 1D4E6;1D4E6;1D4E6;0057;0057; 
+    // (𝓦; 𝓦; 𝓦; W; W; ) MATHEMATICAL BOLD SCRIPT CAPITAL W
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4E6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4E6 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4E6 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0057 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0057 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_033)
+{
+    // 1D4E7;1D4E7;1D4E7;0058;0058; 
+    // (𝓧; 𝓧; 𝓧; X; X; ) MATHEMATICAL BOLD SCRIPT CAPITAL X
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4E7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4E7 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4E7 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0058 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0058 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_034)
+{
+    // 1D4E8;1D4E8;1D4E8;0059;0059; 
+    // (𝓨; 𝓨; 𝓨; Y; Y; ) MATHEMATICAL BOLD SCRIPT CAPITAL Y
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4E8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4E8 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4E8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0059 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0059 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_035)
+{
+    // 1D4E9;1D4E9;1D4E9;005A;005A; 
+    // (𝓩; 𝓩; 𝓩; Z; Z; ) MATHEMATICAL BOLD SCRIPT CAPITAL Z
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4E9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4E9 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4E9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x005A }};
+        std::array<uint32_t, 1> const c5 = {{ 0x005A }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_036)
+{
+    // 1D4EA;1D4EA;1D4EA;0061;0061; 
+    // (𝓪; 𝓪; 𝓪; a; a; ) MATHEMATICAL BOLD SCRIPT SMALL A
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4EA }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4EA }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4EA }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0061 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0061 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_037)
+{
+    // 1D4EB;1D4EB;1D4EB;0062;0062; 
+    // (𝓫; 𝓫; 𝓫; b; b; ) MATHEMATICAL BOLD SCRIPT SMALL B
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4EB }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4EB }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4EB }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0062 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0062 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_038)
+{
+    // 1D4EC;1D4EC;1D4EC;0063;0063; 
+    // (𝓬; 𝓬; 𝓬; c; c; ) MATHEMATICAL BOLD SCRIPT SMALL C
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4EC }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4EC }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4EC }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0063 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0063 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_039)
+{
+    // 1D4ED;1D4ED;1D4ED;0064;0064; 
+    // (𝓭; 𝓭; 𝓭; d; d; ) MATHEMATICAL BOLD SCRIPT SMALL D
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4ED }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4ED }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4ED }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0064 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0064 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_040)
+{
+    // 1D4EE;1D4EE;1D4EE;0065;0065; 
+    // (𝓮; 𝓮; 𝓮; e; e; ) MATHEMATICAL BOLD SCRIPT SMALL E
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4EE }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4EE }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4EE }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0065 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0065 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_041)
+{
+    // 1D4EF;1D4EF;1D4EF;0066;0066; 
+    // (𝓯; 𝓯; 𝓯; f; f; ) MATHEMATICAL BOLD SCRIPT SMALL F
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4EF }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4EF }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4EF }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0066 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0066 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_042)
+{
+    // 1D4F0;1D4F0;1D4F0;0067;0067; 
+    // (𝓰; 𝓰; 𝓰; g; g; ) MATHEMATICAL BOLD SCRIPT SMALL G
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4F0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4F0 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4F0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0067 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0067 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_043)
+{
+    // 1D4F1;1D4F1;1D4F1;0068;0068; 
+    // (𝓱; 𝓱; 𝓱; h; h; ) MATHEMATICAL BOLD SCRIPT SMALL H
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4F1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4F1 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4F1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0068 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0068 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_044)
+{
+    // 1D4F2;1D4F2;1D4F2;0069;0069; 
+    // (𝓲; 𝓲; 𝓲; i; i; ) MATHEMATICAL BOLD SCRIPT SMALL I
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4F2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4F2 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4F2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0069 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0069 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_045)
+{
+    // 1D4F3;1D4F3;1D4F3;006A;006A; 
+    // (𝓳; 𝓳; 𝓳; j; j; ) MATHEMATICAL BOLD SCRIPT SMALL J
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4F3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4F3 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4F3 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x006A }};
+        std::array<uint32_t, 1> const c5 = {{ 0x006A }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_046)
+{
+    // 1D4F4;1D4F4;1D4F4;006B;006B; 
+    // (𝓴; 𝓴; 𝓴; k; k; ) MATHEMATICAL BOLD SCRIPT SMALL K
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4F4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4F4 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4F4 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x006B }};
+        std::array<uint32_t, 1> const c5 = {{ 0x006B }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_047)
+{
+    // 1D4F5;1D4F5;1D4F5;006C;006C; 
+    // (𝓵; 𝓵; 𝓵; l; l; ) MATHEMATICAL BOLD SCRIPT SMALL L
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4F5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4F5 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4F5 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x006C }};
+        std::array<uint32_t, 1> const c5 = {{ 0x006C }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_048)
+{
+    // 1D4F6;1D4F6;1D4F6;006D;006D; 
+    // (𝓶; 𝓶; 𝓶; m; m; ) MATHEMATICAL BOLD SCRIPT SMALL M
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4F6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4F6 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4F6 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x006D }};
+        std::array<uint32_t, 1> const c5 = {{ 0x006D }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_049)
+{
+    // 1D4F7;1D4F7;1D4F7;006E;006E; 
+    // (𝓷; 𝓷; 𝓷; n; n; ) MATHEMATICAL BOLD SCRIPT SMALL N
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4F7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4F7 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4F7 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x006E }};
+        std::array<uint32_t, 1> const c5 = {{ 0x006E }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_050)
+{
+    // 1D4F8;1D4F8;1D4F8;006F;006F; 
+    // (𝓸; 𝓸; 𝓸; o; o; ) MATHEMATICAL BOLD SCRIPT SMALL O
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4F8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4F8 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4F8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x006F }};
+        std::array<uint32_t, 1> const c5 = {{ 0x006F }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_051)
+{
+    // 1D4F9;1D4F9;1D4F9;0070;0070; 
+    // (𝓹; 𝓹; 𝓹; p; p; ) MATHEMATICAL BOLD SCRIPT SMALL P
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4F9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4F9 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4F9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0070 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0070 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_052)
+{
+    // 1D4FA;1D4FA;1D4FA;0071;0071; 
+    // (𝓺; 𝓺; 𝓺; q; q; ) MATHEMATICAL BOLD SCRIPT SMALL Q
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4FA }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4FA }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4FA }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0071 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0071 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_053)
+{
+    // 1D4FB;1D4FB;1D4FB;0072;0072; 
+    // (𝓻; 𝓻; 𝓻; r; r; ) MATHEMATICAL BOLD SCRIPT SMALL R
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4FB }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4FB }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4FB }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0072 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0072 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_054)
+{
+    // 1D4FC;1D4FC;1D4FC;0073;0073; 
+    // (𝓼; 𝓼; 𝓼; s; s; ) MATHEMATICAL BOLD SCRIPT SMALL S
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4FC }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4FC }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4FC }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0073 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0073 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_055)
+{
+    // 1D4FD;1D4FD;1D4FD;0074;0074; 
+    // (𝓽; 𝓽; 𝓽; t; t; ) MATHEMATICAL BOLD SCRIPT SMALL T
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4FD }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4FD }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4FD }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0074 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0074 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_056)
+{
+    // 1D4FE;1D4FE;1D4FE;0075;0075; 
+    // (𝓾; 𝓾; 𝓾; u; u; ) MATHEMATICAL BOLD SCRIPT SMALL U
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4FE }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4FE }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4FE }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0075 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0075 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_057)
+{
+    // 1D4FF;1D4FF;1D4FF;0076;0076; 
+    // (𝓿; 𝓿; 𝓿; v; v; ) MATHEMATICAL BOLD SCRIPT SMALL V
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D4FF }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D4FF }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D4FF }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0076 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0076 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_058)
+{
+    // 1D500;1D500;1D500;0077;0077; 
+    // (𝔀; 𝔀; 𝔀; w; w; ) MATHEMATICAL BOLD SCRIPT SMALL W
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D500 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D500 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D500 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0077 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0077 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_059)
+{
+    // 1D501;1D501;1D501;0078;0078; 
+    // (𝔁; 𝔁; 𝔁; x; x; ) MATHEMATICAL BOLD SCRIPT SMALL X
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D501 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D501 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D501 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0078 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0078 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_060)
+{
+    // 1D502;1D502;1D502;0079;0079; 
+    // (𝔂; 𝔂; 𝔂; y; y; ) MATHEMATICAL BOLD SCRIPT SMALL Y
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D502 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D502 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D502 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x0079 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x0079 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_061)
+{
+    // 1D503;1D503;1D503;007A;007A; 
+    // (𝔃; 𝔃; 𝔃; z; z; ) MATHEMATICAL BOLD SCRIPT SMALL Z
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x1D503 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x1D503 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x1D503 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x007A }};
+        std::array<uint32_t, 1> const c5 = {{ 0x007A }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_077_062)
+{
     // 1D504;1D504;1D504;0041;0041; 
     // (𝔄; 𝔄; 𝔄; A; A; ) MATHEMATICAL FRAKTUR CAPITAL A
     {
@@ -114,7 +6252,7 @@ TEST(normalization, nfd_077_000)
 }
 
 
-TEST(normalization, nfd_077_001)
+TEST(normalization, nfd_077_063)
 {
     // 1D505;1D505;1D505;0042;0042; 
     // (𝔅; 𝔅; 𝔅; B; B; ) MATHEMATICAL FRAKTUR CAPITAL B
@@ -213,7 +6351,7 @@ TEST(normalization, nfd_077_001)
 }
 
 
-TEST(normalization, nfd_077_002)
+TEST(normalization, nfd_077_064)
 {
     // 1D507;1D507;1D507;0044;0044; 
     // (𝔇; 𝔇; 𝔇; D; D; ) MATHEMATICAL FRAKTUR CAPITAL D
@@ -312,7 +6450,7 @@ TEST(normalization, nfd_077_002)
 }
 
 
-TEST(normalization, nfd_077_003)
+TEST(normalization, nfd_077_065)
 {
     // 1D508;1D508;1D508;0045;0045; 
     // (𝔈; 𝔈; 𝔈; E; E; ) MATHEMATICAL FRAKTUR CAPITAL E
@@ -411,7 +6549,7 @@ TEST(normalization, nfd_077_003)
 }
 
 
-TEST(normalization, nfd_077_004)
+TEST(normalization, nfd_077_066)
 {
     // 1D509;1D509;1D509;0046;0046; 
     // (𝔉; 𝔉; 𝔉; F; F; ) MATHEMATICAL FRAKTUR CAPITAL F
@@ -510,7 +6648,7 @@ TEST(normalization, nfd_077_004)
 }
 
 
-TEST(normalization, nfd_077_005)
+TEST(normalization, nfd_077_067)
 {
     // 1D50A;1D50A;1D50A;0047;0047; 
     // (𝔊; 𝔊; 𝔊; G; G; ) MATHEMATICAL FRAKTUR CAPITAL G
@@ -609,7 +6747,7 @@ TEST(normalization, nfd_077_005)
 }
 
 
-TEST(normalization, nfd_077_006)
+TEST(normalization, nfd_077_068)
 {
     // 1D50D;1D50D;1D50D;004A;004A; 
     // (𝔍; 𝔍; 𝔍; J; J; ) MATHEMATICAL FRAKTUR CAPITAL J
@@ -708,7 +6846,7 @@ TEST(normalization, nfd_077_006)
 }
 
 
-TEST(normalization, nfd_077_007)
+TEST(normalization, nfd_077_069)
 {
     // 1D50E;1D50E;1D50E;004B;004B; 
     // (𝔎; 𝔎; 𝔎; K; K; ) MATHEMATICAL FRAKTUR CAPITAL K
@@ -807,7 +6945,7 @@ TEST(normalization, nfd_077_007)
 }
 
 
-TEST(normalization, nfd_077_008)
+TEST(normalization, nfd_077_070)
 {
     // 1D50F;1D50F;1D50F;004C;004C; 
     // (𝔏; 𝔏; 𝔏; L; L; ) MATHEMATICAL FRAKTUR CAPITAL L
@@ -906,7 +7044,7 @@ TEST(normalization, nfd_077_008)
 }
 
 
-TEST(normalization, nfd_077_009)
+TEST(normalization, nfd_077_071)
 {
     // 1D510;1D510;1D510;004D;004D; 
     // (𝔐; 𝔐; 𝔐; M; M; ) MATHEMATICAL FRAKTUR CAPITAL M
@@ -1005,7 +7143,7 @@ TEST(normalization, nfd_077_009)
 }
 
 
-TEST(normalization, nfd_077_010)
+TEST(normalization, nfd_077_072)
 {
     // 1D511;1D511;1D511;004E;004E; 
     // (𝔑; 𝔑; 𝔑; N; N; ) MATHEMATICAL FRAKTUR CAPITAL N
@@ -1104,7 +7242,7 @@ TEST(normalization, nfd_077_010)
 }
 
 
-TEST(normalization, nfd_077_011)
+TEST(normalization, nfd_077_073)
 {
     // 1D512;1D512;1D512;004F;004F; 
     // (𝔒; 𝔒; 𝔒; O; O; ) MATHEMATICAL FRAKTUR CAPITAL O
@@ -1203,7 +7341,7 @@ TEST(normalization, nfd_077_011)
 }
 
 
-TEST(normalization, nfd_077_012)
+TEST(normalization, nfd_077_074)
 {
     // 1D513;1D513;1D513;0050;0050; 
     // (𝔓; 𝔓; 𝔓; P; P; ) MATHEMATICAL FRAKTUR CAPITAL P
@@ -1302,7 +7440,7 @@ TEST(normalization, nfd_077_012)
 }
 
 
-TEST(normalization, nfd_077_013)
+TEST(normalization, nfd_077_075)
 {
     // 1D514;1D514;1D514;0051;0051; 
     // (𝔔; 𝔔; 𝔔; Q; Q; ) MATHEMATICAL FRAKTUR CAPITAL Q
@@ -1401,7 +7539,7 @@ TEST(normalization, nfd_077_013)
 }
 
 
-TEST(normalization, nfd_077_014)
+TEST(normalization, nfd_077_076)
 {
     // 1D516;1D516;1D516;0053;0053; 
     // (𝔖; 𝔖; 𝔖; S; S; ) MATHEMATICAL FRAKTUR CAPITAL S
@@ -1500,7 +7638,7 @@ TEST(normalization, nfd_077_014)
 }
 
 
-TEST(normalization, nfd_077_015)
+TEST(normalization, nfd_077_077)
 {
     // 1D517;1D517;1D517;0054;0054; 
     // (𝔗; 𝔗; 𝔗; T; T; ) MATHEMATICAL FRAKTUR CAPITAL T
@@ -1599,7 +7737,7 @@ TEST(normalization, nfd_077_015)
 }
 
 
-TEST(normalization, nfd_077_016)
+TEST(normalization, nfd_077_078)
 {
     // 1D518;1D518;1D518;0055;0055; 
     // (𝔘; 𝔘; 𝔘; U; U; ) MATHEMATICAL FRAKTUR CAPITAL U
@@ -1698,7 +7836,7 @@ TEST(normalization, nfd_077_016)
 }
 
 
-TEST(normalization, nfd_077_017)
+TEST(normalization, nfd_077_079)
 {
     // 1D519;1D519;1D519;0056;0056; 
     // (𝔙; 𝔙; 𝔙; V; V; ) MATHEMATICAL FRAKTUR CAPITAL V
@@ -1797,7 +7935,7 @@ TEST(normalization, nfd_077_017)
 }
 
 
-TEST(normalization, nfd_077_018)
+TEST(normalization, nfd_077_080)
 {
     // 1D51A;1D51A;1D51A;0057;0057; 
     // (𝔚; 𝔚; 𝔚; W; W; ) MATHEMATICAL FRAKTUR CAPITAL W
@@ -1896,7 +8034,7 @@ TEST(normalization, nfd_077_018)
 }
 
 
-TEST(normalization, nfd_077_019)
+TEST(normalization, nfd_077_081)
 {
     // 1D51B;1D51B;1D51B;0058;0058; 
     // (𝔛; 𝔛; 𝔛; X; X; ) MATHEMATICAL FRAKTUR CAPITAL X
@@ -1995,7 +8133,7 @@ TEST(normalization, nfd_077_019)
 }
 
 
-TEST(normalization, nfd_077_020)
+TEST(normalization, nfd_077_082)
 {
     // 1D51C;1D51C;1D51C;0059;0059; 
     // (𝔜; 𝔜; 𝔜; Y; Y; ) MATHEMATICAL FRAKTUR CAPITAL Y
@@ -2094,7 +8232,7 @@ TEST(normalization, nfd_077_020)
 }
 
 
-TEST(normalization, nfd_077_021)
+TEST(normalization, nfd_077_083)
 {
     // 1D51E;1D51E;1D51E;0061;0061; 
     // (𝔞; 𝔞; 𝔞; a; a; ) MATHEMATICAL FRAKTUR SMALL A
@@ -2193,7 +8331,7 @@ TEST(normalization, nfd_077_021)
 }
 
 
-TEST(normalization, nfd_077_022)
+TEST(normalization, nfd_077_084)
 {
     // 1D51F;1D51F;1D51F;0062;0062; 
     // (𝔟; 𝔟; 𝔟; b; b; ) MATHEMATICAL FRAKTUR SMALL B
@@ -2292,7 +8430,7 @@ TEST(normalization, nfd_077_022)
 }
 
 
-TEST(normalization, nfd_077_023)
+TEST(normalization, nfd_077_085)
 {
     // 1D520;1D520;1D520;0063;0063; 
     // (𝔠; 𝔠; 𝔠; c; c; ) MATHEMATICAL FRAKTUR SMALL C
@@ -2391,7 +8529,7 @@ TEST(normalization, nfd_077_023)
 }
 
 
-TEST(normalization, nfd_077_024)
+TEST(normalization, nfd_077_086)
 {
     // 1D521;1D521;1D521;0064;0064; 
     // (𝔡; 𝔡; 𝔡; d; d; ) MATHEMATICAL FRAKTUR SMALL D
@@ -2490,7 +8628,7 @@ TEST(normalization, nfd_077_024)
 }
 
 
-TEST(normalization, nfd_077_025)
+TEST(normalization, nfd_077_087)
 {
     // 1D522;1D522;1D522;0065;0065; 
     // (𝔢; 𝔢; 𝔢; e; e; ) MATHEMATICAL FRAKTUR SMALL E
@@ -2589,7 +8727,7 @@ TEST(normalization, nfd_077_025)
 }
 
 
-TEST(normalization, nfd_077_026)
+TEST(normalization, nfd_077_088)
 {
     // 1D523;1D523;1D523;0066;0066; 
     // (𝔣; 𝔣; 𝔣; f; f; ) MATHEMATICAL FRAKTUR SMALL F
@@ -2688,7 +8826,7 @@ TEST(normalization, nfd_077_026)
 }
 
 
-TEST(normalization, nfd_077_027)
+TEST(normalization, nfd_077_089)
 {
     // 1D524;1D524;1D524;0067;0067; 
     // (𝔤; 𝔤; 𝔤; g; g; ) MATHEMATICAL FRAKTUR SMALL G
@@ -2787,7 +8925,7 @@ TEST(normalization, nfd_077_027)
 }
 
 
-TEST(normalization, nfd_077_028)
+TEST(normalization, nfd_077_090)
 {
     // 1D525;1D525;1D525;0068;0068; 
     // (𝔥; 𝔥; 𝔥; h; h; ) MATHEMATICAL FRAKTUR SMALL H
@@ -2886,7 +9024,7 @@ TEST(normalization, nfd_077_028)
 }
 
 
-TEST(normalization, nfd_077_029)
+TEST(normalization, nfd_077_091)
 {
     // 1D526;1D526;1D526;0069;0069; 
     // (𝔦; 𝔦; 𝔦; i; i; ) MATHEMATICAL FRAKTUR SMALL I
@@ -2985,7 +9123,7 @@ TEST(normalization, nfd_077_029)
 }
 
 
-TEST(normalization, nfd_077_030)
+TEST(normalization, nfd_077_092)
 {
     // 1D527;1D527;1D527;006A;006A; 
     // (𝔧; 𝔧; 𝔧; j; j; ) MATHEMATICAL FRAKTUR SMALL J
@@ -3084,7 +9222,7 @@ TEST(normalization, nfd_077_030)
 }
 
 
-TEST(normalization, nfd_077_031)
+TEST(normalization, nfd_077_093)
 {
     // 1D528;1D528;1D528;006B;006B; 
     // (𝔨; 𝔨; 𝔨; k; k; ) MATHEMATICAL FRAKTUR SMALL K
@@ -3183,7 +9321,7 @@ TEST(normalization, nfd_077_031)
 }
 
 
-TEST(normalization, nfd_077_032)
+TEST(normalization, nfd_077_094)
 {
     // 1D529;1D529;1D529;006C;006C; 
     // (𝔩; 𝔩; 𝔩; l; l; ) MATHEMATICAL FRAKTUR SMALL L
@@ -3282,7 +9420,7 @@ TEST(normalization, nfd_077_032)
 }
 
 
-TEST(normalization, nfd_077_033)
+TEST(normalization, nfd_077_095)
 {
     // 1D52A;1D52A;1D52A;006D;006D; 
     // (𝔪; 𝔪; 𝔪; m; m; ) MATHEMATICAL FRAKTUR SMALL M
@@ -3381,7 +9519,7 @@ TEST(normalization, nfd_077_033)
 }
 
 
-TEST(normalization, nfd_077_034)
+TEST(normalization, nfd_077_096)
 {
     // 1D52B;1D52B;1D52B;006E;006E; 
     // (𝔫; 𝔫; 𝔫; n; n; ) MATHEMATICAL FRAKTUR SMALL N
@@ -3480,7 +9618,7 @@ TEST(normalization, nfd_077_034)
 }
 
 
-TEST(normalization, nfd_077_035)
+TEST(normalization, nfd_077_097)
 {
     // 1D52C;1D52C;1D52C;006F;006F; 
     // (𝔬; 𝔬; 𝔬; o; o; ) MATHEMATICAL FRAKTUR SMALL O
@@ -3579,7 +9717,7 @@ TEST(normalization, nfd_077_035)
 }
 
 
-TEST(normalization, nfd_077_036)
+TEST(normalization, nfd_077_098)
 {
     // 1D52D;1D52D;1D52D;0070;0070; 
     // (𝔭; 𝔭; 𝔭; p; p; ) MATHEMATICAL FRAKTUR SMALL P
@@ -3678,7 +9816,7 @@ TEST(normalization, nfd_077_036)
 }
 
 
-TEST(normalization, nfd_077_037)
+TEST(normalization, nfd_077_099)
 {
     // 1D52E;1D52E;1D52E;0071;0071; 
     // (𝔮; 𝔮; 𝔮; q; q; ) MATHEMATICAL FRAKTUR SMALL Q
@@ -3777,7 +9915,7 @@ TEST(normalization, nfd_077_037)
 }
 
 
-TEST(normalization, nfd_077_038)
+TEST(normalization, nfd_077_100)
 {
     // 1D52F;1D52F;1D52F;0072;0072; 
     // (𝔯; 𝔯; 𝔯; r; r; ) MATHEMATICAL FRAKTUR SMALL R
@@ -3876,7 +10014,7 @@ TEST(normalization, nfd_077_038)
 }
 
 
-TEST(normalization, nfd_077_039)
+TEST(normalization, nfd_077_101)
 {
     // 1D530;1D530;1D530;0073;0073; 
     // (𝔰; 𝔰; 𝔰; s; s; ) MATHEMATICAL FRAKTUR SMALL S
@@ -3975,7 +10113,7 @@ TEST(normalization, nfd_077_039)
 }
 
 
-TEST(normalization, nfd_077_040)
+TEST(normalization, nfd_077_102)
 {
     // 1D531;1D531;1D531;0074;0074; 
     // (𝔱; 𝔱; 𝔱; t; t; ) MATHEMATICAL FRAKTUR SMALL T
@@ -4074,7 +10212,7 @@ TEST(normalization, nfd_077_040)
 }
 
 
-TEST(normalization, nfd_077_041)
+TEST(normalization, nfd_077_103)
 {
     // 1D532;1D532;1D532;0075;0075; 
     // (𝔲; 𝔲; 𝔲; u; u; ) MATHEMATICAL FRAKTUR SMALL U
@@ -4173,7 +10311,7 @@ TEST(normalization, nfd_077_041)
 }
 
 
-TEST(normalization, nfd_077_042)
+TEST(normalization, nfd_077_104)
 {
     // 1D533;1D533;1D533;0076;0076; 
     // (𝔳; 𝔳; 𝔳; v; v; ) MATHEMATICAL FRAKTUR SMALL V
@@ -4272,7 +10410,7 @@ TEST(normalization, nfd_077_042)
 }
 
 
-TEST(normalization, nfd_077_043)
+TEST(normalization, nfd_077_105)
 {
     // 1D534;1D534;1D534;0077;0077; 
     // (𝔴; 𝔴; 𝔴; w; w; ) MATHEMATICAL FRAKTUR SMALL W
@@ -4371,7 +10509,7 @@ TEST(normalization, nfd_077_043)
 }
 
 
-TEST(normalization, nfd_077_044)
+TEST(normalization, nfd_077_106)
 {
     // 1D535;1D535;1D535;0078;0078; 
     // (𝔵; 𝔵; 𝔵; x; x; ) MATHEMATICAL FRAKTUR SMALL X
@@ -4470,7 +10608,7 @@ TEST(normalization, nfd_077_044)
 }
 
 
-TEST(normalization, nfd_077_045)
+TEST(normalization, nfd_077_107)
 {
     // 1D536;1D536;1D536;0079;0079; 
     // (𝔶; 𝔶; 𝔶; y; y; ) MATHEMATICAL FRAKTUR SMALL Y
@@ -4569,7 +10707,7 @@ TEST(normalization, nfd_077_045)
 }
 
 
-TEST(normalization, nfd_077_046)
+TEST(normalization, nfd_077_108)
 {
     // 1D537;1D537;1D537;007A;007A; 
     // (𝔷; 𝔷; 𝔷; z; z; ) MATHEMATICAL FRAKTUR SMALL Z
@@ -4668,7 +10806,7 @@ TEST(normalization, nfd_077_046)
 }
 
 
-TEST(normalization, nfd_077_047)
+TEST(normalization, nfd_077_109)
 {
     // 1D538;1D538;1D538;0041;0041; 
     // (𝔸; 𝔸; 𝔸; A; A; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL A
@@ -4767,7 +10905,7 @@ TEST(normalization, nfd_077_047)
 }
 
 
-TEST(normalization, nfd_077_048)
+TEST(normalization, nfd_077_110)
 {
     // 1D539;1D539;1D539;0042;0042; 
     // (𝔹; 𝔹; 𝔹; B; B; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL B
@@ -4866,7 +11004,7 @@ TEST(normalization, nfd_077_048)
 }
 
 
-TEST(normalization, nfd_077_049)
+TEST(normalization, nfd_077_111)
 {
     // 1D53B;1D53B;1D53B;0044;0044; 
     // (𝔻; 𝔻; 𝔻; D; D; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL D
@@ -4965,7 +11103,7 @@ TEST(normalization, nfd_077_049)
 }
 
 
-TEST(normalization, nfd_077_050)
+TEST(normalization, nfd_077_112)
 {
     // 1D53C;1D53C;1D53C;0045;0045; 
     // (𝔼; 𝔼; 𝔼; E; E; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL E
@@ -5064,7 +11202,7 @@ TEST(normalization, nfd_077_050)
 }
 
 
-TEST(normalization, nfd_077_051)
+TEST(normalization, nfd_077_113)
 {
     // 1D53D;1D53D;1D53D;0046;0046; 
     // (𝔽; 𝔽; 𝔽; F; F; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL F
@@ -5163,7 +11301,7 @@ TEST(normalization, nfd_077_051)
 }
 
 
-TEST(normalization, nfd_077_052)
+TEST(normalization, nfd_077_114)
 {
     // 1D53E;1D53E;1D53E;0047;0047; 
     // (𝔾; 𝔾; 𝔾; G; G; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL G
@@ -5262,7 +11400,7 @@ TEST(normalization, nfd_077_052)
 }
 
 
-TEST(normalization, nfd_077_053)
+TEST(normalization, nfd_077_115)
 {
     // 1D540;1D540;1D540;0049;0049; 
     // (𝕀; 𝕀; 𝕀; I; I; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL I
@@ -5361,7 +11499,7 @@ TEST(normalization, nfd_077_053)
 }
 
 
-TEST(normalization, nfd_077_054)
+TEST(normalization, nfd_077_116)
 {
     // 1D541;1D541;1D541;004A;004A; 
     // (𝕁; 𝕁; 𝕁; J; J; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL J
@@ -5460,7 +11598,7 @@ TEST(normalization, nfd_077_054)
 }
 
 
-TEST(normalization, nfd_077_055)
+TEST(normalization, nfd_077_117)
 {
     // 1D542;1D542;1D542;004B;004B; 
     // (𝕂; 𝕂; 𝕂; K; K; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL K
@@ -5559,7 +11697,7 @@ TEST(normalization, nfd_077_055)
 }
 
 
-TEST(normalization, nfd_077_056)
+TEST(normalization, nfd_077_118)
 {
     // 1D543;1D543;1D543;004C;004C; 
     // (𝕃; 𝕃; 𝕃; L; L; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL L
@@ -5658,7 +11796,7 @@ TEST(normalization, nfd_077_056)
 }
 
 
-TEST(normalization, nfd_077_057)
+TEST(normalization, nfd_077_119)
 {
     // 1D544;1D544;1D544;004D;004D; 
     // (𝕄; 𝕄; 𝕄; M; M; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL M
@@ -5757,7 +11895,7 @@ TEST(normalization, nfd_077_057)
 }
 
 
-TEST(normalization, nfd_077_058)
+TEST(normalization, nfd_077_120)
 {
     // 1D546;1D546;1D546;004F;004F; 
     // (𝕆; 𝕆; 𝕆; O; O; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL O
@@ -5856,7 +11994,7 @@ TEST(normalization, nfd_077_058)
 }
 
 
-TEST(normalization, nfd_077_059)
+TEST(normalization, nfd_077_121)
 {
     // 1D54A;1D54A;1D54A;0053;0053; 
     // (𝕊; 𝕊; 𝕊; S; S; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL S
@@ -5955,7 +12093,7 @@ TEST(normalization, nfd_077_059)
 }
 
 
-TEST(normalization, nfd_077_060)
+TEST(normalization, nfd_077_122)
 {
     // 1D54B;1D54B;1D54B;0054;0054; 
     // (𝕋; 𝕋; 𝕋; T; T; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL T
@@ -6054,7 +12192,7 @@ TEST(normalization, nfd_077_060)
 }
 
 
-TEST(normalization, nfd_077_061)
+TEST(normalization, nfd_077_123)
 {
     // 1D54C;1D54C;1D54C;0055;0055; 
     // (𝕌; 𝕌; 𝕌; U; U; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL U
@@ -6153,7 +12291,7 @@ TEST(normalization, nfd_077_061)
 }
 
 
-TEST(normalization, nfd_077_062)
+TEST(normalization, nfd_077_124)
 {
     // 1D54D;1D54D;1D54D;0056;0056; 
     // (𝕍; 𝕍; 𝕍; V; V; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL V
@@ -6252,7 +12390,7 @@ TEST(normalization, nfd_077_062)
 }
 
 
-TEST(normalization, nfd_077_063)
+TEST(normalization, nfd_077_125)
 {
     // 1D54E;1D54E;1D54E;0057;0057; 
     // (𝕎; 𝕎; 𝕎; W; W; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL W
@@ -6351,7 +12489,7 @@ TEST(normalization, nfd_077_063)
 }
 
 
-TEST(normalization, nfd_077_064)
+TEST(normalization, nfd_077_126)
 {
     // 1D54F;1D54F;1D54F;0058;0058; 
     // (𝕏; 𝕏; 𝕏; X; X; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL X
@@ -6450,7 +12588,7 @@ TEST(normalization, nfd_077_064)
 }
 
 
-TEST(normalization, nfd_077_065)
+TEST(normalization, nfd_077_127)
 {
     // 1D550;1D550;1D550;0059;0059; 
     // (𝕐; 𝕐; 𝕐; Y; Y; ) MATHEMATICAL DOUBLE-STRUCK CAPITAL Y
@@ -6549,7 +12687,7 @@ TEST(normalization, nfd_077_065)
 }
 
 
-TEST(normalization, nfd_077_066)
+TEST(normalization, nfd_077_128)
 {
     // 1D552;1D552;1D552;0061;0061; 
     // (𝕒; 𝕒; 𝕒; a; a; ) MATHEMATICAL DOUBLE-STRUCK SMALL A
@@ -6648,7 +12786,7 @@ TEST(normalization, nfd_077_066)
 }
 
 
-TEST(normalization, nfd_077_067)
+TEST(normalization, nfd_077_129)
 {
     // 1D553;1D553;1D553;0062;0062; 
     // (𝕓; 𝕓; 𝕓; b; b; ) MATHEMATICAL DOUBLE-STRUCK SMALL B
@@ -6747,7 +12885,7 @@ TEST(normalization, nfd_077_067)
 }
 
 
-TEST(normalization, nfd_077_068)
+TEST(normalization, nfd_077_130)
 {
     // 1D554;1D554;1D554;0063;0063; 
     // (𝕔; 𝕔; 𝕔; c; c; ) MATHEMATICAL DOUBLE-STRUCK SMALL C
@@ -6846,7 +12984,7 @@ TEST(normalization, nfd_077_068)
 }
 
 
-TEST(normalization, nfd_077_069)
+TEST(normalization, nfd_077_131)
 {
     // 1D555;1D555;1D555;0064;0064; 
     // (𝕕; 𝕕; 𝕕; d; d; ) MATHEMATICAL DOUBLE-STRUCK SMALL D
@@ -6945,7 +13083,7 @@ TEST(normalization, nfd_077_069)
 }
 
 
-TEST(normalization, nfd_077_070)
+TEST(normalization, nfd_077_132)
 {
     // 1D556;1D556;1D556;0065;0065; 
     // (𝕖; 𝕖; 𝕖; e; e; ) MATHEMATICAL DOUBLE-STRUCK SMALL E
@@ -7044,7 +13182,7 @@ TEST(normalization, nfd_077_070)
 }
 
 
-TEST(normalization, nfd_077_071)
+TEST(normalization, nfd_077_133)
 {
     // 1D557;1D557;1D557;0066;0066; 
     // (𝕗; 𝕗; 𝕗; f; f; ) MATHEMATICAL DOUBLE-STRUCK SMALL F
@@ -7143,7 +13281,7 @@ TEST(normalization, nfd_077_071)
 }
 
 
-TEST(normalization, nfd_077_072)
+TEST(normalization, nfd_077_134)
 {
     // 1D558;1D558;1D558;0067;0067; 
     // (𝕘; 𝕘; 𝕘; g; g; ) MATHEMATICAL DOUBLE-STRUCK SMALL G
@@ -7242,7 +13380,7 @@ TEST(normalization, nfd_077_072)
 }
 
 
-TEST(normalization, nfd_077_073)
+TEST(normalization, nfd_077_135)
 {
     // 1D559;1D559;1D559;0068;0068; 
     // (𝕙; 𝕙; 𝕙; h; h; ) MATHEMATICAL DOUBLE-STRUCK SMALL H
@@ -7341,7 +13479,7 @@ TEST(normalization, nfd_077_073)
 }
 
 
-TEST(normalization, nfd_077_074)
+TEST(normalization, nfd_077_136)
 {
     // 1D55A;1D55A;1D55A;0069;0069; 
     // (𝕚; 𝕚; 𝕚; i; i; ) MATHEMATICAL DOUBLE-STRUCK SMALL I
@@ -7440,7 +13578,7 @@ TEST(normalization, nfd_077_074)
 }
 
 
-TEST(normalization, nfd_077_075)
+TEST(normalization, nfd_077_137)
 {
     // 1D55B;1D55B;1D55B;006A;006A; 
     // (𝕛; 𝕛; 𝕛; j; j; ) MATHEMATICAL DOUBLE-STRUCK SMALL J
@@ -7539,7 +13677,7 @@ TEST(normalization, nfd_077_075)
 }
 
 
-TEST(normalization, nfd_077_076)
+TEST(normalization, nfd_077_138)
 {
     // 1D55C;1D55C;1D55C;006B;006B; 
     // (𝕜; 𝕜; 𝕜; k; k; ) MATHEMATICAL DOUBLE-STRUCK SMALL K
@@ -7638,7 +13776,7 @@ TEST(normalization, nfd_077_076)
 }
 
 
-TEST(normalization, nfd_077_077)
+TEST(normalization, nfd_077_139)
 {
     // 1D55D;1D55D;1D55D;006C;006C; 
     // (𝕝; 𝕝; 𝕝; l; l; ) MATHEMATICAL DOUBLE-STRUCK SMALL L
@@ -7737,7 +13875,7 @@ TEST(normalization, nfd_077_077)
 }
 
 
-TEST(normalization, nfd_077_078)
+TEST(normalization, nfd_077_140)
 {
     // 1D55E;1D55E;1D55E;006D;006D; 
     // (𝕞; 𝕞; 𝕞; m; m; ) MATHEMATICAL DOUBLE-STRUCK SMALL M
@@ -7836,7 +13974,7 @@ TEST(normalization, nfd_077_078)
 }
 
 
-TEST(normalization, nfd_077_079)
+TEST(normalization, nfd_077_141)
 {
     // 1D55F;1D55F;1D55F;006E;006E; 
     // (𝕟; 𝕟; 𝕟; n; n; ) MATHEMATICAL DOUBLE-STRUCK SMALL N
@@ -7935,7 +14073,7 @@ TEST(normalization, nfd_077_079)
 }
 
 
-TEST(normalization, nfd_077_080)
+TEST(normalization, nfd_077_142)
 {
     // 1D560;1D560;1D560;006F;006F; 
     // (𝕠; 𝕠; 𝕠; o; o; ) MATHEMATICAL DOUBLE-STRUCK SMALL O
@@ -8034,7 +14172,7 @@ TEST(normalization, nfd_077_080)
 }
 
 
-TEST(normalization, nfd_077_081)
+TEST(normalization, nfd_077_143)
 {
     // 1D561;1D561;1D561;0070;0070; 
     // (𝕡; 𝕡; 𝕡; p; p; ) MATHEMATICAL DOUBLE-STRUCK SMALL P
@@ -8133,7 +14271,7 @@ TEST(normalization, nfd_077_081)
 }
 
 
-TEST(normalization, nfd_077_082)
+TEST(normalization, nfd_077_144)
 {
     // 1D562;1D562;1D562;0071;0071; 
     // (𝕢; 𝕢; 𝕢; q; q; ) MATHEMATICAL DOUBLE-STRUCK SMALL Q
@@ -8232,7 +14370,7 @@ TEST(normalization, nfd_077_082)
 }
 
 
-TEST(normalization, nfd_077_083)
+TEST(normalization, nfd_077_145)
 {
     // 1D563;1D563;1D563;0072;0072; 
     // (𝕣; 𝕣; 𝕣; r; r; ) MATHEMATICAL DOUBLE-STRUCK SMALL R
@@ -8331,7 +14469,7 @@ TEST(normalization, nfd_077_083)
 }
 
 
-TEST(normalization, nfd_077_084)
+TEST(normalization, nfd_077_146)
 {
     // 1D564;1D564;1D564;0073;0073; 
     // (𝕤; 𝕤; 𝕤; s; s; ) MATHEMATICAL DOUBLE-STRUCK SMALL S
@@ -8430,7 +14568,7 @@ TEST(normalization, nfd_077_084)
 }
 
 
-TEST(normalization, nfd_077_085)
+TEST(normalization, nfd_077_147)
 {
     // 1D565;1D565;1D565;0074;0074; 
     // (𝕥; 𝕥; 𝕥; t; t; ) MATHEMATICAL DOUBLE-STRUCK SMALL T
@@ -8529,7 +14667,7 @@ TEST(normalization, nfd_077_085)
 }
 
 
-TEST(normalization, nfd_077_086)
+TEST(normalization, nfd_077_148)
 {
     // 1D566;1D566;1D566;0075;0075; 
     // (𝕦; 𝕦; 𝕦; u; u; ) MATHEMATICAL DOUBLE-STRUCK SMALL U
@@ -8628,7 +14766,7 @@ TEST(normalization, nfd_077_086)
 }
 
 
-TEST(normalization, nfd_077_087)
+TEST(normalization, nfd_077_149)
 {
     // 1D567;1D567;1D567;0076;0076; 
     // (𝕧; 𝕧; 𝕧; v; v; ) MATHEMATICAL DOUBLE-STRUCK SMALL V
@@ -8727,7 +14865,7 @@ TEST(normalization, nfd_077_087)
 }
 
 
-TEST(normalization, nfd_077_088)
+TEST(normalization, nfd_077_150)
 {
     // 1D568;1D568;1D568;0077;0077; 
     // (𝕨; 𝕨; 𝕨; w; w; ) MATHEMATICAL DOUBLE-STRUCK SMALL W
@@ -8826,7 +14964,7 @@ TEST(normalization, nfd_077_088)
 }
 
 
-TEST(normalization, nfd_077_089)
+TEST(normalization, nfd_077_151)
 {
     // 1D569;1D569;1D569;0078;0078; 
     // (𝕩; 𝕩; 𝕩; x; x; ) MATHEMATICAL DOUBLE-STRUCK SMALL X
@@ -8925,7 +15063,7 @@ TEST(normalization, nfd_077_089)
 }
 
 
-TEST(normalization, nfd_077_090)
+TEST(normalization, nfd_077_152)
 {
     // 1D56A;1D56A;1D56A;0079;0079; 
     // (𝕪; 𝕪; 𝕪; y; y; ) MATHEMATICAL DOUBLE-STRUCK SMALL Y
@@ -9024,7 +15162,7 @@ TEST(normalization, nfd_077_090)
 }
 
 
-TEST(normalization, nfd_077_091)
+TEST(normalization, nfd_077_153)
 {
     // 1D56B;1D56B;1D56B;007A;007A; 
     // (𝕫; 𝕫; 𝕫; z; z; ) MATHEMATICAL DOUBLE-STRUCK SMALL Z
@@ -9123,7 +15261,7 @@ TEST(normalization, nfd_077_091)
 }
 
 
-TEST(normalization, nfd_077_092)
+TEST(normalization, nfd_077_154)
 {
     // 1D56C;1D56C;1D56C;0041;0041; 
     // (𝕬; 𝕬; 𝕬; A; A; ) MATHEMATICAL BOLD FRAKTUR CAPITAL A
@@ -9222,7 +15360,7 @@ TEST(normalization, nfd_077_092)
 }
 
 
-TEST(normalization, nfd_077_093)
+TEST(normalization, nfd_077_155)
 {
     // 1D56D;1D56D;1D56D;0042;0042; 
     // (𝕭; 𝕭; 𝕭; B; B; ) MATHEMATICAL BOLD FRAKTUR CAPITAL B
@@ -9321,7 +15459,7 @@ TEST(normalization, nfd_077_093)
 }
 
 
-TEST(normalization, nfd_077_094)
+TEST(normalization, nfd_077_156)
 {
     // 1D56E;1D56E;1D56E;0043;0043; 
     // (𝕮; 𝕮; 𝕮; C; C; ) MATHEMATICAL BOLD FRAKTUR CAPITAL C
@@ -9420,7 +15558,7 @@ TEST(normalization, nfd_077_094)
 }
 
 
-TEST(normalization, nfd_077_095)
+TEST(normalization, nfd_077_157)
 {
     // 1D56F;1D56F;1D56F;0044;0044; 
     // (𝕯; 𝕯; 𝕯; D; D; ) MATHEMATICAL BOLD FRAKTUR CAPITAL D
@@ -9519,7 +15657,7 @@ TEST(normalization, nfd_077_095)
 }
 
 
-TEST(normalization, nfd_077_096)
+TEST(normalization, nfd_077_158)
 {
     // 1D570;1D570;1D570;0045;0045; 
     // (𝕰; 𝕰; 𝕰; E; E; ) MATHEMATICAL BOLD FRAKTUR CAPITAL E
@@ -9618,7 +15756,7 @@ TEST(normalization, nfd_077_096)
 }
 
 
-TEST(normalization, nfd_077_097)
+TEST(normalization, nfd_077_159)
 {
     // 1D571;1D571;1D571;0046;0046; 
     // (𝕱; 𝕱; 𝕱; F; F; ) MATHEMATICAL BOLD FRAKTUR CAPITAL F
@@ -9717,7 +15855,7 @@ TEST(normalization, nfd_077_097)
 }
 
 
-TEST(normalization, nfd_077_098)
+TEST(normalization, nfd_077_160)
 {
     // 1D572;1D572;1D572;0047;0047; 
     // (𝕲; 𝕲; 𝕲; G; G; ) MATHEMATICAL BOLD FRAKTUR CAPITAL G
@@ -9816,7 +15954,7 @@ TEST(normalization, nfd_077_098)
 }
 
 
-TEST(normalization, nfd_077_099)
+TEST(normalization, nfd_077_161)
 {
     // 1D573;1D573;1D573;0048;0048; 
     // (𝕳; 𝕳; 𝕳; H; H; ) MATHEMATICAL BOLD FRAKTUR CAPITAL H
@@ -9915,7 +16053,7 @@ TEST(normalization, nfd_077_099)
 }
 
 
-TEST(normalization, nfd_077_100)
+TEST(normalization, nfd_077_162)
 {
     // 1D574;1D574;1D574;0049;0049; 
     // (𝕴; 𝕴; 𝕴; I; I; ) MATHEMATICAL BOLD FRAKTUR CAPITAL I
@@ -10014,7 +16152,7 @@ TEST(normalization, nfd_077_100)
 }
 
 
-TEST(normalization, nfd_077_101)
+TEST(normalization, nfd_077_163)
 {
     // 1D575;1D575;1D575;004A;004A; 
     // (𝕵; 𝕵; 𝕵; J; J; ) MATHEMATICAL BOLD FRAKTUR CAPITAL J
@@ -10113,7 +16251,7 @@ TEST(normalization, nfd_077_101)
 }
 
 
-TEST(normalization, nfd_077_102)
+TEST(normalization, nfd_077_164)
 {
     // 1D576;1D576;1D576;004B;004B; 
     // (𝕶; 𝕶; 𝕶; K; K; ) MATHEMATICAL BOLD FRAKTUR CAPITAL K
@@ -10212,7 +16350,7 @@ TEST(normalization, nfd_077_102)
 }
 
 
-TEST(normalization, nfd_077_103)
+TEST(normalization, nfd_077_165)
 {
     // 1D577;1D577;1D577;004C;004C; 
     // (𝕷; 𝕷; 𝕷; L; L; ) MATHEMATICAL BOLD FRAKTUR CAPITAL L
@@ -10311,7 +16449,7 @@ TEST(normalization, nfd_077_103)
 }
 
 
-TEST(normalization, nfd_077_104)
+TEST(normalization, nfd_077_166)
 {
     // 1D578;1D578;1D578;004D;004D; 
     // (𝕸; 𝕸; 𝕸; M; M; ) MATHEMATICAL BOLD FRAKTUR CAPITAL M
@@ -10410,7 +16548,7 @@ TEST(normalization, nfd_077_104)
 }
 
 
-TEST(normalization, nfd_077_105)
+TEST(normalization, nfd_077_167)
 {
     // 1D579;1D579;1D579;004E;004E; 
     // (𝕹; 𝕹; 𝕹; N; N; ) MATHEMATICAL BOLD FRAKTUR CAPITAL N
@@ -10509,7 +16647,7 @@ TEST(normalization, nfd_077_105)
 }
 
 
-TEST(normalization, nfd_077_106)
+TEST(normalization, nfd_077_168)
 {
     // 1D57A;1D57A;1D57A;004F;004F; 
     // (𝕺; 𝕺; 𝕺; O; O; ) MATHEMATICAL BOLD FRAKTUR CAPITAL O
@@ -10608,7 +16746,7 @@ TEST(normalization, nfd_077_106)
 }
 
 
-TEST(normalization, nfd_077_107)
+TEST(normalization, nfd_077_169)
 {
     // 1D57B;1D57B;1D57B;0050;0050; 
     // (𝕻; 𝕻; 𝕻; P; P; ) MATHEMATICAL BOLD FRAKTUR CAPITAL P
@@ -10707,7 +16845,7 @@ TEST(normalization, nfd_077_107)
 }
 
 
-TEST(normalization, nfd_077_108)
+TEST(normalization, nfd_077_170)
 {
     // 1D57C;1D57C;1D57C;0051;0051; 
     // (𝕼; 𝕼; 𝕼; Q; Q; ) MATHEMATICAL BOLD FRAKTUR CAPITAL Q
@@ -10806,7 +16944,7 @@ TEST(normalization, nfd_077_108)
 }
 
 
-TEST(normalization, nfd_077_109)
+TEST(normalization, nfd_077_171)
 {
     // 1D57D;1D57D;1D57D;0052;0052; 
     // (𝕽; 𝕽; 𝕽; R; R; ) MATHEMATICAL BOLD FRAKTUR CAPITAL R
@@ -10905,7 +17043,7 @@ TEST(normalization, nfd_077_109)
 }
 
 
-TEST(normalization, nfd_077_110)
+TEST(normalization, nfd_077_172)
 {
     // 1D57E;1D57E;1D57E;0053;0053; 
     // (𝕾; 𝕾; 𝕾; S; S; ) MATHEMATICAL BOLD FRAKTUR CAPITAL S
@@ -11004,7 +17142,7 @@ TEST(normalization, nfd_077_110)
 }
 
 
-TEST(normalization, nfd_077_111)
+TEST(normalization, nfd_077_173)
 {
     // 1D57F;1D57F;1D57F;0054;0054; 
     // (𝕿; 𝕿; 𝕿; T; T; ) MATHEMATICAL BOLD FRAKTUR CAPITAL T
@@ -11103,7 +17241,7 @@ TEST(normalization, nfd_077_111)
 }
 
 
-TEST(normalization, nfd_077_112)
+TEST(normalization, nfd_077_174)
 {
     // 1D580;1D580;1D580;0055;0055; 
     // (𝖀; 𝖀; 𝖀; U; U; ) MATHEMATICAL BOLD FRAKTUR CAPITAL U
@@ -11202,7 +17340,7 @@ TEST(normalization, nfd_077_112)
 }
 
 
-TEST(normalization, nfd_077_113)
+TEST(normalization, nfd_077_175)
 {
     // 1D581;1D581;1D581;0056;0056; 
     // (𝖁; 𝖁; 𝖁; V; V; ) MATHEMATICAL BOLD FRAKTUR CAPITAL V
@@ -11301,7 +17439,7 @@ TEST(normalization, nfd_077_113)
 }
 
 
-TEST(normalization, nfd_077_114)
+TEST(normalization, nfd_077_176)
 {
     // 1D582;1D582;1D582;0057;0057; 
     // (𝖂; 𝖂; 𝖂; W; W; ) MATHEMATICAL BOLD FRAKTUR CAPITAL W
@@ -11400,7 +17538,7 @@ TEST(normalization, nfd_077_114)
 }
 
 
-TEST(normalization, nfd_077_115)
+TEST(normalization, nfd_077_177)
 {
     // 1D583;1D583;1D583;0058;0058; 
     // (𝖃; 𝖃; 𝖃; X; X; ) MATHEMATICAL BOLD FRAKTUR CAPITAL X
@@ -11499,7 +17637,7 @@ TEST(normalization, nfd_077_115)
 }
 
 
-TEST(normalization, nfd_077_116)
+TEST(normalization, nfd_077_178)
 {
     // 1D584;1D584;1D584;0059;0059; 
     // (𝖄; 𝖄; 𝖄; Y; Y; ) MATHEMATICAL BOLD FRAKTUR CAPITAL Y
@@ -11598,7 +17736,7 @@ TEST(normalization, nfd_077_116)
 }
 
 
-TEST(normalization, nfd_077_117)
+TEST(normalization, nfd_077_179)
 {
     // 1D585;1D585;1D585;005A;005A; 
     // (𝖅; 𝖅; 𝖅; Z; Z; ) MATHEMATICAL BOLD FRAKTUR CAPITAL Z
@@ -11697,7 +17835,7 @@ TEST(normalization, nfd_077_117)
 }
 
 
-TEST(normalization, nfd_077_118)
+TEST(normalization, nfd_077_180)
 {
     // 1D586;1D586;1D586;0061;0061; 
     // (𝖆; 𝖆; 𝖆; a; a; ) MATHEMATICAL BOLD FRAKTUR SMALL A
@@ -11796,7 +17934,7 @@ TEST(normalization, nfd_077_118)
 }
 
 
-TEST(normalization, nfd_077_119)
+TEST(normalization, nfd_077_181)
 {
     // 1D587;1D587;1D587;0062;0062; 
     // (𝖇; 𝖇; 𝖇; b; b; ) MATHEMATICAL BOLD FRAKTUR SMALL B
@@ -11895,7 +18033,7 @@ TEST(normalization, nfd_077_119)
 }
 
 
-TEST(normalization, nfd_077_120)
+TEST(normalization, nfd_077_182)
 {
     // 1D588;1D588;1D588;0063;0063; 
     // (𝖈; 𝖈; 𝖈; c; c; ) MATHEMATICAL BOLD FRAKTUR SMALL C
@@ -11994,7 +18132,7 @@ TEST(normalization, nfd_077_120)
 }
 
 
-TEST(normalization, nfd_077_121)
+TEST(normalization, nfd_077_183)
 {
     // 1D589;1D589;1D589;0064;0064; 
     // (𝖉; 𝖉; 𝖉; d; d; ) MATHEMATICAL BOLD FRAKTUR SMALL D
@@ -12093,7 +18231,7 @@ TEST(normalization, nfd_077_121)
 }
 
 
-TEST(normalization, nfd_077_122)
+TEST(normalization, nfd_077_184)
 {
     // 1D58A;1D58A;1D58A;0065;0065; 
     // (𝖊; 𝖊; 𝖊; e; e; ) MATHEMATICAL BOLD FRAKTUR SMALL E
@@ -12192,7 +18330,7 @@ TEST(normalization, nfd_077_122)
 }
 
 
-TEST(normalization, nfd_077_123)
+TEST(normalization, nfd_077_185)
 {
     // 1D58B;1D58B;1D58B;0066;0066; 
     // (𝖋; 𝖋; 𝖋; f; f; ) MATHEMATICAL BOLD FRAKTUR SMALL F
@@ -12291,7 +18429,7 @@ TEST(normalization, nfd_077_123)
 }
 
 
-TEST(normalization, nfd_077_124)
+TEST(normalization, nfd_077_186)
 {
     // 1D58C;1D58C;1D58C;0067;0067; 
     // (𝖌; 𝖌; 𝖌; g; g; ) MATHEMATICAL BOLD FRAKTUR SMALL G
@@ -12390,7 +18528,7 @@ TEST(normalization, nfd_077_124)
 }
 
 
-TEST(normalization, nfd_077_125)
+TEST(normalization, nfd_077_187)
 {
     // 1D58D;1D58D;1D58D;0068;0068; 
     // (𝖍; 𝖍; 𝖍; h; h; ) MATHEMATICAL BOLD FRAKTUR SMALL H
@@ -12489,7 +18627,7 @@ TEST(normalization, nfd_077_125)
 }
 
 
-TEST(normalization, nfd_077_126)
+TEST(normalization, nfd_077_188)
 {
     // 1D58E;1D58E;1D58E;0069;0069; 
     // (𝖎; 𝖎; 𝖎; i; i; ) MATHEMATICAL BOLD FRAKTUR SMALL I
@@ -12588,7 +18726,7 @@ TEST(normalization, nfd_077_126)
 }
 
 
-TEST(normalization, nfd_077_127)
+TEST(normalization, nfd_077_189)
 {
     // 1D58F;1D58F;1D58F;006A;006A; 
     // (𝖏; 𝖏; 𝖏; j; j; ) MATHEMATICAL BOLD FRAKTUR SMALL J
@@ -12687,7 +18825,7 @@ TEST(normalization, nfd_077_127)
 }
 
 
-TEST(normalization, nfd_077_128)
+TEST(normalization, nfd_077_190)
 {
     // 1D590;1D590;1D590;006B;006B; 
     // (𝖐; 𝖐; 𝖐; k; k; ) MATHEMATICAL BOLD FRAKTUR SMALL K
@@ -12786,7 +18924,7 @@ TEST(normalization, nfd_077_128)
 }
 
 
-TEST(normalization, nfd_077_129)
+TEST(normalization, nfd_077_191)
 {
     // 1D591;1D591;1D591;006C;006C; 
     // (𝖑; 𝖑; 𝖑; l; l; ) MATHEMATICAL BOLD FRAKTUR SMALL L
@@ -12885,7 +19023,7 @@ TEST(normalization, nfd_077_129)
 }
 
 
-TEST(normalization, nfd_077_130)
+TEST(normalization, nfd_077_192)
 {
     // 1D592;1D592;1D592;006D;006D; 
     // (𝖒; 𝖒; 𝖒; m; m; ) MATHEMATICAL BOLD FRAKTUR SMALL M
@@ -12984,7 +19122,7 @@ TEST(normalization, nfd_077_130)
 }
 
 
-TEST(normalization, nfd_077_131)
+TEST(normalization, nfd_077_193)
 {
     // 1D593;1D593;1D593;006E;006E; 
     // (𝖓; 𝖓; 𝖓; n; n; ) MATHEMATICAL BOLD FRAKTUR SMALL N
@@ -13083,7 +19221,7 @@ TEST(normalization, nfd_077_131)
 }
 
 
-TEST(normalization, nfd_077_132)
+TEST(normalization, nfd_077_194)
 {
     // 1D594;1D594;1D594;006F;006F; 
     // (𝖔; 𝖔; 𝖔; o; o; ) MATHEMATICAL BOLD FRAKTUR SMALL O
@@ -13182,7 +19320,7 @@ TEST(normalization, nfd_077_132)
 }
 
 
-TEST(normalization, nfd_077_133)
+TEST(normalization, nfd_077_195)
 {
     // 1D595;1D595;1D595;0070;0070; 
     // (𝖕; 𝖕; 𝖕; p; p; ) MATHEMATICAL BOLD FRAKTUR SMALL P
@@ -13281,7 +19419,7 @@ TEST(normalization, nfd_077_133)
 }
 
 
-TEST(normalization, nfd_077_134)
+TEST(normalization, nfd_077_196)
 {
     // 1D596;1D596;1D596;0071;0071; 
     // (𝖖; 𝖖; 𝖖; q; q; ) MATHEMATICAL BOLD FRAKTUR SMALL Q
@@ -13380,7 +19518,7 @@ TEST(normalization, nfd_077_134)
 }
 
 
-TEST(normalization, nfd_077_135)
+TEST(normalization, nfd_077_197)
 {
     // 1D597;1D597;1D597;0072;0072; 
     // (𝖗; 𝖗; 𝖗; r; r; ) MATHEMATICAL BOLD FRAKTUR SMALL R
@@ -13479,7 +19617,7 @@ TEST(normalization, nfd_077_135)
 }
 
 
-TEST(normalization, nfd_077_136)
+TEST(normalization, nfd_077_198)
 {
     // 1D598;1D598;1D598;0073;0073; 
     // (𝖘; 𝖘; 𝖘; s; s; ) MATHEMATICAL BOLD FRAKTUR SMALL S
@@ -13578,7 +19716,7 @@ TEST(normalization, nfd_077_136)
 }
 
 
-TEST(normalization, nfd_077_137)
+TEST(normalization, nfd_077_199)
 {
     // 1D599;1D599;1D599;0074;0074; 
     // (𝖙; 𝖙; 𝖙; t; t; ) MATHEMATICAL BOLD FRAKTUR SMALL T
@@ -13588,6144 +19726,6 @@ TEST(normalization, nfd_077_137)
         std::array<uint32_t, 1> const c3 = {{ 0x1D599 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0074 }};
         std::array<uint32_t, 1> const c5 = {{ 0x0074 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_138)
-{
-    // 1D59A;1D59A;1D59A;0075;0075; 
-    // (𝖚; 𝖚; 𝖚; u; u; ) MATHEMATICAL BOLD FRAKTUR SMALL U
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D59A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D59A }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D59A }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0075 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0075 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_139)
-{
-    // 1D59B;1D59B;1D59B;0076;0076; 
-    // (𝖛; 𝖛; 𝖛; v; v; ) MATHEMATICAL BOLD FRAKTUR SMALL V
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D59B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D59B }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D59B }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0076 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0076 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_140)
-{
-    // 1D59C;1D59C;1D59C;0077;0077; 
-    // (𝖜; 𝖜; 𝖜; w; w; ) MATHEMATICAL BOLD FRAKTUR SMALL W
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D59C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D59C }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D59C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0077 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0077 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_141)
-{
-    // 1D59D;1D59D;1D59D;0078;0078; 
-    // (𝖝; 𝖝; 𝖝; x; x; ) MATHEMATICAL BOLD FRAKTUR SMALL X
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D59D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D59D }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D59D }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0078 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0078 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_142)
-{
-    // 1D59E;1D59E;1D59E;0079;0079; 
-    // (𝖞; 𝖞; 𝖞; y; y; ) MATHEMATICAL BOLD FRAKTUR SMALL Y
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D59E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D59E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D59E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0079 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0079 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_143)
-{
-    // 1D59F;1D59F;1D59F;007A;007A; 
-    // (𝖟; 𝖟; 𝖟; z; z; ) MATHEMATICAL BOLD FRAKTUR SMALL Z
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D59F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D59F }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D59F }};
-        std::array<uint32_t, 1> const c4 = {{ 0x007A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x007A }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_144)
-{
-    // 1D5A0;1D5A0;1D5A0;0041;0041; 
-    // (𝖠; 𝖠; 𝖠; A; A; ) MATHEMATICAL SANS-SERIF CAPITAL A
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5A0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5A0 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5A0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0041 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0041 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_145)
-{
-    // 1D5A1;1D5A1;1D5A1;0042;0042; 
-    // (𝖡; 𝖡; 𝖡; B; B; ) MATHEMATICAL SANS-SERIF CAPITAL B
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5A1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5A1 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5A1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0042 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0042 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_146)
-{
-    // 1D5A2;1D5A2;1D5A2;0043;0043; 
-    // (𝖢; 𝖢; 𝖢; C; C; ) MATHEMATICAL SANS-SERIF CAPITAL C
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5A2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5A2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5A2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0043 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0043 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_147)
-{
-    // 1D5A3;1D5A3;1D5A3;0044;0044; 
-    // (𝖣; 𝖣; 𝖣; D; D; ) MATHEMATICAL SANS-SERIF CAPITAL D
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5A3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5A3 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5A3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0044 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0044 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_148)
-{
-    // 1D5A4;1D5A4;1D5A4;0045;0045; 
-    // (𝖤; 𝖤; 𝖤; E; E; ) MATHEMATICAL SANS-SERIF CAPITAL E
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5A4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5A4 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5A4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0045 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0045 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_149)
-{
-    // 1D5A5;1D5A5;1D5A5;0046;0046; 
-    // (𝖥; 𝖥; 𝖥; F; F; ) MATHEMATICAL SANS-SERIF CAPITAL F
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5A5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5A5 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5A5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0046 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0046 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_150)
-{
-    // 1D5A6;1D5A6;1D5A6;0047;0047; 
-    // (𝖦; 𝖦; 𝖦; G; G; ) MATHEMATICAL SANS-SERIF CAPITAL G
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5A6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5A6 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5A6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0047 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0047 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_151)
-{
-    // 1D5A7;1D5A7;1D5A7;0048;0048; 
-    // (𝖧; 𝖧; 𝖧; H; H; ) MATHEMATICAL SANS-SERIF CAPITAL H
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5A7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5A7 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5A7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0048 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0048 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_152)
-{
-    // 1D5A8;1D5A8;1D5A8;0049;0049; 
-    // (𝖨; 𝖨; 𝖨; I; I; ) MATHEMATICAL SANS-SERIF CAPITAL I
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5A8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5A8 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5A8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0049 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0049 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_153)
-{
-    // 1D5A9;1D5A9;1D5A9;004A;004A; 
-    // (𝖩; 𝖩; 𝖩; J; J; ) MATHEMATICAL SANS-SERIF CAPITAL J
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5A9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5A9 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5A9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x004A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x004A }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_154)
-{
-    // 1D5AA;1D5AA;1D5AA;004B;004B; 
-    // (𝖪; 𝖪; 𝖪; K; K; ) MATHEMATICAL SANS-SERIF CAPITAL K
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5AA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5AA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5AA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x004B }};
-        std::array<uint32_t, 1> const c5 = {{ 0x004B }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_155)
-{
-    // 1D5AB;1D5AB;1D5AB;004C;004C; 
-    // (𝖫; 𝖫; 𝖫; L; L; ) MATHEMATICAL SANS-SERIF CAPITAL L
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5AB }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5AB }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5AB }};
-        std::array<uint32_t, 1> const c4 = {{ 0x004C }};
-        std::array<uint32_t, 1> const c5 = {{ 0x004C }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_156)
-{
-    // 1D5AC;1D5AC;1D5AC;004D;004D; 
-    // (𝖬; 𝖬; 𝖬; M; M; ) MATHEMATICAL SANS-SERIF CAPITAL M
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5AC }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5AC }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5AC }};
-        std::array<uint32_t, 1> const c4 = {{ 0x004D }};
-        std::array<uint32_t, 1> const c5 = {{ 0x004D }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_157)
-{
-    // 1D5AD;1D5AD;1D5AD;004E;004E; 
-    // (𝖭; 𝖭; 𝖭; N; N; ) MATHEMATICAL SANS-SERIF CAPITAL N
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5AD }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5AD }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5AD }};
-        std::array<uint32_t, 1> const c4 = {{ 0x004E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x004E }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_158)
-{
-    // 1D5AE;1D5AE;1D5AE;004F;004F; 
-    // (𝖮; 𝖮; 𝖮; O; O; ) MATHEMATICAL SANS-SERIF CAPITAL O
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5AE }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5AE }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5AE }};
-        std::array<uint32_t, 1> const c4 = {{ 0x004F }};
-        std::array<uint32_t, 1> const c5 = {{ 0x004F }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_159)
-{
-    // 1D5AF;1D5AF;1D5AF;0050;0050; 
-    // (𝖯; 𝖯; 𝖯; P; P; ) MATHEMATICAL SANS-SERIF CAPITAL P
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5AF }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5AF }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5AF }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0050 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0050 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_160)
-{
-    // 1D5B0;1D5B0;1D5B0;0051;0051; 
-    // (𝖰; 𝖰; 𝖰; Q; Q; ) MATHEMATICAL SANS-SERIF CAPITAL Q
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5B0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5B0 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5B0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0051 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0051 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_161)
-{
-    // 1D5B1;1D5B1;1D5B1;0052;0052; 
-    // (𝖱; 𝖱; 𝖱; R; R; ) MATHEMATICAL SANS-SERIF CAPITAL R
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5B1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5B1 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5B1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0052 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0052 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_162)
-{
-    // 1D5B2;1D5B2;1D5B2;0053;0053; 
-    // (𝖲; 𝖲; 𝖲; S; S; ) MATHEMATICAL SANS-SERIF CAPITAL S
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5B2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5B2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5B2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0053 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0053 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_163)
-{
-    // 1D5B3;1D5B3;1D5B3;0054;0054; 
-    // (𝖳; 𝖳; 𝖳; T; T; ) MATHEMATICAL SANS-SERIF CAPITAL T
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5B3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5B3 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5B3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0054 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0054 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_164)
-{
-    // 1D5B4;1D5B4;1D5B4;0055;0055; 
-    // (𝖴; 𝖴; 𝖴; U; U; ) MATHEMATICAL SANS-SERIF CAPITAL U
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5B4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5B4 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5B4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0055 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0055 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_165)
-{
-    // 1D5B5;1D5B5;1D5B5;0056;0056; 
-    // (𝖵; 𝖵; 𝖵; V; V; ) MATHEMATICAL SANS-SERIF CAPITAL V
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5B5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5B5 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5B5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0056 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0056 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_166)
-{
-    // 1D5B6;1D5B6;1D5B6;0057;0057; 
-    // (𝖶; 𝖶; 𝖶; W; W; ) MATHEMATICAL SANS-SERIF CAPITAL W
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5B6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5B6 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5B6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0057 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0057 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_167)
-{
-    // 1D5B7;1D5B7;1D5B7;0058;0058; 
-    // (𝖷; 𝖷; 𝖷; X; X; ) MATHEMATICAL SANS-SERIF CAPITAL X
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5B7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5B7 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5B7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0058 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0058 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_168)
-{
-    // 1D5B8;1D5B8;1D5B8;0059;0059; 
-    // (𝖸; 𝖸; 𝖸; Y; Y; ) MATHEMATICAL SANS-SERIF CAPITAL Y
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5B8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5B8 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5B8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0059 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0059 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_169)
-{
-    // 1D5B9;1D5B9;1D5B9;005A;005A; 
-    // (𝖹; 𝖹; 𝖹; Z; Z; ) MATHEMATICAL SANS-SERIF CAPITAL Z
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5B9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5B9 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5B9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x005A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x005A }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_170)
-{
-    // 1D5BA;1D5BA;1D5BA;0061;0061; 
-    // (𝖺; 𝖺; 𝖺; a; a; ) MATHEMATICAL SANS-SERIF SMALL A
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5BA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5BA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5BA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0061 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0061 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_171)
-{
-    // 1D5BB;1D5BB;1D5BB;0062;0062; 
-    // (𝖻; 𝖻; 𝖻; b; b; ) MATHEMATICAL SANS-SERIF SMALL B
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5BB }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5BB }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5BB }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0062 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0062 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_172)
-{
-    // 1D5BC;1D5BC;1D5BC;0063;0063; 
-    // (𝖼; 𝖼; 𝖼; c; c; ) MATHEMATICAL SANS-SERIF SMALL C
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5BC }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5BC }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5BC }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0063 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0063 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_173)
-{
-    // 1D5BD;1D5BD;1D5BD;0064;0064; 
-    // (𝖽; 𝖽; 𝖽; d; d; ) MATHEMATICAL SANS-SERIF SMALL D
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5BD }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5BD }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5BD }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0064 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0064 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_174)
-{
-    // 1D5BE;1D5BE;1D5BE;0065;0065; 
-    // (𝖾; 𝖾; 𝖾; e; e; ) MATHEMATICAL SANS-SERIF SMALL E
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5BE }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5BE }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5BE }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0065 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0065 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_175)
-{
-    // 1D5BF;1D5BF;1D5BF;0066;0066; 
-    // (𝖿; 𝖿; 𝖿; f; f; ) MATHEMATICAL SANS-SERIF SMALL F
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5BF }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5BF }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5BF }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0066 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0066 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_176)
-{
-    // 1D5C0;1D5C0;1D5C0;0067;0067; 
-    // (𝗀; 𝗀; 𝗀; g; g; ) MATHEMATICAL SANS-SERIF SMALL G
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5C0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5C0 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5C0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0067 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0067 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_177)
-{
-    // 1D5C1;1D5C1;1D5C1;0068;0068; 
-    // (𝗁; 𝗁; 𝗁; h; h; ) MATHEMATICAL SANS-SERIF SMALL H
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5C1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5C1 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5C1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0068 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0068 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_178)
-{
-    // 1D5C2;1D5C2;1D5C2;0069;0069; 
-    // (𝗂; 𝗂; 𝗂; i; i; ) MATHEMATICAL SANS-SERIF SMALL I
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5C2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5C2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5C2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0069 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0069 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_179)
-{
-    // 1D5C3;1D5C3;1D5C3;006A;006A; 
-    // (𝗃; 𝗃; 𝗃; j; j; ) MATHEMATICAL SANS-SERIF SMALL J
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5C3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5C3 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5C3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x006A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x006A }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_180)
-{
-    // 1D5C4;1D5C4;1D5C4;006B;006B; 
-    // (𝗄; 𝗄; 𝗄; k; k; ) MATHEMATICAL SANS-SERIF SMALL K
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5C4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5C4 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5C4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x006B }};
-        std::array<uint32_t, 1> const c5 = {{ 0x006B }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_181)
-{
-    // 1D5C5;1D5C5;1D5C5;006C;006C; 
-    // (𝗅; 𝗅; 𝗅; l; l; ) MATHEMATICAL SANS-SERIF SMALL L
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5C5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5C5 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5C5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x006C }};
-        std::array<uint32_t, 1> const c5 = {{ 0x006C }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_182)
-{
-    // 1D5C6;1D5C6;1D5C6;006D;006D; 
-    // (𝗆; 𝗆; 𝗆; m; m; ) MATHEMATICAL SANS-SERIF SMALL M
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5C6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5C6 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5C6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x006D }};
-        std::array<uint32_t, 1> const c5 = {{ 0x006D }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_183)
-{
-    // 1D5C7;1D5C7;1D5C7;006E;006E; 
-    // (𝗇; 𝗇; 𝗇; n; n; ) MATHEMATICAL SANS-SERIF SMALL N
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5C7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5C7 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5C7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x006E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x006E }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_184)
-{
-    // 1D5C8;1D5C8;1D5C8;006F;006F; 
-    // (𝗈; 𝗈; 𝗈; o; o; ) MATHEMATICAL SANS-SERIF SMALL O
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5C8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5C8 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5C8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x006F }};
-        std::array<uint32_t, 1> const c5 = {{ 0x006F }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_185)
-{
-    // 1D5C9;1D5C9;1D5C9;0070;0070; 
-    // (𝗉; 𝗉; 𝗉; p; p; ) MATHEMATICAL SANS-SERIF SMALL P
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5C9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5C9 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5C9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0070 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0070 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_186)
-{
-    // 1D5CA;1D5CA;1D5CA;0071;0071; 
-    // (𝗊; 𝗊; 𝗊; q; q; ) MATHEMATICAL SANS-SERIF SMALL Q
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5CA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5CA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5CA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0071 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0071 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_187)
-{
-    // 1D5CB;1D5CB;1D5CB;0072;0072; 
-    // (𝗋; 𝗋; 𝗋; r; r; ) MATHEMATICAL SANS-SERIF SMALL R
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5CB }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5CB }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5CB }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0072 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0072 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_188)
-{
-    // 1D5CC;1D5CC;1D5CC;0073;0073; 
-    // (𝗌; 𝗌; 𝗌; s; s; ) MATHEMATICAL SANS-SERIF SMALL S
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5CC }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5CC }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5CC }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0073 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0073 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_189)
-{
-    // 1D5CD;1D5CD;1D5CD;0074;0074; 
-    // (𝗍; 𝗍; 𝗍; t; t; ) MATHEMATICAL SANS-SERIF SMALL T
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5CD }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5CD }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5CD }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0074 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0074 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_190)
-{
-    // 1D5CE;1D5CE;1D5CE;0075;0075; 
-    // (𝗎; 𝗎; 𝗎; u; u; ) MATHEMATICAL SANS-SERIF SMALL U
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5CE }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5CE }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5CE }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0075 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0075 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_191)
-{
-    // 1D5CF;1D5CF;1D5CF;0076;0076; 
-    // (𝗏; 𝗏; 𝗏; v; v; ) MATHEMATICAL SANS-SERIF SMALL V
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5CF }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5CF }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5CF }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0076 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0076 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_192)
-{
-    // 1D5D0;1D5D0;1D5D0;0077;0077; 
-    // (𝗐; 𝗐; 𝗐; w; w; ) MATHEMATICAL SANS-SERIF SMALL W
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5D0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5D0 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5D0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0077 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0077 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_193)
-{
-    // 1D5D1;1D5D1;1D5D1;0078;0078; 
-    // (𝗑; 𝗑; 𝗑; x; x; ) MATHEMATICAL SANS-SERIF SMALL X
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5D1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5D1 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5D1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0078 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0078 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_194)
-{
-    // 1D5D2;1D5D2;1D5D2;0079;0079; 
-    // (𝗒; 𝗒; 𝗒; y; y; ) MATHEMATICAL SANS-SERIF SMALL Y
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5D2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5D2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5D2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0079 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0079 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_195)
-{
-    // 1D5D3;1D5D3;1D5D3;007A;007A; 
-    // (𝗓; 𝗓; 𝗓; z; z; ) MATHEMATICAL SANS-SERIF SMALL Z
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5D3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5D3 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5D3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x007A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x007A }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_196)
-{
-    // 1D5D4;1D5D4;1D5D4;0041;0041; 
-    // (𝗔; 𝗔; 𝗔; A; A; ) MATHEMATICAL SANS-SERIF BOLD CAPITAL A
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5D4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5D4 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5D4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0041 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0041 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_197)
-{
-    // 1D5D5;1D5D5;1D5D5;0042;0042; 
-    // (𝗕; 𝗕; 𝗕; B; B; ) MATHEMATICAL SANS-SERIF BOLD CAPITAL B
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5D5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5D5 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5D5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0042 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0042 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_198)
-{
-    // 1D5D6;1D5D6;1D5D6;0043;0043; 
-    // (𝗖; 𝗖; 𝗖; C; C; ) MATHEMATICAL SANS-SERIF BOLD CAPITAL C
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5D6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5D6 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5D6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0043 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0043 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_077_199)
-{
-    // 1D5D7;1D5D7;1D5D7;0044;0044; 
-    // (𝗗; 𝗗; 𝗗; D; D; ) MATHEMATICAL SANS-SERIF BOLD CAPITAL D
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x1D5D7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1D5D7 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x1D5D7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0044 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0044 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));

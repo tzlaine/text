@@ -17,6 +17,103 @@
 
 TEST(normalization, nfkc_011_000)
 {
+    // 3330;3330;3330;30D4 30B3;30D2 309A 30B3; 
+    // (㌰; ㌰; ㌰; ピコ; ヒ◌゚コ; ) SQUARE PIKO
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x3330 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x3330 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x3330 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x30D4, 0x30B3 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x30D2, 0x309A, 0x30B3 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::kc>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::kc>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::kc>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::kc>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::kc>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfkc_011_001)
+{
     // 3331;3331;3331;30D3 30EB;30D2 3099 30EB; 
     // (㌱; ㌱; ㌱; ビル; ヒ◌゙ル; ) SQUARE BIRU
     {
@@ -112,7 +209,7 @@ TEST(normalization, nfkc_011_000)
 }
 
 
-TEST(normalization, nfkc_011_001)
+TEST(normalization, nfkc_011_002)
 {
     // 3332;3332;3332;30D5 30A1 30E9 30C3 30C9;30D5 30A1 30E9 30C3 30C8 3099; 
     // (㌲; ㌲; ㌲; ファラッド; ファラット◌゙; ) SQUARE HUARADDO
@@ -209,7 +306,7 @@ TEST(normalization, nfkc_011_001)
 }
 
 
-TEST(normalization, nfkc_011_002)
+TEST(normalization, nfkc_011_003)
 {
     // 3333;3333;3333;30D5 30A3 30FC 30C8;30D5 30A3 30FC 30C8; 
     // (㌳; ㌳; ㌳; フィート; フィート; ) SQUARE HUIITO
@@ -308,7 +405,7 @@ TEST(normalization, nfkc_011_002)
 }
 
 
-TEST(normalization, nfkc_011_003)
+TEST(normalization, nfkc_011_004)
 {
     // 3334;3334;3334;30D6 30C3 30B7 30A7 30EB;30D5 3099 30C3 30B7 30A7 30EB; 
     // (㌴; ㌴; ㌴; ブッシェル; フ◌゙ッシェル; ) SQUARE BUSSYERU
@@ -405,7 +502,7 @@ TEST(normalization, nfkc_011_003)
 }
 
 
-TEST(normalization, nfkc_011_004)
+TEST(normalization, nfkc_011_005)
 {
     // 3335;3335;3335;30D5 30E9 30F3;30D5 30E9 30F3; 
     // (㌵; ㌵; ㌵; フラン; フラン; ) SQUARE HURAN
@@ -504,7 +601,7 @@ TEST(normalization, nfkc_011_004)
 }
 
 
-TEST(normalization, nfkc_011_005)
+TEST(normalization, nfkc_011_006)
 {
     // 3336;3336;3336;30D8 30AF 30BF 30FC 30EB;30D8 30AF 30BF 30FC 30EB; 
     // (㌶; ㌶; ㌶; ヘクタール; ヘクタール; ) SQUARE HEKUTAARU
@@ -603,7 +700,7 @@ TEST(normalization, nfkc_011_005)
 }
 
 
-TEST(normalization, nfkc_011_006)
+TEST(normalization, nfkc_011_007)
 {
     // 3337;3337;3337;30DA 30BD;30D8 309A 30BD; 
     // (㌷; ㌷; ㌷; ペソ; ヘ◌゚ソ; ) SQUARE PESO
@@ -700,7 +797,7 @@ TEST(normalization, nfkc_011_006)
 }
 
 
-TEST(normalization, nfkc_011_007)
+TEST(normalization, nfkc_011_008)
 {
     // 3338;3338;3338;30DA 30CB 30D2;30D8 309A 30CB 30D2; 
     // (㌸; ㌸; ㌸; ペニヒ; ヘ◌゚ニヒ; ) SQUARE PENIHI
@@ -797,7 +894,7 @@ TEST(normalization, nfkc_011_007)
 }
 
 
-TEST(normalization, nfkc_011_008)
+TEST(normalization, nfkc_011_009)
 {
     // 3339;3339;3339;30D8 30EB 30C4;30D8 30EB 30C4; 
     // (㌹; ㌹; ㌹; ヘルツ; ヘルツ; ) SQUARE HERUTU
@@ -896,7 +993,7 @@ TEST(normalization, nfkc_011_008)
 }
 
 
-TEST(normalization, nfkc_011_009)
+TEST(normalization, nfkc_011_010)
 {
     // 333A;333A;333A;30DA 30F3 30B9;30D8 309A 30F3 30B9; 
     // (㌺; ㌺; ㌺; ペンス; ヘ◌゚ンス; ) SQUARE PENSU
@@ -993,7 +1090,7 @@ TEST(normalization, nfkc_011_009)
 }
 
 
-TEST(normalization, nfkc_011_010)
+TEST(normalization, nfkc_011_011)
 {
     // 333B;333B;333B;30DA 30FC 30B8;30D8 309A 30FC 30B7 3099; 
     // (㌻; ㌻; ㌻; ページ; ヘ◌゚ーシ◌゙; ) SQUARE PEEZI
@@ -1090,7 +1187,7 @@ TEST(normalization, nfkc_011_010)
 }
 
 
-TEST(normalization, nfkc_011_011)
+TEST(normalization, nfkc_011_012)
 {
     // 333C;333C;333C;30D9 30FC 30BF;30D8 3099 30FC 30BF; 
     // (㌼; ㌼; ㌼; ベータ; ヘ◌゙ータ; ) SQUARE BEETA
@@ -1187,7 +1284,7 @@ TEST(normalization, nfkc_011_011)
 }
 
 
-TEST(normalization, nfkc_011_012)
+TEST(normalization, nfkc_011_013)
 {
     // 333D;333D;333D;30DD 30A4 30F3 30C8;30DB 309A 30A4 30F3 30C8; 
     // (㌽; ㌽; ㌽; ポイント; ホ◌゚イント; ) SQUARE POINTO
@@ -1284,7 +1381,7 @@ TEST(normalization, nfkc_011_012)
 }
 
 
-TEST(normalization, nfkc_011_013)
+TEST(normalization, nfkc_011_014)
 {
     // 333E;333E;333E;30DC 30EB 30C8;30DB 3099 30EB 30C8; 
     // (㌾; ㌾; ㌾; ボルト; ホ◌゙ルト; ) SQUARE BORUTO
@@ -1381,7 +1478,7 @@ TEST(normalization, nfkc_011_013)
 }
 
 
-TEST(normalization, nfkc_011_014)
+TEST(normalization, nfkc_011_015)
 {
     // 333F;333F;333F;30DB 30F3;30DB 30F3; 
     // (㌿; ㌿; ㌿; ホン; ホン; ) SQUARE HON
@@ -1480,7 +1577,7 @@ TEST(normalization, nfkc_011_014)
 }
 
 
-TEST(normalization, nfkc_011_015)
+TEST(normalization, nfkc_011_016)
 {
     // 3340;3340;3340;30DD 30F3 30C9;30DB 309A 30F3 30C8 3099; 
     // (㍀; ㍀; ㍀; ポンド; ホ◌゚ント◌゙; ) SQUARE PONDO
@@ -1577,7 +1674,7 @@ TEST(normalization, nfkc_011_015)
 }
 
 
-TEST(normalization, nfkc_011_016)
+TEST(normalization, nfkc_011_017)
 {
     // 3341;3341;3341;30DB 30FC 30EB;30DB 30FC 30EB; 
     // (㍁; ㍁; ㍁; ホール; ホール; ) SQUARE HOORU
@@ -1676,7 +1773,7 @@ TEST(normalization, nfkc_011_016)
 }
 
 
-TEST(normalization, nfkc_011_017)
+TEST(normalization, nfkc_011_018)
 {
     // 3342;3342;3342;30DB 30FC 30F3;30DB 30FC 30F3; 
     // (㍂; ㍂; ㍂; ホーン; ホーン; ) SQUARE HOON
@@ -1775,7 +1872,7 @@ TEST(normalization, nfkc_011_017)
 }
 
 
-TEST(normalization, nfkc_011_018)
+TEST(normalization, nfkc_011_019)
 {
     // 3343;3343;3343;30DE 30A4 30AF 30ED;30DE 30A4 30AF 30ED; 
     // (㍃; ㍃; ㍃; マイクロ; マイクロ; ) SQUARE MAIKURO
@@ -1874,7 +1971,7 @@ TEST(normalization, nfkc_011_018)
 }
 
 
-TEST(normalization, nfkc_011_019)
+TEST(normalization, nfkc_011_020)
 {
     // 3344;3344;3344;30DE 30A4 30EB;30DE 30A4 30EB; 
     // (㍄; ㍄; ㍄; マイル; マイル; ) SQUARE MAIRU
@@ -1973,7 +2070,7 @@ TEST(normalization, nfkc_011_019)
 }
 
 
-TEST(normalization, nfkc_011_020)
+TEST(normalization, nfkc_011_021)
 {
     // 3345;3345;3345;30DE 30C3 30CF;30DE 30C3 30CF; 
     // (㍅; ㍅; ㍅; マッハ; マッハ; ) SQUARE MAHHA
@@ -2072,7 +2169,7 @@ TEST(normalization, nfkc_011_020)
 }
 
 
-TEST(normalization, nfkc_011_021)
+TEST(normalization, nfkc_011_022)
 {
     // 3346;3346;3346;30DE 30EB 30AF;30DE 30EB 30AF; 
     // (㍆; ㍆; ㍆; マルク; マルク; ) SQUARE MARUKU
@@ -2171,7 +2268,7 @@ TEST(normalization, nfkc_011_021)
 }
 
 
-TEST(normalization, nfkc_011_022)
+TEST(normalization, nfkc_011_023)
 {
     // 3347;3347;3347;30DE 30F3 30B7 30E7 30F3;30DE 30F3 30B7 30E7 30F3; 
     // (㍇; ㍇; ㍇; マンション; マンション; ) SQUARE MANSYON
@@ -2270,7 +2367,7 @@ TEST(normalization, nfkc_011_022)
 }
 
 
-TEST(normalization, nfkc_011_023)
+TEST(normalization, nfkc_011_024)
 {
     // 3348;3348;3348;30DF 30AF 30ED 30F3;30DF 30AF 30ED 30F3; 
     // (㍈; ㍈; ㍈; ミクロン; ミクロン; ) SQUARE MIKURON
@@ -2369,7 +2466,7 @@ TEST(normalization, nfkc_011_023)
 }
 
 
-TEST(normalization, nfkc_011_024)
+TEST(normalization, nfkc_011_025)
 {
     // 3349;3349;3349;30DF 30EA;30DF 30EA; 
     // (㍉; ㍉; ㍉; ミリ; ミリ; ) SQUARE MIRI
@@ -2468,7 +2565,7 @@ TEST(normalization, nfkc_011_024)
 }
 
 
-TEST(normalization, nfkc_011_025)
+TEST(normalization, nfkc_011_026)
 {
     // 334A;334A;334A;30DF 30EA 30D0 30FC 30EB;30DF 30EA 30CF 3099 30FC 30EB; 
     // (㍊; ㍊; ㍊; ミリバール; ミリハ◌゙ール; ) SQUARE MIRIBAARU
@@ -2565,7 +2662,7 @@ TEST(normalization, nfkc_011_025)
 }
 
 
-TEST(normalization, nfkc_011_026)
+TEST(normalization, nfkc_011_027)
 {
     // 334B;334B;334B;30E1 30AC;30E1 30AB 3099; 
     // (㍋; ㍋; ㍋; メガ; メカ◌゙; ) SQUARE MEGA
@@ -2662,7 +2759,7 @@ TEST(normalization, nfkc_011_026)
 }
 
 
-TEST(normalization, nfkc_011_027)
+TEST(normalization, nfkc_011_028)
 {
     // 334C;334C;334C;30E1 30AC 30C8 30F3;30E1 30AB 3099 30C8 30F3; 
     // (㍌; ㍌; ㍌; メガトン; メカ◌゙トン; ) SQUARE MEGATON
@@ -2759,7 +2856,7 @@ TEST(normalization, nfkc_011_027)
 }
 
 
-TEST(normalization, nfkc_011_028)
+TEST(normalization, nfkc_011_029)
 {
     // 334D;334D;334D;30E1 30FC 30C8 30EB;30E1 30FC 30C8 30EB; 
     // (㍍; ㍍; ㍍; メートル; メートル; ) SQUARE MEETORU
@@ -2858,7 +2955,7 @@ TEST(normalization, nfkc_011_028)
 }
 
 
-TEST(normalization, nfkc_011_029)
+TEST(normalization, nfkc_011_030)
 {
     // 334E;334E;334E;30E4 30FC 30C9;30E4 30FC 30C8 3099; 
     // (㍎; ㍎; ㍎; ヤード; ヤート◌゙; ) SQUARE YAADO
@@ -2955,7 +3052,7 @@ TEST(normalization, nfkc_011_029)
 }
 
 
-TEST(normalization, nfkc_011_030)
+TEST(normalization, nfkc_011_031)
 {
     // 334F;334F;334F;30E4 30FC 30EB;30E4 30FC 30EB; 
     // (㍏; ㍏; ㍏; ヤール; ヤール; ) SQUARE YAARU
@@ -3054,7 +3151,7 @@ TEST(normalization, nfkc_011_030)
 }
 
 
-TEST(normalization, nfkc_011_031)
+TEST(normalization, nfkc_011_032)
 {
     // 3350;3350;3350;30E6 30A2 30F3;30E6 30A2 30F3; 
     // (㍐; ㍐; ㍐; ユアン; ユアン; ) SQUARE YUAN
@@ -3153,7 +3250,7 @@ TEST(normalization, nfkc_011_031)
 }
 
 
-TEST(normalization, nfkc_011_032)
+TEST(normalization, nfkc_011_033)
 {
     // 3351;3351;3351;30EA 30C3 30C8 30EB;30EA 30C3 30C8 30EB; 
     // (㍑; ㍑; ㍑; リットル; リットル; ) SQUARE RITTORU
@@ -3252,7 +3349,7 @@ TEST(normalization, nfkc_011_032)
 }
 
 
-TEST(normalization, nfkc_011_033)
+TEST(normalization, nfkc_011_034)
 {
     // 3352;3352;3352;30EA 30E9;30EA 30E9; 
     // (㍒; ㍒; ㍒; リラ; リラ; ) SQUARE RIRA
@@ -3351,7 +3448,7 @@ TEST(normalization, nfkc_011_033)
 }
 
 
-TEST(normalization, nfkc_011_034)
+TEST(normalization, nfkc_011_035)
 {
     // 3353;3353;3353;30EB 30D4 30FC;30EB 30D2 309A 30FC; 
     // (㍓; ㍓; ㍓; ルピー; ルヒ◌゚ー; ) SQUARE RUPII
@@ -3448,7 +3545,7 @@ TEST(normalization, nfkc_011_034)
 }
 
 
-TEST(normalization, nfkc_011_035)
+TEST(normalization, nfkc_011_036)
 {
     // 3354;3354;3354;30EB 30FC 30D6 30EB;30EB 30FC 30D5 3099 30EB; 
     // (㍔; ㍔; ㍔; ルーブル; ルーフ◌゙ル; ) SQUARE RUUBURU
@@ -3545,7 +3642,7 @@ TEST(normalization, nfkc_011_035)
 }
 
 
-TEST(normalization, nfkc_011_036)
+TEST(normalization, nfkc_011_037)
 {
     // 3355;3355;3355;30EC 30E0;30EC 30E0; 
     // (㍕; ㍕; ㍕; レム; レム; ) SQUARE REMU
@@ -3644,7 +3741,7 @@ TEST(normalization, nfkc_011_036)
 }
 
 
-TEST(normalization, nfkc_011_037)
+TEST(normalization, nfkc_011_038)
 {
     // 3356;3356;3356;30EC 30F3 30C8 30B2 30F3;30EC 30F3 30C8 30B1 3099 30F3; 
     // (㍖; ㍖; ㍖; レントゲン; レントケ◌゙ン; ) SQUARE RENTOGEN
@@ -3741,7 +3838,7 @@ TEST(normalization, nfkc_011_037)
 }
 
 
-TEST(normalization, nfkc_011_038)
+TEST(normalization, nfkc_011_039)
 {
     // 3357;3357;3357;30EF 30C3 30C8;30EF 30C3 30C8; 
     // (㍗; ㍗; ㍗; ワット; ワット; ) SQUARE WATTO
@@ -3840,7 +3937,7 @@ TEST(normalization, nfkc_011_038)
 }
 
 
-TEST(normalization, nfkc_011_039)
+TEST(normalization, nfkc_011_040)
 {
     // 3358;3358;3358;0030 70B9;0030 70B9; 
     // (㍘; ㍘; ㍘; 0点; 0点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR ZERO
@@ -3939,7 +4036,7 @@ TEST(normalization, nfkc_011_039)
 }
 
 
-TEST(normalization, nfkc_011_040)
+TEST(normalization, nfkc_011_041)
 {
     // 3359;3359;3359;0031 70B9;0031 70B9; 
     // (㍙; ㍙; ㍙; 1点; 1点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR ONE
@@ -4038,7 +4135,7 @@ TEST(normalization, nfkc_011_040)
 }
 
 
-TEST(normalization, nfkc_011_041)
+TEST(normalization, nfkc_011_042)
 {
     // 335A;335A;335A;0032 70B9;0032 70B9; 
     // (㍚; ㍚; ㍚; 2点; 2点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR TWO
@@ -4137,7 +4234,7 @@ TEST(normalization, nfkc_011_041)
 }
 
 
-TEST(normalization, nfkc_011_042)
+TEST(normalization, nfkc_011_043)
 {
     // 335B;335B;335B;0033 70B9;0033 70B9; 
     // (㍛; ㍛; ㍛; 3点; 3点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR THREE
@@ -4236,7 +4333,7 @@ TEST(normalization, nfkc_011_042)
 }
 
 
-TEST(normalization, nfkc_011_043)
+TEST(normalization, nfkc_011_044)
 {
     // 335C;335C;335C;0034 70B9;0034 70B9; 
     // (㍜; ㍜; ㍜; 4点; 4点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR FOUR
@@ -4335,7 +4432,7 @@ TEST(normalization, nfkc_011_043)
 }
 
 
-TEST(normalization, nfkc_011_044)
+TEST(normalization, nfkc_011_045)
 {
     // 335D;335D;335D;0035 70B9;0035 70B9; 
     // (㍝; ㍝; ㍝; 5点; 5点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR FIVE
@@ -4434,7 +4531,7 @@ TEST(normalization, nfkc_011_044)
 }
 
 
-TEST(normalization, nfkc_011_045)
+TEST(normalization, nfkc_011_046)
 {
     // 335E;335E;335E;0036 70B9;0036 70B9; 
     // (㍞; ㍞; ㍞; 6点; 6点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR SIX
@@ -4533,7 +4630,7 @@ TEST(normalization, nfkc_011_045)
 }
 
 
-TEST(normalization, nfkc_011_046)
+TEST(normalization, nfkc_011_047)
 {
     // 335F;335F;335F;0037 70B9;0037 70B9; 
     // (㍟; ㍟; ㍟; 7点; 7点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR SEVEN
@@ -4632,7 +4729,7 @@ TEST(normalization, nfkc_011_046)
 }
 
 
-TEST(normalization, nfkc_011_047)
+TEST(normalization, nfkc_011_048)
 {
     // 3360;3360;3360;0038 70B9;0038 70B9; 
     // (㍠; ㍠; ㍠; 8点; 8点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR EIGHT
@@ -4731,7 +4828,7 @@ TEST(normalization, nfkc_011_047)
 }
 
 
-TEST(normalization, nfkc_011_048)
+TEST(normalization, nfkc_011_049)
 {
     // 3361;3361;3361;0039 70B9;0039 70B9; 
     // (㍡; ㍡; ㍡; 9点; 9点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR NINE
@@ -4830,7 +4927,7 @@ TEST(normalization, nfkc_011_048)
 }
 
 
-TEST(normalization, nfkc_011_049)
+TEST(normalization, nfkc_011_050)
 {
     // 3362;3362;3362;0031 0030 70B9;0031 0030 70B9; 
     // (㍢; ㍢; ㍢; 10点; 10点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR TEN
@@ -4929,7 +5026,7 @@ TEST(normalization, nfkc_011_049)
 }
 
 
-TEST(normalization, nfkc_011_050)
+TEST(normalization, nfkc_011_051)
 {
     // 3363;3363;3363;0031 0031 70B9;0031 0031 70B9; 
     // (㍣; ㍣; ㍣; 11点; 11点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR ELEVEN
@@ -5028,7 +5125,7 @@ TEST(normalization, nfkc_011_050)
 }
 
 
-TEST(normalization, nfkc_011_051)
+TEST(normalization, nfkc_011_052)
 {
     // 3364;3364;3364;0031 0032 70B9;0031 0032 70B9; 
     // (㍤; ㍤; ㍤; 12点; 12点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR TWELVE
@@ -5127,7 +5224,7 @@ TEST(normalization, nfkc_011_051)
 }
 
 
-TEST(normalization, nfkc_011_052)
+TEST(normalization, nfkc_011_053)
 {
     // 3365;3365;3365;0031 0033 70B9;0031 0033 70B9; 
     // (㍥; ㍥; ㍥; 13点; 13点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR THIRTEEN
@@ -5226,7 +5323,7 @@ TEST(normalization, nfkc_011_052)
 }
 
 
-TEST(normalization, nfkc_011_053)
+TEST(normalization, nfkc_011_054)
 {
     // 3366;3366;3366;0031 0034 70B9;0031 0034 70B9; 
     // (㍦; ㍦; ㍦; 14点; 14点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR FOURTEEN
@@ -5325,7 +5422,7 @@ TEST(normalization, nfkc_011_053)
 }
 
 
-TEST(normalization, nfkc_011_054)
+TEST(normalization, nfkc_011_055)
 {
     // 3367;3367;3367;0031 0035 70B9;0031 0035 70B9; 
     // (㍧; ㍧; ㍧; 15点; 15点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR FIFTEEN
@@ -5424,7 +5521,7 @@ TEST(normalization, nfkc_011_054)
 }
 
 
-TEST(normalization, nfkc_011_055)
+TEST(normalization, nfkc_011_056)
 {
     // 3368;3368;3368;0031 0036 70B9;0031 0036 70B9; 
     // (㍨; ㍨; ㍨; 16点; 16点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR SIXTEEN
@@ -5523,7 +5620,7 @@ TEST(normalization, nfkc_011_055)
 }
 
 
-TEST(normalization, nfkc_011_056)
+TEST(normalization, nfkc_011_057)
 {
     // 3369;3369;3369;0031 0037 70B9;0031 0037 70B9; 
     // (㍩; ㍩; ㍩; 17点; 17点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR SEVENTEEN
@@ -5622,7 +5719,7 @@ TEST(normalization, nfkc_011_056)
 }
 
 
-TEST(normalization, nfkc_011_057)
+TEST(normalization, nfkc_011_058)
 {
     // 336A;336A;336A;0031 0038 70B9;0031 0038 70B9; 
     // (㍪; ㍪; ㍪; 18点; 18点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR EIGHTEEN
@@ -5721,7 +5818,7 @@ TEST(normalization, nfkc_011_057)
 }
 
 
-TEST(normalization, nfkc_011_058)
+TEST(normalization, nfkc_011_059)
 {
     // 336B;336B;336B;0031 0039 70B9;0031 0039 70B9; 
     // (㍫; ㍫; ㍫; 19点; 19点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR NINETEEN
@@ -5820,7 +5917,7 @@ TEST(normalization, nfkc_011_058)
 }
 
 
-TEST(normalization, nfkc_011_059)
+TEST(normalization, nfkc_011_060)
 {
     // 336C;336C;336C;0032 0030 70B9;0032 0030 70B9; 
     // (㍬; ㍬; ㍬; 20点; 20点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR TWENTY
@@ -5919,7 +6016,7 @@ TEST(normalization, nfkc_011_059)
 }
 
 
-TEST(normalization, nfkc_011_060)
+TEST(normalization, nfkc_011_061)
 {
     // 336D;336D;336D;0032 0031 70B9;0032 0031 70B9; 
     // (㍭; ㍭; ㍭; 21点; 21点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR TWENTY-ONE
@@ -6018,7 +6115,7 @@ TEST(normalization, nfkc_011_060)
 }
 
 
-TEST(normalization, nfkc_011_061)
+TEST(normalization, nfkc_011_062)
 {
     // 336E;336E;336E;0032 0032 70B9;0032 0032 70B9; 
     // (㍮; ㍮; ㍮; 22点; 22点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR TWENTY-TWO
@@ -6117,7 +6214,7 @@ TEST(normalization, nfkc_011_061)
 }
 
 
-TEST(normalization, nfkc_011_062)
+TEST(normalization, nfkc_011_063)
 {
     // 336F;336F;336F;0032 0033 70B9;0032 0033 70B9; 
     // (㍯; ㍯; ㍯; 23点; 23点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR TWENTY-THREE
@@ -6216,7 +6313,7 @@ TEST(normalization, nfkc_011_062)
 }
 
 
-TEST(normalization, nfkc_011_063)
+TEST(normalization, nfkc_011_064)
 {
     // 3370;3370;3370;0032 0034 70B9;0032 0034 70B9; 
     // (㍰; ㍰; ㍰; 24点; 24点; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR HOUR TWENTY-FOUR
@@ -6315,7 +6412,7 @@ TEST(normalization, nfkc_011_063)
 }
 
 
-TEST(normalization, nfkc_011_064)
+TEST(normalization, nfkc_011_065)
 {
     // 3371;3371;3371;0068 0050 0061;0068 0050 0061; 
     // (㍱; ㍱; ㍱; hPa; hPa; ) SQUARE HPA
@@ -6414,7 +6511,7 @@ TEST(normalization, nfkc_011_064)
 }
 
 
-TEST(normalization, nfkc_011_065)
+TEST(normalization, nfkc_011_066)
 {
     // 3372;3372;3372;0064 0061;0064 0061; 
     // (㍲; ㍲; ㍲; da; da; ) SQUARE DA
@@ -6513,7 +6610,7 @@ TEST(normalization, nfkc_011_065)
 }
 
 
-TEST(normalization, nfkc_011_066)
+TEST(normalization, nfkc_011_067)
 {
     // 3373;3373;3373;0041 0055;0041 0055; 
     // (㍳; ㍳; ㍳; AU; AU; ) SQUARE AU
@@ -6612,7 +6709,7 @@ TEST(normalization, nfkc_011_066)
 }
 
 
-TEST(normalization, nfkc_011_067)
+TEST(normalization, nfkc_011_068)
 {
     // 3374;3374;3374;0062 0061 0072;0062 0061 0072; 
     // (㍴; ㍴; ㍴; bar; bar; ) SQUARE BAR
@@ -6711,7 +6808,7 @@ TEST(normalization, nfkc_011_067)
 }
 
 
-TEST(normalization, nfkc_011_068)
+TEST(normalization, nfkc_011_069)
 {
     // 3375;3375;3375;006F 0056;006F 0056; 
     // (㍵; ㍵; ㍵; oV; oV; ) SQUARE OV
@@ -6810,7 +6907,7 @@ TEST(normalization, nfkc_011_068)
 }
 
 
-TEST(normalization, nfkc_011_069)
+TEST(normalization, nfkc_011_070)
 {
     // 3376;3376;3376;0070 0063;0070 0063; 
     // (㍶; ㍶; ㍶; pc; pc; ) SQUARE PC
@@ -6909,7 +7006,7 @@ TEST(normalization, nfkc_011_069)
 }
 
 
-TEST(normalization, nfkc_011_070)
+TEST(normalization, nfkc_011_071)
 {
     // 3377;3377;3377;0064 006D;0064 006D; 
     // (㍷; ㍷; ㍷; dm; dm; ) SQUARE DM
@@ -7008,7 +7105,7 @@ TEST(normalization, nfkc_011_070)
 }
 
 
-TEST(normalization, nfkc_011_071)
+TEST(normalization, nfkc_011_072)
 {
     // 3378;3378;3378;0064 006D 0032;0064 006D 0032; 
     // (㍸; ㍸; ㍸; dm2; dm2; ) SQUARE DM SQUARED
@@ -7107,7 +7204,7 @@ TEST(normalization, nfkc_011_071)
 }
 
 
-TEST(normalization, nfkc_011_072)
+TEST(normalization, nfkc_011_073)
 {
     // 3379;3379;3379;0064 006D 0033;0064 006D 0033; 
     // (㍹; ㍹; ㍹; dm3; dm3; ) SQUARE DM CUBED
@@ -7206,7 +7303,7 @@ TEST(normalization, nfkc_011_072)
 }
 
 
-TEST(normalization, nfkc_011_073)
+TEST(normalization, nfkc_011_074)
 {
     // 337A;337A;337A;0049 0055;0049 0055; 
     // (㍺; ㍺; ㍺; IU; IU; ) SQUARE IU
@@ -7305,7 +7402,7 @@ TEST(normalization, nfkc_011_073)
 }
 
 
-TEST(normalization, nfkc_011_074)
+TEST(normalization, nfkc_011_075)
 {
     // 337B;337B;337B;5E73 6210;5E73 6210; 
     // (㍻; ㍻; ㍻; 平成; 平成; ) SQUARE ERA NAME HEISEI
@@ -7404,7 +7501,7 @@ TEST(normalization, nfkc_011_074)
 }
 
 
-TEST(normalization, nfkc_011_075)
+TEST(normalization, nfkc_011_076)
 {
     // 337C;337C;337C;662D 548C;662D 548C; 
     // (㍼; ㍼; ㍼; 昭和; 昭和; ) SQUARE ERA NAME SYOUWA
@@ -7503,7 +7600,7 @@ TEST(normalization, nfkc_011_075)
 }
 
 
-TEST(normalization, nfkc_011_076)
+TEST(normalization, nfkc_011_077)
 {
     // 337D;337D;337D;5927 6B63;5927 6B63; 
     // (㍽; ㍽; ㍽; 大正; 大正; ) SQUARE ERA NAME TAISYOU
@@ -7602,7 +7699,7 @@ TEST(normalization, nfkc_011_076)
 }
 
 
-TEST(normalization, nfkc_011_077)
+TEST(normalization, nfkc_011_078)
 {
     // 337E;337E;337E;660E 6CBB;660E 6CBB; 
     // (㍾; ㍾; ㍾; 明治; 明治; ) SQUARE ERA NAME MEIZI
@@ -7701,7 +7798,7 @@ TEST(normalization, nfkc_011_077)
 }
 
 
-TEST(normalization, nfkc_011_078)
+TEST(normalization, nfkc_011_079)
 {
     // 337F;337F;337F;682A 5F0F 4F1A 793E;682A 5F0F 4F1A 793E; 
     // (㍿; ㍿; ㍿; 株式会社; 株式会社; ) SQUARE CORPORATION
@@ -7800,7 +7897,7 @@ TEST(normalization, nfkc_011_078)
 }
 
 
-TEST(normalization, nfkc_011_079)
+TEST(normalization, nfkc_011_080)
 {
     // 3380;3380;3380;0070 0041;0070 0041; 
     // (㎀; ㎀; ㎀; pA; pA; ) SQUARE PA AMPS
@@ -7899,7 +7996,7 @@ TEST(normalization, nfkc_011_079)
 }
 
 
-TEST(normalization, nfkc_011_080)
+TEST(normalization, nfkc_011_081)
 {
     // 3381;3381;3381;006E 0041;006E 0041; 
     // (㎁; ㎁; ㎁; nA; nA; ) SQUARE NA
@@ -7998,7 +8095,7 @@ TEST(normalization, nfkc_011_080)
 }
 
 
-TEST(normalization, nfkc_011_081)
+TEST(normalization, nfkc_011_082)
 {
     // 3382;3382;3382;03BC 0041;03BC 0041; 
     // (㎂; ㎂; ㎂; μA; μA; ) SQUARE MU A
@@ -8097,7 +8194,7 @@ TEST(normalization, nfkc_011_081)
 }
 
 
-TEST(normalization, nfkc_011_082)
+TEST(normalization, nfkc_011_083)
 {
     // 3383;3383;3383;006D 0041;006D 0041; 
     // (㎃; ㎃; ㎃; mA; mA; ) SQUARE MA
@@ -8196,7 +8293,7 @@ TEST(normalization, nfkc_011_082)
 }
 
 
-TEST(normalization, nfkc_011_083)
+TEST(normalization, nfkc_011_084)
 {
     // 3384;3384;3384;006B 0041;006B 0041; 
     // (㎄; ㎄; ㎄; kA; kA; ) SQUARE KA
@@ -8295,7 +8392,7 @@ TEST(normalization, nfkc_011_083)
 }
 
 
-TEST(normalization, nfkc_011_084)
+TEST(normalization, nfkc_011_085)
 {
     // 3385;3385;3385;004B 0042;004B 0042; 
     // (㎅; ㎅; ㎅; KB; KB; ) SQUARE KB
@@ -8394,7 +8491,7 @@ TEST(normalization, nfkc_011_084)
 }
 
 
-TEST(normalization, nfkc_011_085)
+TEST(normalization, nfkc_011_086)
 {
     // 3386;3386;3386;004D 0042;004D 0042; 
     // (㎆; ㎆; ㎆; MB; MB; ) SQUARE MB
@@ -8493,7 +8590,7 @@ TEST(normalization, nfkc_011_085)
 }
 
 
-TEST(normalization, nfkc_011_086)
+TEST(normalization, nfkc_011_087)
 {
     // 3387;3387;3387;0047 0042;0047 0042; 
     // (㎇; ㎇; ㎇; GB; GB; ) SQUARE GB
@@ -8592,7 +8689,7 @@ TEST(normalization, nfkc_011_086)
 }
 
 
-TEST(normalization, nfkc_011_087)
+TEST(normalization, nfkc_011_088)
 {
     // 3388;3388;3388;0063 0061 006C;0063 0061 006C; 
     // (㎈; ㎈; ㎈; cal; cal; ) SQUARE CAL
@@ -8691,7 +8788,7 @@ TEST(normalization, nfkc_011_087)
 }
 
 
-TEST(normalization, nfkc_011_088)
+TEST(normalization, nfkc_011_089)
 {
     // 3389;3389;3389;006B 0063 0061 006C;006B 0063 0061 006C; 
     // (㎉; ㎉; ㎉; kcal; kcal; ) SQUARE KCAL
@@ -8790,7 +8887,7 @@ TEST(normalization, nfkc_011_088)
 }
 
 
-TEST(normalization, nfkc_011_089)
+TEST(normalization, nfkc_011_090)
 {
     // 338A;338A;338A;0070 0046;0070 0046; 
     // (㎊; ㎊; ㎊; pF; pF; ) SQUARE PF
@@ -8889,7 +8986,7 @@ TEST(normalization, nfkc_011_089)
 }
 
 
-TEST(normalization, nfkc_011_090)
+TEST(normalization, nfkc_011_091)
 {
     // 338B;338B;338B;006E 0046;006E 0046; 
     // (㎋; ㎋; ㎋; nF; nF; ) SQUARE NF
@@ -8988,7 +9085,7 @@ TEST(normalization, nfkc_011_090)
 }
 
 
-TEST(normalization, nfkc_011_091)
+TEST(normalization, nfkc_011_092)
 {
     // 338C;338C;338C;03BC 0046;03BC 0046; 
     // (㎌; ㎌; ㎌; μF; μF; ) SQUARE MU F
@@ -9087,7 +9184,7 @@ TEST(normalization, nfkc_011_091)
 }
 
 
-TEST(normalization, nfkc_011_092)
+TEST(normalization, nfkc_011_093)
 {
     // 338D;338D;338D;03BC 0067;03BC 0067; 
     // (㎍; ㎍; ㎍; μg; μg; ) SQUARE MU G
@@ -9186,7 +9283,7 @@ TEST(normalization, nfkc_011_092)
 }
 
 
-TEST(normalization, nfkc_011_093)
+TEST(normalization, nfkc_011_094)
 {
     // 338E;338E;338E;006D 0067;006D 0067; 
     // (㎎; ㎎; ㎎; mg; mg; ) SQUARE MG
@@ -9285,7 +9382,7 @@ TEST(normalization, nfkc_011_093)
 }
 
 
-TEST(normalization, nfkc_011_094)
+TEST(normalization, nfkc_011_095)
 {
     // 338F;338F;338F;006B 0067;006B 0067; 
     // (㎏; ㎏; ㎏; kg; kg; ) SQUARE KG
@@ -9384,7 +9481,7 @@ TEST(normalization, nfkc_011_094)
 }
 
 
-TEST(normalization, nfkc_011_095)
+TEST(normalization, nfkc_011_096)
 {
     // 3390;3390;3390;0048 007A;0048 007A; 
     // (㎐; ㎐; ㎐; Hz; Hz; ) SQUARE HZ
@@ -9483,7 +9580,7 @@ TEST(normalization, nfkc_011_095)
 }
 
 
-TEST(normalization, nfkc_011_096)
+TEST(normalization, nfkc_011_097)
 {
     // 3391;3391;3391;006B 0048 007A;006B 0048 007A; 
     // (㎑; ㎑; ㎑; kHz; kHz; ) SQUARE KHZ
@@ -9582,7 +9679,7 @@ TEST(normalization, nfkc_011_096)
 }
 
 
-TEST(normalization, nfkc_011_097)
+TEST(normalization, nfkc_011_098)
 {
     // 3392;3392;3392;004D 0048 007A;004D 0048 007A; 
     // (㎒; ㎒; ㎒; MHz; MHz; ) SQUARE MHZ
@@ -9681,7 +9778,7 @@ TEST(normalization, nfkc_011_097)
 }
 
 
-TEST(normalization, nfkc_011_098)
+TEST(normalization, nfkc_011_099)
 {
     // 3393;3393;3393;0047 0048 007A;0047 0048 007A; 
     // (㎓; ㎓; ㎓; GHz; GHz; ) SQUARE GHZ
@@ -9780,7 +9877,7 @@ TEST(normalization, nfkc_011_098)
 }
 
 
-TEST(normalization, nfkc_011_099)
+TEST(normalization, nfkc_011_100)
 {
     // 3394;3394;3394;0054 0048 007A;0054 0048 007A; 
     // (㎔; ㎔; ㎔; THz; THz; ) SQUARE THZ
@@ -9879,7 +9976,7 @@ TEST(normalization, nfkc_011_099)
 }
 
 
-TEST(normalization, nfkc_011_100)
+TEST(normalization, nfkc_011_101)
 {
     // 3395;3395;3395;03BC 006C;03BC 006C; 
     // (㎕; ㎕; ㎕; μl; μl; ) SQUARE MU L
@@ -9978,7 +10075,7 @@ TEST(normalization, nfkc_011_100)
 }
 
 
-TEST(normalization, nfkc_011_101)
+TEST(normalization, nfkc_011_102)
 {
     // 3396;3396;3396;006D 006C;006D 006C; 
     // (㎖; ㎖; ㎖; ml; ml; ) SQUARE ML
@@ -10077,7 +10174,7 @@ TEST(normalization, nfkc_011_101)
 }
 
 
-TEST(normalization, nfkc_011_102)
+TEST(normalization, nfkc_011_103)
 {
     // 3397;3397;3397;0064 006C;0064 006C; 
     // (㎗; ㎗; ㎗; dl; dl; ) SQUARE DL
@@ -10176,7 +10273,7 @@ TEST(normalization, nfkc_011_102)
 }
 
 
-TEST(normalization, nfkc_011_103)
+TEST(normalization, nfkc_011_104)
 {
     // 3398;3398;3398;006B 006C;006B 006C; 
     // (㎘; ㎘; ㎘; kl; kl; ) SQUARE KL
@@ -10275,7 +10372,7 @@ TEST(normalization, nfkc_011_103)
 }
 
 
-TEST(normalization, nfkc_011_104)
+TEST(normalization, nfkc_011_105)
 {
     // 3399;3399;3399;0066 006D;0066 006D; 
     // (㎙; ㎙; ㎙; fm; fm; ) SQUARE FM
@@ -10374,7 +10471,7 @@ TEST(normalization, nfkc_011_104)
 }
 
 
-TEST(normalization, nfkc_011_105)
+TEST(normalization, nfkc_011_106)
 {
     // 339A;339A;339A;006E 006D;006E 006D; 
     // (㎚; ㎚; ㎚; nm; nm; ) SQUARE NM
@@ -10473,7 +10570,7 @@ TEST(normalization, nfkc_011_105)
 }
 
 
-TEST(normalization, nfkc_011_106)
+TEST(normalization, nfkc_011_107)
 {
     // 339B;339B;339B;03BC 006D;03BC 006D; 
     // (㎛; ㎛; ㎛; μm; μm; ) SQUARE MU M
@@ -10572,7 +10669,7 @@ TEST(normalization, nfkc_011_106)
 }
 
 
-TEST(normalization, nfkc_011_107)
+TEST(normalization, nfkc_011_108)
 {
     // 339C;339C;339C;006D 006D;006D 006D; 
     // (㎜; ㎜; ㎜; mm; mm; ) SQUARE MM
@@ -10671,7 +10768,7 @@ TEST(normalization, nfkc_011_107)
 }
 
 
-TEST(normalization, nfkc_011_108)
+TEST(normalization, nfkc_011_109)
 {
     // 339D;339D;339D;0063 006D;0063 006D; 
     // (㎝; ㎝; ㎝; cm; cm; ) SQUARE CM
@@ -10770,7 +10867,7 @@ TEST(normalization, nfkc_011_108)
 }
 
 
-TEST(normalization, nfkc_011_109)
+TEST(normalization, nfkc_011_110)
 {
     // 339E;339E;339E;006B 006D;006B 006D; 
     // (㎞; ㎞; ㎞; km; km; ) SQUARE KM
@@ -10869,7 +10966,7 @@ TEST(normalization, nfkc_011_109)
 }
 
 
-TEST(normalization, nfkc_011_110)
+TEST(normalization, nfkc_011_111)
 {
     // 339F;339F;339F;006D 006D 0032;006D 006D 0032; 
     // (㎟; ㎟; ㎟; mm2; mm2; ) SQUARE MM SQUARED
@@ -10968,7 +11065,7 @@ TEST(normalization, nfkc_011_110)
 }
 
 
-TEST(normalization, nfkc_011_111)
+TEST(normalization, nfkc_011_112)
 {
     // 33A0;33A0;33A0;0063 006D 0032;0063 006D 0032; 
     // (㎠; ㎠; ㎠; cm2; cm2; ) SQUARE CM SQUARED
@@ -11067,7 +11164,7 @@ TEST(normalization, nfkc_011_111)
 }
 
 
-TEST(normalization, nfkc_011_112)
+TEST(normalization, nfkc_011_113)
 {
     // 33A1;33A1;33A1;006D 0032;006D 0032; 
     // (㎡; ㎡; ㎡; m2; m2; ) SQUARE M SQUARED
@@ -11166,7 +11263,7 @@ TEST(normalization, nfkc_011_112)
 }
 
 
-TEST(normalization, nfkc_011_113)
+TEST(normalization, nfkc_011_114)
 {
     // 33A2;33A2;33A2;006B 006D 0032;006B 006D 0032; 
     // (㎢; ㎢; ㎢; km2; km2; ) SQUARE KM SQUARED
@@ -11265,7 +11362,7 @@ TEST(normalization, nfkc_011_113)
 }
 
 
-TEST(normalization, nfkc_011_114)
+TEST(normalization, nfkc_011_115)
 {
     // 33A3;33A3;33A3;006D 006D 0033;006D 006D 0033; 
     // (㎣; ㎣; ㎣; mm3; mm3; ) SQUARE MM CUBED
@@ -11364,7 +11461,7 @@ TEST(normalization, nfkc_011_114)
 }
 
 
-TEST(normalization, nfkc_011_115)
+TEST(normalization, nfkc_011_116)
 {
     // 33A4;33A4;33A4;0063 006D 0033;0063 006D 0033; 
     // (㎤; ㎤; ㎤; cm3; cm3; ) SQUARE CM CUBED
@@ -11463,7 +11560,7 @@ TEST(normalization, nfkc_011_115)
 }
 
 
-TEST(normalization, nfkc_011_116)
+TEST(normalization, nfkc_011_117)
 {
     // 33A5;33A5;33A5;006D 0033;006D 0033; 
     // (㎥; ㎥; ㎥; m3; m3; ) SQUARE M CUBED
@@ -11562,7 +11659,7 @@ TEST(normalization, nfkc_011_116)
 }
 
 
-TEST(normalization, nfkc_011_117)
+TEST(normalization, nfkc_011_118)
 {
     // 33A6;33A6;33A6;006B 006D 0033;006B 006D 0033; 
     // (㎦; ㎦; ㎦; km3; km3; ) SQUARE KM CUBED
@@ -11661,7 +11758,7 @@ TEST(normalization, nfkc_011_117)
 }
 
 
-TEST(normalization, nfkc_011_118)
+TEST(normalization, nfkc_011_119)
 {
     // 33A7;33A7;33A7;006D 2215 0073;006D 2215 0073; 
     // (㎧; ㎧; ㎧; m∕s; m∕s; ) SQUARE M OVER S
@@ -11760,7 +11857,7 @@ TEST(normalization, nfkc_011_118)
 }
 
 
-TEST(normalization, nfkc_011_119)
+TEST(normalization, nfkc_011_120)
 {
     // 33A8;33A8;33A8;006D 2215 0073 0032;006D 2215 0073 0032; 
     // (㎨; ㎨; ㎨; m∕s2; m∕s2; ) SQUARE M OVER S SQUARED
@@ -11859,7 +11956,7 @@ TEST(normalization, nfkc_011_119)
 }
 
 
-TEST(normalization, nfkc_011_120)
+TEST(normalization, nfkc_011_121)
 {
     // 33A9;33A9;33A9;0050 0061;0050 0061; 
     // (㎩; ㎩; ㎩; Pa; Pa; ) SQUARE PA
@@ -11958,7 +12055,7 @@ TEST(normalization, nfkc_011_120)
 }
 
 
-TEST(normalization, nfkc_011_121)
+TEST(normalization, nfkc_011_122)
 {
     // 33AA;33AA;33AA;006B 0050 0061;006B 0050 0061; 
     // (㎪; ㎪; ㎪; kPa; kPa; ) SQUARE KPA
@@ -12057,7 +12154,7 @@ TEST(normalization, nfkc_011_121)
 }
 
 
-TEST(normalization, nfkc_011_122)
+TEST(normalization, nfkc_011_123)
 {
     // 33AB;33AB;33AB;004D 0050 0061;004D 0050 0061; 
     // (㎫; ㎫; ㎫; MPa; MPa; ) SQUARE MPA
@@ -12156,7 +12253,7 @@ TEST(normalization, nfkc_011_122)
 }
 
 
-TEST(normalization, nfkc_011_123)
+TEST(normalization, nfkc_011_124)
 {
     // 33AC;33AC;33AC;0047 0050 0061;0047 0050 0061; 
     // (㎬; ㎬; ㎬; GPa; GPa; ) SQUARE GPA
@@ -12255,7 +12352,7 @@ TEST(normalization, nfkc_011_123)
 }
 
 
-TEST(normalization, nfkc_011_124)
+TEST(normalization, nfkc_011_125)
 {
     // 33AD;33AD;33AD;0072 0061 0064;0072 0061 0064; 
     // (㎭; ㎭; ㎭; rad; rad; ) SQUARE RAD
@@ -12354,7 +12451,7 @@ TEST(normalization, nfkc_011_124)
 }
 
 
-TEST(normalization, nfkc_011_125)
+TEST(normalization, nfkc_011_126)
 {
     // 33AE;33AE;33AE;0072 0061 0064 2215 0073;0072 0061 0064 2215 0073; 
     // (㎮; ㎮; ㎮; rad∕s; rad∕s; ) SQUARE RAD OVER S
@@ -12453,7 +12550,7 @@ TEST(normalization, nfkc_011_125)
 }
 
 
-TEST(normalization, nfkc_011_126)
+TEST(normalization, nfkc_011_127)
 {
     // 33AF;33AF;33AF;0072 0061 0064 2215 0073 0032;0072 0061 0064 2215 0073 0032; 
     // (㎯; ㎯; ㎯; rad∕s2; rad∕s2; ) SQUARE RAD OVER S SQUARED
@@ -12552,7 +12649,7 @@ TEST(normalization, nfkc_011_126)
 }
 
 
-TEST(normalization, nfkc_011_127)
+TEST(normalization, nfkc_011_128)
 {
     // 33B0;33B0;33B0;0070 0073;0070 0073; 
     // (㎰; ㎰; ㎰; ps; ps; ) SQUARE PS
@@ -12651,7 +12748,7 @@ TEST(normalization, nfkc_011_127)
 }
 
 
-TEST(normalization, nfkc_011_128)
+TEST(normalization, nfkc_011_129)
 {
     // 33B1;33B1;33B1;006E 0073;006E 0073; 
     // (㎱; ㎱; ㎱; ns; ns; ) SQUARE NS
@@ -12750,7 +12847,7 @@ TEST(normalization, nfkc_011_128)
 }
 
 
-TEST(normalization, nfkc_011_129)
+TEST(normalization, nfkc_011_130)
 {
     // 33B2;33B2;33B2;03BC 0073;03BC 0073; 
     // (㎲; ㎲; ㎲; μs; μs; ) SQUARE MU S
@@ -12849,7 +12946,7 @@ TEST(normalization, nfkc_011_129)
 }
 
 
-TEST(normalization, nfkc_011_130)
+TEST(normalization, nfkc_011_131)
 {
     // 33B3;33B3;33B3;006D 0073;006D 0073; 
     // (㎳; ㎳; ㎳; ms; ms; ) SQUARE MS
@@ -12948,7 +13045,7 @@ TEST(normalization, nfkc_011_130)
 }
 
 
-TEST(normalization, nfkc_011_131)
+TEST(normalization, nfkc_011_132)
 {
     // 33B4;33B4;33B4;0070 0056;0070 0056; 
     // (㎴; ㎴; ㎴; pV; pV; ) SQUARE PV
@@ -13047,7 +13144,7 @@ TEST(normalization, nfkc_011_131)
 }
 
 
-TEST(normalization, nfkc_011_132)
+TEST(normalization, nfkc_011_133)
 {
     // 33B5;33B5;33B5;006E 0056;006E 0056; 
     // (㎵; ㎵; ㎵; nV; nV; ) SQUARE NV
@@ -13146,7 +13243,7 @@ TEST(normalization, nfkc_011_132)
 }
 
 
-TEST(normalization, nfkc_011_133)
+TEST(normalization, nfkc_011_134)
 {
     // 33B6;33B6;33B6;03BC 0056;03BC 0056; 
     // (㎶; ㎶; ㎶; μV; μV; ) SQUARE MU V
@@ -13245,7 +13342,7 @@ TEST(normalization, nfkc_011_133)
 }
 
 
-TEST(normalization, nfkc_011_134)
+TEST(normalization, nfkc_011_135)
 {
     // 33B7;33B7;33B7;006D 0056;006D 0056; 
     // (㎷; ㎷; ㎷; mV; mV; ) SQUARE MV
@@ -13344,7 +13441,7 @@ TEST(normalization, nfkc_011_134)
 }
 
 
-TEST(normalization, nfkc_011_135)
+TEST(normalization, nfkc_011_136)
 {
     // 33B8;33B8;33B8;006B 0056;006B 0056; 
     // (㎸; ㎸; ㎸; kV; kV; ) SQUARE KV
@@ -13443,7 +13540,7 @@ TEST(normalization, nfkc_011_135)
 }
 
 
-TEST(normalization, nfkc_011_136)
+TEST(normalization, nfkc_011_137)
 {
     // 33B9;33B9;33B9;004D 0056;004D 0056; 
     // (㎹; ㎹; ㎹; MV; MV; ) SQUARE MV MEGA
@@ -13542,7 +13639,7 @@ TEST(normalization, nfkc_011_136)
 }
 
 
-TEST(normalization, nfkc_011_137)
+TEST(normalization, nfkc_011_138)
 {
     // 33BA;33BA;33BA;0070 0057;0070 0057; 
     // (㎺; ㎺; ㎺; pW; pW; ) SQUARE PW
@@ -13641,7 +13738,7 @@ TEST(normalization, nfkc_011_137)
 }
 
 
-TEST(normalization, nfkc_011_138)
+TEST(normalization, nfkc_011_139)
 {
     // 33BB;33BB;33BB;006E 0057;006E 0057; 
     // (㎻; ㎻; ㎻; nW; nW; ) SQUARE NW
@@ -13740,7 +13837,7 @@ TEST(normalization, nfkc_011_138)
 }
 
 
-TEST(normalization, nfkc_011_139)
+TEST(normalization, nfkc_011_140)
 {
     // 33BC;33BC;33BC;03BC 0057;03BC 0057; 
     // (㎼; ㎼; ㎼; μW; μW; ) SQUARE MU W
@@ -13839,7 +13936,7 @@ TEST(normalization, nfkc_011_139)
 }
 
 
-TEST(normalization, nfkc_011_140)
+TEST(normalization, nfkc_011_141)
 {
     // 33BD;33BD;33BD;006D 0057;006D 0057; 
     // (㎽; ㎽; ㎽; mW; mW; ) SQUARE MW
@@ -13938,7 +14035,7 @@ TEST(normalization, nfkc_011_140)
 }
 
 
-TEST(normalization, nfkc_011_141)
+TEST(normalization, nfkc_011_142)
 {
     // 33BE;33BE;33BE;006B 0057;006B 0057; 
     // (㎾; ㎾; ㎾; kW; kW; ) SQUARE KW
@@ -14037,7 +14134,7 @@ TEST(normalization, nfkc_011_141)
 }
 
 
-TEST(normalization, nfkc_011_142)
+TEST(normalization, nfkc_011_143)
 {
     // 33BF;33BF;33BF;004D 0057;004D 0057; 
     // (㎿; ㎿; ㎿; MW; MW; ) SQUARE MW MEGA
@@ -14136,7 +14233,7 @@ TEST(normalization, nfkc_011_142)
 }
 
 
-TEST(normalization, nfkc_011_143)
+TEST(normalization, nfkc_011_144)
 {
     // 33C0;33C0;33C0;006B 03A9;006B 03A9; 
     // (㏀; ㏀; ㏀; kΩ; kΩ; ) SQUARE K OHM
@@ -14235,7 +14332,7 @@ TEST(normalization, nfkc_011_143)
 }
 
 
-TEST(normalization, nfkc_011_144)
+TEST(normalization, nfkc_011_145)
 {
     // 33C1;33C1;33C1;004D 03A9;004D 03A9; 
     // (㏁; ㏁; ㏁; MΩ; MΩ; ) SQUARE M OHM
@@ -14334,7 +14431,7 @@ TEST(normalization, nfkc_011_144)
 }
 
 
-TEST(normalization, nfkc_011_145)
+TEST(normalization, nfkc_011_146)
 {
     // 33C2;33C2;33C2;0061 002E 006D 002E;0061 002E 006D 002E; 
     // (㏂; ㏂; ㏂; a.m.; a.m.; ) SQUARE AM
@@ -14433,7 +14530,7 @@ TEST(normalization, nfkc_011_145)
 }
 
 
-TEST(normalization, nfkc_011_146)
+TEST(normalization, nfkc_011_147)
 {
     // 33C3;33C3;33C3;0042 0071;0042 0071; 
     // (㏃; ㏃; ㏃; Bq; Bq; ) SQUARE BQ
@@ -14532,7 +14629,7 @@ TEST(normalization, nfkc_011_146)
 }
 
 
-TEST(normalization, nfkc_011_147)
+TEST(normalization, nfkc_011_148)
 {
     // 33C4;33C4;33C4;0063 0063;0063 0063; 
     // (㏄; ㏄; ㏄; cc; cc; ) SQUARE CC
@@ -14631,7 +14728,7 @@ TEST(normalization, nfkc_011_147)
 }
 
 
-TEST(normalization, nfkc_011_148)
+TEST(normalization, nfkc_011_149)
 {
     // 33C5;33C5;33C5;0063 0064;0063 0064; 
     // (㏅; ㏅; ㏅; cd; cd; ) SQUARE CD
@@ -14730,7 +14827,7 @@ TEST(normalization, nfkc_011_148)
 }
 
 
-TEST(normalization, nfkc_011_149)
+TEST(normalization, nfkc_011_150)
 {
     // 33C6;33C6;33C6;0043 2215 006B 0067;0043 2215 006B 0067; 
     // (㏆; ㏆; ㏆; C∕kg; C∕kg; ) SQUARE C OVER KG
@@ -14829,7 +14926,7 @@ TEST(normalization, nfkc_011_149)
 }
 
 
-TEST(normalization, nfkc_011_150)
+TEST(normalization, nfkc_011_151)
 {
     // 33C7;33C7;33C7;0043 006F 002E;0043 006F 002E; 
     // (㏇; ㏇; ㏇; Co.; Co.; ) SQUARE CO
@@ -14928,7 +15025,7 @@ TEST(normalization, nfkc_011_150)
 }
 
 
-TEST(normalization, nfkc_011_151)
+TEST(normalization, nfkc_011_152)
 {
     // 33C8;33C8;33C8;0064 0042;0064 0042; 
     // (㏈; ㏈; ㏈; dB; dB; ) SQUARE DB
@@ -15027,7 +15124,7 @@ TEST(normalization, nfkc_011_151)
 }
 
 
-TEST(normalization, nfkc_011_152)
+TEST(normalization, nfkc_011_153)
 {
     // 33C9;33C9;33C9;0047 0079;0047 0079; 
     // (㏉; ㏉; ㏉; Gy; Gy; ) SQUARE GY
@@ -15126,7 +15223,7 @@ TEST(normalization, nfkc_011_152)
 }
 
 
-TEST(normalization, nfkc_011_153)
+TEST(normalization, nfkc_011_154)
 {
     // 33CA;33CA;33CA;0068 0061;0068 0061; 
     // (㏊; ㏊; ㏊; ha; ha; ) SQUARE HA
@@ -15225,7 +15322,7 @@ TEST(normalization, nfkc_011_153)
 }
 
 
-TEST(normalization, nfkc_011_154)
+TEST(normalization, nfkc_011_155)
 {
     // 33CB;33CB;33CB;0048 0050;0048 0050; 
     // (㏋; ㏋; ㏋; HP; HP; ) SQUARE HP
@@ -15324,7 +15421,7 @@ TEST(normalization, nfkc_011_154)
 }
 
 
-TEST(normalization, nfkc_011_155)
+TEST(normalization, nfkc_011_156)
 {
     // 33CC;33CC;33CC;0069 006E;0069 006E; 
     // (㏌; ㏌; ㏌; in; in; ) SQUARE IN
@@ -15423,7 +15520,7 @@ TEST(normalization, nfkc_011_155)
 }
 
 
-TEST(normalization, nfkc_011_156)
+TEST(normalization, nfkc_011_157)
 {
     // 33CD;33CD;33CD;004B 004B;004B 004B; 
     // (㏍; ㏍; ㏍; KK; KK; ) SQUARE KK
@@ -15522,7 +15619,7 @@ TEST(normalization, nfkc_011_156)
 }
 
 
-TEST(normalization, nfkc_011_157)
+TEST(normalization, nfkc_011_158)
 {
     // 33CE;33CE;33CE;004B 004D;004B 004D; 
     // (㏎; ㏎; ㏎; KM; KM; ) SQUARE KM CAPITAL
@@ -15621,7 +15718,7 @@ TEST(normalization, nfkc_011_157)
 }
 
 
-TEST(normalization, nfkc_011_158)
+TEST(normalization, nfkc_011_159)
 {
     // 33CF;33CF;33CF;006B 0074;006B 0074; 
     // (㏏; ㏏; ㏏; kt; kt; ) SQUARE KT
@@ -15720,7 +15817,7 @@ TEST(normalization, nfkc_011_158)
 }
 
 
-TEST(normalization, nfkc_011_159)
+TEST(normalization, nfkc_011_160)
 {
     // 33D0;33D0;33D0;006C 006D;006C 006D; 
     // (㏐; ㏐; ㏐; lm; lm; ) SQUARE LM
@@ -15819,7 +15916,7 @@ TEST(normalization, nfkc_011_159)
 }
 
 
-TEST(normalization, nfkc_011_160)
+TEST(normalization, nfkc_011_161)
 {
     // 33D1;33D1;33D1;006C 006E;006C 006E; 
     // (㏑; ㏑; ㏑; ln; ln; ) SQUARE LN
@@ -15918,7 +16015,7 @@ TEST(normalization, nfkc_011_160)
 }
 
 
-TEST(normalization, nfkc_011_161)
+TEST(normalization, nfkc_011_162)
 {
     // 33D2;33D2;33D2;006C 006F 0067;006C 006F 0067; 
     // (㏒; ㏒; ㏒; log; log; ) SQUARE LOG
@@ -16017,7 +16114,7 @@ TEST(normalization, nfkc_011_161)
 }
 
 
-TEST(normalization, nfkc_011_162)
+TEST(normalization, nfkc_011_163)
 {
     // 33D3;33D3;33D3;006C 0078;006C 0078; 
     // (㏓; ㏓; ㏓; lx; lx; ) SQUARE LX
@@ -16116,7 +16213,7 @@ TEST(normalization, nfkc_011_162)
 }
 
 
-TEST(normalization, nfkc_011_163)
+TEST(normalization, nfkc_011_164)
 {
     // 33D4;33D4;33D4;006D 0062;006D 0062; 
     // (㏔; ㏔; ㏔; mb; mb; ) SQUARE MB SMALL
@@ -16215,7 +16312,7 @@ TEST(normalization, nfkc_011_163)
 }
 
 
-TEST(normalization, nfkc_011_164)
+TEST(normalization, nfkc_011_165)
 {
     // 33D5;33D5;33D5;006D 0069 006C;006D 0069 006C; 
     // (㏕; ㏕; ㏕; mil; mil; ) SQUARE MIL
@@ -16314,7 +16411,7 @@ TEST(normalization, nfkc_011_164)
 }
 
 
-TEST(normalization, nfkc_011_165)
+TEST(normalization, nfkc_011_166)
 {
     // 33D6;33D6;33D6;006D 006F 006C;006D 006F 006C; 
     // (㏖; ㏖; ㏖; mol; mol; ) SQUARE MOL
@@ -16413,7 +16510,7 @@ TEST(normalization, nfkc_011_165)
 }
 
 
-TEST(normalization, nfkc_011_166)
+TEST(normalization, nfkc_011_167)
 {
     // 33D7;33D7;33D7;0050 0048;0050 0048; 
     // (㏗; ㏗; ㏗; PH; PH; ) SQUARE PH
@@ -16512,7 +16609,7 @@ TEST(normalization, nfkc_011_166)
 }
 
 
-TEST(normalization, nfkc_011_167)
+TEST(normalization, nfkc_011_168)
 {
     // 33D8;33D8;33D8;0070 002E 006D 002E;0070 002E 006D 002E; 
     // (㏘; ㏘; ㏘; p.m.; p.m.; ) SQUARE PM
@@ -16611,7 +16708,7 @@ TEST(normalization, nfkc_011_167)
 }
 
 
-TEST(normalization, nfkc_011_168)
+TEST(normalization, nfkc_011_169)
 {
     // 33D9;33D9;33D9;0050 0050 004D;0050 0050 004D; 
     // (㏙; ㏙; ㏙; PPM; PPM; ) SQUARE PPM
@@ -16710,7 +16807,7 @@ TEST(normalization, nfkc_011_168)
 }
 
 
-TEST(normalization, nfkc_011_169)
+TEST(normalization, nfkc_011_170)
 {
     // 33DA;33DA;33DA;0050 0052;0050 0052; 
     // (㏚; ㏚; ㏚; PR; PR; ) SQUARE PR
@@ -16809,7 +16906,7 @@ TEST(normalization, nfkc_011_169)
 }
 
 
-TEST(normalization, nfkc_011_170)
+TEST(normalization, nfkc_011_171)
 {
     // 33DB;33DB;33DB;0073 0072;0073 0072; 
     // (㏛; ㏛; ㏛; sr; sr; ) SQUARE SR
@@ -16908,7 +17005,7 @@ TEST(normalization, nfkc_011_170)
 }
 
 
-TEST(normalization, nfkc_011_171)
+TEST(normalization, nfkc_011_172)
 {
     // 33DC;33DC;33DC;0053 0076;0053 0076; 
     // (㏜; ㏜; ㏜; Sv; Sv; ) SQUARE SV
@@ -17007,7 +17104,7 @@ TEST(normalization, nfkc_011_171)
 }
 
 
-TEST(normalization, nfkc_011_172)
+TEST(normalization, nfkc_011_173)
 {
     // 33DD;33DD;33DD;0057 0062;0057 0062; 
     // (㏝; ㏝; ㏝; Wb; Wb; ) SQUARE WB
@@ -17106,7 +17203,7 @@ TEST(normalization, nfkc_011_172)
 }
 
 
-TEST(normalization, nfkc_011_173)
+TEST(normalization, nfkc_011_174)
 {
     // 33DE;33DE;33DE;0056 2215 006D;0056 2215 006D; 
     // (㏞; ㏞; ㏞; V∕m; V∕m; ) SQUARE V OVER M
@@ -17205,7 +17302,7 @@ TEST(normalization, nfkc_011_173)
 }
 
 
-TEST(normalization, nfkc_011_174)
+TEST(normalization, nfkc_011_175)
 {
     // 33DF;33DF;33DF;0041 2215 006D;0041 2215 006D; 
     // (㏟; ㏟; ㏟; A∕m; A∕m; ) SQUARE A OVER M
@@ -17304,7 +17401,7 @@ TEST(normalization, nfkc_011_174)
 }
 
 
-TEST(normalization, nfkc_011_175)
+TEST(normalization, nfkc_011_176)
 {
     // 33E0;33E0;33E0;0031 65E5;0031 65E5; 
     // (㏠; ㏠; ㏠; 1日; 1日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY ONE
@@ -17403,7 +17500,7 @@ TEST(normalization, nfkc_011_175)
 }
 
 
-TEST(normalization, nfkc_011_176)
+TEST(normalization, nfkc_011_177)
 {
     // 33E1;33E1;33E1;0032 65E5;0032 65E5; 
     // (㏡; ㏡; ㏡; 2日; 2日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY TWO
@@ -17502,7 +17599,7 @@ TEST(normalization, nfkc_011_176)
 }
 
 
-TEST(normalization, nfkc_011_177)
+TEST(normalization, nfkc_011_178)
 {
     // 33E2;33E2;33E2;0033 65E5;0033 65E5; 
     // (㏢; ㏢; ㏢; 3日; 3日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY THREE
@@ -17601,7 +17698,7 @@ TEST(normalization, nfkc_011_177)
 }
 
 
-TEST(normalization, nfkc_011_178)
+TEST(normalization, nfkc_011_179)
 {
     // 33E3;33E3;33E3;0034 65E5;0034 65E5; 
     // (㏣; ㏣; ㏣; 4日; 4日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY FOUR
@@ -17700,7 +17797,7 @@ TEST(normalization, nfkc_011_178)
 }
 
 
-TEST(normalization, nfkc_011_179)
+TEST(normalization, nfkc_011_180)
 {
     // 33E4;33E4;33E4;0035 65E5;0035 65E5; 
     // (㏤; ㏤; ㏤; 5日; 5日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY FIVE
@@ -17799,7 +17896,7 @@ TEST(normalization, nfkc_011_179)
 }
 
 
-TEST(normalization, nfkc_011_180)
+TEST(normalization, nfkc_011_181)
 {
     // 33E5;33E5;33E5;0036 65E5;0036 65E5; 
     // (㏥; ㏥; ㏥; 6日; 6日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY SIX
@@ -17898,7 +17995,7 @@ TEST(normalization, nfkc_011_180)
 }
 
 
-TEST(normalization, nfkc_011_181)
+TEST(normalization, nfkc_011_182)
 {
     // 33E6;33E6;33E6;0037 65E5;0037 65E5; 
     // (㏦; ㏦; ㏦; 7日; 7日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY SEVEN
@@ -17997,7 +18094,7 @@ TEST(normalization, nfkc_011_181)
 }
 
 
-TEST(normalization, nfkc_011_182)
+TEST(normalization, nfkc_011_183)
 {
     // 33E7;33E7;33E7;0038 65E5;0038 65E5; 
     // (㏧; ㏧; ㏧; 8日; 8日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY EIGHT
@@ -18096,7 +18193,7 @@ TEST(normalization, nfkc_011_182)
 }
 
 
-TEST(normalization, nfkc_011_183)
+TEST(normalization, nfkc_011_184)
 {
     // 33E8;33E8;33E8;0039 65E5;0039 65E5; 
     // (㏨; ㏨; ㏨; 9日; 9日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY NINE
@@ -18195,7 +18292,7 @@ TEST(normalization, nfkc_011_183)
 }
 
 
-TEST(normalization, nfkc_011_184)
+TEST(normalization, nfkc_011_185)
 {
     // 33E9;33E9;33E9;0031 0030 65E5;0031 0030 65E5; 
     // (㏩; ㏩; ㏩; 10日; 10日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY TEN
@@ -18294,7 +18391,7 @@ TEST(normalization, nfkc_011_184)
 }
 
 
-TEST(normalization, nfkc_011_185)
+TEST(normalization, nfkc_011_186)
 {
     // 33EA;33EA;33EA;0031 0031 65E5;0031 0031 65E5; 
     // (㏪; ㏪; ㏪; 11日; 11日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY ELEVEN
@@ -18393,7 +18490,7 @@ TEST(normalization, nfkc_011_185)
 }
 
 
-TEST(normalization, nfkc_011_186)
+TEST(normalization, nfkc_011_187)
 {
     // 33EB;33EB;33EB;0031 0032 65E5;0031 0032 65E5; 
     // (㏫; ㏫; ㏫; 12日; 12日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY TWELVE
@@ -18492,7 +18589,7 @@ TEST(normalization, nfkc_011_186)
 }
 
 
-TEST(normalization, nfkc_011_187)
+TEST(normalization, nfkc_011_188)
 {
     // 33EC;33EC;33EC;0031 0033 65E5;0031 0033 65E5; 
     // (㏬; ㏬; ㏬; 13日; 13日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY THIRTEEN
@@ -18591,7 +18688,7 @@ TEST(normalization, nfkc_011_187)
 }
 
 
-TEST(normalization, nfkc_011_188)
+TEST(normalization, nfkc_011_189)
 {
     // 33ED;33ED;33ED;0031 0034 65E5;0031 0034 65E5; 
     // (㏭; ㏭; ㏭; 14日; 14日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY FOURTEEN
@@ -18690,7 +18787,7 @@ TEST(normalization, nfkc_011_188)
 }
 
 
-TEST(normalization, nfkc_011_189)
+TEST(normalization, nfkc_011_190)
 {
     // 33EE;33EE;33EE;0031 0035 65E5;0031 0035 65E5; 
     // (㏮; ㏮; ㏮; 15日; 15日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY FIFTEEN
@@ -18789,7 +18886,7 @@ TEST(normalization, nfkc_011_189)
 }
 
 
-TEST(normalization, nfkc_011_190)
+TEST(normalization, nfkc_011_191)
 {
     // 33EF;33EF;33EF;0031 0036 65E5;0031 0036 65E5; 
     // (㏯; ㏯; ㏯; 16日; 16日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY SIXTEEN
@@ -18888,7 +18985,7 @@ TEST(normalization, nfkc_011_190)
 }
 
 
-TEST(normalization, nfkc_011_191)
+TEST(normalization, nfkc_011_192)
 {
     // 33F0;33F0;33F0;0031 0037 65E5;0031 0037 65E5; 
     // (㏰; ㏰; ㏰; 17日; 17日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY SEVENTEEN
@@ -18987,7 +19084,7 @@ TEST(normalization, nfkc_011_191)
 }
 
 
-TEST(normalization, nfkc_011_192)
+TEST(normalization, nfkc_011_193)
 {
     // 33F1;33F1;33F1;0031 0038 65E5;0031 0038 65E5; 
     // (㏱; ㏱; ㏱; 18日; 18日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY EIGHTEEN
@@ -19086,7 +19183,7 @@ TEST(normalization, nfkc_011_192)
 }
 
 
-TEST(normalization, nfkc_011_193)
+TEST(normalization, nfkc_011_194)
 {
     // 33F2;33F2;33F2;0031 0039 65E5;0031 0039 65E5; 
     // (㏲; ㏲; ㏲; 19日; 19日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY NINETEEN
@@ -19185,7 +19282,7 @@ TEST(normalization, nfkc_011_193)
 }
 
 
-TEST(normalization, nfkc_011_194)
+TEST(normalization, nfkc_011_195)
 {
     // 33F3;33F3;33F3;0032 0030 65E5;0032 0030 65E5; 
     // (㏳; ㏳; ㏳; 20日; 20日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY TWENTY
@@ -19284,7 +19381,7 @@ TEST(normalization, nfkc_011_194)
 }
 
 
-TEST(normalization, nfkc_011_195)
+TEST(normalization, nfkc_011_196)
 {
     // 33F4;33F4;33F4;0032 0031 65E5;0032 0031 65E5; 
     // (㏴; ㏴; ㏴; 21日; 21日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY TWENTY-ONE
@@ -19383,7 +19480,7 @@ TEST(normalization, nfkc_011_195)
 }
 
 
-TEST(normalization, nfkc_011_196)
+TEST(normalization, nfkc_011_197)
 {
     // 33F5;33F5;33F5;0032 0032 65E5;0032 0032 65E5; 
     // (㏵; ㏵; ㏵; 22日; 22日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY TWENTY-TWO
@@ -19482,7 +19579,7 @@ TEST(normalization, nfkc_011_196)
 }
 
 
-TEST(normalization, nfkc_011_197)
+TEST(normalization, nfkc_011_198)
 {
     // 33F6;33F6;33F6;0032 0033 65E5;0032 0033 65E5; 
     // (㏶; ㏶; ㏶; 23日; 23日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY TWENTY-THREE
@@ -19581,7 +19678,7 @@ TEST(normalization, nfkc_011_197)
 }
 
 
-TEST(normalization, nfkc_011_198)
+TEST(normalization, nfkc_011_199)
 {
     // 33F7;33F7;33F7;0032 0034 65E5;0032 0034 65E5; 
     // (㏷; ㏷; ㏷; 24日; 24日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY TWENTY-FOUR
@@ -19591,105 +19688,6 @@ TEST(normalization, nfkc_011_198)
         std::array<uint32_t, 1> const c3 = {{ 0x33F7 }};
         std::array<uint32_t, 3> const c4 = {{ 0x0032, 0x0034, 0x65E5 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0032, 0x0034, 0x65E5 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::kc>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::kc>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::kc>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::kc>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::kc>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfkc_011_199)
-{
-    // 33F8;33F8;33F8;0032 0035 65E5;0032 0035 65E5; 
-    // (㏸; ㏸; ㏸; 25日; 25日; ) IDEOGRAPHIC TELEGRAPH SYMBOL FOR DAY TWENTY-FIVE
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x33F8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x33F8 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x33F8 }};
-        std::array<uint32_t, 3> const c4 = {{ 0x0032, 0x0035, 0x65E5 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0032, 0x0035, 0x65E5 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));

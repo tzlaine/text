@@ -110,11 +110,11 @@ namespace boost { namespace text { namespace detail {
     }
 
     BOOST_TEXT_DECL void
-        make_collation_elements(std::array<collation_element, 39841> &);
+        make_collation_elements(std::array<collation_element, 42123> &);
 
-    inline std::array<collation_element, 39841> const & collation_elements_()
+    inline std::array<collation_element, 42123> const & collation_elements_()
     {
-        static std::array<collation_element, 39841> retval;
+        static std::array<collation_element, 42123> retval;
         static bool once = true;
         if (once) {
             make_collation_elements(retval);
@@ -401,13 +401,13 @@ namespace boost { namespace text { namespace detail {
     using trie_match_t = collation_trie_t::match_result;
 
     BOOST_TEXT_DECL void
-        make_trie_keys(std::array<collation_trie_key<3>, 39272> &);
+        make_trie_keys(std::array<collation_trie_key<3>, 41688> &);
     BOOST_TEXT_DECL void
-        make_trie_values(std::array<collation_elements, 39272> &);
+        make_trie_values(std::array<collation_elements, 41688> &);
 
-    inline std::array<collation_trie_key<3>, 39272> const & trie_keys()
+    inline std::array<collation_trie_key<3>, 41688> const & trie_keys()
     {
-        static std::array<collation_trie_key<3>, 39272> retval;
+        static std::array<collation_trie_key<3>, 41688> retval;
         static bool once = true;
         if (once) {
             make_trie_keys(retval);
@@ -415,10 +415,10 @@ namespace boost { namespace text { namespace detail {
         }
         return retval;
     }
-    inline std::array<collation_elements, 39272> const &
+    inline std::array<collation_elements, 41688> const &
     trie_values(collation_element const * p)
     {
-        static std::array<collation_elements, 39272> retval;
+        static std::array<collation_elements, 41688> retval;
         static bool once = true;
         if (once) {
             make_trie_values(retval);
@@ -448,10 +448,10 @@ namespace boost { namespace text { namespace detail {
         }
     };
 
-    BOOST_TEXT_DECL std::array<reorder_group, 145> const &
+    BOOST_TEXT_DECL std::array<reorder_group, 149> const &
     make_reorder_groups();
 
-    inline std::array<reorder_group, 145> const & reorder_groups()
+    inline std::array<reorder_group, 149> const & reorder_groups()
     {
         static auto const retval = make_reorder_groups();
         return retval;

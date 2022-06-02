@@ -17,6 +17,501 @@
 
 TEST(normalization, nfd_071_000)
 {
+    // FBAA;FBAA;FBAA;06BE;06BE; 
+    // (ﮪ; ﮪ; ﮪ; ھ; ھ; ) ARABIC LETTER HEH DOACHASHMEE ISOLATED FORM
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xFBAA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFBAA }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFBAA }};
+        std::array<uint32_t, 1> const c4 = {{ 0x06BE }};
+        std::array<uint32_t, 1> const c5 = {{ 0x06BE }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_071_001)
+{
+    // FBAB;FBAB;FBAB;06BE;06BE; 
+    // (ﮫ; ﮫ; ﮫ; ھ; ھ; ) ARABIC LETTER HEH DOACHASHMEE FINAL FORM
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xFBAB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFBAB }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFBAB }};
+        std::array<uint32_t, 1> const c4 = {{ 0x06BE }};
+        std::array<uint32_t, 1> const c5 = {{ 0x06BE }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_071_002)
+{
+    // FBAC;FBAC;FBAC;06BE;06BE; 
+    // (ﮬ; ﮬ; ﮬ; ھ; ھ; ) ARABIC LETTER HEH DOACHASHMEE INITIAL FORM
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xFBAC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFBAC }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFBAC }};
+        std::array<uint32_t, 1> const c4 = {{ 0x06BE }};
+        std::array<uint32_t, 1> const c5 = {{ 0x06BE }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_071_003)
+{
+    // FBAD;FBAD;FBAD;06BE;06BE; 
+    // (ﮭ; ﮭ; ﮭ; ھ; ھ; ) ARABIC LETTER HEH DOACHASHMEE MEDIAL FORM
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xFBAD }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFBAD }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFBAD }};
+        std::array<uint32_t, 1> const c4 = {{ 0x06BE }};
+        std::array<uint32_t, 1> const c5 = {{ 0x06BE }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_071_004)
+{
+    // FBAE;FBAE;FBAE;06D2;06D2; 
+    // (ﮮ; ﮮ; ﮮ; ے; ے; ) ARABIC LETTER YEH BARREE ISOLATED FORM
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xFBAE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFBAE }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFBAE }};
+        std::array<uint32_t, 1> const c4 = {{ 0x06D2 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x06D2 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_071_005)
+{
     // FBAF;FBAF;FBAF;06D2;06D2; 
     // (ﮯ; ﮯ; ﮯ; ے; ے; ) ARABIC LETTER YEH BARREE FINAL FORM
     {
@@ -114,7 +609,7 @@ TEST(normalization, nfd_071_000)
 }
 
 
-TEST(normalization, nfd_071_001)
+TEST(normalization, nfd_071_006)
 {
     // FBB0;FBB0;FBB0;06D3;06D2 0654; 
     // (ﮰ; ﮰ; ﮰ; ۓ; ے◌ٔ; ) ARABIC LETTER YEH BARREE WITH HAMZA ABOVE ISOLATED FORM
@@ -211,7 +706,7 @@ TEST(normalization, nfd_071_001)
 }
 
 
-TEST(normalization, nfd_071_002)
+TEST(normalization, nfd_071_007)
 {
     // FBB1;FBB1;FBB1;06D3;06D2 0654; 
     // (ﮱ; ﮱ; ﮱ; ۓ; ے◌ٔ; ) ARABIC LETTER YEH BARREE WITH HAMZA ABOVE FINAL FORM
@@ -308,7 +803,7 @@ TEST(normalization, nfd_071_002)
 }
 
 
-TEST(normalization, nfd_071_003)
+TEST(normalization, nfd_071_008)
 {
     // FBD3;FBD3;FBD3;06AD;06AD; 
     // (ﯓ; ﯓ; ﯓ; ڭ; ڭ; ) ARABIC LETTER NG ISOLATED FORM
@@ -407,7 +902,7 @@ TEST(normalization, nfd_071_003)
 }
 
 
-TEST(normalization, nfd_071_004)
+TEST(normalization, nfd_071_009)
 {
     // FBD4;FBD4;FBD4;06AD;06AD; 
     // (ﯔ; ﯔ; ﯔ; ڭ; ڭ; ) ARABIC LETTER NG FINAL FORM
@@ -506,7 +1001,7 @@ TEST(normalization, nfd_071_004)
 }
 
 
-TEST(normalization, nfd_071_005)
+TEST(normalization, nfd_071_010)
 {
     // FBD5;FBD5;FBD5;06AD;06AD; 
     // (ﯕ; ﯕ; ﯕ; ڭ; ڭ; ) ARABIC LETTER NG INITIAL FORM
@@ -605,7 +1100,7 @@ TEST(normalization, nfd_071_005)
 }
 
 
-TEST(normalization, nfd_071_006)
+TEST(normalization, nfd_071_011)
 {
     // FBD6;FBD6;FBD6;06AD;06AD; 
     // (ﯖ; ﯖ; ﯖ; ڭ; ڭ; ) ARABIC LETTER NG MEDIAL FORM
@@ -704,7 +1199,7 @@ TEST(normalization, nfd_071_006)
 }
 
 
-TEST(normalization, nfd_071_007)
+TEST(normalization, nfd_071_012)
 {
     // FBD7;FBD7;FBD7;06C7;06C7; 
     // (ﯗ; ﯗ; ﯗ; ۇ; ۇ; ) ARABIC LETTER U ISOLATED FORM
@@ -803,7 +1298,7 @@ TEST(normalization, nfd_071_007)
 }
 
 
-TEST(normalization, nfd_071_008)
+TEST(normalization, nfd_071_013)
 {
     // FBD8;FBD8;FBD8;06C7;06C7; 
     // (ﯘ; ﯘ; ﯘ; ۇ; ۇ; ) ARABIC LETTER U FINAL FORM
@@ -902,7 +1397,7 @@ TEST(normalization, nfd_071_008)
 }
 
 
-TEST(normalization, nfd_071_009)
+TEST(normalization, nfd_071_014)
 {
     // FBD9;FBD9;FBD9;06C6;06C6; 
     // (ﯙ; ﯙ; ﯙ; ۆ; ۆ; ) ARABIC LETTER OE ISOLATED FORM
@@ -1001,7 +1496,7 @@ TEST(normalization, nfd_071_009)
 }
 
 
-TEST(normalization, nfd_071_010)
+TEST(normalization, nfd_071_015)
 {
     // FBDA;FBDA;FBDA;06C6;06C6; 
     // (ﯚ; ﯚ; ﯚ; ۆ; ۆ; ) ARABIC LETTER OE FINAL FORM
@@ -1100,7 +1595,7 @@ TEST(normalization, nfd_071_010)
 }
 
 
-TEST(normalization, nfd_071_011)
+TEST(normalization, nfd_071_016)
 {
     // FBDB;FBDB;FBDB;06C8;06C8; 
     // (ﯛ; ﯛ; ﯛ; ۈ; ۈ; ) ARABIC LETTER YU ISOLATED FORM
@@ -1199,7 +1694,7 @@ TEST(normalization, nfd_071_011)
 }
 
 
-TEST(normalization, nfd_071_012)
+TEST(normalization, nfd_071_017)
 {
     // FBDC;FBDC;FBDC;06C8;06C8; 
     // (ﯜ; ﯜ; ﯜ; ۈ; ۈ; ) ARABIC LETTER YU FINAL FORM
@@ -1298,7 +1793,7 @@ TEST(normalization, nfd_071_012)
 }
 
 
-TEST(normalization, nfd_071_013)
+TEST(normalization, nfd_071_018)
 {
     // FBDD;FBDD;FBDD;06C7 0674;06C7 0674; 
     // (ﯝ; ﯝ; ﯝ; ۇٴ; ۇٴ; ) ARABIC LETTER U WITH HAMZA ABOVE ISOLATED FORM
@@ -1397,7 +1892,7 @@ TEST(normalization, nfd_071_013)
 }
 
 
-TEST(normalization, nfd_071_014)
+TEST(normalization, nfd_071_019)
 {
     // FBDE;FBDE;FBDE;06CB;06CB; 
     // (ﯞ; ﯞ; ﯞ; ۋ; ۋ; ) ARABIC LETTER VE ISOLATED FORM
@@ -1496,7 +1991,7 @@ TEST(normalization, nfd_071_014)
 }
 
 
-TEST(normalization, nfd_071_015)
+TEST(normalization, nfd_071_020)
 {
     // FBDF;FBDF;FBDF;06CB;06CB; 
     // (ﯟ; ﯟ; ﯟ; ۋ; ۋ; ) ARABIC LETTER VE FINAL FORM
@@ -1595,7 +2090,7 @@ TEST(normalization, nfd_071_015)
 }
 
 
-TEST(normalization, nfd_071_016)
+TEST(normalization, nfd_071_021)
 {
     // FBE0;FBE0;FBE0;06C5;06C5; 
     // (ﯠ; ﯠ; ﯠ; ۅ; ۅ; ) ARABIC LETTER KIRGHIZ OE ISOLATED FORM
@@ -1694,7 +2189,7 @@ TEST(normalization, nfd_071_016)
 }
 
 
-TEST(normalization, nfd_071_017)
+TEST(normalization, nfd_071_022)
 {
     // FBE1;FBE1;FBE1;06C5;06C5; 
     // (ﯡ; ﯡ; ﯡ; ۅ; ۅ; ) ARABIC LETTER KIRGHIZ OE FINAL FORM
@@ -1793,7 +2288,7 @@ TEST(normalization, nfd_071_017)
 }
 
 
-TEST(normalization, nfd_071_018)
+TEST(normalization, nfd_071_023)
 {
     // FBE2;FBE2;FBE2;06C9;06C9; 
     // (ﯢ; ﯢ; ﯢ; ۉ; ۉ; ) ARABIC LETTER KIRGHIZ YU ISOLATED FORM
@@ -1892,7 +2387,7 @@ TEST(normalization, nfd_071_018)
 }
 
 
-TEST(normalization, nfd_071_019)
+TEST(normalization, nfd_071_024)
 {
     // FBE3;FBE3;FBE3;06C9;06C9; 
     // (ﯣ; ﯣ; ﯣ; ۉ; ۉ; ) ARABIC LETTER KIRGHIZ YU FINAL FORM
@@ -1991,7 +2486,7 @@ TEST(normalization, nfd_071_019)
 }
 
 
-TEST(normalization, nfd_071_020)
+TEST(normalization, nfd_071_025)
 {
     // FBE4;FBE4;FBE4;06D0;06D0; 
     // (ﯤ; ﯤ; ﯤ; ې; ې; ) ARABIC LETTER E ISOLATED FORM
@@ -2090,7 +2585,7 @@ TEST(normalization, nfd_071_020)
 }
 
 
-TEST(normalization, nfd_071_021)
+TEST(normalization, nfd_071_026)
 {
     // FBE5;FBE5;FBE5;06D0;06D0; 
     // (ﯥ; ﯥ; ﯥ; ې; ې; ) ARABIC LETTER E FINAL FORM
@@ -2189,7 +2684,7 @@ TEST(normalization, nfd_071_021)
 }
 
 
-TEST(normalization, nfd_071_022)
+TEST(normalization, nfd_071_027)
 {
     // FBE6;FBE6;FBE6;06D0;06D0; 
     // (ﯦ; ﯦ; ﯦ; ې; ې; ) ARABIC LETTER E INITIAL FORM
@@ -2288,7 +2783,7 @@ TEST(normalization, nfd_071_022)
 }
 
 
-TEST(normalization, nfd_071_023)
+TEST(normalization, nfd_071_028)
 {
     // FBE7;FBE7;FBE7;06D0;06D0; 
     // (ﯧ; ﯧ; ﯧ; ې; ې; ) ARABIC LETTER E MEDIAL FORM
@@ -2387,7 +2882,7 @@ TEST(normalization, nfd_071_023)
 }
 
 
-TEST(normalization, nfd_071_024)
+TEST(normalization, nfd_071_029)
 {
     // FBE8;FBE8;FBE8;0649;0649; 
     // (ﯨ; ﯨ; ﯨ; ى; ى; ) ARABIC LETTER UIGHUR KAZAKH KIRGHIZ ALEF MAKSURA INITIAL FORM
@@ -2486,7 +2981,7 @@ TEST(normalization, nfd_071_024)
 }
 
 
-TEST(normalization, nfd_071_025)
+TEST(normalization, nfd_071_030)
 {
     // FBE9;FBE9;FBE9;0649;0649; 
     // (ﯩ; ﯩ; ﯩ; ى; ى; ) ARABIC LETTER UIGHUR KAZAKH KIRGHIZ ALEF MAKSURA MEDIAL FORM
@@ -2585,7 +3080,7 @@ TEST(normalization, nfd_071_025)
 }
 
 
-TEST(normalization, nfd_071_026)
+TEST(normalization, nfd_071_031)
 {
     // FBEA;FBEA;FBEA;0626 0627;064A 0654 0627; 
     // (ﯪ; ﯪ; ﯪ; ئا; ي◌ٔا; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH ALEF ISOLATED FORM
@@ -2682,7 +3177,7 @@ TEST(normalization, nfd_071_026)
 }
 
 
-TEST(normalization, nfd_071_027)
+TEST(normalization, nfd_071_032)
 {
     // FBEB;FBEB;FBEB;0626 0627;064A 0654 0627; 
     // (ﯫ; ﯫ; ﯫ; ئا; ي◌ٔا; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH ALEF FINAL FORM
@@ -2779,7 +3274,7 @@ TEST(normalization, nfd_071_027)
 }
 
 
-TEST(normalization, nfd_071_028)
+TEST(normalization, nfd_071_033)
 {
     // FBEC;FBEC;FBEC;0626 06D5;064A 0654 06D5; 
     // (ﯬ; ﯬ; ﯬ; ئە; ي◌ٔە; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH AE ISOLATED FORM
@@ -2876,7 +3371,7 @@ TEST(normalization, nfd_071_028)
 }
 
 
-TEST(normalization, nfd_071_029)
+TEST(normalization, nfd_071_034)
 {
     // FBED;FBED;FBED;0626 06D5;064A 0654 06D5; 
     // (ﯭ; ﯭ; ﯭ; ئە; ي◌ٔە; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH AE FINAL FORM
@@ -2973,7 +3468,7 @@ TEST(normalization, nfd_071_029)
 }
 
 
-TEST(normalization, nfd_071_030)
+TEST(normalization, nfd_071_035)
 {
     // FBEE;FBEE;FBEE;0626 0648;064A 0654 0648; 
     // (ﯮ; ﯮ; ﯮ; ئو; ي◌ٔو; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH WAW ISOLATED FORM
@@ -3070,7 +3565,7 @@ TEST(normalization, nfd_071_030)
 }
 
 
-TEST(normalization, nfd_071_031)
+TEST(normalization, nfd_071_036)
 {
     // FBEF;FBEF;FBEF;0626 0648;064A 0654 0648; 
     // (ﯯ; ﯯ; ﯯ; ئو; ي◌ٔو; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH WAW FINAL FORM
@@ -3167,7 +3662,7 @@ TEST(normalization, nfd_071_031)
 }
 
 
-TEST(normalization, nfd_071_032)
+TEST(normalization, nfd_071_037)
 {
     // FBF0;FBF0;FBF0;0626 06C7;064A 0654 06C7; 
     // (ﯰ; ﯰ; ﯰ; ئۇ; ي◌ٔۇ; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH U ISOLATED FORM
@@ -3264,7 +3759,7 @@ TEST(normalization, nfd_071_032)
 }
 
 
-TEST(normalization, nfd_071_033)
+TEST(normalization, nfd_071_038)
 {
     // FBF1;FBF1;FBF1;0626 06C7;064A 0654 06C7; 
     // (ﯱ; ﯱ; ﯱ; ئۇ; ي◌ٔۇ; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH U FINAL FORM
@@ -3361,7 +3856,7 @@ TEST(normalization, nfd_071_033)
 }
 
 
-TEST(normalization, nfd_071_034)
+TEST(normalization, nfd_071_039)
 {
     // FBF2;FBF2;FBF2;0626 06C6;064A 0654 06C6; 
     // (ﯲ; ﯲ; ﯲ; ئۆ; ي◌ٔۆ; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH OE ISOLATED FORM
@@ -3458,7 +3953,7 @@ TEST(normalization, nfd_071_034)
 }
 
 
-TEST(normalization, nfd_071_035)
+TEST(normalization, nfd_071_040)
 {
     // FBF3;FBF3;FBF3;0626 06C6;064A 0654 06C6; 
     // (ﯳ; ﯳ; ﯳ; ئۆ; ي◌ٔۆ; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH OE FINAL FORM
@@ -3555,7 +4050,7 @@ TEST(normalization, nfd_071_035)
 }
 
 
-TEST(normalization, nfd_071_036)
+TEST(normalization, nfd_071_041)
 {
     // FBF4;FBF4;FBF4;0626 06C8;064A 0654 06C8; 
     // (ﯴ; ﯴ; ﯴ; ئۈ; ي◌ٔۈ; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH YU ISOLATED FORM
@@ -3652,7 +4147,7 @@ TEST(normalization, nfd_071_036)
 }
 
 
-TEST(normalization, nfd_071_037)
+TEST(normalization, nfd_071_042)
 {
     // FBF5;FBF5;FBF5;0626 06C8;064A 0654 06C8; 
     // (ﯵ; ﯵ; ﯵ; ئۈ; ي◌ٔۈ; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH YU FINAL FORM
@@ -3749,7 +4244,7 @@ TEST(normalization, nfd_071_037)
 }
 
 
-TEST(normalization, nfd_071_038)
+TEST(normalization, nfd_071_043)
 {
     // FBF6;FBF6;FBF6;0626 06D0;064A 0654 06D0; 
     // (ﯶ; ﯶ; ﯶ; ئې; ي◌ٔې; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH E ISOLATED FORM
@@ -3846,7 +4341,7 @@ TEST(normalization, nfd_071_038)
 }
 
 
-TEST(normalization, nfd_071_039)
+TEST(normalization, nfd_071_044)
 {
     // FBF7;FBF7;FBF7;0626 06D0;064A 0654 06D0; 
     // (ﯷ; ﯷ; ﯷ; ئې; ي◌ٔې; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH E FINAL FORM
@@ -3943,7 +4438,7 @@ TEST(normalization, nfd_071_039)
 }
 
 
-TEST(normalization, nfd_071_040)
+TEST(normalization, nfd_071_045)
 {
     // FBF8;FBF8;FBF8;0626 06D0;064A 0654 06D0; 
     // (ﯸ; ﯸ; ﯸ; ئې; ي◌ٔې; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH E INITIAL FORM
@@ -4040,7 +4535,7 @@ TEST(normalization, nfd_071_040)
 }
 
 
-TEST(normalization, nfd_071_041)
+TEST(normalization, nfd_071_046)
 {
     // FBF9;FBF9;FBF9;0626 0649;064A 0654 0649; 
     // (ﯹ; ﯹ; ﯹ; ئى; ي◌ٔى; ) ARABIC LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA ISOLATED FORM
@@ -4137,7 +4632,7 @@ TEST(normalization, nfd_071_041)
 }
 
 
-TEST(normalization, nfd_071_042)
+TEST(normalization, nfd_071_047)
 {
     // FBFA;FBFA;FBFA;0626 0649;064A 0654 0649; 
     // (ﯺ; ﯺ; ﯺ; ئى; ي◌ٔى; ) ARABIC LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA FINAL FORM
@@ -4234,7 +4729,7 @@ TEST(normalization, nfd_071_042)
 }
 
 
-TEST(normalization, nfd_071_043)
+TEST(normalization, nfd_071_048)
 {
     // FBFB;FBFB;FBFB;0626 0649;064A 0654 0649; 
     // (ﯻ; ﯻ; ﯻ; ئى; ي◌ٔى; ) ARABIC LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA INITIAL FORM
@@ -4331,7 +4826,7 @@ TEST(normalization, nfd_071_043)
 }
 
 
-TEST(normalization, nfd_071_044)
+TEST(normalization, nfd_071_049)
 {
     // FBFC;FBFC;FBFC;06CC;06CC; 
     // (ﯼ; ﯼ; ﯼ; ی; ی; ) ARABIC LETTER FARSI YEH ISOLATED FORM
@@ -4430,7 +4925,7 @@ TEST(normalization, nfd_071_044)
 }
 
 
-TEST(normalization, nfd_071_045)
+TEST(normalization, nfd_071_050)
 {
     // FBFD;FBFD;FBFD;06CC;06CC; 
     // (ﯽ; ﯽ; ﯽ; ی; ی; ) ARABIC LETTER FARSI YEH FINAL FORM
@@ -4529,7 +5024,7 @@ TEST(normalization, nfd_071_045)
 }
 
 
-TEST(normalization, nfd_071_046)
+TEST(normalization, nfd_071_051)
 {
     // FBFE;FBFE;FBFE;06CC;06CC; 
     // (ﯾ; ﯾ; ﯾ; ی; ی; ) ARABIC LETTER FARSI YEH INITIAL FORM
@@ -4628,7 +5123,7 @@ TEST(normalization, nfd_071_046)
 }
 
 
-TEST(normalization, nfd_071_047)
+TEST(normalization, nfd_071_052)
 {
     // FBFF;FBFF;FBFF;06CC;06CC; 
     // (ﯿ; ﯿ; ﯿ; ی; ی; ) ARABIC LETTER FARSI YEH MEDIAL FORM
@@ -4727,7 +5222,7 @@ TEST(normalization, nfd_071_047)
 }
 
 
-TEST(normalization, nfd_071_048)
+TEST(normalization, nfd_071_053)
 {
     // FC00;FC00;FC00;0626 062C;064A 0654 062C; 
     // (ﰀ; ﰀ; ﰀ; ئج; ي◌ٔج; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH JEEM ISOLATED FORM
@@ -4824,7 +5319,7 @@ TEST(normalization, nfd_071_048)
 }
 
 
-TEST(normalization, nfd_071_049)
+TEST(normalization, nfd_071_054)
 {
     // FC01;FC01;FC01;0626 062D;064A 0654 062D; 
     // (ﰁ; ﰁ; ﰁ; ئح; ي◌ٔح; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH HAH ISOLATED FORM
@@ -4921,7 +5416,7 @@ TEST(normalization, nfd_071_049)
 }
 
 
-TEST(normalization, nfd_071_050)
+TEST(normalization, nfd_071_055)
 {
     // FC02;FC02;FC02;0626 0645;064A 0654 0645; 
     // (ﰂ; ﰂ; ﰂ; ئم; ي◌ٔم; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH MEEM ISOLATED FORM
@@ -5018,7 +5513,7 @@ TEST(normalization, nfd_071_050)
 }
 
 
-TEST(normalization, nfd_071_051)
+TEST(normalization, nfd_071_056)
 {
     // FC03;FC03;FC03;0626 0649;064A 0654 0649; 
     // (ﰃ; ﰃ; ﰃ; ئى; ي◌ٔى; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH ALEF MAKSURA ISOLATED FORM
@@ -5115,7 +5610,7 @@ TEST(normalization, nfd_071_051)
 }
 
 
-TEST(normalization, nfd_071_052)
+TEST(normalization, nfd_071_057)
 {
     // FC04;FC04;FC04;0626 064A;064A 0654 064A; 
     // (ﰄ; ﰄ; ﰄ; ئي; ي◌ٔي; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH YEH ISOLATED FORM
@@ -5212,7 +5707,7 @@ TEST(normalization, nfd_071_052)
 }
 
 
-TEST(normalization, nfd_071_053)
+TEST(normalization, nfd_071_058)
 {
     // FC05;FC05;FC05;0628 062C;0628 062C; 
     // (ﰅ; ﰅ; ﰅ; بج; بج; ) ARABIC LIGATURE BEH WITH JEEM ISOLATED FORM
@@ -5311,7 +5806,7 @@ TEST(normalization, nfd_071_053)
 }
 
 
-TEST(normalization, nfd_071_054)
+TEST(normalization, nfd_071_059)
 {
     // FC06;FC06;FC06;0628 062D;0628 062D; 
     // (ﰆ; ﰆ; ﰆ; بح; بح; ) ARABIC LIGATURE BEH WITH HAH ISOLATED FORM
@@ -5410,7 +5905,7 @@ TEST(normalization, nfd_071_054)
 }
 
 
-TEST(normalization, nfd_071_055)
+TEST(normalization, nfd_071_060)
 {
     // FC07;FC07;FC07;0628 062E;0628 062E; 
     // (ﰇ; ﰇ; ﰇ; بخ; بخ; ) ARABIC LIGATURE BEH WITH KHAH ISOLATED FORM
@@ -5509,7 +6004,7 @@ TEST(normalization, nfd_071_055)
 }
 
 
-TEST(normalization, nfd_071_056)
+TEST(normalization, nfd_071_061)
 {
     // FC08;FC08;FC08;0628 0645;0628 0645; 
     // (ﰈ; ﰈ; ﰈ; بم; بم; ) ARABIC LIGATURE BEH WITH MEEM ISOLATED FORM
@@ -5608,7 +6103,7 @@ TEST(normalization, nfd_071_056)
 }
 
 
-TEST(normalization, nfd_071_057)
+TEST(normalization, nfd_071_062)
 {
     // FC09;FC09;FC09;0628 0649;0628 0649; 
     // (ﰉ; ﰉ; ﰉ; بى; بى; ) ARABIC LIGATURE BEH WITH ALEF MAKSURA ISOLATED FORM
@@ -5707,7 +6202,7 @@ TEST(normalization, nfd_071_057)
 }
 
 
-TEST(normalization, nfd_071_058)
+TEST(normalization, nfd_071_063)
 {
     // FC0A;FC0A;FC0A;0628 064A;0628 064A; 
     // (ﰊ; ﰊ; ﰊ; بي; بي; ) ARABIC LIGATURE BEH WITH YEH ISOLATED FORM
@@ -5806,7 +6301,7 @@ TEST(normalization, nfd_071_058)
 }
 
 
-TEST(normalization, nfd_071_059)
+TEST(normalization, nfd_071_064)
 {
     // FC0B;FC0B;FC0B;062A 062C;062A 062C; 
     // (ﰋ; ﰋ; ﰋ; تج; تج; ) ARABIC LIGATURE TEH WITH JEEM ISOLATED FORM
@@ -5905,7 +6400,7 @@ TEST(normalization, nfd_071_059)
 }
 
 
-TEST(normalization, nfd_071_060)
+TEST(normalization, nfd_071_065)
 {
     // FC0C;FC0C;FC0C;062A 062D;062A 062D; 
     // (ﰌ; ﰌ; ﰌ; تح; تح; ) ARABIC LIGATURE TEH WITH HAH ISOLATED FORM
@@ -6004,7 +6499,7 @@ TEST(normalization, nfd_071_060)
 }
 
 
-TEST(normalization, nfd_071_061)
+TEST(normalization, nfd_071_066)
 {
     // FC0D;FC0D;FC0D;062A 062E;062A 062E; 
     // (ﰍ; ﰍ; ﰍ; تخ; تخ; ) ARABIC LIGATURE TEH WITH KHAH ISOLATED FORM
@@ -6103,7 +6598,7 @@ TEST(normalization, nfd_071_061)
 }
 
 
-TEST(normalization, nfd_071_062)
+TEST(normalization, nfd_071_067)
 {
     // FC0E;FC0E;FC0E;062A 0645;062A 0645; 
     // (ﰎ; ﰎ; ﰎ; تم; تم; ) ARABIC LIGATURE TEH WITH MEEM ISOLATED FORM
@@ -6202,7 +6697,7 @@ TEST(normalization, nfd_071_062)
 }
 
 
-TEST(normalization, nfd_071_063)
+TEST(normalization, nfd_071_068)
 {
     // FC0F;FC0F;FC0F;062A 0649;062A 0649; 
     // (ﰏ; ﰏ; ﰏ; تى; تى; ) ARABIC LIGATURE TEH WITH ALEF MAKSURA ISOLATED FORM
@@ -6301,7 +6796,7 @@ TEST(normalization, nfd_071_063)
 }
 
 
-TEST(normalization, nfd_071_064)
+TEST(normalization, nfd_071_069)
 {
     // FC10;FC10;FC10;062A 064A;062A 064A; 
     // (ﰐ; ﰐ; ﰐ; تي; تي; ) ARABIC LIGATURE TEH WITH YEH ISOLATED FORM
@@ -6400,7 +6895,7 @@ TEST(normalization, nfd_071_064)
 }
 
 
-TEST(normalization, nfd_071_065)
+TEST(normalization, nfd_071_070)
 {
     // FC11;FC11;FC11;062B 062C;062B 062C; 
     // (ﰑ; ﰑ; ﰑ; ثج; ثج; ) ARABIC LIGATURE THEH WITH JEEM ISOLATED FORM
@@ -6499,7 +6994,7 @@ TEST(normalization, nfd_071_065)
 }
 
 
-TEST(normalization, nfd_071_066)
+TEST(normalization, nfd_071_071)
 {
     // FC12;FC12;FC12;062B 0645;062B 0645; 
     // (ﰒ; ﰒ; ﰒ; ثم; ثم; ) ARABIC LIGATURE THEH WITH MEEM ISOLATED FORM
@@ -6598,7 +7093,7 @@ TEST(normalization, nfd_071_066)
 }
 
 
-TEST(normalization, nfd_071_067)
+TEST(normalization, nfd_071_072)
 {
     // FC13;FC13;FC13;062B 0649;062B 0649; 
     // (ﰓ; ﰓ; ﰓ; ثى; ثى; ) ARABIC LIGATURE THEH WITH ALEF MAKSURA ISOLATED FORM
@@ -6697,7 +7192,7 @@ TEST(normalization, nfd_071_067)
 }
 
 
-TEST(normalization, nfd_071_068)
+TEST(normalization, nfd_071_073)
 {
     // FC14;FC14;FC14;062B 064A;062B 064A; 
     // (ﰔ; ﰔ; ﰔ; ثي; ثي; ) ARABIC LIGATURE THEH WITH YEH ISOLATED FORM
@@ -6796,7 +7291,7 @@ TEST(normalization, nfd_071_068)
 }
 
 
-TEST(normalization, nfd_071_069)
+TEST(normalization, nfd_071_074)
 {
     // FC15;FC15;FC15;062C 062D;062C 062D; 
     // (ﰕ; ﰕ; ﰕ; جح; جح; ) ARABIC LIGATURE JEEM WITH HAH ISOLATED FORM
@@ -6895,7 +7390,7 @@ TEST(normalization, nfd_071_069)
 }
 
 
-TEST(normalization, nfd_071_070)
+TEST(normalization, nfd_071_075)
 {
     // FC16;FC16;FC16;062C 0645;062C 0645; 
     // (ﰖ; ﰖ; ﰖ; جم; جم; ) ARABIC LIGATURE JEEM WITH MEEM ISOLATED FORM
@@ -6994,7 +7489,7 @@ TEST(normalization, nfd_071_070)
 }
 
 
-TEST(normalization, nfd_071_071)
+TEST(normalization, nfd_071_076)
 {
     // FC17;FC17;FC17;062D 062C;062D 062C; 
     // (ﰗ; ﰗ; ﰗ; حج; حج; ) ARABIC LIGATURE HAH WITH JEEM ISOLATED FORM
@@ -7093,7 +7588,7 @@ TEST(normalization, nfd_071_071)
 }
 
 
-TEST(normalization, nfd_071_072)
+TEST(normalization, nfd_071_077)
 {
     // FC18;FC18;FC18;062D 0645;062D 0645; 
     // (ﰘ; ﰘ; ﰘ; حم; حم; ) ARABIC LIGATURE HAH WITH MEEM ISOLATED FORM
@@ -7192,7 +7687,7 @@ TEST(normalization, nfd_071_072)
 }
 
 
-TEST(normalization, nfd_071_073)
+TEST(normalization, nfd_071_078)
 {
     // FC19;FC19;FC19;062E 062C;062E 062C; 
     // (ﰙ; ﰙ; ﰙ; خج; خج; ) ARABIC LIGATURE KHAH WITH JEEM ISOLATED FORM
@@ -7291,7 +7786,7 @@ TEST(normalization, nfd_071_073)
 }
 
 
-TEST(normalization, nfd_071_074)
+TEST(normalization, nfd_071_079)
 {
     // FC1A;FC1A;FC1A;062E 062D;062E 062D; 
     // (ﰚ; ﰚ; ﰚ; خح; خح; ) ARABIC LIGATURE KHAH WITH HAH ISOLATED FORM
@@ -7390,7 +7885,7 @@ TEST(normalization, nfd_071_074)
 }
 
 
-TEST(normalization, nfd_071_075)
+TEST(normalization, nfd_071_080)
 {
     // FC1B;FC1B;FC1B;062E 0645;062E 0645; 
     // (ﰛ; ﰛ; ﰛ; خم; خم; ) ARABIC LIGATURE KHAH WITH MEEM ISOLATED FORM
@@ -7489,7 +7984,7 @@ TEST(normalization, nfd_071_075)
 }
 
 
-TEST(normalization, nfd_071_076)
+TEST(normalization, nfd_071_081)
 {
     // FC1C;FC1C;FC1C;0633 062C;0633 062C; 
     // (ﰜ; ﰜ; ﰜ; سج; سج; ) ARABIC LIGATURE SEEN WITH JEEM ISOLATED FORM
@@ -7588,7 +8083,7 @@ TEST(normalization, nfd_071_076)
 }
 
 
-TEST(normalization, nfd_071_077)
+TEST(normalization, nfd_071_082)
 {
     // FC1D;FC1D;FC1D;0633 062D;0633 062D; 
     // (ﰝ; ﰝ; ﰝ; سح; سح; ) ARABIC LIGATURE SEEN WITH HAH ISOLATED FORM
@@ -7687,7 +8182,7 @@ TEST(normalization, nfd_071_077)
 }
 
 
-TEST(normalization, nfd_071_078)
+TEST(normalization, nfd_071_083)
 {
     // FC1E;FC1E;FC1E;0633 062E;0633 062E; 
     // (ﰞ; ﰞ; ﰞ; سخ; سخ; ) ARABIC LIGATURE SEEN WITH KHAH ISOLATED FORM
@@ -7786,7 +8281,7 @@ TEST(normalization, nfd_071_078)
 }
 
 
-TEST(normalization, nfd_071_079)
+TEST(normalization, nfd_071_084)
 {
     // FC1F;FC1F;FC1F;0633 0645;0633 0645; 
     // (ﰟ; ﰟ; ﰟ; سم; سم; ) ARABIC LIGATURE SEEN WITH MEEM ISOLATED FORM
@@ -7885,7 +8380,7 @@ TEST(normalization, nfd_071_079)
 }
 
 
-TEST(normalization, nfd_071_080)
+TEST(normalization, nfd_071_085)
 {
     // FC20;FC20;FC20;0635 062D;0635 062D; 
     // (ﰠ; ﰠ; ﰠ; صح; صح; ) ARABIC LIGATURE SAD WITH HAH ISOLATED FORM
@@ -7984,7 +8479,7 @@ TEST(normalization, nfd_071_080)
 }
 
 
-TEST(normalization, nfd_071_081)
+TEST(normalization, nfd_071_086)
 {
     // FC21;FC21;FC21;0635 0645;0635 0645; 
     // (ﰡ; ﰡ; ﰡ; صم; صم; ) ARABIC LIGATURE SAD WITH MEEM ISOLATED FORM
@@ -8083,7 +8578,7 @@ TEST(normalization, nfd_071_081)
 }
 
 
-TEST(normalization, nfd_071_082)
+TEST(normalization, nfd_071_087)
 {
     // FC22;FC22;FC22;0636 062C;0636 062C; 
     // (ﰢ; ﰢ; ﰢ; ضج; ضج; ) ARABIC LIGATURE DAD WITH JEEM ISOLATED FORM
@@ -8182,7 +8677,7 @@ TEST(normalization, nfd_071_082)
 }
 
 
-TEST(normalization, nfd_071_083)
+TEST(normalization, nfd_071_088)
 {
     // FC23;FC23;FC23;0636 062D;0636 062D; 
     // (ﰣ; ﰣ; ﰣ; ضح; ضح; ) ARABIC LIGATURE DAD WITH HAH ISOLATED FORM
@@ -8281,7 +8776,7 @@ TEST(normalization, nfd_071_083)
 }
 
 
-TEST(normalization, nfd_071_084)
+TEST(normalization, nfd_071_089)
 {
     // FC24;FC24;FC24;0636 062E;0636 062E; 
     // (ﰤ; ﰤ; ﰤ; ضخ; ضخ; ) ARABIC LIGATURE DAD WITH KHAH ISOLATED FORM
@@ -8380,7 +8875,7 @@ TEST(normalization, nfd_071_084)
 }
 
 
-TEST(normalization, nfd_071_085)
+TEST(normalization, nfd_071_090)
 {
     // FC25;FC25;FC25;0636 0645;0636 0645; 
     // (ﰥ; ﰥ; ﰥ; ضم; ضم; ) ARABIC LIGATURE DAD WITH MEEM ISOLATED FORM
@@ -8479,7 +8974,7 @@ TEST(normalization, nfd_071_085)
 }
 
 
-TEST(normalization, nfd_071_086)
+TEST(normalization, nfd_071_091)
 {
     // FC26;FC26;FC26;0637 062D;0637 062D; 
     // (ﰦ; ﰦ; ﰦ; طح; طح; ) ARABIC LIGATURE TAH WITH HAH ISOLATED FORM
@@ -8578,7 +9073,7 @@ TEST(normalization, nfd_071_086)
 }
 
 
-TEST(normalization, nfd_071_087)
+TEST(normalization, nfd_071_092)
 {
     // FC27;FC27;FC27;0637 0645;0637 0645; 
     // (ﰧ; ﰧ; ﰧ; طم; طم; ) ARABIC LIGATURE TAH WITH MEEM ISOLATED FORM
@@ -8677,7 +9172,7 @@ TEST(normalization, nfd_071_087)
 }
 
 
-TEST(normalization, nfd_071_088)
+TEST(normalization, nfd_071_093)
 {
     // FC28;FC28;FC28;0638 0645;0638 0645; 
     // (ﰨ; ﰨ; ﰨ; ظم; ظم; ) ARABIC LIGATURE ZAH WITH MEEM ISOLATED FORM
@@ -8776,7 +9271,7 @@ TEST(normalization, nfd_071_088)
 }
 
 
-TEST(normalization, nfd_071_089)
+TEST(normalization, nfd_071_094)
 {
     // FC29;FC29;FC29;0639 062C;0639 062C; 
     // (ﰩ; ﰩ; ﰩ; عج; عج; ) ARABIC LIGATURE AIN WITH JEEM ISOLATED FORM
@@ -8875,7 +9370,7 @@ TEST(normalization, nfd_071_089)
 }
 
 
-TEST(normalization, nfd_071_090)
+TEST(normalization, nfd_071_095)
 {
     // FC2A;FC2A;FC2A;0639 0645;0639 0645; 
     // (ﰪ; ﰪ; ﰪ; عم; عم; ) ARABIC LIGATURE AIN WITH MEEM ISOLATED FORM
@@ -8974,7 +9469,7 @@ TEST(normalization, nfd_071_090)
 }
 
 
-TEST(normalization, nfd_071_091)
+TEST(normalization, nfd_071_096)
 {
     // FC2B;FC2B;FC2B;063A 062C;063A 062C; 
     // (ﰫ; ﰫ; ﰫ; غج; غج; ) ARABIC LIGATURE GHAIN WITH JEEM ISOLATED FORM
@@ -9073,7 +9568,7 @@ TEST(normalization, nfd_071_091)
 }
 
 
-TEST(normalization, nfd_071_092)
+TEST(normalization, nfd_071_097)
 {
     // FC2C;FC2C;FC2C;063A 0645;063A 0645; 
     // (ﰬ; ﰬ; ﰬ; غم; غم; ) ARABIC LIGATURE GHAIN WITH MEEM ISOLATED FORM
@@ -9172,7 +9667,7 @@ TEST(normalization, nfd_071_092)
 }
 
 
-TEST(normalization, nfd_071_093)
+TEST(normalization, nfd_071_098)
 {
     // FC2D;FC2D;FC2D;0641 062C;0641 062C; 
     // (ﰭ; ﰭ; ﰭ; فج; فج; ) ARABIC LIGATURE FEH WITH JEEM ISOLATED FORM
@@ -9271,7 +9766,7 @@ TEST(normalization, nfd_071_093)
 }
 
 
-TEST(normalization, nfd_071_094)
+TEST(normalization, nfd_071_099)
 {
     // FC2E;FC2E;FC2E;0641 062D;0641 062D; 
     // (ﰮ; ﰮ; ﰮ; فح; فح; ) ARABIC LIGATURE FEH WITH HAH ISOLATED FORM
@@ -9370,7 +9865,7 @@ TEST(normalization, nfd_071_094)
 }
 
 
-TEST(normalization, nfd_071_095)
+TEST(normalization, nfd_071_100)
 {
     // FC2F;FC2F;FC2F;0641 062E;0641 062E; 
     // (ﰯ; ﰯ; ﰯ; فخ; فخ; ) ARABIC LIGATURE FEH WITH KHAH ISOLATED FORM
@@ -9469,7 +9964,7 @@ TEST(normalization, nfd_071_095)
 }
 
 
-TEST(normalization, nfd_071_096)
+TEST(normalization, nfd_071_101)
 {
     // FC30;FC30;FC30;0641 0645;0641 0645; 
     // (ﰰ; ﰰ; ﰰ; فم; فم; ) ARABIC LIGATURE FEH WITH MEEM ISOLATED FORM
@@ -9568,7 +10063,7 @@ TEST(normalization, nfd_071_096)
 }
 
 
-TEST(normalization, nfd_071_097)
+TEST(normalization, nfd_071_102)
 {
     // FC31;FC31;FC31;0641 0649;0641 0649; 
     // (ﰱ; ﰱ; ﰱ; فى; فى; ) ARABIC LIGATURE FEH WITH ALEF MAKSURA ISOLATED FORM
@@ -9667,7 +10162,7 @@ TEST(normalization, nfd_071_097)
 }
 
 
-TEST(normalization, nfd_071_098)
+TEST(normalization, nfd_071_103)
 {
     // FC32;FC32;FC32;0641 064A;0641 064A; 
     // (ﰲ; ﰲ; ﰲ; في; في; ) ARABIC LIGATURE FEH WITH YEH ISOLATED FORM
@@ -9766,7 +10261,7 @@ TEST(normalization, nfd_071_098)
 }
 
 
-TEST(normalization, nfd_071_099)
+TEST(normalization, nfd_071_104)
 {
     // FC33;FC33;FC33;0642 062D;0642 062D; 
     // (ﰳ; ﰳ; ﰳ; قح; قح; ) ARABIC LIGATURE QAF WITH HAH ISOLATED FORM
@@ -9865,7 +10360,7 @@ TEST(normalization, nfd_071_099)
 }
 
 
-TEST(normalization, nfd_071_100)
+TEST(normalization, nfd_071_105)
 {
     // FC34;FC34;FC34;0642 0645;0642 0645; 
     // (ﰴ; ﰴ; ﰴ; قم; قم; ) ARABIC LIGATURE QAF WITH MEEM ISOLATED FORM
@@ -9964,7 +10459,7 @@ TEST(normalization, nfd_071_100)
 }
 
 
-TEST(normalization, nfd_071_101)
+TEST(normalization, nfd_071_106)
 {
     // FC35;FC35;FC35;0642 0649;0642 0649; 
     // (ﰵ; ﰵ; ﰵ; قى; قى; ) ARABIC LIGATURE QAF WITH ALEF MAKSURA ISOLATED FORM
@@ -10063,7 +10558,7 @@ TEST(normalization, nfd_071_101)
 }
 
 
-TEST(normalization, nfd_071_102)
+TEST(normalization, nfd_071_107)
 {
     // FC36;FC36;FC36;0642 064A;0642 064A; 
     // (ﰶ; ﰶ; ﰶ; قي; قي; ) ARABIC LIGATURE QAF WITH YEH ISOLATED FORM
@@ -10162,7 +10657,7 @@ TEST(normalization, nfd_071_102)
 }
 
 
-TEST(normalization, nfd_071_103)
+TEST(normalization, nfd_071_108)
 {
     // FC37;FC37;FC37;0643 0627;0643 0627; 
     // (ﰷ; ﰷ; ﰷ; كا; كا; ) ARABIC LIGATURE KAF WITH ALEF ISOLATED FORM
@@ -10261,7 +10756,7 @@ TEST(normalization, nfd_071_103)
 }
 
 
-TEST(normalization, nfd_071_104)
+TEST(normalization, nfd_071_109)
 {
     // FC38;FC38;FC38;0643 062C;0643 062C; 
     // (ﰸ; ﰸ; ﰸ; كج; كج; ) ARABIC LIGATURE KAF WITH JEEM ISOLATED FORM
@@ -10360,7 +10855,7 @@ TEST(normalization, nfd_071_104)
 }
 
 
-TEST(normalization, nfd_071_105)
+TEST(normalization, nfd_071_110)
 {
     // FC39;FC39;FC39;0643 062D;0643 062D; 
     // (ﰹ; ﰹ; ﰹ; كح; كح; ) ARABIC LIGATURE KAF WITH HAH ISOLATED FORM
@@ -10459,7 +10954,7 @@ TEST(normalization, nfd_071_105)
 }
 
 
-TEST(normalization, nfd_071_106)
+TEST(normalization, nfd_071_111)
 {
     // FC3A;FC3A;FC3A;0643 062E;0643 062E; 
     // (ﰺ; ﰺ; ﰺ; كخ; كخ; ) ARABIC LIGATURE KAF WITH KHAH ISOLATED FORM
@@ -10558,7 +11053,7 @@ TEST(normalization, nfd_071_106)
 }
 
 
-TEST(normalization, nfd_071_107)
+TEST(normalization, nfd_071_112)
 {
     // FC3B;FC3B;FC3B;0643 0644;0643 0644; 
     // (ﰻ; ﰻ; ﰻ; كل; كل; ) ARABIC LIGATURE KAF WITH LAM ISOLATED FORM
@@ -10657,7 +11152,7 @@ TEST(normalization, nfd_071_107)
 }
 
 
-TEST(normalization, nfd_071_108)
+TEST(normalization, nfd_071_113)
 {
     // FC3C;FC3C;FC3C;0643 0645;0643 0645; 
     // (ﰼ; ﰼ; ﰼ; كم; كم; ) ARABIC LIGATURE KAF WITH MEEM ISOLATED FORM
@@ -10756,7 +11251,7 @@ TEST(normalization, nfd_071_108)
 }
 
 
-TEST(normalization, nfd_071_109)
+TEST(normalization, nfd_071_114)
 {
     // FC3D;FC3D;FC3D;0643 0649;0643 0649; 
     // (ﰽ; ﰽ; ﰽ; كى; كى; ) ARABIC LIGATURE KAF WITH ALEF MAKSURA ISOLATED FORM
@@ -10855,7 +11350,7 @@ TEST(normalization, nfd_071_109)
 }
 
 
-TEST(normalization, nfd_071_110)
+TEST(normalization, nfd_071_115)
 {
     // FC3E;FC3E;FC3E;0643 064A;0643 064A; 
     // (ﰾ; ﰾ; ﰾ; كي; كي; ) ARABIC LIGATURE KAF WITH YEH ISOLATED FORM
@@ -10954,7 +11449,7 @@ TEST(normalization, nfd_071_110)
 }
 
 
-TEST(normalization, nfd_071_111)
+TEST(normalization, nfd_071_116)
 {
     // FC3F;FC3F;FC3F;0644 062C;0644 062C; 
     // (ﰿ; ﰿ; ﰿ; لج; لج; ) ARABIC LIGATURE LAM WITH JEEM ISOLATED FORM
@@ -11053,7 +11548,7 @@ TEST(normalization, nfd_071_111)
 }
 
 
-TEST(normalization, nfd_071_112)
+TEST(normalization, nfd_071_117)
 {
     // FC40;FC40;FC40;0644 062D;0644 062D; 
     // (ﱀ; ﱀ; ﱀ; لح; لح; ) ARABIC LIGATURE LAM WITH HAH ISOLATED FORM
@@ -11152,7 +11647,7 @@ TEST(normalization, nfd_071_112)
 }
 
 
-TEST(normalization, nfd_071_113)
+TEST(normalization, nfd_071_118)
 {
     // FC41;FC41;FC41;0644 062E;0644 062E; 
     // (ﱁ; ﱁ; ﱁ; لخ; لخ; ) ARABIC LIGATURE LAM WITH KHAH ISOLATED FORM
@@ -11251,7 +11746,7 @@ TEST(normalization, nfd_071_113)
 }
 
 
-TEST(normalization, nfd_071_114)
+TEST(normalization, nfd_071_119)
 {
     // FC42;FC42;FC42;0644 0645;0644 0645; 
     // (ﱂ; ﱂ; ﱂ; لم; لم; ) ARABIC LIGATURE LAM WITH MEEM ISOLATED FORM
@@ -11350,7 +11845,7 @@ TEST(normalization, nfd_071_114)
 }
 
 
-TEST(normalization, nfd_071_115)
+TEST(normalization, nfd_071_120)
 {
     // FC43;FC43;FC43;0644 0649;0644 0649; 
     // (ﱃ; ﱃ; ﱃ; لى; لى; ) ARABIC LIGATURE LAM WITH ALEF MAKSURA ISOLATED FORM
@@ -11449,7 +11944,7 @@ TEST(normalization, nfd_071_115)
 }
 
 
-TEST(normalization, nfd_071_116)
+TEST(normalization, nfd_071_121)
 {
     // FC44;FC44;FC44;0644 064A;0644 064A; 
     // (ﱄ; ﱄ; ﱄ; لي; لي; ) ARABIC LIGATURE LAM WITH YEH ISOLATED FORM
@@ -11548,7 +12043,7 @@ TEST(normalization, nfd_071_116)
 }
 
 
-TEST(normalization, nfd_071_117)
+TEST(normalization, nfd_071_122)
 {
     // FC45;FC45;FC45;0645 062C;0645 062C; 
     // (ﱅ; ﱅ; ﱅ; مج; مج; ) ARABIC LIGATURE MEEM WITH JEEM ISOLATED FORM
@@ -11647,7 +12142,7 @@ TEST(normalization, nfd_071_117)
 }
 
 
-TEST(normalization, nfd_071_118)
+TEST(normalization, nfd_071_123)
 {
     // FC46;FC46;FC46;0645 062D;0645 062D; 
     // (ﱆ; ﱆ; ﱆ; مح; مح; ) ARABIC LIGATURE MEEM WITH HAH ISOLATED FORM
@@ -11746,7 +12241,7 @@ TEST(normalization, nfd_071_118)
 }
 
 
-TEST(normalization, nfd_071_119)
+TEST(normalization, nfd_071_124)
 {
     // FC47;FC47;FC47;0645 062E;0645 062E; 
     // (ﱇ; ﱇ; ﱇ; مخ; مخ; ) ARABIC LIGATURE MEEM WITH KHAH ISOLATED FORM
@@ -11845,7 +12340,7 @@ TEST(normalization, nfd_071_119)
 }
 
 
-TEST(normalization, nfd_071_120)
+TEST(normalization, nfd_071_125)
 {
     // FC48;FC48;FC48;0645 0645;0645 0645; 
     // (ﱈ; ﱈ; ﱈ; مم; مم; ) ARABIC LIGATURE MEEM WITH MEEM ISOLATED FORM
@@ -11944,7 +12439,7 @@ TEST(normalization, nfd_071_120)
 }
 
 
-TEST(normalization, nfd_071_121)
+TEST(normalization, nfd_071_126)
 {
     // FC49;FC49;FC49;0645 0649;0645 0649; 
     // (ﱉ; ﱉ; ﱉ; مى; مى; ) ARABIC LIGATURE MEEM WITH ALEF MAKSURA ISOLATED FORM
@@ -12043,7 +12538,7 @@ TEST(normalization, nfd_071_121)
 }
 
 
-TEST(normalization, nfd_071_122)
+TEST(normalization, nfd_071_127)
 {
     // FC4A;FC4A;FC4A;0645 064A;0645 064A; 
     // (ﱊ; ﱊ; ﱊ; مي; مي; ) ARABIC LIGATURE MEEM WITH YEH ISOLATED FORM
@@ -12142,7 +12637,7 @@ TEST(normalization, nfd_071_122)
 }
 
 
-TEST(normalization, nfd_071_123)
+TEST(normalization, nfd_071_128)
 {
     // FC4B;FC4B;FC4B;0646 062C;0646 062C; 
     // (ﱋ; ﱋ; ﱋ; نج; نج; ) ARABIC LIGATURE NOON WITH JEEM ISOLATED FORM
@@ -12241,7 +12736,7 @@ TEST(normalization, nfd_071_123)
 }
 
 
-TEST(normalization, nfd_071_124)
+TEST(normalization, nfd_071_129)
 {
     // FC4C;FC4C;FC4C;0646 062D;0646 062D; 
     // (ﱌ; ﱌ; ﱌ; نح; نح; ) ARABIC LIGATURE NOON WITH HAH ISOLATED FORM
@@ -12340,7 +12835,7 @@ TEST(normalization, nfd_071_124)
 }
 
 
-TEST(normalization, nfd_071_125)
+TEST(normalization, nfd_071_130)
 {
     // FC4D;FC4D;FC4D;0646 062E;0646 062E; 
     // (ﱍ; ﱍ; ﱍ; نخ; نخ; ) ARABIC LIGATURE NOON WITH KHAH ISOLATED FORM
@@ -12439,7 +12934,7 @@ TEST(normalization, nfd_071_125)
 }
 
 
-TEST(normalization, nfd_071_126)
+TEST(normalization, nfd_071_131)
 {
     // FC4E;FC4E;FC4E;0646 0645;0646 0645; 
     // (ﱎ; ﱎ; ﱎ; نم; نم; ) ARABIC LIGATURE NOON WITH MEEM ISOLATED FORM
@@ -12538,7 +13033,7 @@ TEST(normalization, nfd_071_126)
 }
 
 
-TEST(normalization, nfd_071_127)
+TEST(normalization, nfd_071_132)
 {
     // FC4F;FC4F;FC4F;0646 0649;0646 0649; 
     // (ﱏ; ﱏ; ﱏ; نى; نى; ) ARABIC LIGATURE NOON WITH ALEF MAKSURA ISOLATED FORM
@@ -12637,7 +13132,7 @@ TEST(normalization, nfd_071_127)
 }
 
 
-TEST(normalization, nfd_071_128)
+TEST(normalization, nfd_071_133)
 {
     // FC50;FC50;FC50;0646 064A;0646 064A; 
     // (ﱐ; ﱐ; ﱐ; ني; ني; ) ARABIC LIGATURE NOON WITH YEH ISOLATED FORM
@@ -12736,7 +13231,7 @@ TEST(normalization, nfd_071_128)
 }
 
 
-TEST(normalization, nfd_071_129)
+TEST(normalization, nfd_071_134)
 {
     // FC51;FC51;FC51;0647 062C;0647 062C; 
     // (ﱑ; ﱑ; ﱑ; هج; هج; ) ARABIC LIGATURE HEH WITH JEEM ISOLATED FORM
@@ -12835,7 +13330,7 @@ TEST(normalization, nfd_071_129)
 }
 
 
-TEST(normalization, nfd_071_130)
+TEST(normalization, nfd_071_135)
 {
     // FC52;FC52;FC52;0647 0645;0647 0645; 
     // (ﱒ; ﱒ; ﱒ; هم; هم; ) ARABIC LIGATURE HEH WITH MEEM ISOLATED FORM
@@ -12934,7 +13429,7 @@ TEST(normalization, nfd_071_130)
 }
 
 
-TEST(normalization, nfd_071_131)
+TEST(normalization, nfd_071_136)
 {
     // FC53;FC53;FC53;0647 0649;0647 0649; 
     // (ﱓ; ﱓ; ﱓ; هى; هى; ) ARABIC LIGATURE HEH WITH ALEF MAKSURA ISOLATED FORM
@@ -13033,7 +13528,7 @@ TEST(normalization, nfd_071_131)
 }
 
 
-TEST(normalization, nfd_071_132)
+TEST(normalization, nfd_071_137)
 {
     // FC54;FC54;FC54;0647 064A;0647 064A; 
     // (ﱔ; ﱔ; ﱔ; هي; هي; ) ARABIC LIGATURE HEH WITH YEH ISOLATED FORM
@@ -13132,7 +13627,7 @@ TEST(normalization, nfd_071_132)
 }
 
 
-TEST(normalization, nfd_071_133)
+TEST(normalization, nfd_071_138)
 {
     // FC55;FC55;FC55;064A 062C;064A 062C; 
     // (ﱕ; ﱕ; ﱕ; يج; يج; ) ARABIC LIGATURE YEH WITH JEEM ISOLATED FORM
@@ -13231,7 +13726,7 @@ TEST(normalization, nfd_071_133)
 }
 
 
-TEST(normalization, nfd_071_134)
+TEST(normalization, nfd_071_139)
 {
     // FC56;FC56;FC56;064A 062D;064A 062D; 
     // (ﱖ; ﱖ; ﱖ; يح; يح; ) ARABIC LIGATURE YEH WITH HAH ISOLATED FORM
@@ -13330,7 +13825,7 @@ TEST(normalization, nfd_071_134)
 }
 
 
-TEST(normalization, nfd_071_135)
+TEST(normalization, nfd_071_140)
 {
     // FC57;FC57;FC57;064A 062E;064A 062E; 
     // (ﱗ; ﱗ; ﱗ; يخ; يخ; ) ARABIC LIGATURE YEH WITH KHAH ISOLATED FORM
@@ -13429,7 +13924,7 @@ TEST(normalization, nfd_071_135)
 }
 
 
-TEST(normalization, nfd_071_136)
+TEST(normalization, nfd_071_141)
 {
     // FC58;FC58;FC58;064A 0645;064A 0645; 
     // (ﱘ; ﱘ; ﱘ; يم; يم; ) ARABIC LIGATURE YEH WITH MEEM ISOLATED FORM
@@ -13528,7 +14023,7 @@ TEST(normalization, nfd_071_136)
 }
 
 
-TEST(normalization, nfd_071_137)
+TEST(normalization, nfd_071_142)
 {
     // FC59;FC59;FC59;064A 0649;064A 0649; 
     // (ﱙ; ﱙ; ﱙ; يى; يى; ) ARABIC LIGATURE YEH WITH ALEF MAKSURA ISOLATED FORM
@@ -13627,7 +14122,7 @@ TEST(normalization, nfd_071_137)
 }
 
 
-TEST(normalization, nfd_071_138)
+TEST(normalization, nfd_071_143)
 {
     // FC5A;FC5A;FC5A;064A 064A;064A 064A; 
     // (ﱚ; ﱚ; ﱚ; يي; يي; ) ARABIC LIGATURE YEH WITH YEH ISOLATED FORM
@@ -13726,7 +14221,7 @@ TEST(normalization, nfd_071_138)
 }
 
 
-TEST(normalization, nfd_071_139)
+TEST(normalization, nfd_071_144)
 {
     // FC5B;FC5B;FC5B;0630 0670;0630 0670; 
     // (ﱛ; ﱛ; ﱛ; ذ◌ٰ; ذ◌ٰ; ) ARABIC LIGATURE THAL WITH SUPERSCRIPT ALEF ISOLATED FORM
@@ -13825,7 +14320,7 @@ TEST(normalization, nfd_071_139)
 }
 
 
-TEST(normalization, nfd_071_140)
+TEST(normalization, nfd_071_145)
 {
     // FC5C;FC5C;FC5C;0631 0670;0631 0670; 
     // (ﱜ; ﱜ; ﱜ; ر◌ٰ; ر◌ٰ; ) ARABIC LIGATURE REH WITH SUPERSCRIPT ALEF ISOLATED FORM
@@ -13924,7 +14419,7 @@ TEST(normalization, nfd_071_140)
 }
 
 
-TEST(normalization, nfd_071_141)
+TEST(normalization, nfd_071_146)
 {
     // FC5D;FC5D;FC5D;0649 0670;0649 0670; 
     // (ﱝ; ﱝ; ﱝ; ى◌ٰ; ى◌ٰ; ) ARABIC LIGATURE ALEF MAKSURA WITH SUPERSCRIPT ALEF ISOLATED FORM
@@ -14023,7 +14518,7 @@ TEST(normalization, nfd_071_141)
 }
 
 
-TEST(normalization, nfd_071_142)
+TEST(normalization, nfd_071_147)
 {
     // FC5E;FC5E;FC5E;0020 064C 0651;0020 064C 0651; 
     // (ﱞ; ﱞ; ﱞ;  ◌ٌ◌ّ;  ◌ٌ◌ّ; ) ARABIC LIGATURE SHADDA WITH DAMMATAN ISOLATED FORM
@@ -14122,7 +14617,7 @@ TEST(normalization, nfd_071_142)
 }
 
 
-TEST(normalization, nfd_071_143)
+TEST(normalization, nfd_071_148)
 {
     // FC5F;FC5F;FC5F;0020 064D 0651;0020 064D 0651; 
     // (ﱟ; ﱟ; ﱟ;  ◌ٍ◌ّ;  ◌ٍ◌ّ; ) ARABIC LIGATURE SHADDA WITH KASRATAN ISOLATED FORM
@@ -14221,7 +14716,7 @@ TEST(normalization, nfd_071_143)
 }
 
 
-TEST(normalization, nfd_071_144)
+TEST(normalization, nfd_071_149)
 {
     // FC60;FC60;FC60;0020 064E 0651;0020 064E 0651; 
     // (ﱠ; ﱠ; ﱠ;  ◌َ◌ّ;  ◌َ◌ّ; ) ARABIC LIGATURE SHADDA WITH FATHA ISOLATED FORM
@@ -14320,7 +14815,7 @@ TEST(normalization, nfd_071_144)
 }
 
 
-TEST(normalization, nfd_071_145)
+TEST(normalization, nfd_071_150)
 {
     // FC61;FC61;FC61;0020 064F 0651;0020 064F 0651; 
     // (ﱡ; ﱡ; ﱡ;  ◌ُ◌ّ;  ◌ُ◌ّ; ) ARABIC LIGATURE SHADDA WITH DAMMA ISOLATED FORM
@@ -14419,7 +14914,7 @@ TEST(normalization, nfd_071_145)
 }
 
 
-TEST(normalization, nfd_071_146)
+TEST(normalization, nfd_071_151)
 {
     // FC62;FC62;FC62;0020 0650 0651;0020 0650 0651; 
     // (ﱢ; ﱢ; ﱢ;  ◌ِ◌ّ;  ◌ِ◌ّ; ) ARABIC LIGATURE SHADDA WITH KASRA ISOLATED FORM
@@ -14518,7 +15013,7 @@ TEST(normalization, nfd_071_146)
 }
 
 
-TEST(normalization, nfd_071_147)
+TEST(normalization, nfd_071_152)
 {
     // FC63;FC63;FC63;0020 0651 0670;0020 0651 0670; 
     // (ﱣ; ﱣ; ﱣ;  ◌ّ◌ٰ;  ◌ّ◌ٰ; ) ARABIC LIGATURE SHADDA WITH SUPERSCRIPT ALEF ISOLATED FORM
@@ -14617,7 +15112,7 @@ TEST(normalization, nfd_071_147)
 }
 
 
-TEST(normalization, nfd_071_148)
+TEST(normalization, nfd_071_153)
 {
     // FC64;FC64;FC64;0626 0631;064A 0654 0631; 
     // (ﱤ; ﱤ; ﱤ; ئر; ي◌ٔر; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH REH FINAL FORM
@@ -14714,7 +15209,7 @@ TEST(normalization, nfd_071_148)
 }
 
 
-TEST(normalization, nfd_071_149)
+TEST(normalization, nfd_071_154)
 {
     // FC65;FC65;FC65;0626 0632;064A 0654 0632; 
     // (ﱥ; ﱥ; ﱥ; ئز; ي◌ٔز; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH ZAIN FINAL FORM
@@ -14811,7 +15306,7 @@ TEST(normalization, nfd_071_149)
 }
 
 
-TEST(normalization, nfd_071_150)
+TEST(normalization, nfd_071_155)
 {
     // FC66;FC66;FC66;0626 0645;064A 0654 0645; 
     // (ﱦ; ﱦ; ﱦ; ئم; ي◌ٔم; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH MEEM FINAL FORM
@@ -14908,7 +15403,7 @@ TEST(normalization, nfd_071_150)
 }
 
 
-TEST(normalization, nfd_071_151)
+TEST(normalization, nfd_071_156)
 {
     // FC67;FC67;FC67;0626 0646;064A 0654 0646; 
     // (ﱧ; ﱧ; ﱧ; ئن; ي◌ٔن; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH NOON FINAL FORM
@@ -15005,7 +15500,7 @@ TEST(normalization, nfd_071_151)
 }
 
 
-TEST(normalization, nfd_071_152)
+TEST(normalization, nfd_071_157)
 {
     // FC68;FC68;FC68;0626 0649;064A 0654 0649; 
     // (ﱨ; ﱨ; ﱨ; ئى; ي◌ٔى; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH ALEF MAKSURA FINAL FORM
@@ -15102,7 +15597,7 @@ TEST(normalization, nfd_071_152)
 }
 
 
-TEST(normalization, nfd_071_153)
+TEST(normalization, nfd_071_158)
 {
     // FC69;FC69;FC69;0626 064A;064A 0654 064A; 
     // (ﱩ; ﱩ; ﱩ; ئي; ي◌ٔي; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH YEH FINAL FORM
@@ -15199,7 +15694,7 @@ TEST(normalization, nfd_071_153)
 }
 
 
-TEST(normalization, nfd_071_154)
+TEST(normalization, nfd_071_159)
 {
     // FC6A;FC6A;FC6A;0628 0631;0628 0631; 
     // (ﱪ; ﱪ; ﱪ; بر; بر; ) ARABIC LIGATURE BEH WITH REH FINAL FORM
@@ -15298,7 +15793,7 @@ TEST(normalization, nfd_071_154)
 }
 
 
-TEST(normalization, nfd_071_155)
+TEST(normalization, nfd_071_160)
 {
     // FC6B;FC6B;FC6B;0628 0632;0628 0632; 
     // (ﱫ; ﱫ; ﱫ; بز; بز; ) ARABIC LIGATURE BEH WITH ZAIN FINAL FORM
@@ -15397,7 +15892,7 @@ TEST(normalization, nfd_071_155)
 }
 
 
-TEST(normalization, nfd_071_156)
+TEST(normalization, nfd_071_161)
 {
     // FC6C;FC6C;FC6C;0628 0645;0628 0645; 
     // (ﱬ; ﱬ; ﱬ; بم; بم; ) ARABIC LIGATURE BEH WITH MEEM FINAL FORM
@@ -15496,7 +15991,7 @@ TEST(normalization, nfd_071_156)
 }
 
 
-TEST(normalization, nfd_071_157)
+TEST(normalization, nfd_071_162)
 {
     // FC6D;FC6D;FC6D;0628 0646;0628 0646; 
     // (ﱭ; ﱭ; ﱭ; بن; بن; ) ARABIC LIGATURE BEH WITH NOON FINAL FORM
@@ -15595,7 +16090,7 @@ TEST(normalization, nfd_071_157)
 }
 
 
-TEST(normalization, nfd_071_158)
+TEST(normalization, nfd_071_163)
 {
     // FC6E;FC6E;FC6E;0628 0649;0628 0649; 
     // (ﱮ; ﱮ; ﱮ; بى; بى; ) ARABIC LIGATURE BEH WITH ALEF MAKSURA FINAL FORM
@@ -15694,7 +16189,7 @@ TEST(normalization, nfd_071_158)
 }
 
 
-TEST(normalization, nfd_071_159)
+TEST(normalization, nfd_071_164)
 {
     // FC6F;FC6F;FC6F;0628 064A;0628 064A; 
     // (ﱯ; ﱯ; ﱯ; بي; بي; ) ARABIC LIGATURE BEH WITH YEH FINAL FORM
@@ -15793,7 +16288,7 @@ TEST(normalization, nfd_071_159)
 }
 
 
-TEST(normalization, nfd_071_160)
+TEST(normalization, nfd_071_165)
 {
     // FC70;FC70;FC70;062A 0631;062A 0631; 
     // (ﱰ; ﱰ; ﱰ; تر; تر; ) ARABIC LIGATURE TEH WITH REH FINAL FORM
@@ -15892,7 +16387,7 @@ TEST(normalization, nfd_071_160)
 }
 
 
-TEST(normalization, nfd_071_161)
+TEST(normalization, nfd_071_166)
 {
     // FC71;FC71;FC71;062A 0632;062A 0632; 
     // (ﱱ; ﱱ; ﱱ; تز; تز; ) ARABIC LIGATURE TEH WITH ZAIN FINAL FORM
@@ -15991,7 +16486,7 @@ TEST(normalization, nfd_071_161)
 }
 
 
-TEST(normalization, nfd_071_162)
+TEST(normalization, nfd_071_167)
 {
     // FC72;FC72;FC72;062A 0645;062A 0645; 
     // (ﱲ; ﱲ; ﱲ; تم; تم; ) ARABIC LIGATURE TEH WITH MEEM FINAL FORM
@@ -16090,7 +16585,7 @@ TEST(normalization, nfd_071_162)
 }
 
 
-TEST(normalization, nfd_071_163)
+TEST(normalization, nfd_071_168)
 {
     // FC73;FC73;FC73;062A 0646;062A 0646; 
     // (ﱳ; ﱳ; ﱳ; تن; تن; ) ARABIC LIGATURE TEH WITH NOON FINAL FORM
@@ -16189,7 +16684,7 @@ TEST(normalization, nfd_071_163)
 }
 
 
-TEST(normalization, nfd_071_164)
+TEST(normalization, nfd_071_169)
 {
     // FC74;FC74;FC74;062A 0649;062A 0649; 
     // (ﱴ; ﱴ; ﱴ; تى; تى; ) ARABIC LIGATURE TEH WITH ALEF MAKSURA FINAL FORM
@@ -16288,7 +16783,7 @@ TEST(normalization, nfd_071_164)
 }
 
 
-TEST(normalization, nfd_071_165)
+TEST(normalization, nfd_071_170)
 {
     // FC75;FC75;FC75;062A 064A;062A 064A; 
     // (ﱵ; ﱵ; ﱵ; تي; تي; ) ARABIC LIGATURE TEH WITH YEH FINAL FORM
@@ -16387,7 +16882,7 @@ TEST(normalization, nfd_071_165)
 }
 
 
-TEST(normalization, nfd_071_166)
+TEST(normalization, nfd_071_171)
 {
     // FC76;FC76;FC76;062B 0631;062B 0631; 
     // (ﱶ; ﱶ; ﱶ; ثر; ثر; ) ARABIC LIGATURE THEH WITH REH FINAL FORM
@@ -16486,7 +16981,7 @@ TEST(normalization, nfd_071_166)
 }
 
 
-TEST(normalization, nfd_071_167)
+TEST(normalization, nfd_071_172)
 {
     // FC77;FC77;FC77;062B 0632;062B 0632; 
     // (ﱷ; ﱷ; ﱷ; ثز; ثز; ) ARABIC LIGATURE THEH WITH ZAIN FINAL FORM
@@ -16585,7 +17080,7 @@ TEST(normalization, nfd_071_167)
 }
 
 
-TEST(normalization, nfd_071_168)
+TEST(normalization, nfd_071_173)
 {
     // FC78;FC78;FC78;062B 0645;062B 0645; 
     // (ﱸ; ﱸ; ﱸ; ثم; ثم; ) ARABIC LIGATURE THEH WITH MEEM FINAL FORM
@@ -16684,7 +17179,7 @@ TEST(normalization, nfd_071_168)
 }
 
 
-TEST(normalization, nfd_071_169)
+TEST(normalization, nfd_071_174)
 {
     // FC79;FC79;FC79;062B 0646;062B 0646; 
     // (ﱹ; ﱹ; ﱹ; ثن; ثن; ) ARABIC LIGATURE THEH WITH NOON FINAL FORM
@@ -16783,7 +17278,7 @@ TEST(normalization, nfd_071_169)
 }
 
 
-TEST(normalization, nfd_071_170)
+TEST(normalization, nfd_071_175)
 {
     // FC7A;FC7A;FC7A;062B 0649;062B 0649; 
     // (ﱺ; ﱺ; ﱺ; ثى; ثى; ) ARABIC LIGATURE THEH WITH ALEF MAKSURA FINAL FORM
@@ -16882,7 +17377,7 @@ TEST(normalization, nfd_071_170)
 }
 
 
-TEST(normalization, nfd_071_171)
+TEST(normalization, nfd_071_176)
 {
     // FC7B;FC7B;FC7B;062B 064A;062B 064A; 
     // (ﱻ; ﱻ; ﱻ; ثي; ثي; ) ARABIC LIGATURE THEH WITH YEH FINAL FORM
@@ -16981,7 +17476,7 @@ TEST(normalization, nfd_071_171)
 }
 
 
-TEST(normalization, nfd_071_172)
+TEST(normalization, nfd_071_177)
 {
     // FC7C;FC7C;FC7C;0641 0649;0641 0649; 
     // (ﱼ; ﱼ; ﱼ; فى; فى; ) ARABIC LIGATURE FEH WITH ALEF MAKSURA FINAL FORM
@@ -17080,7 +17575,7 @@ TEST(normalization, nfd_071_172)
 }
 
 
-TEST(normalization, nfd_071_173)
+TEST(normalization, nfd_071_178)
 {
     // FC7D;FC7D;FC7D;0641 064A;0641 064A; 
     // (ﱽ; ﱽ; ﱽ; في; في; ) ARABIC LIGATURE FEH WITH YEH FINAL FORM
@@ -17179,7 +17674,7 @@ TEST(normalization, nfd_071_173)
 }
 
 
-TEST(normalization, nfd_071_174)
+TEST(normalization, nfd_071_179)
 {
     // FC7E;FC7E;FC7E;0642 0649;0642 0649; 
     // (ﱾ; ﱾ; ﱾ; قى; قى; ) ARABIC LIGATURE QAF WITH ALEF MAKSURA FINAL FORM
@@ -17278,7 +17773,7 @@ TEST(normalization, nfd_071_174)
 }
 
 
-TEST(normalization, nfd_071_175)
+TEST(normalization, nfd_071_180)
 {
     // FC7F;FC7F;FC7F;0642 064A;0642 064A; 
     // (ﱿ; ﱿ; ﱿ; قي; قي; ) ARABIC LIGATURE QAF WITH YEH FINAL FORM
@@ -17377,7 +17872,7 @@ TEST(normalization, nfd_071_175)
 }
 
 
-TEST(normalization, nfd_071_176)
+TEST(normalization, nfd_071_181)
 {
     // FC80;FC80;FC80;0643 0627;0643 0627; 
     // (ﲀ; ﲀ; ﲀ; كا; كا; ) ARABIC LIGATURE KAF WITH ALEF FINAL FORM
@@ -17476,7 +17971,7 @@ TEST(normalization, nfd_071_176)
 }
 
 
-TEST(normalization, nfd_071_177)
+TEST(normalization, nfd_071_182)
 {
     // FC81;FC81;FC81;0643 0644;0643 0644; 
     // (ﲁ; ﲁ; ﲁ; كل; كل; ) ARABIC LIGATURE KAF WITH LAM FINAL FORM
@@ -17575,7 +18070,7 @@ TEST(normalization, nfd_071_177)
 }
 
 
-TEST(normalization, nfd_071_178)
+TEST(normalization, nfd_071_183)
 {
     // FC82;FC82;FC82;0643 0645;0643 0645; 
     // (ﲂ; ﲂ; ﲂ; كم; كم; ) ARABIC LIGATURE KAF WITH MEEM FINAL FORM
@@ -17674,7 +18169,7 @@ TEST(normalization, nfd_071_178)
 }
 
 
-TEST(normalization, nfd_071_179)
+TEST(normalization, nfd_071_184)
 {
     // FC83;FC83;FC83;0643 0649;0643 0649; 
     // (ﲃ; ﲃ; ﲃ; كى; كى; ) ARABIC LIGATURE KAF WITH ALEF MAKSURA FINAL FORM
@@ -17773,7 +18268,7 @@ TEST(normalization, nfd_071_179)
 }
 
 
-TEST(normalization, nfd_071_180)
+TEST(normalization, nfd_071_185)
 {
     // FC84;FC84;FC84;0643 064A;0643 064A; 
     // (ﲄ; ﲄ; ﲄ; كي; كي; ) ARABIC LIGATURE KAF WITH YEH FINAL FORM
@@ -17872,7 +18367,7 @@ TEST(normalization, nfd_071_180)
 }
 
 
-TEST(normalization, nfd_071_181)
+TEST(normalization, nfd_071_186)
 {
     // FC85;FC85;FC85;0644 0645;0644 0645; 
     // (ﲅ; ﲅ; ﲅ; لم; لم; ) ARABIC LIGATURE LAM WITH MEEM FINAL FORM
@@ -17971,7 +18466,7 @@ TEST(normalization, nfd_071_181)
 }
 
 
-TEST(normalization, nfd_071_182)
+TEST(normalization, nfd_071_187)
 {
     // FC86;FC86;FC86;0644 0649;0644 0649; 
     // (ﲆ; ﲆ; ﲆ; لى; لى; ) ARABIC LIGATURE LAM WITH ALEF MAKSURA FINAL FORM
@@ -18070,7 +18565,7 @@ TEST(normalization, nfd_071_182)
 }
 
 
-TEST(normalization, nfd_071_183)
+TEST(normalization, nfd_071_188)
 {
     // FC87;FC87;FC87;0644 064A;0644 064A; 
     // (ﲇ; ﲇ; ﲇ; لي; لي; ) ARABIC LIGATURE LAM WITH YEH FINAL FORM
@@ -18169,7 +18664,7 @@ TEST(normalization, nfd_071_183)
 }
 
 
-TEST(normalization, nfd_071_184)
+TEST(normalization, nfd_071_189)
 {
     // FC88;FC88;FC88;0645 0627;0645 0627; 
     // (ﲈ; ﲈ; ﲈ; ما; ما; ) ARABIC LIGATURE MEEM WITH ALEF FINAL FORM
@@ -18268,7 +18763,7 @@ TEST(normalization, nfd_071_184)
 }
 
 
-TEST(normalization, nfd_071_185)
+TEST(normalization, nfd_071_190)
 {
     // FC89;FC89;FC89;0645 0645;0645 0645; 
     // (ﲉ; ﲉ; ﲉ; مم; مم; ) ARABIC LIGATURE MEEM WITH MEEM FINAL FORM
@@ -18367,7 +18862,7 @@ TEST(normalization, nfd_071_185)
 }
 
 
-TEST(normalization, nfd_071_186)
+TEST(normalization, nfd_071_191)
 {
     // FC8A;FC8A;FC8A;0646 0631;0646 0631; 
     // (ﲊ; ﲊ; ﲊ; نر; نر; ) ARABIC LIGATURE NOON WITH REH FINAL FORM
@@ -18466,7 +18961,7 @@ TEST(normalization, nfd_071_186)
 }
 
 
-TEST(normalization, nfd_071_187)
+TEST(normalization, nfd_071_192)
 {
     // FC8B;FC8B;FC8B;0646 0632;0646 0632; 
     // (ﲋ; ﲋ; ﲋ; نز; نز; ) ARABIC LIGATURE NOON WITH ZAIN FINAL FORM
@@ -18565,7 +19060,7 @@ TEST(normalization, nfd_071_187)
 }
 
 
-TEST(normalization, nfd_071_188)
+TEST(normalization, nfd_071_193)
 {
     // FC8C;FC8C;FC8C;0646 0645;0646 0645; 
     // (ﲌ; ﲌ; ﲌ; نم; نم; ) ARABIC LIGATURE NOON WITH MEEM FINAL FORM
@@ -18664,7 +19159,7 @@ TEST(normalization, nfd_071_188)
 }
 
 
-TEST(normalization, nfd_071_189)
+TEST(normalization, nfd_071_194)
 {
     // FC8D;FC8D;FC8D;0646 0646;0646 0646; 
     // (ﲍ; ﲍ; ﲍ; نن; نن; ) ARABIC LIGATURE NOON WITH NOON FINAL FORM
@@ -18763,7 +19258,7 @@ TEST(normalization, nfd_071_189)
 }
 
 
-TEST(normalization, nfd_071_190)
+TEST(normalization, nfd_071_195)
 {
     // FC8E;FC8E;FC8E;0646 0649;0646 0649; 
     // (ﲎ; ﲎ; ﲎ; نى; نى; ) ARABIC LIGATURE NOON WITH ALEF MAKSURA FINAL FORM
@@ -18862,7 +19357,7 @@ TEST(normalization, nfd_071_190)
 }
 
 
-TEST(normalization, nfd_071_191)
+TEST(normalization, nfd_071_196)
 {
     // FC8F;FC8F;FC8F;0646 064A;0646 064A; 
     // (ﲏ; ﲏ; ﲏ; ني; ني; ) ARABIC LIGATURE NOON WITH YEH FINAL FORM
@@ -18961,7 +19456,7 @@ TEST(normalization, nfd_071_191)
 }
 
 
-TEST(normalization, nfd_071_192)
+TEST(normalization, nfd_071_197)
 {
     // FC90;FC90;FC90;0649 0670;0649 0670; 
     // (ﲐ; ﲐ; ﲐ; ى◌ٰ; ى◌ٰ; ) ARABIC LIGATURE ALEF MAKSURA WITH SUPERSCRIPT ALEF FINAL FORM
@@ -19060,7 +19555,7 @@ TEST(normalization, nfd_071_192)
 }
 
 
-TEST(normalization, nfd_071_193)
+TEST(normalization, nfd_071_198)
 {
     // FC91;FC91;FC91;064A 0631;064A 0631; 
     // (ﲑ; ﲑ; ﲑ; ير; ير; ) ARABIC LIGATURE YEH WITH REH FINAL FORM
@@ -19159,7 +19654,7 @@ TEST(normalization, nfd_071_193)
 }
 
 
-TEST(normalization, nfd_071_194)
+TEST(normalization, nfd_071_199)
 {
     // FC92;FC92;FC92;064A 0632;064A 0632; 
     // (ﲒ; ﲒ; ﲒ; يز; يز; ) ARABIC LIGATURE YEH WITH ZAIN FINAL FORM
@@ -19180,499 +19675,6 @@ TEST(normalization, nfd_071_194)
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_071_195)
-{
-    // FC93;FC93;FC93;064A 0645;064A 0645; 
-    // (ﲓ; ﲓ; ﲓ; يم; يم; ) ARABIC LIGATURE YEH WITH MEEM FINAL FORM
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xFC93 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xFC93 }};
-        std::array<uint32_t, 1> const c3 = {{ 0xFC93 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x064A, 0x0645 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x064A, 0x0645 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_071_196)
-{
-    // FC94;FC94;FC94;064A 0646;064A 0646; 
-    // (ﲔ; ﲔ; ﲔ; ين; ين; ) ARABIC LIGATURE YEH WITH NOON FINAL FORM
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xFC94 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xFC94 }};
-        std::array<uint32_t, 1> const c3 = {{ 0xFC94 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x064A, 0x0646 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x064A, 0x0646 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_071_197)
-{
-    // FC95;FC95;FC95;064A 0649;064A 0649; 
-    // (ﲕ; ﲕ; ﲕ; يى; يى; ) ARABIC LIGATURE YEH WITH ALEF MAKSURA FINAL FORM
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xFC95 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xFC95 }};
-        std::array<uint32_t, 1> const c3 = {{ 0xFC95 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x064A, 0x0649 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x064A, 0x0649 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_071_198)
-{
-    // FC96;FC96;FC96;064A 064A;064A 064A; 
-    // (ﲖ; ﲖ; ﲖ; يي; يي; ) ARABIC LIGATURE YEH WITH YEH FINAL FORM
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xFC96 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xFC96 }};
-        std::array<uint32_t, 1> const c3 = {{ 0xFC96 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x064A, 0x064A }};
-        std::array<uint32_t, 2> const c5 = {{ 0x064A, 0x064A }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_071_199)
-{
-    // FC97;FC97;FC97;0626 062C;064A 0654 062C; 
-    // (ﲗ; ﲗ; ﲗ; ئج; ي◌ٔج; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH JEEM INITIAL FORM
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xFC97 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xFC97 }};
-        std::array<uint32_t, 1> const c3 = {{ 0xFC97 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x0626, 0x062C }};
-        std::array<uint32_t, 3> const c5 = {{ 0x064A, 0x0654, 0x062C }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 

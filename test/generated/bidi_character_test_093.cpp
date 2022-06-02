@@ -19,7 +19,7 @@ TEST(bidi_character, bidi_character_093_000)
 
     {
         // line 65101
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -50,7 +50,7 @@ TEST(bidi_character, bidi_character_093_000)
 
     {
         // line 65102
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -81,9 +81,9 @@ TEST(bidi_character, bidi_character_093_000)
 
     {
         // line 65103
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -96,7 +96,7 @@ TEST(bidi_character, bidi_character_093_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -112,7 +112,7 @@ TEST(bidi_character, bidi_character_093_000)
 
     {
         // line 65104
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -143,9 +143,9 @@ TEST(bidi_character, bidi_character_093_000)
 
     {
         // line 65105
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -158,7 +158,7 @@ TEST(bidi_character, bidi_character_093_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -174,7 +174,7 @@ TEST(bidi_character, bidi_character_093_000)
 
     {
         // line 65106
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -205,7 +205,7 @@ TEST(bidi_character, bidi_character_093_000)
 
     {
         // line 65107
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -236,7 +236,7 @@ TEST(bidi_character, bidi_character_093_000)
 
     {
         // line 65108
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -267,7 +267,7 @@ TEST(bidi_character, bidi_character_093_000)
 
     {
         // line 65109
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -298,7 +298,7 @@ TEST(bidi_character, bidi_character_093_000)
 
     {
         // line 65110
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -333,9 +333,9 @@ TEST(bidi_character, bidi_character_093_001)
 
     {
         // line 65111
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -348,7 +348,7 @@ TEST(bidi_character, bidi_character_093_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -364,7 +364,7 @@ TEST(bidi_character, bidi_character_093_001)
 
     {
         // line 65112
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -395,7 +395,7 @@ TEST(bidi_character, bidi_character_093_001)
 
     {
         // line 65113
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -426,7 +426,7 @@ TEST(bidi_character, bidi_character_093_001)
 
     {
         // line 65114
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -457,7 +457,7 @@ TEST(bidi_character, bidi_character_093_001)
 
     {
         // line 65115
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -488,7 +488,7 @@ TEST(bidi_character, bidi_character_093_001)
 
     {
         // line 65116
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -519,9 +519,9 @@ TEST(bidi_character, bidi_character_093_001)
 
     {
         // line 65117
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -534,7 +534,7 @@ TEST(bidi_character, bidi_character_093_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -550,7 +550,7 @@ TEST(bidi_character, bidi_character_093_001)
 
     {
         // line 65118
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -581,9 +581,9 @@ TEST(bidi_character, bidi_character_093_001)
 
     {
         // line 65119
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -596,7 +596,7 @@ TEST(bidi_character, bidi_character_093_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -612,7 +612,7 @@ TEST(bidi_character, bidi_character_093_001)
 
     {
         // line 65120
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -647,9 +647,9 @@ TEST(bidi_character, bidi_character_093_002)
 
     {
         // line 65121
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -662,7 +662,7 @@ TEST(bidi_character, bidi_character_093_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -678,7 +678,7 @@ TEST(bidi_character, bidi_character_093_002)
 
     {
         // line 65122
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -709,9 +709,9 @@ TEST(bidi_character, bidi_character_093_002)
 
     {
         // line 65123
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -724,7 +724,7 @@ TEST(bidi_character, bidi_character_093_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -740,7 +740,7 @@ TEST(bidi_character, bidi_character_093_002)
 
     {
         // line 65124
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -771,9 +771,9 @@ TEST(bidi_character, bidi_character_093_002)
 
     {
         // line 65125
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -786,7 +786,7 @@ TEST(bidi_character, bidi_character_093_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -802,7 +802,7 @@ TEST(bidi_character, bidi_character_093_002)
 
     {
         // line 65126
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -833,9 +833,9 @@ TEST(bidi_character, bidi_character_093_002)
 
     {
         // line 65127
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -848,7 +848,7 @@ TEST(bidi_character, bidi_character_093_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -864,7 +864,7 @@ TEST(bidi_character, bidi_character_093_002)
 
     {
         // line 65128
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -895,9 +895,9 @@ TEST(bidi_character, bidi_character_093_002)
 
     {
         // line 65129
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -910,7 +910,7 @@ TEST(bidi_character, bidi_character_093_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -926,7 +926,7 @@ TEST(bidi_character, bidi_character_093_002)
 
     {
         // line 65130
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -961,9 +961,9 @@ TEST(bidi_character, bidi_character_093_003)
 
     {
         // line 65131
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -976,7 +976,7 @@ TEST(bidi_character, bidi_character_093_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -992,7 +992,7 @@ TEST(bidi_character, bidi_character_093_003)
 
     {
         // line 65132
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1023,9 +1023,9 @@ TEST(bidi_character, bidi_character_093_003)
 
     {
         // line 65133
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1038,7 +1038,7 @@ TEST(bidi_character, bidi_character_093_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1054,7 +1054,7 @@ TEST(bidi_character, bidi_character_093_003)
 
     {
         // line 65134
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1085,9 +1085,9 @@ TEST(bidi_character, bidi_character_093_003)
 
     {
         // line 65135
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1100,7 +1100,7 @@ TEST(bidi_character, bidi_character_093_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1116,7 +1116,7 @@ TEST(bidi_character, bidi_character_093_003)
 
     {
         // line 65136
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1147,9 +1147,9 @@ TEST(bidi_character, bidi_character_093_003)
 
     {
         // line 65137
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1162,7 +1162,7 @@ TEST(bidi_character, bidi_character_093_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1178,7 +1178,7 @@ TEST(bidi_character, bidi_character_093_003)
 
     {
         // line 65138
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1209,9 +1209,9 @@ TEST(bidi_character, bidi_character_093_003)
 
     {
         // line 65139
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1224,7 +1224,7 @@ TEST(bidi_character, bidi_character_093_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1240,7 +1240,7 @@ TEST(bidi_character, bidi_character_093_003)
 
     {
         // line 65140
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1275,9 +1275,9 @@ TEST(bidi_character, bidi_character_093_004)
 
     {
         // line 65141
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1290,7 +1290,7 @@ TEST(bidi_character, bidi_character_093_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1306,7 +1306,7 @@ TEST(bidi_character, bidi_character_093_004)
 
     {
         // line 65142
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1337,9 +1337,9 @@ TEST(bidi_character, bidi_character_093_004)
 
     {
         // line 65143
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1352,7 +1352,7 @@ TEST(bidi_character, bidi_character_093_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1368,7 +1368,7 @@ TEST(bidi_character, bidi_character_093_004)
 
     {
         // line 65144
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1399,9 +1399,9 @@ TEST(bidi_character, bidi_character_093_004)
 
     {
         // line 65145
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1414,7 +1414,7 @@ TEST(bidi_character, bidi_character_093_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1430,7 +1430,7 @@ TEST(bidi_character, bidi_character_093_004)
 
     {
         // line 65146
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1461,7 +1461,7 @@ TEST(bidi_character, bidi_character_093_004)
 
     {
         // line 65147
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -1492,7 +1492,7 @@ TEST(bidi_character, bidi_character_093_004)
 
     {
         // line 65148
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1523,7 +1523,7 @@ TEST(bidi_character, bidi_character_093_004)
 
     {
         // line 65149
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -1554,7 +1554,7 @@ TEST(bidi_character, bidi_character_093_004)
 
     {
         // line 65150
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1589,9 +1589,9 @@ TEST(bidi_character, bidi_character_093_005)
 
     {
         // line 65151
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1604,7 +1604,7 @@ TEST(bidi_character, bidi_character_093_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1620,7 +1620,7 @@ TEST(bidi_character, bidi_character_093_005)
 
     {
         // line 65152
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1651,7 +1651,7 @@ TEST(bidi_character, bidi_character_093_005)
 
     {
         // line 65153
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -1682,7 +1682,7 @@ TEST(bidi_character, bidi_character_093_005)
 
     {
         // line 65154
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1713,7 +1713,7 @@ TEST(bidi_character, bidi_character_093_005)
 
     {
         // line 65155
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -1744,7 +1744,7 @@ TEST(bidi_character, bidi_character_093_005)
 
     {
         // line 65156
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1775,9 +1775,9 @@ TEST(bidi_character, bidi_character_093_005)
 
     {
         // line 65157
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1790,7 +1790,7 @@ TEST(bidi_character, bidi_character_093_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1806,7 +1806,7 @@ TEST(bidi_character, bidi_character_093_005)
 
     {
         // line 65158
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1837,9 +1837,9 @@ TEST(bidi_character, bidi_character_093_005)
 
     {
         // line 65159
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 2, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1852,7 +1852,7 @@ TEST(bidi_character, bidi_character_093_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1868,7 +1868,7 @@ TEST(bidi_character, bidi_character_093_005)
 
     {
         // line 65160
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1903,9 +1903,9 @@ TEST(bidi_character, bidi_character_093_006)
 
     {
         // line 65161
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1918,7 +1918,7 @@ TEST(bidi_character, bidi_character_093_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1934,7 +1934,7 @@ TEST(bidi_character, bidi_character_093_006)
 
     {
         // line 65162
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -1965,9 +1965,9 @@ TEST(bidi_character, bidi_character_093_006)
 
     {
         // line 65163
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 2, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -1980,7 +1980,7 @@ TEST(bidi_character, bidi_character_093_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -1996,7 +1996,7 @@ TEST(bidi_character, bidi_character_093_006)
 
     {
         // line 65164
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -2027,9 +2027,9 @@ TEST(bidi_character, bidi_character_093_006)
 
     {
         // line 65165
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2042,7 +2042,7 @@ TEST(bidi_character, bidi_character_093_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -2058,7 +2058,7 @@ TEST(bidi_character, bidi_character_093_006)
 
     {
         // line 65166
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -2089,9 +2089,9 @@ TEST(bidi_character, bidi_character_093_006)
 
     {
         // line 65167
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2104,7 +2104,7 @@ TEST(bidi_character, bidi_character_093_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -2120,7 +2120,7 @@ TEST(bidi_character, bidi_character_093_006)
 
     {
         // line 65168
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -2151,9 +2151,9 @@ TEST(bidi_character, bidi_character_093_006)
 
     {
         // line 65169
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 2, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2166,7 +2166,7 @@ TEST(bidi_character, bidi_character_093_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -2182,7 +2182,7 @@ TEST(bidi_character, bidi_character_093_006)
 
     {
         // line 65170
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -2217,9 +2217,9 @@ TEST(bidi_character, bidi_character_093_007)
 
     {
         // line 65171
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2232,7 +2232,7 @@ TEST(bidi_character, bidi_character_093_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -2248,7 +2248,7 @@ TEST(bidi_character, bidi_character_093_007)
 
     {
         // line 65172
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -2279,9 +2279,9 @@ TEST(bidi_character, bidi_character_093_007)
 
     {
         // line 65173
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2294,7 +2294,7 @@ TEST(bidi_character, bidi_character_093_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -2310,7 +2310,7 @@ TEST(bidi_character, bidi_character_093_007)
 
     {
         // line 65174
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -2341,9 +2341,9 @@ TEST(bidi_character, bidi_character_093_007)
 
     {
         // line 65175
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2356,7 +2356,7 @@ TEST(bidi_character, bidi_character_093_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -2372,7 +2372,7 @@ TEST(bidi_character, bidi_character_093_007)
 
     {
         // line 65176
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -2403,9 +2403,9 @@ TEST(bidi_character, bidi_character_093_007)
 
     {
         // line 65177
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2418,7 +2418,7 @@ TEST(bidi_character, bidi_character_093_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -2434,7 +2434,7 @@ TEST(bidi_character, bidi_character_093_007)
 
     {
         // line 65178
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -2465,9 +2465,9 @@ TEST(bidi_character, bidi_character_093_007)
 
     {
         // line 65179
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2480,7 +2480,7 @@ TEST(bidi_character, bidi_character_093_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -2496,7 +2496,7 @@ TEST(bidi_character, bidi_character_093_007)
 
     {
         // line 65180
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -2531,9 +2531,9 @@ TEST(bidi_character, bidi_character_093_008)
 
     {
         // line 65181
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2546,7 +2546,7 @@ TEST(bidi_character, bidi_character_093_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -2562,7 +2562,7 @@ TEST(bidi_character, bidi_character_093_008)
 
     {
         // line 65182
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -2593,9 +2593,9 @@ TEST(bidi_character, bidi_character_093_008)
 
     {
         // line 65183
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0062, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2608,7 +2608,7 @@ TEST(bidi_character, bidi_character_093_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -2624,7 +2624,7 @@ TEST(bidi_character, bidi_character_093_008)
 
     {
         // line 65184
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -2655,9 +2655,71 @@ TEST(bidi_character, bidi_character_093_008)
 
     {
         // line 65185
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0062 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 1, 2, 1, 1, 1, 2 };
+            { 1, 1, 2, 1, 1, 1, 1, 2, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65186
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65187
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x0062 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2686,9 +2748,9 @@ TEST(bidi_character, bidi_character_093_008)
 
     {
         // line 65188
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -2717,9 +2779,9 @@ TEST(bidi_character, bidi_character_093_008)
 
     {
         // line 65189
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2748,71 +2810,9 @@ TEST(bidi_character, bidi_character_093_008)
 
     {
         // line 65190
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65191
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65192
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -2844,10 +2844,72 @@ TEST(bidi_character, bidi_character_093_009)
 {
 
     {
-        // line 65193
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        // line 65191
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65192
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65193
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x0062 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2876,9 +2938,9 @@ TEST(bidi_character, bidi_character_093_009)
 
     {
         // line 65194
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -2907,9 +2969,9 @@ TEST(bidi_character, bidi_character_093_009)
 
     {
         // line 65195
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -2938,9 +3000,9 @@ TEST(bidi_character, bidi_character_093_009)
 
     {
         // line 65196
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -2969,9 +3031,9 @@ TEST(bidi_character, bidi_character_093_009)
 
     {
         // line 65197
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -3000,9 +3062,9 @@ TEST(bidi_character, bidi_character_093_009)
 
     {
         // line 65198
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3031,9 +3093,9 @@ TEST(bidi_character, bidi_character_093_009)
 
     {
         // line 65199
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -3062,71 +3124,9 @@ TEST(bidi_character, bidi_character_093_009)
 
     {
         // line 65200
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65201
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65202
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3158,10 +3158,10 @@ TEST(bidi_character, bidi_character_093_010)
 {
 
     {
-        // line 65203
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        // line 65201
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -3189,10 +3189,72 @@ TEST(bidi_character, bidi_character_093_010)
     }
 
     {
-        // line 65204
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        // line 65202
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65203
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0062, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65204
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3221,9 +3283,9 @@ TEST(bidi_character, bidi_character_093_010)
 
     {
         // line 65205
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0062 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -3236,7 +3298,7 @@ TEST(bidi_character, bidi_character_093_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -3252,9 +3314,9 @@ TEST(bidi_character, bidi_character_093_010)
 
     {
         // line 65206
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3283,9 +3345,9 @@ TEST(bidi_character, bidi_character_093_010)
 
     {
         // line 65207
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -3298,7 +3360,7 @@ TEST(bidi_character, bidi_character_093_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -3314,9 +3376,9 @@ TEST(bidi_character, bidi_character_093_010)
 
     {
         // line 65208
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3345,9 +3407,9 @@ TEST(bidi_character, bidi_character_093_010)
 
     {
         // line 65209
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -3360,7 +3422,7 @@ TEST(bidi_character, bidi_character_093_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -3376,71 +3438,9 @@ TEST(bidi_character, bidi_character_093_010)
 
     {
         // line 65210
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65211
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65212
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3472,10 +3472,10 @@ TEST(bidi_character, bidi_character_093_011)
 {
 
     {
-        // line 65213
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        // line 65211
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0062 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+            { 1, 1, 1, 1, 2, 1, 1, 1, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -3504,9 +3504,9 @@ TEST(bidi_character, bidi_character_093_011)
 
     {
         // line 65214
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3535,7 +3535,7 @@ TEST(bidi_character, bidi_character_093_011)
 
     {
         // line 65215
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -3566,9 +3566,9 @@ TEST(bidi_character, bidi_character_093_011)
 
     {
         // line 65216
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3597,7 +3597,7 @@ TEST(bidi_character, bidi_character_093_011)
 
     {
         // line 65217
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -3628,9 +3628,9 @@ TEST(bidi_character, bidi_character_093_011)
 
     {
         // line 65218
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3659,7 +3659,7 @@ TEST(bidi_character, bidi_character_093_011)
 
     {
         // line 65219
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -3690,9 +3690,9 @@ TEST(bidi_character, bidi_character_093_011)
 
     {
         // line 65220
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3721,7 +3721,7 @@ TEST(bidi_character, bidi_character_093_011)
 
     {
         // line 65221
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -3752,9 +3752,9 @@ TEST(bidi_character, bidi_character_093_011)
 
     {
         // line 65222
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3787,7 +3787,7 @@ TEST(bidi_character, bidi_character_093_012)
 
     {
         // line 65223
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -3818,9 +3818,9 @@ TEST(bidi_character, bidi_character_093_012)
 
     {
         // line 65224
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -3849,7 +3849,7 @@ TEST(bidi_character, bidi_character_093_012)
 
     {
         // line 65225
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -3880,7 +3880,7 @@ TEST(bidi_character, bidi_character_093_012)
 
     {
         // line 65226
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
@@ -3911,7 +3911,7 @@ TEST(bidi_character, bidi_character_093_012)
 
     {
         // line 65227
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -3942,7 +3942,7 @@ TEST(bidi_character, bidi_character_093_012)
 
     {
         // line 65228
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -3973,7 +3973,7 @@ TEST(bidi_character, bidi_character_093_012)
 
     {
         // line 65229
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4004,7 +4004,7 @@ TEST(bidi_character, bidi_character_093_012)
 
     {
         // line 65230
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -4035,7 +4035,7 @@ TEST(bidi_character, bidi_character_093_012)
 
     {
         // line 65231
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4066,9 +4066,9 @@ TEST(bidi_character, bidi_character_093_012)
 
     {
         // line 65232
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4101,7 +4101,7 @@ TEST(bidi_character, bidi_character_093_013)
 
     {
         // line 65233
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4132,9 +4132,9 @@ TEST(bidi_character, bidi_character_093_013)
 
     {
         // line 65234
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4163,7 +4163,7 @@ TEST(bidi_character, bidi_character_093_013)
 
     {
         // line 65235
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4194,7 +4194,7 @@ TEST(bidi_character, bidi_character_093_013)
 
     {
         // line 65236
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -4225,7 +4225,7 @@ TEST(bidi_character, bidi_character_093_013)
 
     {
         // line 65237
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4256,9 +4256,9 @@ TEST(bidi_character, bidi_character_093_013)
 
     {
         // line 65238
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4287,7 +4287,7 @@ TEST(bidi_character, bidi_character_093_013)
 
     {
         // line 65239
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4318,9 +4318,9 @@ TEST(bidi_character, bidi_character_093_013)
 
     {
         // line 65240
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4349,7 +4349,7 @@ TEST(bidi_character, bidi_character_093_013)
 
     {
         // line 65241
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4380,7 +4380,7 @@ TEST(bidi_character, bidi_character_093_013)
 
     {
         // line 65242
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -4415,7 +4415,7 @@ TEST(bidi_character, bidi_character_093_014)
 
     {
         // line 65243
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4446,9 +4446,9 @@ TEST(bidi_character, bidi_character_093_014)
 
     {
         // line 65244
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4477,7 +4477,7 @@ TEST(bidi_character, bidi_character_093_014)
 
     {
         // line 65245
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4508,9 +4508,9 @@ TEST(bidi_character, bidi_character_093_014)
 
     {
         // line 65246
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4539,7 +4539,7 @@ TEST(bidi_character, bidi_character_093_014)
 
     {
         // line 65247
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4570,9 +4570,9 @@ TEST(bidi_character, bidi_character_093_014)
 
     {
         // line 65248
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4601,7 +4601,7 @@ TEST(bidi_character, bidi_character_093_014)
 
     {
         // line 65249
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4632,9 +4632,9 @@ TEST(bidi_character, bidi_character_093_014)
 
     {
         // line 65250
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4663,7 +4663,7 @@ TEST(bidi_character, bidi_character_093_014)
 
     {
         // line 65251
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4694,9 +4694,9 @@ TEST(bidi_character, bidi_character_093_014)
 
     {
         // line 65252
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4729,7 +4729,7 @@ TEST(bidi_character, bidi_character_093_015)
 
     {
         // line 65253
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4760,9 +4760,9 @@ TEST(bidi_character, bidi_character_093_015)
 
     {
         // line 65254
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4791,7 +4791,7 @@ TEST(bidi_character, bidi_character_093_015)
 
     {
         // line 65255
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4822,7 +4822,7 @@ TEST(bidi_character, bidi_character_093_015)
 
     {
         // line 65256
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -4853,7 +4853,7 @@ TEST(bidi_character, bidi_character_093_015)
 
     {
         // line 65257
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -4884,9 +4884,9 @@ TEST(bidi_character, bidi_character_093_015)
 
     {
         // line 65258
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4915,9 +4915,9 @@ TEST(bidi_character, bidi_character_093_015)
 
     {
         // line 65259
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -4946,9 +4946,9 @@ TEST(bidi_character, bidi_character_093_015)
 
     {
         // line 65260
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -4977,9 +4977,9 @@ TEST(bidi_character, bidi_character_093_015)
 
     {
         // line 65261
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -5008,9 +5008,9 @@ TEST(bidi_character, bidi_character_093_015)
 
     {
         // line 65262
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -5043,9 +5043,9 @@ TEST(bidi_character, bidi_character_093_016)
 
     {
         // line 65263
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -5074,69 +5074,7 @@ TEST(bidi_character, bidi_character_093_016)
 
     {
         // line 65264
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65265
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65266
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
@@ -5166,10 +5104,10 @@ TEST(bidi_character, bidi_character_093_016)
     }
 
     {
-        // line 65267
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
+        // line 65265
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -5197,8 +5135,8 @@ TEST(bidi_character, bidi_character_093_016)
     }
 
     {
-        // line 65268
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        // line 65266
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -5228,10 +5166,10 @@ TEST(bidi_character, bidi_character_093_016)
     }
 
     {
-        // line 65269
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        // line 65267
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -5259,8 +5197,8 @@ TEST(bidi_character, bidi_character_093_016)
     }
 
     {
-        // line 65270
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
+        // line 65268
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -5290,10 +5228,72 @@ TEST(bidi_character, bidi_character_093_016)
     }
 
     {
-        // line 65271
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
+        // line 65269
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65270
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65271
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -5322,9 +5322,9 @@ TEST(bidi_character, bidi_character_093_016)
 
     {
         // line 65272
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -5357,9 +5357,9 @@ TEST(bidi_character, bidi_character_093_017)
 
     {
         // line 65273
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -5388,7 +5388,7 @@ TEST(bidi_character, bidi_character_093_017)
 
     {
         // line 65274
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -5419,9 +5419,9 @@ TEST(bidi_character, bidi_character_093_017)
 
     {
         // line 65275
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -5450,131 +5450,7 @@ TEST(bidi_character, bidi_character_093_017)
 
     {
         // line 65276
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65277
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65278
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65279
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65280
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -5604,10 +5480,134 @@ TEST(bidi_character, bidi_character_093_017)
     }
 
     {
-        // line 65281
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        // line 65277
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65278
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65279
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65280
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65281
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -5636,7 +5636,7 @@ TEST(bidi_character, bidi_character_093_017)
 
     {
         // line 65282
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -5671,9 +5671,9 @@ TEST(bidi_character, bidi_character_093_018)
 
     {
         // line 65283
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -5702,9 +5702,9 @@ TEST(bidi_character, bidi_character_093_018)
 
     {
         // line 65284
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -5733,7 +5733,7 @@ TEST(bidi_character, bidi_character_093_018)
 
     {
         // line 65285
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -5764,9 +5764,9 @@ TEST(bidi_character, bidi_character_093_018)
 
     {
         // line 65286
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -5795,7 +5795,7 @@ TEST(bidi_character, bidi_character_093_018)
 
     {
         // line 65287
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -5826,9 +5826,9 @@ TEST(bidi_character, bidi_character_093_018)
 
     {
         // line 65288
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -5857,7 +5857,7 @@ TEST(bidi_character, bidi_character_093_018)
 
     {
         // line 65289
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -5888,9 +5888,9 @@ TEST(bidi_character, bidi_character_093_018)
 
     {
         // line 65290
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -5919,7 +5919,7 @@ TEST(bidi_character, bidi_character_093_018)
 
     {
         // line 65291
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -5950,9 +5950,9 @@ TEST(bidi_character, bidi_character_093_018)
 
     {
         // line 65292
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -5985,7 +5985,7 @@ TEST(bidi_character, bidi_character_093_019)
 
     {
         // line 65293
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -6016,9 +6016,9 @@ TEST(bidi_character, bidi_character_093_019)
 
     {
         // line 65294
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -6047,7 +6047,7 @@ TEST(bidi_character, bidi_character_093_019)
 
     {
         // line 65295
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -6078,7 +6078,7 @@ TEST(bidi_character, bidi_character_093_019)
 
     {
         // line 65296
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -6109,7 +6109,7 @@ TEST(bidi_character, bidi_character_093_019)
 
     {
         // line 65297
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -6140,69 +6140,7 @@ TEST(bidi_character, bidi_character_093_019)
 
     {
         // line 65298
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65299
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65300
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -6232,10 +6170,72 @@ TEST(bidi_character, bidi_character_093_019)
     }
 
     {
-        // line 65301
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        // line 65299
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65300
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65301
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -6264,7 +6264,7 @@ TEST(bidi_character, bidi_character_093_019)
 
     {
         // line 65302
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -6299,9 +6299,9 @@ TEST(bidi_character, bidi_character_093_020)
 
     {
         // line 65303
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -6330,7 +6330,69 @@ TEST(bidi_character, bidi_character_093_020)
 
     {
         // line 65304
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65305
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65306
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -6360,72 +6422,10 @@ TEST(bidi_character, bidi_character_093_020)
     }
 
     {
-        // line 65305
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65306
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
         // line 65307
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -6454,7 +6454,7 @@ TEST(bidi_character, bidi_character_093_020)
 
     {
         // line 65308
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -6485,9 +6485,9 @@ TEST(bidi_character, bidi_character_093_020)
 
     {
         // line 65309
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -6516,7 +6516,7 @@ TEST(bidi_character, bidi_character_093_020)
 
     {
         // line 65310
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -6547,9 +6547,9 @@ TEST(bidi_character, bidi_character_093_020)
 
     {
         // line 65311
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -6578,7 +6578,7 @@ TEST(bidi_character, bidi_character_093_020)
 
     {
         // line 65312
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -6613,9 +6613,9 @@ TEST(bidi_character, bidi_character_093_021)
 
     {
         // line 65313
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -6644,7 +6644,7 @@ TEST(bidi_character, bidi_character_093_021)
 
     {
         // line 65314
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -6675,9 +6675,9 @@ TEST(bidi_character, bidi_character_093_021)
 
     {
         // line 65315
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -6706,69 +6706,7 @@ TEST(bidi_character, bidi_character_093_021)
 
     {
         // line 65316
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65317
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65318
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -6798,10 +6736,72 @@ TEST(bidi_character, bidi_character_093_021)
     }
 
     {
-        // line 65319
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        // line 65317
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 1, 1, 1, 1, 1 };
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65318
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65319
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -6830,7 +6830,7 @@ TEST(bidi_character, bidi_character_093_021)
 
     {
         // line 65320
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -6861,9 +6861,9 @@ TEST(bidi_character, bidi_character_093_021)
 
     {
         // line 65321
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 1, 1, 1, 1, 1 };
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -6892,7 +6892,7 @@ TEST(bidi_character, bidi_character_093_021)
 
     {
         // line 65322
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -6927,9 +6927,9 @@ TEST(bidi_character, bidi_character_093_022)
 
     {
         // line 65323
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 1, 1, 1, 1, 1 };
+            { 1, 2, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -6958,9 +6958,9 @@ TEST(bidi_character, bidi_character_093_022)
 
     {
         // line 65324
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -6989,9 +6989,9 @@ TEST(bidi_character, bidi_character_093_022)
 
     {
         // line 65325
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7020,7 +7020,69 @@ TEST(bidi_character, bidi_character_093_022)
 
     {
         // line 65326
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65327
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x05D0, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65328
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -7050,10 +7112,10 @@ TEST(bidi_character, bidi_character_093_022)
     }
 
     {
-        // line 65327
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x05D0 };
+        // line 65329
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 1, 2, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7082,9 +7144,9 @@ TEST(bidi_character, bidi_character_093_022)
 
     {
         // line 65330
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -7113,9 +7175,9 @@ TEST(bidi_character, bidi_character_093_022)
 
     {
         // line 65331
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7128,7 +7190,7 @@ TEST(bidi_character, bidi_character_093_022)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -7144,71 +7206,9 @@ TEST(bidi_character, bidi_character_093_022)
 
     {
         // line 65332
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65333
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65334
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -7240,10 +7240,10 @@ TEST(bidi_character, bidi_character_093_023)
 {
 
     {
-        // line 65335
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
+        // line 65333
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7256,7 +7256,69 @@ TEST(bidi_character, bidi_character_093_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65334
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65335
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0029, 0x2681, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -7272,9 +7334,9 @@ TEST(bidi_character, bidi_character_093_023)
 
     {
         // line 65336
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -7303,9 +7365,9 @@ TEST(bidi_character, bidi_character_093_023)
 
     {
         // line 65337
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7318,7 +7380,7 @@ TEST(bidi_character, bidi_character_093_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -7334,9 +7396,9 @@ TEST(bidi_character, bidi_character_093_023)
 
     {
         // line 65338
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -7365,9 +7427,9 @@ TEST(bidi_character, bidi_character_093_023)
 
     {
         // line 65339
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7380,7 +7442,7 @@ TEST(bidi_character, bidi_character_093_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -7396,9 +7458,9 @@ TEST(bidi_character, bidi_character_093_023)
 
     {
         // line 65340
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -7427,9 +7489,9 @@ TEST(bidi_character, bidi_character_093_023)
 
     {
         // line 65341
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7442,7 +7504,7 @@ TEST(bidi_character, bidi_character_093_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -7458,71 +7520,9 @@ TEST(bidi_character, bidi_character_093_023)
 
     {
         // line 65342
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65343
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65344
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -7554,10 +7554,10 @@ TEST(bidi_character, bidi_character_093_024)
 {
 
     {
-        // line 65345
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
+        // line 65343
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7570,7 +7570,69 @@ TEST(bidi_character, bidi_character_093_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65344
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65345
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x05D0, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 1, 2, 1, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -7586,9 +7648,9 @@ TEST(bidi_character, bidi_character_093_024)
 
     {
         // line 65346
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -7617,9 +7679,9 @@ TEST(bidi_character, bidi_character_093_024)
 
     {
         // line 65347
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x2681, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7632,7 +7694,7 @@ TEST(bidi_character, bidi_character_093_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -7648,9 +7710,9 @@ TEST(bidi_character, bidi_character_093_024)
 
     {
         // line 65348
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -7679,9 +7741,9 @@ TEST(bidi_character, bidi_character_093_024)
 
     {
         // line 65349
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7694,7 +7756,7 @@ TEST(bidi_character, bidi_character_093_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -7710,9 +7772,9 @@ TEST(bidi_character, bidi_character_093_024)
 
     {
         // line 65350
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -7741,9 +7803,9 @@ TEST(bidi_character, bidi_character_093_024)
 
     {
         // line 65351
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7756,7 +7818,7 @@ TEST(bidi_character, bidi_character_093_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -7772,71 +7834,9 @@ TEST(bidi_character, bidi_character_093_024)
 
     {
         // line 65352
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65353
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
-        std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65354
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -7868,10 +7868,10 @@ TEST(bidi_character, bidi_character_093_025)
 {
 
     {
-        // line 65355
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
+        // line 65353
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0029, 0x2681, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 1, 1, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7884,7 +7884,7 @@ TEST(bidi_character, bidi_character_093_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -7900,7 +7900,7 @@ TEST(bidi_character, bidi_character_093_025)
 
     {
         // line 65356
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -7931,9 +7931,9 @@ TEST(bidi_character, bidi_character_093_025)
 
     {
         // line 65357
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -7946,7 +7946,7 @@ TEST(bidi_character, bidi_character_093_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -7962,7 +7962,7 @@ TEST(bidi_character, bidi_character_093_025)
 
     {
         // line 65358
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -7993,7 +7993,7 @@ TEST(bidi_character, bidi_character_093_025)
 
     {
         // line 65359
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -8024,7 +8024,7 @@ TEST(bidi_character, bidi_character_093_025)
 
     {
         // line 65360
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8055,7 +8055,7 @@ TEST(bidi_character, bidi_character_093_025)
 
     {
         // line 65361
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -8086,7 +8086,7 @@ TEST(bidi_character, bidi_character_093_025)
 
     {
         // line 65362
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8117,7 +8117,7 @@ TEST(bidi_character, bidi_character_093_025)
 
     {
         // line 65363
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -8148,7 +8148,7 @@ TEST(bidi_character, bidi_character_093_025)
 
     {
         // line 65364
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8183,7 +8183,7 @@ TEST(bidi_character, bidi_character_093_026)
 
     {
         // line 65365
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -8214,7 +8214,7 @@ TEST(bidi_character, bidi_character_093_026)
 
     {
         // line 65366
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8245,9 +8245,9 @@ TEST(bidi_character, bidi_character_093_026)
 
     {
         // line 65367
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -8260,7 +8260,7 @@ TEST(bidi_character, bidi_character_093_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -8276,7 +8276,7 @@ TEST(bidi_character, bidi_character_093_026)
 
     {
         // line 65368
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8307,9 +8307,9 @@ TEST(bidi_character, bidi_character_093_026)
 
     {
         // line 65369
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -8322,7 +8322,7 @@ TEST(bidi_character, bidi_character_093_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -8338,7 +8338,7 @@ TEST(bidi_character, bidi_character_093_026)
 
     {
         // line 65370
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8369,7 +8369,7 @@ TEST(bidi_character, bidi_character_093_026)
 
     {
         // line 65371
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -8400,7 +8400,7 @@ TEST(bidi_character, bidi_character_093_026)
 
     {
         // line 65372
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8431,7 +8431,7 @@ TEST(bidi_character, bidi_character_093_026)
 
     {
         // line 65373
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -8462,7 +8462,7 @@ TEST(bidi_character, bidi_character_093_026)
 
     {
         // line 65374
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8497,7 +8497,7 @@ TEST(bidi_character, bidi_character_093_027)
 
     {
         // line 65375
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -8528,7 +8528,7 @@ TEST(bidi_character, bidi_character_093_027)
 
     {
         // line 65376
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8559,7 +8559,7 @@ TEST(bidi_character, bidi_character_093_027)
 
     {
         // line 65377
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -8590,7 +8590,7 @@ TEST(bidi_character, bidi_character_093_027)
 
     {
         // line 65378
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8621,7 +8621,7 @@ TEST(bidi_character, bidi_character_093_027)
 
     {
         // line 65379
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -8652,7 +8652,7 @@ TEST(bidi_character, bidi_character_093_027)
 
     {
         // line 65380
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8683,9 +8683,9 @@ TEST(bidi_character, bidi_character_093_027)
 
     {
         // line 65381
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -8698,7 +8698,7 @@ TEST(bidi_character, bidi_character_093_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -8714,7 +8714,7 @@ TEST(bidi_character, bidi_character_093_027)
 
     {
         // line 65382
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8745,9 +8745,9 @@ TEST(bidi_character, bidi_character_093_027)
 
     {
         // line 65383
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -8760,7 +8760,7 @@ TEST(bidi_character, bidi_character_093_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -8776,7 +8776,7 @@ TEST(bidi_character, bidi_character_093_027)
 
     {
         // line 65384
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8811,9 +8811,9 @@ TEST(bidi_character, bidi_character_093_028)
 
     {
         // line 65385
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -8826,7 +8826,7 @@ TEST(bidi_character, bidi_character_093_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -8842,7 +8842,7 @@ TEST(bidi_character, bidi_character_093_028)
 
     {
         // line 65386
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8873,9 +8873,9 @@ TEST(bidi_character, bidi_character_093_028)
 
     {
         // line 65387
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -8888,7 +8888,7 @@ TEST(bidi_character, bidi_character_093_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -8904,7 +8904,7 @@ TEST(bidi_character, bidi_character_093_028)
 
     {
         // line 65388
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8935,9 +8935,9 @@ TEST(bidi_character, bidi_character_093_028)
 
     {
         // line 65389
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -8950,7 +8950,7 @@ TEST(bidi_character, bidi_character_093_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -8966,7 +8966,7 @@ TEST(bidi_character, bidi_character_093_028)
 
     {
         // line 65390
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -8997,9 +8997,9 @@ TEST(bidi_character, bidi_character_093_028)
 
     {
         // line 65391
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9012,7 +9012,7 @@ TEST(bidi_character, bidi_character_093_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9028,7 +9028,7 @@ TEST(bidi_character, bidi_character_093_028)
 
     {
         // line 65392
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9059,9 +9059,9 @@ TEST(bidi_character, bidi_character_093_028)
 
     {
         // line 65393
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9074,7 +9074,7 @@ TEST(bidi_character, bidi_character_093_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9090,7 +9090,7 @@ TEST(bidi_character, bidi_character_093_028)
 
     {
         // line 65394
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9125,9 +9125,9 @@ TEST(bidi_character, bidi_character_093_029)
 
     {
         // line 65395
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9140,7 +9140,7 @@ TEST(bidi_character, bidi_character_093_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9156,7 +9156,7 @@ TEST(bidi_character, bidi_character_093_029)
 
     {
         // line 65396
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9187,7 +9187,7 @@ TEST(bidi_character, bidi_character_093_029)
 
     {
         // line 65397
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -9218,7 +9218,7 @@ TEST(bidi_character, bidi_character_093_029)
 
     {
         // line 65398
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9249,7 +9249,7 @@ TEST(bidi_character, bidi_character_093_029)
 
     {
         // line 65399
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -9280,7 +9280,7 @@ TEST(bidi_character, bidi_character_093_029)
 
     {
         // line 65400
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9311,9 +9311,9 @@ TEST(bidi_character, bidi_character_093_029)
 
     {
         // line 65401
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9326,7 +9326,7 @@ TEST(bidi_character, bidi_character_093_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9342,7 +9342,7 @@ TEST(bidi_character, bidi_character_093_029)
 
     {
         // line 65402
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9373,9 +9373,9 @@ TEST(bidi_character, bidi_character_093_029)
 
     {
         // line 65403
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9388,7 +9388,7 @@ TEST(bidi_character, bidi_character_093_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9404,7 +9404,7 @@ TEST(bidi_character, bidi_character_093_029)
 
     {
         // line 65404
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9439,7 +9439,7 @@ TEST(bidi_character, bidi_character_093_030)
 
     {
         // line 65405
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -9470,7 +9470,7 @@ TEST(bidi_character, bidi_character_093_030)
 
     {
         // line 65406
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9501,7 +9501,7 @@ TEST(bidi_character, bidi_character_093_030)
 
     {
         // line 65407
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -9532,7 +9532,7 @@ TEST(bidi_character, bidi_character_093_030)
 
     {
         // line 65408
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9563,9 +9563,9 @@ TEST(bidi_character, bidi_character_093_030)
 
     {
         // line 65409
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9578,7 +9578,7 @@ TEST(bidi_character, bidi_character_093_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9594,7 +9594,7 @@ TEST(bidi_character, bidi_character_093_030)
 
     {
         // line 65410
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9625,9 +9625,9 @@ TEST(bidi_character, bidi_character_093_030)
 
     {
         // line 65411
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9640,7 +9640,7 @@ TEST(bidi_character, bidi_character_093_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9656,7 +9656,7 @@ TEST(bidi_character, bidi_character_093_030)
 
     {
         // line 65412
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9687,9 +9687,9 @@ TEST(bidi_character, bidi_character_093_030)
 
     {
         // line 65413
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9702,7 +9702,7 @@ TEST(bidi_character, bidi_character_093_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9718,7 +9718,7 @@ TEST(bidi_character, bidi_character_093_030)
 
     {
         // line 65414
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9753,9 +9753,9 @@ TEST(bidi_character, bidi_character_093_031)
 
     {
         // line 65415
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9768,7 +9768,7 @@ TEST(bidi_character, bidi_character_093_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9784,7 +9784,7 @@ TEST(bidi_character, bidi_character_093_031)
 
     {
         // line 65416
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9815,9 +9815,9 @@ TEST(bidi_character, bidi_character_093_031)
 
     {
         // line 65417
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9830,7 +9830,7 @@ TEST(bidi_character, bidi_character_093_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9846,7 +9846,7 @@ TEST(bidi_character, bidi_character_093_031)
 
     {
         // line 65418
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9877,9 +9877,9 @@ TEST(bidi_character, bidi_character_093_031)
 
     {
         // line 65419
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9892,7 +9892,7 @@ TEST(bidi_character, bidi_character_093_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9908,7 +9908,7 @@ TEST(bidi_character, bidi_character_093_031)
 
     {
         // line 65420
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -9939,9 +9939,9 @@ TEST(bidi_character, bidi_character_093_031)
 
     {
         // line 65421
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -9954,7 +9954,7 @@ TEST(bidi_character, bidi_character_093_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -9970,7 +9970,7 @@ TEST(bidi_character, bidi_character_093_031)
 
     {
         // line 65422
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10001,9 +10001,9 @@ TEST(bidi_character, bidi_character_093_031)
 
     {
         // line 65423
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10016,7 +10016,7 @@ TEST(bidi_character, bidi_character_093_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10032,7 +10032,7 @@ TEST(bidi_character, bidi_character_093_031)
 
     {
         // line 65424
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10067,9 +10067,9 @@ TEST(bidi_character, bidi_character_093_032)
 
     {
         // line 65425
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10082,7 +10082,7 @@ TEST(bidi_character, bidi_character_093_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10098,7 +10098,7 @@ TEST(bidi_character, bidi_character_093_032)
 
     {
         // line 65426
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10129,9 +10129,9 @@ TEST(bidi_character, bidi_character_093_032)
 
     {
         // line 65427
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10144,7 +10144,7 @@ TEST(bidi_character, bidi_character_093_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10160,7 +10160,7 @@ TEST(bidi_character, bidi_character_093_032)
 
     {
         // line 65428
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10191,9 +10191,9 @@ TEST(bidi_character, bidi_character_093_032)
 
     {
         // line 65429
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10206,7 +10206,7 @@ TEST(bidi_character, bidi_character_093_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
+            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10222,7 +10222,7 @@ TEST(bidi_character, bidi_character_093_032)
 
     {
         // line 65430
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10253,9 +10253,9 @@ TEST(bidi_character, bidi_character_093_032)
 
     {
         // line 65431
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10268,7 +10268,7 @@ TEST(bidi_character, bidi_character_093_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10284,7 +10284,7 @@ TEST(bidi_character, bidi_character_093_032)
 
     {
         // line 65432
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10315,9 +10315,9 @@ TEST(bidi_character, bidi_character_093_032)
 
     {
         // line 65433
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10330,7 +10330,7 @@ TEST(bidi_character, bidi_character_093_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10346,7 +10346,7 @@ TEST(bidi_character, bidi_character_093_032)
 
     {
         // line 65434
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10381,9 +10381,9 @@ TEST(bidi_character, bidi_character_093_033)
 
     {
         // line 65435
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10396,7 +10396,7 @@ TEST(bidi_character, bidi_character_093_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10412,7 +10412,7 @@ TEST(bidi_character, bidi_character_093_033)
 
     {
         // line 65436
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10443,9 +10443,9 @@ TEST(bidi_character, bidi_character_093_033)
 
     {
         // line 65437
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10458,7 +10458,7 @@ TEST(bidi_character, bidi_character_093_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10474,7 +10474,7 @@ TEST(bidi_character, bidi_character_093_033)
 
     {
         // line 65438
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10505,9 +10505,9 @@ TEST(bidi_character, bidi_character_093_033)
 
     {
         // line 65439
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10520,7 +10520,7 @@ TEST(bidi_character, bidi_character_093_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10536,7 +10536,7 @@ TEST(bidi_character, bidi_character_093_033)
 
     {
         // line 65440
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10567,9 +10567,9 @@ TEST(bidi_character, bidi_character_093_033)
 
     {
         // line 65441
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10582,7 +10582,7 @@ TEST(bidi_character, bidi_character_093_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10598,7 +10598,7 @@ TEST(bidi_character, bidi_character_093_033)
 
     {
         // line 65442
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10629,9 +10629,9 @@ TEST(bidi_character, bidi_character_093_033)
 
     {
         // line 65443
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10644,7 +10644,7 @@ TEST(bidi_character, bidi_character_093_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10660,7 +10660,7 @@ TEST(bidi_character, bidi_character_093_033)
 
     {
         // line 65444
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10695,9 +10695,9 @@ TEST(bidi_character, bidi_character_093_034)
 
     {
         // line 65445
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10710,7 +10710,7 @@ TEST(bidi_character, bidi_character_093_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
+            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10726,7 +10726,7 @@ TEST(bidi_character, bidi_character_093_034)
 
     {
         // line 65446
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10757,9 +10757,9 @@ TEST(bidi_character, bidi_character_093_034)
 
     {
         // line 65447
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10772,7 +10772,7 @@ TEST(bidi_character, bidi_character_093_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
+            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10788,7 +10788,7 @@ TEST(bidi_character, bidi_character_093_034)
 
     {
         // line 65448
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10819,9 +10819,9 @@ TEST(bidi_character, bidi_character_093_034)
 
     {
         // line 65449
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10834,7 +10834,7 @@ TEST(bidi_character, bidi_character_093_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10850,7 +10850,7 @@ TEST(bidi_character, bidi_character_093_034)
 
     {
         // line 65450
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10881,9 +10881,9 @@ TEST(bidi_character, bidi_character_093_034)
 
     {
         // line 65451
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10896,7 +10896,7 @@ TEST(bidi_character, bidi_character_093_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10912,7 +10912,7 @@ TEST(bidi_character, bidi_character_093_034)
 
     {
         // line 65452
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -10943,9 +10943,9 @@ TEST(bidi_character, bidi_character_093_034)
 
     {
         // line 65453
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -10958,7 +10958,7 @@ TEST(bidi_character, bidi_character_093_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -10974,7 +10974,7 @@ TEST(bidi_character, bidi_character_093_034)
 
     {
         // line 65454
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11009,9 +11009,9 @@ TEST(bidi_character, bidi_character_093_035)
 
     {
         // line 65455
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11024,7 +11024,7 @@ TEST(bidi_character, bidi_character_093_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11040,7 +11040,7 @@ TEST(bidi_character, bidi_character_093_035)
 
     {
         // line 65456
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11071,7 +11071,7 @@ TEST(bidi_character, bidi_character_093_035)
 
     {
         // line 65457
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -11102,7 +11102,7 @@ TEST(bidi_character, bidi_character_093_035)
 
     {
         // line 65458
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11133,7 +11133,7 @@ TEST(bidi_character, bidi_character_093_035)
 
     {
         // line 65459
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -11164,7 +11164,7 @@ TEST(bidi_character, bidi_character_093_035)
 
     {
         // line 65460
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11195,9 +11195,9 @@ TEST(bidi_character, bidi_character_093_035)
 
     {
         // line 65461
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11210,7 +11210,7 @@ TEST(bidi_character, bidi_character_093_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11226,7 +11226,7 @@ TEST(bidi_character, bidi_character_093_035)
 
     {
         // line 65462
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11257,9 +11257,9 @@ TEST(bidi_character, bidi_character_093_035)
 
     {
         // line 65463
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11272,7 +11272,7 @@ TEST(bidi_character, bidi_character_093_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11288,7 +11288,7 @@ TEST(bidi_character, bidi_character_093_035)
 
     {
         // line 65464
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11323,7 +11323,7 @@ TEST(bidi_character, bidi_character_093_036)
 
     {
         // line 65465
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -11354,7 +11354,7 @@ TEST(bidi_character, bidi_character_093_036)
 
     {
         // line 65466
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11385,7 +11385,7 @@ TEST(bidi_character, bidi_character_093_036)
 
     {
         // line 65467
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -11416,7 +11416,7 @@ TEST(bidi_character, bidi_character_093_036)
 
     {
         // line 65468
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11447,9 +11447,9 @@ TEST(bidi_character, bidi_character_093_036)
 
     {
         // line 65469
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11462,7 +11462,7 @@ TEST(bidi_character, bidi_character_093_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11478,7 +11478,7 @@ TEST(bidi_character, bidi_character_093_036)
 
     {
         // line 65470
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11509,9 +11509,9 @@ TEST(bidi_character, bidi_character_093_036)
 
     {
         // line 65471
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11524,7 +11524,7 @@ TEST(bidi_character, bidi_character_093_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11540,7 +11540,7 @@ TEST(bidi_character, bidi_character_093_036)
 
     {
         // line 65472
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11571,9 +11571,9 @@ TEST(bidi_character, bidi_character_093_036)
 
     {
         // line 65473
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11586,7 +11586,7 @@ TEST(bidi_character, bidi_character_093_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
+            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11602,7 +11602,7 @@ TEST(bidi_character, bidi_character_093_036)
 
     {
         // line 65474
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11637,9 +11637,9 @@ TEST(bidi_character, bidi_character_093_037)
 
     {
         // line 65475
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11652,7 +11652,7 @@ TEST(bidi_character, bidi_character_093_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11668,7 +11668,7 @@ TEST(bidi_character, bidi_character_093_037)
 
     {
         // line 65476
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11699,9 +11699,9 @@ TEST(bidi_character, bidi_character_093_037)
 
     {
         // line 65477
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11714,7 +11714,7 @@ TEST(bidi_character, bidi_character_093_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11730,7 +11730,7 @@ TEST(bidi_character, bidi_character_093_037)
 
     {
         // line 65478
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11761,9 +11761,9 @@ TEST(bidi_character, bidi_character_093_037)
 
     {
         // line 65479
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 2, 2, 1, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11776,7 +11776,7 @@ TEST(bidi_character, bidi_character_093_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11792,7 +11792,7 @@ TEST(bidi_character, bidi_character_093_037)
 
     {
         // line 65480
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11823,9 +11823,9 @@ TEST(bidi_character, bidi_character_093_037)
 
     {
         // line 65481
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 2, 2, 1, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11838,7 +11838,7 @@ TEST(bidi_character, bidi_character_093_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11854,7 +11854,7 @@ TEST(bidi_character, bidi_character_093_037)
 
     {
         // line 65482
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11885,9 +11885,9 @@ TEST(bidi_character, bidi_character_093_037)
 
     {
         // line 65483
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 2, 2, 1, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11900,7 +11900,7 @@ TEST(bidi_character, bidi_character_093_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11916,7 +11916,7 @@ TEST(bidi_character, bidi_character_093_037)
 
     {
         // line 65484
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -11951,9 +11951,9 @@ TEST(bidi_character, bidi_character_093_038)
 
     {
         // line 65485
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 2, 2, 1, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -11966,7 +11966,7 @@ TEST(bidi_character, bidi_character_093_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -11982,7 +11982,7 @@ TEST(bidi_character, bidi_character_093_038)
 
     {
         // line 65486
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12013,9 +12013,9 @@ TEST(bidi_character, bidi_character_093_038)
 
     {
         // line 65487
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12028,7 +12028,7 @@ TEST(bidi_character, bidi_character_093_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12044,7 +12044,7 @@ TEST(bidi_character, bidi_character_093_038)
 
     {
         // line 65488
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12075,9 +12075,9 @@ TEST(bidi_character, bidi_character_093_038)
 
     {
         // line 65489
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12090,7 +12090,7 @@ TEST(bidi_character, bidi_character_093_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12106,7 +12106,7 @@ TEST(bidi_character, bidi_character_093_038)
 
     {
         // line 65490
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12137,9 +12137,9 @@ TEST(bidi_character, bidi_character_093_038)
 
     {
         // line 65491
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12152,7 +12152,7 @@ TEST(bidi_character, bidi_character_093_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12168,7 +12168,7 @@ TEST(bidi_character, bidi_character_093_038)
 
     {
         // line 65492
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12199,9 +12199,9 @@ TEST(bidi_character, bidi_character_093_038)
 
     {
         // line 65493
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12214,7 +12214,7 @@ TEST(bidi_character, bidi_character_093_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12230,7 +12230,7 @@ TEST(bidi_character, bidi_character_093_038)
 
     {
         // line 65494
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12265,9 +12265,9 @@ TEST(bidi_character, bidi_character_093_039)
 
     {
         // line 65495
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12280,7 +12280,7 @@ TEST(bidi_character, bidi_character_093_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12296,7 +12296,7 @@ TEST(bidi_character, bidi_character_093_039)
 
     {
         // line 65496
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12327,9 +12327,9 @@ TEST(bidi_character, bidi_character_093_039)
 
     {
         // line 65497
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12342,7 +12342,7 @@ TEST(bidi_character, bidi_character_093_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12358,7 +12358,7 @@ TEST(bidi_character, bidi_character_093_039)
 
     {
         // line 65498
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12389,9 +12389,9 @@ TEST(bidi_character, bidi_character_093_039)
 
     {
         // line 65499
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12404,7 +12404,7 @@ TEST(bidi_character, bidi_character_093_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12420,7 +12420,7 @@ TEST(bidi_character, bidi_character_093_039)
 
     {
         // line 65500
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12451,9 +12451,9 @@ TEST(bidi_character, bidi_character_093_039)
 
     {
         // line 65501
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12466,7 +12466,7 @@ TEST(bidi_character, bidi_character_093_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12482,7 +12482,7 @@ TEST(bidi_character, bidi_character_093_039)
 
     {
         // line 65502
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12513,9 +12513,9 @@ TEST(bidi_character, bidi_character_093_039)
 
     {
         // line 65503
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12528,7 +12528,7 @@ TEST(bidi_character, bidi_character_093_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12544,7 +12544,7 @@ TEST(bidi_character, bidi_character_093_039)
 
     {
         // line 65504
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12579,9 +12579,9 @@ TEST(bidi_character, bidi_character_093_040)
 
     {
         // line 65505
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
+            { 1, 1, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12594,7 +12594,7 @@ TEST(bidi_character, bidi_character_093_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12610,7 +12610,7 @@ TEST(bidi_character, bidi_character_093_040)
 
     {
         // line 65506
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12641,9 +12641,9 @@ TEST(bidi_character, bidi_character_093_040)
 
     {
         // line 65507
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
+            { 1, 1, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12656,7 +12656,7 @@ TEST(bidi_character, bidi_character_093_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12672,7 +12672,7 @@ TEST(bidi_character, bidi_character_093_040)
 
     {
         // line 65508
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12703,9 +12703,9 @@ TEST(bidi_character, bidi_character_093_040)
 
     {
         // line 65509
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
+            { 1, 1, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12718,7 +12718,7 @@ TEST(bidi_character, bidi_character_093_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12734,7 +12734,7 @@ TEST(bidi_character, bidi_character_093_040)
 
     {
         // line 65510
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12765,9 +12765,9 @@ TEST(bidi_character, bidi_character_093_040)
 
     {
         // line 65511
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12780,7 +12780,7 @@ TEST(bidi_character, bidi_character_093_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 3, 4, 5, 2, 1, 0 };
+            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12796,7 +12796,7 @@ TEST(bidi_character, bidi_character_093_040)
 
     {
         // line 65512
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12827,9 +12827,9 @@ TEST(bidi_character, bidi_character_093_040)
 
     {
         // line 65513
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12842,7 +12842,7 @@ TEST(bidi_character, bidi_character_093_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 3, 4, 5, 2, 1, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12858,7 +12858,7 @@ TEST(bidi_character, bidi_character_093_040)
 
     {
         // line 65514
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12893,9 +12893,9 @@ TEST(bidi_character, bidi_character_093_041)
 
     {
         // line 65515
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12908,7 +12908,7 @@ TEST(bidi_character, bidi_character_093_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 3, 4, 5, 2, 1, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12924,7 +12924,7 @@ TEST(bidi_character, bidi_character_093_041)
 
     {
         // line 65516
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -12955,9 +12955,9 @@ TEST(bidi_character, bidi_character_093_041)
 
     {
         // line 65517
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -12970,7 +12970,7 @@ TEST(bidi_character, bidi_character_093_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -12986,7 +12986,7 @@ TEST(bidi_character, bidi_character_093_041)
 
     {
         // line 65518
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13017,9 +13017,9 @@ TEST(bidi_character, bidi_character_093_041)
 
     {
         // line 65519
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 1 };
+            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13032,7 +13032,7 @@ TEST(bidi_character, bidi_character_093_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 3, 4, 5, 6, 7, 2, 1, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13048,7 +13048,7 @@ TEST(bidi_character, bidi_character_093_041)
 
     {
         // line 65520
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13079,9 +13079,9 @@ TEST(bidi_character, bidi_character_093_041)
 
     {
         // line 65521
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13094,7 +13094,7 @@ TEST(bidi_character, bidi_character_093_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13110,7 +13110,7 @@ TEST(bidi_character, bidi_character_093_041)
 
     {
         // line 65522
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13141,9 +13141,9 @@ TEST(bidi_character, bidi_character_093_041)
 
     {
         // line 65523
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 1 };
+            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13156,7 +13156,7 @@ TEST(bidi_character, bidi_character_093_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 3, 4, 5, 6, 7, 2, 1, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13172,7 +13172,7 @@ TEST(bidi_character, bidi_character_093_041)
 
     {
         // line 65524
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13207,9 +13207,9 @@ TEST(bidi_character, bidi_character_093_042)
 
     {
         // line 65525
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 1, 2, 2, 2, 1, 1 };
+            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13222,7 +13222,7 @@ TEST(bidi_character, bidi_character_093_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 4, 5, 6, 3, 2, 1, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13238,7 +13238,7 @@ TEST(bidi_character, bidi_character_093_042)
 
     {
         // line 65526
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13269,9 +13269,9 @@ TEST(bidi_character, bidi_character_093_042)
 
     {
         // line 65527
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x2681 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 1, 2, 2, 2, 1, 1 };
+            { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13284,7 +13284,69 @@ TEST(bidi_character, bidi_character_093_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 4, 5, 6, 3, 2, 1, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65528
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65529
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13300,7 +13362,7 @@ TEST(bidi_character, bidi_character_093_042)
 
     {
         // line 65530
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13331,9 +13393,9 @@ TEST(bidi_character, bidi_character_093_042)
 
     {
         // line 65531
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13346,7 +13408,7 @@ TEST(bidi_character, bidi_character_093_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13362,7 +13424,7 @@ TEST(bidi_character, bidi_character_093_042)
 
     {
         // line 65532
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13393,9 +13455,9 @@ TEST(bidi_character, bidi_character_093_042)
 
     {
         // line 65533
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13408,7 +13470,7 @@ TEST(bidi_character, bidi_character_093_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13424,69 +13486,7 @@ TEST(bidi_character, bidi_character_093_042)
 
     {
         // line 65534
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65535
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65536
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13520,10 +13520,10 @@ TEST(bidi_character, bidi_character_093_043)
 {
 
     {
-        // line 65537
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
+        // line 65535
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 1, 2, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13536,7 +13536,69 @@ TEST(bidi_character, bidi_character_093_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65536
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65537
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x2681, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 1, 2, 2, 2, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 3, 4, 5, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13552,7 +13614,7 @@ TEST(bidi_character, bidi_character_093_043)
 
     {
         // line 65538
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13583,9 +13645,9 @@ TEST(bidi_character, bidi_character_093_043)
 
     {
         // line 65539
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 1, 1, 1, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13598,7 +13660,7 @@ TEST(bidi_character, bidi_character_093_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
+            { 8, 7, 6, 3, 4, 5, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13614,7 +13676,7 @@ TEST(bidi_character, bidi_character_093_043)
 
     {
         // line 65540
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13645,9 +13707,9 @@ TEST(bidi_character, bidi_character_093_043)
 
     {
         // line 65541
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 1, 1, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13660,7 +13722,7 @@ TEST(bidi_character, bidi_character_093_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 6, 3, 4, 5, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13676,7 +13738,7 @@ TEST(bidi_character, bidi_character_093_043)
 
     {
         // line 65542
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13707,9 +13769,9 @@ TEST(bidi_character, bidi_character_093_043)
 
     {
         // line 65543
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13722,7 +13784,7 @@ TEST(bidi_character, bidi_character_093_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13738,69 +13800,7 @@ TEST(bidi_character, bidi_character_093_043)
 
     {
         // line 65544
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65545
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65546
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13834,10 +13834,10 @@ TEST(bidi_character, bidi_character_093_044)
 {
 
     {
-        // line 65547
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        // line 65545
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 1, 1, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13850,7 +13850,69 @@ TEST(bidi_character, bidi_character_093_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 3, 4, 5, 6, 7, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65546
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65547
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x2681, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13866,7 +13928,7 @@ TEST(bidi_character, bidi_character_093_044)
 
     {
         // line 65548
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13897,9 +13959,9 @@ TEST(bidi_character, bidi_character_093_044)
 
     {
         // line 65549
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 1, 1, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13912,7 +13974,7 @@ TEST(bidi_character, bidi_character_093_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 3, 4, 5, 6, 7, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13928,7 +13990,7 @@ TEST(bidi_character, bidi_character_093_044)
 
     {
         // line 65550
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -13959,9 +14021,9 @@ TEST(bidi_character, bidi_character_093_044)
 
     {
         // line 65551
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x2681, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 1, 1, 1, 1, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -13974,7 +14036,7 @@ TEST(bidi_character, bidi_character_093_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
+            { 8, 7, 4, 5, 6, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -13990,7 +14052,7 @@ TEST(bidi_character, bidi_character_093_044)
 
     {
         // line 65552
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14021,9 +14083,9 @@ TEST(bidi_character, bidi_character_093_044)
 
     {
         // line 65553
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x2681 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 1, 1, 1, 1, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -14036,69 +14098,7 @@ TEST(bidi_character, bidi_character_093_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65554
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65555
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 4, 5, 6, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -14114,7 +14114,7 @@ TEST(bidi_character, bidi_character_093_044)
 
     {
         // line 65556
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14149,9 +14149,9 @@ TEST(bidi_character, bidi_character_093_045)
 
     {
         // line 65557
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -14164,7 +14164,7 @@ TEST(bidi_character, bidi_character_093_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -14180,7 +14180,7 @@ TEST(bidi_character, bidi_character_093_045)
 
     {
         // line 65558
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14211,7 +14211,7 @@ TEST(bidi_character, bidi_character_093_045)
 
     {
         // line 65559
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
@@ -14242,7 +14242,7 @@ TEST(bidi_character, bidi_character_093_045)
 
     {
         // line 65560
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14273,7 +14273,7 @@ TEST(bidi_character, bidi_character_093_045)
 
     {
         // line 65561
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -14304,7 +14304,7 @@ TEST(bidi_character, bidi_character_093_045)
 
     {
         // line 65562
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14335,7 +14335,7 @@ TEST(bidi_character, bidi_character_093_045)
 
     {
         // line 65563
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -14366,7 +14366,7 @@ TEST(bidi_character, bidi_character_093_045)
 
     {
         // line 65564
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14397,9 +14397,9 @@ TEST(bidi_character, bidi_character_093_045)
 
     {
         // line 65565
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -14412,7 +14412,7 @@ TEST(bidi_character, bidi_character_093_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -14428,7 +14428,7 @@ TEST(bidi_character, bidi_character_093_045)
 
     {
         // line 65566
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14463,7 +14463,7 @@ TEST(bidi_character, bidi_character_093_046)
 
     {
         // line 65567
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -14494,7 +14494,7 @@ TEST(bidi_character, bidi_character_093_046)
 
     {
         // line 65568
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14525,7 +14525,7 @@ TEST(bidi_character, bidi_character_093_046)
 
     {
         // line 65569
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -14556,7 +14556,7 @@ TEST(bidi_character, bidi_character_093_046)
 
     {
         // line 65570
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14587,9 +14587,9 @@ TEST(bidi_character, bidi_character_093_046)
 
     {
         // line 65571
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -14602,7 +14602,7 @@ TEST(bidi_character, bidi_character_093_046)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -14618,7 +14618,7 @@ TEST(bidi_character, bidi_character_093_046)
 
     {
         // line 65572
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14649,7 +14649,7 @@ TEST(bidi_character, bidi_character_093_046)
 
     {
         // line 65573
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -14680,7 +14680,7 @@ TEST(bidi_character, bidi_character_093_046)
 
     {
         // line 65574
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14711,7 +14711,7 @@ TEST(bidi_character, bidi_character_093_046)
 
     {
         // line 65575
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -14742,7 +14742,7 @@ TEST(bidi_character, bidi_character_093_046)
 
     {
         // line 65576
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14777,9 +14777,9 @@ TEST(bidi_character, bidi_character_093_047)
 
     {
         // line 65577
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -14792,7 +14792,7 @@ TEST(bidi_character, bidi_character_093_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -14808,7 +14808,7 @@ TEST(bidi_character, bidi_character_093_047)
 
     {
         // line 65578
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14839,9 +14839,9 @@ TEST(bidi_character, bidi_character_093_047)
 
     {
         // line 65579
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -14854,7 +14854,7 @@ TEST(bidi_character, bidi_character_093_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -14870,7 +14870,7 @@ TEST(bidi_character, bidi_character_093_047)
 
     {
         // line 65580
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14901,7 +14901,7 @@ TEST(bidi_character, bidi_character_093_047)
 
     {
         // line 65581
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -14932,7 +14932,7 @@ TEST(bidi_character, bidi_character_093_047)
 
     {
         // line 65582
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -14963,7 +14963,7 @@ TEST(bidi_character, bidi_character_093_047)
 
     {
         // line 65583
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -14994,7 +14994,7 @@ TEST(bidi_character, bidi_character_093_047)
 
     {
         // line 65584
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15025,9 +15025,9 @@ TEST(bidi_character, bidi_character_093_047)
 
     {
         // line 65585
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15040,7 +15040,7 @@ TEST(bidi_character, bidi_character_093_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15056,7 +15056,7 @@ TEST(bidi_character, bidi_character_093_047)
 
     {
         // line 65586
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15091,7 +15091,7 @@ TEST(bidi_character, bidi_character_093_048)
 
     {
         // line 65587
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -15122,7 +15122,7 @@ TEST(bidi_character, bidi_character_093_048)
 
     {
         // line 65588
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15153,7 +15153,7 @@ TEST(bidi_character, bidi_character_093_048)
 
     {
         // line 65589
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -15184,7 +15184,7 @@ TEST(bidi_character, bidi_character_093_048)
 
     {
         // line 65590
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15215,9 +15215,9 @@ TEST(bidi_character, bidi_character_093_048)
 
     {
         // line 65591
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15230,7 +15230,7 @@ TEST(bidi_character, bidi_character_093_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15246,7 +15246,7 @@ TEST(bidi_character, bidi_character_093_048)
 
     {
         // line 65592
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15277,9 +15277,9 @@ TEST(bidi_character, bidi_character_093_048)
 
     {
         // line 65593
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15292,7 +15292,7 @@ TEST(bidi_character, bidi_character_093_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15308,7 +15308,7 @@ TEST(bidi_character, bidi_character_093_048)
 
     {
         // line 65594
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15339,9 +15339,9 @@ TEST(bidi_character, bidi_character_093_048)
 
     {
         // line 65595
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15354,7 +15354,7 @@ TEST(bidi_character, bidi_character_093_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15370,7 +15370,7 @@ TEST(bidi_character, bidi_character_093_048)
 
     {
         // line 65596
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15405,9 +15405,9 @@ TEST(bidi_character, bidi_character_093_049)
 
     {
         // line 65597
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15420,7 +15420,7 @@ TEST(bidi_character, bidi_character_093_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15436,7 +15436,7 @@ TEST(bidi_character, bidi_character_093_049)
 
     {
         // line 65598
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15467,9 +15467,9 @@ TEST(bidi_character, bidi_character_093_049)
 
     {
         // line 65599
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15482,7 +15482,7 @@ TEST(bidi_character, bidi_character_093_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15498,7 +15498,7 @@ TEST(bidi_character, bidi_character_093_049)
 
     {
         // line 65600
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15529,9 +15529,9 @@ TEST(bidi_character, bidi_character_093_049)
 
     {
         // line 65601
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15544,7 +15544,7 @@ TEST(bidi_character, bidi_character_093_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15560,7 +15560,7 @@ TEST(bidi_character, bidi_character_093_049)
 
     {
         // line 65602
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15591,9 +15591,9 @@ TEST(bidi_character, bidi_character_093_049)
 
     {
         // line 65603
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15606,7 +15606,7 @@ TEST(bidi_character, bidi_character_093_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15622,7 +15622,7 @@ TEST(bidi_character, bidi_character_093_049)
 
     {
         // line 65604
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15653,9 +15653,9 @@ TEST(bidi_character, bidi_character_093_049)
 
     {
         // line 65605
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15668,7 +15668,7 @@ TEST(bidi_character, bidi_character_093_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15684,7 +15684,7 @@ TEST(bidi_character, bidi_character_093_049)
 
     {
         // line 65606
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15719,9 +15719,9 @@ TEST(bidi_character, bidi_character_093_050)
 
     {
         // line 65607
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15734,7 +15734,7 @@ TEST(bidi_character, bidi_character_093_050)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15750,7 +15750,7 @@ TEST(bidi_character, bidi_character_093_050)
 
     {
         // line 65608
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15781,9 +15781,9 @@ TEST(bidi_character, bidi_character_093_050)
 
     {
         // line 65609
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15796,7 +15796,7 @@ TEST(bidi_character, bidi_character_093_050)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15812,7 +15812,7 @@ TEST(bidi_character, bidi_character_093_050)
 
     {
         // line 65610
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15843,9 +15843,9 @@ TEST(bidi_character, bidi_character_093_050)
 
     {
         // line 65611
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15858,7 +15858,7 @@ TEST(bidi_character, bidi_character_093_050)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15874,7 +15874,7 @@ TEST(bidi_character, bidi_character_093_050)
 
     {
         // line 65612
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15905,9 +15905,9 @@ TEST(bidi_character, bidi_character_093_050)
 
     {
         // line 65613
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15920,7 +15920,7 @@ TEST(bidi_character, bidi_character_093_050)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15936,7 +15936,7 @@ TEST(bidi_character, bidi_character_093_050)
 
     {
         // line 65614
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -15967,9 +15967,9 @@ TEST(bidi_character, bidi_character_093_050)
 
     {
         // line 65615
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -15982,7 +15982,7 @@ TEST(bidi_character, bidi_character_093_050)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -15998,7 +15998,7 @@ TEST(bidi_character, bidi_character_093_050)
 
     {
         // line 65616
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16033,9 +16033,9 @@ TEST(bidi_character, bidi_character_093_051)
 
     {
         // line 65617
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16048,7 +16048,7 @@ TEST(bidi_character, bidi_character_093_051)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -16064,7 +16064,7 @@ TEST(bidi_character, bidi_character_093_051)
 
     {
         // line 65618
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16095,9 +16095,9 @@ TEST(bidi_character, bidi_character_093_051)
 
     {
         // line 65619
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16110,7 +16110,7 @@ TEST(bidi_character, bidi_character_093_051)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -16126,7 +16126,7 @@ TEST(bidi_character, bidi_character_093_051)
 
     {
         // line 65620
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16157,7 +16157,7 @@ TEST(bidi_character, bidi_character_093_051)
 
     {
         // line 65621
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -16188,7 +16188,7 @@ TEST(bidi_character, bidi_character_093_051)
 
     {
         // line 65622
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16219,7 +16219,7 @@ TEST(bidi_character, bidi_character_093_051)
 
     {
         // line 65623
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -16250,7 +16250,7 @@ TEST(bidi_character, bidi_character_093_051)
 
     {
         // line 65624
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16281,9 +16281,9 @@ TEST(bidi_character, bidi_character_093_051)
 
     {
         // line 65625
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16296,7 +16296,7 @@ TEST(bidi_character, bidi_character_093_051)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -16312,7 +16312,7 @@ TEST(bidi_character, bidi_character_093_051)
 
     {
         // line 65626
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16347,7 +16347,7 @@ TEST(bidi_character, bidi_character_093_052)
 
     {
         // line 65627
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -16378,7 +16378,7 @@ TEST(bidi_character, bidi_character_093_052)
 
     {
         // line 65628
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16409,7 +16409,7 @@ TEST(bidi_character, bidi_character_093_052)
 
     {
         // line 65629
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
@@ -16440,7 +16440,7 @@ TEST(bidi_character, bidi_character_093_052)
 
     {
         // line 65630
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16471,9 +16471,9 @@ TEST(bidi_character, bidi_character_093_052)
 
     {
         // line 65631
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 2, 2, 1, 2, 1, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16486,7 +16486,7 @@ TEST(bidi_character, bidi_character_093_052)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -16502,7 +16502,7 @@ TEST(bidi_character, bidi_character_093_052)
 
     {
         // line 65632
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16533,9 +16533,9 @@ TEST(bidi_character, bidi_character_093_052)
 
     {
         // line 65633
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 2, 2, 1, 1, 2, 1 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16548,7 +16548,7 @@ TEST(bidi_character, bidi_character_093_052)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -16564,7 +16564,7 @@ TEST(bidi_character, bidi_character_093_052)
 
     {
         // line 65634
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16595,9 +16595,9 @@ TEST(bidi_character, bidi_character_093_052)
 
     {
         // line 65635
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 2, 2, 1, 1, 1, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16610,7 +16610,7 @@ TEST(bidi_character, bidi_character_093_052)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -16626,7 +16626,7 @@ TEST(bidi_character, bidi_character_093_052)
 
     {
         // line 65636
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16661,9 +16661,9 @@ TEST(bidi_character, bidi_character_093_053)
 
     {
         // line 65637
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16676,7 +16676,7 @@ TEST(bidi_character, bidi_character_093_053)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 5, 6, 7, 8, 4, 3, 2, 1, 0 };
+            { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -16692,7 +16692,7 @@ TEST(bidi_character, bidi_character_093_053)
 
     {
         // line 65638
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16723,9 +16723,9 @@ TEST(bidi_character, bidi_character_093_053)
 
     {
         // line 65639
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16738,7 +16738,7 @@ TEST(bidi_character, bidi_character_093_053)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 5, 6, 7, 8, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -16754,7 +16754,7 @@ TEST(bidi_character, bidi_character_093_053)
 
     {
         // line 65640
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16785,9 +16785,9 @@ TEST(bidi_character, bidi_character_093_053)
 
     {
         // line 65641
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 2, 1, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16800,7 +16800,7 @@ TEST(bidi_character, bidi_character_093_053)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -16816,7 +16816,7 @@ TEST(bidi_character, bidi_character_093_053)
 
     {
         // line 65642
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16847,9 +16847,9 @@ TEST(bidi_character, bidi_character_093_053)
 
     {
         // line 65643
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16862,7 +16862,7 @@ TEST(bidi_character, bidi_character_093_053)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 5, 6, 7, 8, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -16878,7 +16878,7 @@ TEST(bidi_character, bidi_character_093_053)
 
     {
         // line 65644
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16909,9 +16909,9 @@ TEST(bidi_character, bidi_character_093_053)
 
     {
         // line 65645
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16924,7 +16924,7 @@ TEST(bidi_character, bidi_character_093_053)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 5, 6, 7, 8, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -16940,7 +16940,7 @@ TEST(bidi_character, bidi_character_093_053)
 
     {
         // line 65646
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -16975,9 +16975,9 @@ TEST(bidi_character, bidi_character_093_054)
 
     {
         // line 65647
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 2, 1, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -16990,7 +16990,7 @@ TEST(bidi_character, bidi_character_093_054)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17006,7 +17006,7 @@ TEST(bidi_character, bidi_character_093_054)
 
     {
         // line 65648
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -17037,9 +17037,9 @@ TEST(bidi_character, bidi_character_093_054)
 
     {
         // line 65649
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 2, 1, 1, 1, 2, 1, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17052,7 +17052,7 @@ TEST(bidi_character, bidi_character_093_054)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17068,7 +17068,7 @@ TEST(bidi_character, bidi_character_093_054)
 
     {
         // line 65650
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -17099,9 +17099,9 @@ TEST(bidi_character, bidi_character_093_054)
 
     {
         // line 65651
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17114,7 +17114,7 @@ TEST(bidi_character, bidi_character_093_054)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17130,7 +17130,7 @@ TEST(bidi_character, bidi_character_093_054)
 
     {
         // line 65652
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -17161,9 +17161,9 @@ TEST(bidi_character, bidi_character_093_054)
 
     {
         // line 65653
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17176,7 +17176,7 @@ TEST(bidi_character, bidi_character_093_054)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17192,7 +17192,7 @@ TEST(bidi_character, bidi_character_093_054)
 
     {
         // line 65654
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -17223,9 +17223,9 @@ TEST(bidi_character, bidi_character_093_054)
 
     {
         // line 65655
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+            { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17238,7 +17238,7 @@ TEST(bidi_character, bidi_character_093_054)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+            { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17254,7 +17254,7 @@ TEST(bidi_character, bidi_character_093_054)
 
     {
         // line 65656
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -17289,9 +17289,9 @@ TEST(bidi_character, bidi_character_093_055)
 
     {
         // line 65657
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0063, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+            { 1, 1, 2, 2, 2, 1, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17304,7 +17304,7 @@ TEST(bidi_character, bidi_character_093_055)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17320,7 +17320,7 @@ TEST(bidi_character, bidi_character_093_055)
 
     {
         // line 65658
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
@@ -17351,9 +17351,9 @@ TEST(bidi_character, bidi_character_093_055)
 
     {
         // line 65659
-        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0063 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 1, 1, 1, 2, 2, 2, 1, 2 };
+            { 1, 1, 2, 2, 2, 1, 1, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17366,7 +17366,69 @@ TEST(bidi_character, bidi_character_093_055)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 4, 5, 6, 3, 2, 1, 0 };
+            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65660
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65661
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x0063 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 2, 2, 2, 1, 1, 1, 2 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 2, 3, 4, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17382,9 +17444,9 @@ TEST(bidi_character, bidi_character_093_055)
 
     {
         // line 65662
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -17413,9 +17475,9 @@ TEST(bidi_character, bidi_character_093_055)
 
     {
         // line 65663
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17428,7 +17490,7 @@ TEST(bidi_character, bidi_character_093_055)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
+            { 5, 6, 7, 8, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17444,9 +17506,9 @@ TEST(bidi_character, bidi_character_093_055)
 
     {
         // line 65664
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -17475,9 +17537,9 @@ TEST(bidi_character, bidi_character_093_055)
 
     {
         // line 65665
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17490,7 +17552,7 @@ TEST(bidi_character, bidi_character_093_055)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
+            { 5, 6, 7, 8, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17506,71 +17568,9 @@ TEST(bidi_character, bidi_character_093_055)
 
     {
         // line 65666
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65667
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65668
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -17602,10 +17602,10 @@ TEST(bidi_character, bidi_character_093_056)
 {
 
     {
-        // line 65669
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        // line 65667
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 2, 1, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17618,7 +17618,69 @@ TEST(bidi_character, bidi_character_093_056)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65668
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65669
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 2, 1, 1, 2, 2, 2, 2 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 5, 6, 7, 8, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17634,9 +17696,9 @@ TEST(bidi_character, bidi_character_093_056)
 
     {
         // line 65670
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -17665,9 +17727,9 @@ TEST(bidi_character, bidi_character_093_056)
 
     {
         // line 65671
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17680,7 +17742,7 @@ TEST(bidi_character, bidi_character_093_056)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
+            { 5, 6, 7, 8, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17696,9 +17758,9 @@ TEST(bidi_character, bidi_character_093_056)
 
     {
         // line 65672
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -17727,9 +17789,9 @@ TEST(bidi_character, bidi_character_093_056)
 
     {
         // line 65673
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 2, 1, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 2, 1, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17758,9 +17820,9 @@ TEST(bidi_character, bidi_character_093_056)
 
     {
         // line 65674
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -17789,9 +17851,9 @@ TEST(bidi_character, bidi_character_093_056)
 
     {
         // line 65675
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0061, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 2, 1, 1, 1, 2, 1, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17804,7 +17866,7 @@ TEST(bidi_character, bidi_character_093_056)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17820,71 +17882,9 @@ TEST(bidi_character, bidi_character_093_056)
 
     {
         // line 65676
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65677
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65678
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -17916,10 +17916,10 @@ TEST(bidi_character, bidi_character_093_057)
 {
 
     {
-        // line 65679
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        // line 65677
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0063, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17932,7 +17932,69 @@ TEST(bidi_character, bidi_character_093_057)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65678
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65679
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0063 };
+        std::vector<int> const expected_levels =
+            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -17948,9 +18010,9 @@ TEST(bidi_character, bidi_character_093_057)
 
     {
         // line 65680
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -17979,9 +18041,9 @@ TEST(bidi_character, bidi_character_093_057)
 
     {
         // line 65681
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -17994,7 +18056,7 @@ TEST(bidi_character, bidi_character_093_057)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -18010,9 +18072,9 @@ TEST(bidi_character, bidi_character_093_057)
 
     {
         // line 65682
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18041,9 +18103,9 @@ TEST(bidi_character, bidi_character_093_057)
 
     {
         // line 65683
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -18056,7 +18118,7 @@ TEST(bidi_character, bidi_character_093_057)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -18072,9 +18134,9 @@ TEST(bidi_character, bidi_character_093_057)
 
     {
         // line 65684
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18103,9 +18165,9 @@ TEST(bidi_character, bidi_character_093_057)
 
     {
         // line 65685
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0028, 0x0029, 0x0028, 0x0061, 0x2680, 0x0062, 0x0029, 0x0063 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 1, 1, 1, 2, 2, 2, 1, 2 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -18118,69 +18180,7 @@ TEST(bidi_character, bidi_character_093_057)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65686
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65687
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 2, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 7, 4, 5, 6, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -18196,9 +18196,9 @@ TEST(bidi_character, bidi_character_093_057)
 
     {
         // line 65688
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18231,9 +18231,9 @@ TEST(bidi_character, bidi_character_093_058)
 
     {
         // line 65689
-        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -18246,7 +18246,7 @@ TEST(bidi_character, bidi_character_093_058)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -18262,9 +18262,9 @@ TEST(bidi_character, bidi_character_093_058)
 
     {
         // line 65690
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18293,7 +18293,7 @@ TEST(bidi_character, bidi_character_093_058)
 
     {
         // line 65691
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -18324,9 +18324,9 @@ TEST(bidi_character, bidi_character_093_058)
 
     {
         // line 65692
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18355,7 +18355,7 @@ TEST(bidi_character, bidi_character_093_058)
 
     {
         // line 65693
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -18386,9 +18386,9 @@ TEST(bidi_character, bidi_character_093_058)
 
     {
         // line 65694
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18417,7 +18417,7 @@ TEST(bidi_character, bidi_character_093_058)
 
     {
         // line 65695
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -18448,9 +18448,9 @@ TEST(bidi_character, bidi_character_093_058)
 
     {
         // line 65696
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18479,7 +18479,7 @@ TEST(bidi_character, bidi_character_093_058)
 
     {
         // line 65697
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -18510,9 +18510,9 @@ TEST(bidi_character, bidi_character_093_058)
 
     {
         // line 65698
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18545,69 +18545,7 @@ TEST(bidi_character, bidi_character_093_059)
 
     {
         // line 65699
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65700
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65701
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
@@ -18637,8 +18575,8 @@ TEST(bidi_character, bidi_character_093_059)
     }
 
     {
-        // line 65702
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        // line 65700
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
@@ -18668,8 +18606,70 @@ TEST(bidi_character, bidi_character_093_059)
     }
 
     {
+        // line 65701
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65702
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
         // line 65703
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -18700,9 +18700,9 @@ TEST(bidi_character, bidi_character_093_059)
 
     {
         // line 65704
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18731,7 +18731,7 @@ TEST(bidi_character, bidi_character_093_059)
 
     {
         // line 65705
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -18762,9 +18762,9 @@ TEST(bidi_character, bidi_character_093_059)
 
     {
         // line 65706
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18793,7 +18793,7 @@ TEST(bidi_character, bidi_character_093_059)
 
     {
         // line 65707
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -18824,9 +18824,9 @@ TEST(bidi_character, bidi_character_093_059)
 
     {
         // line 65708
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18859,7 +18859,7 @@ TEST(bidi_character, bidi_character_093_060)
 
     {
         // line 65709
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -18890,9 +18890,9 @@ TEST(bidi_character, bidi_character_093_060)
 
     {
         // line 65710
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -18921,7 +18921,7 @@ TEST(bidi_character, bidi_character_093_060)
 
     {
         // line 65711
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -18952,69 +18952,7 @@ TEST(bidi_character, bidi_character_093_060)
 
     {
         // line 65712
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65713
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65714
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -19044,8 +18982,8 @@ TEST(bidi_character, bidi_character_093_060)
     }
 
     {
-        // line 65715
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
+        // line 65713
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
@@ -19075,8 +19013,8 @@ TEST(bidi_character, bidi_character_093_060)
     }
 
     {
-        // line 65716
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        // line 65714
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -19106,8 +19044,8 @@ TEST(bidi_character, bidi_character_093_060)
     }
 
     {
-        // line 65717
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        // line 65715
+        std::vector<uint32_t> const cps = { 0x0061, 0x2680, 0x0028, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
@@ -19137,8 +19075,70 @@ TEST(bidi_character, bidi_character_093_060)
     }
 
     {
+        // line 65716
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65717
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
         // line 65718
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
@@ -19173,9 +19173,9 @@ TEST(bidi_character, bidi_character_093_061)
 
     {
         // line 65719
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 2, 1, 1, 1, 1 };
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -19188,7 +19188,7 @@ TEST(bidi_character, bidi_character_093_061)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -19204,7 +19204,7 @@ TEST(bidi_character, bidi_character_093_061)
 
     {
         // line 65720
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
@@ -19235,9 +19235,9 @@ TEST(bidi_character, bidi_character_093_061)
 
     {
         // line 65721
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -19250,7 +19250,7 @@ TEST(bidi_character, bidi_character_093_061)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -19266,7 +19266,7 @@ TEST(bidi_character, bidi_character_093_061)
 
     {
         // line 65722
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -19297,9 +19297,9 @@ TEST(bidi_character, bidi_character_093_061)
 
     {
         // line 65723
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -19312,7 +19312,7 @@ TEST(bidi_character, bidi_character_093_061)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -19328,7 +19328,7 @@ TEST(bidi_character, bidi_character_093_061)
 
     {
         // line 65724
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -19359,9 +19359,9 @@ TEST(bidi_character, bidi_character_093_061)
 
     {
         // line 65725
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -19374,7 +19374,7 @@ TEST(bidi_character, bidi_character_093_061)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 0, 1, 2, 3 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -19390,9 +19390,9 @@ TEST(bidi_character, bidi_character_093_061)
 
     {
         // line 65726
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -19421,9 +19421,9 @@ TEST(bidi_character, bidi_character_093_061)
 
     {
         // line 65727
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 1, 1, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -19436,7 +19436,7 @@ TEST(bidi_character, bidi_character_093_061)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -19452,9 +19452,9 @@ TEST(bidi_character, bidi_character_093_061)
 
     {
         // line 65728
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -19487,7 +19487,7 @@ TEST(bidi_character, bidi_character_093_062)
 
     {
         // line 65729
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -19518,9 +19518,9 @@ TEST(bidi_character, bidi_character_093_062)
 
     {
         // line 65730
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -19549,7 +19549,7 @@ TEST(bidi_character, bidi_character_093_062)
 
     {
         // line 65731
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -19580,69 +19580,7 @@ TEST(bidi_character, bidi_character_093_062)
 
     {
         // line 65732
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65733
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 2, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65734
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -19672,10 +19610,10 @@ TEST(bidi_character, bidi_character_093_062)
     }
 
     {
-        // line 65735
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        // line 65733
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -19688,7 +19626,7 @@ TEST(bidi_character, bidi_character_093_062)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -19703,8 +19641,8 @@ TEST(bidi_character, bidi_character_093_062)
     }
 
     {
-        // line 65736
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        // line 65734
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
@@ -19734,8 +19672,70 @@ TEST(bidi_character, bidi_character_093_062)
     }
 
     {
+        // line 65735
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65736
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
         // line 65737
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -19766,9 +19766,9 @@ TEST(bidi_character, bidi_character_093_062)
 
     {
         // line 65738
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -19801,7 +19801,7 @@ TEST(bidi_character, bidi_character_093_063)
 
     {
         // line 65739
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -19832,69 +19832,7 @@ TEST(bidi_character, bidi_character_093_063)
 
     {
         // line 65740
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65741
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65742
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -19924,8 +19862,8 @@ TEST(bidi_character, bidi_character_093_063)
     }
 
     {
-        // line 65743
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029 };
+        // line 65741
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
@@ -19955,8 +19893,8 @@ TEST(bidi_character, bidi_character_093_063)
     }
 
     {
-        // line 65744
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        // line 65742
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -19986,8 +19924,8 @@ TEST(bidi_character, bidi_character_093_063)
     }
 
     {
-        // line 65745
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        // line 65743
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
@@ -20017,10 +19955,72 @@ TEST(bidi_character, bidi_character_093_063)
     }
 
     {
-        // line 65746
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0029 };
+        // line 65744
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65745
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 2, 1, 1, 1, 2, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65746
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -20049,9 +20049,9 @@ TEST(bidi_character, bidi_character_093_063)
 
     {
         // line 65747
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 1, 1, 1, 1, 1, 2, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20064,7 +20064,7 @@ TEST(bidi_character, bidi_character_093_063)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20080,9 +20080,9 @@ TEST(bidi_character, bidi_character_093_063)
 
     {
         // line 65748
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -20115,9 +20115,9 @@ TEST(bidi_character, bidi_character_093_064)
 
     {
         // line 65749
-        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20130,7 +20130,7 @@ TEST(bidi_character, bidi_character_093_064)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20146,9 +20146,9 @@ TEST(bidi_character, bidi_character_093_064)
 
     {
         // line 65750
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -20177,9 +20177,9 @@ TEST(bidi_character, bidi_character_093_064)
 
     {
         // line 65751
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20192,7 +20192,7 @@ TEST(bidi_character, bidi_character_093_064)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20208,69 +20208,7 @@ TEST(bidi_character, bidi_character_093_064)
 
     {
         // line 65752
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65753
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65754
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
@@ -20300,10 +20238,10 @@ TEST(bidi_character, bidi_character_093_064)
     }
 
     {
-        // line 65755
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        // line 65753
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20316,7 +20254,7 @@ TEST(bidi_character, bidi_character_093_064)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20331,8 +20269,8 @@ TEST(bidi_character, bidi_character_093_064)
     }
 
     {
-        // line 65756
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        // line 65754
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -20362,10 +20300,10 @@ TEST(bidi_character, bidi_character_093_064)
     }
 
     {
-        // line 65757
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        // line 65755
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20378,7 +20316,69 @@ TEST(bidi_character, bidi_character_093_064)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65756
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65757
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
+        std::vector<int> const expected_levels =
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20394,9 +20394,9 @@ TEST(bidi_character, bidi_character_093_064)
 
     {
         // line 65758
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -20429,9 +20429,9 @@ TEST(bidi_character, bidi_character_093_065)
 
     {
         // line 65759
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20444,7 +20444,7 @@ TEST(bidi_character, bidi_character_093_065)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20460,9 +20460,9 @@ TEST(bidi_character, bidi_character_093_065)
 
     {
         // line 65760
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -20491,9 +20491,9 @@ TEST(bidi_character, bidi_character_093_065)
 
     {
         // line 65761
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 2, 1, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20506,7 +20506,7 @@ TEST(bidi_character, bidi_character_093_065)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20522,7 +20522,7 @@ TEST(bidi_character, bidi_character_093_065)
 
     {
         // line 65762
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
@@ -20553,9 +20553,9 @@ TEST(bidi_character, bidi_character_093_065)
 
     {
         // line 65763
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20568,7 +20568,7 @@ TEST(bidi_character, bidi_character_093_065)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20584,7 +20584,7 @@ TEST(bidi_character, bidi_character_093_065)
 
     {
         // line 65764
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -20615,9 +20615,9 @@ TEST(bidi_character, bidi_character_093_065)
 
     {
         // line 65765
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20630,7 +20630,7 @@ TEST(bidi_character, bidi_character_093_065)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20646,7 +20646,7 @@ TEST(bidi_character, bidi_character_093_065)
 
     {
         // line 65766
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -20677,9 +20677,9 @@ TEST(bidi_character, bidi_character_093_065)
 
     {
         // line 65767
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20692,7 +20692,7 @@ TEST(bidi_character, bidi_character_093_065)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20708,9 +20708,9 @@ TEST(bidi_character, bidi_character_093_065)
 
     {
         // line 65768
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -20743,9 +20743,9 @@ TEST(bidi_character, bidi_character_093_066)
 
     {
         // line 65769
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20758,7 +20758,7 @@ TEST(bidi_character, bidi_character_093_066)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20774,9 +20774,9 @@ TEST(bidi_character, bidi_character_093_066)
 
     {
         // line 65770
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -20805,9 +20805,9 @@ TEST(bidi_character, bidi_character_093_066)
 
     {
         // line 65771
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20820,7 +20820,7 @@ TEST(bidi_character, bidi_character_093_066)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -20836,69 +20836,7 @@ TEST(bidi_character, bidi_character_093_066)
 
     {
         // line 65772
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65773
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
-        std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65774
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -20928,10 +20866,10 @@ TEST(bidi_character, bidi_character_093_066)
     }
 
     {
-        // line 65775
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
+        // line 65773
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 2, 1, 1 };
+            { 2, 1, 1, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -20959,8 +20897,8 @@ TEST(bidi_character, bidi_character_093_066)
     }
 
     {
-        // line 65776
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        // line 65774
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -20990,10 +20928,10 @@ TEST(bidi_character, bidi_character_093_066)
     }
 
     {
-        // line 65777
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        // line 65775
+        std::vector<uint32_t> const cps = { 0x0061, 0x0028, 0x0028, 0x0029, 0x0028, 0x2680, 0x0062, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -21006,7 +20944,69 @@ TEST(bidi_character, bidi_character_093_066)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
+            { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65776
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65777
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -21022,7 +21022,7 @@ TEST(bidi_character, bidi_character_093_066)
 
     {
         // line 65778
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
@@ -21057,9 +21057,9 @@ TEST(bidi_character, bidi_character_093_067)
 
     {
         // line 65779
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 2, 1, 1, 1, 1 };
+            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -21072,7 +21072,7 @@ TEST(bidi_character, bidi_character_093_067)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -21088,7 +21088,7 @@ TEST(bidi_character, bidi_character_093_067)
 
     {
         // line 65780
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
@@ -21119,9 +21119,9 @@ TEST(bidi_character, bidi_character_093_067)
 
     {
         // line 65781
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -21134,7 +21134,7 @@ TEST(bidi_character, bidi_character_093_067)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -21150,7 +21150,7 @@ TEST(bidi_character, bidi_character_093_067)
 
     {
         // line 65782
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
@@ -21181,9 +21181,9 @@ TEST(bidi_character, bidi_character_093_067)
 
     {
         // line 65783
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -21196,7 +21196,7 @@ TEST(bidi_character, bidi_character_093_067)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -21212,7 +21212,7 @@ TEST(bidi_character, bidi_character_093_067)
 
     {
         // line 65784
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -21243,9 +21243,9 @@ TEST(bidi_character, bidi_character_093_067)
 
     {
         // line 65785
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0062, 0x0028, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 2, 2, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -21258,7 +21258,7 @@ TEST(bidi_character, bidi_character_093_067)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 5, 4, 1, 2, 3, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -21274,9 +21274,9 @@ TEST(bidi_character, bidi_character_093_067)
 
     {
         // line 65786
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+            { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -21305,9 +21305,9 @@ TEST(bidi_character, bidi_character_093_067)
 
     {
         // line 65787
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x05D0, 0x0029, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+            { 1, 2, 1, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -21320,7 +21320,7 @@ TEST(bidi_character, bidi_character_093_067)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -21336,9 +21336,9 @@ TEST(bidi_character, bidi_character_093_067)
 
     {
         // line 65788
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -21371,7 +21371,7 @@ TEST(bidi_character, bidi_character_093_068)
 
     {
         // line 65789
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -21402,9 +21402,9 @@ TEST(bidi_character, bidi_character_093_068)
 
     {
         // line 65790
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -21433,7 +21433,7 @@ TEST(bidi_character, bidi_character_093_068)
 
     {
         // line 65791
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -21464,69 +21464,7 @@ TEST(bidi_character, bidi_character_093_068)
 
     {
         // line 65792
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 0);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 0);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65793
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
-        std::vector<int> const expected_levels =
-            { 1, 2, 1, 1, 1, 1, 2, 1, 1 };
-        std::vector<int> const levels =
-            bidi_levels(cps.begin(), cps.end(), 1);
-        int i = 0;
-        for (int l : expected_levels) {
-            if (0 <= l) {
-                EXPECT_EQ(levels[i], l) << "i=" << i;
-                ++i;
-            }
-        }
-        EXPECT_EQ((int)levels.size(), i);
-
-        std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-        std::vector<int> const reordered =
-            bidi_reordered_indices(cps.begin(), cps.end(), 1);
-        i = 0;
-        for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], (int)cps[idx])
-                << std::hex
-                << " 0x" << reordered[i]
-                << " 0x" << cps[idx]
-                << std::dec << " i=" << i;
-            ++i;
-        }
-    }
-
-    {
-        // line 65794
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
@@ -21556,10 +21494,10 @@ TEST(bidi_character, bidi_character_093_068)
     }
 
     {
-        // line 65795
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x2680, 0x0029, 0x0028, 0x0062, 0x0029, 0x05D0 };
+        // line 65793
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0062, 0x0029, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
@@ -21572,7 +21510,7 @@ TEST(bidi_character, bidi_character_093_068)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<uint32_t> const expected_reordered_indices =
-            { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
@@ -21587,8 +21525,8 @@ TEST(bidi_character, bidi_character_093_068)
     }
 
     {
-        // line 65796
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        // line 65794
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
@@ -21618,8 +21556,70 @@ TEST(bidi_character, bidi_character_093_068)
     }
 
     {
+        // line 65795
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 1);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        // line 65796
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<int> const expected_levels =
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+        std::vector<int> const levels =
+            bidi_levels(cps.begin(), cps.end(), 0);
+        int i = 0;
+        for (int l : expected_levels) {
+            if (0 <= l) {
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
+            }
+        }
+        EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<int> const reordered =
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            EXPECT_EQ(reordered[i], (int)cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }
+    }
+
+    {
         // line 65797
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x05D0, 0x0028, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -21650,9 +21650,9 @@ TEST(bidi_character, bidi_character_093_068)
 
     {
         // line 65798
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
@@ -21685,7 +21685,7 @@ TEST(bidi_character, bidi_character_093_069)
 
     {
         // line 65799
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x05D0, 0x0029 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0062, 0x0028, 0x0029, 0x05D0 };
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
@@ -21716,9 +21716,9 @@ TEST(bidi_character, bidi_character_093_069)
 
     {
         // line 65800
-        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x0028, 0x0029, 0x2680, 0x0062, 0x0028, 0x0029, 0x05D0 };
+        std::vector<uint32_t> const cps = { 0x0028, 0x0061, 0x2680, 0x0028, 0x0029, 0x0028, 0x0062, 0x05D0, 0x0029 };
         std::vector<int> const expected_levels =
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
             bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;

@@ -14932,6 +14932,105 @@ TEST(normalization, nfd_010_150)
 
 TEST(normalization, nfd_010_151)
 {
+    // 32FF;32FF;32FF;4EE4 548C;4EE4 548C; 
+    // (㋿; ㋿; ㋿; 令和; 令和; ) SQUARE ERA NAME REIWA
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0x32FF }};
+        std::array<uint32_t, 1> const c2 = {{ 0x32FF }};
+        std::array<uint32_t, 1> const c3 = {{ 0x32FF }};
+        std::array<uint32_t, 2> const c4 = {{ 0x4EE4, 0x548C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x4EE4, 0x548C }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_010_152)
+{
     // 3300;3300;3300;30A2 30D1 30FC 30C8;30A2 30CF 309A 30FC 30C8; 
     // (㌀; ㌀; ㌀; アパート; アハ◌゚ート; ) SQUARE APAATO
     {
@@ -15027,7 +15126,7 @@ TEST(normalization, nfd_010_151)
 }
 
 
-TEST(normalization, nfd_010_152)
+TEST(normalization, nfd_010_153)
 {
     // 3301;3301;3301;30A2 30EB 30D5 30A1;30A2 30EB 30D5 30A1; 
     // (㌁; ㌁; ㌁; アルファ; アルファ; ) SQUARE ARUHUA
@@ -15126,7 +15225,7 @@ TEST(normalization, nfd_010_152)
 }
 
 
-TEST(normalization, nfd_010_153)
+TEST(normalization, nfd_010_154)
 {
     // 3302;3302;3302;30A2 30F3 30DA 30A2;30A2 30F3 30D8 309A 30A2; 
     // (㌂; ㌂; ㌂; アンペア; アンヘ◌゚ア; ) SQUARE ANPEA
@@ -15223,7 +15322,7 @@ TEST(normalization, nfd_010_153)
 }
 
 
-TEST(normalization, nfd_010_154)
+TEST(normalization, nfd_010_155)
 {
     // 3303;3303;3303;30A2 30FC 30EB;30A2 30FC 30EB; 
     // (㌃; ㌃; ㌃; アール; アール; ) SQUARE AARU
@@ -15322,7 +15421,7 @@ TEST(normalization, nfd_010_154)
 }
 
 
-TEST(normalization, nfd_010_155)
+TEST(normalization, nfd_010_156)
 {
     // 3304;3304;3304;30A4 30CB 30F3 30B0;30A4 30CB 30F3 30AF 3099; 
     // (㌄; ㌄; ㌄; イニング; イニンク◌゙; ) SQUARE ININGU
@@ -15419,7 +15518,7 @@ TEST(normalization, nfd_010_155)
 }
 
 
-TEST(normalization, nfd_010_156)
+TEST(normalization, nfd_010_157)
 {
     // 3305;3305;3305;30A4 30F3 30C1;30A4 30F3 30C1; 
     // (㌅; ㌅; ㌅; インチ; インチ; ) SQUARE INTI
@@ -15518,7 +15617,7 @@ TEST(normalization, nfd_010_156)
 }
 
 
-TEST(normalization, nfd_010_157)
+TEST(normalization, nfd_010_158)
 {
     // 3306;3306;3306;30A6 30A9 30F3;30A6 30A9 30F3; 
     // (㌆; ㌆; ㌆; ウォン; ウォン; ) SQUARE UON
@@ -15617,7 +15716,7 @@ TEST(normalization, nfd_010_157)
 }
 
 
-TEST(normalization, nfd_010_158)
+TEST(normalization, nfd_010_159)
 {
     // 3307;3307;3307;30A8 30B9 30AF 30FC 30C9;30A8 30B9 30AF 30FC 30C8 3099; 
     // (㌇; ㌇; ㌇; エスクード; エスクート◌゙; ) SQUARE ESUKUUDO
@@ -15714,7 +15813,7 @@ TEST(normalization, nfd_010_158)
 }
 
 
-TEST(normalization, nfd_010_159)
+TEST(normalization, nfd_010_160)
 {
     // 3308;3308;3308;30A8 30FC 30AB 30FC;30A8 30FC 30AB 30FC; 
     // (㌈; ㌈; ㌈; エーカー; エーカー; ) SQUARE EEKAA
@@ -15813,7 +15912,7 @@ TEST(normalization, nfd_010_159)
 }
 
 
-TEST(normalization, nfd_010_160)
+TEST(normalization, nfd_010_161)
 {
     // 3309;3309;3309;30AA 30F3 30B9;30AA 30F3 30B9; 
     // (㌉; ㌉; ㌉; オンス; オンス; ) SQUARE ONSU
@@ -15912,7 +16011,7 @@ TEST(normalization, nfd_010_160)
 }
 
 
-TEST(normalization, nfd_010_161)
+TEST(normalization, nfd_010_162)
 {
     // 330A;330A;330A;30AA 30FC 30E0;30AA 30FC 30E0; 
     // (㌊; ㌊; ㌊; オーム; オーム; ) SQUARE OOMU
@@ -16011,7 +16110,7 @@ TEST(normalization, nfd_010_161)
 }
 
 
-TEST(normalization, nfd_010_162)
+TEST(normalization, nfd_010_163)
 {
     // 330B;330B;330B;30AB 30A4 30EA;30AB 30A4 30EA; 
     // (㌋; ㌋; ㌋; カイリ; カイリ; ) SQUARE KAIRI
@@ -16110,7 +16209,7 @@ TEST(normalization, nfd_010_162)
 }
 
 
-TEST(normalization, nfd_010_163)
+TEST(normalization, nfd_010_164)
 {
     // 330C;330C;330C;30AB 30E9 30C3 30C8;30AB 30E9 30C3 30C8; 
     // (㌌; ㌌; ㌌; カラット; カラット; ) SQUARE KARATTO
@@ -16209,7 +16308,7 @@ TEST(normalization, nfd_010_163)
 }
 
 
-TEST(normalization, nfd_010_164)
+TEST(normalization, nfd_010_165)
 {
     // 330D;330D;330D;30AB 30ED 30EA 30FC;30AB 30ED 30EA 30FC; 
     // (㌍; ㌍; ㌍; カロリー; カロリー; ) SQUARE KARORII
@@ -16308,7 +16407,7 @@ TEST(normalization, nfd_010_164)
 }
 
 
-TEST(normalization, nfd_010_165)
+TEST(normalization, nfd_010_166)
 {
     // 330E;330E;330E;30AC 30ED 30F3;30AB 3099 30ED 30F3; 
     // (㌎; ㌎; ㌎; ガロン; カ◌゙ロン; ) SQUARE GARON
@@ -16405,7 +16504,7 @@ TEST(normalization, nfd_010_165)
 }
 
 
-TEST(normalization, nfd_010_166)
+TEST(normalization, nfd_010_167)
 {
     // 330F;330F;330F;30AC 30F3 30DE;30AB 3099 30F3 30DE; 
     // (㌏; ㌏; ㌏; ガンマ; カ◌゙ンマ; ) SQUARE GANMA
@@ -16502,7 +16601,7 @@ TEST(normalization, nfd_010_166)
 }
 
 
-TEST(normalization, nfd_010_167)
+TEST(normalization, nfd_010_168)
 {
     // 3310;3310;3310;30AE 30AC;30AD 3099 30AB 3099; 
     // (㌐; ㌐; ㌐; ギガ; キ◌゙カ◌゙; ) SQUARE GIGA
@@ -16599,7 +16698,7 @@ TEST(normalization, nfd_010_167)
 }
 
 
-TEST(normalization, nfd_010_168)
+TEST(normalization, nfd_010_169)
 {
     // 3311;3311;3311;30AE 30CB 30FC;30AD 3099 30CB 30FC; 
     // (㌑; ㌑; ㌑; ギニー; キ◌゙ニー; ) SQUARE GINII
@@ -16696,7 +16795,7 @@ TEST(normalization, nfd_010_168)
 }
 
 
-TEST(normalization, nfd_010_169)
+TEST(normalization, nfd_010_170)
 {
     // 3312;3312;3312;30AD 30E5 30EA 30FC;30AD 30E5 30EA 30FC; 
     // (㌒; ㌒; ㌒; キュリー; キュリー; ) SQUARE KYURII
@@ -16795,7 +16894,7 @@ TEST(normalization, nfd_010_169)
 }
 
 
-TEST(normalization, nfd_010_170)
+TEST(normalization, nfd_010_171)
 {
     // 3313;3313;3313;30AE 30EB 30C0 30FC;30AD 3099 30EB 30BF 3099 30FC; 
     // (㌓; ㌓; ㌓; ギルダー; キ◌゙ルタ◌゙ー; ) SQUARE GIRUDAA
@@ -16892,7 +16991,7 @@ TEST(normalization, nfd_010_170)
 }
 
 
-TEST(normalization, nfd_010_171)
+TEST(normalization, nfd_010_172)
 {
     // 3314;3314;3314;30AD 30ED;30AD 30ED; 
     // (㌔; ㌔; ㌔; キロ; キロ; ) SQUARE KIRO
@@ -16991,7 +17090,7 @@ TEST(normalization, nfd_010_171)
 }
 
 
-TEST(normalization, nfd_010_172)
+TEST(normalization, nfd_010_173)
 {
     // 3315;3315;3315;30AD 30ED 30B0 30E9 30E0;30AD 30ED 30AF 3099 30E9 30E0; 
     // (㌕; ㌕; ㌕; キログラム; キロク◌゙ラム; ) SQUARE KIROGURAMU
@@ -17088,7 +17187,7 @@ TEST(normalization, nfd_010_172)
 }
 
 
-TEST(normalization, nfd_010_173)
+TEST(normalization, nfd_010_174)
 {
     // 3316;3316;3316;30AD 30ED 30E1 30FC 30C8 30EB;30AD 30ED 30E1 30FC 30C8 30EB; 
     // (㌖; ㌖; ㌖; キロメートル; キロメートル; ) SQUARE KIROMEETORU
@@ -17187,7 +17286,7 @@ TEST(normalization, nfd_010_173)
 }
 
 
-TEST(normalization, nfd_010_174)
+TEST(normalization, nfd_010_175)
 {
     // 3317;3317;3317;30AD 30ED 30EF 30C3 30C8;30AD 30ED 30EF 30C3 30C8; 
     // (㌗; ㌗; ㌗; キロワット; キロワット; ) SQUARE KIROWATTO
@@ -17286,7 +17385,7 @@ TEST(normalization, nfd_010_174)
 }
 
 
-TEST(normalization, nfd_010_175)
+TEST(normalization, nfd_010_176)
 {
     // 3318;3318;3318;30B0 30E9 30E0;30AF 3099 30E9 30E0; 
     // (㌘; ㌘; ㌘; グラム; ク◌゙ラム; ) SQUARE GURAMU
@@ -17383,7 +17482,7 @@ TEST(normalization, nfd_010_175)
 }
 
 
-TEST(normalization, nfd_010_176)
+TEST(normalization, nfd_010_177)
 {
     // 3319;3319;3319;30B0 30E9 30E0 30C8 30F3;30AF 3099 30E9 30E0 30C8 30F3; 
     // (㌙; ㌙; ㌙; グラムトン; ク◌゙ラムトン; ) SQUARE GURAMUTON
@@ -17480,7 +17579,7 @@ TEST(normalization, nfd_010_176)
 }
 
 
-TEST(normalization, nfd_010_177)
+TEST(normalization, nfd_010_178)
 {
     // 331A;331A;331A;30AF 30EB 30BC 30A4 30ED;30AF 30EB 30BB 3099 30A4 30ED; 
     // (㌚; ㌚; ㌚; クルゼイロ; クルセ◌゙イロ; ) SQUARE KURUZEIRO
@@ -17577,7 +17676,7 @@ TEST(normalization, nfd_010_177)
 }
 
 
-TEST(normalization, nfd_010_178)
+TEST(normalization, nfd_010_179)
 {
     // 331B;331B;331B;30AF 30ED 30FC 30CD;30AF 30ED 30FC 30CD; 
     // (㌛; ㌛; ㌛; クローネ; クローネ; ) SQUARE KUROONE
@@ -17676,7 +17775,7 @@ TEST(normalization, nfd_010_178)
 }
 
 
-TEST(normalization, nfd_010_179)
+TEST(normalization, nfd_010_180)
 {
     // 331C;331C;331C;30B1 30FC 30B9;30B1 30FC 30B9; 
     // (㌜; ㌜; ㌜; ケース; ケース; ) SQUARE KEESU
@@ -17775,7 +17874,7 @@ TEST(normalization, nfd_010_179)
 }
 
 
-TEST(normalization, nfd_010_180)
+TEST(normalization, nfd_010_181)
 {
     // 331D;331D;331D;30B3 30EB 30CA;30B3 30EB 30CA; 
     // (㌝; ㌝; ㌝; コルナ; コルナ; ) SQUARE KORUNA
@@ -17874,7 +17973,7 @@ TEST(normalization, nfd_010_180)
 }
 
 
-TEST(normalization, nfd_010_181)
+TEST(normalization, nfd_010_182)
 {
     // 331E;331E;331E;30B3 30FC 30DD;30B3 30FC 30DB 309A; 
     // (㌞; ㌞; ㌞; コーポ; コーホ◌゚; ) SQUARE KOOPO
@@ -17971,7 +18070,7 @@ TEST(normalization, nfd_010_181)
 }
 
 
-TEST(normalization, nfd_010_182)
+TEST(normalization, nfd_010_183)
 {
     // 331F;331F;331F;30B5 30A4 30AF 30EB;30B5 30A4 30AF 30EB; 
     // (㌟; ㌟; ㌟; サイクル; サイクル; ) SQUARE SAIKURU
@@ -18070,7 +18169,7 @@ TEST(normalization, nfd_010_182)
 }
 
 
-TEST(normalization, nfd_010_183)
+TEST(normalization, nfd_010_184)
 {
     // 3320;3320;3320;30B5 30F3 30C1 30FC 30E0;30B5 30F3 30C1 30FC 30E0; 
     // (㌠; ㌠; ㌠; サンチーム; サンチーム; ) SQUARE SANTIIMU
@@ -18169,7 +18268,7 @@ TEST(normalization, nfd_010_183)
 }
 
 
-TEST(normalization, nfd_010_184)
+TEST(normalization, nfd_010_185)
 {
     // 3321;3321;3321;30B7 30EA 30F3 30B0;30B7 30EA 30F3 30AF 3099; 
     // (㌡; ㌡; ㌡; シリング; シリンク◌゙; ) SQUARE SIRINGU
@@ -18266,7 +18365,7 @@ TEST(normalization, nfd_010_184)
 }
 
 
-TEST(normalization, nfd_010_185)
+TEST(normalization, nfd_010_186)
 {
     // 3322;3322;3322;30BB 30F3 30C1;30BB 30F3 30C1; 
     // (㌢; ㌢; ㌢; センチ; センチ; ) SQUARE SENTI
@@ -18365,7 +18464,7 @@ TEST(normalization, nfd_010_185)
 }
 
 
-TEST(normalization, nfd_010_186)
+TEST(normalization, nfd_010_187)
 {
     // 3323;3323;3323;30BB 30F3 30C8;30BB 30F3 30C8; 
     // (㌣; ㌣; ㌣; セント; セント; ) SQUARE SENTO
@@ -18464,7 +18563,7 @@ TEST(normalization, nfd_010_186)
 }
 
 
-TEST(normalization, nfd_010_187)
+TEST(normalization, nfd_010_188)
 {
     // 3324;3324;3324;30C0 30FC 30B9;30BF 3099 30FC 30B9; 
     // (㌤; ㌤; ㌤; ダース; タ◌゙ース; ) SQUARE DAASU
@@ -18561,7 +18660,7 @@ TEST(normalization, nfd_010_187)
 }
 
 
-TEST(normalization, nfd_010_188)
+TEST(normalization, nfd_010_189)
 {
     // 3325;3325;3325;30C7 30B7;30C6 3099 30B7; 
     // (㌥; ㌥; ㌥; デシ; テ◌゙シ; ) SQUARE DESI
@@ -18658,7 +18757,7 @@ TEST(normalization, nfd_010_188)
 }
 
 
-TEST(normalization, nfd_010_189)
+TEST(normalization, nfd_010_190)
 {
     // 3326;3326;3326;30C9 30EB;30C8 3099 30EB; 
     // (㌦; ㌦; ㌦; ドル; ト◌゙ル; ) SQUARE DORU
@@ -18755,7 +18854,7 @@ TEST(normalization, nfd_010_189)
 }
 
 
-TEST(normalization, nfd_010_190)
+TEST(normalization, nfd_010_191)
 {
     // 3327;3327;3327;30C8 30F3;30C8 30F3; 
     // (㌧; ㌧; ㌧; トン; トン; ) SQUARE TON
@@ -18854,7 +18953,7 @@ TEST(normalization, nfd_010_190)
 }
 
 
-TEST(normalization, nfd_010_191)
+TEST(normalization, nfd_010_192)
 {
     // 3328;3328;3328;30CA 30CE;30CA 30CE; 
     // (㌨; ㌨; ㌨; ナノ; ナノ; ) SQUARE NANO
@@ -18953,7 +19052,7 @@ TEST(normalization, nfd_010_191)
 }
 
 
-TEST(normalization, nfd_010_192)
+TEST(normalization, nfd_010_193)
 {
     // 3329;3329;3329;30CE 30C3 30C8;30CE 30C3 30C8; 
     // (㌩; ㌩; ㌩; ノット; ノット; ) SQUARE NOTTO
@@ -19052,7 +19151,7 @@ TEST(normalization, nfd_010_192)
 }
 
 
-TEST(normalization, nfd_010_193)
+TEST(normalization, nfd_010_194)
 {
     // 332A;332A;332A;30CF 30A4 30C4;30CF 30A4 30C4; 
     // (㌪; ㌪; ㌪; ハイツ; ハイツ; ) SQUARE HAITU
@@ -19151,7 +19250,7 @@ TEST(normalization, nfd_010_193)
 }
 
 
-TEST(normalization, nfd_010_194)
+TEST(normalization, nfd_010_195)
 {
     // 332B;332B;332B;30D1 30FC 30BB 30F3 30C8;30CF 309A 30FC 30BB 30F3 30C8; 
     // (㌫; ㌫; ㌫; パーセント; ハ◌゚ーセント; ) SQUARE PAASENTO
@@ -19248,7 +19347,7 @@ TEST(normalization, nfd_010_194)
 }
 
 
-TEST(normalization, nfd_010_195)
+TEST(normalization, nfd_010_196)
 {
     // 332C;332C;332C;30D1 30FC 30C4;30CF 309A 30FC 30C4; 
     // (㌬; ㌬; ㌬; パーツ; ハ◌゚ーツ; ) SQUARE PAATU
@@ -19345,7 +19444,7 @@ TEST(normalization, nfd_010_195)
 }
 
 
-TEST(normalization, nfd_010_196)
+TEST(normalization, nfd_010_197)
 {
     // 332D;332D;332D;30D0 30FC 30EC 30EB;30CF 3099 30FC 30EC 30EB; 
     // (㌭; ㌭; ㌭; バーレル; ハ◌゙ーレル; ) SQUARE BAARERU
@@ -19442,7 +19541,7 @@ TEST(normalization, nfd_010_196)
 }
 
 
-TEST(normalization, nfd_010_197)
+TEST(normalization, nfd_010_198)
 {
     // 332E;332E;332E;30D4 30A2 30B9 30C8 30EB;30D2 309A 30A2 30B9 30C8 30EB; 
     // (㌮; ㌮; ㌮; ピアストル; ヒ◌゚アストル; ) SQUARE PIASUTORU
@@ -19539,7 +19638,7 @@ TEST(normalization, nfd_010_197)
 }
 
 
-TEST(normalization, nfd_010_198)
+TEST(normalization, nfd_010_199)
 {
     // 332F;332F;332F;30D4 30AF 30EB;30D2 309A 30AF 30EB; 
     // (㌯; ㌯; ㌯; ピクル; ヒ◌゚クル; ) SQUARE PIKURU
@@ -19549,103 +19648,6 @@ TEST(normalization, nfd_010_198)
         std::array<uint32_t, 1> const c3 = {{ 0x332F }};
         std::array<uint32_t, 3> const c4 = {{ 0x30D4, 0x30AF, 0x30EB }};
         std::array<uint32_t, 4> const c5 = {{ 0x30D2, 0x309A, 0x30AF, 0x30EB }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_010_199)
-{
-    // 3330;3330;3330;30D4 30B3;30D2 309A 30B3; 
-    // (㌰; ㌰; ㌰; ピコ; ヒ◌゚コ; ) SQUARE PIKO
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0x3330 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x3330 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x3330 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x30D4, 0x30B3 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x30D2, 0x309A, 0x30B3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));

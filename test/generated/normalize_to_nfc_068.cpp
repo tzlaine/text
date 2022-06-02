@@ -17,6 +17,541 @@
 
 TEST(normalization, nfc_068_000)
 {
+    // F907;9F9C;9F9C;9F9C;9F9C; 
+    // (龜; 龜; 龜; 龜; 龜; ) CJK COMPATIBILITY IDEOGRAPH-F907
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xF907 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x9F9C }};
+        std::array<uint32_t, 1> const c3 = {{ 0x9F9C }};
+        std::array<uint32_t, 1> const c4 = {{ 0x9F9C }};
+        std::array<uint32_t, 1> const c5 = {{ 0x9F9C }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfc_068_001)
+{
+    // F908;9F9C;9F9C;9F9C;9F9C; 
+    // (龜; 龜; 龜; 龜; 龜; ) CJK COMPATIBILITY IDEOGRAPH-F908
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xF908 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x9F9C }};
+        std::array<uint32_t, 1> const c3 = {{ 0x9F9C }};
+        std::array<uint32_t, 1> const c4 = {{ 0x9F9C }};
+        std::array<uint32_t, 1> const c5 = {{ 0x9F9C }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfc_068_002)
+{
+    // F909;5951;5951;5951;5951; 
+    // (契; 契; 契; 契; 契; ) CJK COMPATIBILITY IDEOGRAPH-F909
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xF909 }};
+        std::array<uint32_t, 1> const c2 = {{ 0x5951 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x5951 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x5951 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x5951 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfc_068_003)
+{
+    // F90A;91D1;91D1;91D1;91D1; 
+    // (金; 金; 金; 金; 金; ) CJK COMPATIBILITY IDEOGRAPH-F90A
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xF90A }};
+        std::array<uint32_t, 1> const c2 = {{ 0x91D1 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x91D1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x91D1 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x91D1 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfc_068_004)
+{
+    // F90B;5587;5587;5587;5587; 
+    // (喇; 喇; 喇; 喇; 喇; ) CJK COMPATIBILITY IDEOGRAPH-F90B
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xF90B }};
+        std::array<uint32_t, 1> const c2 = {{ 0x5587 }};
+        std::array<uint32_t, 1> const c3 = {{ 0x5587 }};
+        std::array<uint32_t, 1> const c4 = {{ 0x5587 }};
+        std::array<uint32_t, 1> const c5 = {{ 0x5587 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+            auto c2_it = c2.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                ++c2_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::c>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfc_068_005)
+{
     // F90C;5948;5948;5948;5948; 
     // (奈; 奈; 奈; 奈; 奈; ) CJK COMPATIBILITY IDEOGRAPH-F90C
     {
@@ -122,7 +657,7 @@ TEST(normalization, nfc_068_000)
 }
 
 
-TEST(normalization, nfc_068_001)
+TEST(normalization, nfc_068_006)
 {
     // F90D;61F6;61F6;61F6;61F6; 
     // (懶; 懶; 懶; 懶; 懶; ) CJK COMPATIBILITY IDEOGRAPH-F90D
@@ -229,7 +764,7 @@ TEST(normalization, nfc_068_001)
 }
 
 
-TEST(normalization, nfc_068_002)
+TEST(normalization, nfc_068_007)
 {
     // F90E;7669;7669;7669;7669; 
     // (癩; 癩; 癩; 癩; 癩; ) CJK COMPATIBILITY IDEOGRAPH-F90E
@@ -336,7 +871,7 @@ TEST(normalization, nfc_068_002)
 }
 
 
-TEST(normalization, nfc_068_003)
+TEST(normalization, nfc_068_008)
 {
     // F90F;7F85;7F85;7F85;7F85; 
     // (羅; 羅; 羅; 羅; 羅; ) CJK COMPATIBILITY IDEOGRAPH-F90F
@@ -443,7 +978,7 @@ TEST(normalization, nfc_068_003)
 }
 
 
-TEST(normalization, nfc_068_004)
+TEST(normalization, nfc_068_009)
 {
     // F910;863F;863F;863F;863F; 
     // (蘿; 蘿; 蘿; 蘿; 蘿; ) CJK COMPATIBILITY IDEOGRAPH-F910
@@ -550,7 +1085,7 @@ TEST(normalization, nfc_068_004)
 }
 
 
-TEST(normalization, nfc_068_005)
+TEST(normalization, nfc_068_010)
 {
     // F911;87BA;87BA;87BA;87BA; 
     // (螺; 螺; 螺; 螺; 螺; ) CJK COMPATIBILITY IDEOGRAPH-F911
@@ -657,7 +1192,7 @@ TEST(normalization, nfc_068_005)
 }
 
 
-TEST(normalization, nfc_068_006)
+TEST(normalization, nfc_068_011)
 {
     // F912;88F8;88F8;88F8;88F8; 
     // (裸; 裸; 裸; 裸; 裸; ) CJK COMPATIBILITY IDEOGRAPH-F912
@@ -764,7 +1299,7 @@ TEST(normalization, nfc_068_006)
 }
 
 
-TEST(normalization, nfc_068_007)
+TEST(normalization, nfc_068_012)
 {
     // F913;908F;908F;908F;908F; 
     // (邏; 邏; 邏; 邏; 邏; ) CJK COMPATIBILITY IDEOGRAPH-F913
@@ -871,7 +1406,7 @@ TEST(normalization, nfc_068_007)
 }
 
 
-TEST(normalization, nfc_068_008)
+TEST(normalization, nfc_068_013)
 {
     // F914;6A02;6A02;6A02;6A02; 
     // (樂; 樂; 樂; 樂; 樂; ) CJK COMPATIBILITY IDEOGRAPH-F914
@@ -978,7 +1513,7 @@ TEST(normalization, nfc_068_008)
 }
 
 
-TEST(normalization, nfc_068_009)
+TEST(normalization, nfc_068_014)
 {
     // F915;6D1B;6D1B;6D1B;6D1B; 
     // (洛; 洛; 洛; 洛; 洛; ) CJK COMPATIBILITY IDEOGRAPH-F915
@@ -1085,7 +1620,7 @@ TEST(normalization, nfc_068_009)
 }
 
 
-TEST(normalization, nfc_068_010)
+TEST(normalization, nfc_068_015)
 {
     // F916;70D9;70D9;70D9;70D9; 
     // (烙; 烙; 烙; 烙; 烙; ) CJK COMPATIBILITY IDEOGRAPH-F916
@@ -1192,7 +1727,7 @@ TEST(normalization, nfc_068_010)
 }
 
 
-TEST(normalization, nfc_068_011)
+TEST(normalization, nfc_068_016)
 {
     // F917;73DE;73DE;73DE;73DE; 
     // (珞; 珞; 珞; 珞; 珞; ) CJK COMPATIBILITY IDEOGRAPH-F917
@@ -1299,7 +1834,7 @@ TEST(normalization, nfc_068_011)
 }
 
 
-TEST(normalization, nfc_068_012)
+TEST(normalization, nfc_068_017)
 {
     // F918;843D;843D;843D;843D; 
     // (落; 落; 落; 落; 落; ) CJK COMPATIBILITY IDEOGRAPH-F918
@@ -1406,7 +1941,7 @@ TEST(normalization, nfc_068_012)
 }
 
 
-TEST(normalization, nfc_068_013)
+TEST(normalization, nfc_068_018)
 {
     // F919;916A;916A;916A;916A; 
     // (酪; 酪; 酪; 酪; 酪; ) CJK COMPATIBILITY IDEOGRAPH-F919
@@ -1513,7 +2048,7 @@ TEST(normalization, nfc_068_013)
 }
 
 
-TEST(normalization, nfc_068_014)
+TEST(normalization, nfc_068_019)
 {
     // F91A;99F1;99F1;99F1;99F1; 
     // (駱; 駱; 駱; 駱; 駱; ) CJK COMPATIBILITY IDEOGRAPH-F91A
@@ -1620,7 +2155,7 @@ TEST(normalization, nfc_068_014)
 }
 
 
-TEST(normalization, nfc_068_015)
+TEST(normalization, nfc_068_020)
 {
     // F91B;4E82;4E82;4E82;4E82; 
     // (亂; 亂; 亂; 亂; 亂; ) CJK COMPATIBILITY IDEOGRAPH-F91B
@@ -1727,7 +2262,7 @@ TEST(normalization, nfc_068_015)
 }
 
 
-TEST(normalization, nfc_068_016)
+TEST(normalization, nfc_068_021)
 {
     // F91C;5375;5375;5375;5375; 
     // (卵; 卵; 卵; 卵; 卵; ) CJK COMPATIBILITY IDEOGRAPH-F91C
@@ -1834,7 +2369,7 @@ TEST(normalization, nfc_068_016)
 }
 
 
-TEST(normalization, nfc_068_017)
+TEST(normalization, nfc_068_022)
 {
     // F91D;6B04;6B04;6B04;6B04; 
     // (欄; 欄; 欄; 欄; 欄; ) CJK COMPATIBILITY IDEOGRAPH-F91D
@@ -1941,7 +2476,7 @@ TEST(normalization, nfc_068_017)
 }
 
 
-TEST(normalization, nfc_068_018)
+TEST(normalization, nfc_068_023)
 {
     // F91E;721B;721B;721B;721B; 
     // (爛; 爛; 爛; 爛; 爛; ) CJK COMPATIBILITY IDEOGRAPH-F91E
@@ -2048,7 +2583,7 @@ TEST(normalization, nfc_068_018)
 }
 
 
-TEST(normalization, nfc_068_019)
+TEST(normalization, nfc_068_024)
 {
     // F91F;862D;862D;862D;862D; 
     // (蘭; 蘭; 蘭; 蘭; 蘭; ) CJK COMPATIBILITY IDEOGRAPH-F91F
@@ -2155,7 +2690,7 @@ TEST(normalization, nfc_068_019)
 }
 
 
-TEST(normalization, nfc_068_020)
+TEST(normalization, nfc_068_025)
 {
     // F920;9E1E;9E1E;9E1E;9E1E; 
     // (鸞; 鸞; 鸞; 鸞; 鸞; ) CJK COMPATIBILITY IDEOGRAPH-F920
@@ -2262,7 +2797,7 @@ TEST(normalization, nfc_068_020)
 }
 
 
-TEST(normalization, nfc_068_021)
+TEST(normalization, nfc_068_026)
 {
     // F921;5D50;5D50;5D50;5D50; 
     // (嵐; 嵐; 嵐; 嵐; 嵐; ) CJK COMPATIBILITY IDEOGRAPH-F921
@@ -2369,7 +2904,7 @@ TEST(normalization, nfc_068_021)
 }
 
 
-TEST(normalization, nfc_068_022)
+TEST(normalization, nfc_068_027)
 {
     // F922;6FEB;6FEB;6FEB;6FEB; 
     // (濫; 濫; 濫; 濫; 濫; ) CJK COMPATIBILITY IDEOGRAPH-F922
@@ -2476,7 +3011,7 @@ TEST(normalization, nfc_068_022)
 }
 
 
-TEST(normalization, nfc_068_023)
+TEST(normalization, nfc_068_028)
 {
     // F923;85CD;85CD;85CD;85CD; 
     // (藍; 藍; 藍; 藍; 藍; ) CJK COMPATIBILITY IDEOGRAPH-F923
@@ -2583,7 +3118,7 @@ TEST(normalization, nfc_068_023)
 }
 
 
-TEST(normalization, nfc_068_024)
+TEST(normalization, nfc_068_029)
 {
     // F924;8964;8964;8964;8964; 
     // (襤; 襤; 襤; 襤; 襤; ) CJK COMPATIBILITY IDEOGRAPH-F924
@@ -2690,7 +3225,7 @@ TEST(normalization, nfc_068_024)
 }
 
 
-TEST(normalization, nfc_068_025)
+TEST(normalization, nfc_068_030)
 {
     // F925;62C9;62C9;62C9;62C9; 
     // (拉; 拉; 拉; 拉; 拉; ) CJK COMPATIBILITY IDEOGRAPH-F925
@@ -2797,7 +3332,7 @@ TEST(normalization, nfc_068_025)
 }
 
 
-TEST(normalization, nfc_068_026)
+TEST(normalization, nfc_068_031)
 {
     // F926;81D8;81D8;81D8;81D8; 
     // (臘; 臘; 臘; 臘; 臘; ) CJK COMPATIBILITY IDEOGRAPH-F926
@@ -2904,7 +3439,7 @@ TEST(normalization, nfc_068_026)
 }
 
 
-TEST(normalization, nfc_068_027)
+TEST(normalization, nfc_068_032)
 {
     // F927;881F;881F;881F;881F; 
     // (蠟; 蠟; 蠟; 蠟; 蠟; ) CJK COMPATIBILITY IDEOGRAPH-F927
@@ -3011,7 +3546,7 @@ TEST(normalization, nfc_068_027)
 }
 
 
-TEST(normalization, nfc_068_028)
+TEST(normalization, nfc_068_033)
 {
     // F928;5ECA;5ECA;5ECA;5ECA; 
     // (廊; 廊; 廊; 廊; 廊; ) CJK COMPATIBILITY IDEOGRAPH-F928
@@ -3118,7 +3653,7 @@ TEST(normalization, nfc_068_028)
 }
 
 
-TEST(normalization, nfc_068_029)
+TEST(normalization, nfc_068_034)
 {
     // F929;6717;6717;6717;6717; 
     // (朗; 朗; 朗; 朗; 朗; ) CJK COMPATIBILITY IDEOGRAPH-F929
@@ -3225,7 +3760,7 @@ TEST(normalization, nfc_068_029)
 }
 
 
-TEST(normalization, nfc_068_030)
+TEST(normalization, nfc_068_035)
 {
     // F92A;6D6A;6D6A;6D6A;6D6A; 
     // (浪; 浪; 浪; 浪; 浪; ) CJK COMPATIBILITY IDEOGRAPH-F92A
@@ -3332,7 +3867,7 @@ TEST(normalization, nfc_068_030)
 }
 
 
-TEST(normalization, nfc_068_031)
+TEST(normalization, nfc_068_036)
 {
     // F92B;72FC;72FC;72FC;72FC; 
     // (狼; 狼; 狼; 狼; 狼; ) CJK COMPATIBILITY IDEOGRAPH-F92B
@@ -3439,7 +3974,7 @@ TEST(normalization, nfc_068_031)
 }
 
 
-TEST(normalization, nfc_068_032)
+TEST(normalization, nfc_068_037)
 {
     // F92C;90CE;90CE;90CE;90CE; 
     // (郎; 郎; 郎; 郎; 郎; ) CJK COMPATIBILITY IDEOGRAPH-F92C
@@ -3546,7 +4081,7 @@ TEST(normalization, nfc_068_032)
 }
 
 
-TEST(normalization, nfc_068_033)
+TEST(normalization, nfc_068_038)
 {
     // F92D;4F86;4F86;4F86;4F86; 
     // (來; 來; 來; 來; 來; ) CJK COMPATIBILITY IDEOGRAPH-F92D
@@ -3653,7 +4188,7 @@ TEST(normalization, nfc_068_033)
 }
 
 
-TEST(normalization, nfc_068_034)
+TEST(normalization, nfc_068_039)
 {
     // F92E;51B7;51B7;51B7;51B7; 
     // (冷; 冷; 冷; 冷; 冷; ) CJK COMPATIBILITY IDEOGRAPH-F92E
@@ -3760,7 +4295,7 @@ TEST(normalization, nfc_068_034)
 }
 
 
-TEST(normalization, nfc_068_035)
+TEST(normalization, nfc_068_040)
 {
     // F92F;52DE;52DE;52DE;52DE; 
     // (勞; 勞; 勞; 勞; 勞; ) CJK COMPATIBILITY IDEOGRAPH-F92F
@@ -3867,7 +4402,7 @@ TEST(normalization, nfc_068_035)
 }
 
 
-TEST(normalization, nfc_068_036)
+TEST(normalization, nfc_068_041)
 {
     // F930;64C4;64C4;64C4;64C4; 
     // (擄; 擄; 擄; 擄; 擄; ) CJK COMPATIBILITY IDEOGRAPH-F930
@@ -3974,7 +4509,7 @@ TEST(normalization, nfc_068_036)
 }
 
 
-TEST(normalization, nfc_068_037)
+TEST(normalization, nfc_068_042)
 {
     // F931;6AD3;6AD3;6AD3;6AD3; 
     // (櫓; 櫓; 櫓; 櫓; 櫓; ) CJK COMPATIBILITY IDEOGRAPH-F931
@@ -4081,7 +4616,7 @@ TEST(normalization, nfc_068_037)
 }
 
 
-TEST(normalization, nfc_068_038)
+TEST(normalization, nfc_068_043)
 {
     // F932;7210;7210;7210;7210; 
     // (爐; 爐; 爐; 爐; 爐; ) CJK COMPATIBILITY IDEOGRAPH-F932
@@ -4188,7 +4723,7 @@ TEST(normalization, nfc_068_038)
 }
 
 
-TEST(normalization, nfc_068_039)
+TEST(normalization, nfc_068_044)
 {
     // F933;76E7;76E7;76E7;76E7; 
     // (盧; 盧; 盧; 盧; 盧; ) CJK COMPATIBILITY IDEOGRAPH-F933
@@ -4295,7 +4830,7 @@ TEST(normalization, nfc_068_039)
 }
 
 
-TEST(normalization, nfc_068_040)
+TEST(normalization, nfc_068_045)
 {
     // F934;8001;8001;8001;8001; 
     // (老; 老; 老; 老; 老; ) CJK COMPATIBILITY IDEOGRAPH-F934
@@ -4402,7 +4937,7 @@ TEST(normalization, nfc_068_040)
 }
 
 
-TEST(normalization, nfc_068_041)
+TEST(normalization, nfc_068_046)
 {
     // F935;8606;8606;8606;8606; 
     // (蘆; 蘆; 蘆; 蘆; 蘆; ) CJK COMPATIBILITY IDEOGRAPH-F935
@@ -4509,7 +5044,7 @@ TEST(normalization, nfc_068_041)
 }
 
 
-TEST(normalization, nfc_068_042)
+TEST(normalization, nfc_068_047)
 {
     // F936;865C;865C;865C;865C; 
     // (虜; 虜; 虜; 虜; 虜; ) CJK COMPATIBILITY IDEOGRAPH-F936
@@ -4616,7 +5151,7 @@ TEST(normalization, nfc_068_042)
 }
 
 
-TEST(normalization, nfc_068_043)
+TEST(normalization, nfc_068_048)
 {
     // F937;8DEF;8DEF;8DEF;8DEF; 
     // (路; 路; 路; 路; 路; ) CJK COMPATIBILITY IDEOGRAPH-F937
@@ -4723,7 +5258,7 @@ TEST(normalization, nfc_068_043)
 }
 
 
-TEST(normalization, nfc_068_044)
+TEST(normalization, nfc_068_049)
 {
     // F938;9732;9732;9732;9732; 
     // (露; 露; 露; 露; 露; ) CJK COMPATIBILITY IDEOGRAPH-F938
@@ -4830,7 +5365,7 @@ TEST(normalization, nfc_068_044)
 }
 
 
-TEST(normalization, nfc_068_045)
+TEST(normalization, nfc_068_050)
 {
     // F939;9B6F;9B6F;9B6F;9B6F; 
     // (魯; 魯; 魯; 魯; 魯; ) CJK COMPATIBILITY IDEOGRAPH-F939
@@ -4937,7 +5472,7 @@ TEST(normalization, nfc_068_045)
 }
 
 
-TEST(normalization, nfc_068_046)
+TEST(normalization, nfc_068_051)
 {
     // F93A;9DFA;9DFA;9DFA;9DFA; 
     // (鷺; 鷺; 鷺; 鷺; 鷺; ) CJK COMPATIBILITY IDEOGRAPH-F93A
@@ -5044,7 +5579,7 @@ TEST(normalization, nfc_068_046)
 }
 
 
-TEST(normalization, nfc_068_047)
+TEST(normalization, nfc_068_052)
 {
     // F93B;788C;788C;788C;788C; 
     // (碌; 碌; 碌; 碌; 碌; ) CJK COMPATIBILITY IDEOGRAPH-F93B
@@ -5151,7 +5686,7 @@ TEST(normalization, nfc_068_047)
 }
 
 
-TEST(normalization, nfc_068_048)
+TEST(normalization, nfc_068_053)
 {
     // F93C;797F;797F;797F;797F; 
     // (祿; 祿; 祿; 祿; 祿; ) CJK COMPATIBILITY IDEOGRAPH-F93C
@@ -5258,7 +5793,7 @@ TEST(normalization, nfc_068_048)
 }
 
 
-TEST(normalization, nfc_068_049)
+TEST(normalization, nfc_068_054)
 {
     // F93D;7DA0;7DA0;7DA0;7DA0; 
     // (綠; 綠; 綠; 綠; 綠; ) CJK COMPATIBILITY IDEOGRAPH-F93D
@@ -5365,7 +5900,7 @@ TEST(normalization, nfc_068_049)
 }
 
 
-TEST(normalization, nfc_068_050)
+TEST(normalization, nfc_068_055)
 {
     // F93E;83C9;83C9;83C9;83C9; 
     // (菉; 菉; 菉; 菉; 菉; ) CJK COMPATIBILITY IDEOGRAPH-F93E
@@ -5472,7 +6007,7 @@ TEST(normalization, nfc_068_050)
 }
 
 
-TEST(normalization, nfc_068_051)
+TEST(normalization, nfc_068_056)
 {
     // F93F;9304;9304;9304;9304; 
     // (錄; 錄; 錄; 錄; 錄; ) CJK COMPATIBILITY IDEOGRAPH-F93F
@@ -5579,7 +6114,7 @@ TEST(normalization, nfc_068_051)
 }
 
 
-TEST(normalization, nfc_068_052)
+TEST(normalization, nfc_068_057)
 {
     // F940;9E7F;9E7F;9E7F;9E7F; 
     // (鹿; 鹿; 鹿; 鹿; 鹿; ) CJK COMPATIBILITY IDEOGRAPH-F940
@@ -5686,7 +6221,7 @@ TEST(normalization, nfc_068_052)
 }
 
 
-TEST(normalization, nfc_068_053)
+TEST(normalization, nfc_068_058)
 {
     // F941;8AD6;8AD6;8AD6;8AD6; 
     // (論; 論; 論; 論; 論; ) CJK COMPATIBILITY IDEOGRAPH-F941
@@ -5793,7 +6328,7 @@ TEST(normalization, nfc_068_053)
 }
 
 
-TEST(normalization, nfc_068_054)
+TEST(normalization, nfc_068_059)
 {
     // F942;58DF;58DF;58DF;58DF; 
     // (壟; 壟; 壟; 壟; 壟; ) CJK COMPATIBILITY IDEOGRAPH-F942
@@ -5900,7 +6435,7 @@ TEST(normalization, nfc_068_054)
 }
 
 
-TEST(normalization, nfc_068_055)
+TEST(normalization, nfc_068_060)
 {
     // F943;5F04;5F04;5F04;5F04; 
     // (弄; 弄; 弄; 弄; 弄; ) CJK COMPATIBILITY IDEOGRAPH-F943
@@ -6007,7 +6542,7 @@ TEST(normalization, nfc_068_055)
 }
 
 
-TEST(normalization, nfc_068_056)
+TEST(normalization, nfc_068_061)
 {
     // F944;7C60;7C60;7C60;7C60; 
     // (籠; 籠; 籠; 籠; 籠; ) CJK COMPATIBILITY IDEOGRAPH-F944
@@ -6114,7 +6649,7 @@ TEST(normalization, nfc_068_056)
 }
 
 
-TEST(normalization, nfc_068_057)
+TEST(normalization, nfc_068_062)
 {
     // F945;807E;807E;807E;807E; 
     // (聾; 聾; 聾; 聾; 聾; ) CJK COMPATIBILITY IDEOGRAPH-F945
@@ -6221,7 +6756,7 @@ TEST(normalization, nfc_068_057)
 }
 
 
-TEST(normalization, nfc_068_058)
+TEST(normalization, nfc_068_063)
 {
     // F946;7262;7262;7262;7262; 
     // (牢; 牢; 牢; 牢; 牢; ) CJK COMPATIBILITY IDEOGRAPH-F946
@@ -6328,7 +6863,7 @@ TEST(normalization, nfc_068_058)
 }
 
 
-TEST(normalization, nfc_068_059)
+TEST(normalization, nfc_068_064)
 {
     // F947;78CA;78CA;78CA;78CA; 
     // (磊; 磊; 磊; 磊; 磊; ) CJK COMPATIBILITY IDEOGRAPH-F947
@@ -6435,7 +6970,7 @@ TEST(normalization, nfc_068_059)
 }
 
 
-TEST(normalization, nfc_068_060)
+TEST(normalization, nfc_068_065)
 {
     // F948;8CC2;8CC2;8CC2;8CC2; 
     // (賂; 賂; 賂; 賂; 賂; ) CJK COMPATIBILITY IDEOGRAPH-F948
@@ -6542,7 +7077,7 @@ TEST(normalization, nfc_068_060)
 }
 
 
-TEST(normalization, nfc_068_061)
+TEST(normalization, nfc_068_066)
 {
     // F949;96F7;96F7;96F7;96F7; 
     // (雷; 雷; 雷; 雷; 雷; ) CJK COMPATIBILITY IDEOGRAPH-F949
@@ -6649,7 +7184,7 @@ TEST(normalization, nfc_068_061)
 }
 
 
-TEST(normalization, nfc_068_062)
+TEST(normalization, nfc_068_067)
 {
     // F94A;58D8;58D8;58D8;58D8; 
     // (壘; 壘; 壘; 壘; 壘; ) CJK COMPATIBILITY IDEOGRAPH-F94A
@@ -6756,7 +7291,7 @@ TEST(normalization, nfc_068_062)
 }
 
 
-TEST(normalization, nfc_068_063)
+TEST(normalization, nfc_068_068)
 {
     // F94B;5C62;5C62;5C62;5C62; 
     // (屢; 屢; 屢; 屢; 屢; ) CJK COMPATIBILITY IDEOGRAPH-F94B
@@ -6863,7 +7398,7 @@ TEST(normalization, nfc_068_063)
 }
 
 
-TEST(normalization, nfc_068_064)
+TEST(normalization, nfc_068_069)
 {
     // F94C;6A13;6A13;6A13;6A13; 
     // (樓; 樓; 樓; 樓; 樓; ) CJK COMPATIBILITY IDEOGRAPH-F94C
@@ -6970,7 +7505,7 @@ TEST(normalization, nfc_068_064)
 }
 
 
-TEST(normalization, nfc_068_065)
+TEST(normalization, nfc_068_070)
 {
     // F94D;6DDA;6DDA;6DDA;6DDA; 
     // (淚; 淚; 淚; 淚; 淚; ) CJK COMPATIBILITY IDEOGRAPH-F94D
@@ -7077,7 +7612,7 @@ TEST(normalization, nfc_068_065)
 }
 
 
-TEST(normalization, nfc_068_066)
+TEST(normalization, nfc_068_071)
 {
     // F94E;6F0F;6F0F;6F0F;6F0F; 
     // (漏; 漏; 漏; 漏; 漏; ) CJK COMPATIBILITY IDEOGRAPH-F94E
@@ -7184,7 +7719,7 @@ TEST(normalization, nfc_068_066)
 }
 
 
-TEST(normalization, nfc_068_067)
+TEST(normalization, nfc_068_072)
 {
     // F94F;7D2F;7D2F;7D2F;7D2F; 
     // (累; 累; 累; 累; 累; ) CJK COMPATIBILITY IDEOGRAPH-F94F
@@ -7291,7 +7826,7 @@ TEST(normalization, nfc_068_067)
 }
 
 
-TEST(normalization, nfc_068_068)
+TEST(normalization, nfc_068_073)
 {
     // F950;7E37;7E37;7E37;7E37; 
     // (縷; 縷; 縷; 縷; 縷; ) CJK COMPATIBILITY IDEOGRAPH-F950
@@ -7398,7 +7933,7 @@ TEST(normalization, nfc_068_068)
 }
 
 
-TEST(normalization, nfc_068_069)
+TEST(normalization, nfc_068_074)
 {
     // F951;964B;964B;964B;964B; 
     // (陋; 陋; 陋; 陋; 陋; ) CJK COMPATIBILITY IDEOGRAPH-F951
@@ -7505,7 +8040,7 @@ TEST(normalization, nfc_068_069)
 }
 
 
-TEST(normalization, nfc_068_070)
+TEST(normalization, nfc_068_075)
 {
     // F952;52D2;52D2;52D2;52D2; 
     // (勒; 勒; 勒; 勒; 勒; ) CJK COMPATIBILITY IDEOGRAPH-F952
@@ -7612,7 +8147,7 @@ TEST(normalization, nfc_068_070)
 }
 
 
-TEST(normalization, nfc_068_071)
+TEST(normalization, nfc_068_076)
 {
     // F953;808B;808B;808B;808B; 
     // (肋; 肋; 肋; 肋; 肋; ) CJK COMPATIBILITY IDEOGRAPH-F953
@@ -7719,7 +8254,7 @@ TEST(normalization, nfc_068_071)
 }
 
 
-TEST(normalization, nfc_068_072)
+TEST(normalization, nfc_068_077)
 {
     // F954;51DC;51DC;51DC;51DC; 
     // (凜; 凜; 凜; 凜; 凜; ) CJK COMPATIBILITY IDEOGRAPH-F954
@@ -7826,7 +8361,7 @@ TEST(normalization, nfc_068_072)
 }
 
 
-TEST(normalization, nfc_068_073)
+TEST(normalization, nfc_068_078)
 {
     // F955;51CC;51CC;51CC;51CC; 
     // (凌; 凌; 凌; 凌; 凌; ) CJK COMPATIBILITY IDEOGRAPH-F955
@@ -7933,7 +8468,7 @@ TEST(normalization, nfc_068_073)
 }
 
 
-TEST(normalization, nfc_068_074)
+TEST(normalization, nfc_068_079)
 {
     // F956;7A1C;7A1C;7A1C;7A1C; 
     // (稜; 稜; 稜; 稜; 稜; ) CJK COMPATIBILITY IDEOGRAPH-F956
@@ -8040,7 +8575,7 @@ TEST(normalization, nfc_068_074)
 }
 
 
-TEST(normalization, nfc_068_075)
+TEST(normalization, nfc_068_080)
 {
     // F957;7DBE;7DBE;7DBE;7DBE; 
     // (綾; 綾; 綾; 綾; 綾; ) CJK COMPATIBILITY IDEOGRAPH-F957
@@ -8147,7 +8682,7 @@ TEST(normalization, nfc_068_075)
 }
 
 
-TEST(normalization, nfc_068_076)
+TEST(normalization, nfc_068_081)
 {
     // F958;83F1;83F1;83F1;83F1; 
     // (菱; 菱; 菱; 菱; 菱; ) CJK COMPATIBILITY IDEOGRAPH-F958
@@ -8254,7 +8789,7 @@ TEST(normalization, nfc_068_076)
 }
 
 
-TEST(normalization, nfc_068_077)
+TEST(normalization, nfc_068_082)
 {
     // F959;9675;9675;9675;9675; 
     // (陵; 陵; 陵; 陵; 陵; ) CJK COMPATIBILITY IDEOGRAPH-F959
@@ -8361,7 +8896,7 @@ TEST(normalization, nfc_068_077)
 }
 
 
-TEST(normalization, nfc_068_078)
+TEST(normalization, nfc_068_083)
 {
     // F95A;8B80;8B80;8B80;8B80; 
     // (讀; 讀; 讀; 讀; 讀; ) CJK COMPATIBILITY IDEOGRAPH-F95A
@@ -8468,7 +9003,7 @@ TEST(normalization, nfc_068_078)
 }
 
 
-TEST(normalization, nfc_068_079)
+TEST(normalization, nfc_068_084)
 {
     // F95B;62CF;62CF;62CF;62CF; 
     // (拏; 拏; 拏; 拏; 拏; ) CJK COMPATIBILITY IDEOGRAPH-F95B
@@ -8575,7 +9110,7 @@ TEST(normalization, nfc_068_079)
 }
 
 
-TEST(normalization, nfc_068_080)
+TEST(normalization, nfc_068_085)
 {
     // F95C;6A02;6A02;6A02;6A02; 
     // (樂; 樂; 樂; 樂; 樂; ) CJK COMPATIBILITY IDEOGRAPH-F95C
@@ -8682,7 +9217,7 @@ TEST(normalization, nfc_068_080)
 }
 
 
-TEST(normalization, nfc_068_081)
+TEST(normalization, nfc_068_086)
 {
     // F95D;8AFE;8AFE;8AFE;8AFE; 
     // (諾; 諾; 諾; 諾; 諾; ) CJK COMPATIBILITY IDEOGRAPH-F95D
@@ -8789,7 +9324,7 @@ TEST(normalization, nfc_068_081)
 }
 
 
-TEST(normalization, nfc_068_082)
+TEST(normalization, nfc_068_087)
 {
     // F95E;4E39;4E39;4E39;4E39; 
     // (丹; 丹; 丹; 丹; 丹; ) CJK COMPATIBILITY IDEOGRAPH-F95E
@@ -8896,7 +9431,7 @@ TEST(normalization, nfc_068_082)
 }
 
 
-TEST(normalization, nfc_068_083)
+TEST(normalization, nfc_068_088)
 {
     // F95F;5BE7;5BE7;5BE7;5BE7; 
     // (寧; 寧; 寧; 寧; 寧; ) CJK COMPATIBILITY IDEOGRAPH-F95F
@@ -9003,7 +9538,7 @@ TEST(normalization, nfc_068_083)
 }
 
 
-TEST(normalization, nfc_068_084)
+TEST(normalization, nfc_068_089)
 {
     // F960;6012;6012;6012;6012; 
     // (怒; 怒; 怒; 怒; 怒; ) CJK COMPATIBILITY IDEOGRAPH-F960
@@ -9110,7 +9645,7 @@ TEST(normalization, nfc_068_084)
 }
 
 
-TEST(normalization, nfc_068_085)
+TEST(normalization, nfc_068_090)
 {
     // F961;7387;7387;7387;7387; 
     // (率; 率; 率; 率; 率; ) CJK COMPATIBILITY IDEOGRAPH-F961
@@ -9217,7 +9752,7 @@ TEST(normalization, nfc_068_085)
 }
 
 
-TEST(normalization, nfc_068_086)
+TEST(normalization, nfc_068_091)
 {
     // F962;7570;7570;7570;7570; 
     // (異; 異; 異; 異; 異; ) CJK COMPATIBILITY IDEOGRAPH-F962
@@ -9324,7 +9859,7 @@ TEST(normalization, nfc_068_086)
 }
 
 
-TEST(normalization, nfc_068_087)
+TEST(normalization, nfc_068_092)
 {
     // F963;5317;5317;5317;5317; 
     // (北; 北; 北; 北; 北; ) CJK COMPATIBILITY IDEOGRAPH-F963
@@ -9431,7 +9966,7 @@ TEST(normalization, nfc_068_087)
 }
 
 
-TEST(normalization, nfc_068_088)
+TEST(normalization, nfc_068_093)
 {
     // F964;78FB;78FB;78FB;78FB; 
     // (磻; 磻; 磻; 磻; 磻; ) CJK COMPATIBILITY IDEOGRAPH-F964
@@ -9538,7 +10073,7 @@ TEST(normalization, nfc_068_088)
 }
 
 
-TEST(normalization, nfc_068_089)
+TEST(normalization, nfc_068_094)
 {
     // F965;4FBF;4FBF;4FBF;4FBF; 
     // (便; 便; 便; 便; 便; ) CJK COMPATIBILITY IDEOGRAPH-F965
@@ -9645,7 +10180,7 @@ TEST(normalization, nfc_068_089)
 }
 
 
-TEST(normalization, nfc_068_090)
+TEST(normalization, nfc_068_095)
 {
     // F966;5FA9;5FA9;5FA9;5FA9; 
     // (復; 復; 復; 復; 復; ) CJK COMPATIBILITY IDEOGRAPH-F966
@@ -9752,7 +10287,7 @@ TEST(normalization, nfc_068_090)
 }
 
 
-TEST(normalization, nfc_068_091)
+TEST(normalization, nfc_068_096)
 {
     // F967;4E0D;4E0D;4E0D;4E0D; 
     // (不; 不; 不; 不; 不; ) CJK COMPATIBILITY IDEOGRAPH-F967
@@ -9859,7 +10394,7 @@ TEST(normalization, nfc_068_091)
 }
 
 
-TEST(normalization, nfc_068_092)
+TEST(normalization, nfc_068_097)
 {
     // F968;6CCC;6CCC;6CCC;6CCC; 
     // (泌; 泌; 泌; 泌; 泌; ) CJK COMPATIBILITY IDEOGRAPH-F968
@@ -9966,7 +10501,7 @@ TEST(normalization, nfc_068_092)
 }
 
 
-TEST(normalization, nfc_068_093)
+TEST(normalization, nfc_068_098)
 {
     // F969;6578;6578;6578;6578; 
     // (數; 數; 數; 數; 數; ) CJK COMPATIBILITY IDEOGRAPH-F969
@@ -10073,7 +10608,7 @@ TEST(normalization, nfc_068_093)
 }
 
 
-TEST(normalization, nfc_068_094)
+TEST(normalization, nfc_068_099)
 {
     // F96A;7D22;7D22;7D22;7D22; 
     // (索; 索; 索; 索; 索; ) CJK COMPATIBILITY IDEOGRAPH-F96A
@@ -10180,7 +10715,7 @@ TEST(normalization, nfc_068_094)
 }
 
 
-TEST(normalization, nfc_068_095)
+TEST(normalization, nfc_068_100)
 {
     // F96B;53C3;53C3;53C3;53C3; 
     // (參; 參; 參; 參; 參; ) CJK COMPATIBILITY IDEOGRAPH-F96B
@@ -10287,7 +10822,7 @@ TEST(normalization, nfc_068_095)
 }
 
 
-TEST(normalization, nfc_068_096)
+TEST(normalization, nfc_068_101)
 {
     // F96C;585E;585E;585E;585E; 
     // (塞; 塞; 塞; 塞; 塞; ) CJK COMPATIBILITY IDEOGRAPH-F96C
@@ -10394,7 +10929,7 @@ TEST(normalization, nfc_068_096)
 }
 
 
-TEST(normalization, nfc_068_097)
+TEST(normalization, nfc_068_102)
 {
     // F96D;7701;7701;7701;7701; 
     // (省; 省; 省; 省; 省; ) CJK COMPATIBILITY IDEOGRAPH-F96D
@@ -10501,7 +11036,7 @@ TEST(normalization, nfc_068_097)
 }
 
 
-TEST(normalization, nfc_068_098)
+TEST(normalization, nfc_068_103)
 {
     // F96E;8449;8449;8449;8449; 
     // (葉; 葉; 葉; 葉; 葉; ) CJK COMPATIBILITY IDEOGRAPH-F96E
@@ -10608,7 +11143,7 @@ TEST(normalization, nfc_068_098)
 }
 
 
-TEST(normalization, nfc_068_099)
+TEST(normalization, nfc_068_104)
 {
     // F96F;8AAA;8AAA;8AAA;8AAA; 
     // (說; 說; 說; 說; 說; ) CJK COMPATIBILITY IDEOGRAPH-F96F
@@ -10715,7 +11250,7 @@ TEST(normalization, nfc_068_099)
 }
 
 
-TEST(normalization, nfc_068_100)
+TEST(normalization, nfc_068_105)
 {
     // F970;6BBA;6BBA;6BBA;6BBA; 
     // (殺; 殺; 殺; 殺; 殺; ) CJK COMPATIBILITY IDEOGRAPH-F970
@@ -10822,7 +11357,7 @@ TEST(normalization, nfc_068_100)
 }
 
 
-TEST(normalization, nfc_068_101)
+TEST(normalization, nfc_068_106)
 {
     // F971;8FB0;8FB0;8FB0;8FB0; 
     // (辰; 辰; 辰; 辰; 辰; ) CJK COMPATIBILITY IDEOGRAPH-F971
@@ -10929,7 +11464,7 @@ TEST(normalization, nfc_068_101)
 }
 
 
-TEST(normalization, nfc_068_102)
+TEST(normalization, nfc_068_107)
 {
     // F972;6C88;6C88;6C88;6C88; 
     // (沈; 沈; 沈; 沈; 沈; ) CJK COMPATIBILITY IDEOGRAPH-F972
@@ -11036,7 +11571,7 @@ TEST(normalization, nfc_068_102)
 }
 
 
-TEST(normalization, nfc_068_103)
+TEST(normalization, nfc_068_108)
 {
     // F973;62FE;62FE;62FE;62FE; 
     // (拾; 拾; 拾; 拾; 拾; ) CJK COMPATIBILITY IDEOGRAPH-F973
@@ -11143,7 +11678,7 @@ TEST(normalization, nfc_068_103)
 }
 
 
-TEST(normalization, nfc_068_104)
+TEST(normalization, nfc_068_109)
 {
     // F974;82E5;82E5;82E5;82E5; 
     // (若; 若; 若; 若; 若; ) CJK COMPATIBILITY IDEOGRAPH-F974
@@ -11250,7 +11785,7 @@ TEST(normalization, nfc_068_104)
 }
 
 
-TEST(normalization, nfc_068_105)
+TEST(normalization, nfc_068_110)
 {
     // F975;63A0;63A0;63A0;63A0; 
     // (掠; 掠; 掠; 掠; 掠; ) CJK COMPATIBILITY IDEOGRAPH-F975
@@ -11357,7 +11892,7 @@ TEST(normalization, nfc_068_105)
 }
 
 
-TEST(normalization, nfc_068_106)
+TEST(normalization, nfc_068_111)
 {
     // F976;7565;7565;7565;7565; 
     // (略; 略; 略; 略; 略; ) CJK COMPATIBILITY IDEOGRAPH-F976
@@ -11464,7 +11999,7 @@ TEST(normalization, nfc_068_106)
 }
 
 
-TEST(normalization, nfc_068_107)
+TEST(normalization, nfc_068_112)
 {
     // F977;4EAE;4EAE;4EAE;4EAE; 
     // (亮; 亮; 亮; 亮; 亮; ) CJK COMPATIBILITY IDEOGRAPH-F977
@@ -11571,7 +12106,7 @@ TEST(normalization, nfc_068_107)
 }
 
 
-TEST(normalization, nfc_068_108)
+TEST(normalization, nfc_068_113)
 {
     // F978;5169;5169;5169;5169; 
     // (兩; 兩; 兩; 兩; 兩; ) CJK COMPATIBILITY IDEOGRAPH-F978
@@ -11678,7 +12213,7 @@ TEST(normalization, nfc_068_108)
 }
 
 
-TEST(normalization, nfc_068_109)
+TEST(normalization, nfc_068_114)
 {
     // F979;51C9;51C9;51C9;51C9; 
     // (凉; 凉; 凉; 凉; 凉; ) CJK COMPATIBILITY IDEOGRAPH-F979
@@ -11785,7 +12320,7 @@ TEST(normalization, nfc_068_109)
 }
 
 
-TEST(normalization, nfc_068_110)
+TEST(normalization, nfc_068_115)
 {
     // F97A;6881;6881;6881;6881; 
     // (梁; 梁; 梁; 梁; 梁; ) CJK COMPATIBILITY IDEOGRAPH-F97A
@@ -11892,7 +12427,7 @@ TEST(normalization, nfc_068_110)
 }
 
 
-TEST(normalization, nfc_068_111)
+TEST(normalization, nfc_068_116)
 {
     // F97B;7CE7;7CE7;7CE7;7CE7; 
     // (糧; 糧; 糧; 糧; 糧; ) CJK COMPATIBILITY IDEOGRAPH-F97B
@@ -11999,7 +12534,7 @@ TEST(normalization, nfc_068_111)
 }
 
 
-TEST(normalization, nfc_068_112)
+TEST(normalization, nfc_068_117)
 {
     // F97C;826F;826F;826F;826F; 
     // (良; 良; 良; 良; 良; ) CJK COMPATIBILITY IDEOGRAPH-F97C
@@ -12106,7 +12641,7 @@ TEST(normalization, nfc_068_112)
 }
 
 
-TEST(normalization, nfc_068_113)
+TEST(normalization, nfc_068_118)
 {
     // F97D;8AD2;8AD2;8AD2;8AD2; 
     // (諒; 諒; 諒; 諒; 諒; ) CJK COMPATIBILITY IDEOGRAPH-F97D
@@ -12213,7 +12748,7 @@ TEST(normalization, nfc_068_113)
 }
 
 
-TEST(normalization, nfc_068_114)
+TEST(normalization, nfc_068_119)
 {
     // F97E;91CF;91CF;91CF;91CF; 
     // (量; 量; 量; 量; 量; ) CJK COMPATIBILITY IDEOGRAPH-F97E
@@ -12320,7 +12855,7 @@ TEST(normalization, nfc_068_114)
 }
 
 
-TEST(normalization, nfc_068_115)
+TEST(normalization, nfc_068_120)
 {
     // F97F;52F5;52F5;52F5;52F5; 
     // (勵; 勵; 勵; 勵; 勵; ) CJK COMPATIBILITY IDEOGRAPH-F97F
@@ -12427,7 +12962,7 @@ TEST(normalization, nfc_068_115)
 }
 
 
-TEST(normalization, nfc_068_116)
+TEST(normalization, nfc_068_121)
 {
     // F980;5442;5442;5442;5442; 
     // (呂; 呂; 呂; 呂; 呂; ) CJK COMPATIBILITY IDEOGRAPH-F980
@@ -12534,7 +13069,7 @@ TEST(normalization, nfc_068_116)
 }
 
 
-TEST(normalization, nfc_068_117)
+TEST(normalization, nfc_068_122)
 {
     // F981;5973;5973;5973;5973; 
     // (女; 女; 女; 女; 女; ) CJK COMPATIBILITY IDEOGRAPH-F981
@@ -12641,7 +13176,7 @@ TEST(normalization, nfc_068_117)
 }
 
 
-TEST(normalization, nfc_068_118)
+TEST(normalization, nfc_068_123)
 {
     // F982;5EEC;5EEC;5EEC;5EEC; 
     // (廬; 廬; 廬; 廬; 廬; ) CJK COMPATIBILITY IDEOGRAPH-F982
@@ -12748,7 +13283,7 @@ TEST(normalization, nfc_068_118)
 }
 
 
-TEST(normalization, nfc_068_119)
+TEST(normalization, nfc_068_124)
 {
     // F983;65C5;65C5;65C5;65C5; 
     // (旅; 旅; 旅; 旅; 旅; ) CJK COMPATIBILITY IDEOGRAPH-F983
@@ -12855,7 +13390,7 @@ TEST(normalization, nfc_068_119)
 }
 
 
-TEST(normalization, nfc_068_120)
+TEST(normalization, nfc_068_125)
 {
     // F984;6FFE;6FFE;6FFE;6FFE; 
     // (濾; 濾; 濾; 濾; 濾; ) CJK COMPATIBILITY IDEOGRAPH-F984
@@ -12962,7 +13497,7 @@ TEST(normalization, nfc_068_120)
 }
 
 
-TEST(normalization, nfc_068_121)
+TEST(normalization, nfc_068_126)
 {
     // F985;792A;792A;792A;792A; 
     // (礪; 礪; 礪; 礪; 礪; ) CJK COMPATIBILITY IDEOGRAPH-F985
@@ -13069,7 +13604,7 @@ TEST(normalization, nfc_068_121)
 }
 
 
-TEST(normalization, nfc_068_122)
+TEST(normalization, nfc_068_127)
 {
     // F986;95AD;95AD;95AD;95AD; 
     // (閭; 閭; 閭; 閭; 閭; ) CJK COMPATIBILITY IDEOGRAPH-F986
@@ -13176,7 +13711,7 @@ TEST(normalization, nfc_068_122)
 }
 
 
-TEST(normalization, nfc_068_123)
+TEST(normalization, nfc_068_128)
 {
     // F987;9A6A;9A6A;9A6A;9A6A; 
     // (驪; 驪; 驪; 驪; 驪; ) CJK COMPATIBILITY IDEOGRAPH-F987
@@ -13283,7 +13818,7 @@ TEST(normalization, nfc_068_123)
 }
 
 
-TEST(normalization, nfc_068_124)
+TEST(normalization, nfc_068_129)
 {
     // F988;9E97;9E97;9E97;9E97; 
     // (麗; 麗; 麗; 麗; 麗; ) CJK COMPATIBILITY IDEOGRAPH-F988
@@ -13390,7 +13925,7 @@ TEST(normalization, nfc_068_124)
 }
 
 
-TEST(normalization, nfc_068_125)
+TEST(normalization, nfc_068_130)
 {
     // F989;9ECE;9ECE;9ECE;9ECE; 
     // (黎; 黎; 黎; 黎; 黎; ) CJK COMPATIBILITY IDEOGRAPH-F989
@@ -13497,7 +14032,7 @@ TEST(normalization, nfc_068_125)
 }
 
 
-TEST(normalization, nfc_068_126)
+TEST(normalization, nfc_068_131)
 {
     // F98A;529B;529B;529B;529B; 
     // (力; 力; 力; 力; 力; ) CJK COMPATIBILITY IDEOGRAPH-F98A
@@ -13604,7 +14139,7 @@ TEST(normalization, nfc_068_126)
 }
 
 
-TEST(normalization, nfc_068_127)
+TEST(normalization, nfc_068_132)
 {
     // F98B;66C6;66C6;66C6;66C6; 
     // (曆; 曆; 曆; 曆; 曆; ) CJK COMPATIBILITY IDEOGRAPH-F98B
@@ -13711,7 +14246,7 @@ TEST(normalization, nfc_068_127)
 }
 
 
-TEST(normalization, nfc_068_128)
+TEST(normalization, nfc_068_133)
 {
     // F98C;6B77;6B77;6B77;6B77; 
     // (歷; 歷; 歷; 歷; 歷; ) CJK COMPATIBILITY IDEOGRAPH-F98C
@@ -13818,7 +14353,7 @@ TEST(normalization, nfc_068_128)
 }
 
 
-TEST(normalization, nfc_068_129)
+TEST(normalization, nfc_068_134)
 {
     // F98D;8F62;8F62;8F62;8F62; 
     // (轢; 轢; 轢; 轢; 轢; ) CJK COMPATIBILITY IDEOGRAPH-F98D
@@ -13925,7 +14460,7 @@ TEST(normalization, nfc_068_129)
 }
 
 
-TEST(normalization, nfc_068_130)
+TEST(normalization, nfc_068_135)
 {
     // F98E;5E74;5E74;5E74;5E74; 
     // (年; 年; 年; 年; 年; ) CJK COMPATIBILITY IDEOGRAPH-F98E
@@ -14032,7 +14567,7 @@ TEST(normalization, nfc_068_130)
 }
 
 
-TEST(normalization, nfc_068_131)
+TEST(normalization, nfc_068_136)
 {
     // F98F;6190;6190;6190;6190; 
     // (憐; 憐; 憐; 憐; 憐; ) CJK COMPATIBILITY IDEOGRAPH-F98F
@@ -14139,7 +14674,7 @@ TEST(normalization, nfc_068_131)
 }
 
 
-TEST(normalization, nfc_068_132)
+TEST(normalization, nfc_068_137)
 {
     // F990;6200;6200;6200;6200; 
     // (戀; 戀; 戀; 戀; 戀; ) CJK COMPATIBILITY IDEOGRAPH-F990
@@ -14246,7 +14781,7 @@ TEST(normalization, nfc_068_132)
 }
 
 
-TEST(normalization, nfc_068_133)
+TEST(normalization, nfc_068_138)
 {
     // F991;649A;649A;649A;649A; 
     // (撚; 撚; 撚; 撚; 撚; ) CJK COMPATIBILITY IDEOGRAPH-F991
@@ -14353,7 +14888,7 @@ TEST(normalization, nfc_068_133)
 }
 
 
-TEST(normalization, nfc_068_134)
+TEST(normalization, nfc_068_139)
 {
     // F992;6F23;6F23;6F23;6F23; 
     // (漣; 漣; 漣; 漣; 漣; ) CJK COMPATIBILITY IDEOGRAPH-F992
@@ -14460,7 +14995,7 @@ TEST(normalization, nfc_068_134)
 }
 
 
-TEST(normalization, nfc_068_135)
+TEST(normalization, nfc_068_140)
 {
     // F993;7149;7149;7149;7149; 
     // (煉; 煉; 煉; 煉; 煉; ) CJK COMPATIBILITY IDEOGRAPH-F993
@@ -14567,7 +15102,7 @@ TEST(normalization, nfc_068_135)
 }
 
 
-TEST(normalization, nfc_068_136)
+TEST(normalization, nfc_068_141)
 {
     // F994;7489;7489;7489;7489; 
     // (璉; 璉; 璉; 璉; 璉; ) CJK COMPATIBILITY IDEOGRAPH-F994
@@ -14674,7 +15209,7 @@ TEST(normalization, nfc_068_136)
 }
 
 
-TEST(normalization, nfc_068_137)
+TEST(normalization, nfc_068_142)
 {
     // F995;79CA;79CA;79CA;79CA; 
     // (秊; 秊; 秊; 秊; 秊; ) CJK COMPATIBILITY IDEOGRAPH-F995
@@ -14781,7 +15316,7 @@ TEST(normalization, nfc_068_137)
 }
 
 
-TEST(normalization, nfc_068_138)
+TEST(normalization, nfc_068_143)
 {
     // F996;7DF4;7DF4;7DF4;7DF4; 
     // (練; 練; 練; 練; 練; ) CJK COMPATIBILITY IDEOGRAPH-F996
@@ -14888,7 +15423,7 @@ TEST(normalization, nfc_068_138)
 }
 
 
-TEST(normalization, nfc_068_139)
+TEST(normalization, nfc_068_144)
 {
     // F997;806F;806F;806F;806F; 
     // (聯; 聯; 聯; 聯; 聯; ) CJK COMPATIBILITY IDEOGRAPH-F997
@@ -14995,7 +15530,7 @@ TEST(normalization, nfc_068_139)
 }
 
 
-TEST(normalization, nfc_068_140)
+TEST(normalization, nfc_068_145)
 {
     // F998;8F26;8F26;8F26;8F26; 
     // (輦; 輦; 輦; 輦; 輦; ) CJK COMPATIBILITY IDEOGRAPH-F998
@@ -15102,7 +15637,7 @@ TEST(normalization, nfc_068_140)
 }
 
 
-TEST(normalization, nfc_068_141)
+TEST(normalization, nfc_068_146)
 {
     // F999;84EE;84EE;84EE;84EE; 
     // (蓮; 蓮; 蓮; 蓮; 蓮; ) CJK COMPATIBILITY IDEOGRAPH-F999
@@ -15209,7 +15744,7 @@ TEST(normalization, nfc_068_141)
 }
 
 
-TEST(normalization, nfc_068_142)
+TEST(normalization, nfc_068_147)
 {
     // F99A;9023;9023;9023;9023; 
     // (連; 連; 連; 連; 連; ) CJK COMPATIBILITY IDEOGRAPH-F99A
@@ -15316,7 +15851,7 @@ TEST(normalization, nfc_068_142)
 }
 
 
-TEST(normalization, nfc_068_143)
+TEST(normalization, nfc_068_148)
 {
     // F99B;934A;934A;934A;934A; 
     // (鍊; 鍊; 鍊; 鍊; 鍊; ) CJK COMPATIBILITY IDEOGRAPH-F99B
@@ -15423,7 +15958,7 @@ TEST(normalization, nfc_068_143)
 }
 
 
-TEST(normalization, nfc_068_144)
+TEST(normalization, nfc_068_149)
 {
     // F99C;5217;5217;5217;5217; 
     // (列; 列; 列; 列; 列; ) CJK COMPATIBILITY IDEOGRAPH-F99C
@@ -15530,7 +16065,7 @@ TEST(normalization, nfc_068_144)
 }
 
 
-TEST(normalization, nfc_068_145)
+TEST(normalization, nfc_068_150)
 {
     // F99D;52A3;52A3;52A3;52A3; 
     // (劣; 劣; 劣; 劣; 劣; ) CJK COMPATIBILITY IDEOGRAPH-F99D
@@ -15637,7 +16172,7 @@ TEST(normalization, nfc_068_145)
 }
 
 
-TEST(normalization, nfc_068_146)
+TEST(normalization, nfc_068_151)
 {
     // F99E;54BD;54BD;54BD;54BD; 
     // (咽; 咽; 咽; 咽; 咽; ) CJK COMPATIBILITY IDEOGRAPH-F99E
@@ -15744,7 +16279,7 @@ TEST(normalization, nfc_068_146)
 }
 
 
-TEST(normalization, nfc_068_147)
+TEST(normalization, nfc_068_152)
 {
     // F99F;70C8;70C8;70C8;70C8; 
     // (烈; 烈; 烈; 烈; 烈; ) CJK COMPATIBILITY IDEOGRAPH-F99F
@@ -15851,7 +16386,7 @@ TEST(normalization, nfc_068_147)
 }
 
 
-TEST(normalization, nfc_068_148)
+TEST(normalization, nfc_068_153)
 {
     // F9A0;88C2;88C2;88C2;88C2; 
     // (裂; 裂; 裂; 裂; 裂; ) CJK COMPATIBILITY IDEOGRAPH-F9A0
@@ -15958,7 +16493,7 @@ TEST(normalization, nfc_068_148)
 }
 
 
-TEST(normalization, nfc_068_149)
+TEST(normalization, nfc_068_154)
 {
     // F9A1;8AAA;8AAA;8AAA;8AAA; 
     // (說; 說; 說; 說; 說; ) CJK COMPATIBILITY IDEOGRAPH-F9A1
@@ -16065,7 +16600,7 @@ TEST(normalization, nfc_068_149)
 }
 
 
-TEST(normalization, nfc_068_150)
+TEST(normalization, nfc_068_155)
 {
     // F9A2;5EC9;5EC9;5EC9;5EC9; 
     // (廉; 廉; 廉; 廉; 廉; ) CJK COMPATIBILITY IDEOGRAPH-F9A2
@@ -16172,7 +16707,7 @@ TEST(normalization, nfc_068_150)
 }
 
 
-TEST(normalization, nfc_068_151)
+TEST(normalization, nfc_068_156)
 {
     // F9A3;5FF5;5FF5;5FF5;5FF5; 
     // (念; 念; 念; 念; 念; ) CJK COMPATIBILITY IDEOGRAPH-F9A3
@@ -16279,7 +16814,7 @@ TEST(normalization, nfc_068_151)
 }
 
 
-TEST(normalization, nfc_068_152)
+TEST(normalization, nfc_068_157)
 {
     // F9A4;637B;637B;637B;637B; 
     // (捻; 捻; 捻; 捻; 捻; ) CJK COMPATIBILITY IDEOGRAPH-F9A4
@@ -16386,7 +16921,7 @@ TEST(normalization, nfc_068_152)
 }
 
 
-TEST(normalization, nfc_068_153)
+TEST(normalization, nfc_068_158)
 {
     // F9A5;6BAE;6BAE;6BAE;6BAE; 
     // (殮; 殮; 殮; 殮; 殮; ) CJK COMPATIBILITY IDEOGRAPH-F9A5
@@ -16493,7 +17028,7 @@ TEST(normalization, nfc_068_153)
 }
 
 
-TEST(normalization, nfc_068_154)
+TEST(normalization, nfc_068_159)
 {
     // F9A6;7C3E;7C3E;7C3E;7C3E; 
     // (簾; 簾; 簾; 簾; 簾; ) CJK COMPATIBILITY IDEOGRAPH-F9A6
@@ -16600,7 +17135,7 @@ TEST(normalization, nfc_068_154)
 }
 
 
-TEST(normalization, nfc_068_155)
+TEST(normalization, nfc_068_160)
 {
     // F9A7;7375;7375;7375;7375; 
     // (獵; 獵; 獵; 獵; 獵; ) CJK COMPATIBILITY IDEOGRAPH-F9A7
@@ -16707,7 +17242,7 @@ TEST(normalization, nfc_068_155)
 }
 
 
-TEST(normalization, nfc_068_156)
+TEST(normalization, nfc_068_161)
 {
     // F9A8;4EE4;4EE4;4EE4;4EE4; 
     // (令; 令; 令; 令; 令; ) CJK COMPATIBILITY IDEOGRAPH-F9A8
@@ -16814,7 +17349,7 @@ TEST(normalization, nfc_068_156)
 }
 
 
-TEST(normalization, nfc_068_157)
+TEST(normalization, nfc_068_162)
 {
     // F9A9;56F9;56F9;56F9;56F9; 
     // (囹; 囹; 囹; 囹; 囹; ) CJK COMPATIBILITY IDEOGRAPH-F9A9
@@ -16921,7 +17456,7 @@ TEST(normalization, nfc_068_157)
 }
 
 
-TEST(normalization, nfc_068_158)
+TEST(normalization, nfc_068_163)
 {
     // F9AA;5BE7;5BE7;5BE7;5BE7; 
     // (寧; 寧; 寧; 寧; 寧; ) CJK COMPATIBILITY IDEOGRAPH-F9AA
@@ -17028,7 +17563,7 @@ TEST(normalization, nfc_068_158)
 }
 
 
-TEST(normalization, nfc_068_159)
+TEST(normalization, nfc_068_164)
 {
     // F9AB;5DBA;5DBA;5DBA;5DBA; 
     // (嶺; 嶺; 嶺; 嶺; 嶺; ) CJK COMPATIBILITY IDEOGRAPH-F9AB
@@ -17135,7 +17670,7 @@ TEST(normalization, nfc_068_159)
 }
 
 
-TEST(normalization, nfc_068_160)
+TEST(normalization, nfc_068_165)
 {
     // F9AC;601C;601C;601C;601C; 
     // (怜; 怜; 怜; 怜; 怜; ) CJK COMPATIBILITY IDEOGRAPH-F9AC
@@ -17242,7 +17777,7 @@ TEST(normalization, nfc_068_160)
 }
 
 
-TEST(normalization, nfc_068_161)
+TEST(normalization, nfc_068_166)
 {
     // F9AD;73B2;73B2;73B2;73B2; 
     // (玲; 玲; 玲; 玲; 玲; ) CJK COMPATIBILITY IDEOGRAPH-F9AD
@@ -17349,7 +17884,7 @@ TEST(normalization, nfc_068_161)
 }
 
 
-TEST(normalization, nfc_068_162)
+TEST(normalization, nfc_068_167)
 {
     // F9AE;7469;7469;7469;7469; 
     // (瑩; 瑩; 瑩; 瑩; 瑩; ) CJK COMPATIBILITY IDEOGRAPH-F9AE
@@ -17456,7 +17991,7 @@ TEST(normalization, nfc_068_162)
 }
 
 
-TEST(normalization, nfc_068_163)
+TEST(normalization, nfc_068_168)
 {
     // F9AF;7F9A;7F9A;7F9A;7F9A; 
     // (羚; 羚; 羚; 羚; 羚; ) CJK COMPATIBILITY IDEOGRAPH-F9AF
@@ -17563,7 +18098,7 @@ TEST(normalization, nfc_068_163)
 }
 
 
-TEST(normalization, nfc_068_164)
+TEST(normalization, nfc_068_169)
 {
     // F9B0;8046;8046;8046;8046; 
     // (聆; 聆; 聆; 聆; 聆; ) CJK COMPATIBILITY IDEOGRAPH-F9B0
@@ -17670,7 +18205,7 @@ TEST(normalization, nfc_068_164)
 }
 
 
-TEST(normalization, nfc_068_165)
+TEST(normalization, nfc_068_170)
 {
     // F9B1;9234;9234;9234;9234; 
     // (鈴; 鈴; 鈴; 鈴; 鈴; ) CJK COMPATIBILITY IDEOGRAPH-F9B1
@@ -17777,7 +18312,7 @@ TEST(normalization, nfc_068_165)
 }
 
 
-TEST(normalization, nfc_068_166)
+TEST(normalization, nfc_068_171)
 {
     // F9B2;96F6;96F6;96F6;96F6; 
     // (零; 零; 零; 零; 零; ) CJK COMPATIBILITY IDEOGRAPH-F9B2
@@ -17884,7 +18419,7 @@ TEST(normalization, nfc_068_166)
 }
 
 
-TEST(normalization, nfc_068_167)
+TEST(normalization, nfc_068_172)
 {
     // F9B3;9748;9748;9748;9748; 
     // (靈; 靈; 靈; 靈; 靈; ) CJK COMPATIBILITY IDEOGRAPH-F9B3
@@ -17991,7 +18526,7 @@ TEST(normalization, nfc_068_167)
 }
 
 
-TEST(normalization, nfc_068_168)
+TEST(normalization, nfc_068_173)
 {
     // F9B4;9818;9818;9818;9818; 
     // (領; 領; 領; 領; 領; ) CJK COMPATIBILITY IDEOGRAPH-F9B4
@@ -18098,7 +18633,7 @@ TEST(normalization, nfc_068_168)
 }
 
 
-TEST(normalization, nfc_068_169)
+TEST(normalization, nfc_068_174)
 {
     // F9B5;4F8B;4F8B;4F8B;4F8B; 
     // (例; 例; 例; 例; 例; ) CJK COMPATIBILITY IDEOGRAPH-F9B5
@@ -18205,7 +18740,7 @@ TEST(normalization, nfc_068_169)
 }
 
 
-TEST(normalization, nfc_068_170)
+TEST(normalization, nfc_068_175)
 {
     // F9B6;79AE;79AE;79AE;79AE; 
     // (禮; 禮; 禮; 禮; 禮; ) CJK COMPATIBILITY IDEOGRAPH-F9B6
@@ -18312,7 +18847,7 @@ TEST(normalization, nfc_068_170)
 }
 
 
-TEST(normalization, nfc_068_171)
+TEST(normalization, nfc_068_176)
 {
     // F9B7;91B4;91B4;91B4;91B4; 
     // (醴; 醴; 醴; 醴; 醴; ) CJK COMPATIBILITY IDEOGRAPH-F9B7
@@ -18419,7 +18954,7 @@ TEST(normalization, nfc_068_171)
 }
 
 
-TEST(normalization, nfc_068_172)
+TEST(normalization, nfc_068_177)
 {
     // F9B8;96B8;96B8;96B8;96B8; 
     // (隸; 隸; 隸; 隸; 隸; ) CJK COMPATIBILITY IDEOGRAPH-F9B8
@@ -18526,7 +19061,7 @@ TEST(normalization, nfc_068_172)
 }
 
 
-TEST(normalization, nfc_068_173)
+TEST(normalization, nfc_068_178)
 {
     // F9B9;60E1;60E1;60E1;60E1; 
     // (惡; 惡; 惡; 惡; 惡; ) CJK COMPATIBILITY IDEOGRAPH-F9B9
@@ -18633,7 +19168,7 @@ TEST(normalization, nfc_068_173)
 }
 
 
-TEST(normalization, nfc_068_174)
+TEST(normalization, nfc_068_179)
 {
     // F9BA;4E86;4E86;4E86;4E86; 
     // (了; 了; 了; 了; 了; ) CJK COMPATIBILITY IDEOGRAPH-F9BA
@@ -18740,7 +19275,7 @@ TEST(normalization, nfc_068_174)
 }
 
 
-TEST(normalization, nfc_068_175)
+TEST(normalization, nfc_068_180)
 {
     // F9BB;50DA;50DA;50DA;50DA; 
     // (僚; 僚; 僚; 僚; 僚; ) CJK COMPATIBILITY IDEOGRAPH-F9BB
@@ -18847,7 +19382,7 @@ TEST(normalization, nfc_068_175)
 }
 
 
-TEST(normalization, nfc_068_176)
+TEST(normalization, nfc_068_181)
 {
     // F9BC;5BEE;5BEE;5BEE;5BEE; 
     // (寮; 寮; 寮; 寮; 寮; ) CJK COMPATIBILITY IDEOGRAPH-F9BC
@@ -18954,7 +19489,7 @@ TEST(normalization, nfc_068_176)
 }
 
 
-TEST(normalization, nfc_068_177)
+TEST(normalization, nfc_068_182)
 {
     // F9BD;5C3F;5C3F;5C3F;5C3F; 
     // (尿; 尿; 尿; 尿; 尿; ) CJK COMPATIBILITY IDEOGRAPH-F9BD
@@ -19061,7 +19596,7 @@ TEST(normalization, nfc_068_177)
 }
 
 
-TEST(normalization, nfc_068_178)
+TEST(normalization, nfc_068_183)
 {
     // F9BE;6599;6599;6599;6599; 
     // (料; 料; 料; 料; 料; ) CJK COMPATIBILITY IDEOGRAPH-F9BE
@@ -19168,7 +19703,7 @@ TEST(normalization, nfc_068_178)
 }
 
 
-TEST(normalization, nfc_068_179)
+TEST(normalization, nfc_068_184)
 {
     // F9BF;6A02;6A02;6A02;6A02; 
     // (樂; 樂; 樂; 樂; 樂; ) CJK COMPATIBILITY IDEOGRAPH-F9BF
@@ -19275,7 +19810,7 @@ TEST(normalization, nfc_068_179)
 }
 
 
-TEST(normalization, nfc_068_180)
+TEST(normalization, nfc_068_185)
 {
     // F9C0;71CE;71CE;71CE;71CE; 
     // (燎; 燎; 燎; 燎; 燎; ) CJK COMPATIBILITY IDEOGRAPH-F9C0
@@ -19382,7 +19917,7 @@ TEST(normalization, nfc_068_180)
 }
 
 
-TEST(normalization, nfc_068_181)
+TEST(normalization, nfc_068_186)
 {
     // F9C1;7642;7642;7642;7642; 
     // (療; 療; 療; 療; 療; ) CJK COMPATIBILITY IDEOGRAPH-F9C1
@@ -19489,7 +20024,7 @@ TEST(normalization, nfc_068_181)
 }
 
 
-TEST(normalization, nfc_068_182)
+TEST(normalization, nfc_068_187)
 {
     // F9C2;84FC;84FC;84FC;84FC; 
     // (蓼; 蓼; 蓼; 蓼; 蓼; ) CJK COMPATIBILITY IDEOGRAPH-F9C2
@@ -19596,7 +20131,7 @@ TEST(normalization, nfc_068_182)
 }
 
 
-TEST(normalization, nfc_068_183)
+TEST(normalization, nfc_068_188)
 {
     // F9C3;907C;907C;907C;907C; 
     // (遼; 遼; 遼; 遼; 遼; ) CJK COMPATIBILITY IDEOGRAPH-F9C3
@@ -19703,7 +20238,7 @@ TEST(normalization, nfc_068_183)
 }
 
 
-TEST(normalization, nfc_068_184)
+TEST(normalization, nfc_068_189)
 {
     // F9C4;9F8D;9F8D;9F8D;9F8D; 
     // (龍; 龍; 龍; 龍; 龍; ) CJK COMPATIBILITY IDEOGRAPH-F9C4
@@ -19810,7 +20345,7 @@ TEST(normalization, nfc_068_184)
 }
 
 
-TEST(normalization, nfc_068_185)
+TEST(normalization, nfc_068_190)
 {
     // F9C5;6688;6688;6688;6688; 
     // (暈; 暈; 暈; 暈; 暈; ) CJK COMPATIBILITY IDEOGRAPH-F9C5
@@ -19917,7 +20452,7 @@ TEST(normalization, nfc_068_185)
 }
 
 
-TEST(normalization, nfc_068_186)
+TEST(normalization, nfc_068_191)
 {
     // F9C6;962E;962E;962E;962E; 
     // (阮; 阮; 阮; 阮; 阮; ) CJK COMPATIBILITY IDEOGRAPH-F9C6
@@ -20024,7 +20559,7 @@ TEST(normalization, nfc_068_186)
 }
 
 
-TEST(normalization, nfc_068_187)
+TEST(normalization, nfc_068_192)
 {
     // F9C7;5289;5289;5289;5289; 
     // (劉; 劉; 劉; 劉; 劉; ) CJK COMPATIBILITY IDEOGRAPH-F9C7
@@ -20131,7 +20666,7 @@ TEST(normalization, nfc_068_187)
 }
 
 
-TEST(normalization, nfc_068_188)
+TEST(normalization, nfc_068_193)
 {
     // F9C8;677B;677B;677B;677B; 
     // (杻; 杻; 杻; 杻; 杻; ) CJK COMPATIBILITY IDEOGRAPH-F9C8
@@ -20238,7 +20773,7 @@ TEST(normalization, nfc_068_188)
 }
 
 
-TEST(normalization, nfc_068_189)
+TEST(normalization, nfc_068_194)
 {
     // F9C9;67F3;67F3;67F3;67F3; 
     // (柳; 柳; 柳; 柳; 柳; ) CJK COMPATIBILITY IDEOGRAPH-F9C9
@@ -20345,7 +20880,7 @@ TEST(normalization, nfc_068_189)
 }
 
 
-TEST(normalization, nfc_068_190)
+TEST(normalization, nfc_068_195)
 {
     // F9CA;6D41;6D41;6D41;6D41; 
     // (流; 流; 流; 流; 流; ) CJK COMPATIBILITY IDEOGRAPH-F9CA
@@ -20452,7 +20987,7 @@ TEST(normalization, nfc_068_190)
 }
 
 
-TEST(normalization, nfc_068_191)
+TEST(normalization, nfc_068_196)
 {
     // F9CB;6E9C;6E9C;6E9C;6E9C; 
     // (溜; 溜; 溜; 溜; 溜; ) CJK COMPATIBILITY IDEOGRAPH-F9CB
@@ -20559,7 +21094,7 @@ TEST(normalization, nfc_068_191)
 }
 
 
-TEST(normalization, nfc_068_192)
+TEST(normalization, nfc_068_197)
 {
     // F9CC;7409;7409;7409;7409; 
     // (琉; 琉; 琉; 琉; 琉; ) CJK COMPATIBILITY IDEOGRAPH-F9CC
@@ -20666,7 +21201,7 @@ TEST(normalization, nfc_068_192)
 }
 
 
-TEST(normalization, nfc_068_193)
+TEST(normalization, nfc_068_198)
 {
     // F9CD;7559;7559;7559;7559; 
     // (留; 留; 留; 留; 留; ) CJK COMPATIBILITY IDEOGRAPH-F9CD
@@ -20773,7 +21308,7 @@ TEST(normalization, nfc_068_193)
 }
 
 
-TEST(normalization, nfc_068_194)
+TEST(normalization, nfc_068_199)
 {
     // F9CE;786B;786B;786B;786B; 
     // (硫; 硫; 硫; 硫; 硫; ) CJK COMPATIBILITY IDEOGRAPH-F9CE
@@ -20783,541 +21318,6 @@ TEST(normalization, nfc_068_194)
         std::array<uint32_t, 1> const c3 = {{ 0x786B }};
         std::array<uint32_t, 1> const c4 = {{ 0x786B }};
         std::array<uint32_t, 1> const c5 = {{ 0x786B }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfc_068_195)
-{
-    // F9CF;7D10;7D10;7D10;7D10; 
-    // (紐; 紐; 紐; 紐; 紐; ) CJK COMPATIBILITY IDEOGRAPH-F9CF
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9CF }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7D10 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7D10 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7D10 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7D10 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfc_068_196)
-{
-    // F9D0;985E;985E;985E;985E; 
-    // (類; 類; 類; 類; 類; ) CJK COMPATIBILITY IDEOGRAPH-F9D0
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9D0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x985E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x985E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x985E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x985E }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfc_068_197)
-{
-    // F9D1;516D;516D;516D;516D; 
-    // (六; 六; 六; 六; 六; ) CJK COMPATIBILITY IDEOGRAPH-F9D1
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9D1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x516D }};
-        std::array<uint32_t, 1> const c3 = {{ 0x516D }};
-        std::array<uint32_t, 1> const c4 = {{ 0x516D }};
-        std::array<uint32_t, 1> const c5 = {{ 0x516D }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfc_068_198)
-{
-    // F9D2;622E;622E;622E;622E; 
-    // (戮; 戮; 戮; 戮; 戮; ) CJK COMPATIBILITY IDEOGRAPH-F9D2
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9D2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x622E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x622E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x622E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x622E }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfc_068_199)
-{
-    // F9D3;9678;9678;9678;9678; 
-    // (陸; 陸; 陸; 陸; 陸; ) CJK COMPATIBILITY IDEOGRAPH-F9D3
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9D3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x9678 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x9678 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x9678 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x9678 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));

@@ -14,9 +14,12 @@
 #include <boost/text/data/be.hpp>
 #include <boost/text/data/bg.hpp>
 #include <boost/text/data/bn.hpp>
+#include <boost/text/data/bo.hpp>
+#include <boost/text/data/br.hpp>
 #include <boost/text/data/bs.hpp>
 #include <boost/text/data/bs_Cyrl.hpp>
 #include <boost/text/data/ca.hpp>
+#include <boost/text/data/ceb.hpp>
 #include <boost/text/data/chr.hpp>
 #include <boost/text/data/cs.hpp>
 #include <boost/text/data/cy.hpp>
@@ -32,6 +35,7 @@
 #include <boost/text/data/et.hpp>
 #include <boost/text/data/fa.hpp>
 #include <boost/text/data/fa_AF.hpp>
+#include <boost/text/data/ff_Adlm.hpp>
 #include <boost/text/data/fi.hpp>
 #include <boost/text/data/fil.hpp>
 #include <boost/text/data/fo.hpp>
@@ -56,6 +60,7 @@
 #include <boost/text/data/kn.hpp>
 #include <boost/text/data/ko.hpp>
 #include <boost/text/data/kok.hpp>
+#include <boost/text/data/ku.hpp>
 #include <boost/text/data/ky.hpp>
 #include <boost/text/data/lkt.hpp>
 #include <boost/text/data/ln.hpp>
@@ -71,6 +76,7 @@
 #include <boost/text/data/nb.hpp>
 #include <boost/text/data/ne.hpp>
 #include <boost/text/data/nn.hpp>
+#include <boost/text/data/no.hpp>
 #include <boost/text/data/om.hpp>
 #include <boost/text/data/or.hpp>
 #include <boost/text/data/pa.hpp>
@@ -90,6 +96,7 @@
 #include <boost/text/data/ta.hpp>
 #include <boost/text/data/te.hpp>
 #include <boost/text/data/th.hpp>
+#include <boost/text/data/tk.hpp>
 #include <boost/text/data/to.hpp>
 #include <boost/text/data/tr.hpp>
 #include <boost/text/data/ug.hpp>

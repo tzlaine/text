@@ -151,9 +151,9 @@ def checks(name_1, name_2):
 
 def conditioned_checks(op, expected_cps, expect = 'EXPECT_EQ', lang = None):
     return '''\
-        to_{0}(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        to_{0}(from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
         expected.insert(expected.end(), {{{1}}});
-        to_{0}(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+        to_{0}(from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_{0}(from, std::back_inserter(result){2});
         {3}(result, expected);'''.format(

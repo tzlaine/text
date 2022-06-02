@@ -17,6 +17,501 @@
 
 TEST(normalization, nfd_031_000)
 {
+    // BAC3;BAC3;1106 1169 11C2;BAC3;1106 1169 11C2; 
+    // (뫃; 뫃; 뫃; 뫃; 뫃; ) HANGUL SYLLABLE MOH
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xBAC3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xBAC3 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x1106, 0x1169, 0x11C2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xBAC3 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x1106, 0x1169, 0x11C2 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_031_001)
+{
+    // BAC4;BAC4;1106 116A;BAC4;1106 116A; 
+    // (뫄; 뫄; 뫄; 뫄; 뫄; ) HANGUL SYLLABLE MWA
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xBAC4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xBAC4 }};
+        std::array<uint32_t, 2> const c3 = {{ 0x1106, 0x116A }};
+        std::array<uint32_t, 1> const c4 = {{ 0xBAC4 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x1106, 0x116A }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_031_002)
+{
+    // BAC5;BAC5;1106 116A 11A8;BAC5;1106 116A 11A8; 
+    // (뫅; 뫅; 뫅; 뫅; 뫅; ) HANGUL SYLLABLE MWAG
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xBAC5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xBAC5 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x1106, 0x116A, 0x11A8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xBAC5 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x1106, 0x116A, 0x11A8 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_031_003)
+{
+    // BAC6;BAC6;1106 116A 11A9;BAC6;1106 116A 11A9; 
+    // (뫆; 뫆; 뫆; 뫆; 뫆; ) HANGUL SYLLABLE MWAGG
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xBAC6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xBAC6 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x1106, 0x116A, 0x11A9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xBAC6 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x1106, 0x116A, 0x11A9 }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_031_004)
+{
+    // BAC7;BAC7;1106 116A 11AA;BAC7;1106 116A 11AA; 
+    // (뫇; 뫇; 뫇; 뫇; 뫇; ) HANGUL SYLLABLE MWAGS
+    {
+        std::array<uint32_t, 1> const c1 = {{ 0xBAC7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xBAC7 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x1106, 0x116A, 0x11AA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xBAC7 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x1106, 0x116A, 0x11AA }};
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+
+
+
+        {
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
+            auto c3_it = c3.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c3_it) << "iteration " << i;
+                ++c3_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize<boost::text::nf::d>(str);
+            auto const r = boost::text::as_utf32(str);
+            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : r) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfd_031_005)
+{
     // BAC8;BAC8;1106 116A 11AB;BAC8;1106 116A 11AB; 
     // (뫈; 뫈; 뫈; 뫈; 뫈; ) HANGUL SYLLABLE MWAN
     {
@@ -114,7 +609,7 @@ TEST(normalization, nfd_031_000)
 }
 
 
-TEST(normalization, nfd_031_001)
+TEST(normalization, nfd_031_006)
 {
     // BAC9;BAC9;1106 116A 11AC;BAC9;1106 116A 11AC; 
     // (뫉; 뫉; 뫉; 뫉; 뫉; ) HANGUL SYLLABLE MWANJ
@@ -213,7 +708,7 @@ TEST(normalization, nfd_031_001)
 }
 
 
-TEST(normalization, nfd_031_002)
+TEST(normalization, nfd_031_007)
 {
     // BACA;BACA;1106 116A 11AD;BACA;1106 116A 11AD; 
     // (뫊; 뫊; 뫊; 뫊; 뫊; ) HANGUL SYLLABLE MWANH
@@ -312,7 +807,7 @@ TEST(normalization, nfd_031_002)
 }
 
 
-TEST(normalization, nfd_031_003)
+TEST(normalization, nfd_031_008)
 {
     // BACB;BACB;1106 116A 11AE;BACB;1106 116A 11AE; 
     // (뫋; 뫋; 뫋; 뫋; 뫋; ) HANGUL SYLLABLE MWAD
@@ -411,7 +906,7 @@ TEST(normalization, nfd_031_003)
 }
 
 
-TEST(normalization, nfd_031_004)
+TEST(normalization, nfd_031_009)
 {
     // BACC;BACC;1106 116A 11AF;BACC;1106 116A 11AF; 
     // (뫌; 뫌; 뫌; 뫌; 뫌; ) HANGUL SYLLABLE MWAL
@@ -510,7 +1005,7 @@ TEST(normalization, nfd_031_004)
 }
 
 
-TEST(normalization, nfd_031_005)
+TEST(normalization, nfd_031_010)
 {
     // BACD;BACD;1106 116A 11B0;BACD;1106 116A 11B0; 
     // (뫍; 뫍; 뫍; 뫍; 뫍; ) HANGUL SYLLABLE MWALG
@@ -609,7 +1104,7 @@ TEST(normalization, nfd_031_005)
 }
 
 
-TEST(normalization, nfd_031_006)
+TEST(normalization, nfd_031_011)
 {
     // BACE;BACE;1106 116A 11B1;BACE;1106 116A 11B1; 
     // (뫎; 뫎; 뫎; 뫎; 뫎; ) HANGUL SYLLABLE MWALM
@@ -708,7 +1203,7 @@ TEST(normalization, nfd_031_006)
 }
 
 
-TEST(normalization, nfd_031_007)
+TEST(normalization, nfd_031_012)
 {
     // BACF;BACF;1106 116A 11B2;BACF;1106 116A 11B2; 
     // (뫏; 뫏; 뫏; 뫏; 뫏; ) HANGUL SYLLABLE MWALB
@@ -807,7 +1302,7 @@ TEST(normalization, nfd_031_007)
 }
 
 
-TEST(normalization, nfd_031_008)
+TEST(normalization, nfd_031_013)
 {
     // BAD0;BAD0;1106 116A 11B3;BAD0;1106 116A 11B3; 
     // (뫐; 뫐; 뫐; 뫐; 뫐; ) HANGUL SYLLABLE MWALS
@@ -906,7 +1401,7 @@ TEST(normalization, nfd_031_008)
 }
 
 
-TEST(normalization, nfd_031_009)
+TEST(normalization, nfd_031_014)
 {
     // BAD1;BAD1;1106 116A 11B4;BAD1;1106 116A 11B4; 
     // (뫑; 뫑; 뫑; 뫑; 뫑; ) HANGUL SYLLABLE MWALT
@@ -1005,7 +1500,7 @@ TEST(normalization, nfd_031_009)
 }
 
 
-TEST(normalization, nfd_031_010)
+TEST(normalization, nfd_031_015)
 {
     // BAD2;BAD2;1106 116A 11B5;BAD2;1106 116A 11B5; 
     // (뫒; 뫒; 뫒; 뫒; 뫒; ) HANGUL SYLLABLE MWALP
@@ -1104,7 +1599,7 @@ TEST(normalization, nfd_031_010)
 }
 
 
-TEST(normalization, nfd_031_011)
+TEST(normalization, nfd_031_016)
 {
     // BAD3;BAD3;1106 116A 11B6;BAD3;1106 116A 11B6; 
     // (뫓; 뫓; 뫓; 뫓; 뫓; ) HANGUL SYLLABLE MWALH
@@ -1203,7 +1698,7 @@ TEST(normalization, nfd_031_011)
 }
 
 
-TEST(normalization, nfd_031_012)
+TEST(normalization, nfd_031_017)
 {
     // BAD4;BAD4;1106 116A 11B7;BAD4;1106 116A 11B7; 
     // (뫔; 뫔; 뫔; 뫔; 뫔; ) HANGUL SYLLABLE MWAM
@@ -1302,7 +1797,7 @@ TEST(normalization, nfd_031_012)
 }
 
 
-TEST(normalization, nfd_031_013)
+TEST(normalization, nfd_031_018)
 {
     // BAD5;BAD5;1106 116A 11B8;BAD5;1106 116A 11B8; 
     // (뫕; 뫕; 뫕; 뫕; 뫕; ) HANGUL SYLLABLE MWAB
@@ -1401,7 +1896,7 @@ TEST(normalization, nfd_031_013)
 }
 
 
-TEST(normalization, nfd_031_014)
+TEST(normalization, nfd_031_019)
 {
     // BAD6;BAD6;1106 116A 11B9;BAD6;1106 116A 11B9; 
     // (뫖; 뫖; 뫖; 뫖; 뫖; ) HANGUL SYLLABLE MWABS
@@ -1500,7 +1995,7 @@ TEST(normalization, nfd_031_014)
 }
 
 
-TEST(normalization, nfd_031_015)
+TEST(normalization, nfd_031_020)
 {
     // BAD7;BAD7;1106 116A 11BA;BAD7;1106 116A 11BA; 
     // (뫗; 뫗; 뫗; 뫗; 뫗; ) HANGUL SYLLABLE MWAS
@@ -1599,7 +2094,7 @@ TEST(normalization, nfd_031_015)
 }
 
 
-TEST(normalization, nfd_031_016)
+TEST(normalization, nfd_031_021)
 {
     // BAD8;BAD8;1106 116A 11BB;BAD8;1106 116A 11BB; 
     // (뫘; 뫘; 뫘; 뫘; 뫘; ) HANGUL SYLLABLE MWASS
@@ -1698,7 +2193,7 @@ TEST(normalization, nfd_031_016)
 }
 
 
-TEST(normalization, nfd_031_017)
+TEST(normalization, nfd_031_022)
 {
     // BAD9;BAD9;1106 116A 11BC;BAD9;1106 116A 11BC; 
     // (뫙; 뫙; 뫙; 뫙; 뫙; ) HANGUL SYLLABLE MWANG
@@ -1797,7 +2292,7 @@ TEST(normalization, nfd_031_017)
 }
 
 
-TEST(normalization, nfd_031_018)
+TEST(normalization, nfd_031_023)
 {
     // BADA;BADA;1106 116A 11BD;BADA;1106 116A 11BD; 
     // (뫚; 뫚; 뫚; 뫚; 뫚; ) HANGUL SYLLABLE MWAJ
@@ -1896,7 +2391,7 @@ TEST(normalization, nfd_031_018)
 }
 
 
-TEST(normalization, nfd_031_019)
+TEST(normalization, nfd_031_024)
 {
     // BADB;BADB;1106 116A 11BE;BADB;1106 116A 11BE; 
     // (뫛; 뫛; 뫛; 뫛; 뫛; ) HANGUL SYLLABLE MWAC
@@ -1995,7 +2490,7 @@ TEST(normalization, nfd_031_019)
 }
 
 
-TEST(normalization, nfd_031_020)
+TEST(normalization, nfd_031_025)
 {
     // BADC;BADC;1106 116A 11BF;BADC;1106 116A 11BF; 
     // (뫜; 뫜; 뫜; 뫜; 뫜; ) HANGUL SYLLABLE MWAK
@@ -2094,7 +2589,7 @@ TEST(normalization, nfd_031_020)
 }
 
 
-TEST(normalization, nfd_031_021)
+TEST(normalization, nfd_031_026)
 {
     // BADD;BADD;1106 116A 11C0;BADD;1106 116A 11C0; 
     // (뫝; 뫝; 뫝; 뫝; 뫝; ) HANGUL SYLLABLE MWAT
@@ -2193,7 +2688,7 @@ TEST(normalization, nfd_031_021)
 }
 
 
-TEST(normalization, nfd_031_022)
+TEST(normalization, nfd_031_027)
 {
     // BADE;BADE;1106 116A 11C1;BADE;1106 116A 11C1; 
     // (뫞; 뫞; 뫞; 뫞; 뫞; ) HANGUL SYLLABLE MWAP
@@ -2292,7 +2787,7 @@ TEST(normalization, nfd_031_022)
 }
 
 
-TEST(normalization, nfd_031_023)
+TEST(normalization, nfd_031_028)
 {
     // BADF;BADF;1106 116A 11C2;BADF;1106 116A 11C2; 
     // (뫟; 뫟; 뫟; 뫟; 뫟; ) HANGUL SYLLABLE MWAH
@@ -2391,7 +2886,7 @@ TEST(normalization, nfd_031_023)
 }
 
 
-TEST(normalization, nfd_031_024)
+TEST(normalization, nfd_031_029)
 {
     // BAE0;BAE0;1106 116B;BAE0;1106 116B; 
     // (뫠; 뫠; 뫠; 뫠; 뫠; ) HANGUL SYLLABLE MWAE
@@ -2490,7 +2985,7 @@ TEST(normalization, nfd_031_024)
 }
 
 
-TEST(normalization, nfd_031_025)
+TEST(normalization, nfd_031_030)
 {
     // BAE1;BAE1;1106 116B 11A8;BAE1;1106 116B 11A8; 
     // (뫡; 뫡; 뫡; 뫡; 뫡; ) HANGUL SYLLABLE MWAEG
@@ -2589,7 +3084,7 @@ TEST(normalization, nfd_031_025)
 }
 
 
-TEST(normalization, nfd_031_026)
+TEST(normalization, nfd_031_031)
 {
     // BAE2;BAE2;1106 116B 11A9;BAE2;1106 116B 11A9; 
     // (뫢; 뫢; 뫢; 뫢; 뫢; ) HANGUL SYLLABLE MWAEGG
@@ -2688,7 +3183,7 @@ TEST(normalization, nfd_031_026)
 }
 
 
-TEST(normalization, nfd_031_027)
+TEST(normalization, nfd_031_032)
 {
     // BAE3;BAE3;1106 116B 11AA;BAE3;1106 116B 11AA; 
     // (뫣; 뫣; 뫣; 뫣; 뫣; ) HANGUL SYLLABLE MWAEGS
@@ -2787,7 +3282,7 @@ TEST(normalization, nfd_031_027)
 }
 
 
-TEST(normalization, nfd_031_028)
+TEST(normalization, nfd_031_033)
 {
     // BAE4;BAE4;1106 116B 11AB;BAE4;1106 116B 11AB; 
     // (뫤; 뫤; 뫤; 뫤; 뫤; ) HANGUL SYLLABLE MWAEN
@@ -2886,7 +3381,7 @@ TEST(normalization, nfd_031_028)
 }
 
 
-TEST(normalization, nfd_031_029)
+TEST(normalization, nfd_031_034)
 {
     // BAE5;BAE5;1106 116B 11AC;BAE5;1106 116B 11AC; 
     // (뫥; 뫥; 뫥; 뫥; 뫥; ) HANGUL SYLLABLE MWAENJ
@@ -2985,7 +3480,7 @@ TEST(normalization, nfd_031_029)
 }
 
 
-TEST(normalization, nfd_031_030)
+TEST(normalization, nfd_031_035)
 {
     // BAE6;BAE6;1106 116B 11AD;BAE6;1106 116B 11AD; 
     // (뫦; 뫦; 뫦; 뫦; 뫦; ) HANGUL SYLLABLE MWAENH
@@ -3084,7 +3579,7 @@ TEST(normalization, nfd_031_030)
 }
 
 
-TEST(normalization, nfd_031_031)
+TEST(normalization, nfd_031_036)
 {
     // BAE7;BAE7;1106 116B 11AE;BAE7;1106 116B 11AE; 
     // (뫧; 뫧; 뫧; 뫧; 뫧; ) HANGUL SYLLABLE MWAED
@@ -3183,7 +3678,7 @@ TEST(normalization, nfd_031_031)
 }
 
 
-TEST(normalization, nfd_031_032)
+TEST(normalization, nfd_031_037)
 {
     // BAE8;BAE8;1106 116B 11AF;BAE8;1106 116B 11AF; 
     // (뫨; 뫨; 뫨; 뫨; 뫨; ) HANGUL SYLLABLE MWAEL
@@ -3282,7 +3777,7 @@ TEST(normalization, nfd_031_032)
 }
 
 
-TEST(normalization, nfd_031_033)
+TEST(normalization, nfd_031_038)
 {
     // BAE9;BAE9;1106 116B 11B0;BAE9;1106 116B 11B0; 
     // (뫩; 뫩; 뫩; 뫩; 뫩; ) HANGUL SYLLABLE MWAELG
@@ -3381,7 +3876,7 @@ TEST(normalization, nfd_031_033)
 }
 
 
-TEST(normalization, nfd_031_034)
+TEST(normalization, nfd_031_039)
 {
     // BAEA;BAEA;1106 116B 11B1;BAEA;1106 116B 11B1; 
     // (뫪; 뫪; 뫪; 뫪; 뫪; ) HANGUL SYLLABLE MWAELM
@@ -3480,7 +3975,7 @@ TEST(normalization, nfd_031_034)
 }
 
 
-TEST(normalization, nfd_031_035)
+TEST(normalization, nfd_031_040)
 {
     // BAEB;BAEB;1106 116B 11B2;BAEB;1106 116B 11B2; 
     // (뫫; 뫫; 뫫; 뫫; 뫫; ) HANGUL SYLLABLE MWAELB
@@ -3579,7 +4074,7 @@ TEST(normalization, nfd_031_035)
 }
 
 
-TEST(normalization, nfd_031_036)
+TEST(normalization, nfd_031_041)
 {
     // BAEC;BAEC;1106 116B 11B3;BAEC;1106 116B 11B3; 
     // (뫬; 뫬; 뫬; 뫬; 뫬; ) HANGUL SYLLABLE MWAELS
@@ -3678,7 +4173,7 @@ TEST(normalization, nfd_031_036)
 }
 
 
-TEST(normalization, nfd_031_037)
+TEST(normalization, nfd_031_042)
 {
     // BAED;BAED;1106 116B 11B4;BAED;1106 116B 11B4; 
     // (뫭; 뫭; 뫭; 뫭; 뫭; ) HANGUL SYLLABLE MWAELT
@@ -3777,7 +4272,7 @@ TEST(normalization, nfd_031_037)
 }
 
 
-TEST(normalization, nfd_031_038)
+TEST(normalization, nfd_031_043)
 {
     // BAEE;BAEE;1106 116B 11B5;BAEE;1106 116B 11B5; 
     // (뫮; 뫮; 뫮; 뫮; 뫮; ) HANGUL SYLLABLE MWAELP
@@ -3876,7 +4371,7 @@ TEST(normalization, nfd_031_038)
 }
 
 
-TEST(normalization, nfd_031_039)
+TEST(normalization, nfd_031_044)
 {
     // BAEF;BAEF;1106 116B 11B6;BAEF;1106 116B 11B6; 
     // (뫯; 뫯; 뫯; 뫯; 뫯; ) HANGUL SYLLABLE MWAELH
@@ -3975,7 +4470,7 @@ TEST(normalization, nfd_031_039)
 }
 
 
-TEST(normalization, nfd_031_040)
+TEST(normalization, nfd_031_045)
 {
     // BAF0;BAF0;1106 116B 11B7;BAF0;1106 116B 11B7; 
     // (뫰; 뫰; 뫰; 뫰; 뫰; ) HANGUL SYLLABLE MWAEM
@@ -4074,7 +4569,7 @@ TEST(normalization, nfd_031_040)
 }
 
 
-TEST(normalization, nfd_031_041)
+TEST(normalization, nfd_031_046)
 {
     // BAF1;BAF1;1106 116B 11B8;BAF1;1106 116B 11B8; 
     // (뫱; 뫱; 뫱; 뫱; 뫱; ) HANGUL SYLLABLE MWAEB
@@ -4173,7 +4668,7 @@ TEST(normalization, nfd_031_041)
 }
 
 
-TEST(normalization, nfd_031_042)
+TEST(normalization, nfd_031_047)
 {
     // BAF2;BAF2;1106 116B 11B9;BAF2;1106 116B 11B9; 
     // (뫲; 뫲; 뫲; 뫲; 뫲; ) HANGUL SYLLABLE MWAEBS
@@ -4272,7 +4767,7 @@ TEST(normalization, nfd_031_042)
 }
 
 
-TEST(normalization, nfd_031_043)
+TEST(normalization, nfd_031_048)
 {
     // BAF3;BAF3;1106 116B 11BA;BAF3;1106 116B 11BA; 
     // (뫳; 뫳; 뫳; 뫳; 뫳; ) HANGUL SYLLABLE MWAES
@@ -4371,7 +4866,7 @@ TEST(normalization, nfd_031_043)
 }
 
 
-TEST(normalization, nfd_031_044)
+TEST(normalization, nfd_031_049)
 {
     // BAF4;BAF4;1106 116B 11BB;BAF4;1106 116B 11BB; 
     // (뫴; 뫴; 뫴; 뫴; 뫴; ) HANGUL SYLLABLE MWAESS
@@ -4470,7 +4965,7 @@ TEST(normalization, nfd_031_044)
 }
 
 
-TEST(normalization, nfd_031_045)
+TEST(normalization, nfd_031_050)
 {
     // BAF5;BAF5;1106 116B 11BC;BAF5;1106 116B 11BC; 
     // (뫵; 뫵; 뫵; 뫵; 뫵; ) HANGUL SYLLABLE MWAENG
@@ -4569,7 +5064,7 @@ TEST(normalization, nfd_031_045)
 }
 
 
-TEST(normalization, nfd_031_046)
+TEST(normalization, nfd_031_051)
 {
     // BAF6;BAF6;1106 116B 11BD;BAF6;1106 116B 11BD; 
     // (뫶; 뫶; 뫶; 뫶; 뫶; ) HANGUL SYLLABLE MWAEJ
@@ -4668,7 +5163,7 @@ TEST(normalization, nfd_031_046)
 }
 
 
-TEST(normalization, nfd_031_047)
+TEST(normalization, nfd_031_052)
 {
     // BAF7;BAF7;1106 116B 11BE;BAF7;1106 116B 11BE; 
     // (뫷; 뫷; 뫷; 뫷; 뫷; ) HANGUL SYLLABLE MWAEC
@@ -4767,7 +5262,7 @@ TEST(normalization, nfd_031_047)
 }
 
 
-TEST(normalization, nfd_031_048)
+TEST(normalization, nfd_031_053)
 {
     // BAF8;BAF8;1106 116B 11BF;BAF8;1106 116B 11BF; 
     // (뫸; 뫸; 뫸; 뫸; 뫸; ) HANGUL SYLLABLE MWAEK
@@ -4866,7 +5361,7 @@ TEST(normalization, nfd_031_048)
 }
 
 
-TEST(normalization, nfd_031_049)
+TEST(normalization, nfd_031_054)
 {
     // BAF9;BAF9;1106 116B 11C0;BAF9;1106 116B 11C0; 
     // (뫹; 뫹; 뫹; 뫹; 뫹; ) HANGUL SYLLABLE MWAET
@@ -4965,7 +5460,7 @@ TEST(normalization, nfd_031_049)
 }
 
 
-TEST(normalization, nfd_031_050)
+TEST(normalization, nfd_031_055)
 {
     // BAFA;BAFA;1106 116B 11C1;BAFA;1106 116B 11C1; 
     // (뫺; 뫺; 뫺; 뫺; 뫺; ) HANGUL SYLLABLE MWAEP
@@ -5064,7 +5559,7 @@ TEST(normalization, nfd_031_050)
 }
 
 
-TEST(normalization, nfd_031_051)
+TEST(normalization, nfd_031_056)
 {
     // BAFB;BAFB;1106 116B 11C2;BAFB;1106 116B 11C2; 
     // (뫻; 뫻; 뫻; 뫻; 뫻; ) HANGUL SYLLABLE MWAEH
@@ -5163,7 +5658,7 @@ TEST(normalization, nfd_031_051)
 }
 
 
-TEST(normalization, nfd_031_052)
+TEST(normalization, nfd_031_057)
 {
     // BAFC;BAFC;1106 116C;BAFC;1106 116C; 
     // (뫼; 뫼; 뫼; 뫼; 뫼; ) HANGUL SYLLABLE MOE
@@ -5262,7 +5757,7 @@ TEST(normalization, nfd_031_052)
 }
 
 
-TEST(normalization, nfd_031_053)
+TEST(normalization, nfd_031_058)
 {
     // BAFD;BAFD;1106 116C 11A8;BAFD;1106 116C 11A8; 
     // (뫽; 뫽; 뫽; 뫽; 뫽; ) HANGUL SYLLABLE MOEG
@@ -5361,7 +5856,7 @@ TEST(normalization, nfd_031_053)
 }
 
 
-TEST(normalization, nfd_031_054)
+TEST(normalization, nfd_031_059)
 {
     // BAFE;BAFE;1106 116C 11A9;BAFE;1106 116C 11A9; 
     // (뫾; 뫾; 뫾; 뫾; 뫾; ) HANGUL SYLLABLE MOEGG
@@ -5460,7 +5955,7 @@ TEST(normalization, nfd_031_054)
 }
 
 
-TEST(normalization, nfd_031_055)
+TEST(normalization, nfd_031_060)
 {
     // BAFF;BAFF;1106 116C 11AA;BAFF;1106 116C 11AA; 
     // (뫿; 뫿; 뫿; 뫿; 뫿; ) HANGUL SYLLABLE MOEGS
@@ -5559,7 +6054,7 @@ TEST(normalization, nfd_031_055)
 }
 
 
-TEST(normalization, nfd_031_056)
+TEST(normalization, nfd_031_061)
 {
     // BB00;BB00;1106 116C 11AB;BB00;1106 116C 11AB; 
     // (묀; 묀; 묀; 묀; 묀; ) HANGUL SYLLABLE MOEN
@@ -5658,7 +6153,7 @@ TEST(normalization, nfd_031_056)
 }
 
 
-TEST(normalization, nfd_031_057)
+TEST(normalization, nfd_031_062)
 {
     // BB01;BB01;1106 116C 11AC;BB01;1106 116C 11AC; 
     // (묁; 묁; 묁; 묁; 묁; ) HANGUL SYLLABLE MOENJ
@@ -5757,7 +6252,7 @@ TEST(normalization, nfd_031_057)
 }
 
 
-TEST(normalization, nfd_031_058)
+TEST(normalization, nfd_031_063)
 {
     // BB02;BB02;1106 116C 11AD;BB02;1106 116C 11AD; 
     // (묂; 묂; 묂; 묂; 묂; ) HANGUL SYLLABLE MOENH
@@ -5856,7 +6351,7 @@ TEST(normalization, nfd_031_058)
 }
 
 
-TEST(normalization, nfd_031_059)
+TEST(normalization, nfd_031_064)
 {
     // BB03;BB03;1106 116C 11AE;BB03;1106 116C 11AE; 
     // (묃; 묃; 묃; 묃; 묃; ) HANGUL SYLLABLE MOED
@@ -5955,7 +6450,7 @@ TEST(normalization, nfd_031_059)
 }
 
 
-TEST(normalization, nfd_031_060)
+TEST(normalization, nfd_031_065)
 {
     // BB04;BB04;1106 116C 11AF;BB04;1106 116C 11AF; 
     // (묄; 묄; 묄; 묄; 묄; ) HANGUL SYLLABLE MOEL
@@ -6054,7 +6549,7 @@ TEST(normalization, nfd_031_060)
 }
 
 
-TEST(normalization, nfd_031_061)
+TEST(normalization, nfd_031_066)
 {
     // BB05;BB05;1106 116C 11B0;BB05;1106 116C 11B0; 
     // (묅; 묅; 묅; 묅; 묅; ) HANGUL SYLLABLE MOELG
@@ -6153,7 +6648,7 @@ TEST(normalization, nfd_031_061)
 }
 
 
-TEST(normalization, nfd_031_062)
+TEST(normalization, nfd_031_067)
 {
     // BB06;BB06;1106 116C 11B1;BB06;1106 116C 11B1; 
     // (묆; 묆; 묆; 묆; 묆; ) HANGUL SYLLABLE MOELM
@@ -6252,7 +6747,7 @@ TEST(normalization, nfd_031_062)
 }
 
 
-TEST(normalization, nfd_031_063)
+TEST(normalization, nfd_031_068)
 {
     // BB07;BB07;1106 116C 11B2;BB07;1106 116C 11B2; 
     // (묇; 묇; 묇; 묇; 묇; ) HANGUL SYLLABLE MOELB
@@ -6351,7 +6846,7 @@ TEST(normalization, nfd_031_063)
 }
 
 
-TEST(normalization, nfd_031_064)
+TEST(normalization, nfd_031_069)
 {
     // BB08;BB08;1106 116C 11B3;BB08;1106 116C 11B3; 
     // (묈; 묈; 묈; 묈; 묈; ) HANGUL SYLLABLE MOELS
@@ -6450,7 +6945,7 @@ TEST(normalization, nfd_031_064)
 }
 
 
-TEST(normalization, nfd_031_065)
+TEST(normalization, nfd_031_070)
 {
     // BB09;BB09;1106 116C 11B4;BB09;1106 116C 11B4; 
     // (묉; 묉; 묉; 묉; 묉; ) HANGUL SYLLABLE MOELT
@@ -6549,7 +7044,7 @@ TEST(normalization, nfd_031_065)
 }
 
 
-TEST(normalization, nfd_031_066)
+TEST(normalization, nfd_031_071)
 {
     // BB0A;BB0A;1106 116C 11B5;BB0A;1106 116C 11B5; 
     // (묊; 묊; 묊; 묊; 묊; ) HANGUL SYLLABLE MOELP
@@ -6648,7 +7143,7 @@ TEST(normalization, nfd_031_066)
 }
 
 
-TEST(normalization, nfd_031_067)
+TEST(normalization, nfd_031_072)
 {
     // BB0B;BB0B;1106 116C 11B6;BB0B;1106 116C 11B6; 
     // (묋; 묋; 묋; 묋; 묋; ) HANGUL SYLLABLE MOELH
@@ -6747,7 +7242,7 @@ TEST(normalization, nfd_031_067)
 }
 
 
-TEST(normalization, nfd_031_068)
+TEST(normalization, nfd_031_073)
 {
     // BB0C;BB0C;1106 116C 11B7;BB0C;1106 116C 11B7; 
     // (묌; 묌; 묌; 묌; 묌; ) HANGUL SYLLABLE MOEM
@@ -6846,7 +7341,7 @@ TEST(normalization, nfd_031_068)
 }
 
 
-TEST(normalization, nfd_031_069)
+TEST(normalization, nfd_031_074)
 {
     // BB0D;BB0D;1106 116C 11B8;BB0D;1106 116C 11B8; 
     // (묍; 묍; 묍; 묍; 묍; ) HANGUL SYLLABLE MOEB
@@ -6945,7 +7440,7 @@ TEST(normalization, nfd_031_069)
 }
 
 
-TEST(normalization, nfd_031_070)
+TEST(normalization, nfd_031_075)
 {
     // BB0E;BB0E;1106 116C 11B9;BB0E;1106 116C 11B9; 
     // (묎; 묎; 묎; 묎; 묎; ) HANGUL SYLLABLE MOEBS
@@ -7044,7 +7539,7 @@ TEST(normalization, nfd_031_070)
 }
 
 
-TEST(normalization, nfd_031_071)
+TEST(normalization, nfd_031_076)
 {
     // BB0F;BB0F;1106 116C 11BA;BB0F;1106 116C 11BA; 
     // (묏; 묏; 묏; 묏; 묏; ) HANGUL SYLLABLE MOES
@@ -7143,7 +7638,7 @@ TEST(normalization, nfd_031_071)
 }
 
 
-TEST(normalization, nfd_031_072)
+TEST(normalization, nfd_031_077)
 {
     // BB10;BB10;1106 116C 11BB;BB10;1106 116C 11BB; 
     // (묐; 묐; 묐; 묐; 묐; ) HANGUL SYLLABLE MOESS
@@ -7242,7 +7737,7 @@ TEST(normalization, nfd_031_072)
 }
 
 
-TEST(normalization, nfd_031_073)
+TEST(normalization, nfd_031_078)
 {
     // BB11;BB11;1106 116C 11BC;BB11;1106 116C 11BC; 
     // (묑; 묑; 묑; 묑; 묑; ) HANGUL SYLLABLE MOENG
@@ -7341,7 +7836,7 @@ TEST(normalization, nfd_031_073)
 }
 
 
-TEST(normalization, nfd_031_074)
+TEST(normalization, nfd_031_079)
 {
     // BB12;BB12;1106 116C 11BD;BB12;1106 116C 11BD; 
     // (묒; 묒; 묒; 묒; 묒; ) HANGUL SYLLABLE MOEJ
@@ -7440,7 +7935,7 @@ TEST(normalization, nfd_031_074)
 }
 
 
-TEST(normalization, nfd_031_075)
+TEST(normalization, nfd_031_080)
 {
     // BB13;BB13;1106 116C 11BE;BB13;1106 116C 11BE; 
     // (묓; 묓; 묓; 묓; 묓; ) HANGUL SYLLABLE MOEC
@@ -7539,7 +8034,7 @@ TEST(normalization, nfd_031_075)
 }
 
 
-TEST(normalization, nfd_031_076)
+TEST(normalization, nfd_031_081)
 {
     // BB14;BB14;1106 116C 11BF;BB14;1106 116C 11BF; 
     // (묔; 묔; 묔; 묔; 묔; ) HANGUL SYLLABLE MOEK
@@ -7638,7 +8133,7 @@ TEST(normalization, nfd_031_076)
 }
 
 
-TEST(normalization, nfd_031_077)
+TEST(normalization, nfd_031_082)
 {
     // BB15;BB15;1106 116C 11C0;BB15;1106 116C 11C0; 
     // (묕; 묕; 묕; 묕; 묕; ) HANGUL SYLLABLE MOET
@@ -7737,7 +8232,7 @@ TEST(normalization, nfd_031_077)
 }
 
 
-TEST(normalization, nfd_031_078)
+TEST(normalization, nfd_031_083)
 {
     // BB16;BB16;1106 116C 11C1;BB16;1106 116C 11C1; 
     // (묖; 묖; 묖; 묖; 묖; ) HANGUL SYLLABLE MOEP
@@ -7836,7 +8331,7 @@ TEST(normalization, nfd_031_078)
 }
 
 
-TEST(normalization, nfd_031_079)
+TEST(normalization, nfd_031_084)
 {
     // BB17;BB17;1106 116C 11C2;BB17;1106 116C 11C2; 
     // (묗; 묗; 묗; 묗; 묗; ) HANGUL SYLLABLE MOEH
@@ -7935,7 +8430,7 @@ TEST(normalization, nfd_031_079)
 }
 
 
-TEST(normalization, nfd_031_080)
+TEST(normalization, nfd_031_085)
 {
     // BB18;BB18;1106 116D;BB18;1106 116D; 
     // (묘; 묘; 묘; 묘; 묘; ) HANGUL SYLLABLE MYO
@@ -8034,7 +8529,7 @@ TEST(normalization, nfd_031_080)
 }
 
 
-TEST(normalization, nfd_031_081)
+TEST(normalization, nfd_031_086)
 {
     // BB19;BB19;1106 116D 11A8;BB19;1106 116D 11A8; 
     // (묙; 묙; 묙; 묙; 묙; ) HANGUL SYLLABLE MYOG
@@ -8133,7 +8628,7 @@ TEST(normalization, nfd_031_081)
 }
 
 
-TEST(normalization, nfd_031_082)
+TEST(normalization, nfd_031_087)
 {
     // BB1A;BB1A;1106 116D 11A9;BB1A;1106 116D 11A9; 
     // (묚; 묚; 묚; 묚; 묚; ) HANGUL SYLLABLE MYOGG
@@ -8232,7 +8727,7 @@ TEST(normalization, nfd_031_082)
 }
 
 
-TEST(normalization, nfd_031_083)
+TEST(normalization, nfd_031_088)
 {
     // BB1B;BB1B;1106 116D 11AA;BB1B;1106 116D 11AA; 
     // (묛; 묛; 묛; 묛; 묛; ) HANGUL SYLLABLE MYOGS
@@ -8331,7 +8826,7 @@ TEST(normalization, nfd_031_083)
 }
 
 
-TEST(normalization, nfd_031_084)
+TEST(normalization, nfd_031_089)
 {
     // BB1C;BB1C;1106 116D 11AB;BB1C;1106 116D 11AB; 
     // (묜; 묜; 묜; 묜; 묜; ) HANGUL SYLLABLE MYON
@@ -8430,7 +8925,7 @@ TEST(normalization, nfd_031_084)
 }
 
 
-TEST(normalization, nfd_031_085)
+TEST(normalization, nfd_031_090)
 {
     // BB1D;BB1D;1106 116D 11AC;BB1D;1106 116D 11AC; 
     // (묝; 묝; 묝; 묝; 묝; ) HANGUL SYLLABLE MYONJ
@@ -8529,7 +9024,7 @@ TEST(normalization, nfd_031_085)
 }
 
 
-TEST(normalization, nfd_031_086)
+TEST(normalization, nfd_031_091)
 {
     // BB1E;BB1E;1106 116D 11AD;BB1E;1106 116D 11AD; 
     // (묞; 묞; 묞; 묞; 묞; ) HANGUL SYLLABLE MYONH
@@ -8628,7 +9123,7 @@ TEST(normalization, nfd_031_086)
 }
 
 
-TEST(normalization, nfd_031_087)
+TEST(normalization, nfd_031_092)
 {
     // BB1F;BB1F;1106 116D 11AE;BB1F;1106 116D 11AE; 
     // (묟; 묟; 묟; 묟; 묟; ) HANGUL SYLLABLE MYOD
@@ -8727,7 +9222,7 @@ TEST(normalization, nfd_031_087)
 }
 
 
-TEST(normalization, nfd_031_088)
+TEST(normalization, nfd_031_093)
 {
     // BB20;BB20;1106 116D 11AF;BB20;1106 116D 11AF; 
     // (묠; 묠; 묠; 묠; 묠; ) HANGUL SYLLABLE MYOL
@@ -8826,7 +9321,7 @@ TEST(normalization, nfd_031_088)
 }
 
 
-TEST(normalization, nfd_031_089)
+TEST(normalization, nfd_031_094)
 {
     // BB21;BB21;1106 116D 11B0;BB21;1106 116D 11B0; 
     // (묡; 묡; 묡; 묡; 묡; ) HANGUL SYLLABLE MYOLG
@@ -8925,7 +9420,7 @@ TEST(normalization, nfd_031_089)
 }
 
 
-TEST(normalization, nfd_031_090)
+TEST(normalization, nfd_031_095)
 {
     // BB22;BB22;1106 116D 11B1;BB22;1106 116D 11B1; 
     // (묢; 묢; 묢; 묢; 묢; ) HANGUL SYLLABLE MYOLM
@@ -9024,7 +9519,7 @@ TEST(normalization, nfd_031_090)
 }
 
 
-TEST(normalization, nfd_031_091)
+TEST(normalization, nfd_031_096)
 {
     // BB23;BB23;1106 116D 11B2;BB23;1106 116D 11B2; 
     // (묣; 묣; 묣; 묣; 묣; ) HANGUL SYLLABLE MYOLB
@@ -9123,7 +9618,7 @@ TEST(normalization, nfd_031_091)
 }
 
 
-TEST(normalization, nfd_031_092)
+TEST(normalization, nfd_031_097)
 {
     // BB24;BB24;1106 116D 11B3;BB24;1106 116D 11B3; 
     // (묤; 묤; 묤; 묤; 묤; ) HANGUL SYLLABLE MYOLS
@@ -9222,7 +9717,7 @@ TEST(normalization, nfd_031_092)
 }
 
 
-TEST(normalization, nfd_031_093)
+TEST(normalization, nfd_031_098)
 {
     // BB25;BB25;1106 116D 11B4;BB25;1106 116D 11B4; 
     // (묥; 묥; 묥; 묥; 묥; ) HANGUL SYLLABLE MYOLT
@@ -9321,7 +9816,7 @@ TEST(normalization, nfd_031_093)
 }
 
 
-TEST(normalization, nfd_031_094)
+TEST(normalization, nfd_031_099)
 {
     // BB26;BB26;1106 116D 11B5;BB26;1106 116D 11B5; 
     // (묦; 묦; 묦; 묦; 묦; ) HANGUL SYLLABLE MYOLP
@@ -9420,7 +9915,7 @@ TEST(normalization, nfd_031_094)
 }
 
 
-TEST(normalization, nfd_031_095)
+TEST(normalization, nfd_031_100)
 {
     // BB27;BB27;1106 116D 11B6;BB27;1106 116D 11B6; 
     // (묧; 묧; 묧; 묧; 묧; ) HANGUL SYLLABLE MYOLH
@@ -9519,7 +10014,7 @@ TEST(normalization, nfd_031_095)
 }
 
 
-TEST(normalization, nfd_031_096)
+TEST(normalization, nfd_031_101)
 {
     // BB28;BB28;1106 116D 11B7;BB28;1106 116D 11B7; 
     // (묨; 묨; 묨; 묨; 묨; ) HANGUL SYLLABLE MYOM
@@ -9618,7 +10113,7 @@ TEST(normalization, nfd_031_096)
 }
 
 
-TEST(normalization, nfd_031_097)
+TEST(normalization, nfd_031_102)
 {
     // BB29;BB29;1106 116D 11B8;BB29;1106 116D 11B8; 
     // (묩; 묩; 묩; 묩; 묩; ) HANGUL SYLLABLE MYOB
@@ -9717,7 +10212,7 @@ TEST(normalization, nfd_031_097)
 }
 
 
-TEST(normalization, nfd_031_098)
+TEST(normalization, nfd_031_103)
 {
     // BB2A;BB2A;1106 116D 11B9;BB2A;1106 116D 11B9; 
     // (묪; 묪; 묪; 묪; 묪; ) HANGUL SYLLABLE MYOBS
@@ -9816,7 +10311,7 @@ TEST(normalization, nfd_031_098)
 }
 
 
-TEST(normalization, nfd_031_099)
+TEST(normalization, nfd_031_104)
 {
     // BB2B;BB2B;1106 116D 11BA;BB2B;1106 116D 11BA; 
     // (묫; 묫; 묫; 묫; 묫; ) HANGUL SYLLABLE MYOS
@@ -9915,7 +10410,7 @@ TEST(normalization, nfd_031_099)
 }
 
 
-TEST(normalization, nfd_031_100)
+TEST(normalization, nfd_031_105)
 {
     // BB2C;BB2C;1106 116D 11BB;BB2C;1106 116D 11BB; 
     // (묬; 묬; 묬; 묬; 묬; ) HANGUL SYLLABLE MYOSS
@@ -10014,7 +10509,7 @@ TEST(normalization, nfd_031_100)
 }
 
 
-TEST(normalization, nfd_031_101)
+TEST(normalization, nfd_031_106)
 {
     // BB2D;BB2D;1106 116D 11BC;BB2D;1106 116D 11BC; 
     // (묭; 묭; 묭; 묭; 묭; ) HANGUL SYLLABLE MYONG
@@ -10113,7 +10608,7 @@ TEST(normalization, nfd_031_101)
 }
 
 
-TEST(normalization, nfd_031_102)
+TEST(normalization, nfd_031_107)
 {
     // BB2E;BB2E;1106 116D 11BD;BB2E;1106 116D 11BD; 
     // (묮; 묮; 묮; 묮; 묮; ) HANGUL SYLLABLE MYOJ
@@ -10212,7 +10707,7 @@ TEST(normalization, nfd_031_102)
 }
 
 
-TEST(normalization, nfd_031_103)
+TEST(normalization, nfd_031_108)
 {
     // BB2F;BB2F;1106 116D 11BE;BB2F;1106 116D 11BE; 
     // (묯; 묯; 묯; 묯; 묯; ) HANGUL SYLLABLE MYOC
@@ -10311,7 +10806,7 @@ TEST(normalization, nfd_031_103)
 }
 
 
-TEST(normalization, nfd_031_104)
+TEST(normalization, nfd_031_109)
 {
     // BB30;BB30;1106 116D 11BF;BB30;1106 116D 11BF; 
     // (묰; 묰; 묰; 묰; 묰; ) HANGUL SYLLABLE MYOK
@@ -10410,7 +10905,7 @@ TEST(normalization, nfd_031_104)
 }
 
 
-TEST(normalization, nfd_031_105)
+TEST(normalization, nfd_031_110)
 {
     // BB31;BB31;1106 116D 11C0;BB31;1106 116D 11C0; 
     // (묱; 묱; 묱; 묱; 묱; ) HANGUL SYLLABLE MYOT
@@ -10509,7 +11004,7 @@ TEST(normalization, nfd_031_105)
 }
 
 
-TEST(normalization, nfd_031_106)
+TEST(normalization, nfd_031_111)
 {
     // BB32;BB32;1106 116D 11C1;BB32;1106 116D 11C1; 
     // (묲; 묲; 묲; 묲; 묲; ) HANGUL SYLLABLE MYOP
@@ -10608,7 +11103,7 @@ TEST(normalization, nfd_031_106)
 }
 
 
-TEST(normalization, nfd_031_107)
+TEST(normalization, nfd_031_112)
 {
     // BB33;BB33;1106 116D 11C2;BB33;1106 116D 11C2; 
     // (묳; 묳; 묳; 묳; 묳; ) HANGUL SYLLABLE MYOH
@@ -10707,7 +11202,7 @@ TEST(normalization, nfd_031_107)
 }
 
 
-TEST(normalization, nfd_031_108)
+TEST(normalization, nfd_031_113)
 {
     // BB34;BB34;1106 116E;BB34;1106 116E; 
     // (무; 무; 무; 무; 무; ) HANGUL SYLLABLE MU
@@ -10806,7 +11301,7 @@ TEST(normalization, nfd_031_108)
 }
 
 
-TEST(normalization, nfd_031_109)
+TEST(normalization, nfd_031_114)
 {
     // BB35;BB35;1106 116E 11A8;BB35;1106 116E 11A8; 
     // (묵; 묵; 묵; 묵; 묵; ) HANGUL SYLLABLE MUG
@@ -10905,7 +11400,7 @@ TEST(normalization, nfd_031_109)
 }
 
 
-TEST(normalization, nfd_031_110)
+TEST(normalization, nfd_031_115)
 {
     // BB36;BB36;1106 116E 11A9;BB36;1106 116E 11A9; 
     // (묶; 묶; 묶; 묶; 묶; ) HANGUL SYLLABLE MUGG
@@ -11004,7 +11499,7 @@ TEST(normalization, nfd_031_110)
 }
 
 
-TEST(normalization, nfd_031_111)
+TEST(normalization, nfd_031_116)
 {
     // BB37;BB37;1106 116E 11AA;BB37;1106 116E 11AA; 
     // (묷; 묷; 묷; 묷; 묷; ) HANGUL SYLLABLE MUGS
@@ -11103,7 +11598,7 @@ TEST(normalization, nfd_031_111)
 }
 
 
-TEST(normalization, nfd_031_112)
+TEST(normalization, nfd_031_117)
 {
     // BB38;BB38;1106 116E 11AB;BB38;1106 116E 11AB; 
     // (문; 문; 문; 문; 문; ) HANGUL SYLLABLE MUN
@@ -11202,7 +11697,7 @@ TEST(normalization, nfd_031_112)
 }
 
 
-TEST(normalization, nfd_031_113)
+TEST(normalization, nfd_031_118)
 {
     // BB39;BB39;1106 116E 11AC;BB39;1106 116E 11AC; 
     // (묹; 묹; 묹; 묹; 묹; ) HANGUL SYLLABLE MUNJ
@@ -11301,7 +11796,7 @@ TEST(normalization, nfd_031_113)
 }
 
 
-TEST(normalization, nfd_031_114)
+TEST(normalization, nfd_031_119)
 {
     // BB3A;BB3A;1106 116E 11AD;BB3A;1106 116E 11AD; 
     // (묺; 묺; 묺; 묺; 묺; ) HANGUL SYLLABLE MUNH
@@ -11400,7 +11895,7 @@ TEST(normalization, nfd_031_114)
 }
 
 
-TEST(normalization, nfd_031_115)
+TEST(normalization, nfd_031_120)
 {
     // BB3B;BB3B;1106 116E 11AE;BB3B;1106 116E 11AE; 
     // (묻; 묻; 묻; 묻; 묻; ) HANGUL SYLLABLE MUD
@@ -11499,7 +11994,7 @@ TEST(normalization, nfd_031_115)
 }
 
 
-TEST(normalization, nfd_031_116)
+TEST(normalization, nfd_031_121)
 {
     // BB3C;BB3C;1106 116E 11AF;BB3C;1106 116E 11AF; 
     // (물; 물; 물; 물; 물; ) HANGUL SYLLABLE MUL
@@ -11598,7 +12093,7 @@ TEST(normalization, nfd_031_116)
 }
 
 
-TEST(normalization, nfd_031_117)
+TEST(normalization, nfd_031_122)
 {
     // BB3D;BB3D;1106 116E 11B0;BB3D;1106 116E 11B0; 
     // (묽; 묽; 묽; 묽; 묽; ) HANGUL SYLLABLE MULG
@@ -11697,7 +12192,7 @@ TEST(normalization, nfd_031_117)
 }
 
 
-TEST(normalization, nfd_031_118)
+TEST(normalization, nfd_031_123)
 {
     // BB3E;BB3E;1106 116E 11B1;BB3E;1106 116E 11B1; 
     // (묾; 묾; 묾; 묾; 묾; ) HANGUL SYLLABLE MULM
@@ -11796,7 +12291,7 @@ TEST(normalization, nfd_031_118)
 }
 
 
-TEST(normalization, nfd_031_119)
+TEST(normalization, nfd_031_124)
 {
     // BB3F;BB3F;1106 116E 11B2;BB3F;1106 116E 11B2; 
     // (묿; 묿; 묿; 묿; 묿; ) HANGUL SYLLABLE MULB
@@ -11895,7 +12390,7 @@ TEST(normalization, nfd_031_119)
 }
 
 
-TEST(normalization, nfd_031_120)
+TEST(normalization, nfd_031_125)
 {
     // BB40;BB40;1106 116E 11B3;BB40;1106 116E 11B3; 
     // (뭀; 뭀; 뭀; 뭀; 뭀; ) HANGUL SYLLABLE MULS
@@ -11994,7 +12489,7 @@ TEST(normalization, nfd_031_120)
 }
 
 
-TEST(normalization, nfd_031_121)
+TEST(normalization, nfd_031_126)
 {
     // BB41;BB41;1106 116E 11B4;BB41;1106 116E 11B4; 
     // (뭁; 뭁; 뭁; 뭁; 뭁; ) HANGUL SYLLABLE MULT
@@ -12093,7 +12588,7 @@ TEST(normalization, nfd_031_121)
 }
 
 
-TEST(normalization, nfd_031_122)
+TEST(normalization, nfd_031_127)
 {
     // BB42;BB42;1106 116E 11B5;BB42;1106 116E 11B5; 
     // (뭂; 뭂; 뭂; 뭂; 뭂; ) HANGUL SYLLABLE MULP
@@ -12192,7 +12687,7 @@ TEST(normalization, nfd_031_122)
 }
 
 
-TEST(normalization, nfd_031_123)
+TEST(normalization, nfd_031_128)
 {
     // BB43;BB43;1106 116E 11B6;BB43;1106 116E 11B6; 
     // (뭃; 뭃; 뭃; 뭃; 뭃; ) HANGUL SYLLABLE MULH
@@ -12291,7 +12786,7 @@ TEST(normalization, nfd_031_123)
 }
 
 
-TEST(normalization, nfd_031_124)
+TEST(normalization, nfd_031_129)
 {
     // BB44;BB44;1106 116E 11B7;BB44;1106 116E 11B7; 
     // (뭄; 뭄; 뭄; 뭄; 뭄; ) HANGUL SYLLABLE MUM
@@ -12390,7 +12885,7 @@ TEST(normalization, nfd_031_124)
 }
 
 
-TEST(normalization, nfd_031_125)
+TEST(normalization, nfd_031_130)
 {
     // BB45;BB45;1106 116E 11B8;BB45;1106 116E 11B8; 
     // (뭅; 뭅; 뭅; 뭅; 뭅; ) HANGUL SYLLABLE MUB
@@ -12489,7 +12984,7 @@ TEST(normalization, nfd_031_125)
 }
 
 
-TEST(normalization, nfd_031_126)
+TEST(normalization, nfd_031_131)
 {
     // BB46;BB46;1106 116E 11B9;BB46;1106 116E 11B9; 
     // (뭆; 뭆; 뭆; 뭆; 뭆; ) HANGUL SYLLABLE MUBS
@@ -12588,7 +13083,7 @@ TEST(normalization, nfd_031_126)
 }
 
 
-TEST(normalization, nfd_031_127)
+TEST(normalization, nfd_031_132)
 {
     // BB47;BB47;1106 116E 11BA;BB47;1106 116E 11BA; 
     // (뭇; 뭇; 뭇; 뭇; 뭇; ) HANGUL SYLLABLE MUS
@@ -12687,7 +13182,7 @@ TEST(normalization, nfd_031_127)
 }
 
 
-TEST(normalization, nfd_031_128)
+TEST(normalization, nfd_031_133)
 {
     // BB48;BB48;1106 116E 11BB;BB48;1106 116E 11BB; 
     // (뭈; 뭈; 뭈; 뭈; 뭈; ) HANGUL SYLLABLE MUSS
@@ -12786,7 +13281,7 @@ TEST(normalization, nfd_031_128)
 }
 
 
-TEST(normalization, nfd_031_129)
+TEST(normalization, nfd_031_134)
 {
     // BB49;BB49;1106 116E 11BC;BB49;1106 116E 11BC; 
     // (뭉; 뭉; 뭉; 뭉; 뭉; ) HANGUL SYLLABLE MUNG
@@ -12885,7 +13380,7 @@ TEST(normalization, nfd_031_129)
 }
 
 
-TEST(normalization, nfd_031_130)
+TEST(normalization, nfd_031_135)
 {
     // BB4A;BB4A;1106 116E 11BD;BB4A;1106 116E 11BD; 
     // (뭊; 뭊; 뭊; 뭊; 뭊; ) HANGUL SYLLABLE MUJ
@@ -12984,7 +13479,7 @@ TEST(normalization, nfd_031_130)
 }
 
 
-TEST(normalization, nfd_031_131)
+TEST(normalization, nfd_031_136)
 {
     // BB4B;BB4B;1106 116E 11BE;BB4B;1106 116E 11BE; 
     // (뭋; 뭋; 뭋; 뭋; 뭋; ) HANGUL SYLLABLE MUC
@@ -13083,7 +13578,7 @@ TEST(normalization, nfd_031_131)
 }
 
 
-TEST(normalization, nfd_031_132)
+TEST(normalization, nfd_031_137)
 {
     // BB4C;BB4C;1106 116E 11BF;BB4C;1106 116E 11BF; 
     // (뭌; 뭌; 뭌; 뭌; 뭌; ) HANGUL SYLLABLE MUK
@@ -13182,7 +13677,7 @@ TEST(normalization, nfd_031_132)
 }
 
 
-TEST(normalization, nfd_031_133)
+TEST(normalization, nfd_031_138)
 {
     // BB4D;BB4D;1106 116E 11C0;BB4D;1106 116E 11C0; 
     // (뭍; 뭍; 뭍; 뭍; 뭍; ) HANGUL SYLLABLE MUT
@@ -13281,7 +13776,7 @@ TEST(normalization, nfd_031_133)
 }
 
 
-TEST(normalization, nfd_031_134)
+TEST(normalization, nfd_031_139)
 {
     // BB4E;BB4E;1106 116E 11C1;BB4E;1106 116E 11C1; 
     // (뭎; 뭎; 뭎; 뭎; 뭎; ) HANGUL SYLLABLE MUP
@@ -13380,7 +13875,7 @@ TEST(normalization, nfd_031_134)
 }
 
 
-TEST(normalization, nfd_031_135)
+TEST(normalization, nfd_031_140)
 {
     // BB4F;BB4F;1106 116E 11C2;BB4F;1106 116E 11C2; 
     // (뭏; 뭏; 뭏; 뭏; 뭏; ) HANGUL SYLLABLE MUH
@@ -13479,7 +13974,7 @@ TEST(normalization, nfd_031_135)
 }
 
 
-TEST(normalization, nfd_031_136)
+TEST(normalization, nfd_031_141)
 {
     // BB50;BB50;1106 116F;BB50;1106 116F; 
     // (뭐; 뭐; 뭐; 뭐; 뭐; ) HANGUL SYLLABLE MWEO
@@ -13578,7 +14073,7 @@ TEST(normalization, nfd_031_136)
 }
 
 
-TEST(normalization, nfd_031_137)
+TEST(normalization, nfd_031_142)
 {
     // BB51;BB51;1106 116F 11A8;BB51;1106 116F 11A8; 
     // (뭑; 뭑; 뭑; 뭑; 뭑; ) HANGUL SYLLABLE MWEOG
@@ -13677,7 +14172,7 @@ TEST(normalization, nfd_031_137)
 }
 
 
-TEST(normalization, nfd_031_138)
+TEST(normalization, nfd_031_143)
 {
     // BB52;BB52;1106 116F 11A9;BB52;1106 116F 11A9; 
     // (뭒; 뭒; 뭒; 뭒; 뭒; ) HANGUL SYLLABLE MWEOGG
@@ -13776,7 +14271,7 @@ TEST(normalization, nfd_031_138)
 }
 
 
-TEST(normalization, nfd_031_139)
+TEST(normalization, nfd_031_144)
 {
     // BB53;BB53;1106 116F 11AA;BB53;1106 116F 11AA; 
     // (뭓; 뭓; 뭓; 뭓; 뭓; ) HANGUL SYLLABLE MWEOGS
@@ -13875,7 +14370,7 @@ TEST(normalization, nfd_031_139)
 }
 
 
-TEST(normalization, nfd_031_140)
+TEST(normalization, nfd_031_145)
 {
     // BB54;BB54;1106 116F 11AB;BB54;1106 116F 11AB; 
     // (뭔; 뭔; 뭔; 뭔; 뭔; ) HANGUL SYLLABLE MWEON
@@ -13974,7 +14469,7 @@ TEST(normalization, nfd_031_140)
 }
 
 
-TEST(normalization, nfd_031_141)
+TEST(normalization, nfd_031_146)
 {
     // BB55;BB55;1106 116F 11AC;BB55;1106 116F 11AC; 
     // (뭕; 뭕; 뭕; 뭕; 뭕; ) HANGUL SYLLABLE MWEONJ
@@ -14073,7 +14568,7 @@ TEST(normalization, nfd_031_141)
 }
 
 
-TEST(normalization, nfd_031_142)
+TEST(normalization, nfd_031_147)
 {
     // BB56;BB56;1106 116F 11AD;BB56;1106 116F 11AD; 
     // (뭖; 뭖; 뭖; 뭖; 뭖; ) HANGUL SYLLABLE MWEONH
@@ -14172,7 +14667,7 @@ TEST(normalization, nfd_031_142)
 }
 
 
-TEST(normalization, nfd_031_143)
+TEST(normalization, nfd_031_148)
 {
     // BB57;BB57;1106 116F 11AE;BB57;1106 116F 11AE; 
     // (뭗; 뭗; 뭗; 뭗; 뭗; ) HANGUL SYLLABLE MWEOD
@@ -14271,7 +14766,7 @@ TEST(normalization, nfd_031_143)
 }
 
 
-TEST(normalization, nfd_031_144)
+TEST(normalization, nfd_031_149)
 {
     // BB58;BB58;1106 116F 11AF;BB58;1106 116F 11AF; 
     // (뭘; 뭘; 뭘; 뭘; 뭘; ) HANGUL SYLLABLE MWEOL
@@ -14370,7 +14865,7 @@ TEST(normalization, nfd_031_144)
 }
 
 
-TEST(normalization, nfd_031_145)
+TEST(normalization, nfd_031_150)
 {
     // BB59;BB59;1106 116F 11B0;BB59;1106 116F 11B0; 
     // (뭙; 뭙; 뭙; 뭙; 뭙; ) HANGUL SYLLABLE MWEOLG
@@ -14469,7 +14964,7 @@ TEST(normalization, nfd_031_145)
 }
 
 
-TEST(normalization, nfd_031_146)
+TEST(normalization, nfd_031_151)
 {
     // BB5A;BB5A;1106 116F 11B1;BB5A;1106 116F 11B1; 
     // (뭚; 뭚; 뭚; 뭚; 뭚; ) HANGUL SYLLABLE MWEOLM
@@ -14568,7 +15063,7 @@ TEST(normalization, nfd_031_146)
 }
 
 
-TEST(normalization, nfd_031_147)
+TEST(normalization, nfd_031_152)
 {
     // BB5B;BB5B;1106 116F 11B2;BB5B;1106 116F 11B2; 
     // (뭛; 뭛; 뭛; 뭛; 뭛; ) HANGUL SYLLABLE MWEOLB
@@ -14667,7 +15162,7 @@ TEST(normalization, nfd_031_147)
 }
 
 
-TEST(normalization, nfd_031_148)
+TEST(normalization, nfd_031_153)
 {
     // BB5C;BB5C;1106 116F 11B3;BB5C;1106 116F 11B3; 
     // (뭜; 뭜; 뭜; 뭜; 뭜; ) HANGUL SYLLABLE MWEOLS
@@ -14766,7 +15261,7 @@ TEST(normalization, nfd_031_148)
 }
 
 
-TEST(normalization, nfd_031_149)
+TEST(normalization, nfd_031_154)
 {
     // BB5D;BB5D;1106 116F 11B4;BB5D;1106 116F 11B4; 
     // (뭝; 뭝; 뭝; 뭝; 뭝; ) HANGUL SYLLABLE MWEOLT
@@ -14865,7 +15360,7 @@ TEST(normalization, nfd_031_149)
 }
 
 
-TEST(normalization, nfd_031_150)
+TEST(normalization, nfd_031_155)
 {
     // BB5E;BB5E;1106 116F 11B5;BB5E;1106 116F 11B5; 
     // (뭞; 뭞; 뭞; 뭞; 뭞; ) HANGUL SYLLABLE MWEOLP
@@ -14964,7 +15459,7 @@ TEST(normalization, nfd_031_150)
 }
 
 
-TEST(normalization, nfd_031_151)
+TEST(normalization, nfd_031_156)
 {
     // BB5F;BB5F;1106 116F 11B6;BB5F;1106 116F 11B6; 
     // (뭟; 뭟; 뭟; 뭟; 뭟; ) HANGUL SYLLABLE MWEOLH
@@ -15063,7 +15558,7 @@ TEST(normalization, nfd_031_151)
 }
 
 
-TEST(normalization, nfd_031_152)
+TEST(normalization, nfd_031_157)
 {
     // BB60;BB60;1106 116F 11B7;BB60;1106 116F 11B7; 
     // (뭠; 뭠; 뭠; 뭠; 뭠; ) HANGUL SYLLABLE MWEOM
@@ -15162,7 +15657,7 @@ TEST(normalization, nfd_031_152)
 }
 
 
-TEST(normalization, nfd_031_153)
+TEST(normalization, nfd_031_158)
 {
     // BB61;BB61;1106 116F 11B8;BB61;1106 116F 11B8; 
     // (뭡; 뭡; 뭡; 뭡; 뭡; ) HANGUL SYLLABLE MWEOB
@@ -15261,7 +15756,7 @@ TEST(normalization, nfd_031_153)
 }
 
 
-TEST(normalization, nfd_031_154)
+TEST(normalization, nfd_031_159)
 {
     // BB62;BB62;1106 116F 11B9;BB62;1106 116F 11B9; 
     // (뭢; 뭢; 뭢; 뭢; 뭢; ) HANGUL SYLLABLE MWEOBS
@@ -15360,7 +15855,7 @@ TEST(normalization, nfd_031_154)
 }
 
 
-TEST(normalization, nfd_031_155)
+TEST(normalization, nfd_031_160)
 {
     // BB63;BB63;1106 116F 11BA;BB63;1106 116F 11BA; 
     // (뭣; 뭣; 뭣; 뭣; 뭣; ) HANGUL SYLLABLE MWEOS
@@ -15459,7 +15954,7 @@ TEST(normalization, nfd_031_155)
 }
 
 
-TEST(normalization, nfd_031_156)
+TEST(normalization, nfd_031_161)
 {
     // BB64;BB64;1106 116F 11BB;BB64;1106 116F 11BB; 
     // (뭤; 뭤; 뭤; 뭤; 뭤; ) HANGUL SYLLABLE MWEOSS
@@ -15558,7 +16053,7 @@ TEST(normalization, nfd_031_156)
 }
 
 
-TEST(normalization, nfd_031_157)
+TEST(normalization, nfd_031_162)
 {
     // BB65;BB65;1106 116F 11BC;BB65;1106 116F 11BC; 
     // (뭥; 뭥; 뭥; 뭥; 뭥; ) HANGUL SYLLABLE MWEONG
@@ -15657,7 +16152,7 @@ TEST(normalization, nfd_031_157)
 }
 
 
-TEST(normalization, nfd_031_158)
+TEST(normalization, nfd_031_163)
 {
     // BB66;BB66;1106 116F 11BD;BB66;1106 116F 11BD; 
     // (뭦; 뭦; 뭦; 뭦; 뭦; ) HANGUL SYLLABLE MWEOJ
@@ -15756,7 +16251,7 @@ TEST(normalization, nfd_031_158)
 }
 
 
-TEST(normalization, nfd_031_159)
+TEST(normalization, nfd_031_164)
 {
     // BB67;BB67;1106 116F 11BE;BB67;1106 116F 11BE; 
     // (뭧; 뭧; 뭧; 뭧; 뭧; ) HANGUL SYLLABLE MWEOC
@@ -15855,7 +16350,7 @@ TEST(normalization, nfd_031_159)
 }
 
 
-TEST(normalization, nfd_031_160)
+TEST(normalization, nfd_031_165)
 {
     // BB68;BB68;1106 116F 11BF;BB68;1106 116F 11BF; 
     // (뭨; 뭨; 뭨; 뭨; 뭨; ) HANGUL SYLLABLE MWEOK
@@ -15954,7 +16449,7 @@ TEST(normalization, nfd_031_160)
 }
 
 
-TEST(normalization, nfd_031_161)
+TEST(normalization, nfd_031_166)
 {
     // BB69;BB69;1106 116F 11C0;BB69;1106 116F 11C0; 
     // (뭩; 뭩; 뭩; 뭩; 뭩; ) HANGUL SYLLABLE MWEOT
@@ -16053,7 +16548,7 @@ TEST(normalization, nfd_031_161)
 }
 
 
-TEST(normalization, nfd_031_162)
+TEST(normalization, nfd_031_167)
 {
     // BB6A;BB6A;1106 116F 11C1;BB6A;1106 116F 11C1; 
     // (뭪; 뭪; 뭪; 뭪; 뭪; ) HANGUL SYLLABLE MWEOP
@@ -16152,7 +16647,7 @@ TEST(normalization, nfd_031_162)
 }
 
 
-TEST(normalization, nfd_031_163)
+TEST(normalization, nfd_031_168)
 {
     // BB6B;BB6B;1106 116F 11C2;BB6B;1106 116F 11C2; 
     // (뭫; 뭫; 뭫; 뭫; 뭫; ) HANGUL SYLLABLE MWEOH
@@ -16251,7 +16746,7 @@ TEST(normalization, nfd_031_163)
 }
 
 
-TEST(normalization, nfd_031_164)
+TEST(normalization, nfd_031_169)
 {
     // BB6C;BB6C;1106 1170;BB6C;1106 1170; 
     // (뭬; 뭬; 뭬; 뭬; 뭬; ) HANGUL SYLLABLE MWE
@@ -16350,7 +16845,7 @@ TEST(normalization, nfd_031_164)
 }
 
 
-TEST(normalization, nfd_031_165)
+TEST(normalization, nfd_031_170)
 {
     // BB6D;BB6D;1106 1170 11A8;BB6D;1106 1170 11A8; 
     // (뭭; 뭭; 뭭; 뭭; 뭭; ) HANGUL SYLLABLE MWEG
@@ -16449,7 +16944,7 @@ TEST(normalization, nfd_031_165)
 }
 
 
-TEST(normalization, nfd_031_166)
+TEST(normalization, nfd_031_171)
 {
     // BB6E;BB6E;1106 1170 11A9;BB6E;1106 1170 11A9; 
     // (뭮; 뭮; 뭮; 뭮; 뭮; ) HANGUL SYLLABLE MWEGG
@@ -16548,7 +17043,7 @@ TEST(normalization, nfd_031_166)
 }
 
 
-TEST(normalization, nfd_031_167)
+TEST(normalization, nfd_031_172)
 {
     // BB6F;BB6F;1106 1170 11AA;BB6F;1106 1170 11AA; 
     // (뭯; 뭯; 뭯; 뭯; 뭯; ) HANGUL SYLLABLE MWEGS
@@ -16647,7 +17142,7 @@ TEST(normalization, nfd_031_167)
 }
 
 
-TEST(normalization, nfd_031_168)
+TEST(normalization, nfd_031_173)
 {
     // BB70;BB70;1106 1170 11AB;BB70;1106 1170 11AB; 
     // (뭰; 뭰; 뭰; 뭰; 뭰; ) HANGUL SYLLABLE MWEN
@@ -16746,7 +17241,7 @@ TEST(normalization, nfd_031_168)
 }
 
 
-TEST(normalization, nfd_031_169)
+TEST(normalization, nfd_031_174)
 {
     // BB71;BB71;1106 1170 11AC;BB71;1106 1170 11AC; 
     // (뭱; 뭱; 뭱; 뭱; 뭱; ) HANGUL SYLLABLE MWENJ
@@ -16845,7 +17340,7 @@ TEST(normalization, nfd_031_169)
 }
 
 
-TEST(normalization, nfd_031_170)
+TEST(normalization, nfd_031_175)
 {
     // BB72;BB72;1106 1170 11AD;BB72;1106 1170 11AD; 
     // (뭲; 뭲; 뭲; 뭲; 뭲; ) HANGUL SYLLABLE MWENH
@@ -16944,7 +17439,7 @@ TEST(normalization, nfd_031_170)
 }
 
 
-TEST(normalization, nfd_031_171)
+TEST(normalization, nfd_031_176)
 {
     // BB73;BB73;1106 1170 11AE;BB73;1106 1170 11AE; 
     // (뭳; 뭳; 뭳; 뭳; 뭳; ) HANGUL SYLLABLE MWED
@@ -17043,7 +17538,7 @@ TEST(normalization, nfd_031_171)
 }
 
 
-TEST(normalization, nfd_031_172)
+TEST(normalization, nfd_031_177)
 {
     // BB74;BB74;1106 1170 11AF;BB74;1106 1170 11AF; 
     // (뭴; 뭴; 뭴; 뭴; 뭴; ) HANGUL SYLLABLE MWEL
@@ -17142,7 +17637,7 @@ TEST(normalization, nfd_031_172)
 }
 
 
-TEST(normalization, nfd_031_173)
+TEST(normalization, nfd_031_178)
 {
     // BB75;BB75;1106 1170 11B0;BB75;1106 1170 11B0; 
     // (뭵; 뭵; 뭵; 뭵; 뭵; ) HANGUL SYLLABLE MWELG
@@ -17241,7 +17736,7 @@ TEST(normalization, nfd_031_173)
 }
 
 
-TEST(normalization, nfd_031_174)
+TEST(normalization, nfd_031_179)
 {
     // BB76;BB76;1106 1170 11B1;BB76;1106 1170 11B1; 
     // (뭶; 뭶; 뭶; 뭶; 뭶; ) HANGUL SYLLABLE MWELM
@@ -17340,7 +17835,7 @@ TEST(normalization, nfd_031_174)
 }
 
 
-TEST(normalization, nfd_031_175)
+TEST(normalization, nfd_031_180)
 {
     // BB77;BB77;1106 1170 11B2;BB77;1106 1170 11B2; 
     // (뭷; 뭷; 뭷; 뭷; 뭷; ) HANGUL SYLLABLE MWELB
@@ -17439,7 +17934,7 @@ TEST(normalization, nfd_031_175)
 }
 
 
-TEST(normalization, nfd_031_176)
+TEST(normalization, nfd_031_181)
 {
     // BB78;BB78;1106 1170 11B3;BB78;1106 1170 11B3; 
     // (뭸; 뭸; 뭸; 뭸; 뭸; ) HANGUL SYLLABLE MWELS
@@ -17538,7 +18033,7 @@ TEST(normalization, nfd_031_176)
 }
 
 
-TEST(normalization, nfd_031_177)
+TEST(normalization, nfd_031_182)
 {
     // BB79;BB79;1106 1170 11B4;BB79;1106 1170 11B4; 
     // (뭹; 뭹; 뭹; 뭹; 뭹; ) HANGUL SYLLABLE MWELT
@@ -17637,7 +18132,7 @@ TEST(normalization, nfd_031_177)
 }
 
 
-TEST(normalization, nfd_031_178)
+TEST(normalization, nfd_031_183)
 {
     // BB7A;BB7A;1106 1170 11B5;BB7A;1106 1170 11B5; 
     // (뭺; 뭺; 뭺; 뭺; 뭺; ) HANGUL SYLLABLE MWELP
@@ -17736,7 +18231,7 @@ TEST(normalization, nfd_031_178)
 }
 
 
-TEST(normalization, nfd_031_179)
+TEST(normalization, nfd_031_184)
 {
     // BB7B;BB7B;1106 1170 11B6;BB7B;1106 1170 11B6; 
     // (뭻; 뭻; 뭻; 뭻; 뭻; ) HANGUL SYLLABLE MWELH
@@ -17835,7 +18330,7 @@ TEST(normalization, nfd_031_179)
 }
 
 
-TEST(normalization, nfd_031_180)
+TEST(normalization, nfd_031_185)
 {
     // BB7C;BB7C;1106 1170 11B7;BB7C;1106 1170 11B7; 
     // (뭼; 뭼; 뭼; 뭼; 뭼; ) HANGUL SYLLABLE MWEM
@@ -17934,7 +18429,7 @@ TEST(normalization, nfd_031_180)
 }
 
 
-TEST(normalization, nfd_031_181)
+TEST(normalization, nfd_031_186)
 {
     // BB7D;BB7D;1106 1170 11B8;BB7D;1106 1170 11B8; 
     // (뭽; 뭽; 뭽; 뭽; 뭽; ) HANGUL SYLLABLE MWEB
@@ -18033,7 +18528,7 @@ TEST(normalization, nfd_031_181)
 }
 
 
-TEST(normalization, nfd_031_182)
+TEST(normalization, nfd_031_187)
 {
     // BB7E;BB7E;1106 1170 11B9;BB7E;1106 1170 11B9; 
     // (뭾; 뭾; 뭾; 뭾; 뭾; ) HANGUL SYLLABLE MWEBS
@@ -18132,7 +18627,7 @@ TEST(normalization, nfd_031_182)
 }
 
 
-TEST(normalization, nfd_031_183)
+TEST(normalization, nfd_031_188)
 {
     // BB7F;BB7F;1106 1170 11BA;BB7F;1106 1170 11BA; 
     // (뭿; 뭿; 뭿; 뭿; 뭿; ) HANGUL SYLLABLE MWES
@@ -18231,7 +18726,7 @@ TEST(normalization, nfd_031_183)
 }
 
 
-TEST(normalization, nfd_031_184)
+TEST(normalization, nfd_031_189)
 {
     // BB80;BB80;1106 1170 11BB;BB80;1106 1170 11BB; 
     // (뮀; 뮀; 뮀; 뮀; 뮀; ) HANGUL SYLLABLE MWESS
@@ -18330,7 +18825,7 @@ TEST(normalization, nfd_031_184)
 }
 
 
-TEST(normalization, nfd_031_185)
+TEST(normalization, nfd_031_190)
 {
     // BB81;BB81;1106 1170 11BC;BB81;1106 1170 11BC; 
     // (뮁; 뮁; 뮁; 뮁; 뮁; ) HANGUL SYLLABLE MWENG
@@ -18429,7 +18924,7 @@ TEST(normalization, nfd_031_185)
 }
 
 
-TEST(normalization, nfd_031_186)
+TEST(normalization, nfd_031_191)
 {
     // BB82;BB82;1106 1170 11BD;BB82;1106 1170 11BD; 
     // (뮂; 뮂; 뮂; 뮂; 뮂; ) HANGUL SYLLABLE MWEJ
@@ -18528,7 +19023,7 @@ TEST(normalization, nfd_031_186)
 }
 
 
-TEST(normalization, nfd_031_187)
+TEST(normalization, nfd_031_192)
 {
     // BB83;BB83;1106 1170 11BE;BB83;1106 1170 11BE; 
     // (뮃; 뮃; 뮃; 뮃; 뮃; ) HANGUL SYLLABLE MWEC
@@ -18627,7 +19122,7 @@ TEST(normalization, nfd_031_187)
 }
 
 
-TEST(normalization, nfd_031_188)
+TEST(normalization, nfd_031_193)
 {
     // BB84;BB84;1106 1170 11BF;BB84;1106 1170 11BF; 
     // (뮄; 뮄; 뮄; 뮄; 뮄; ) HANGUL SYLLABLE MWEK
@@ -18726,7 +19221,7 @@ TEST(normalization, nfd_031_188)
 }
 
 
-TEST(normalization, nfd_031_189)
+TEST(normalization, nfd_031_194)
 {
     // BB85;BB85;1106 1170 11C0;BB85;1106 1170 11C0; 
     // (뮅; 뮅; 뮅; 뮅; 뮅; ) HANGUL SYLLABLE MWET
@@ -18825,7 +19320,7 @@ TEST(normalization, nfd_031_189)
 }
 
 
-TEST(normalization, nfd_031_190)
+TEST(normalization, nfd_031_195)
 {
     // BB86;BB86;1106 1170 11C1;BB86;1106 1170 11C1; 
     // (뮆; 뮆; 뮆; 뮆; 뮆; ) HANGUL SYLLABLE MWEP
@@ -18924,7 +19419,7 @@ TEST(normalization, nfd_031_190)
 }
 
 
-TEST(normalization, nfd_031_191)
+TEST(normalization, nfd_031_196)
 {
     // BB87;BB87;1106 1170 11C2;BB87;1106 1170 11C2; 
     // (뮇; 뮇; 뮇; 뮇; 뮇; ) HANGUL SYLLABLE MWEH
@@ -19023,7 +19518,7 @@ TEST(normalization, nfd_031_191)
 }
 
 
-TEST(normalization, nfd_031_192)
+TEST(normalization, nfd_031_197)
 {
     // BB88;BB88;1106 1171;BB88;1106 1171; 
     // (뮈; 뮈; 뮈; 뮈; 뮈; ) HANGUL SYLLABLE MWI
@@ -19122,7 +19617,7 @@ TEST(normalization, nfd_031_192)
 }
 
 
-TEST(normalization, nfd_031_193)
+TEST(normalization, nfd_031_198)
 {
     // BB89;BB89;1106 1171 11A8;BB89;1106 1171 11A8; 
     // (뮉; 뮉; 뮉; 뮉; 뮉; ) HANGUL SYLLABLE MWIG
@@ -19221,7 +19716,7 @@ TEST(normalization, nfd_031_193)
 }
 
 
-TEST(normalization, nfd_031_194)
+TEST(normalization, nfd_031_199)
 {
     // BB8A;BB8A;1106 1171 11A9;BB8A;1106 1171 11A9; 
     // (뮊; 뮊; 뮊; 뮊; 뮊; ) HANGUL SYLLABLE MWIGG
@@ -19231,501 +19726,6 @@ TEST(normalization, nfd_031_194)
         std::array<uint32_t, 3> const c3 = {{ 0x1106, 0x1171, 0x11A9 }};
         std::array<uint32_t, 1> const c4 = {{ 0xBB8A }};
         std::array<uint32_t, 3> const c5 = {{ 0x1106, 0x1171, 0x11A9 }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_031_195)
-{
-    // BB8B;BB8B;1106 1171 11AA;BB8B;1106 1171 11AA; 
-    // (뮋; 뮋; 뮋; 뮋; 뮋; ) HANGUL SYLLABLE MWIGS
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xBB8B }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBB8B }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1106, 0x1171, 0x11AA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBB8B }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1106, 0x1171, 0x11AA }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_031_196)
-{
-    // BB8C;BB8C;1106 1171 11AB;BB8C;1106 1171 11AB; 
-    // (뮌; 뮌; 뮌; 뮌; 뮌; ) HANGUL SYLLABLE MWIN
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xBB8C }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBB8C }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1106, 0x1171, 0x11AB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBB8C }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1106, 0x1171, 0x11AB }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_031_197)
-{
-    // BB8D;BB8D;1106 1171 11AC;BB8D;1106 1171 11AC; 
-    // (뮍; 뮍; 뮍; 뮍; 뮍; ) HANGUL SYLLABLE MWINJ
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xBB8D }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBB8D }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1106, 0x1171, 0x11AC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBB8D }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1106, 0x1171, 0x11AC }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_031_198)
-{
-    // BB8E;BB8E;1106 1171 11AD;BB8E;1106 1171 11AD; 
-    // (뮎; 뮎; 뮎; 뮎; 뮎; ) HANGUL SYLLABLE MWINH
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xBB8E }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBB8E }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1106, 0x1171, 0x11AD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBB8E }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1106, 0x1171, 0x11AD }};
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
-
-
-
-        {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
-            auto c3_it = c3.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c3_it) << "iteration " << i;
-                ++c3_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-        {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::d>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
-            auto c5_it = c5.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c5_it) << "iteration " << i;
-                ++c5_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfd_031_199)
-{
-    // BB8F;BB8F;1106 1171 11AE;BB8F;1106 1171 11AE; 
-    // (뮏; 뮏; 뮏; 뮏; 뮏; ) HANGUL SYLLABLE MWID
-    {
-        std::array<uint32_t, 1> const c1 = {{ 0xBB8F }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBB8F }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1106, 0x1171, 0x11AE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBB8F }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1106, 0x1171, 0x11AE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));

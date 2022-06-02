@@ -93,7 +93,7 @@ struct bidi_bracket_data
     bidi_bracket_type type_;
 }};
 
-inline bidi_bracket_data bidi_bracket(uint32_t cp) noexcept
+inline bidi_bracket_data bidi_bracket(uint32_t cp)
 {{
     static std::array<bidi_bracket_data, {1}> const brackets = {{{{
 {0}
@@ -115,7 +115,7 @@ struct bidi_mirroring_data
     int index_; // within bidi_mirroreds()
 }};
 
-inline int bidi_mirroring(uint32_t cp) noexcept
+inline int bidi_mirroring(uint32_t cp)
 {{
     static std::array<bidi_mirroring_data, {3}> const mirrorings = {{{{
 {2}
@@ -131,7 +131,7 @@ inline int bidi_mirroring(uint32_t cp) noexcept
     return it->index_;
 }}
 
-inline std::array<uint32_t, {3}> const & bidi_mirroreds() noexcept
+inline std::array<uint32_t, {3}> const & bidi_mirroreds()
 {{
     static std::array<uint32_t, {3}> const retval = {{{{
 {4}

@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace detail {
 
     namespace {
         struct data_t { uint64_t key_; uint32_t value_; };
-        constexpr std::array<data_t, 940> data()
+        constexpr std::array<data_t, 941> data()
         {
         return {{
     { key(0x3c, 0x338), 0x226e },
@@ -958,6 +958,7 @@ namespace boost { namespace text { namespace detail {
     { key(0x114b9, 0x114bd), 0x114be },
     { key(0x115b8, 0x115af), 0x115ba },
     { key(0x115b9, 0x115af), 0x115bb },
+    { key(0x11935, 0x11930), 0x11938 },
 
         }};
         }

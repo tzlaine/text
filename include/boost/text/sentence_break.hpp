@@ -53,7 +53,7 @@ namespace boost { namespace text {
             return lhs.hi_ <= rhs.lo_;
         }
 
-        BOOST_TEXT_DECL std::array<sentence_prop_interval, 28> const &
+        BOOST_TEXT_DECL std::array<sentence_prop_interval, 29> const &
         make_sentence_prop_intervals();
         BOOST_TEXT_DECL std::unordered_map<uint32_t, sentence_property>
         make_sentence_prop_map();

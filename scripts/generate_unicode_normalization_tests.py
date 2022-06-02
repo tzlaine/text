@@ -170,7 +170,7 @@ void BM_normalize_{0:03}(benchmark::State & state)
 '''
         for j in range(0, 4):
             test_lines += \
-              '        boost::text::normalize<boost::text::nf::{0}>({0}_str);\n'.format(normalizations[j][2:], normalizations[j])
+              '        boost::text::normalize<boost::text::nf::{0}>({1}_str);\n'.format(normalizations[j][2:], normalizations[j])
         test_lines += '''    }}
 }}
 BENCHMARK(BM_normalize_{:03});

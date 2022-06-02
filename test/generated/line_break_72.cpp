@@ -14,305 +14,10 @@
 
 TEST(line, breaks_72)
 {
-    // × 0028 × 1850 × 1846 × 1851 × 1846 × 0029 ÷ 1806 × 182A × 1822 × 1834 × 1822 × 182D × 180C ÷	
-    // × [0.3] LEFT PARENTHESIS (OP) × [14.0] MONGOLIAN LETTER TODO TA (AL) × [28.0] MONGOLIAN LETTER TODO O (AL) × [28.0] MONGOLIAN LETTER TODO DA (AL) × [28.0] MONGOLIAN LETTER TODO O (AL) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] MONGOLIAN TODO SOFT HYPHEN (BB) × [21.04] MONGOLIAN LETTER BA (AL) × [28.0] MONGOLIAN LETTER I (AL) × [28.0] MONGOLIAN LETTER CHA (AL) × [28.0] MONGOLIAN LETTER I (AL) × [28.0] MONGOLIAN LETTER GA (AL) × [9.0] MONGOLIAN FREE VARIATION SELECTOR TWO (CM1_CM) ÷ [0.3]
+    // × 0E01 × 2060 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [11.01] WORD JOINER (WJ) ÷ [0.3]
     {
-        std::array<uint32_t, 13> cps = {{ 0x28, 0x1850, 0x1846, 0x1851, 0x1846, 0x29, 0x1806, 0x182a, 0x1822, 0x1834, 0x1822, 0x182d, 0x180c }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-    }
-
-
-    // × 007B × 1850 × 1846 × 1851 × 1846 ÷ 1806 × 007D ÷ 182A × 1822 × 1834 × 1822 × 182D × 180C ÷	
-    // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] MONGOLIAN LETTER TODO TA (AL) × [28.0] MONGOLIAN LETTER TODO O (AL) × [28.0] MONGOLIAN LETTER TODO DA (AL) × [28.0] MONGOLIAN LETTER TODO O (AL) ÷ [999.0] MONGOLIAN TODO SOFT HYPHEN (BB) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] MONGOLIAN LETTER BA (AL) × [28.0] MONGOLIAN LETTER I (AL) × [28.0] MONGOLIAN LETTER CHA (AL) × [28.0] MONGOLIAN LETTER I (AL) × [28.0] MONGOLIAN LETTER GA (AL) × [9.0] MONGOLIAN FREE VARIATION SELECTOR TWO (CM1_CM) ÷ [0.3]
-    {
-        std::array<uint32_t, 13> cps = {{ 0x7b, 0x1850, 0x1846, 0x1851, 0x1846, 0x1806, 0x7d, 0x182a, 0x1822, 0x1834, 0x1822, 0x182d, 0x180c }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 13);
-    }
-
-
-    // × 007B × 1850 × 1846 × 1851 × 1846 × 007D ÷ 1806 × 182A × 1822 × 1834 × 1822 × 182D × 180C ÷	
-    // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] MONGOLIAN LETTER TODO TA (AL) × [28.0] MONGOLIAN LETTER TODO O (AL) × [28.0] MONGOLIAN LETTER TODO DA (AL) × [28.0] MONGOLIAN LETTER TODO O (AL) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] MONGOLIAN TODO SOFT HYPHEN (BB) × [21.04] MONGOLIAN LETTER BA (AL) × [28.0] MONGOLIAN LETTER I (AL) × [28.0] MONGOLIAN LETTER CHA (AL) × [28.0] MONGOLIAN LETTER I (AL) × [28.0] MONGOLIAN LETTER GA (AL) × [9.0] MONGOLIAN FREE VARIATION SELECTOR TWO (CM1_CM) ÷ [0.3]
-    {
-        std::array<uint32_t, 13> cps = {{ 0x7b, 0x1850, 0x1846, 0x1851, 0x1846, 0x7d, 0x1806, 0x182a, 0x1822, 0x1834, 0x1822, 0x182d, 0x180c }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 13);
-    }
-
-
-    // × 0028 × 0068 × 0074 × 0074 × 0070 × 003A × 002F × 002F × 0029 × 0078 × 006E × 002D × 002D ÷ 0061 ÷	
-    // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER H (AL) × [28.0] LATIN SMALL LETTER T (AL) × [28.0] LATIN SMALL LETTER T (AL) × [28.0] LATIN SMALL LETTER P (AL) × [13.02] COLON (IS) × [13.02] SOLIDUS (SY) × [13.02] SOLIDUS (SY) × [13.02] RIGHT PARENTHESIS (CP) × [30.02] LATIN SMALL LETTER X (AL) × [28.0] LATIN SMALL LETTER N (AL) × [21.02] HYPHEN-MINUS (HY) × [21.02] HYPHEN-MINUS (HY) ÷ [999.0] LATIN SMALL LETTER A (AL) ÷ [0.3]
-    {
-        std::array<uint32_t, 14> cps = {{ 0x28, 0x68, 0x74, 0x74, 0x70, 0x3a, 0x2f, 0x2f, 0x29, 0x78, 0x6e, 0x2d, 0x2d, 0x61 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 14);
-    }
-
-
-    // × 007B × 0068 × 0074 × 0074 × 0070 × 003A × 002F × 002F × 007D ÷ 0078 × 006E × 002D × 002D ÷ 0061 ÷	
-    // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER H (AL) × [28.0] LATIN SMALL LETTER T (AL) × [28.0] LATIN SMALL LETTER T (AL) × [28.0] LATIN SMALL LETTER P (AL) × [13.02] COLON (IS) × [13.02] SOLIDUS (SY) × [13.02] SOLIDUS (SY) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] LATIN SMALL LETTER X (AL) × [28.0] LATIN SMALL LETTER N (AL) × [21.02] HYPHEN-MINUS (HY) × [21.02] HYPHEN-MINUS (HY) ÷ [999.0] LATIN SMALL LETTER A (AL) ÷ [0.3]
-    {
-        std::array<uint32_t, 14> cps = {{ 0x7b, 0x68, 0x74, 0x74, 0x70, 0x3a, 0x2f, 0x2f, 0x7d, 0x78, 0x6e, 0x2d, 0x2d, 0x61 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 14);
-    }
-
-
-    // × 0028 × 0030 × 002C × 0031 × 0029 × 002B × 0028 × 0032 × 002C × 0033 × 0029 × 2295 × 0028 × 2212 × 0034 × 002C × 0035 × 0029 × 2296 × 0028 × 0036 × 002C × 0037 × 0029 ÷	
-    // × [0.3] LEFT PARENTHESIS (OP) × [14.0] DIGIT ZERO (NU) × [25.03] COMMA (IS) × [25.04] DIGIT ONE (NU) × [25.04] RIGHT PARENTHESIS (CP) × [25.05] PLUS SIGN (PR) × [25.01] LEFT PARENTHESIS (OP) × [14.0] DIGIT TWO (NU) × [25.03] COMMA (IS) × [25.04] DIGIT THREE (NU) × [25.04] RIGHT PARENTHESIS (CP) × [30.02] CIRCLED PLUS (AI_AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] MINUS SIGN (PR) × [25.01] DIGIT FOUR (NU) × [25.03] COMMA (IS) × [25.04] DIGIT FIVE (NU) × [25.04] RIGHT PARENTHESIS (CP) × [30.02] CIRCLED MINUS (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] DIGIT SIX (NU) × [25.03] COMMA (IS) × [25.04] DIGIT SEVEN (NU) × [25.04] RIGHT PARENTHESIS (CP) ÷ [0.3]
-    {
-        std::array<uint32_t, 24> cps = {{ 0x28, 0x30, 0x2c, 0x31, 0x29, 0x2b, 0x28, 0x32, 0x2c, 0x33, 0x29, 0x2295, 0x28, 0x2212, 0x34, 0x2c, 0x35, 0x29, 0x2296, 0x28, 0x36, 0x2c, 0x37, 0x29 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 20, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 21, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 22, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 23, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 24, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 24);
-    }
-
-
-    // × 007B × 0030 × 002C × 0031 × 007D × 002B × 007B × 0032 × 002C × 0033 × 007D ÷ 2295 × 007B × 2212 × 0034 × 002C × 0035 × 007D ÷ 2296 × 007B × 0036 × 002C × 0037 × 007D ÷	
-    // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] DIGIT ZERO (NU) × [25.03] COMMA (IS) × [25.04] DIGIT ONE (NU) × [25.04] RIGHT CURLY BRACKET (CL) × [25.05] PLUS SIGN (PR) × [25.01] LEFT CURLY BRACKET (OP) × [14.0] DIGIT TWO (NU) × [25.03] COMMA (IS) × [25.04] DIGIT THREE (NU) × [25.04] RIGHT CURLY BRACKET (CL) ÷ [999.0] CIRCLED PLUS (AI_AL) × [30.01] LEFT CURLY BRACKET (OP) × [14.0] MINUS SIGN (PR) × [25.01] DIGIT FOUR (NU) × [25.03] COMMA (IS) × [25.04] DIGIT FIVE (NU) × [25.04] RIGHT CURLY BRACKET (CL) ÷ [999.0] CIRCLED MINUS (AL) × [30.01] LEFT CURLY BRACKET (OP) × [14.0] DIGIT SIX (NU) × [25.03] COMMA (IS) × [25.04] DIGIT SEVEN (NU) × [25.04] RIGHT CURLY BRACKET (CL) ÷ [0.3]
-    {
-#if 0 // LB25 has explicit rule "CP x PR"
-        std::array<uint32_t, 24> cps = {{ 0x7b, 0x30, 0x2c, 0x31, 0x7d, 0x2b, 0x7b, 0x32, 0x2c, 0x33, 0x7d, 0x2295, 0x7b, 0x2212, 0x34, 0x2c, 0x35, 0x7d, 0x2296, 0x7b, 0x36, 0x2c, 0x37, 0x7d }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 18, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 18, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 20, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 18, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 21, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 18, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 22, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 18, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 23, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 18, cps.end()).iter - cps.begin(), 24);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 24, cps.end()).iter - cps.begin(), 18);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 18, cps.end()).iter - cps.begin(), 24);
-#endif
-    }
-
-
-    // × 0061 × 0062 ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER B (AL) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x61, 0x62 }};
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0x2060 }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
@@ -322,10 +27,10 @@ TEST(line, breaks_72)
     }
 
 
-    // × 0061 × 0062 × 0020 ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER B (AL) × [7.01] SPACE (SP) ÷ [0.3]
+    // × 0E01 × 0020 × 2060 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) × [11.01] WORD JOINER (WJ) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x61, 0x62, 0x20 }};
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0x2060 }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
@@ -337,1207 +42,25 @@ TEST(line, breaks_72)
     }
 
 
-    // × 0061 × 0062 × 0020 ÷ 0063 ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER B (AL) × [7.01] SPACE (SP) ÷ [18.0] LATIN SMALL LETTER C (AL) ÷ [0.3]
+    // × 0E01 × 0308 × 2060 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [11.01] WORD JOINER (WJ) ÷ [0.3]
     {
-        std::array<uint32_t, 4> cps = {{ 0x61, 0x62, 0x20, 0x63 }};
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0x2060 }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 0061 ÷ 307E ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) ÷ [999.0] HIRAGANA LETTER MA (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x61, 0x307e }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-    }
-
-
-    // × 0939 × 093F × 0928 × 094D × 0926 × 0940 × 0020 ÷	
-    // × [0.3] DEVANAGARI LETTER HA (AL) × [9.0] DEVANAGARI VOWEL SIGN I (CM1_CM) × [28.0] DEVANAGARI LETTER NA (AL) × [9.0] DEVANAGARI SIGN VIRAMA (CM1_CM) × [28.0] DEVANAGARI LETTER DA (AL) × [9.0] DEVANAGARI VOWEL SIGN II (CM1_CM) × [7.01] SPACE (SP) ÷ [0.3]
-    {
-        std::array<uint32_t, 7> cps = {{ 0x939, 0x93f, 0x928, 0x94d, 0x926, 0x940, 0x20 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-    }
-
-
-    // × 092F × 0938 × 0917 × 0941 × 091A × 093F × 0924 × 0940 × 092F × 0938 × 093E × 0020 ÷	
-    // × [0.3] DEVANAGARI LETTER YA (AL) × [28.0] DEVANAGARI LETTER SA (AL) × [28.0] DEVANAGARI LETTER GA (AL) × [9.0] DEVANAGARI VOWEL SIGN U (CM1_CM) × [28.0] DEVANAGARI LETTER CA (AL) × [9.0] DEVANAGARI VOWEL SIGN I (CM1_CM) × [28.0] DEVANAGARI LETTER TA (AL) × [9.0] DEVANAGARI VOWEL SIGN II (CM1_CM) × [28.0] DEVANAGARI LETTER YA (AL) × [28.0] DEVANAGARI LETTER SA (AL) × [9.0] DEVANAGARI VOWEL SIGN AA (CM1_CM) × [7.01] SPACE (SP) ÷ [0.3]
-    {
-        std::array<uint32_t, 12> cps = {{ 0x92f, 0x938, 0x917, 0x941, 0x91a, 0x93f, 0x924, 0x940, 0x92f, 0x938, 0x93e, 0x20 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
-    }
-
-
-    // × 5370 ÷ 672C ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-5370 (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x5370, 0x672c }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-    }
-
-
-    // × 8AAD ÷ 3080 ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-8AAD (ID) ÷ [999.0] HIRAGANA LETTER MU (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x8aad, 0x3080 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-    }
-
-
-    // × 5165 ÷ 529B ÷ 3057 ÷ 30A8 ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-5165 (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-529B (ID) ÷ [999.0] HIRAGANA LETTER SI (ID) ÷ [999.0] KATAKANA LETTER E (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x5165, 0x529b, 0x3057, 0x30a8 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 4F4D × 3002 ÷ 8A18 ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-4F4D (ID) × [13.02] IDEOGRAPHIC FULL STOP (CL) ÷ [999.0] CJK UNIFIED IDEOGRAPH-8A18 (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x4f4d, 0x3002, 0x8a18 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 672C × 3002 ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-672C (ID) × [13.02] IDEOGRAPHIC FULL STOP (CL) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x672c, 0x3002 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-    }
-
-
-    // × 967A × 300D ÷ 306E ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-967A (ID) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER NO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x967a, 0x300d, 0x306e }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 3057 × 3087 ÷ 3046 ÷	
-    // × [0.3] HIRAGANA LETTER SI (ID) × [21.03] HIRAGANA LETTER SMALL YO (CJ_NS) ÷ [999.0] HIRAGANA LETTER U (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x3057, 0x3087, 0x3046 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 307E ÷ 0061 ÷ 672C ÷	
-    // × [0.3] HIRAGANA LETTER MA (ID) ÷ [999.0] LATIN SMALL LETTER A (AL) ÷ [999.0] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x307e, 0x61, 0x672c }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × C5C6 ÷ C5B4 ÷ C694 × 0020 ÷ 006F × 0072 × 0020 ÷ BABB ÷	
-    // × [0.3] HANGUL SYLLABLE EOBS (H3) ÷ [999.0] HANGUL SYLLABLE EO (H2) ÷ [999.0] HANGUL SYLLABLE YO (H2) × [7.01] SPACE (SP) ÷ [18.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER R (AL) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE MOS (H3) ÷ [0.3]
-    {
-        std::array<uint32_t, 8> cps = {{ 0xc5c6, 0xc5b4, 0xc694, 0x20, 0x6f, 0x72, 0x20, 0xbabb }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
-    }
-
-
-    // × 307E ÷ 0061 × 0062 × 0020 ÷	
-    // × [0.3] HIRAGANA LETTER MA (ID) ÷ [999.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER B (AL) × [7.01] SPACE (SP) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x307e, 0x61, 0x62, 0x20 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 3067 ÷ 4F7F ÷	
-    // × [0.3] HIRAGANA LETTER DE (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-4F7F (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x3067, 0x4f7f }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-    }
-
-
-    // × 3059 ÷ 308B ÷	
-    // × [0.3] HIRAGANA LETTER SU (ID) ÷ [999.0] HIRAGANA LETTER RU (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x3059, 0x308b }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-    }
-
-
-    // × 306E ÷ 30D1 ÷ 30F3 ÷	
-    // × [0.3] HIRAGANA LETTER NO (ID) ÷ [999.0] KATAKANA LETTER PA (ID) ÷ [999.0] KATAKANA LETTER N (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x306e, 0x30d1, 0x30f3 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 3046 × 3000 ÷ 3048 × 3000 ÷ 304A × 300D ÷	
-    // × [0.3] HIRAGANA LETTER U (ID) × [21.01] IDEOGRAPHIC SPACE (BA) ÷ [999.0] HIRAGANA LETTER E (ID) × [21.01] IDEOGRAPHIC SPACE (BA) ÷ [999.0] HIRAGANA LETTER O (ID) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [0.3]
-    {
-        std::array<uint32_t, 6> cps = {{ 0x3046, 0x3000, 0x3048, 0x3000, 0x304a, 0x300d }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-    }
-
-
-    // × 308B × 0020 ÷ C740 ÷ C601 × 0020 ÷ 306B ÷	
-    // × [0.3] HIRAGANA LETTER RU (ID) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE EUN (H3) ÷ [999.0] HANGUL SYLLABLE YEONG (H3) × [7.01] SPACE (SP) ÷ [18.0] HIRAGANA LETTER NI (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 6> cps = {{ 0x308b, 0x20, 0xc740, 0xc601, 0x20, 0x306b }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-    }
-
-
-    // × 3057 × 3087 ÷ 3046 × 3002 ÷	
-    // × [0.3] HIRAGANA LETTER SI (ID) × [21.03] HIRAGANA LETTER SMALL YO (CJ_NS) ÷ [999.0] HIRAGANA LETTER U (ID) × [13.02] IDEOGRAPHIC FULL STOP (CL) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x3057, 0x3087, 0x3046, 0x3002 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 30E0 ÷ 306E ÷ 4E00 ÷	
-    // × [0.3] KATAKANA LETTER MU (ID) ÷ [999.0] HIRAGANA LETTER NO (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-4E00 (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x30e0, 0x306e, 0x4e00 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 30D5 ÷ 30EA ÷	
-    // × [0.3] KATAKANA LETTER HU (ID) ÷ [999.0] KATAKANA LETTER RI (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x30d5, 0x30ea }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
-    }
-
-
-    // × 30D5 ÷ 30EA × 30FC ÷ 767E ÷	
-    // × [0.3] KATAKANA LETTER HU (ID) ÷ [999.0] KATAKANA LETTER RI (ID) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) ÷ [999.0] CJK UNIFIED IDEOGRAPH-767E (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x30d5, 0x30ea, 0x30fc, 0x767e }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 30D4 × 30E5 × 30FC ÷ 30BF ÷ 3067 ÷ 4F7F ÷ 7528 ÷ 3059 ÷ 308B ÷	
-    // × [0.3] KATAKANA LETTER PI (ID) × [21.03] KATAKANA LETTER SMALL YU (CJ_NS) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) ÷ [999.0] KATAKANA LETTER TA (ID) ÷ [999.0] HIRAGANA LETTER DE (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-4F7F (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-7528 (ID) ÷ [999.0] HIRAGANA LETTER SU (ID) ÷ [999.0] HIRAGANA LETTER RU (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 9> cps = {{ 0x30d4, 0x30e5, 0x30fc, 0x30bf, 0x3067, 0x4f7f, 0x7528, 0x3059, 0x308b }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
     }
 
 
-    // × 30BF × 30FC ÷ 30AD × 30FC ÷ 3092 ÷ 62BC ÷	
-    // × [0.3] KATAKANA LETTER TA (ID) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) ÷ [999.0] KATAKANA LETTER KI (ID) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) ÷ [999.0] HIRAGANA LETTER WO (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-62BC (ID) ÷ [0.3]
+    // × 0E01 × 0308 × 0020 × 2060 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [11.01] WORD JOINER (WJ) ÷ [0.3]
     {
-        std::array<uint32_t, 6> cps = {{ 0x30bf, 0x30fc, 0x30ad, 0x30fc, 0x3092, 0x62bc }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-    }
-
-
-    // × 30B7 × 30E7 ÷ 30F3 ÷	
-    // × [0.3] KATAKANA LETTER SI (ID) × [21.03] KATAKANA LETTER SMALL YO (CJ_NS) ÷ [999.0] KATAKANA LETTER N (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x30b7, 0x30e7, 0x30f3 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 0061 × 002E ÷ 0032 × 0020 ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT TWO (NU) × [7.01] SPACE (SP) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x61, 0x2e, 0x32, 0x20 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 0061 × 002E ÷ 0032 × 0020 ÷ 0915 ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT TWO (NU) × [7.01] SPACE (SP) ÷ [18.0] DEVANAGARI LETTER KA (AL) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x61, 0x2e, 0x32, 0x20, 0x915 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 0061 × 002E ÷ 0032 × 0020 ÷ 672C ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT TWO (NU) × [7.01] SPACE (SP) ÷ [18.0] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x61, 0x2e, 0x32, 0x20, 0x672c }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 0061 × 002E ÷ 0032 × 3000 ÷ 672C ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT TWO (NU) × [21.01] IDEOGRAPHIC SPACE (BA) ÷ [999.0] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x61, 0x2e, 0x32, 0x3000, 0x672c }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 0061 × 002E ÷ 0032 × 3000 ÷ 307E ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT TWO (NU) × [21.01] IDEOGRAPHIC SPACE (BA) ÷ [999.0] HIRAGANA LETTER MA (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x61, 0x2e, 0x32, 0x3000, 0x307e }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 0061 × 002E ÷ 0032 × 3000 ÷ 0033 ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT TWO (NU) × [21.01] IDEOGRAPHIC SPACE (BA) ÷ [999.0] DIGIT THREE (NU) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x61, 0x2e, 0x32, 0x3000, 0x33 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 0061 × 0062 × 002E × 0020 ÷ 0032 ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER B (AL) × [13.02] FULL STOP (IS) × [7.01] SPACE (SP) ÷ [18.0] DIGIT TWO (NU) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x61, 0x62, 0x2e, 0x20, 0x32 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 0041 × 002E ÷ 0031 × 0020 ÷ BABB ÷	
-    // × [0.3] LATIN CAPITAL LETTER A (AL) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT ONE (NU) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE MOS (H3) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x41, 0x2e, 0x31, 0x20, 0xbabb }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × BD24 ÷ C5B4 × 002E × 0020 ÷ 0041 × 002E ÷ 0032 × 0020 ÷ BCFC ÷	
-    // × [0.3] HANGUL SYLLABLE BWASS (H3) ÷ [999.0] HANGUL SYLLABLE EO (H2) × [13.02] FULL STOP (IS) × [7.01] SPACE (SP) ÷ [18.0] LATIN CAPITAL LETTER A (AL) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT TWO (NU) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE BOL (H3) ÷ [0.3]
-    {
-        std::array<uint32_t, 9> cps = {{ 0xbd24, 0xc5b4, 0x2e, 0x20, 0x41, 0x2e, 0x32, 0x20, 0xbcfc }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-    }
-
-
-    // × BD10 ÷ C694 × 002E × 0020 ÷ 0041 × 002E ÷ 0033 × 0020 ÷ BABB ÷	
-    // × [0.3] HANGUL SYLLABLE BWA (H2) ÷ [999.0] HANGUL SYLLABLE YO (H2) × [13.02] FULL STOP (IS) × [7.01] SPACE (SP) ÷ [18.0] LATIN CAPITAL LETTER A (AL) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT THREE (NU) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE MOS (H3) ÷ [0.3]
-    {
-        std::array<uint32_t, 9> cps = {{ 0xbd10, 0xc694, 0x2e, 0x20, 0x41, 0x2e, 0x33, 0x20, 0xbabb }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-    }
-
-
-    // × C694 × 002E × 0020 ÷ 0041 × 002E ÷ 0034 × 0020 ÷ BABB ÷	
-    // × [0.3] HANGUL SYLLABLE YO (H2) × [13.02] FULL STOP (IS) × [7.01] SPACE (SP) ÷ [18.0] LATIN CAPITAL LETTER A (AL) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT FOUR (NU) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE MOS (H3) ÷ [0.3]
-    {
-        std::array<uint32_t, 8> cps = {{ 0xc694, 0x2e, 0x20, 0x41, 0x2e, 0x34, 0x20, 0xbabb }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
-    }
-
-
-    // × 0061 × 002E ÷ 0032 × 3000 ÷ 300C ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT TWO (NU) × [21.01] IDEOGRAPHIC SPACE (BA) ÷ [999.0] LEFT CORNER BRACKET (OP) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x61, 0x2e, 0x32, 0x3000, 0x300c }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 306B ÷ 300C × 30D0 ÷ 0028 × 0062 × 0061 × 0029 × 300D ÷ 3084 ÷ 300C × 30B9 ÷	
-    // × [0.3] HIRAGANA LETTER NI (ID) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] KATAKANA LETTER BA (ID) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER A (AL) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER YA (ID) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] KATAKANA LETTER SU (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 11> cps = {{ 0x306b, 0x300c, 0x30d0, 0x28, 0x62, 0x61, 0x29, 0x300d, 0x3084, 0x300c, 0x30b9 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 11);
-    }
-
-
-    // × 308B ÷ 300C × 0055 × 004B ÷ 30DD ÷ 30F3 ÷ 30C9 × 300D × FF09 × 3001 ÷ 30A8 ÷	
-    // × [0.3] HIRAGANA LETTER RU (ID) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] LATIN CAPITAL LETTER U (AL) × [28.0] LATIN CAPITAL LETTER K (AL) ÷ [999.0] KATAKANA LETTER PO (ID) ÷ [999.0] KATAKANA LETTER N (ID) ÷ [999.0] KATAKANA LETTER DO (ID) × [13.02] RIGHT CORNER BRACKET (CL) × [13.02] FULLWIDTH RIGHT PARENTHESIS (CL) × [13.02] IDEOGRAPHIC COMMA (CL) ÷ [999.0] KATAKANA LETTER E (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 11> cps = {{ 0x308b, 0x300c, 0x55, 0x4b, 0x30dd, 0x30f3, 0x30c9, 0x300d, 0xff09, 0x3001, 0x30a8 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 11);
-    }
-
-
-    // × 306F × 3001 ÷ 300C × 003D × 0072 × 0061 × 006E × 0064 × 0028 × 0029 × 300D ÷ 3068 ÷	
-    // × [0.3] HIRAGANA LETTER HA (ID) × [13.02] IDEOGRAPHIC COMMA (CL) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] EQUALS SIGN (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER D (AL) × [30.01] LEFT PARENTHESIS (OP) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER TO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 12> cps = {{ 0x306f, 0x3001, 0x300c, 0x3d, 0x72, 0x61, 0x6e, 0x64, 0x28, 0x29, 0x300d, 0x3068 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 12);
-    }
-
-
-    // × 3067 × 3001 ÷ 300C × 0021 × 300D ÷ 3068 ÷	
-    // × [0.3] HIRAGANA LETTER DE (ID) × [13.02] IDEOGRAPHIC COMMA (CL) ÷ [999.0] LEFT CORNER BRACKET (OP) × [13.01] EXCLAMATION MARK (EX) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER TO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 6> cps = {{ 0x3067, 0x3001, 0x300c, 0x21, 0x300d, 0x3068 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-    }
-
-
-    // × 8A33 ÷ 300C × 3059 ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-8A33 (ID) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] HIRAGANA LETTER SU (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x8a33, 0x300c, 0x3059 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 3066 ÷ 300C × BD24 ÷ C5B4 × 003F × 300D ÷ 3068 ÷	
-    // × [0.3] HIRAGANA LETTER TE (ID) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] HANGUL SYLLABLE BWASS (H3) ÷ [999.0] HANGUL SYLLABLE EO (H2) × [13.01] QUESTION MARK (EX) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER TO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 7> cps = {{ 0x3066, 0x300c, 0xbd24, 0xc5b4, 0x3f, 0x300d, 0x3068 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 7);
-    }
-
-
-    // × 306E ÷ 300C × 305D ÷	
-    // × [0.3] HIRAGANA LETTER NO (ID) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] HIRAGANA LETTER SO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x306e, 0x300c, 0x305d }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 306F ÷ 300C × 30A8 ÷	
-    // × [0.3] HIRAGANA LETTER HA (ID) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] KATAKANA LETTER E (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x306f, 0x300c, 0x30a8 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 4F8B × FF1A ÷ 300C × 3042 × 3000 ÷ 3044 ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-4F8B (ID) × [21.03] FULLWIDTH COLON (NS) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] HIRAGANA LETTER A (ID) × [21.01] IDEOGRAPHIC SPACE (BA) ÷ [999.0] HIRAGANA LETTER I (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 6> cps = {{ 0x4f8b, 0xff1a, 0x300c, 0x3042, 0x3000, 0x3044 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-    }
-
-
-    // × 304F × 3001 ÷ 300C × D3C9 ÷ C591 ÷ C740 ÷	
-    // × [0.3] HIRAGANA LETTER KU (ID) × [13.02] IDEOGRAPHIC COMMA (CL) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] HANGUL SYLLABLE PYEONG (H3) ÷ [999.0] HANGUL SYLLABLE YANG (H3) ÷ [999.0] HANGUL SYLLABLE EUN (H3) ÷ [0.3]
-    {
-        std::array<uint32_t, 6> cps = {{ 0x304f, 0x3001, 0x300c, 0xd3c9, 0xc591, 0xc740 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-    }
-
-
-    // × 306B ÷ 300C × C81C ÷ BAA9 ÷ 0028 × 984C ÷ 540D × 0029 ÷ C740 ÷	
-    // × [0.3] HIRAGANA LETTER NI (ID) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] HANGUL SYLLABLE JE (H2) ÷ [999.0] HANGUL SYLLABLE MOG (H3) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] CJK UNIFIED IDEOGRAPH-984C (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-540D (ID) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] HANGUL SYLLABLE EUN (H3) ÷ [0.3]
-    {
-        std::array<uint32_t, 9> cps = {{ 0x306b, 0x300c, 0xc81c, 0xbaa9, 0x28, 0x984c, 0x540d, 0x29, 0xc740 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-    }
-
-
-    // × 5178 ÷ 300E × 30A6 × 30A3 ÷ 30AD ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-5178 (ID) ÷ [999.0] LEFT WHITE CORNER BRACKET (OP) × [14.0] KATAKANA LETTER U (ID) × [21.03] KATAKANA LETTER SMALL I (CJ_NS) ÷ [999.0] KATAKANA LETTER KI (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x5178, 0x300e, 0x30a6, 0x30a3, 0x30ad }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 3067 ÷ 300E × 82F1 ÷ 8A9E ÷	
-    // × [0.3] HIRAGANA LETTER DE (ID) ÷ [999.0] LEFT WHITE CORNER BRACKET (OP) × [14.0] CJK UNIFIED IDEOGRAPH-82F1 (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-8A9E (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x3067, 0x300e, 0x82f1, 0x8a9e }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 0028 × 0073 × 0029 × 0020 ÷ 672C ÷	
-    // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [7.01] SPACE (SP) ÷ [18.0] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x28, 0x73, 0x29, 0x20, 0x672c }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 0028 × 0073 × 0029 × 0020 ÷ 307E ÷	
-    // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [7.01] SPACE (SP) ÷ [18.0] HIRAGANA LETTER MA (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x28, 0x73, 0x29, 0x20, 0x307e }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 0028 × 0073 × 0029 × 0020 ÷ 30AF ÷	
-    // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [7.01] SPACE (SP) ÷ [18.0] KATAKANA LETTER KU (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x28, 0x73, 0x29, 0x20, 0x30af }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 308B × 3002 ÷ 0064 × 006F × 0067 × FF08 × 72AC × FF09 ÷ 3092 ÷	
-    // × [0.3] HIRAGANA LETTER RU (ID) × [13.02] IDEOGRAPHIC FULL STOP (CL) ÷ [999.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER G (AL) × [30.01] FULLWIDTH LEFT PARENTHESIS (OP) × [14.0] CJK UNIFIED IDEOGRAPH-72AC (ID) × [13.02] FULLWIDTH RIGHT PARENTHESIS (CL) ÷ [999.0] HIRAGANA LETTER WO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 9> cps = {{ 0x308b, 0x3002, 0x64, 0x6f, 0x67, 0xff08, 0x72ac, 0xff09, 0x3092 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-    }
-
-
-    // × 672C ÷ FF08 × 307E ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [999.0] FULLWIDTH LEFT PARENTHESIS (OP) × [14.0] HIRAGANA LETTER MA (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x672c, 0xff08, 0x307e }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 672C × 0020 ÷ 0028 × 0061 ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-672C (ID) × [7.01] SPACE (SP) ÷ [18.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER A (AL) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x672c, 0x20, 0x28, 0x61 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 70B9 × 0020 ÷ 005B × 7DE8 ÷ 96C6 × 005D ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-70B9 (ID) × [7.01] SPACE (SP) ÷ [18.0] LEFT SQUARE BRACKET (OP) × [14.0] CJK UNIFIED IDEOGRAPH-7DE8 (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-96C6 (ID) × [13.02] RIGHT SQUARE BRACKET (CP) ÷ [0.3]
-    {
-        std::array<uint32_t, 6> cps = {{ 0x70b9, 0x20, 0x5b, 0x7de8, 0x96c6, 0x5d }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-    }
-
-
-    // × 0061 × 0028 × 0073 × 0029 × 0020 ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [7.01] SPACE (SP) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x61, 0x28, 0x73, 0x29, 0x20 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × FF08 × 30B6 × 30FB ÷ 30AF ÷ 30A4 × 30C3 ÷ 30AF × 30FB ÷ 30D6 ÷	
-    // × [0.3] FULLWIDTH LEFT PARENTHESIS (OP) × [14.0] KATAKANA LETTER ZA (ID) × [21.03] KATAKANA MIDDLE DOT (NS) ÷ [999.0] KATAKANA LETTER KU (ID) ÷ [999.0] KATAKANA LETTER I (ID) × [21.03] KATAKANA LETTER SMALL TU (CJ_NS) ÷ [999.0] KATAKANA LETTER KU (ID) × [21.03] KATAKANA MIDDLE DOT (NS) ÷ [999.0] KATAKANA LETTER BU (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 9> cps = {{ 0xff08, 0x30b6, 0x30fb, 0x30af, 0x30a4, 0x30c3, 0x30af, 0x30fb, 0x30d6 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-    }
-
-
-    // × 0070 × FF08 × 30AF ÷ 30A4 × 30C3 ÷ 30AF × 30FB ÷ 30D6 ÷	
-    // × [0.3] LATIN SMALL LETTER P (AL) × [30.01] FULLWIDTH LEFT PARENTHESIS (OP) × [14.0] KATAKANA LETTER KU (ID) ÷ [999.0] KATAKANA LETTER I (ID) × [21.03] KATAKANA LETTER SMALL TU (CJ_NS) ÷ [999.0] KATAKANA LETTER KU (ID) × [21.03] KATAKANA MIDDLE DOT (NS) ÷ [999.0] KATAKANA LETTER BU (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 8> cps = {{ 0x70, 0xff08, 0x30af, 0x30a4, 0x30c3, 0x30af, 0x30fb, 0x30d6 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
-    }
-
-
-    // × 0061 × 0062 × FF08 × 30AF ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER B (AL) × [30.01] FULLWIDTH LEFT PARENTHESIS (OP) × [14.0] KATAKANA LETTER KU (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x61, 0x62, 0xff08, 0x30af }};
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0x2060 }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
@@ -1551,91 +74,23 @@ TEST(line, breaks_72)
     }
 
 
-    // × 0028 × 5370 ÷ 672C × 0029 ÷	
-    // × [0.3] LEFT PARENTHESIS (OP) × [14.0] CJK UNIFIED IDEOGRAPH-5370 (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-672C (ID) × [13.02] RIGHT PARENTHESIS (CP) ÷ [0.3]
+    // × 0E01 × 200B ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.02] ZERO WIDTH SPACE (ZW) ÷ [0.3]
     {
-        std::array<uint32_t, 4> cps = {{ 0x28, 0x5370, 0x672c, 0x29 }};
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0x200b }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 30B9 ÷ FF08 × 3044 ÷	
-    // × [0.3] KATAKANA LETTER SU (ID) ÷ [999.0] FULLWIDTH LEFT PARENTHESIS (OP) × [14.0] HIRAGANA LETTER I (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x30b9, 0xff08, 0x3044 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 30C9 ÷ FF08 × 30DD ÷	
-    // × [0.3] KATAKANA LETTER DO (ID) ÷ [999.0] FULLWIDTH LEFT PARENTHESIS (OP) × [14.0] KATAKANA LETTER PO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x30c9, 0xff08, 0x30dd }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 30C9 × 0020 ÷ 0028 × 8CEA ÷	
-    // × [0.3] KATAKANA LETTER DO (ID) × [7.01] SPACE (SP) ÷ [18.0] LEFT PARENTHESIS (OP) × [14.0] CJK UNIFIED IDEOGRAPH-8CEA (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x30c9, 0x20, 0x28, 0x8cea }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 0073 × 0029 × 300D ÷ 307E ÷	
-    // × [0.3] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER MA (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x73, 0x29, 0x300d, 0x307e }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
-    // × 0061 × FF09 × 300F ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [13.02] FULLWIDTH RIGHT PARENTHESIS (CL) × [13.02] RIGHT WHITE CORNER BRACKET (CL) ÷ [0.3]
+    // × 0E01 × 0020 × 200B ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) × [7.02] ZERO WIDTH SPACE (ZW) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x61, 0xff09, 0x300f }};
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0x200b }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
@@ -1647,27 +102,25 @@ TEST(line, breaks_72)
     }
 
 
-    // × 308B × 300D × FF09 ÷ 306F ÷	
-    // × [0.3] HIRAGANA LETTER RU (ID) × [13.02] RIGHT CORNER BRACKET (CL) × [13.02] FULLWIDTH RIGHT PARENTHESIS (CL) ÷ [999.0] HIRAGANA LETTER HA (ID) ÷ [0.3]
+    // × 0E01 × 0308 × 200B ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.02] ZERO WIDTH SPACE (ZW) ÷ [0.3]
     {
-        std::array<uint32_t, 4> cps = {{ 0x308b, 0x300d, 0xff09, 0x306f }};
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0x200b }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
-    // × 30C9 × 300D × FF09 × 3001 ÷ 30A8 ÷	
-    // × [0.3] KATAKANA LETTER DO (ID) × [13.02] RIGHT CORNER BRACKET (CL) × [13.02] FULLWIDTH RIGHT PARENTHESIS (CL) × [13.02] IDEOGRAPHIC COMMA (CL) ÷ [999.0] KATAKANA LETTER E (ID) ÷ [0.3]
+    // × 0E01 × 0308 × 0020 × 200B ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [7.02] ZERO WIDTH SPACE (ZW) ÷ [0.3]
     {
-        std::array<uint32_t, 5> cps = {{ 0x30c9, 0x300d, 0xff09, 0x3001, 0x30a8 }};
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0x200b }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
@@ -1676,281 +129,58 @@ TEST(line, breaks_72)
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 0072 × 006B × 0029 × 300D ÷ 3082 ÷	
-    // × [0.3] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER K (AL) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER MO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x72, 0x6b, 0x29, 0x300d, 0x3082 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
     }
 
 
-    // × 30AF ÷ 0028 × 0061 × 0062 × 0020 ÷ 0063 × 0064 × 0029 × 300D ÷ 3082 ÷	
-    // × [0.3] KATAKANA LETTER KU (ID) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER B (AL) × [7.01] SPACE (SP) ÷ [18.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER D (AL) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER MO (ID) ÷ [0.3]
+    // × 0E01 ÷ 1F1E6 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
-        std::array<uint32_t, 10> cps = {{ 0x30af, 0x28, 0x61, 0x62, 0x20, 0x63, 0x64, 0x29, 0x300d, 0x3082 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 10);
-    }
-
-
-    // × 30F3 × 30FB ÷ 30DE × 30FC ÷ 30AF ÷ 0028 × 0065 × 0078 ÷	
-    // × [0.3] KATAKANA LETTER N (ID) × [21.03] KATAKANA MIDDLE DOT (NS) ÷ [999.0] KATAKANA LETTER MA (ID) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) ÷ [999.0] KATAKANA LETTER KU (ID) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER X (AL) ÷ [0.3]
-    {
-        std::array<uint32_t, 8> cps = {{ 0x30f3, 0x30fb, 0x30de, 0x30fc, 0x30af, 0x28, 0x65, 0x78 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
-    }
-
-
-    // × 30DE × 30FC ÷ 0028 × 006D × 0061 × 0029 × 300D ÷ 306A ÷	
-    // × [0.3] KATAKANA LETTER MA (ID) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER A (AL) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER NA (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 8> cps = {{ 0x30de, 0x30fc, 0x28, 0x6d, 0x61, 0x29, 0x300d, 0x306a }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
-    }
-
-
-    // × 30AC ÷ 30EF × 300D × 3002 ÷ 3053 ÷	
-    // × [0.3] KATAKANA LETTER GA (ID) ÷ [999.0] KATAKANA LETTER WA (ID) × [13.02] RIGHT CORNER BRACKET (CL) × [13.02] IDEOGRAPHIC FULL STOP (CL) ÷ [999.0] HIRAGANA LETTER KO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x30ac, 0x30ef, 0x300d, 0x3002, 0x3053 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 30AF × 300D ÷ 307E ÷	
-    // × [0.3] KATAKANA LETTER KU (ID) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER MA (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x30af, 0x300d, 0x307e }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-    }
-
-
-    // × 30EF × 300D × 3002 ÷ 3053 ÷	
-    // × [0.3] KATAKANA LETTER WA (ID) × [13.02] RIGHT CORNER BRACKET (CL) × [13.02] IDEOGRAPHIC FULL STOP (CL) ÷ [999.0] HIRAGANA LETTER KO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x30ef, 0x300d, 0x3002, 0x3053 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 30AF × 300D ÷ 307E × 3001 ÷ 672C ÷	
-    // × [0.3] KATAKANA LETTER KU (ID) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER MA (ID) × [13.02] IDEOGRAPHIC COMMA (CL) ÷ [999.0] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x30af, 0x300d, 0x307e, 0x3001, 0x672c }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 30AF × 300D × 3001 ÷ 30AF ÷	
-    // × [0.3] KATAKANA LETTER KU (ID) × [13.02] RIGHT CORNER BRACKET (CL) × [13.02] IDEOGRAPHIC COMMA (CL) ÷ [999.0] KATAKANA LETTER KU (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 4> cps = {{ 0x30af, 0x300d, 0x3001, 0x30af }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
-    }
-
-
-    // × 30C7 × 30A3 ÷ 30A2 ÷ FF08 × 0061 × 0062 × FF09 × 300F ÷	
-    // × [0.3] KATAKANA LETTER DE (ID) × [21.03] KATAKANA LETTER SMALL I (CJ_NS) ÷ [999.0] KATAKANA LETTER A (ID) ÷ [999.0] FULLWIDTH LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER B (AL) × [13.02] FULLWIDTH RIGHT PARENTHESIS (CL) × [13.02] RIGHT WHITE CORNER BRACKET (CL) ÷ [0.3]
-    {
-        std::array<uint32_t, 8> cps = {{ 0x30c7, 0x30a3, 0x30a2, 0xff08, 0x61, 0x62, 0xff09, 0x300f }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 8);
-    }
-
-
-    // × CABD ÷ C774 ÷ C5D0 ÷ C694 × 003F × 300D ÷ 3068 ÷ 805E ÷	
-    // × [0.3] HANGUL SYLLABLE JJOG (H3) ÷ [999.0] HANGUL SYLLABLE I (H2) ÷ [999.0] HANGUL SYLLABLE E (H2) ÷ [999.0] HANGUL SYLLABLE YO (H2) × [13.01] QUESTION MARK (EX) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER TO (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-805E (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 8> cps = {{ 0xcabd, 0xc774, 0xc5d0, 0xc694, 0x3f, 0x300d, 0x3068, 0x805e }};
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0x1f1e6 }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 0E01 × 0020 ÷ 1F1E6 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) ÷ [18.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0x1f1e6 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
-    // × 540D × 0029 ÷ C740 × 0020 ÷ C54C ÷ C544 ÷ C694 × 003F × 300D ÷ 3068 ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-540D (ID) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] HANGUL SYLLABLE EUN (H3) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE AL (H3) ÷ [999.0] HANGUL SYLLABLE A (H2) ÷ [999.0] HANGUL SYLLABLE YO (H2) × [13.01] QUESTION MARK (EX) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] HIRAGANA LETTER TO (ID) ÷ [0.3]
+    // × 0E01 × 0308 ÷ 1F1E6 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
-        std::array<uint32_t, 10> cps = {{ 0x540d, 0x29, 0xc740, 0x20, 0xc54c, 0xc544, 0xc694, 0x3f, 0x300d, 0x3068 }};
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0x1f1e6 }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
-    // × 8CA8 × 0029 × 0020 ÷ 002D × 0020 ÷ 0028 × 0070 × 006F ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-8CA8 (ID) × [13.02] RIGHT PARENTHESIS (CP) × [7.01] SPACE (SP) ÷ [18.0] HYPHEN-MINUS (HY) × [7.01] SPACE (SP) ÷ [18.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER P (AL) × [28.0] LATIN SMALL LETTER O (AL) ÷ [0.3]
+    // × 0E01 × 0308 × 0020 ÷ 1F1E6 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
-        std::array<uint32_t, 8> cps = {{ 0x8ca8, 0x29, 0x20, 0x2d, 0x20, 0x28, 0x70, 0x6f }};
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0x1f1e6 }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
@@ -1958,201 +188,1329 @@ TEST(line, breaks_72)
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
-    // × 91CF × 0029 × 0020 × 301C × 0020 ÷ 0028 × 0070 × 006F ÷	
-    // × [0.3] CJK UNIFIED IDEOGRAPH-91CF (ID) × [13.02] RIGHT PARENTHESIS (CP) × [7.01] SPACE (SP) × [16.0] WAVE DASH (NS) × [7.01] SPACE (SP) ÷ [18.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER P (AL) × [28.0] LATIN SMALL LETTER O (AL) ÷ [0.3]
+    // × 0E01 ÷ 261D ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) ÷ [999.0] WHITE UP POINTING INDEX (EB) ÷ [0.3]
     {
-        std::array<uint32_t, 8> cps = {{ 0x91cf, 0x29, 0x20, 0x301c, 0x20, 0x28, 0x70, 0x6f }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
-    }
-
-
-    // × 30C9 ÷ 91CD × FF09 × 0020 × 301C × 0020 ÷ 529B × 30FB ÷ 91CD ÷	
-    // × [0.3] KATAKANA LETTER DO (ID) ÷ [999.0] CJK UNIFIED IDEOGRAPH-91CD (ID) × [13.02] FULLWIDTH RIGHT PARENTHESIS (CL) × [7.01] SPACE (SP) × [16.0] WAVE DASH (NS) × [7.01] SPACE (SP) ÷ [18.0] CJK UNIFIED IDEOGRAPH-529B (ID) × [21.03] KATAKANA MIDDLE DOT (NS) ÷ [999.0] CJK UNIFIED IDEOGRAPH-91CD (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 9> cps = {{ 0x30c9, 0x91cd, 0xff09, 0x20, 0x301c, 0x20, 0x529b, 0x30fb, 0x91cd }};
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0x261d }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
     }
 
 
-    // × 0061 × 0062 × 0022 × FF08 × 307E ÷	
-    // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER B (AL) × [19.01] QUOTATION MARK (QU) × [15.0] FULLWIDTH LEFT PARENTHESIS (OP) × [14.0] HIRAGANA LETTER MA (ID) ÷ [0.3]
+    // × 0E01 × 0020 ÷ 261D ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) ÷ [18.0] WHITE UP POINTING INDEX (EB) ÷ [0.3]
     {
-        std::array<uint32_t, 5> cps = {{ 0x61, 0x62, 0x22, 0xff08, 0x307e }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 306F × 0020 ÷ 0022 × 0073 × 0022 × 0020 ÷	
-    // × [0.3] HIRAGANA LETTER HA (ID) × [7.01] SPACE (SP) ÷ [18.0] QUOTATION MARK (QU) × [19.02] LATIN SMALL LETTER S (AL) × [19.01] QUOTATION MARK (QU) × [7.01] SPACE (SP) ÷ [0.3]
-    {
-        std::array<uint32_t, 6> cps = {{ 0x306f, 0x20, 0x22, 0x73, 0x22, 0x20 }};
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0x261d }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
-    // × 306F × 3001 × 0022 × 0054 × 0068 × 0065 × 0020 ÷	
-    // × [0.3] HIRAGANA LETTER HA (ID) × [13.02] IDEOGRAPHIC COMMA (CL) × [19.01] QUOTATION MARK (QU) × [19.02] LATIN CAPITAL LETTER T (AL) × [28.0] LATIN SMALL LETTER H (AL) × [28.0] LATIN SMALL LETTER E (AL) × [7.01] SPACE (SP) ÷ [0.3]
+    // × 0E01 × 0308 ÷ 261D ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] WHITE UP POINTING INDEX (EB) ÷ [0.3]
     {
-        std::array<uint32_t, 7> cps = {{ 0x306f, 0x3001, 0x22, 0x54, 0x68, 0x65, 0x20 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
-    }
-
-
-    // × 0064 × 006F × 0067 × 0022 × 0020 ÷ 3092 ÷	
-    // × [0.3] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER G (AL) × [19.01] QUOTATION MARK (QU) × [7.01] SPACE (SP) ÷ [18.0] HIRAGANA LETTER WO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 6> cps = {{ 0x64, 0x6f, 0x67, 0x22, 0x20, 0x3092 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
-    }
-
-
-    // × 0039 × 0030 × 0022 × 0020 ÷ 3068 ÷	
-    // × [0.3] DIGIT NINE (NU) × [25.03] DIGIT ZERO (NU) × [19.01] QUOTATION MARK (QU) × [7.01] SPACE (SP) ÷ [18.0] HIRAGANA LETTER TO (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 5> cps = {{ 0x39, 0x30, 0x22, 0x20, 0x3068 }};
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
-    }
-
-
-    // × 30B9 × 30FB ÷ 30AA × 30FC ÷ 30D0 × 30FC × 30FB ÷ 30B6 × 30FB ÷ 30EC ÷	
-    // × [0.3] KATAKANA LETTER SU (ID) × [21.03] KATAKANA MIDDLE DOT (NS) ÷ [999.0] KATAKANA LETTER O (ID) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) ÷ [999.0] KATAKANA LETTER BA (ID) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) × [21.03] KATAKANA MIDDLE DOT (NS) ÷ [999.0] KATAKANA LETTER ZA (ID) × [21.03] KATAKANA MIDDLE DOT (NS) ÷ [999.0] KATAKANA LETTER RE (ID) ÷ [0.3]
-    {
-        std::array<uint32_t, 10> cps = {{ 0x30b9, 0x30fb, 0x30aa, 0x30fc, 0x30d0, 0x30fc, 0x30fb, 0x30b6, 0x30fb, 0x30ec }};
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0x261d }};
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0020 ÷ 261D ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] WHITE UP POINTING INDEX (EB) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0x261d }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 0E01 ÷ 1F3FB ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (EM) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0x1f3fb }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 0E01 × 0020 ÷ 1F3FB ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) ÷ [18.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (EM) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0x1f3fb }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 ÷ 1F3FB ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (EM) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0x1f3fb }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0020 ÷ 1F3FB ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (EM) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0x1f3fb }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 0E01 × 0029 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [13.02] RIGHT PARENTHESIS (CP_CP30) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0x29 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 0E01 × 0020 × 0029 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) × [13.02] RIGHT PARENTHESIS (CP_CP30) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0x29 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0029 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP_CP30) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0x29 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0020 × 0029 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [13.02] RIGHT PARENTHESIS (CP_CP30) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0x29 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 0E01 × 0028 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [30.01] LEFT PARENTHESIS (OP_OP30) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0x28 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 0E01 × 0020 ÷ 0028 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) ÷ [18.0] LEFT PARENTHESIS (OP_OP30) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0x28 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0028 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [30.01] LEFT PARENTHESIS (OP_OP30) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0x28 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0020 ÷ 0028 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] LEFT PARENTHESIS (OP_OP30) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0x28 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 0E01 × 0001 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] <START OF HEADING> (CM1_CM) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0x1 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 0E01 × 0020 ÷ 0001 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) ÷ [18.0] <START OF HEADING> (CM1_CM) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0x1 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0001 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [9.0] <START OF HEADING> (CM1_CM) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0x1 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0020 ÷ 0001 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] <START OF HEADING> (CM1_CM) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0x1 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 0E01 × 200D ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] ZERO WIDTH JOINER (ZWJ_O_ZWJ_CM) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0x200d }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 0E01 × 0020 ÷ 200D ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) ÷ [18.0] ZERO WIDTH JOINER (ZWJ_O_ZWJ_CM) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0x200d }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 200D ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [9.0] ZERO WIDTH JOINER (ZWJ_O_ZWJ_CM) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0x200d }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0020 ÷ 200D ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] ZERO WIDTH JOINER (ZWJ_O_ZWJ_CM) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0x200d }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 0E01 × 00A7 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [28.0] SECTION SIGN (AI_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0xa7 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 0E01 × 0020 ÷ 00A7 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) ÷ [18.0] SECTION SIGN (AI_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0xa7 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 00A7 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [28.0] SECTION SIGN (AI_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0xa7 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0020 ÷ 00A7 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] SECTION SIGN (AI_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0xa7 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 0E01 × 50005 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [28.0] <reserved-50005> (XX_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0x50005 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 0E01 × 0020 ÷ 50005 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) ÷ [18.0] <reserved-50005> (XX_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0x50005 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 50005 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [28.0] <reserved-50005> (XX_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0x50005 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0020 ÷ 50005 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] <reserved-50005> (XX_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0x50005 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 0E01 × 0E01 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [28.0] THAI CHARACTER KO KAI (SA_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0xe01 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 0E01 × 0020 ÷ 0E01 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) ÷ [18.0] THAI CHARACTER KO KAI (SA_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0xe01 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0E01 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [28.0] THAI CHARACTER KO KAI (SA_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0xe01 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0020 ÷ 0E01 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] THAI CHARACTER KO KAI (SA_AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0xe01 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 0E01 × 3041 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [21.03] HIRAGANA LETTER SMALL A (CJ_NS) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0xe01, 0x3041 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 0E01 × 0020 ÷ 3041 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [7.01] SPACE (SP) ÷ [18.0] HIRAGANA LETTER SMALL A (CJ_NS) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x20, 0x3041 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 3041 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [21.03] HIRAGANA LETTER SMALL A (CJ_NS) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0xe01, 0x308, 0x3041 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 0E01 × 0308 × 0020 ÷ 3041 ÷	
+    // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HIRAGANA LETTER SMALL A (CJ_NS) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0xe01, 0x308, 0x20, 0x3041 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 ÷ 0023 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) ÷ [999.0] NUMBER SIGN (AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0x23 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 ÷ 0023 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) ÷ [18.0] NUMBER SIGN (AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0x23 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 ÷ 0023 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] NUMBER SIGN (AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x23 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 ÷ 0023 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] NUMBER SIGN (AL) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x23 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 ÷ 2014 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) ÷ [999.0] EM DASH (B2) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0x2014 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 ÷ 2014 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) ÷ [18.0] EM DASH (B2) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0x2014 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 ÷ 2014 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] EM DASH (B2) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x2014 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 ÷ 2014 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] EM DASH (B2) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x2014 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 × 0009 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [21.01] <CHARACTER TABULATION> (BA) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0x9 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 ÷ 0009 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) ÷ [18.0] <CHARACTER TABULATION> (BA) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0x9 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0009 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [21.01] <CHARACTER TABULATION> (BA) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x9 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 ÷ 0009 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] <CHARACTER TABULATION> (BA) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x9 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 ÷ 00B4 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) ÷ [999.0] ACUTE ACCENT (BB) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0xb4 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 ÷ 00B4 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) ÷ [18.0] ACUTE ACCENT (BB) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0xb4 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 ÷ 00B4 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] ACUTE ACCENT (BB) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0xb4 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 ÷ 00B4 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] ACUTE ACCENT (BB) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0xb4 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 × 000B ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [6.0] <LINE TABULATION> (BK) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0xb }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 × 000B ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) × [6.0] <LINE TABULATION> (BK) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0xb }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 000B ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [6.0] <LINE TABULATION> (BK) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0xb }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 × 000B ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [6.0] <LINE TABULATION> (BK) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0xb }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 ÷ FFFC ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) ÷ [20.01] OBJECT REPLACEMENT CHARACTER (CB) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0xfffc }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 ÷ FFFC ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) ÷ [18.0] OBJECT REPLACEMENT CHARACTER (CB) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0xfffc }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 ÷ FFFC ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [20.01] OBJECT REPLACEMENT CHARACTER (CB) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0xfffc }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 ÷ FFFC ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] OBJECT REPLACEMENT CHARACTER (CB) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0xfffc }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 × 007D ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0x7d }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 × 007D ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0x7d }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 007D ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT CURLY BRACKET (CL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x7d }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 × 007D ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x7d }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 × 000D ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [6.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0xd }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 × 000D ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) × [6.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0xd }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 000D ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [6.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0xd }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 × 000D ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [6.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0xd }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 × 0021 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [13.01] EXCLAMATION MARK (EX) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0x21 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 × 0021 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) × [13.01] EXCLAMATION MARK (EX) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0x21 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0021 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.01] EXCLAMATION MARK (EX) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x21 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 × 0021 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [13.01] EXCLAMATION MARK (EX) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x21 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 × 00A0 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [12.1] NO-BREAK SPACE (GL) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0xa0 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 ÷ 00A0 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) ÷ [18.0] NO-BREAK SPACE (GL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0xa0 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 00A0 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [12.2] NO-BREAK SPACE (GL) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0xa0 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 ÷ 00A0 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] NO-BREAK SPACE (GL) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0xa0 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 ÷ AC00 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) ÷ [999.0] HANGUL SYLLABLE GA (H2) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0xac00 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 ÷ AC00 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE GA (H2) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0xac00 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 ÷ AC00 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] HANGUL SYLLABLE GA (H2) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0xac00 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 ÷ AC00 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE GA (H2) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0xac00 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+    }
+
+
+    // × 3041 ÷ AC01 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) ÷ [999.0] HANGUL SYLLABLE GAG (H3) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x3041, 0xac01 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+    }
+
+
+    // × 3041 × 0020 ÷ AC01 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE GAG (H3) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0xac01 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 ÷ AC01 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] HANGUL SYLLABLE GAG (H3) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0xac01 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+    }
+
+
+    // × 3041 × 0308 × 0020 ÷ AC01 ÷	
+    // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE GAG (H3) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0xac01 }};
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 

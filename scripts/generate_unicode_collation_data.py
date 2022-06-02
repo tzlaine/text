@@ -880,13 +880,13 @@ constexpr std::array<unsigned char, {2}> default_table_nonstarters = {{{{
 {3}
 }}}};
 
-uint32_t default_table_min_nonstarter() noexcept
+uint32_t default_table_min_nonstarter()
 {{ return default_table_min_nonstarter_; }}
 
-uint32_t default_table_max_nonstarter() noexcept
+uint32_t default_table_max_nonstarter()
 {{ return default_table_max_nonstarter_; }}
 
-unsigned char const * default_table_nonstarters_ptr() noexcept
+unsigned char const * default_table_nonstarters_ptr()
 {{ return default_table_nonstarters.data(); }}
 
 }}}}}}

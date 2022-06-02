@@ -1670,7 +1670,7 @@ void BM_collation_element_lookup_026(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_026);
 
 uint32_t cps_027[] = {
-0x54a, 0x54b, 0x54c, 0x54d, 0x54e, 0x54f, 0x550, 0x551, 0x552, 0x553, 0x554, 0x555, 0x556, 0x559, 0x55a, 0x55b, 0x55c, 0x55d, 0x55e, 0x55f, 0x561, 0x562, 0x563, 0x564, 0x565, 0x566, 0x567, 0x568, 0x569, 0x56a, 0x56b, 0x56c, 0x56d, 0x56e, 0x56f, 0x570, 0x571, 0x572, 0x573, 0x574, 0x575, 0x576, 0x577, 0x578, 0x579, 0x57a, 0x57b, 0x57c, 0x57d, 0x57e
+0x54a, 0x54b, 0x54c, 0x54d, 0x54e, 0x54f, 0x550, 0x551, 0x552, 0x553, 0x554, 0x555, 0x556, 0x559, 0x55a, 0x55b, 0x55c, 0x55d, 0x55e, 0x55f, 0x560, 0x561, 0x562, 0x563, 0x564, 0x565, 0x566, 0x567, 0x568, 0x569, 0x56a, 0x56b, 0x56c, 0x56d, 0x56e, 0x56f, 0x570, 0x571, 0x572, 0x573, 0x574, 0x575, 0x576, 0x577, 0x578, 0x579, 0x57a, 0x57b, 0x57c, 0x57d
 };
 
 void BM_collation_element_lookup_027(benchmark::State & state)
@@ -1731,7 +1731,7 @@ void BM_collation_element_lookup_027(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_027);
 
 uint32_t cps_028[] = {
-0x57f, 0x580, 0x581, 0x582, 0x583, 0x584, 0x585, 0x586, 0x587, 0x589, 0x58a, 0x58d, 0x58e, 0x58f, 0x591, 0x592, 0x593, 0x594, 0x595, 0x596, 0x597, 0x598, 0x599, 0x59a, 0x59b, 0x59c, 0x59d, 0x59e, 0x59f, 0x5a0, 0x5a1, 0x5a2, 0x5a3, 0x5a4, 0x5a5, 0x5a6, 0x5a7, 0x5a8, 0x5a9, 0x5aa, 0x5ab, 0x5ac, 0x5ad, 0x5ae, 0x5af, 0x5b0, 0x5b1, 0x5b2, 0x5b3, 0x5b4
+0x57e, 0x57f, 0x580, 0x581, 0x582, 0x583, 0x584, 0x585, 0x586, 0x587, 0x588, 0x589, 0x58a, 0x58d, 0x58e, 0x58f, 0x591, 0x592, 0x593, 0x594, 0x595, 0x596, 0x597, 0x598, 0x599, 0x59a, 0x59b, 0x59c, 0x59d, 0x59e, 0x59f, 0x5a0, 0x5a1, 0x5a2, 0x5a3, 0x5a4, 0x5a5, 0x5a6, 0x5a7, 0x5a8, 0x5a9, 0x5aa, 0x5ab, 0x5ac, 0x5ad, 0x5ae, 0x5af, 0x5b0, 0x5b1, 0x5b2
 };
 
 void BM_collation_element_lookup_028(benchmark::State & state)
@@ -1792,7 +1792,7 @@ void BM_collation_element_lookup_028(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_028);
 
 uint32_t cps_029[] = {
-0x5b5, 0x5b6, 0x5b7, 0x5b8, 0x5b9, 0x5ba, 0x5bb, 0x5bc, 0x5bd, 0x5be, 0x5bf, 0x5c0, 0x5c1, 0x5c2, 0x5c3, 0x5c4, 0x5c5, 0x5c6, 0x5c7, 0x5d0, 0x5d1, 0x5d2, 0x5d3, 0x5d4, 0x5d5, 0x5d6, 0x5d7, 0x5d8, 0x5d9, 0x5da, 0x5db, 0x5dc, 0x5dd, 0x5de, 0x5df, 0x5e0, 0x5e1, 0x5e2, 0x5e3, 0x5e4, 0x5e5, 0x5e6, 0x5e7, 0x5e8, 0x5e9, 0x5ea, 0x5f0, 0x5f1, 0x5f2, 0x5f3
+0x5b3, 0x5b4, 0x5b5, 0x5b6, 0x5b7, 0x5b8, 0x5b9, 0x5ba, 0x5bb, 0x5bc, 0x5bd, 0x5be, 0x5bf, 0x5c0, 0x5c1, 0x5c2, 0x5c3, 0x5c4, 0x5c5, 0x5c6, 0x5c7, 0x5d0, 0x5d1, 0x5d2, 0x5d3, 0x5d4, 0x5d5, 0x5d6, 0x5d7, 0x5d8, 0x5d9, 0x5da, 0x5db, 0x5dc, 0x5dd, 0x5de, 0x5df, 0x5e0, 0x5e1, 0x5e2, 0x5e3, 0x5e4, 0x5e5, 0x5e6, 0x5e7, 0x5e8, 0x5e9, 0x5ea, 0x5ef, 0x5f0
 };
 
 void BM_collation_element_lookup_029(benchmark::State & state)
@@ -1853,7 +1853,7 @@ void BM_collation_element_lookup_029(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_029);
 
 uint32_t cps_030[] = {
-0x5f4, 0x600, 0x601, 0x602, 0x603, 0x604, 0x605, 0x606, 0x607, 0x608, 0x609, 0x60a, 0x60b, 0x60c, 0x60d, 0x60e, 0x60f, 0x610, 0x611, 0x612, 0x613, 0x614, 0x615, 0x616, 0x617, 0x618, 0x619, 0x61a, 0x61b, 0x61c, 0x61e, 0x61f, 0x620, 0x621, 0x622, 0x623, 0x624, 0x625, 0x626, 0x627, 0x627, 0x653, 0x627, 0x654, 0x627, 0x655, 0x628, 0x629, 0x62a, 0x62b, 0x62c, 0x62d, 0x62e
+0x5f1, 0x5f2, 0x5f3, 0x5f4, 0x600, 0x601, 0x602, 0x603, 0x604, 0x605, 0x606, 0x607, 0x608, 0x609, 0x60a, 0x60b, 0x60c, 0x60d, 0x60e, 0x60f, 0x610, 0x611, 0x612, 0x613, 0x614, 0x615, 0x616, 0x617, 0x618, 0x619, 0x61a, 0x61b, 0x61c, 0x61d, 0x61e, 0x61f, 0x620, 0x621, 0x622, 0x623, 0x624, 0x625, 0x626, 0x627, 0x627, 0x653, 0x627, 0x654, 0x627, 0x655, 0x628, 0x629, 0x62a
 };
 
 void BM_collation_element_lookup_030(benchmark::State & state)
@@ -1899,13 +1899,13 @@ void BM_collation_element_lookup_030(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_030 + 37, cps_030 + 38));
             benchmark::DoNotOptimize(trie().longest_match(cps_030 + 38, cps_030 + 39));
             benchmark::DoNotOptimize(trie().longest_match(cps_030 + 39, cps_030 + 40));
-            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 40, cps_030 + 42));
-            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 42, cps_030 + 44));
+            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 40, cps_030 + 41));
+            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 41, cps_030 + 42));
+            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 42, cps_030 + 43));
+            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 43, cps_030 + 44));
             benchmark::DoNotOptimize(trie().longest_match(cps_030 + 44, cps_030 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 46, cps_030 + 47));
-            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 47, cps_030 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 48, cps_030 + 49));
-            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 49, cps_030 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 46, cps_030 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_030 + 48, cps_030 + 50));
             benchmark::DoNotOptimize(trie().longest_match(cps_030 + 50, cps_030 + 51));
             benchmark::DoNotOptimize(trie().longest_match(cps_030 + 51, cps_030 + 52));
             benchmark::DoNotOptimize(trie().longest_match(cps_030 + 52, cps_030 + 53));
@@ -1914,7 +1914,7 @@ void BM_collation_element_lookup_030(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_030);
 
 uint32_t cps_031[] = {
-0x62f, 0x630, 0x631, 0x632, 0x633, 0x634, 0x635, 0x636, 0x637, 0x638, 0x639, 0x63a, 0x63b, 0x63c, 0x63d, 0x63e, 0x63f, 0x640, 0x641, 0x642, 0x643, 0x644, 0x645, 0x646, 0x647, 0x648, 0x648, 0x654, 0x649, 0x64a, 0x64a, 0x654, 0x64b, 0x64c, 0x64d, 0x64e, 0x64f, 0x650, 0x651, 0x652, 0x653, 0x654, 0x655, 0x656, 0x657, 0x658, 0x659, 0x65a, 0x65b, 0x65c, 0x65d, 0x65e
+0x62b, 0x62c, 0x62d, 0x62e, 0x62f, 0x630, 0x631, 0x632, 0x633, 0x634, 0x635, 0x636, 0x637, 0x638, 0x639, 0x63a, 0x63b, 0x63c, 0x63d, 0x63e, 0x63f, 0x640, 0x641, 0x642, 0x643, 0x644, 0x645, 0x646, 0x647, 0x648, 0x648, 0x654, 0x649, 0x64a, 0x64a, 0x654, 0x64b, 0x64c, 0x64d, 0x64e, 0x64f, 0x650, 0x651, 0x652, 0x653, 0x654, 0x655, 0x656, 0x657, 0x658, 0x659, 0x65a
 };
 
 void BM_collation_element_lookup_031(benchmark::State & state)
@@ -1946,14 +1946,14 @@ void BM_collation_element_lookup_031(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_031 + 23, cps_031 + 24));
             benchmark::DoNotOptimize(trie().longest_match(cps_031 + 24, cps_031 + 25));
             benchmark::DoNotOptimize(trie().longest_match(cps_031 + 25, cps_031 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_031 + 26, cps_031 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_031 + 26, cps_031 + 27));
+            benchmark::DoNotOptimize(trie().longest_match(cps_031 + 27, cps_031 + 28));
             benchmark::DoNotOptimize(trie().longest_match(cps_031 + 28, cps_031 + 29));
             benchmark::DoNotOptimize(trie().longest_match(cps_031 + 29, cps_031 + 30));
             benchmark::DoNotOptimize(trie().longest_match(cps_031 + 30, cps_031 + 32));
             benchmark::DoNotOptimize(trie().longest_match(cps_031 + 32, cps_031 + 33));
             benchmark::DoNotOptimize(trie().longest_match(cps_031 + 33, cps_031 + 34));
-            benchmark::DoNotOptimize(trie().longest_match(cps_031 + 34, cps_031 + 35));
-            benchmark::DoNotOptimize(trie().longest_match(cps_031 + 35, cps_031 + 36));
+            benchmark::DoNotOptimize(trie().longest_match(cps_031 + 34, cps_031 + 36));
             benchmark::DoNotOptimize(trie().longest_match(cps_031 + 36, cps_031 + 37));
             benchmark::DoNotOptimize(trie().longest_match(cps_031 + 37, cps_031 + 38));
             benchmark::DoNotOptimize(trie().longest_match(cps_031 + 38, cps_031 + 39));
@@ -1975,7 +1975,7 @@ void BM_collation_element_lookup_031(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_031);
 
 uint32_t cps_032[] = {
-0x65f, 0x660, 0x661, 0x662, 0x663, 0x664, 0x665, 0x666, 0x667, 0x668, 0x669, 0x66a, 0x66b, 0x66c, 0x66d, 0x66e, 0x66f, 0x670, 0x671, 0x672, 0x673, 0x674, 0x675, 0x676, 0x677, 0x678, 0x679, 0x67a, 0x67b, 0x67c, 0x67d, 0x67e, 0x67f, 0x680, 0x681, 0x682, 0x683, 0x684, 0x685, 0x686, 0x687, 0x688, 0x689, 0x68a, 0x68b, 0x68c, 0x68d, 0x68e, 0x68f, 0x690
+0x65b, 0x65c, 0x65d, 0x65e, 0x65f, 0x660, 0x661, 0x662, 0x663, 0x664, 0x665, 0x666, 0x667, 0x668, 0x669, 0x66a, 0x66b, 0x66c, 0x66d, 0x66e, 0x66f, 0x670, 0x671, 0x672, 0x673, 0x674, 0x675, 0x676, 0x677, 0x678, 0x679, 0x67a, 0x67b, 0x67c, 0x67d, 0x67e, 0x67f, 0x680, 0x681, 0x682, 0x683, 0x684, 0x685, 0x686, 0x687, 0x688, 0x689, 0x68a, 0x68b, 0x68c
 };
 
 void BM_collation_element_lookup_032(benchmark::State & state)
@@ -2036,7 +2036,7 @@ void BM_collation_element_lookup_032(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_032);
 
 uint32_t cps_033[] = {
-0x691, 0x692, 0x693, 0x694, 0x695, 0x696, 0x697, 0x698, 0x699, 0x69a, 0x69b, 0x69c, 0x69d, 0x69e, 0x69f, 0x6a0, 0x6a1, 0x6a2, 0x6a3, 0x6a4, 0x6a5, 0x6a6, 0x6a7, 0x6a8, 0x6a9, 0x6aa, 0x6ab, 0x6ac, 0x6ad, 0x6ae, 0x6af, 0x6b0, 0x6b1, 0x6b2, 0x6b3, 0x6b4, 0x6b5, 0x6b6, 0x6b7, 0x6b8, 0x6b9, 0x6ba, 0x6bb, 0x6bc, 0x6bd, 0x6be, 0x6bf, 0x6c0, 0x6c1, 0x6c2
+0x68d, 0x68e, 0x68f, 0x690, 0x691, 0x692, 0x693, 0x694, 0x695, 0x696, 0x697, 0x698, 0x699, 0x69a, 0x69b, 0x69c, 0x69d, 0x69e, 0x69f, 0x6a0, 0x6a1, 0x6a2, 0x6a3, 0x6a4, 0x6a5, 0x6a6, 0x6a7, 0x6a8, 0x6a9, 0x6aa, 0x6ab, 0x6ac, 0x6ad, 0x6ae, 0x6af, 0x6b0, 0x6b1, 0x6b2, 0x6b3, 0x6b4, 0x6b5, 0x6b6, 0x6b7, 0x6b8, 0x6b9, 0x6ba, 0x6bb, 0x6bc, 0x6bd, 0x6be
 };
 
 void BM_collation_element_lookup_033(benchmark::State & state)
@@ -2097,7 +2097,7 @@ void BM_collation_element_lookup_033(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_033);
 
 uint32_t cps_034[] = {
-0x6c3, 0x6c4, 0x6c5, 0x6c6, 0x6c7, 0x6c8, 0x6c9, 0x6ca, 0x6cb, 0x6cc, 0x6cd, 0x6ce, 0x6cf, 0x6d0, 0x6d1, 0x6d2, 0x6d3, 0x6d4, 0x6d5, 0x6d6, 0x6d7, 0x6d8, 0x6d9, 0x6da, 0x6db, 0x6dc, 0x6dd, 0x6de, 0x6df, 0x6e0, 0x6e1, 0x6e2, 0x6e3, 0x6e4, 0x6e5, 0x6e6, 0x6e7, 0x6e8, 0x6e9, 0x6ea, 0x6eb, 0x6ec, 0x6ed, 0x6ee, 0x6ef, 0x6f0, 0x6f1, 0x6f2, 0x6f3, 0x6f4
+0x6bf, 0x6c0, 0x6c1, 0x6c2, 0x6c3, 0x6c4, 0x6c5, 0x6c6, 0x6c7, 0x6c8, 0x6c9, 0x6ca, 0x6cb, 0x6cc, 0x6cd, 0x6ce, 0x6cf, 0x6d0, 0x6d1, 0x6d2, 0x6d3, 0x6d4, 0x6d5, 0x6d6, 0x6d7, 0x6d8, 0x6d9, 0x6da, 0x6db, 0x6dc, 0x6dd, 0x6de, 0x6df, 0x6e0, 0x6e1, 0x6e2, 0x6e3, 0x6e4, 0x6e5, 0x6e6, 0x6e7, 0x6e8, 0x6e9, 0x6ea, 0x6eb, 0x6ec, 0x6ed, 0x6ee, 0x6ef, 0x6f0
 };
 
 void BM_collation_element_lookup_034(benchmark::State & state)
@@ -2158,7 +2158,7 @@ void BM_collation_element_lookup_034(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_034);
 
 uint32_t cps_035[] = {
-0x6f5, 0x6f6, 0x6f7, 0x6f8, 0x6f9, 0x6fa, 0x6fb, 0x6fc, 0x6fd, 0x6fe, 0x6ff, 0x700, 0x701, 0x702, 0x703, 0x704, 0x705, 0x706, 0x707, 0x708, 0x709, 0x70a, 0x70b, 0x70c, 0x70d, 0x70f, 0x710, 0x711, 0x712, 0x713, 0x714, 0x715, 0x716, 0x717, 0x718, 0x719, 0x71a, 0x71b, 0x71c, 0x71d, 0x71e, 0x71f, 0x720, 0x721, 0x722, 0x723, 0x724, 0x725, 0x726, 0x727
+0x6f1, 0x6f2, 0x6f3, 0x6f4, 0x6f5, 0x6f6, 0x6f7, 0x6f8, 0x6f9, 0x6fa, 0x6fb, 0x6fc, 0x6fd, 0x6fe, 0x6ff, 0x700, 0x701, 0x702, 0x703, 0x704, 0x705, 0x706, 0x707, 0x708, 0x709, 0x70a, 0x70b, 0x70c, 0x70d, 0x70f, 0x710, 0x711, 0x712, 0x713, 0x714, 0x715, 0x716, 0x717, 0x718, 0x719, 0x71a, 0x71b, 0x71c, 0x71d, 0x71e, 0x71f, 0x720, 0x721, 0x722, 0x723
 };
 
 void BM_collation_element_lookup_035(benchmark::State & state)
@@ -2219,7 +2219,7 @@ void BM_collation_element_lookup_035(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_035);
 
 uint32_t cps_036[] = {
-0x728, 0x729, 0x72a, 0x72b, 0x72c, 0x72d, 0x72e, 0x72f, 0x730, 0x731, 0x732, 0x733, 0x734, 0x735, 0x736, 0x737, 0x738, 0x739, 0x73a, 0x73b, 0x73c, 0x73d, 0x73e, 0x73f, 0x740, 0x741, 0x742, 0x743, 0x744, 0x745, 0x746, 0x747, 0x748, 0x749, 0x74a, 0x74d, 0x74e, 0x74f, 0x750, 0x751, 0x752, 0x753, 0x754, 0x755, 0x756, 0x757, 0x758, 0x759, 0x75a, 0x75b
+0x724, 0x725, 0x726, 0x727, 0x728, 0x729, 0x72a, 0x72b, 0x72c, 0x72d, 0x72e, 0x72f, 0x730, 0x731, 0x732, 0x733, 0x734, 0x735, 0x736, 0x737, 0x738, 0x739, 0x73a, 0x73b, 0x73c, 0x73d, 0x73e, 0x73f, 0x740, 0x741, 0x742, 0x743, 0x744, 0x745, 0x746, 0x747, 0x748, 0x749, 0x74a, 0x74d, 0x74e, 0x74f, 0x750, 0x751, 0x752, 0x753, 0x754, 0x755, 0x756, 0x757
 };
 
 void BM_collation_element_lookup_036(benchmark::State & state)
@@ -2280,7 +2280,7 @@ void BM_collation_element_lookup_036(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_036);
 
 uint32_t cps_037[] = {
-0x75c, 0x75d, 0x75e, 0x75f, 0x760, 0x761, 0x762, 0x763, 0x764, 0x765, 0x766, 0x767, 0x768, 0x769, 0x76a, 0x76b, 0x76c, 0x76d, 0x76e, 0x76f, 0x770, 0x771, 0x772, 0x773, 0x774, 0x775, 0x776, 0x777, 0x778, 0x779, 0x77a, 0x77b, 0x77c, 0x77d, 0x77e, 0x77f, 0x780, 0x781, 0x782, 0x783, 0x784, 0x785, 0x786, 0x787, 0x788, 0x789, 0x78a, 0x78b, 0x78c, 0x78d
+0x758, 0x759, 0x75a, 0x75b, 0x75c, 0x75d, 0x75e, 0x75f, 0x760, 0x761, 0x762, 0x763, 0x764, 0x765, 0x766, 0x767, 0x768, 0x769, 0x76a, 0x76b, 0x76c, 0x76d, 0x76e, 0x76f, 0x770, 0x771, 0x772, 0x773, 0x774, 0x775, 0x776, 0x777, 0x778, 0x779, 0x77a, 0x77b, 0x77c, 0x77d, 0x77e, 0x77f, 0x780, 0x781, 0x782, 0x783, 0x784, 0x785, 0x786, 0x787, 0x788, 0x789
 };
 
 void BM_collation_element_lookup_037(benchmark::State & state)
@@ -2341,7 +2341,7 @@ void BM_collation_element_lookup_037(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_037);
 
 uint32_t cps_038[] = {
-0x78e, 0x78f, 0x790, 0x791, 0x792, 0x793, 0x794, 0x795, 0x796, 0x797, 0x798, 0x799, 0x79a, 0x79b, 0x79c, 0x79d, 0x79e, 0x79f, 0x7a0, 0x7a1, 0x7a2, 0x7a3, 0x7a4, 0x7a5, 0x7a6, 0x7a7, 0x7a8, 0x7a9, 0x7aa, 0x7ab, 0x7ac, 0x7ad, 0x7ae, 0x7af, 0x7b0, 0x7b1, 0x7c0, 0x7c1, 0x7c2, 0x7c3, 0x7c4, 0x7c5, 0x7c6, 0x7c7, 0x7c8, 0x7c9, 0x7ca, 0x7cb, 0x7cc, 0x7cd
+0x78a, 0x78b, 0x78c, 0x78d, 0x78e, 0x78f, 0x790, 0x791, 0x792, 0x793, 0x794, 0x795, 0x796, 0x797, 0x798, 0x799, 0x79a, 0x79b, 0x79c, 0x79d, 0x79e, 0x79f, 0x7a0, 0x7a1, 0x7a2, 0x7a3, 0x7a4, 0x7a5, 0x7a6, 0x7a7, 0x7a8, 0x7a9, 0x7aa, 0x7ab, 0x7ac, 0x7ad, 0x7ae, 0x7af, 0x7b0, 0x7b1, 0x7c0, 0x7c1, 0x7c2, 0x7c3, 0x7c4, 0x7c5, 0x7c6, 0x7c7, 0x7c8, 0x7c9
 };
 
 void BM_collation_element_lookup_038(benchmark::State & state)
@@ -2402,7 +2402,7 @@ void BM_collation_element_lookup_038(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_038);
 
 uint32_t cps_039[] = {
-0x7ce, 0x7cf, 0x7d0, 0x7d1, 0x7d2, 0x7d3, 0x7d4, 0x7d5, 0x7d6, 0x7d7, 0x7d8, 0x7d9, 0x7da, 0x7db, 0x7dc, 0x7dd, 0x7de, 0x7df, 0x7e0, 0x7e1, 0x7e2, 0x7e3, 0x7e4, 0x7e5, 0x7e6, 0x7e7, 0x7e8, 0x7e9, 0x7ea, 0x7eb, 0x7ec, 0x7ed, 0x7ee, 0x7ef, 0x7f0, 0x7f1, 0x7f2, 0x7f3, 0x7f4, 0x7f5, 0x7f6, 0x7f7, 0x7f8, 0x7f9, 0x7fa, 0x800, 0x801, 0x802, 0x803, 0x804
+0x7ca, 0x7cb, 0x7cc, 0x7cd, 0x7ce, 0x7cf, 0x7d0, 0x7d1, 0x7d2, 0x7d3, 0x7d4, 0x7d5, 0x7d6, 0x7d7, 0x7d8, 0x7d9, 0x7da, 0x7db, 0x7dc, 0x7dd, 0x7de, 0x7df, 0x7e0, 0x7e1, 0x7e2, 0x7e3, 0x7e4, 0x7e5, 0x7e6, 0x7e7, 0x7e8, 0x7e9, 0x7ea, 0x7eb, 0x7ec, 0x7ed, 0x7ee, 0x7ef, 0x7f0, 0x7f1, 0x7f2, 0x7f3, 0x7f4, 0x7f5, 0x7f6, 0x7f7, 0x7f8, 0x7f9, 0x7fa, 0x7fd
 };
 
 void BM_collation_element_lookup_039(benchmark::State & state)
@@ -2463,7 +2463,7 @@ void BM_collation_element_lookup_039(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_039);
 
 uint32_t cps_040[] = {
-0x805, 0x806, 0x807, 0x808, 0x809, 0x80a, 0x80b, 0x80c, 0x80d, 0x80e, 0x80f, 0x810, 0x811, 0x812, 0x813, 0x814, 0x815, 0x816, 0x817, 0x818, 0x819, 0x81a, 0x81b, 0x81c, 0x81d, 0x81e, 0x81f, 0x820, 0x821, 0x822, 0x823, 0x824, 0x825, 0x826, 0x827, 0x828, 0x829, 0x82a, 0x82b, 0x82c, 0x82d, 0x830, 0x831, 0x832, 0x833, 0x834, 0x835, 0x836, 0x837, 0x838
+0x7fe, 0x7ff, 0x800, 0x801, 0x802, 0x803, 0x804, 0x805, 0x806, 0x807, 0x808, 0x809, 0x80a, 0x80b, 0x80c, 0x80d, 0x80e, 0x80f, 0x810, 0x811, 0x812, 0x813, 0x814, 0x815, 0x816, 0x817, 0x818, 0x819, 0x81a, 0x81b, 0x81c, 0x81d, 0x81e, 0x81f, 0x820, 0x821, 0x822, 0x823, 0x824, 0x825, 0x826, 0x827, 0x828, 0x829, 0x82a, 0x82b, 0x82c, 0x82d, 0x830, 0x831
 };
 
 void BM_collation_element_lookup_040(benchmark::State & state)
@@ -2524,7 +2524,7 @@ void BM_collation_element_lookup_040(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_040);
 
 uint32_t cps_041[] = {
-0x839, 0x83a, 0x83b, 0x83c, 0x83d, 0x83e, 0x840, 0x841, 0x842, 0x843, 0x844, 0x845, 0x846, 0x847, 0x848, 0x849, 0x84a, 0x84b, 0x84c, 0x84d, 0x84e, 0x84f, 0x850, 0x851, 0x852, 0x853, 0x854, 0x855, 0x856, 0x857, 0x858, 0x859, 0x85a, 0x85b, 0x85e, 0x860, 0x861, 0x862, 0x863, 0x864, 0x865, 0x866, 0x867, 0x868, 0x869, 0x86a, 0x8a0, 0x8a1, 0x8a2, 0x8a3
+0x832, 0x833, 0x834, 0x835, 0x836, 0x837, 0x838, 0x839, 0x83a, 0x83b, 0x83c, 0x83d, 0x83e, 0x840, 0x841, 0x842, 0x843, 0x844, 0x845, 0x846, 0x847, 0x848, 0x849, 0x84a, 0x84b, 0x84c, 0x84d, 0x84e, 0x84f, 0x850, 0x851, 0x852, 0x853, 0x854, 0x855, 0x856, 0x857, 0x858, 0x859, 0x85a, 0x85b, 0x85e, 0x860, 0x861, 0x862, 0x863, 0x864, 0x865, 0x866, 0x867
 };
 
 void BM_collation_element_lookup_041(benchmark::State & state)
@@ -2585,7 +2585,7 @@ void BM_collation_element_lookup_041(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_041);
 
 uint32_t cps_042[] = {
-0x8a4, 0x8a5, 0x8a6, 0x8a7, 0x8a8, 0x8a9, 0x8aa, 0x8ab, 0x8ac, 0x8ad, 0x8ae, 0x8af, 0x8b0, 0x8b1, 0x8b2, 0x8b3, 0x8b4, 0x8b6, 0x8b7, 0x8b8, 0x8b9, 0x8ba, 0x8bb, 0x8bc, 0x8bd, 0x8d4, 0x8d5, 0x8d6, 0x8d7, 0x8d8, 0x8d9, 0x8da, 0x8db, 0x8dc, 0x8dd, 0x8de, 0x8df, 0x8e0, 0x8e1, 0x8e2, 0x8e3, 0x8e4, 0x8e5, 0x8e6, 0x8e7, 0x8e8, 0x8e9, 0x8ea, 0x8eb, 0x8ec
+0x868, 0x869, 0x86a, 0x870, 0x871, 0x872, 0x873, 0x874, 0x875, 0x876, 0x877, 0x878, 0x879, 0x87a, 0x87b, 0x87c, 0x87d, 0x87e, 0x87f, 0x880, 0x881, 0x882, 0x883, 0x884, 0x885, 0x886, 0x887, 0x888, 0x889, 0x88a, 0x88b, 0x88c, 0x88d, 0x88e, 0x890, 0x891, 0x898, 0x899, 0x89a, 0x89b, 0x89c, 0x89d, 0x89e, 0x89f, 0x8a0, 0x8a1, 0x8a2, 0x8a3, 0x8a4, 0x8a5
 };
 
 void BM_collation_element_lookup_042(benchmark::State & state)
@@ -2646,7 +2646,7 @@ void BM_collation_element_lookup_042(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_042);
 
 uint32_t cps_043[] = {
-0x8ed, 0x8ee, 0x8ef, 0x8f0, 0x8f1, 0x8f2, 0x8f3, 0x8f4, 0x8f5, 0x8f6, 0x8f7, 0x8f8, 0x8f9, 0x8fa, 0x8fb, 0x8fc, 0x8fd, 0x8fe, 0x8ff, 0x900, 0x901, 0x902, 0x903, 0x904, 0x905, 0x906, 0x907, 0x908, 0x909, 0x90a, 0x90b, 0x90c, 0x90d, 0x90e, 0x90f, 0x910, 0x911, 0x912, 0x913, 0x914, 0x915, 0x916, 0x917, 0x918, 0x919, 0x91a, 0x91b, 0x91c, 0x91d, 0x91e
+0x8a6, 0x8a7, 0x8a8, 0x8a9, 0x8aa, 0x8ab, 0x8ac, 0x8ad, 0x8ae, 0x8af, 0x8b0, 0x8b1, 0x8b2, 0x8b3, 0x8b4, 0x8b5, 0x8b6, 0x8b7, 0x8b8, 0x8b9, 0x8ba, 0x8bb, 0x8bc, 0x8bd, 0x8be, 0x8bf, 0x8c0, 0x8c1, 0x8c2, 0x8c3, 0x8c4, 0x8c5, 0x8c6, 0x8c7, 0x8c8, 0x8c9, 0x8ca, 0x8cb, 0x8cc, 0x8cd, 0x8ce, 0x8cf, 0x8d0, 0x8d1, 0x8d2, 0x8d3, 0x8d4, 0x8d5, 0x8d6, 0x8d7
 };
 
 void BM_collation_element_lookup_043(benchmark::State & state)
@@ -2707,7 +2707,7 @@ void BM_collation_element_lookup_043(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_043);
 
 uint32_t cps_044[] = {
-0x91f, 0x920, 0x921, 0x922, 0x923, 0x924, 0x925, 0x926, 0x927, 0x928, 0x929, 0x92a, 0x92b, 0x92c, 0x92d, 0x92e, 0x92f, 0x930, 0x931, 0x932, 0x933, 0x934, 0x935, 0x936, 0x937, 0x938, 0x939, 0x93a, 0x93b, 0x93c, 0x93d, 0x93e, 0x93f, 0x940, 0x941, 0x942, 0x943, 0x944, 0x945, 0x946, 0x947, 0x948, 0x949, 0x94a, 0x94b, 0x94c, 0x94d, 0x94e, 0x94f, 0x950
+0x8d8, 0x8d9, 0x8da, 0x8db, 0x8dc, 0x8dd, 0x8de, 0x8df, 0x8e0, 0x8e1, 0x8e2, 0x8e3, 0x8e4, 0x8e5, 0x8e6, 0x8e7, 0x8e8, 0x8e9, 0x8ea, 0x8eb, 0x8ec, 0x8ed, 0x8ee, 0x8ef, 0x8f0, 0x8f1, 0x8f2, 0x8f3, 0x8f4, 0x8f5, 0x8f6, 0x8f7, 0x8f8, 0x8f9, 0x8fa, 0x8fb, 0x8fc, 0x8fd, 0x8fe, 0x8ff, 0x900, 0x901, 0x902, 0x903, 0x904, 0x905, 0x906, 0x907, 0x908, 0x909
 };
 
 void BM_collation_element_lookup_044(benchmark::State & state)
@@ -2768,7 +2768,7 @@ void BM_collation_element_lookup_044(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_044);
 
 uint32_t cps_045[] = {
-0x951, 0x952, 0x953, 0x954, 0x955, 0x956, 0x957, 0x958, 0x959, 0x95a, 0x95b, 0x95c, 0x95d, 0x95e, 0x95f, 0x960, 0x961, 0x962, 0x963, 0x964, 0x965, 0x966, 0x967, 0x968, 0x969, 0x96a, 0x96b, 0x96c, 0x96d, 0x96e, 0x96f, 0x970, 0x971, 0x972, 0x973, 0x974, 0x975, 0x976, 0x977, 0x978, 0x979, 0x97a, 0x97b, 0x97c, 0x97d, 0x97e, 0x97f, 0x980, 0x981, 0x982
+0x90a, 0x90b, 0x90c, 0x90d, 0x90e, 0x90f, 0x910, 0x911, 0x912, 0x913, 0x914, 0x915, 0x916, 0x917, 0x918, 0x919, 0x91a, 0x91b, 0x91c, 0x91d, 0x91e, 0x91f, 0x920, 0x921, 0x922, 0x923, 0x924, 0x925, 0x926, 0x927, 0x928, 0x929, 0x92a, 0x92b, 0x92c, 0x92d, 0x92e, 0x92f, 0x930, 0x931, 0x932, 0x933, 0x934, 0x935, 0x936, 0x937, 0x938, 0x939, 0x93a, 0x93b
 };
 
 void BM_collation_element_lookup_045(benchmark::State & state)
@@ -2829,7 +2829,7 @@ void BM_collation_element_lookup_045(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_045);
 
 uint32_t cps_046[] = {
-0x983, 0x985, 0x986, 0x987, 0x988, 0x989, 0x98a, 0x98b, 0x98c, 0x98f, 0x990, 0x993, 0x994, 0x995, 0x996, 0x997, 0x998, 0x999, 0x99a, 0x99b, 0x99c, 0x99d, 0x99e, 0x99f, 0x9a0, 0x9a1, 0x9a2, 0x9a3, 0x9a4, 0x9a5, 0x9a6, 0x9a7, 0x9a8, 0x9aa, 0x9ab, 0x9ac, 0x9ad, 0x9ae, 0x9af, 0x9b0, 0x9b2, 0x9b6, 0x9b7, 0x9b8, 0x9b9, 0x9bc, 0x9bd, 0x9be, 0x9bf, 0x9c0
+0x93c, 0x93d, 0x93e, 0x93f, 0x940, 0x941, 0x942, 0x943, 0x944, 0x945, 0x946, 0x947, 0x948, 0x949, 0x94a, 0x94b, 0x94c, 0x94d, 0x94e, 0x94f, 0x950, 0x951, 0x952, 0x953, 0x954, 0x955, 0x956, 0x957, 0x958, 0x959, 0x95a, 0x95b, 0x95c, 0x95d, 0x95e, 0x95f, 0x960, 0x961, 0x962, 0x963, 0x964, 0x965, 0x966, 0x967, 0x968, 0x969, 0x96a, 0x96b, 0x96c, 0x96d
 };
 
 void BM_collation_element_lookup_046(benchmark::State & state)
@@ -2890,7 +2890,7 @@ void BM_collation_element_lookup_046(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_046);
 
 uint32_t cps_047[] = {
-0x9c1, 0x9c2, 0x9c3, 0x9c4, 0x9c7, 0x9c7, 0x9be, 0x9c7, 0x9d7, 0x9c8, 0x9cb, 0x9cc, 0x9cd, 0x9ce, 0x9d7, 0x9dc, 0x9dd, 0x9df, 0x9e0, 0x9e1, 0x9e2, 0x9e3, 0x9e6, 0x9e7, 0x9e8, 0x9e9, 0x9ea, 0x9eb, 0x9ec, 0x9ed, 0x9ee, 0x9ef, 0x9f0, 0x9f1, 0x9f2, 0x9f3, 0x9f4, 0x9f5, 0x9f6, 0x9f7, 0x9f8, 0x9f9, 0x9fa, 0x9fb, 0x9fc, 0x9fd, 0xa01, 0xa02, 0xa03, 0xa05, 0xa06, 0xa07
+0x96e, 0x96f, 0x970, 0x971, 0x972, 0x973, 0x974, 0x975, 0x976, 0x977, 0x978, 0x979, 0x97a, 0x97b, 0x97c, 0x97d, 0x97e, 0x97f, 0x980, 0x981, 0x982, 0x983, 0x985, 0x986, 0x987, 0x988, 0x989, 0x98a, 0x98b, 0x98c, 0x98f, 0x990, 0x993, 0x994, 0x995, 0x996, 0x997, 0x998, 0x999, 0x99a, 0x99b, 0x99c, 0x99d, 0x99e, 0x99f, 0x9a0, 0x9a1, 0x9a2, 0x9a3, 0x9a4
 };
 
 void BM_collation_element_lookup_047(benchmark::State & state)
@@ -2901,8 +2901,10 @@ void BM_collation_element_lookup_047(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_047 + 2, cps_047 + 3));
             benchmark::DoNotOptimize(trie().longest_match(cps_047 + 3, cps_047 + 4));
             benchmark::DoNotOptimize(trie().longest_match(cps_047 + 4, cps_047 + 5));
-            benchmark::DoNotOptimize(trie().longest_match(cps_047 + 5, cps_047 + 7));
-            benchmark::DoNotOptimize(trie().longest_match(cps_047 + 7, cps_047 + 9));
+            benchmark::DoNotOptimize(trie().longest_match(cps_047 + 5, cps_047 + 6));
+            benchmark::DoNotOptimize(trie().longest_match(cps_047 + 6, cps_047 + 7));
+            benchmark::DoNotOptimize(trie().longest_match(cps_047 + 7, cps_047 + 8));
+            benchmark::DoNotOptimize(trie().longest_match(cps_047 + 8, cps_047 + 9));
             benchmark::DoNotOptimize(trie().longest_match(cps_047 + 9, cps_047 + 10));
             benchmark::DoNotOptimize(trie().longest_match(cps_047 + 10, cps_047 + 11));
             benchmark::DoNotOptimize(trie().longest_match(cps_047 + 11, cps_047 + 12));
@@ -2944,14 +2946,12 @@ void BM_collation_element_lookup_047(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_047 + 47, cps_047 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_047 + 48, cps_047 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_047 + 49, cps_047 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_047 + 50, cps_047 + 51));
-            benchmark::DoNotOptimize(trie().longest_match(cps_047 + 51, cps_047 + 52));
     }
 }
 BENCHMARK(BM_collation_element_lookup_047);
 
 uint32_t cps_048[] = {
-0xa08, 0xa09, 0xa0a, 0xa0f, 0xa10, 0xa13, 0xa14, 0xa15, 0xa16, 0xa17, 0xa18, 0xa19, 0xa1a, 0xa1b, 0xa1c, 0xa1d, 0xa1e, 0xa1f, 0xa20, 0xa21, 0xa22, 0xa23, 0xa24, 0xa25, 0xa26, 0xa27, 0xa28, 0xa2a, 0xa2b, 0xa2c, 0xa2d, 0xa2e, 0xa2f, 0xa30, 0xa32, 0xa33, 0xa35, 0xa36, 0xa38, 0xa39, 0xa3c, 0xa3e, 0xa3f, 0xa40, 0xa41, 0xa42, 0xa47, 0xa48, 0xa4b, 0xa4c
+0x9a5, 0x9a6, 0x9a7, 0x9a8, 0x9aa, 0x9ab, 0x9ac, 0x9ad, 0x9ae, 0x9af, 0x9b0, 0x9b2, 0x9b6, 0x9b7, 0x9b8, 0x9b9, 0x9bc, 0x9bd, 0x9be, 0x9bf, 0x9c0, 0x9c1, 0x9c2, 0x9c3, 0x9c4, 0x9c7, 0x9c7, 0x9be, 0x9c7, 0x9d7, 0x9c8, 0x9cb, 0x9cc, 0x9cd, 0x9ce, 0x9d7, 0x9dc, 0x9dd, 0x9df, 0x9e0, 0x9e1, 0x9e2, 0x9e3, 0x9e6, 0x9e7, 0x9e8, 0x9e9, 0x9ea, 0x9eb, 0x9ec, 0x9ed, 0x9ee
 };
 
 void BM_collation_element_lookup_048(benchmark::State & state)
@@ -2983,10 +2983,8 @@ void BM_collation_element_lookup_048(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_048 + 23, cps_048 + 24));
             benchmark::DoNotOptimize(trie().longest_match(cps_048 + 24, cps_048 + 25));
             benchmark::DoNotOptimize(trie().longest_match(cps_048 + 25, cps_048 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_048 + 26, cps_048 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_048 + 27, cps_048 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_048 + 28, cps_048 + 29));
-            benchmark::DoNotOptimize(trie().longest_match(cps_048 + 29, cps_048 + 30));
+            benchmark::DoNotOptimize(trie().longest_match(cps_048 + 26, cps_048 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_048 + 28, cps_048 + 30));
             benchmark::DoNotOptimize(trie().longest_match(cps_048 + 30, cps_048 + 31));
             benchmark::DoNotOptimize(trie().longest_match(cps_048 + 31, cps_048 + 32));
             benchmark::DoNotOptimize(trie().longest_match(cps_048 + 32, cps_048 + 33));
@@ -3007,12 +3005,14 @@ void BM_collation_element_lookup_048(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_048 + 47, cps_048 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_048 + 48, cps_048 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_048 + 49, cps_048 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_048 + 50, cps_048 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_048 + 51, cps_048 + 52));
     }
 }
 BENCHMARK(BM_collation_element_lookup_048);
 
 uint32_t cps_049[] = {
-0xa4d, 0xa51, 0xa59, 0xa5a, 0xa5b, 0xa5c, 0xa5e, 0xa66, 0xa67, 0xa68, 0xa69, 0xa6a, 0xa6b, 0xa6c, 0xa6d, 0xa6e, 0xa6f, 0xa70, 0xa71, 0xa72, 0xa73, 0xa74, 0xa75, 0xa81, 0xa82, 0xa83, 0xa85, 0xa86, 0xa87, 0xa88, 0xa89, 0xa8a, 0xa8b, 0xa8c, 0xa8d, 0xa8f, 0xa90, 0xa91, 0xa93, 0xa94, 0xa95, 0xa96, 0xa97, 0xa98, 0xa99, 0xa9a, 0xa9b, 0xa9c, 0xa9d, 0xa9e
+0x9ef, 0x9f0, 0x9f1, 0x9f2, 0x9f3, 0x9f4, 0x9f5, 0x9f6, 0x9f7, 0x9f8, 0x9f9, 0x9fa, 0x9fb, 0x9fc, 0x9fd, 0x9fe, 0xa01, 0xa02, 0xa03, 0xa05, 0xa06, 0xa07, 0xa08, 0xa09, 0xa0a, 0xa0f, 0xa10, 0xa13, 0xa14, 0xa15, 0xa16, 0xa17, 0xa18, 0xa19, 0xa1a, 0xa1b, 0xa1c, 0xa1d, 0xa1e, 0xa1f, 0xa20, 0xa21, 0xa22, 0xa23, 0xa24, 0xa25, 0xa26, 0xa27, 0xa28, 0xa2a
 };
 
 void BM_collation_element_lookup_049(benchmark::State & state)
@@ -3073,7 +3073,7 @@ void BM_collation_element_lookup_049(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_049);
 
 uint32_t cps_050[] = {
-0xa9f, 0xaa0, 0xaa1, 0xaa2, 0xaa3, 0xaa4, 0xaa5, 0xaa6, 0xaa7, 0xaa8, 0xaaa, 0xaab, 0xaac, 0xaad, 0xaae, 0xaaf, 0xab0, 0xab2, 0xab3, 0xab5, 0xab6, 0xab7, 0xab8, 0xab9, 0xabc, 0xabd, 0xabe, 0xabf, 0xac0, 0xac1, 0xac2, 0xac3, 0xac4, 0xac5, 0xac7, 0xac8, 0xac9, 0xacb, 0xacc, 0xacd, 0xad0, 0xae0, 0xae1, 0xae2, 0xae3, 0xae6, 0xae7, 0xae8, 0xae9, 0xaea
+0xa2b, 0xa2c, 0xa2d, 0xa2e, 0xa2f, 0xa30, 0xa32, 0xa33, 0xa35, 0xa36, 0xa38, 0xa39, 0xa3c, 0xa3e, 0xa3f, 0xa40, 0xa41, 0xa42, 0xa47, 0xa48, 0xa4b, 0xa4c, 0xa4d, 0xa51, 0xa59, 0xa5a, 0xa5b, 0xa5c, 0xa5e, 0xa66, 0xa67, 0xa68, 0xa69, 0xa6a, 0xa6b, 0xa6c, 0xa6d, 0xa6e, 0xa6f, 0xa70, 0xa71, 0xa72, 0xa73, 0xa74, 0xa75, 0xa76, 0xa81, 0xa82, 0xa83, 0xa85
 };
 
 void BM_collation_element_lookup_050(benchmark::State & state)
@@ -3134,7 +3134,7 @@ void BM_collation_element_lookup_050(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_050);
 
 uint32_t cps_051[] = {
-0xaeb, 0xaec, 0xaed, 0xaee, 0xaef, 0xaf0, 0xaf1, 0xaf9, 0xafa, 0xafb, 0xafc, 0xafd, 0xafe, 0xaff, 0xb01, 0xb02, 0xb03, 0xb05, 0xb06, 0xb07, 0xb08, 0xb09, 0xb0a, 0xb0b, 0xb0c, 0xb0f, 0xb10, 0xb13, 0xb14, 0xb15, 0xb16, 0xb17, 0xb18, 0xb19, 0xb1a, 0xb1b, 0xb1c, 0xb1d, 0xb1e, 0xb1f, 0xb20, 0xb21, 0xb22, 0xb23, 0xb24, 0xb25, 0xb26, 0xb27, 0xb28, 0xb2a
+0xa86, 0xa87, 0xa88, 0xa89, 0xa8a, 0xa8b, 0xa8c, 0xa8d, 0xa8f, 0xa90, 0xa91, 0xa93, 0xa94, 0xa95, 0xa96, 0xa97, 0xa98, 0xa99, 0xa9a, 0xa9b, 0xa9c, 0xa9d, 0xa9e, 0xa9f, 0xaa0, 0xaa1, 0xaa2, 0xaa3, 0xaa4, 0xaa5, 0xaa6, 0xaa7, 0xaa8, 0xaaa, 0xaab, 0xaac, 0xaad, 0xaae, 0xaaf, 0xab0, 0xab2, 0xab3, 0xab5, 0xab6, 0xab7, 0xab8, 0xab9, 0xabc, 0xabd, 0xabe
 };
 
 void BM_collation_element_lookup_051(benchmark::State & state)
@@ -3195,7 +3195,7 @@ void BM_collation_element_lookup_051(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_051);
 
 uint32_t cps_052[] = {
-0xb2b, 0xb2c, 0xb2d, 0xb2e, 0xb2f, 0xb30, 0xb32, 0xb33, 0xb35, 0xb36, 0xb37, 0xb38, 0xb39, 0xb3c, 0xb3d, 0xb3e, 0xb3f, 0xb40, 0xb41, 0xb42, 0xb43, 0xb44, 0xb47, 0xb47, 0xb3e, 0xb47, 0xb56, 0xb47, 0xb57, 0xb48, 0xb4b, 0xb4c, 0xb4d, 0xb56, 0xb57, 0xb5c, 0xb5d, 0xb5f, 0xb60, 0xb61, 0xb62, 0xb63, 0xb66, 0xb67, 0xb68, 0xb69, 0xb6a, 0xb6b, 0xb6c, 0xb6d, 0xb6e, 0xb6f, 0xb70
+0xabf, 0xac0, 0xac1, 0xac2, 0xac3, 0xac4, 0xac5, 0xac7, 0xac8, 0xac9, 0xacb, 0xacc, 0xacd, 0xad0, 0xae0, 0xae1, 0xae2, 0xae3, 0xae6, 0xae7, 0xae8, 0xae9, 0xaea, 0xaeb, 0xaec, 0xaed, 0xaee, 0xaef, 0xaf0, 0xaf1, 0xaf9, 0xafa, 0xafb, 0xafc, 0xafd, 0xafe, 0xaff, 0xb01, 0xb02, 0xb03, 0xb05, 0xb06, 0xb07, 0xb08, 0xb09, 0xb0a, 0xb0b, 0xb0c, 0xb0f, 0xb10
 };
 
 void BM_collation_element_lookup_052(benchmark::State & state)
@@ -3224,9 +3224,12 @@ void BM_collation_element_lookup_052(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_052 + 20, cps_052 + 21));
             benchmark::DoNotOptimize(trie().longest_match(cps_052 + 21, cps_052 + 22));
             benchmark::DoNotOptimize(trie().longest_match(cps_052 + 22, cps_052 + 23));
-            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 23, cps_052 + 25));
-            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 25, cps_052 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 27, cps_052 + 29));
+            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 23, cps_052 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 24, cps_052 + 25));
+            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 25, cps_052 + 26));
+            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 26, cps_052 + 27));
+            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 27, cps_052 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 28, cps_052 + 29));
             benchmark::DoNotOptimize(trie().longest_match(cps_052 + 29, cps_052 + 30));
             benchmark::DoNotOptimize(trie().longest_match(cps_052 + 30, cps_052 + 31));
             benchmark::DoNotOptimize(trie().longest_match(cps_052 + 31, cps_052 + 32));
@@ -3248,15 +3251,12 @@ void BM_collation_element_lookup_052(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_052 + 47, cps_052 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_052 + 48, cps_052 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_052 + 49, cps_052 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 50, cps_052 + 51));
-            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 51, cps_052 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_052 + 52, cps_052 + 53));
     }
 }
 BENCHMARK(BM_collation_element_lookup_052);
 
 uint32_t cps_053[] = {
-0xb71, 0xb72, 0xb73, 0xb74, 0xb75, 0xb76, 0xb77, 0xb82, 0xb83, 0xb85, 0xb86, 0xb87, 0xb88, 0xb89, 0xb8a, 0xb8e, 0xb8f, 0xb90, 0xb92, 0xb92, 0xbd7, 0xb93, 0xb94, 0xb95, 0xb99, 0xb9a, 0xb9c, 0xb9e, 0xb9f, 0xba3, 0xba4, 0xba8, 0xba9, 0xbaa, 0xbae, 0xbaf, 0xbb0, 0xbb1, 0xbb2, 0xbb3, 0xbb4, 0xbb5, 0xbb6, 0xbb7, 0xbb8, 0xbb9, 0xbbe, 0xbbf, 0xbc0, 0xbc1, 0xbc2
+0xb13, 0xb14, 0xb15, 0xb16, 0xb17, 0xb18, 0xb19, 0xb1a, 0xb1b, 0xb1c, 0xb1d, 0xb1e, 0xb1f, 0xb20, 0xb21, 0xb22, 0xb23, 0xb24, 0xb25, 0xb26, 0xb27, 0xb28, 0xb2a, 0xb2b, 0xb2c, 0xb2d, 0xb2e, 0xb2f, 0xb30, 0xb32, 0xb33, 0xb35, 0xb36, 0xb37, 0xb38, 0xb39, 0xb3c, 0xb3d, 0xb3e, 0xb3f, 0xb40, 0xb41, 0xb42, 0xb43, 0xb44, 0xb47, 0xb47, 0xb3e, 0xb47, 0xb56, 0xb47, 0xb57, 0xb48
 };
 
 void BM_collation_element_lookup_053(benchmark::State & state)
@@ -3281,7 +3281,8 @@ void BM_collation_element_lookup_053(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_053 + 16, cps_053 + 17));
             benchmark::DoNotOptimize(trie().longest_match(cps_053 + 17, cps_053 + 18));
             benchmark::DoNotOptimize(trie().longest_match(cps_053 + 18, cps_053 + 19));
-            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 19, cps_053 + 21));
+            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 19, cps_053 + 20));
+            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 20, cps_053 + 21));
             benchmark::DoNotOptimize(trie().longest_match(cps_053 + 21, cps_053 + 22));
             benchmark::DoNotOptimize(trie().longest_match(cps_053 + 22, cps_053 + 23));
             benchmark::DoNotOptimize(trie().longest_match(cps_053 + 23, cps_053 + 24));
@@ -3307,27 +3308,29 @@ void BM_collation_element_lookup_053(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_053 + 43, cps_053 + 44));
             benchmark::DoNotOptimize(trie().longest_match(cps_053 + 44, cps_053 + 45));
             benchmark::DoNotOptimize(trie().longest_match(cps_053 + 45, cps_053 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 46, cps_053 + 47));
-            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 47, cps_053 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 48, cps_053 + 49));
-            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 49, cps_053 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 50, cps_053 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 46, cps_053 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 48, cps_053 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 50, cps_053 + 52));
+            benchmark::DoNotOptimize(trie().longest_match(cps_053 + 52, cps_053 + 53));
     }
 }
 BENCHMARK(BM_collation_element_lookup_053);
 
 uint32_t cps_054[] = {
-0xbc6, 0xbc6, 0xbbe, 0xbc6, 0xbd7, 0xbc7, 0xbc7, 0xbbe, 0xbc8, 0xbca, 0xbcb, 0xbcc, 0xbcd, 0xbd0, 0xbd7, 0xbe6, 0xbe7, 0xbe8, 0xbe9, 0xbea, 0xbeb, 0xbec, 0xbed, 0xbee, 0xbef, 0xbf0, 0xbf1, 0xbf2, 0xbf3, 0xbf4, 0xbf5, 0xbf6, 0xbf7, 0xbf8, 0xbf9, 0xbfa, 0xc00, 0xc01, 0xc02, 0xc03, 0xc05, 0xc06, 0xc07, 0xc08, 0xc09, 0xc0a, 0xc0b, 0xc0c, 0xc0e, 0xc0f, 0xc10, 0xc12, 0xc13
+0xb4b, 0xb4c, 0xb4d, 0xb55, 0xb56, 0xb57, 0xb5c, 0xb5d, 0xb5f, 0xb60, 0xb61, 0xb62, 0xb63, 0xb66, 0xb67, 0xb68, 0xb69, 0xb6a, 0xb6b, 0xb6c, 0xb6d, 0xb6e, 0xb6f, 0xb70, 0xb71, 0xb72, 0xb73, 0xb74, 0xb75, 0xb76, 0xb77, 0xb82, 0xb83, 0xb85, 0xb86, 0xb87, 0xb88, 0xb89, 0xb8a, 0xb8e, 0xb8f, 0xb90, 0xb92, 0xb92, 0xbd7, 0xb93, 0xb94, 0xb95, 0xb99, 0xb9a, 0xb9c
 };
 
 void BM_collation_element_lookup_054(benchmark::State & state)
 {
     while (state.KeepRunning()) {
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 0, cps_054 + 1));
-            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 1, cps_054 + 3));
-            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 3, cps_054 + 5));
+            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 1, cps_054 + 2));
+            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 2, cps_054 + 3));
+            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 3, cps_054 + 4));
+            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 4, cps_054 + 5));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 5, cps_054 + 6));
-            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 6, cps_054 + 8));
+            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 6, cps_054 + 7));
+            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 7, cps_054 + 8));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 8, cps_054 + 9));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 9, cps_054 + 10));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 10, cps_054 + 11));
@@ -3363,22 +3366,19 @@ void BM_collation_element_lookup_054(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 40, cps_054 + 41));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 41, cps_054 + 42));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 42, cps_054 + 43));
-            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 43, cps_054 + 44));
-            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 44, cps_054 + 45));
+            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 43, cps_054 + 45));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 45, cps_054 + 46));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 46, cps_054 + 47));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 47, cps_054 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 48, cps_054 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 49, cps_054 + 50));
             benchmark::DoNotOptimize(trie().longest_match(cps_054 + 50, cps_054 + 51));
-            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 51, cps_054 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_054 + 52, cps_054 + 53));
     }
 }
 BENCHMARK(BM_collation_element_lookup_054);
 
 uint32_t cps_055[] = {
-0xc14, 0xc15, 0xc16, 0xc17, 0xc18, 0xc19, 0xc1a, 0xc1b, 0xc1c, 0xc1d, 0xc1e, 0xc1f, 0xc20, 0xc21, 0xc22, 0xc23, 0xc24, 0xc25, 0xc26, 0xc27, 0xc28, 0xc2a, 0xc2b, 0xc2c, 0xc2d, 0xc2e, 0xc2f, 0xc30, 0xc31, 0xc32, 0xc33, 0xc34, 0xc35, 0xc36, 0xc37, 0xc38, 0xc39, 0xc3d, 0xc3e, 0xc3f, 0xc40, 0xc41, 0xc42, 0xc43, 0xc44, 0xc46, 0xc46, 0xc56, 0xc47, 0xc48, 0xc4a
+0xb9e, 0xb9f, 0xba3, 0xba4, 0xba8, 0xba9, 0xbaa, 0xbae, 0xbaf, 0xbb0, 0xbb1, 0xbb2, 0xbb3, 0xbb4, 0xbb5, 0xbb6, 0xbb7, 0xbb8, 0xbb9, 0xbbe, 0xbbf, 0xbc0, 0xbc1, 0xbc2, 0xbc6, 0xbc6, 0xbbe, 0xbc6, 0xbd7, 0xbc7, 0xbc7, 0xbbe, 0xbc8, 0xbca, 0xbcb, 0xbcc, 0xbcd, 0xbd0, 0xbd7, 0xbe6, 0xbe7, 0xbe8, 0xbe9, 0xbea, 0xbeb, 0xbec, 0xbed, 0xbee, 0xbef, 0xbf0, 0xbf1, 0xbf2, 0xbf3
 };
 
 void BM_collation_element_lookup_055(benchmark::State & state)
@@ -3409,13 +3409,10 @@ void BM_collation_element_lookup_055(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 22, cps_055 + 23));
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 23, cps_055 + 24));
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 24, cps_055 + 25));
-            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 25, cps_055 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 26, cps_055 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 27, cps_055 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 28, cps_055 + 29));
+            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 25, cps_055 + 27));
+            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 27, cps_055 + 29));
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 29, cps_055 + 30));
-            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 30, cps_055 + 31));
-            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 31, cps_055 + 32));
+            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 30, cps_055 + 32));
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 32, cps_055 + 33));
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 33, cps_055 + 34));
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 34, cps_055 + 35));
@@ -3430,16 +3427,19 @@ void BM_collation_element_lookup_055(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 43, cps_055 + 44));
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 44, cps_055 + 45));
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 45, cps_055 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 46, cps_055 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 46, cps_055 + 47));
+            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 47, cps_055 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 48, cps_055 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 49, cps_055 + 50));
             benchmark::DoNotOptimize(trie().longest_match(cps_055 + 50, cps_055 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 51, cps_055 + 52));
+            benchmark::DoNotOptimize(trie().longest_match(cps_055 + 52, cps_055 + 53));
     }
 }
 BENCHMARK(BM_collation_element_lookup_055);
 
 uint32_t cps_056[] = {
-0xc4b, 0xc4c, 0xc4d, 0xc55, 0xc56, 0xc58, 0xc59, 0xc5a, 0xc60, 0xc61, 0xc62, 0xc63, 0xc66, 0xc67, 0xc68, 0xc69, 0xc6a, 0xc6b, 0xc6c, 0xc6d, 0xc6e, 0xc6f, 0xc78, 0xc79, 0xc7a, 0xc7b, 0xc7c, 0xc7d, 0xc7e, 0xc7f, 0xc80, 0xc81, 0xc82, 0xc83, 0xc85, 0xc86, 0xc87, 0xc88, 0xc89, 0xc8a, 0xc8b, 0xc8c, 0xc8e, 0xc8f, 0xc90, 0xc92, 0xc93, 0xc94, 0xc95, 0xc96
+0xbf4, 0xbf5, 0xbf6, 0xbf7, 0xbf8, 0xbf9, 0xbfa, 0xc00, 0xc01, 0xc02, 0xc03, 0xc04, 0xc05, 0xc06, 0xc07, 0xc08, 0xc09, 0xc0a, 0xc0b, 0xc0c, 0xc0e, 0xc0f, 0xc10, 0xc12, 0xc13, 0xc14, 0xc15, 0xc16, 0xc17, 0xc18, 0xc19, 0xc1a, 0xc1b, 0xc1c, 0xc1d, 0xc1e, 0xc1f, 0xc20, 0xc21, 0xc22, 0xc23, 0xc24, 0xc25, 0xc26, 0xc27, 0xc28, 0xc2a, 0xc2b, 0xc2c, 0xc2d
 };
 
 void BM_collation_element_lookup_056(benchmark::State & state)
@@ -3500,7 +3500,7 @@ void BM_collation_element_lookup_056(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_056);
 
 uint32_t cps_057[] = {
-0xc97, 0xc98, 0xc99, 0xc9a, 0xc9b, 0xc9c, 0xc9d, 0xc9e, 0xc9f, 0xca0, 0xca1, 0xca2, 0xca3, 0xca4, 0xca5, 0xca6, 0xca7, 0xca8, 0xcaa, 0xcab, 0xcac, 0xcad, 0xcae, 0xcaf, 0xcb0, 0xcb1, 0xcb2, 0xcb3, 0xcb5, 0xcb6, 0xcb7, 0xcb8, 0xcb9, 0xcbc, 0xcbd, 0xcbe, 0xcbf, 0xcbf, 0xcd5, 0xcc0, 0xcc1, 0xcc2, 0xcc3, 0xcc4, 0xcc6, 0xcc6, 0xcc2, 0xcc6, 0xcc2, 0xcd5, 0xcc6, 0xcd5, 0xcc6, 0xcd6, 0xcc7, 0xcc8
+0xc2e, 0xc2f, 0xc30, 0xc31, 0xc32, 0xc33, 0xc34, 0xc35, 0xc36, 0xc37, 0xc38, 0xc39, 0xc3c, 0xc3d, 0xc3e, 0xc3f, 0xc40, 0xc41, 0xc42, 0xc43, 0xc44, 0xc46, 0xc46, 0xc56, 0xc47, 0xc48, 0xc4a, 0xc4b, 0xc4c, 0xc4d, 0xc55, 0xc56, 0xc58, 0xc59, 0xc5a, 0xc5d, 0xc60, 0xc61, 0xc62, 0xc63, 0xc66, 0xc67, 0xc68, 0xc69, 0xc6a, 0xc6b, 0xc6c, 0xc6d, 0xc6e, 0xc6f, 0xc77
 };
 
 void BM_collation_element_lookup_057(benchmark::State & state)
@@ -3528,8 +3528,7 @@ void BM_collation_element_lookup_057(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 19, cps_057 + 20));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 20, cps_057 + 21));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 21, cps_057 + 22));
-            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 22, cps_057 + 23));
-            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 23, cps_057 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 22, cps_057 + 24));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 24, cps_057 + 25));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 25, cps_057 + 26));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 26, cps_057 + 27));
@@ -3543,32 +3542,34 @@ void BM_collation_element_lookup_057(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 34, cps_057 + 35));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 35, cps_057 + 36));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 36, cps_057 + 37));
-            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 37, cps_057 + 39));
+            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 37, cps_057 + 38));
+            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 38, cps_057 + 39));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 39, cps_057 + 40));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 40, cps_057 + 41));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 41, cps_057 + 42));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 42, cps_057 + 43));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 43, cps_057 + 44));
             benchmark::DoNotOptimize(trie().longest_match(cps_057 + 44, cps_057 + 45));
-            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 45, cps_057 + 47));
-            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 47, cps_057 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 50, cps_057 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 52, cps_057 + 54));
-            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 54, cps_057 + 55));
-            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 55, cps_057 + 56));
+            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 45, cps_057 + 46));
+            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 46, cps_057 + 47));
+            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 47, cps_057 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 48, cps_057 + 49));
+            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 49, cps_057 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_057 + 50, cps_057 + 51));
     }
 }
 BENCHMARK(BM_collation_element_lookup_057);
 
 uint32_t cps_058[] = {
-0xcca, 0xcca, 0xcd5, 0xccb, 0xccc, 0xccd, 0xcd5, 0xcd6, 0xcde, 0xce0, 0xce1, 0xce2, 0xce3, 0xce6, 0xce7, 0xce8, 0xce9, 0xcea, 0xceb, 0xcec, 0xced, 0xcee, 0xcef, 0xcf1, 0xcf2, 0xd00, 0xd01, 0xd02, 0xd03, 0xd05, 0xd06, 0xd07, 0xd08, 0xd09, 0xd0a, 0xd0b, 0xd0c, 0xd0e, 0xd0f, 0xd10, 0xd12, 0xd13, 0xd14, 0xd15, 0xd16, 0xd17, 0xd18, 0xd19, 0xd1a, 0xd1b, 0xd1c
+0xc78, 0xc79, 0xc7a, 0xc7b, 0xc7c, 0xc7d, 0xc7e, 0xc7f, 0xc80, 0xc81, 0xc82, 0xc83, 0xc84, 0xc85, 0xc86, 0xc87, 0xc88, 0xc89, 0xc8a, 0xc8b, 0xc8c, 0xc8e, 0xc8f, 0xc90, 0xc92, 0xc93, 0xc94, 0xc95, 0xc96, 0xc97, 0xc98, 0xc99, 0xc9a, 0xc9b, 0xc9c, 0xc9d, 0xc9e, 0xc9f, 0xca0, 0xca1, 0xca2, 0xca3, 0xca4, 0xca5, 0xca6, 0xca7, 0xca8, 0xcaa, 0xcab, 0xcac
 };
 
 void BM_collation_element_lookup_058(benchmark::State & state)
 {
     while (state.KeepRunning()) {
             benchmark::DoNotOptimize(trie().longest_match(cps_058 + 0, cps_058 + 1));
-            benchmark::DoNotOptimize(trie().longest_match(cps_058 + 1, cps_058 + 3));
+            benchmark::DoNotOptimize(trie().longest_match(cps_058 + 1, cps_058 + 2));
+            benchmark::DoNotOptimize(trie().longest_match(cps_058 + 2, cps_058 + 3));
             benchmark::DoNotOptimize(trie().longest_match(cps_058 + 3, cps_058 + 4));
             benchmark::DoNotOptimize(trie().longest_match(cps_058 + 4, cps_058 + 5));
             benchmark::DoNotOptimize(trie().longest_match(cps_058 + 5, cps_058 + 6));
@@ -3616,13 +3617,12 @@ void BM_collation_element_lookup_058(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_058 + 47, cps_058 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_058 + 48, cps_058 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_058 + 49, cps_058 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_058 + 50, cps_058 + 51));
     }
 }
 BENCHMARK(BM_collation_element_lookup_058);
 
 uint32_t cps_059[] = {
-0xd1d, 0xd1e, 0xd1f, 0xd20, 0xd21, 0xd22, 0xd23, 0xd24, 0xd25, 0xd26, 0xd27, 0xd28, 0xd29, 0xd2a, 0xd2b, 0xd2c, 0xd2d, 0xd2e, 0xd2f, 0xd30, 0xd31, 0xd32, 0xd33, 0xd34, 0xd35, 0xd36, 0xd37, 0xd38, 0xd39, 0xd3a, 0xd3b, 0xd3c, 0xd3d, 0xd3e, 0xd3f, 0xd40, 0xd41, 0xd42, 0xd43, 0xd44, 0xd46, 0xd46, 0xd3e, 0xd46, 0xd57, 0xd47, 0xd47, 0xd3e, 0xd48, 0xd4a, 0xd4b, 0xd4c, 0xd4d
+0xcad, 0xcae, 0xcaf, 0xcb0, 0xcb1, 0xcb2, 0xcb3, 0xcb5, 0xcb6, 0xcb7, 0xcb8, 0xcb9, 0xcbc, 0xcbd, 0xcbe, 0xcbf, 0xcbf, 0xcd5, 0xcc0, 0xcc1, 0xcc2, 0xcc3, 0xcc4, 0xcc6, 0xcc6, 0xcc2, 0xcc6, 0xcc2, 0xcd5, 0xcc6, 0xcd5, 0xcc6, 0xcd6, 0xcc7, 0xcc8, 0xcca, 0xcca, 0xcd5, 0xccb, 0xccc, 0xccd, 0xcd5, 0xcd6, 0xcdd, 0xcde, 0xce0, 0xce1, 0xce2, 0xce3, 0xce6, 0xce7, 0xce8, 0xce9, 0xcea, 0xceb, 0xcec, 0xced
 };
 
 void BM_collation_element_lookup_059(benchmark::State & state)
@@ -3644,46 +3644,46 @@ void BM_collation_element_lookup_059(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 13, cps_059 + 14));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 14, cps_059 + 15));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 15, cps_059 + 16));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 16, cps_059 + 17));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 17, cps_059 + 18));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 16, cps_059 + 18));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 18, cps_059 + 19));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 19, cps_059 + 20));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 20, cps_059 + 21));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 21, cps_059 + 22));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 22, cps_059 + 23));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 23, cps_059 + 24));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 24, cps_059 + 25));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 25, cps_059 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 26, cps_059 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 27, cps_059 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 28, cps_059 + 29));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 29, cps_059 + 30));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 30, cps_059 + 31));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 31, cps_059 + 32));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 32, cps_059 + 33));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 24, cps_059 + 26));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 26, cps_059 + 29));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 29, cps_059 + 31));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 31, cps_059 + 33));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 33, cps_059 + 34));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 34, cps_059 + 35));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 35, cps_059 + 36));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 36, cps_059 + 37));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 37, cps_059 + 38));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 36, cps_059 + 38));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 38, cps_059 + 39));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 39, cps_059 + 40));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 40, cps_059 + 41));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 41, cps_059 + 43));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 43, cps_059 + 45));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 41, cps_059 + 42));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 42, cps_059 + 43));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 43, cps_059 + 44));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 44, cps_059 + 45));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 45, cps_059 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 46, cps_059 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 46, cps_059 + 47));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 47, cps_059 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 48, cps_059 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 49, cps_059 + 50));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 50, cps_059 + 51));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 51, cps_059 + 52));
             benchmark::DoNotOptimize(trie().longest_match(cps_059 + 52, cps_059 + 53));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 53, cps_059 + 54));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 54, cps_059 + 55));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 55, cps_059 + 56));
+            benchmark::DoNotOptimize(trie().longest_match(cps_059 + 56, cps_059 + 57));
     }
 }
 BENCHMARK(BM_collation_element_lookup_059);
 
 uint32_t cps_060[] = {
-0xd4e, 0xd4f, 0xd54, 0xd55, 0xd56, 0xd57, 0xd58, 0xd59, 0xd5a, 0xd5b, 0xd5c, 0xd5d, 0xd5e, 0xd5f, 0xd60, 0xd61, 0xd62, 0xd63, 0xd66, 0xd67, 0xd68, 0xd69, 0xd6a, 0xd6b, 0xd6c, 0xd6d, 0xd6e, 0xd6f, 0xd70, 0xd71, 0xd72, 0xd73, 0xd74, 0xd75, 0xd76, 0xd77, 0xd78, 0xd79, 0xd7a, 0xd7b, 0xd7c, 0xd7d, 0xd7e, 0xd7f, 0xd82, 0xd83, 0xd85, 0xd86, 0xd87, 0xd88
+0xcee, 0xcef, 0xcf1, 0xcf2, 0xd00, 0xd01, 0xd02, 0xd03, 0xd04, 0xd05, 0xd06, 0xd07, 0xd08, 0xd09, 0xd0a, 0xd0b, 0xd0c, 0xd0e, 0xd0f, 0xd10, 0xd12, 0xd13, 0xd14, 0xd15, 0xd16, 0xd17, 0xd18, 0xd19, 0xd1a, 0xd1b, 0xd1c, 0xd1d, 0xd1e, 0xd1f, 0xd20, 0xd21, 0xd22, 0xd23, 0xd24, 0xd25, 0xd26, 0xd27, 0xd28, 0xd29, 0xd2a, 0xd2b, 0xd2c, 0xd2d, 0xd2e, 0xd2f
 };
 
 void BM_collation_element_lookup_060(benchmark::State & state)
@@ -3744,7 +3744,7 @@ void BM_collation_element_lookup_060(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_060);
 
 uint32_t cps_061[] = {
-0xd89, 0xd8a, 0xd8b, 0xd8c, 0xd8d, 0xd8e, 0xd8f, 0xd90, 0xd91, 0xd92, 0xd93, 0xd94, 0xd95, 0xd96, 0xd9a, 0xd9b, 0xd9c, 0xd9d, 0xd9e, 0xd9f, 0xda0, 0xda1, 0xda2, 0xda3, 0xda4, 0xda5, 0xda6, 0xda7, 0xda8, 0xda9, 0xdaa, 0xdab, 0xdac, 0xdad, 0xdae, 0xdaf, 0xdb0, 0xdb1, 0xdb3, 0xdb4, 0xdb5, 0xdb6, 0xdb7, 0xdb8, 0xdb9, 0xdba, 0xdbb, 0xdbd, 0xdc0, 0xdc1
+0xd30, 0xd31, 0xd32, 0xd33, 0xd34, 0xd35, 0xd36, 0xd37, 0xd38, 0xd39, 0xd3a, 0xd3b, 0xd3c, 0xd3d, 0xd3e, 0xd3f, 0xd40, 0xd41, 0xd42, 0xd43, 0xd44, 0xd46, 0xd46, 0xd3e, 0xd46, 0xd57, 0xd47, 0xd47, 0xd3e, 0xd48, 0xd4a, 0xd4b, 0xd4c, 0xd4d, 0xd4e, 0xd4f, 0xd54, 0xd55, 0xd56, 0xd57, 0xd58, 0xd59, 0xd5a, 0xd5b, 0xd5c, 0xd5d, 0xd5e, 0xd5f, 0xd60, 0xd61, 0xd62, 0xd63, 0xd66
 };
 
 void BM_collation_element_lookup_061(benchmark::State & state)
@@ -3772,13 +3772,10 @@ void BM_collation_element_lookup_061(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_061 + 19, cps_061 + 20));
             benchmark::DoNotOptimize(trie().longest_match(cps_061 + 20, cps_061 + 21));
             benchmark::DoNotOptimize(trie().longest_match(cps_061 + 21, cps_061 + 22));
-            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 22, cps_061 + 23));
-            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 23, cps_061 + 24));
-            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 24, cps_061 + 25));
-            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 25, cps_061 + 26));
+            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 22, cps_061 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 24, cps_061 + 26));
             benchmark::DoNotOptimize(trie().longest_match(cps_061 + 26, cps_061 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 27, cps_061 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 28, cps_061 + 29));
+            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 27, cps_061 + 29));
             benchmark::DoNotOptimize(trie().longest_match(cps_061 + 29, cps_061 + 30));
             benchmark::DoNotOptimize(trie().longest_match(cps_061 + 30, cps_061 + 31));
             benchmark::DoNotOptimize(trie().longest_match(cps_061 + 31, cps_061 + 32));
@@ -3800,12 +3797,15 @@ void BM_collation_element_lookup_061(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_061 + 47, cps_061 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_061 + 48, cps_061 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_061 + 49, cps_061 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 50, cps_061 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 51, cps_061 + 52));
+            benchmark::DoNotOptimize(trie().longest_match(cps_061 + 52, cps_061 + 53));
     }
 }
 BENCHMARK(BM_collation_element_lookup_061);
 
 uint32_t cps_062[] = {
-0xdc2, 0xdc3, 0xdc4, 0xdc5, 0xdc6, 0xdca, 0xdcf, 0xdd0, 0xdd1, 0xdd2, 0xdd3, 0xdd4, 0xdd6, 0xdd8, 0xdd9, 0xdd9, 0xdca, 0xdd9, 0xdcf, 0xdd9, 0xdcf, 0xdca, 0xdd9, 0xddf, 0xdda, 0xddb, 0xddc, 0xddc, 0xdca, 0xddd, 0xdde, 0xddf, 0xde6, 0xde7, 0xde8, 0xde9, 0xdea, 0xdeb, 0xdec, 0xded, 0xdee, 0xdef, 0xdf2, 0xdf3, 0xdf4, 0xe01, 0xe02, 0xe03, 0xe04, 0xe05, 0xe06, 0xe07, 0xe08, 0xe09, 0xe0a, 0xe0b
+0xd67, 0xd68, 0xd69, 0xd6a, 0xd6b, 0xd6c, 0xd6d, 0xd6e, 0xd6f, 0xd70, 0xd71, 0xd72, 0xd73, 0xd74, 0xd75, 0xd76, 0xd77, 0xd78, 0xd79, 0xd7a, 0xd7b, 0xd7c, 0xd7d, 0xd7e, 0xd7f, 0xd81, 0xd82, 0xd83, 0xd85, 0xd86, 0xd87, 0xd88, 0xd89, 0xd8a, 0xd8b, 0xd8c, 0xd8d, 0xd8e, 0xd8f, 0xd90, 0xd91, 0xd92, 0xd93, 0xd94, 0xd95, 0xd96, 0xd9a, 0xd9b, 0xd9c, 0xd9d
 };
 
 void BM_collation_element_lookup_062(benchmark::State & state)
@@ -3826,14 +3826,20 @@ void BM_collation_element_lookup_062(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 12, cps_062 + 13));
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 13, cps_062 + 14));
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 14, cps_062 + 15));
-            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 15, cps_062 + 17));
-            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 17, cps_062 + 19));
-            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 19, cps_062 + 22));
-            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 22, cps_062 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 15, cps_062 + 16));
+            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 16, cps_062 + 17));
+            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 17, cps_062 + 18));
+            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 18, cps_062 + 19));
+            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 19, cps_062 + 20));
+            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 20, cps_062 + 21));
+            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 21, cps_062 + 22));
+            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 22, cps_062 + 23));
+            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 23, cps_062 + 24));
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 24, cps_062 + 25));
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 25, cps_062 + 26));
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 26, cps_062 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 27, cps_062 + 29));
+            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 27, cps_062 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 28, cps_062 + 29));
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 29, cps_062 + 30));
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 30, cps_062 + 31));
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 31, cps_062 + 32));
@@ -3855,18 +3861,12 @@ void BM_collation_element_lookup_062(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 47, cps_062 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 48, cps_062 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_062 + 49, cps_062 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 50, cps_062 + 51));
-            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 51, cps_062 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 52, cps_062 + 53));
-            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 53, cps_062 + 54));
-            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 54, cps_062 + 55));
-            benchmark::DoNotOptimize(trie().longest_match(cps_062 + 55, cps_062 + 56));
     }
 }
 BENCHMARK(BM_collation_element_lookup_062);
 
 uint32_t cps_063[] = {
-0xe0c, 0xe0d, 0xe0e, 0xe0f, 0xe10, 0xe11, 0xe12, 0xe13, 0xe14, 0xe15, 0xe16, 0xe17, 0xe18, 0xe19, 0xe1a, 0xe1b, 0xe1c, 0xe1d, 0xe1e, 0xe1f, 0xe20, 0xe21, 0xe22, 0xe23, 0xe24, 0xe25, 0xe26, 0xe27, 0xe28, 0xe29, 0xe2a, 0xe2b, 0xe2c, 0xe2d, 0xe2e, 0xe2f, 0xe30, 0xe31, 0xe32, 0xe33, 0xe34, 0xe35, 0xe36, 0xe37, 0xe38, 0xe39, 0xe3a, 0xe3f, 0xe40, 0xe40, 0xe01
+0xd9e, 0xd9f, 0xda0, 0xda1, 0xda2, 0xda3, 0xda4, 0xda5, 0xda6, 0xda7, 0xda8, 0xda9, 0xdaa, 0xdab, 0xdac, 0xdad, 0xdae, 0xdaf, 0xdb0, 0xdb1, 0xdb3, 0xdb4, 0xdb5, 0xdb6, 0xdb7, 0xdb8, 0xdb9, 0xdba, 0xdbb, 0xdbd, 0xdc0, 0xdc1, 0xdc2, 0xdc3, 0xdc4, 0xdc5, 0xdc6, 0xdca, 0xdcf, 0xdd0, 0xdd1, 0xdd2, 0xdd3, 0xdd4, 0xdd6, 0xdd8, 0xdd9, 0xdd9, 0xdca, 0xdd9, 0xdcf, 0xdd9, 0xdcf, 0xdca
 };
 
 void BM_collation_element_lookup_063(benchmark::State & state)
@@ -3919,137 +3919,137 @@ void BM_collation_element_lookup_063(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_063 + 44, cps_063 + 45));
             benchmark::DoNotOptimize(trie().longest_match(cps_063 + 45, cps_063 + 46));
             benchmark::DoNotOptimize(trie().longest_match(cps_063 + 46, cps_063 + 47));
-            benchmark::DoNotOptimize(trie().longest_match(cps_063 + 47, cps_063 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_063 + 48, cps_063 + 49));
+            benchmark::DoNotOptimize(trie().longest_match(cps_063 + 47, cps_063 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_063 + 49, cps_063 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_063 + 51, cps_063 + 54));
     }
 }
 BENCHMARK(BM_collation_element_lookup_063);
 
 uint32_t cps_064[] = {
-0xe40, 0xe02, 0xe40, 0xe03, 0xe40, 0xe04, 0xe40, 0xe05, 0xe40, 0xe06, 0xe40, 0xe07, 0xe40, 0xe08, 0xe40, 0xe09, 0xe40, 0xe0a, 0xe40, 0xe0b, 0xe40, 0xe0c, 0xe40, 0xe0d, 0xe40, 0xe0e, 0xe40, 0xe0f, 0xe40, 0xe10, 0xe40, 0xe11, 0xe40, 0xe12, 0xe40, 0xe13, 0xe40, 0xe14, 0xe40, 0xe15, 0xe40, 0xe16, 0xe40, 0xe17, 0xe40, 0xe18, 0xe40, 0xe19, 0xe40, 0xe1a, 0xe40, 0xe1b, 0xe40, 0xe1c, 0xe40, 0xe1d, 0xe40, 0xe1e, 0xe40, 0xe1f, 0xe40, 0xe20, 0xe40, 0xe21, 0xe40, 0xe22, 0xe40, 0xe23, 0xe40, 0xe24, 0xe40, 0xe25, 0xe40, 0xe26, 0xe40, 0xe27, 0xe40, 0xe28, 0xe40, 0xe29, 0xe40, 0xe2a, 0xe40, 0xe2b, 0xe40, 0xe2c, 0xe40, 0xe2d, 0xe40, 0xe2e, 0xe41, 0xe41, 0xe01, 0xe41, 0xe02, 0xe41, 0xe03, 0xe41, 0xe04
+0xdd9, 0xddf, 0xdda, 0xddb, 0xddc, 0xddc, 0xdca, 0xddd, 0xdde, 0xddf, 0xde6, 0xde7, 0xde8, 0xde9, 0xdea, 0xdeb, 0xdec, 0xded, 0xdee, 0xdef, 0xdf2, 0xdf3, 0xdf4, 0xe01, 0xe02, 0xe03, 0xe04, 0xe05, 0xe06, 0xe07, 0xe08, 0xe09, 0xe0a, 0xe0b, 0xe0c, 0xe0d, 0xe0e, 0xe0f, 0xe10, 0xe11, 0xe12, 0xe13, 0xe14, 0xe15, 0xe16, 0xe17, 0xe18, 0xe19, 0xe1a, 0xe1b, 0xe1c, 0xe1d
 };
 
 void BM_collation_element_lookup_064(benchmark::State & state)
 {
     while (state.KeepRunning()) {
             benchmark::DoNotOptimize(trie().longest_match(cps_064 + 0, cps_064 + 2));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 2, cps_064 + 4));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 4, cps_064 + 6));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 6, cps_064 + 8));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 8, cps_064 + 10));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 10, cps_064 + 12));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 12, cps_064 + 14));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 14, cps_064 + 16));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 16, cps_064 + 18));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 18, cps_064 + 20));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 20, cps_064 + 22));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 22, cps_064 + 24));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 24, cps_064 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 26, cps_064 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 28, cps_064 + 30));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 30, cps_064 + 32));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 32, cps_064 + 34));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 34, cps_064 + 36));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 36, cps_064 + 38));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 38, cps_064 + 40));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 40, cps_064 + 42));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 42, cps_064 + 44));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 44, cps_064 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 46, cps_064 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 48, cps_064 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 50, cps_064 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 52, cps_064 + 54));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 54, cps_064 + 56));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 56, cps_064 + 58));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 58, cps_064 + 60));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 60, cps_064 + 62));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 62, cps_064 + 64));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 64, cps_064 + 66));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 66, cps_064 + 68));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 68, cps_064 + 70));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 70, cps_064 + 72));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 72, cps_064 + 74));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 74, cps_064 + 76));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 76, cps_064 + 78));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 78, cps_064 + 80));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 80, cps_064 + 82));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 82, cps_064 + 84));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 84, cps_064 + 86));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 86, cps_064 + 88));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 88, cps_064 + 90));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 90, cps_064 + 91));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 91, cps_064 + 93));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 93, cps_064 + 95));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 95, cps_064 + 97));
-            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 97, cps_064 + 99));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 2, cps_064 + 3));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 3, cps_064 + 4));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 4, cps_064 + 5));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 5, cps_064 + 7));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 7, cps_064 + 8));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 8, cps_064 + 9));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 9, cps_064 + 10));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 10, cps_064 + 11));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 11, cps_064 + 12));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 12, cps_064 + 13));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 13, cps_064 + 14));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 14, cps_064 + 15));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 15, cps_064 + 16));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 16, cps_064 + 17));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 17, cps_064 + 18));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 18, cps_064 + 19));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 19, cps_064 + 20));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 20, cps_064 + 21));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 21, cps_064 + 22));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 22, cps_064 + 23));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 23, cps_064 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 24, cps_064 + 25));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 25, cps_064 + 26));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 26, cps_064 + 27));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 27, cps_064 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 28, cps_064 + 29));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 29, cps_064 + 30));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 30, cps_064 + 31));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 31, cps_064 + 32));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 32, cps_064 + 33));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 33, cps_064 + 34));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 34, cps_064 + 35));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 35, cps_064 + 36));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 36, cps_064 + 37));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 37, cps_064 + 38));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 38, cps_064 + 39));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 39, cps_064 + 40));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 40, cps_064 + 41));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 41, cps_064 + 42));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 42, cps_064 + 43));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 43, cps_064 + 44));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 44, cps_064 + 45));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 45, cps_064 + 46));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 46, cps_064 + 47));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 47, cps_064 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 48, cps_064 + 49));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 49, cps_064 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 50, cps_064 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_064 + 51, cps_064 + 52));
     }
 }
 BENCHMARK(BM_collation_element_lookup_064);
 
 uint32_t cps_065[] = {
-0xe41, 0xe05, 0xe41, 0xe06, 0xe41, 0xe07, 0xe41, 0xe08, 0xe41, 0xe09, 0xe41, 0xe0a, 0xe41, 0xe0b, 0xe41, 0xe0c, 0xe41, 0xe0d, 0xe41, 0xe0e, 0xe41, 0xe0f, 0xe41, 0xe10, 0xe41, 0xe11, 0xe41, 0xe12, 0xe41, 0xe13, 0xe41, 0xe14, 0xe41, 0xe15, 0xe41, 0xe16, 0xe41, 0xe17, 0xe41, 0xe18, 0xe41, 0xe19, 0xe41, 0xe1a, 0xe41, 0xe1b, 0xe41, 0xe1c, 0xe41, 0xe1d, 0xe41, 0xe1e, 0xe41, 0xe1f, 0xe41, 0xe20, 0xe41, 0xe21, 0xe41, 0xe22, 0xe41, 0xe23, 0xe41, 0xe24, 0xe41, 0xe25, 0xe41, 0xe26, 0xe41, 0xe27, 0xe41, 0xe28, 0xe41, 0xe29, 0xe41, 0xe2a, 0xe41, 0xe2b, 0xe41, 0xe2c, 0xe41, 0xe2d, 0xe41, 0xe2e, 0xe42, 0xe42, 0xe01, 0xe42, 0xe02, 0xe42, 0xe03, 0xe42, 0xe04, 0xe42, 0xe05, 0xe42, 0xe06, 0xe42, 0xe07
+0xe1e, 0xe1f, 0xe20, 0xe21, 0xe22, 0xe23, 0xe24, 0xe25, 0xe26, 0xe27, 0xe28, 0xe29, 0xe2a, 0xe2b, 0xe2c, 0xe2d, 0xe2e, 0xe2f, 0xe30, 0xe31, 0xe32, 0xe33, 0xe34, 0xe35, 0xe36, 0xe37, 0xe38, 0xe39, 0xe3a, 0xe3f, 0xe40, 0xe40, 0xe01, 0xe40, 0xe02, 0xe40, 0xe03, 0xe40, 0xe04, 0xe40, 0xe05, 0xe40, 0xe06, 0xe40, 0xe07, 0xe40, 0xe08, 0xe40, 0xe09, 0xe40, 0xe0a, 0xe40, 0xe0b, 0xe40, 0xe0c, 0xe40, 0xe0d, 0xe40, 0xe0e, 0xe40, 0xe0f, 0xe40, 0xe10, 0xe40, 0xe11, 0xe40, 0xe12, 0xe40, 0xe13
 };
 
 void BM_collation_element_lookup_065(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 0, cps_065 + 2));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 2, cps_065 + 4));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 4, cps_065 + 6));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 6, cps_065 + 8));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 8, cps_065 + 10));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 10, cps_065 + 12));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 12, cps_065 + 14));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 14, cps_065 + 16));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 16, cps_065 + 18));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 18, cps_065 + 20));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 20, cps_065 + 22));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 22, cps_065 + 24));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 24, cps_065 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 26, cps_065 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 28, cps_065 + 30));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 30, cps_065 + 32));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 32, cps_065 + 34));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 34, cps_065 + 36));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 36, cps_065 + 38));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 38, cps_065 + 40));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 40, cps_065 + 42));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 42, cps_065 + 44));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 44, cps_065 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 46, cps_065 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 48, cps_065 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 50, cps_065 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 52, cps_065 + 54));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 54, cps_065 + 56));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 56, cps_065 + 58));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 58, cps_065 + 60));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 60, cps_065 + 62));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 62, cps_065 + 64));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 64, cps_065 + 66));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 66, cps_065 + 68));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 68, cps_065 + 70));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 70, cps_065 + 72));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 72, cps_065 + 74));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 74, cps_065 + 76));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 76, cps_065 + 78));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 78, cps_065 + 80));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 80, cps_065 + 82));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 82, cps_065 + 84));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 84, cps_065 + 85));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 85, cps_065 + 87));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 87, cps_065 + 89));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 89, cps_065 + 91));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 91, cps_065 + 93));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 93, cps_065 + 95));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 95, cps_065 + 97));
-            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 97, cps_065 + 99));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 0, cps_065 + 1));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 1, cps_065 + 2));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 2, cps_065 + 3));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 3, cps_065 + 4));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 4, cps_065 + 5));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 5, cps_065 + 6));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 6, cps_065 + 7));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 7, cps_065 + 8));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 8, cps_065 + 9));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 9, cps_065 + 10));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 10, cps_065 + 11));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 11, cps_065 + 12));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 12, cps_065 + 13));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 13, cps_065 + 14));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 14, cps_065 + 15));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 15, cps_065 + 16));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 16, cps_065 + 17));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 17, cps_065 + 18));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 18, cps_065 + 19));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 19, cps_065 + 20));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 20, cps_065 + 21));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 21, cps_065 + 22));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 22, cps_065 + 23));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 23, cps_065 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 24, cps_065 + 25));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 25, cps_065 + 26));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 26, cps_065 + 27));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 27, cps_065 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 28, cps_065 + 29));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 29, cps_065 + 30));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 30, cps_065 + 31));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 31, cps_065 + 33));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 33, cps_065 + 35));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 35, cps_065 + 37));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 37, cps_065 + 39));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 39, cps_065 + 41));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 41, cps_065 + 43));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 43, cps_065 + 45));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 45, cps_065 + 47));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 47, cps_065 + 49));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 49, cps_065 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 51, cps_065 + 53));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 53, cps_065 + 55));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 55, cps_065 + 57));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 57, cps_065 + 59));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 59, cps_065 + 61));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 61, cps_065 + 63));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 63, cps_065 + 65));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 65, cps_065 + 67));
+            benchmark::DoNotOptimize(trie().longest_match(cps_065 + 67, cps_065 + 69));
     }
 }
 BENCHMARK(BM_collation_element_lookup_065);
 
 uint32_t cps_066[] = {
-0xe42, 0xe08, 0xe42, 0xe09, 0xe42, 0xe0a, 0xe42, 0xe0b, 0xe42, 0xe0c, 0xe42, 0xe0d, 0xe42, 0xe0e, 0xe42, 0xe0f, 0xe42, 0xe10, 0xe42, 0xe11, 0xe42, 0xe12, 0xe42, 0xe13, 0xe42, 0xe14, 0xe42, 0xe15, 0xe42, 0xe16, 0xe42, 0xe17, 0xe42, 0xe18, 0xe42, 0xe19, 0xe42, 0xe1a, 0xe42, 0xe1b, 0xe42, 0xe1c, 0xe42, 0xe1d, 0xe42, 0xe1e, 0xe42, 0xe1f, 0xe42, 0xe20, 0xe42, 0xe21, 0xe42, 0xe22, 0xe42, 0xe23, 0xe42, 0xe24, 0xe42, 0xe25, 0xe42, 0xe26, 0xe42, 0xe27, 0xe42, 0xe28, 0xe42, 0xe29, 0xe42, 0xe2a, 0xe42, 0xe2b, 0xe42, 0xe2c, 0xe42, 0xe2d, 0xe42, 0xe2e, 0xe43, 0xe43, 0xe01, 0xe43, 0xe02, 0xe43, 0xe03, 0xe43, 0xe04, 0xe43, 0xe05, 0xe43, 0xe06, 0xe43, 0xe07, 0xe43, 0xe08, 0xe43, 0xe09, 0xe43, 0xe0a
+0xe40, 0xe14, 0xe40, 0xe15, 0xe40, 0xe16, 0xe40, 0xe17, 0xe40, 0xe18, 0xe40, 0xe19, 0xe40, 0xe1a, 0xe40, 0xe1b, 0xe40, 0xe1c, 0xe40, 0xe1d, 0xe40, 0xe1e, 0xe40, 0xe1f, 0xe40, 0xe20, 0xe40, 0xe21, 0xe40, 0xe22, 0xe40, 0xe23, 0xe40, 0xe24, 0xe40, 0xe25, 0xe40, 0xe26, 0xe40, 0xe27, 0xe40, 0xe28, 0xe40, 0xe29, 0xe40, 0xe2a, 0xe40, 0xe2b, 0xe40, 0xe2c, 0xe40, 0xe2d, 0xe40, 0xe2e, 0xe41, 0xe41, 0xe01, 0xe41, 0xe02, 0xe41, 0xe03, 0xe41, 0xe04, 0xe41, 0xe05, 0xe41, 0xe06, 0xe41, 0xe07, 0xe41, 0xe08, 0xe41, 0xe09, 0xe41, 0xe0a, 0xe41, 0xe0b, 0xe41, 0xe0c, 0xe41, 0xe0d, 0xe41, 0xe0e, 0xe41, 0xe0f, 0xe41, 0xe10, 0xe41, 0xe11, 0xe41, 0xe12, 0xe41, 0xe13, 0xe41, 0xe14, 0xe41, 0xe15, 0xe41, 0xe16
 };
 
 void BM_collation_element_lookup_066(benchmark::State & state)
@@ -4082,19 +4082,19 @@ void BM_collation_element_lookup_066(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_066 + 48, cps_066 + 50));
             benchmark::DoNotOptimize(trie().longest_match(cps_066 + 50, cps_066 + 52));
             benchmark::DoNotOptimize(trie().longest_match(cps_066 + 52, cps_066 + 54));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 54, cps_066 + 56));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 56, cps_066 + 58));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 58, cps_066 + 60));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 60, cps_066 + 62));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 62, cps_066 + 64));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 64, cps_066 + 66));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 66, cps_066 + 68));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 68, cps_066 + 70));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 70, cps_066 + 72));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 72, cps_066 + 74));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 74, cps_066 + 76));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 76, cps_066 + 78));
-            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 78, cps_066 + 79));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 54, cps_066 + 55));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 55, cps_066 + 57));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 57, cps_066 + 59));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 59, cps_066 + 61));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 61, cps_066 + 63));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 63, cps_066 + 65));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 65, cps_066 + 67));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 67, cps_066 + 69));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 69, cps_066 + 71));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 71, cps_066 + 73));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 73, cps_066 + 75));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 75, cps_066 + 77));
+            benchmark::DoNotOptimize(trie().longest_match(cps_066 + 77, cps_066 + 79));
             benchmark::DoNotOptimize(trie().longest_match(cps_066 + 79, cps_066 + 81));
             benchmark::DoNotOptimize(trie().longest_match(cps_066 + 81, cps_066 + 83));
             benchmark::DoNotOptimize(trie().longest_match(cps_066 + 83, cps_066 + 85));
@@ -4110,7 +4110,7 @@ void BM_collation_element_lookup_066(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_066);
 
 uint32_t cps_067[] = {
-0xe43, 0xe0b, 0xe43, 0xe0c, 0xe43, 0xe0d, 0xe43, 0xe0e, 0xe43, 0xe0f, 0xe43, 0xe10, 0xe43, 0xe11, 0xe43, 0xe12, 0xe43, 0xe13, 0xe43, 0xe14, 0xe43, 0xe15, 0xe43, 0xe16, 0xe43, 0xe17, 0xe43, 0xe18, 0xe43, 0xe19, 0xe43, 0xe1a, 0xe43, 0xe1b, 0xe43, 0xe1c, 0xe43, 0xe1d, 0xe43, 0xe1e, 0xe43, 0xe1f, 0xe43, 0xe20, 0xe43, 0xe21, 0xe43, 0xe22, 0xe43, 0xe23, 0xe43, 0xe24, 0xe43, 0xe25, 0xe43, 0xe26, 0xe43, 0xe27, 0xe43, 0xe28, 0xe43, 0xe29, 0xe43, 0xe2a, 0xe43, 0xe2b, 0xe43, 0xe2c, 0xe43, 0xe2d, 0xe43, 0xe2e, 0xe44, 0xe44, 0xe01, 0xe44, 0xe02, 0xe44, 0xe03, 0xe44, 0xe04, 0xe44, 0xe05, 0xe44, 0xe06, 0xe44, 0xe07, 0xe44, 0xe08, 0xe44, 0xe09, 0xe44, 0xe0a, 0xe44, 0xe0b, 0xe44, 0xe0c, 0xe44, 0xe0d
+0xe41, 0xe17, 0xe41, 0xe18, 0xe41, 0xe19, 0xe41, 0xe1a, 0xe41, 0xe1b, 0xe41, 0xe1c, 0xe41, 0xe1d, 0xe41, 0xe1e, 0xe41, 0xe1f, 0xe41, 0xe20, 0xe41, 0xe21, 0xe41, 0xe22, 0xe41, 0xe23, 0xe41, 0xe24, 0xe41, 0xe25, 0xe41, 0xe26, 0xe41, 0xe27, 0xe41, 0xe28, 0xe41, 0xe29, 0xe41, 0xe2a, 0xe41, 0xe2b, 0xe41, 0xe2c, 0xe41, 0xe2d, 0xe41, 0xe2e, 0xe42, 0xe42, 0xe01, 0xe42, 0xe02, 0xe42, 0xe03, 0xe42, 0xe04, 0xe42, 0xe05, 0xe42, 0xe06, 0xe42, 0xe07, 0xe42, 0xe08, 0xe42, 0xe09, 0xe42, 0xe0a, 0xe42, 0xe0b, 0xe42, 0xe0c, 0xe42, 0xe0d, 0xe42, 0xe0e, 0xe42, 0xe0f, 0xe42, 0xe10, 0xe42, 0xe11, 0xe42, 0xe12, 0xe42, 0xe13, 0xe42, 0xe14, 0xe42, 0xe15, 0xe42, 0xe16, 0xe42, 0xe17, 0xe42, 0xe18, 0xe42, 0xe19
 };
 
 void BM_collation_element_lookup_067(benchmark::State & state)
@@ -4140,19 +4140,19 @@ void BM_collation_element_lookup_067(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_067 + 42, cps_067 + 44));
             benchmark::DoNotOptimize(trie().longest_match(cps_067 + 44, cps_067 + 46));
             benchmark::DoNotOptimize(trie().longest_match(cps_067 + 46, cps_067 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 48, cps_067 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 50, cps_067 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 52, cps_067 + 54));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 54, cps_067 + 56));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 56, cps_067 + 58));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 58, cps_067 + 60));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 60, cps_067 + 62));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 62, cps_067 + 64));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 64, cps_067 + 66));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 66, cps_067 + 68));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 68, cps_067 + 70));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 70, cps_067 + 72));
-            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 72, cps_067 + 73));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 48, cps_067 + 49));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 49, cps_067 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 51, cps_067 + 53));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 53, cps_067 + 55));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 55, cps_067 + 57));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 57, cps_067 + 59));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 59, cps_067 + 61));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 61, cps_067 + 63));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 63, cps_067 + 65));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 65, cps_067 + 67));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 67, cps_067 + 69));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 69, cps_067 + 71));
+            benchmark::DoNotOptimize(trie().longest_match(cps_067 + 71, cps_067 + 73));
             benchmark::DoNotOptimize(trie().longest_match(cps_067 + 73, cps_067 + 75));
             benchmark::DoNotOptimize(trie().longest_match(cps_067 + 75, cps_067 + 77));
             benchmark::DoNotOptimize(trie().longest_match(cps_067 + 77, cps_067 + 79));
@@ -4171,7 +4171,7 @@ void BM_collation_element_lookup_067(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_067);
 
 uint32_t cps_068[] = {
-0xe44, 0xe0e, 0xe44, 0xe0f, 0xe44, 0xe10, 0xe44, 0xe11, 0xe44, 0xe12, 0xe44, 0xe13, 0xe44, 0xe14, 0xe44, 0xe15, 0xe44, 0xe16, 0xe44, 0xe17, 0xe44, 0xe18, 0xe44, 0xe19, 0xe44, 0xe1a, 0xe44, 0xe1b, 0xe44, 0xe1c, 0xe44, 0xe1d, 0xe44, 0xe1e, 0xe44, 0xe1f, 0xe44, 0xe20, 0xe44, 0xe21, 0xe44, 0xe22, 0xe44, 0xe23, 0xe44, 0xe24, 0xe44, 0xe25, 0xe44, 0xe26, 0xe44, 0xe27, 0xe44, 0xe28, 0xe44, 0xe29, 0xe44, 0xe2a, 0xe44, 0xe2b, 0xe44, 0xe2c, 0xe44, 0xe2d, 0xe44, 0xe2e, 0xe45, 0xe46, 0xe47, 0xe48, 0xe49, 0xe4a, 0xe4b, 0xe4c, 0xe4d, 0xe4d, 0xe32, 0xe4e, 0xe4f, 0xe50, 0xe51, 0xe52, 0xe53, 0xe54
+0xe42, 0xe1a, 0xe42, 0xe1b, 0xe42, 0xe1c, 0xe42, 0xe1d, 0xe42, 0xe1e, 0xe42, 0xe1f, 0xe42, 0xe20, 0xe42, 0xe21, 0xe42, 0xe22, 0xe42, 0xe23, 0xe42, 0xe24, 0xe42, 0xe25, 0xe42, 0xe26, 0xe42, 0xe27, 0xe42, 0xe28, 0xe42, 0xe29, 0xe42, 0xe2a, 0xe42, 0xe2b, 0xe42, 0xe2c, 0xe42, 0xe2d, 0xe42, 0xe2e, 0xe43, 0xe43, 0xe01, 0xe43, 0xe02, 0xe43, 0xe03, 0xe43, 0xe04, 0xe43, 0xe05, 0xe43, 0xe06, 0xe43, 0xe07, 0xe43, 0xe08, 0xe43, 0xe09, 0xe43, 0xe0a, 0xe43, 0xe0b, 0xe43, 0xe0c, 0xe43, 0xe0d, 0xe43, 0xe0e, 0xe43, 0xe0f, 0xe43, 0xe10, 0xe43, 0xe11, 0xe43, 0xe12, 0xe43, 0xe13, 0xe43, 0xe14, 0xe43, 0xe15, 0xe43, 0xe16, 0xe43, 0xe17, 0xe43, 0xe18, 0xe43, 0xe19, 0xe43, 0xe1a, 0xe43, 0xe1b, 0xe43, 0xe1c
 };
 
 void BM_collation_element_lookup_068(benchmark::State & state)
@@ -4198,102 +4198,102 @@ void BM_collation_element_lookup_068(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_068 + 36, cps_068 + 38));
             benchmark::DoNotOptimize(trie().longest_match(cps_068 + 38, cps_068 + 40));
             benchmark::DoNotOptimize(trie().longest_match(cps_068 + 40, cps_068 + 42));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 42, cps_068 + 44));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 44, cps_068 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 46, cps_068 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 48, cps_068 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 50, cps_068 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 52, cps_068 + 54));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 54, cps_068 + 56));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 56, cps_068 + 58));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 58, cps_068 + 60));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 60, cps_068 + 62));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 62, cps_068 + 64));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 64, cps_068 + 66));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 66, cps_068 + 67));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 67, cps_068 + 68));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 68, cps_068 + 69));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 69, cps_068 + 70));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 70, cps_068 + 71));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 71, cps_068 + 72));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 72, cps_068 + 73));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 73, cps_068 + 74));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 74, cps_068 + 75));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 42, cps_068 + 43));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 43, cps_068 + 45));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 45, cps_068 + 47));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 47, cps_068 + 49));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 49, cps_068 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 51, cps_068 + 53));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 53, cps_068 + 55));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 55, cps_068 + 57));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 57, cps_068 + 59));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 59, cps_068 + 61));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 61, cps_068 + 63));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 63, cps_068 + 65));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 65, cps_068 + 67));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 67, cps_068 + 69));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 69, cps_068 + 71));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 71, cps_068 + 73));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 73, cps_068 + 75));
             benchmark::DoNotOptimize(trie().longest_match(cps_068 + 75, cps_068 + 77));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 77, cps_068 + 78));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 78, cps_068 + 79));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 79, cps_068 + 80));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 80, cps_068 + 81));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 81, cps_068 + 82));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 82, cps_068 + 83));
-            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 83, cps_068 + 84));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 77, cps_068 + 79));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 79, cps_068 + 81));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 81, cps_068 + 83));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 83, cps_068 + 85));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 85, cps_068 + 87));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 87, cps_068 + 89));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 89, cps_068 + 91));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 91, cps_068 + 93));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 93, cps_068 + 95));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 95, cps_068 + 97));
+            benchmark::DoNotOptimize(trie().longest_match(cps_068 + 97, cps_068 + 99));
     }
 }
 BENCHMARK(BM_collation_element_lookup_068);
 
 uint32_t cps_069[] = {
-0xe55, 0xe56, 0xe57, 0xe58, 0xe59, 0xe5a, 0xe5b, 0xe81, 0xe82, 0xe84, 0xe87, 0xe88, 0xe8a, 0xe8d, 0xe94, 0xe95, 0xe96, 0xe97, 0xe99, 0xe9a, 0xe9b, 0xe9c, 0xe9d, 0xe9e, 0xe9f, 0xea1, 0xea2, 0xea3, 0xea5, 0xea7, 0xeaa, 0xeab, 0xead, 0xeae, 0xeaf, 0xeb0, 0xeb1, 0xeb2, 0xeb3, 0xeb4, 0xeb5, 0xeb6, 0xeb7, 0xeb8, 0xeb9, 0xebb, 0xebc, 0xebd, 0xec0, 0xec0, 0xe81
+0xe43, 0xe1d, 0xe43, 0xe1e, 0xe43, 0xe1f, 0xe43, 0xe20, 0xe43, 0xe21, 0xe43, 0xe22, 0xe43, 0xe23, 0xe43, 0xe24, 0xe43, 0xe25, 0xe43, 0xe26, 0xe43, 0xe27, 0xe43, 0xe28, 0xe43, 0xe29, 0xe43, 0xe2a, 0xe43, 0xe2b, 0xe43, 0xe2c, 0xe43, 0xe2d, 0xe43, 0xe2e, 0xe44, 0xe44, 0xe01, 0xe44, 0xe02, 0xe44, 0xe03, 0xe44, 0xe04, 0xe44, 0xe05, 0xe44, 0xe06, 0xe44, 0xe07, 0xe44, 0xe08, 0xe44, 0xe09, 0xe44, 0xe0a, 0xe44, 0xe0b, 0xe44, 0xe0c, 0xe44, 0xe0d, 0xe44, 0xe0e, 0xe44, 0xe0f, 0xe44, 0xe10, 0xe44, 0xe11, 0xe44, 0xe12, 0xe44, 0xe13, 0xe44, 0xe14, 0xe44, 0xe15, 0xe44, 0xe16, 0xe44, 0xe17, 0xe44, 0xe18, 0xe44, 0xe19, 0xe44, 0xe1a, 0xe44, 0xe1b, 0xe44, 0xe1c, 0xe44, 0xe1d, 0xe44, 0xe1e, 0xe44, 0xe1f
 };
 
 void BM_collation_element_lookup_069(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 0, cps_069 + 1));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 1, cps_069 + 2));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 2, cps_069 + 3));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 3, cps_069 + 4));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 4, cps_069 + 5));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 5, cps_069 + 6));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 6, cps_069 + 7));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 7, cps_069 + 8));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 8, cps_069 + 9));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 9, cps_069 + 10));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 10, cps_069 + 11));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 11, cps_069 + 12));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 12, cps_069 + 13));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 13, cps_069 + 14));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 14, cps_069 + 15));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 15, cps_069 + 16));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 16, cps_069 + 17));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 17, cps_069 + 18));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 18, cps_069 + 19));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 19, cps_069 + 20));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 20, cps_069 + 21));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 21, cps_069 + 22));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 22, cps_069 + 23));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 23, cps_069 + 24));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 24, cps_069 + 25));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 25, cps_069 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 26, cps_069 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 27, cps_069 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 28, cps_069 + 29));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 29, cps_069 + 30));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 30, cps_069 + 31));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 31, cps_069 + 32));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 32, cps_069 + 33));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 33, cps_069 + 34));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 34, cps_069 + 35));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 35, cps_069 + 36));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 0, cps_069 + 2));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 2, cps_069 + 4));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 4, cps_069 + 6));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 6, cps_069 + 8));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 8, cps_069 + 10));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 10, cps_069 + 12));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 12, cps_069 + 14));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 14, cps_069 + 16));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 16, cps_069 + 18));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 18, cps_069 + 20));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 20, cps_069 + 22));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 22, cps_069 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 24, cps_069 + 26));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 26, cps_069 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 28, cps_069 + 30));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 30, cps_069 + 32));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 32, cps_069 + 34));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 34, cps_069 + 36));
             benchmark::DoNotOptimize(trie().longest_match(cps_069 + 36, cps_069 + 37));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 37, cps_069 + 38));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 38, cps_069 + 39));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 39, cps_069 + 40));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 40, cps_069 + 41));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 41, cps_069 + 42));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 42, cps_069 + 43));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 43, cps_069 + 44));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 44, cps_069 + 45));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 45, cps_069 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 46, cps_069 + 47));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 47, cps_069 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 48, cps_069 + 49));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 37, cps_069 + 39));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 39, cps_069 + 41));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 41, cps_069 + 43));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 43, cps_069 + 45));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 45, cps_069 + 47));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 47, cps_069 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_069 + 49, cps_069 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 51, cps_069 + 53));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 53, cps_069 + 55));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 55, cps_069 + 57));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 57, cps_069 + 59));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 59, cps_069 + 61));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 61, cps_069 + 63));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 63, cps_069 + 65));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 65, cps_069 + 67));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 67, cps_069 + 69));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 69, cps_069 + 71));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 71, cps_069 + 73));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 73, cps_069 + 75));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 75, cps_069 + 77));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 77, cps_069 + 79));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 79, cps_069 + 81));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 81, cps_069 + 83));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 83, cps_069 + 85));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 85, cps_069 + 87));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 87, cps_069 + 89));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 89, cps_069 + 91));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 91, cps_069 + 93));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 93, cps_069 + 95));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 95, cps_069 + 97));
+            benchmark::DoNotOptimize(trie().longest_match(cps_069 + 97, cps_069 + 99));
     }
 }
 BENCHMARK(BM_collation_element_lookup_069);
 
 uint32_t cps_070[] = {
-0xec0, 0xe82, 0xec0, 0xe84, 0xec0, 0xe87, 0xec0, 0xe88, 0xec0, 0xe8a, 0xec0, 0xe8d, 0xec0, 0xe94, 0xec0, 0xe95, 0xec0, 0xe96, 0xec0, 0xe97, 0xec0, 0xe99, 0xec0, 0xe9a, 0xec0, 0xe9b, 0xec0, 0xe9c, 0xec0, 0xe9d, 0xec0, 0xe9e, 0xec0, 0xe9f, 0xec0, 0xea1, 0xec0, 0xea2, 0xec0, 0xea3, 0xec0, 0xea5, 0xec0, 0xea7, 0xec0, 0xeaa, 0xec0, 0xeab, 0xec0, 0xead, 0xec0, 0xeae, 0xec0, 0xedc, 0xec0, 0xedd, 0xec0, 0xede, 0xec0, 0xedf, 0xec1, 0xec1, 0xe81, 0xec1, 0xe82, 0xec1, 0xe84, 0xec1, 0xe87, 0xec1, 0xe88, 0xec1, 0xe8a, 0xec1, 0xe8d, 0xec1, 0xe94, 0xec1, 0xe95, 0xec1, 0xe96, 0xec1, 0xe97, 0xec1, 0xe99, 0xec1, 0xe9a, 0xec1, 0xe9b, 0xec1, 0xe9c, 0xec1, 0xe9d, 0xec1, 0xe9e, 0xec1, 0xe9f, 0xec1, 0xea1
+0xe44, 0xe20, 0xe44, 0xe21, 0xe44, 0xe22, 0xe44, 0xe23, 0xe44, 0xe24, 0xe44, 0xe25, 0xe44, 0xe26, 0xe44, 0xe27, 0xe44, 0xe28, 0xe44, 0xe29, 0xe44, 0xe2a, 0xe44, 0xe2b, 0xe44, 0xe2c, 0xe44, 0xe2d, 0xe44, 0xe2e, 0xe45, 0xe46, 0xe47, 0xe48, 0xe49, 0xe4a, 0xe4b, 0xe4c, 0xe4d, 0xe4d, 0xe32, 0xe4e, 0xe4f, 0xe50, 0xe51, 0xe52, 0xe53, 0xe54, 0xe55, 0xe56, 0xe57, 0xe58, 0xe59, 0xe5a, 0xe5b, 0xe81, 0xe82, 0xe84, 0xe86, 0xe87, 0xe88, 0xe89, 0xe8a, 0xe8c, 0xe8d, 0xe8e
 };
 
 void BM_collation_element_lookup_070(benchmark::State & state)
@@ -4314,108 +4314,108 @@ void BM_collation_element_lookup_070(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_070 + 24, cps_070 + 26));
             benchmark::DoNotOptimize(trie().longest_match(cps_070 + 26, cps_070 + 28));
             benchmark::DoNotOptimize(trie().longest_match(cps_070 + 28, cps_070 + 30));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 30, cps_070 + 32));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 32, cps_070 + 34));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 34, cps_070 + 36));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 36, cps_070 + 38));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 38, cps_070 + 40));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 40, cps_070 + 42));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 42, cps_070 + 44));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 44, cps_070 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 46, cps_070 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 48, cps_070 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 50, cps_070 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 52, cps_070 + 54));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 54, cps_070 + 56));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 56, cps_070 + 58));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 58, cps_070 + 60));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 30, cps_070 + 31));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 31, cps_070 + 32));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 32, cps_070 + 33));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 33, cps_070 + 34));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 34, cps_070 + 35));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 35, cps_070 + 36));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 36, cps_070 + 37));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 37, cps_070 + 38));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 38, cps_070 + 39));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 39, cps_070 + 41));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 41, cps_070 + 42));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 42, cps_070 + 43));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 43, cps_070 + 44));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 44, cps_070 + 45));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 45, cps_070 + 46));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 46, cps_070 + 47));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 47, cps_070 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 48, cps_070 + 49));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 49, cps_070 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 50, cps_070 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 51, cps_070 + 52));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 52, cps_070 + 53));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 53, cps_070 + 54));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 54, cps_070 + 55));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 55, cps_070 + 56));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 56, cps_070 + 57));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 57, cps_070 + 58));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 58, cps_070 + 59));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 59, cps_070 + 60));
             benchmark::DoNotOptimize(trie().longest_match(cps_070 + 60, cps_070 + 61));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 61, cps_070 + 63));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 63, cps_070 + 65));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 65, cps_070 + 67));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 67, cps_070 + 69));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 69, cps_070 + 71));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 71, cps_070 + 73));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 73, cps_070 + 75));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 75, cps_070 + 77));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 77, cps_070 + 79));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 79, cps_070 + 81));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 81, cps_070 + 83));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 83, cps_070 + 85));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 85, cps_070 + 87));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 87, cps_070 + 89));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 89, cps_070 + 91));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 91, cps_070 + 93));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 93, cps_070 + 95));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 95, cps_070 + 97));
-            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 97, cps_070 + 99));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 61, cps_070 + 62));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 62, cps_070 + 63));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 63, cps_070 + 64));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 64, cps_070 + 65));
+            benchmark::DoNotOptimize(trie().longest_match(cps_070 + 65, cps_070 + 66));
     }
 }
 BENCHMARK(BM_collation_element_lookup_070);
 
 uint32_t cps_071[] = {
-0xec1, 0xea2, 0xec1, 0xea3, 0xec1, 0xea5, 0xec1, 0xea7, 0xec1, 0xeaa, 0xec1, 0xeab, 0xec1, 0xead, 0xec1, 0xeae, 0xec1, 0xedc, 0xec1, 0xedd, 0xec1, 0xede, 0xec1, 0xedf, 0xec2, 0xec2, 0xe81, 0xec2, 0xe82, 0xec2, 0xe84, 0xec2, 0xe87, 0xec2, 0xe88, 0xec2, 0xe8a, 0xec2, 0xe8d, 0xec2, 0xe94, 0xec2, 0xe95, 0xec2, 0xe96, 0xec2, 0xe97, 0xec2, 0xe99, 0xec2, 0xe9a, 0xec2, 0xe9b, 0xec2, 0xe9c, 0xec2, 0xe9d, 0xec2, 0xe9e, 0xec2, 0xe9f, 0xec2, 0xea1, 0xec2, 0xea2, 0xec2, 0xea3, 0xec2, 0xea5, 0xec2, 0xea7, 0xec2, 0xeaa, 0xec2, 0xeab, 0xec2, 0xead, 0xec2, 0xeae, 0xec2, 0xedc, 0xec2, 0xedd, 0xec2, 0xede, 0xec2, 0xedf, 0xec3, 0xec3, 0xe81, 0xec3, 0xe82, 0xec3, 0xe84, 0xec3, 0xe87, 0xec3, 0xe88
+0xe8f, 0xe90, 0xe91, 0xe92, 0xe93, 0xe94, 0xe95, 0xe96, 0xe97, 0xe98, 0xe99, 0xe9a, 0xe9b, 0xe9c, 0xe9d, 0xe9e, 0xe9f, 0xea0, 0xea1, 0xea2, 0xea3, 0xea5, 0xea7, 0xea8, 0xea9, 0xeaa, 0xeab, 0xeac, 0xead, 0xeae, 0xeaf, 0xeb0, 0xeb1, 0xeb2, 0xeb3, 0xeb4, 0xeb5, 0xeb6, 0xeb7, 0xeb8, 0xeb9, 0xeba, 0xebb, 0xebc, 0xebd, 0xec0, 0xec0, 0xe81, 0xec0, 0xe82, 0xec0, 0xe84, 0xec0, 0xe86
 };
 
 void BM_collation_element_lookup_071(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 0, cps_071 + 2));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 2, cps_071 + 4));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 4, cps_071 + 6));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 6, cps_071 + 8));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 8, cps_071 + 10));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 10, cps_071 + 12));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 12, cps_071 + 14));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 14, cps_071 + 16));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 16, cps_071 + 18));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 18, cps_071 + 20));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 20, cps_071 + 22));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 22, cps_071 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 0, cps_071 + 1));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 1, cps_071 + 2));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 2, cps_071 + 3));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 3, cps_071 + 4));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 4, cps_071 + 5));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 5, cps_071 + 6));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 6, cps_071 + 7));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 7, cps_071 + 8));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 8, cps_071 + 9));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 9, cps_071 + 10));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 10, cps_071 + 11));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 11, cps_071 + 12));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 12, cps_071 + 13));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 13, cps_071 + 14));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 14, cps_071 + 15));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 15, cps_071 + 16));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 16, cps_071 + 17));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 17, cps_071 + 18));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 18, cps_071 + 19));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 19, cps_071 + 20));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 20, cps_071 + 21));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 21, cps_071 + 22));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 22, cps_071 + 23));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 23, cps_071 + 24));
             benchmark::DoNotOptimize(trie().longest_match(cps_071 + 24, cps_071 + 25));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 25, cps_071 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 27, cps_071 + 29));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 29, cps_071 + 31));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 31, cps_071 + 33));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 33, cps_071 + 35));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 35, cps_071 + 37));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 37, cps_071 + 39));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 39, cps_071 + 41));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 41, cps_071 + 43));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 43, cps_071 + 45));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 45, cps_071 + 47));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 47, cps_071 + 49));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 49, cps_071 + 51));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 51, cps_071 + 53));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 53, cps_071 + 55));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 55, cps_071 + 57));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 57, cps_071 + 59));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 59, cps_071 + 61));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 61, cps_071 + 63));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 63, cps_071 + 65));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 65, cps_071 + 67));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 67, cps_071 + 69));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 69, cps_071 + 71));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 71, cps_071 + 73));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 73, cps_071 + 75));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 75, cps_071 + 77));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 77, cps_071 + 79));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 79, cps_071 + 81));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 81, cps_071 + 83));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 83, cps_071 + 85));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 85, cps_071 + 87));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 87, cps_071 + 88));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 88, cps_071 + 90));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 90, cps_071 + 92));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 92, cps_071 + 94));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 94, cps_071 + 96));
-            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 96, cps_071 + 98));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 25, cps_071 + 26));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 26, cps_071 + 27));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 27, cps_071 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 28, cps_071 + 29));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 29, cps_071 + 30));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 30, cps_071 + 31));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 31, cps_071 + 32));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 32, cps_071 + 33));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 33, cps_071 + 34));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 34, cps_071 + 35));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 35, cps_071 + 36));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 36, cps_071 + 37));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 37, cps_071 + 38));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 38, cps_071 + 39));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 39, cps_071 + 40));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 40, cps_071 + 41));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 41, cps_071 + 42));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 42, cps_071 + 43));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 43, cps_071 + 44));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 44, cps_071 + 45));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 45, cps_071 + 46));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 46, cps_071 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 48, cps_071 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 50, cps_071 + 52));
+            benchmark::DoNotOptimize(trie().longest_match(cps_071 + 52, cps_071 + 54));
     }
 }
 BENCHMARK(BM_collation_element_lookup_071);
 
 uint32_t cps_072[] = {
-0xec3, 0xe8a, 0xec3, 0xe8d, 0xec3, 0xe94, 0xec3, 0xe95, 0xec3, 0xe96, 0xec3, 0xe97, 0xec3, 0xe99, 0xec3, 0xe9a, 0xec3, 0xe9b, 0xec3, 0xe9c, 0xec3, 0xe9d, 0xec3, 0xe9e, 0xec3, 0xe9f, 0xec3, 0xea1, 0xec3, 0xea2, 0xec3, 0xea3, 0xec3, 0xea5, 0xec3, 0xea7, 0xec3, 0xeaa, 0xec3, 0xeab, 0xec3, 0xead, 0xec3, 0xeae, 0xec3, 0xedc, 0xec3, 0xedd, 0xec3, 0xede, 0xec3, 0xedf, 0xec4, 0xec4, 0xe81, 0xec4, 0xe82, 0xec4, 0xe84, 0xec4, 0xe87, 0xec4, 0xe88, 0xec4, 0xe8a, 0xec4, 0xe8d, 0xec4, 0xe94, 0xec4, 0xe95, 0xec4, 0xe96, 0xec4, 0xe97, 0xec4, 0xe99, 0xec4, 0xe9a, 0xec4, 0xe9b, 0xec4, 0xe9c, 0xec4, 0xe9d, 0xec4, 0xe9e, 0xec4, 0xe9f, 0xec4, 0xea1, 0xec4, 0xea2, 0xec4, 0xea3, 0xec4, 0xea5, 0xec4, 0xea7
+0xec0, 0xe87, 0xec0, 0xe88, 0xec0, 0xe89, 0xec0, 0xe8a, 0xec0, 0xe8c, 0xec0, 0xe8d, 0xec0, 0xe8e, 0xec0, 0xe8f, 0xec0, 0xe90, 0xec0, 0xe91, 0xec0, 0xe92, 0xec0, 0xe93, 0xec0, 0xe94, 0xec0, 0xe95, 0xec0, 0xe96, 0xec0, 0xe97, 0xec0, 0xe98, 0xec0, 0xe99, 0xec0, 0xe9a, 0xec0, 0xe9b, 0xec0, 0xe9c, 0xec0, 0xe9d, 0xec0, 0xe9e, 0xec0, 0xe9f, 0xec0, 0xea0, 0xec0, 0xea1, 0xec0, 0xea2, 0xec0, 0xea3, 0xec0, 0xea5, 0xec0, 0xea7, 0xec0, 0xea8, 0xec0, 0xea9, 0xec0, 0xeaa, 0xec0, 0xeab, 0xec0, 0xeac, 0xec0, 0xead, 0xec0, 0xeae, 0xec0, 0xedc, 0xec0, 0xedd, 0xec0, 0xede, 0xec0, 0xedf, 0xec1, 0xec1, 0xe81, 0xec1, 0xe82, 0xec1, 0xe84, 0xec1, 0xe86, 0xec1, 0xe87, 0xec1, 0xe88, 0xec1, 0xe89, 0xec1, 0xe8a
 };
 
 void BM_collation_element_lookup_072(benchmark::State & state)
@@ -4447,22 +4447,22 @@ void BM_collation_element_lookup_072(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_072 + 46, cps_072 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_072 + 48, cps_072 + 50));
             benchmark::DoNotOptimize(trie().longest_match(cps_072 + 50, cps_072 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 52, cps_072 + 53));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 53, cps_072 + 55));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 55, cps_072 + 57));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 57, cps_072 + 59));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 59, cps_072 + 61));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 61, cps_072 + 63));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 63, cps_072 + 65));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 65, cps_072 + 67));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 67, cps_072 + 69));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 69, cps_072 + 71));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 71, cps_072 + 73));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 73, cps_072 + 75));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 75, cps_072 + 77));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 77, cps_072 + 79));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 79, cps_072 + 81));
-            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 81, cps_072 + 83));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 52, cps_072 + 54));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 54, cps_072 + 56));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 56, cps_072 + 58));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 58, cps_072 + 60));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 60, cps_072 + 62));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 62, cps_072 + 64));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 64, cps_072 + 66));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 66, cps_072 + 68));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 68, cps_072 + 70));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 70, cps_072 + 72));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 72, cps_072 + 74));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 74, cps_072 + 76));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 76, cps_072 + 78));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 78, cps_072 + 80));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 80, cps_072 + 82));
+            benchmark::DoNotOptimize(trie().longest_match(cps_072 + 82, cps_072 + 83));
             benchmark::DoNotOptimize(trie().longest_match(cps_072 + 83, cps_072 + 85));
             benchmark::DoNotOptimize(trie().longest_match(cps_072 + 85, cps_072 + 87));
             benchmark::DoNotOptimize(trie().longest_match(cps_072 + 87, cps_072 + 89));
@@ -4476,7 +4476,7 @@ void BM_collation_element_lookup_072(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_072);
 
 uint32_t cps_073[] = {
-0xec4, 0xeaa, 0xec4, 0xeab, 0xec4, 0xead, 0xec4, 0xeae, 0xec4, 0xedc, 0xec4, 0xedd, 0xec4, 0xede, 0xec4, 0xedf, 0xec6, 0xec8, 0xec9, 0xeca, 0xecb, 0xecc, 0xecd, 0xecd, 0xeb2, 0xed0, 0xed1, 0xed2, 0xed3, 0xed4, 0xed5, 0xed6, 0xed7, 0xed8, 0xed9, 0xedc, 0xedd, 0xede, 0xedf, 0xf00, 0xf01, 0xf02, 0xf03, 0xf04, 0xf05, 0xf06, 0xf07, 0xf08, 0xf09, 0xf0a, 0xf0b, 0xf0c, 0xf0d, 0xf0e, 0xf0f, 0xf10, 0xf11, 0xf12, 0xf13
+0xec1, 0xe8c, 0xec1, 0xe8d, 0xec1, 0xe8e, 0xec1, 0xe8f, 0xec1, 0xe90, 0xec1, 0xe91, 0xec1, 0xe92, 0xec1, 0xe93, 0xec1, 0xe94, 0xec1, 0xe95, 0xec1, 0xe96, 0xec1, 0xe97, 0xec1, 0xe98, 0xec1, 0xe99, 0xec1, 0xe9a, 0xec1, 0xe9b, 0xec1, 0xe9c, 0xec1, 0xe9d, 0xec1, 0xe9e, 0xec1, 0xe9f, 0xec1, 0xea0, 0xec1, 0xea1, 0xec1, 0xea2, 0xec1, 0xea3, 0xec1, 0xea5, 0xec1, 0xea7, 0xec1, 0xea8, 0xec1, 0xea9, 0xec1, 0xeaa, 0xec1, 0xeab, 0xec1, 0xeac, 0xec1, 0xead, 0xec1, 0xeae, 0xec1, 0xedc, 0xec1, 0xedd, 0xec1, 0xede, 0xec1, 0xedf, 0xec2, 0xec2, 0xe81, 0xec2, 0xe82, 0xec2, 0xe84, 0xec2, 0xe86, 0xec2, 0xe87, 0xec2, 0xe88, 0xec2, 0xe89, 0xec2, 0xe8a, 0xec2, 0xe8c, 0xec2, 0xe8d, 0xec2, 0xe8e, 0xec2, 0xe8f
 };
 
 void BM_collation_element_lookup_073(benchmark::State & state)
@@ -4490,237 +4490,237 @@ void BM_collation_element_lookup_073(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_073 + 10, cps_073 + 12));
             benchmark::DoNotOptimize(trie().longest_match(cps_073 + 12, cps_073 + 14));
             benchmark::DoNotOptimize(trie().longest_match(cps_073 + 14, cps_073 + 16));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 16, cps_073 + 17));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 17, cps_073 + 18));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 18, cps_073 + 19));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 19, cps_073 + 20));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 20, cps_073 + 21));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 21, cps_073 + 22));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 22, cps_073 + 23));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 23, cps_073 + 25));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 25, cps_073 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 26, cps_073 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 27, cps_073 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 28, cps_073 + 29));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 29, cps_073 + 30));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 30, cps_073 + 31));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 31, cps_073 + 32));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 32, cps_073 + 33));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 33, cps_073 + 34));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 34, cps_073 + 35));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 35, cps_073 + 36));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 36, cps_073 + 37));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 37, cps_073 + 38));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 38, cps_073 + 39));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 39, cps_073 + 40));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 40, cps_073 + 41));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 41, cps_073 + 42));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 42, cps_073 + 43));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 43, cps_073 + 44));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 44, cps_073 + 45));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 45, cps_073 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 46, cps_073 + 47));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 47, cps_073 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 48, cps_073 + 49));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 49, cps_073 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 50, cps_073 + 51));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 51, cps_073 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 52, cps_073 + 53));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 53, cps_073 + 54));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 54, cps_073 + 55));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 55, cps_073 + 56));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 56, cps_073 + 57));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 57, cps_073 + 58));
-            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 58, cps_073 + 59));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 16, cps_073 + 18));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 18, cps_073 + 20));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 20, cps_073 + 22));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 22, cps_073 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 24, cps_073 + 26));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 26, cps_073 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 28, cps_073 + 30));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 30, cps_073 + 32));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 32, cps_073 + 34));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 34, cps_073 + 36));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 36, cps_073 + 38));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 38, cps_073 + 40));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 40, cps_073 + 42));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 42, cps_073 + 44));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 44, cps_073 + 46));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 46, cps_073 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 48, cps_073 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 50, cps_073 + 52));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 52, cps_073 + 54));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 54, cps_073 + 56));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 56, cps_073 + 58));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 58, cps_073 + 60));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 60, cps_073 + 62));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 62, cps_073 + 64));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 64, cps_073 + 66));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 66, cps_073 + 68));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 68, cps_073 + 70));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 70, cps_073 + 72));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 72, cps_073 + 74));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 74, cps_073 + 75));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 75, cps_073 + 77));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 77, cps_073 + 79));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 79, cps_073 + 81));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 81, cps_073 + 83));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 83, cps_073 + 85));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 85, cps_073 + 87));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 87, cps_073 + 89));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 89, cps_073 + 91));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 91, cps_073 + 93));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 93, cps_073 + 95));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 95, cps_073 + 97));
+            benchmark::DoNotOptimize(trie().longest_match(cps_073 + 97, cps_073 + 99));
     }
 }
 BENCHMARK(BM_collation_element_lookup_073);
 
 uint32_t cps_074[] = {
-0xf14, 0xf15, 0xf16, 0xf17, 0xf18, 0xf19, 0xf1a, 0xf1b, 0xf1c, 0xf1d, 0xf1e, 0xf1f, 0xf20, 0xf21, 0xf22, 0xf23, 0xf24, 0xf25, 0xf26, 0xf27, 0xf28, 0xf29, 0xf2a, 0xf2b, 0xf2c, 0xf2d, 0xf2e, 0xf2f, 0xf30, 0xf31, 0xf32, 0xf33, 0xf34, 0xf35, 0xf36, 0xf37, 0xf38, 0xf39, 0xf3a, 0xf3b, 0xf3c, 0xf3d, 0xf3e, 0xf3f, 0xf40, 0xf41, 0xf42, 0xf43, 0xf44, 0xf45
+0xec2, 0xe90, 0xec2, 0xe91, 0xec2, 0xe92, 0xec2, 0xe93, 0xec2, 0xe94, 0xec2, 0xe95, 0xec2, 0xe96, 0xec2, 0xe97, 0xec2, 0xe98, 0xec2, 0xe99, 0xec2, 0xe9a, 0xec2, 0xe9b, 0xec2, 0xe9c, 0xec2, 0xe9d, 0xec2, 0xe9e, 0xec2, 0xe9f, 0xec2, 0xea0, 0xec2, 0xea1, 0xec2, 0xea2, 0xec2, 0xea3, 0xec2, 0xea5, 0xec2, 0xea7, 0xec2, 0xea8, 0xec2, 0xea9, 0xec2, 0xeaa, 0xec2, 0xeab, 0xec2, 0xeac, 0xec2, 0xead, 0xec2, 0xeae, 0xec2, 0xedc, 0xec2, 0xedd, 0xec2, 0xede, 0xec2, 0xedf, 0xec3, 0xec3, 0xe81, 0xec3, 0xe82, 0xec3, 0xe84, 0xec3, 0xe86, 0xec3, 0xe87, 0xec3, 0xe88, 0xec3, 0xe89, 0xec3, 0xe8a, 0xec3, 0xe8c, 0xec3, 0xe8d, 0xec3, 0xe8e, 0xec3, 0xe8f, 0xec3, 0xe90, 0xec3, 0xe91, 0xec3, 0xe92, 0xec3, 0xe93
 };
 
 void BM_collation_element_lookup_074(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 0, cps_074 + 1));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 1, cps_074 + 2));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 2, cps_074 + 3));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 3, cps_074 + 4));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 4, cps_074 + 5));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 5, cps_074 + 6));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 6, cps_074 + 7));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 7, cps_074 + 8));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 8, cps_074 + 9));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 9, cps_074 + 10));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 10, cps_074 + 11));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 11, cps_074 + 12));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 12, cps_074 + 13));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 13, cps_074 + 14));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 14, cps_074 + 15));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 15, cps_074 + 16));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 16, cps_074 + 17));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 17, cps_074 + 18));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 18, cps_074 + 19));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 19, cps_074 + 20));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 20, cps_074 + 21));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 21, cps_074 + 22));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 22, cps_074 + 23));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 23, cps_074 + 24));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 24, cps_074 + 25));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 25, cps_074 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 26, cps_074 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 27, cps_074 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 28, cps_074 + 29));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 29, cps_074 + 30));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 30, cps_074 + 31));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 31, cps_074 + 32));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 32, cps_074 + 33));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 33, cps_074 + 34));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 34, cps_074 + 35));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 35, cps_074 + 36));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 36, cps_074 + 37));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 37, cps_074 + 38));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 38, cps_074 + 39));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 39, cps_074 + 40));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 40, cps_074 + 41));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 41, cps_074 + 42));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 42, cps_074 + 43));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 43, cps_074 + 44));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 44, cps_074 + 45));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 45, cps_074 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 46, cps_074 + 47));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 47, cps_074 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 48, cps_074 + 49));
-            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 49, cps_074 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 0, cps_074 + 2));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 2, cps_074 + 4));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 4, cps_074 + 6));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 6, cps_074 + 8));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 8, cps_074 + 10));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 10, cps_074 + 12));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 12, cps_074 + 14));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 14, cps_074 + 16));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 16, cps_074 + 18));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 18, cps_074 + 20));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 20, cps_074 + 22));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 22, cps_074 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 24, cps_074 + 26));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 26, cps_074 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 28, cps_074 + 30));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 30, cps_074 + 32));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 32, cps_074 + 34));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 34, cps_074 + 36));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 36, cps_074 + 38));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 38, cps_074 + 40));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 40, cps_074 + 42));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 42, cps_074 + 44));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 44, cps_074 + 46));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 46, cps_074 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 48, cps_074 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 50, cps_074 + 52));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 52, cps_074 + 54));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 54, cps_074 + 56));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 56, cps_074 + 58));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 58, cps_074 + 60));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 60, cps_074 + 62));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 62, cps_074 + 64));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 64, cps_074 + 66));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 66, cps_074 + 67));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 67, cps_074 + 69));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 69, cps_074 + 71));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 71, cps_074 + 73));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 73, cps_074 + 75));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 75, cps_074 + 77));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 77, cps_074 + 79));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 79, cps_074 + 81));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 81, cps_074 + 83));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 83, cps_074 + 85));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 85, cps_074 + 87));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 87, cps_074 + 89));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 89, cps_074 + 91));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 91, cps_074 + 93));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 93, cps_074 + 95));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 95, cps_074 + 97));
+            benchmark::DoNotOptimize(trie().longest_match(cps_074 + 97, cps_074 + 99));
     }
 }
 BENCHMARK(BM_collation_element_lookup_074);
 
 uint32_t cps_075[] = {
-0xf46, 0xf47, 0xf49, 0xf4a, 0xf4b, 0xf4c, 0xf4d, 0xf4e, 0xf4f, 0xf50, 0xf51, 0xf52, 0xf53, 0xf54, 0xf55, 0xf56, 0xf57, 0xf58, 0xf59, 0xf5a, 0xf5b, 0xf5c, 0xf5d, 0xf5e, 0xf5f, 0xf60, 0xf61, 0xf62, 0xf63, 0xf64, 0xf65, 0xf66, 0xf67, 0xf68, 0xf69, 0xf6a, 0xf6b, 0xf6c, 0xf71, 0xf71, 0xf72, 0xf71, 0xf74, 0xf71, 0xf80, 0xf72, 0xf73, 0xf74, 0xf75, 0xf76, 0xf77, 0xf78, 0xf79
+0xec3, 0xe94, 0xec3, 0xe95, 0xec3, 0xe96, 0xec3, 0xe97, 0xec3, 0xe98, 0xec3, 0xe99, 0xec3, 0xe9a, 0xec3, 0xe9b, 0xec3, 0xe9c, 0xec3, 0xe9d, 0xec3, 0xe9e, 0xec3, 0xe9f, 0xec3, 0xea0, 0xec3, 0xea1, 0xec3, 0xea2, 0xec3, 0xea3, 0xec3, 0xea5, 0xec3, 0xea7, 0xec3, 0xea8, 0xec3, 0xea9, 0xec3, 0xeaa, 0xec3, 0xeab, 0xec3, 0xeac, 0xec3, 0xead, 0xec3, 0xeae, 0xec3, 0xedc, 0xec3, 0xedd, 0xec3, 0xede, 0xec3, 0xedf, 0xec4, 0xec4, 0xe81, 0xec4, 0xe82, 0xec4, 0xe84, 0xec4, 0xe86, 0xec4, 0xe87, 0xec4, 0xe88, 0xec4, 0xe89, 0xec4, 0xe8a, 0xec4, 0xe8c, 0xec4, 0xe8d, 0xec4, 0xe8e, 0xec4, 0xe8f, 0xec4, 0xe90, 0xec4, 0xe91, 0xec4, 0xe92, 0xec4, 0xe93, 0xec4, 0xe94, 0xec4, 0xe95, 0xec4, 0xe96, 0xec4, 0xe97
 };
 
 void BM_collation_element_lookup_075(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 0, cps_075 + 1));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 1, cps_075 + 2));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 2, cps_075 + 3));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 3, cps_075 + 4));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 4, cps_075 + 5));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 5, cps_075 + 6));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 6, cps_075 + 7));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 7, cps_075 + 8));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 8, cps_075 + 9));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 9, cps_075 + 10));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 10, cps_075 + 11));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 11, cps_075 + 12));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 12, cps_075 + 13));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 13, cps_075 + 14));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 14, cps_075 + 15));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 15, cps_075 + 16));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 16, cps_075 + 17));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 17, cps_075 + 18));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 18, cps_075 + 19));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 19, cps_075 + 20));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 20, cps_075 + 21));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 21, cps_075 + 22));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 22, cps_075 + 23));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 23, cps_075 + 24));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 24, cps_075 + 25));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 25, cps_075 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 26, cps_075 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 27, cps_075 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 28, cps_075 + 29));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 29, cps_075 + 30));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 30, cps_075 + 31));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 31, cps_075 + 32));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 32, cps_075 + 33));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 33, cps_075 + 34));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 34, cps_075 + 35));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 35, cps_075 + 36));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 36, cps_075 + 37));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 37, cps_075 + 38));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 38, cps_075 + 39));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 39, cps_075 + 41));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 41, cps_075 + 43));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 43, cps_075 + 45));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 45, cps_075 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 46, cps_075 + 47));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 47, cps_075 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 48, cps_075 + 49));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 49, cps_075 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 50, cps_075 + 51));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 51, cps_075 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 52, cps_075 + 53));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 0, cps_075 + 2));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 2, cps_075 + 4));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 4, cps_075 + 6));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 6, cps_075 + 8));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 8, cps_075 + 10));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 10, cps_075 + 12));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 12, cps_075 + 14));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 14, cps_075 + 16));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 16, cps_075 + 18));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 18, cps_075 + 20));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 20, cps_075 + 22));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 22, cps_075 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 24, cps_075 + 26));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 26, cps_075 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 28, cps_075 + 30));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 30, cps_075 + 32));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 32, cps_075 + 34));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 34, cps_075 + 36));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 36, cps_075 + 38));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 38, cps_075 + 40));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 40, cps_075 + 42));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 42, cps_075 + 44));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 44, cps_075 + 46));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 46, cps_075 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 48, cps_075 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 50, cps_075 + 52));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 52, cps_075 + 54));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 54, cps_075 + 56));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 56, cps_075 + 58));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 58, cps_075 + 59));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 59, cps_075 + 61));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 61, cps_075 + 63));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 63, cps_075 + 65));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 65, cps_075 + 67));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 67, cps_075 + 69));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 69, cps_075 + 71));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 71, cps_075 + 73));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 73, cps_075 + 75));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 75, cps_075 + 77));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 77, cps_075 + 79));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 79, cps_075 + 81));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 81, cps_075 + 83));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 83, cps_075 + 85));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 85, cps_075 + 87));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 87, cps_075 + 89));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 89, cps_075 + 91));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 91, cps_075 + 93));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 93, cps_075 + 95));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 95, cps_075 + 97));
+            benchmark::DoNotOptimize(trie().longest_match(cps_075 + 97, cps_075 + 99));
     }
 }
 BENCHMARK(BM_collation_element_lookup_075);
 
 uint32_t cps_076[] = {
-0xf7a, 0xf7b, 0xf7c, 0xf7d, 0xf7e, 0xf7f, 0xf80, 0xf81, 0xf82, 0xf83, 0xf84, 0xf85, 0xf86, 0xf87, 0xf88, 0xf89, 0xf8a, 0xf8b, 0xf8c, 0xf8d, 0xf8e, 0xf8f, 0xf90, 0xf91, 0xf92, 0xf93, 0xf94, 0xf95, 0xf96, 0xf97, 0xf99, 0xf9a, 0xf9b, 0xf9c, 0xf9d, 0xf9e, 0xf9f, 0xfa0, 0xfa1, 0xfa2, 0xfa3, 0xfa4, 0xfa5, 0xfa6, 0xfa7, 0xfa8, 0xfa9, 0xfaa, 0xfab, 0xfac
+0xec4, 0xe98, 0xec4, 0xe99, 0xec4, 0xe9a, 0xec4, 0xe9b, 0xec4, 0xe9c, 0xec4, 0xe9d, 0xec4, 0xe9e, 0xec4, 0xe9f, 0xec4, 0xea0, 0xec4, 0xea1, 0xec4, 0xea2, 0xec4, 0xea3, 0xec4, 0xea5, 0xec4, 0xea7, 0xec4, 0xea8, 0xec4, 0xea9, 0xec4, 0xeaa, 0xec4, 0xeab, 0xec4, 0xeac, 0xec4, 0xead, 0xec4, 0xeae, 0xec4, 0xedc, 0xec4, 0xedd, 0xec4, 0xede, 0xec4, 0xedf, 0xec6, 0xec8, 0xec9, 0xeca, 0xecb, 0xecc, 0xecd, 0xecd, 0xeb2, 0xed0, 0xed1, 0xed2, 0xed3, 0xed4, 0xed5, 0xed6, 0xed7, 0xed8, 0xed9, 0xedc, 0xedd, 0xede, 0xedf, 0xf00, 0xf01, 0xf02
 };
 
 void BM_collation_element_lookup_076(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 0, cps_076 + 1));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 1, cps_076 + 2));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 2, cps_076 + 3));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 3, cps_076 + 4));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 4, cps_076 + 5));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 5, cps_076 + 6));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 6, cps_076 + 7));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 7, cps_076 + 8));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 8, cps_076 + 9));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 9, cps_076 + 10));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 10, cps_076 + 11));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 11, cps_076 + 12));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 12, cps_076 + 13));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 13, cps_076 + 14));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 14, cps_076 + 15));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 15, cps_076 + 16));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 16, cps_076 + 17));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 17, cps_076 + 18));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 18, cps_076 + 19));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 19, cps_076 + 20));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 20, cps_076 + 21));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 21, cps_076 + 22));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 22, cps_076 + 23));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 23, cps_076 + 24));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 24, cps_076 + 25));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 25, cps_076 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 26, cps_076 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 27, cps_076 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 28, cps_076 + 29));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 29, cps_076 + 30));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 30, cps_076 + 31));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 31, cps_076 + 32));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 32, cps_076 + 33));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 33, cps_076 + 34));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 34, cps_076 + 35));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 35, cps_076 + 36));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 36, cps_076 + 37));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 37, cps_076 + 38));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 38, cps_076 + 39));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 39, cps_076 + 40));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 40, cps_076 + 41));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 41, cps_076 + 42));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 42, cps_076 + 43));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 43, cps_076 + 44));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 44, cps_076 + 45));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 45, cps_076 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 46, cps_076 + 47));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 47, cps_076 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 48, cps_076 + 49));
-            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 49, cps_076 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 0, cps_076 + 2));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 2, cps_076 + 4));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 4, cps_076 + 6));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 6, cps_076 + 8));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 8, cps_076 + 10));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 10, cps_076 + 12));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 12, cps_076 + 14));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 14, cps_076 + 16));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 16, cps_076 + 18));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 18, cps_076 + 20));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 20, cps_076 + 22));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 22, cps_076 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 24, cps_076 + 26));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 26, cps_076 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 28, cps_076 + 30));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 30, cps_076 + 32));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 32, cps_076 + 34));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 34, cps_076 + 36));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 36, cps_076 + 38));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 38, cps_076 + 40));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 40, cps_076 + 42));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 42, cps_076 + 44));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 44, cps_076 + 46));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 46, cps_076 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 48, cps_076 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 50, cps_076 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 51, cps_076 + 52));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 52, cps_076 + 53));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 53, cps_076 + 54));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 54, cps_076 + 55));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 55, cps_076 + 56));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 56, cps_076 + 57));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 57, cps_076 + 59));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 59, cps_076 + 60));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 60, cps_076 + 61));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 61, cps_076 + 62));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 62, cps_076 + 63));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 63, cps_076 + 64));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 64, cps_076 + 65));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 65, cps_076 + 66));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 66, cps_076 + 67));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 67, cps_076 + 68));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 68, cps_076 + 69));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 69, cps_076 + 70));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 70, cps_076 + 71));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 71, cps_076 + 72));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 72, cps_076 + 73));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 73, cps_076 + 74));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 74, cps_076 + 75));
+            benchmark::DoNotOptimize(trie().longest_match(cps_076 + 75, cps_076 + 76));
     }
 }
 BENCHMARK(BM_collation_element_lookup_076);
 
 uint32_t cps_077[] = {
-0xfad, 0xfae, 0xfaf, 0xfb0, 0xfb1, 0xfb2, 0xfb2, 0xf71, 0xfb2, 0xf71, 0xf72, 0xfb2, 0xf71, 0xf74, 0xfb2, 0xf71, 0xf80, 0xfb2, 0xf73, 0xfb2, 0xf75, 0xfb2, 0xf80, 0xfb2, 0xf81, 0xfb3, 0xfb3, 0xf71, 0xfb3, 0xf71, 0xf72, 0xfb3, 0xf71, 0xf74, 0xfb3, 0xf71, 0xf80, 0xfb3, 0xf73, 0xfb3, 0xf75, 0xfb3, 0xf80, 0xfb3, 0xf81, 0xfb4, 0xfb5, 0xfb6, 0xfb7, 0xfb8, 0xfb9, 0xfba, 0xfbb, 0xfbc, 0xfbe, 0xfbf, 0xfc0, 0xfc1, 0xfc2, 0xfc3, 0xfc4, 0xfc5, 0xfc6, 0xfc7, 0xfc8, 0xfc9, 0xfca, 0xfcb, 0xfcc, 0xfce, 0xfcf, 0xfd0
+0xf03, 0xf04, 0xf05, 0xf06, 0xf07, 0xf08, 0xf09, 0xf0a, 0xf0b, 0xf0c, 0xf0d, 0xf0e, 0xf0f, 0xf10, 0xf11, 0xf12, 0xf13, 0xf14, 0xf15, 0xf16, 0xf17, 0xf18, 0xf19, 0xf1a, 0xf1b, 0xf1c, 0xf1d, 0xf1e, 0xf1f, 0xf20, 0xf21, 0xf22, 0xf23, 0xf24, 0xf25, 0xf26, 0xf27, 0xf28, 0xf29, 0xf2a, 0xf2b, 0xf2c, 0xf2d, 0xf2e, 0xf2f, 0xf30, 0xf31, 0xf32, 0xf33, 0xf34
 };
 
 void BM_collation_element_lookup_077(benchmark::State & state)
@@ -4732,56 +4732,56 @@ void BM_collation_element_lookup_077(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_077 + 3, cps_077 + 4));
             benchmark::DoNotOptimize(trie().longest_match(cps_077 + 4, cps_077 + 5));
             benchmark::DoNotOptimize(trie().longest_match(cps_077 + 5, cps_077 + 6));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 6, cps_077 + 8));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 8, cps_077 + 11));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 11, cps_077 + 14));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 14, cps_077 + 17));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 17, cps_077 + 19));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 19, cps_077 + 21));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 21, cps_077 + 23));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 23, cps_077 + 25));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 6, cps_077 + 7));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 7, cps_077 + 8));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 8, cps_077 + 9));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 9, cps_077 + 10));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 10, cps_077 + 11));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 11, cps_077 + 12));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 12, cps_077 + 13));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 13, cps_077 + 14));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 14, cps_077 + 15));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 15, cps_077 + 16));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 16, cps_077 + 17));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 17, cps_077 + 18));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 18, cps_077 + 19));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 19, cps_077 + 20));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 20, cps_077 + 21));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 21, cps_077 + 22));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 22, cps_077 + 23));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 23, cps_077 + 24));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 24, cps_077 + 25));
             benchmark::DoNotOptimize(trie().longest_match(cps_077 + 25, cps_077 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 26, cps_077 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 28, cps_077 + 31));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 31, cps_077 + 34));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 34, cps_077 + 37));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 37, cps_077 + 39));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 39, cps_077 + 41));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 41, cps_077 + 43));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 43, cps_077 + 45));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 26, cps_077 + 27));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 27, cps_077 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 28, cps_077 + 29));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 29, cps_077 + 30));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 30, cps_077 + 31));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 31, cps_077 + 32));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 32, cps_077 + 33));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 33, cps_077 + 34));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 34, cps_077 + 35));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 35, cps_077 + 36));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 36, cps_077 + 37));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 37, cps_077 + 38));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 38, cps_077 + 39));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 39, cps_077 + 40));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 40, cps_077 + 41));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 41, cps_077 + 42));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 42, cps_077 + 43));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 43, cps_077 + 44));
+            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 44, cps_077 + 45));
             benchmark::DoNotOptimize(trie().longest_match(cps_077 + 45, cps_077 + 46));
             benchmark::DoNotOptimize(trie().longest_match(cps_077 + 46, cps_077 + 47));
             benchmark::DoNotOptimize(trie().longest_match(cps_077 + 47, cps_077 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_077 + 48, cps_077 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_077 + 49, cps_077 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 50, cps_077 + 51));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 51, cps_077 + 52));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 52, cps_077 + 53));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 53, cps_077 + 54));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 54, cps_077 + 55));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 55, cps_077 + 56));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 56, cps_077 + 57));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 57, cps_077 + 58));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 58, cps_077 + 59));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 59, cps_077 + 60));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 60, cps_077 + 61));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 61, cps_077 + 62));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 62, cps_077 + 63));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 63, cps_077 + 64));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 64, cps_077 + 65));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 65, cps_077 + 66));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 66, cps_077 + 67));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 67, cps_077 + 68));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 68, cps_077 + 69));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 69, cps_077 + 70));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 70, cps_077 + 71));
-            benchmark::DoNotOptimize(trie().longest_match(cps_077 + 71, cps_077 + 72));
     }
 }
 BENCHMARK(BM_collation_element_lookup_077);
 
 uint32_t cps_078[] = {
-0xfd1, 0xfd2, 0xfd3, 0xfd4, 0xfd5, 0xfd6, 0xfd7, 0xfd8, 0xfd9, 0xfda, 0x1000, 0x1001, 0x1002, 0x1003, 0x1004, 0x1005, 0x1006, 0x1007, 0x1008, 0x1009, 0x100a, 0x100b, 0x100c, 0x100d, 0x100e, 0x100f, 0x1010, 0x1011, 0x1012, 0x1013, 0x1014, 0x1015, 0x1016, 0x1017, 0x1018, 0x1019, 0x101a, 0x101b, 0x101c, 0x101d, 0x101e, 0x101f, 0x1020, 0x1021, 0x1022, 0x1023, 0x1024, 0x1025, 0x1025, 0x102e, 0x1026
+0xf35, 0xf36, 0xf37, 0xf38, 0xf39, 0xf3a, 0xf3b, 0xf3c, 0xf3d, 0xf3e, 0xf3f, 0xf40, 0xf41, 0xf42, 0xf43, 0xf44, 0xf45, 0xf46, 0xf47, 0xf49, 0xf4a, 0xf4b, 0xf4c, 0xf4d, 0xf4e, 0xf4f, 0xf50, 0xf51, 0xf52, 0xf53, 0xf54, 0xf55, 0xf56, 0xf57, 0xf58, 0xf59, 0xf5a, 0xf5b, 0xf5c, 0xf5d, 0xf5e, 0xf5f, 0xf60, 0xf61, 0xf62, 0xf63, 0xf64, 0xf65, 0xf66, 0xf67
 };
 
 void BM_collation_element_lookup_078(benchmark::State & state)
@@ -4835,14 +4835,14 @@ void BM_collation_element_lookup_078(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_078 + 45, cps_078 + 46));
             benchmark::DoNotOptimize(trie().longest_match(cps_078 + 46, cps_078 + 47));
             benchmark::DoNotOptimize(trie().longest_match(cps_078 + 47, cps_078 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_078 + 48, cps_078 + 50));
-            benchmark::DoNotOptimize(trie().longest_match(cps_078 + 50, cps_078 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_078 + 48, cps_078 + 49));
+            benchmark::DoNotOptimize(trie().longest_match(cps_078 + 49, cps_078 + 50));
     }
 }
 BENCHMARK(BM_collation_element_lookup_078);
 
 uint32_t cps_079[] = {
-0x1027, 0x1028, 0x1029, 0x102a, 0x102b, 0x102c, 0x102d, 0x102e, 0x102f, 0x1030, 0x1031, 0x1032, 0x1033, 0x1034, 0x1035, 0x1036, 0x1037, 0x1038, 0x1039, 0x103a, 0x103b, 0x103c, 0x103d, 0x103e, 0x103f, 0x1040, 0x1041, 0x1042, 0x1043, 0x1044, 0x1045, 0x1046, 0x1047, 0x1048, 0x1049, 0x104a, 0x104b, 0x104c, 0x104d, 0x104e, 0x104f, 0x1050, 0x1051, 0x1052, 0x1053, 0x1054, 0x1055, 0x1056, 0x1057, 0x1058
+0xf68, 0xf69, 0xf6a, 0xf6b, 0xf6c, 0xf71, 0xf71, 0xf72, 0xf71, 0xf74, 0xf71, 0xf80, 0xf72, 0xf73, 0xf74, 0xf75, 0xf76, 0xf77, 0xf78, 0xf79, 0xf7a, 0xf7b, 0xf7c, 0xf7d, 0xf7e, 0xf7f, 0xf80, 0xf81, 0xf82, 0xf83, 0xf84, 0xf85, 0xf86, 0xf87, 0xf88, 0xf89, 0xf8a, 0xf8b, 0xf8c, 0xf8d, 0xf8e, 0xf8f, 0xf90, 0xf91, 0xf92, 0xf93, 0xf94, 0xf95, 0xf96, 0xf97, 0xf99, 0xf9a, 0xf9b
 };
 
 void BM_collation_element_lookup_079(benchmark::State & state)
@@ -4854,12 +4854,9 @@ void BM_collation_element_lookup_079(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_079 + 3, cps_079 + 4));
             benchmark::DoNotOptimize(trie().longest_match(cps_079 + 4, cps_079 + 5));
             benchmark::DoNotOptimize(trie().longest_match(cps_079 + 5, cps_079 + 6));
-            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 6, cps_079 + 7));
-            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 7, cps_079 + 8));
-            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 8, cps_079 + 9));
-            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 9, cps_079 + 10));
-            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 10, cps_079 + 11));
-            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 11, cps_079 + 12));
+            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 6, cps_079 + 8));
+            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 8, cps_079 + 10));
+            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 10, cps_079 + 12));
             benchmark::DoNotOptimize(trie().longest_match(cps_079 + 12, cps_079 + 13));
             benchmark::DoNotOptimize(trie().longest_match(cps_079 + 13, cps_079 + 14));
             benchmark::DoNotOptimize(trie().longest_match(cps_079 + 14, cps_079 + 15));
@@ -4898,12 +4895,15 @@ void BM_collation_element_lookup_079(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_079 + 47, cps_079 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_079 + 48, cps_079 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_079 + 49, cps_079 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 50, cps_079 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 51, cps_079 + 52));
+            benchmark::DoNotOptimize(trie().longest_match(cps_079 + 52, cps_079 + 53));
     }
 }
 BENCHMARK(BM_collation_element_lookup_079);
 
 uint32_t cps_080[] = {
-0x1059, 0x105a, 0x105b, 0x105c, 0x105d, 0x105e, 0x105f, 0x1060, 0x1061, 0x1062, 0x1063, 0x1064, 0x1065, 0x1066, 0x1067, 0x1068, 0x1069, 0x106a, 0x106b, 0x106c, 0x106d, 0x106e, 0x106f, 0x1070, 0x1071, 0x1072, 0x1073, 0x1074, 0x1075, 0x1076, 0x1077, 0x1078, 0x1079, 0x107a, 0x107b, 0x107c, 0x107d, 0x107e, 0x107f, 0x1080, 0x1081, 0x1082, 0x1083, 0x1084, 0x1085, 0x1086, 0x1087, 0x1088, 0x1089, 0x108a
+0xf9c, 0xf9d, 0xf9e, 0xf9f, 0xfa0, 0xfa1, 0xfa2, 0xfa3, 0xfa4, 0xfa5, 0xfa6, 0xfa7, 0xfa8, 0xfa9, 0xfaa, 0xfab, 0xfac, 0xfad, 0xfae, 0xfaf, 0xfb0, 0xfb1, 0xfb2, 0xfb2, 0xf71, 0xfb2, 0xf71, 0xf72, 0xfb2, 0xf71, 0xf74, 0xfb2, 0xf71, 0xf80, 0xfb2, 0xf73, 0xfb2, 0xf75, 0xfb2, 0xf80, 0xfb2, 0xf81, 0xfb3, 0xfb3, 0xf71, 0xfb3, 0xf71, 0xf72, 0xfb3, 0xf71, 0xf74, 0xfb3, 0xf71, 0xf80, 0xfb3, 0xf73, 0xfb3, 0xf75, 0xfb3, 0xf80, 0xfb3, 0xf81, 0xfb4, 0xfb5, 0xfb6, 0xfb7, 0xfb8, 0xfb9, 0xfba, 0xfbb, 0xfbc, 0xfbe
 };
 
 void BM_collation_element_lookup_080(benchmark::State & state)
@@ -4932,39 +4932,39 @@ void BM_collation_element_lookup_080(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_080 + 20, cps_080 + 21));
             benchmark::DoNotOptimize(trie().longest_match(cps_080 + 21, cps_080 + 22));
             benchmark::DoNotOptimize(trie().longest_match(cps_080 + 22, cps_080 + 23));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 23, cps_080 + 24));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 24, cps_080 + 25));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 25, cps_080 + 26));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 26, cps_080 + 27));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 27, cps_080 + 28));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 28, cps_080 + 29));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 29, cps_080 + 30));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 30, cps_080 + 31));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 31, cps_080 + 32));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 32, cps_080 + 33));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 33, cps_080 + 34));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 34, cps_080 + 35));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 35, cps_080 + 36));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 36, cps_080 + 37));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 37, cps_080 + 38));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 38, cps_080 + 39));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 39, cps_080 + 40));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 40, cps_080 + 41));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 41, cps_080 + 42));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 23, cps_080 + 25));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 25, cps_080 + 28));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 28, cps_080 + 31));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 31, cps_080 + 34));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 34, cps_080 + 36));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 36, cps_080 + 38));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 38, cps_080 + 40));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 40, cps_080 + 42));
             benchmark::DoNotOptimize(trie().longest_match(cps_080 + 42, cps_080 + 43));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 43, cps_080 + 44));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 44, cps_080 + 45));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 45, cps_080 + 46));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 46, cps_080 + 47));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 47, cps_080 + 48));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 48, cps_080 + 49));
-            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 49, cps_080 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 43, cps_080 + 45));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 45, cps_080 + 48));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 48, cps_080 + 51));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 51, cps_080 + 54));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 54, cps_080 + 56));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 56, cps_080 + 58));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 58, cps_080 + 60));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 60, cps_080 + 62));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 62, cps_080 + 63));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 63, cps_080 + 64));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 64, cps_080 + 65));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 65, cps_080 + 66));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 66, cps_080 + 67));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 67, cps_080 + 68));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 68, cps_080 + 69));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 69, cps_080 + 70));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 70, cps_080 + 71));
+            benchmark::DoNotOptimize(trie().longest_match(cps_080 + 71, cps_080 + 72));
     }
 }
 BENCHMARK(BM_collation_element_lookup_080);
 
 uint32_t cps_081[] = {
-0x108b, 0x108c, 0x108d, 0x108e, 0x108f, 0x1090, 0x1091, 0x1092, 0x1093, 0x1094, 0x1095, 0x1096, 0x1097, 0x1098, 0x1099, 0x109a, 0x109b, 0x109c, 0x109d, 0x109e, 0x109f, 0x10a0, 0x10a1, 0x10a2, 0x10a3, 0x10a4, 0x10a5, 0x10a6, 0x10a7, 0x10a8, 0x10a9, 0x10aa, 0x10ab, 0x10ac, 0x10ad, 0x10ae, 0x10af, 0x10b0, 0x10b1, 0x10b2, 0x10b3, 0x10b4, 0x10b5, 0x10b6, 0x10b7, 0x10b8, 0x10b9, 0x10ba, 0x10bb, 0x10bc
+0xfbf, 0xfc0, 0xfc1, 0xfc2, 0xfc3, 0xfc4, 0xfc5, 0xfc6, 0xfc7, 0xfc8, 0xfc9, 0xfca, 0xfcb, 0xfcc, 0xfce, 0xfcf, 0xfd0, 0xfd1, 0xfd2, 0xfd3, 0xfd4, 0xfd5, 0xfd6, 0xfd7, 0xfd8, 0xfd9, 0xfda, 0x1000, 0x1001, 0x1002, 0x1003, 0x1004, 0x1005, 0x1006, 0x1007, 0x1008, 0x1009, 0x100a, 0x100b, 0x100c, 0x100d, 0x100e, 0x100f, 0x1010, 0x1011, 0x1012, 0x1013, 0x1014, 0x1015, 0x1016
 };
 
 void BM_collation_element_lookup_081(benchmark::State & state)
@@ -5025,7 +5025,7 @@ void BM_collation_element_lookup_081(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_081);
 
 uint32_t cps_082[] = {
-0x10bd, 0x10be, 0x10bf, 0x10c0, 0x10c1, 0x10c2, 0x10c3, 0x10c4, 0x10c5, 0x10c7, 0x10cd, 0x10d0, 0x10d1, 0x10d2, 0x10d3, 0x10d4, 0x10d5, 0x10d6, 0x10d7, 0x10d8, 0x10d9, 0x10da, 0x10db, 0x10dc, 0x10dd, 0x10de, 0x10df, 0x10e0, 0x10e1, 0x10e2, 0x10e3, 0x10e4, 0x10e5, 0x10e6, 0x10e7, 0x10e8, 0x10e9, 0x10ea, 0x10eb, 0x10ec, 0x10ed, 0x10ee, 0x10ef, 0x10f0, 0x10f1, 0x10f2, 0x10f3, 0x10f4, 0x10f5, 0x10f6
+0x1017, 0x1018, 0x1019, 0x101a, 0x101b, 0x101c, 0x101d, 0x101e, 0x101f, 0x1020, 0x1021, 0x1022, 0x1023, 0x1024, 0x1025, 0x1025, 0x102e, 0x1026, 0x1027, 0x1028, 0x1029, 0x102a, 0x102b, 0x102c, 0x102d, 0x102e, 0x102f, 0x1030, 0x1031, 0x1032, 0x1033, 0x1034, 0x1035, 0x1036, 0x1037, 0x1038, 0x1039, 0x103a, 0x103b, 0x103c, 0x103d, 0x103e, 0x103f, 0x1040, 0x1041, 0x1042, 0x1043, 0x1044, 0x1045, 0x1046, 0x1047
 };
 
 void BM_collation_element_lookup_082(benchmark::State & state)
@@ -5046,8 +5046,7 @@ void BM_collation_element_lookup_082(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_082 + 12, cps_082 + 13));
             benchmark::DoNotOptimize(trie().longest_match(cps_082 + 13, cps_082 + 14));
             benchmark::DoNotOptimize(trie().longest_match(cps_082 + 14, cps_082 + 15));
-            benchmark::DoNotOptimize(trie().longest_match(cps_082 + 15, cps_082 + 16));
-            benchmark::DoNotOptimize(trie().longest_match(cps_082 + 16, cps_082 + 17));
+            benchmark::DoNotOptimize(trie().longest_match(cps_082 + 15, cps_082 + 17));
             benchmark::DoNotOptimize(trie().longest_match(cps_082 + 17, cps_082 + 18));
             benchmark::DoNotOptimize(trie().longest_match(cps_082 + 18, cps_082 + 19));
             benchmark::DoNotOptimize(trie().longest_match(cps_082 + 19, cps_082 + 20));
@@ -5081,12 +5080,13 @@ void BM_collation_element_lookup_082(benchmark::State & state)
             benchmark::DoNotOptimize(trie().longest_match(cps_082 + 47, cps_082 + 48));
             benchmark::DoNotOptimize(trie().longest_match(cps_082 + 48, cps_082 + 49));
             benchmark::DoNotOptimize(trie().longest_match(cps_082 + 49, cps_082 + 50));
+            benchmark::DoNotOptimize(trie().longest_match(cps_082 + 50, cps_082 + 51));
     }
 }
 BENCHMARK(BM_collation_element_lookup_082);
 
 uint32_t cps_083[] = {
-0x10f7, 0x10f8, 0x10f9, 0x10fa, 0x10fb, 0x10fc, 0x10fd, 0x10fe, 0x10ff, 0x1100, 0x1101, 0x1102, 0x1103, 0x1104, 0x1105, 0x1106, 0x1107, 0x1108, 0x1109, 0x110a, 0x110b, 0x110c, 0x110d, 0x110e, 0x110f, 0x1110, 0x1111, 0x1112, 0x1113, 0x1114, 0x1115, 0x1116, 0x1117, 0x1118, 0x1119, 0x111a, 0x111b, 0x111c, 0x111d, 0x111e, 0x111f, 0x1120, 0x1121, 0x1122, 0x1123, 0x1124, 0x1125, 0x1126, 0x1127, 0x1128
+0x1048, 0x1049, 0x104a, 0x104b, 0x104c, 0x104d, 0x104e, 0x104f, 0x1050, 0x1051, 0x1052, 0x1053, 0x1054, 0x1055, 0x1056, 0x1057, 0x1058, 0x1059, 0x105a, 0x105b, 0x105c, 0x105d, 0x105e, 0x105f, 0x1060, 0x1061, 0x1062, 0x1063, 0x1064, 0x1065, 0x1066, 0x1067, 0x1068, 0x1069, 0x106a, 0x106b, 0x106c, 0x106d, 0x106e, 0x106f, 0x1070, 0x1071, 0x1072, 0x1073, 0x1074, 0x1075, 0x1076, 0x1077, 0x1078, 0x1079
 };
 
 void BM_collation_element_lookup_083(benchmark::State & state)
@@ -5147,7 +5147,7 @@ void BM_collation_element_lookup_083(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_083);
 
 uint32_t cps_084[] = {
-0x1129, 0x112a, 0x112b, 0x112c, 0x112d, 0x112e, 0x112f, 0x1130, 0x1131, 0x1132, 0x1133, 0x1134, 0x1135, 0x1136, 0x1137, 0x1138, 0x1139, 0x113a, 0x113b, 0x113c, 0x113d, 0x113e, 0x113f, 0x1140, 0x1141, 0x1142, 0x1143, 0x1144, 0x1145, 0x1146, 0x1147, 0x1148, 0x1149, 0x114a, 0x114b, 0x114c, 0x114d, 0x114e, 0x114f, 0x1150, 0x1151, 0x1152, 0x1153, 0x1154, 0x1155, 0x1156, 0x1157, 0x1158, 0x1159, 0x115a
+0x107a, 0x107b, 0x107c, 0x107d, 0x107e, 0x107f, 0x1080, 0x1081, 0x1082, 0x1083, 0x1084, 0x1085, 0x1086, 0x1087, 0x1088, 0x1089, 0x108a, 0x108b, 0x108c, 0x108d, 0x108e, 0x108f, 0x1090, 0x1091, 0x1092, 0x1093, 0x1094, 0x1095, 0x1096, 0x1097, 0x1098, 0x1099, 0x109a, 0x109b, 0x109c, 0x109d, 0x109e, 0x109f, 0x10a0, 0x10a1, 0x10a2, 0x10a3, 0x10a4, 0x10a5, 0x10a6, 0x10a7, 0x10a8, 0x10a9, 0x10aa, 0x10ab
 };
 
 void BM_collation_element_lookup_084(benchmark::State & state)
@@ -5208,7 +5208,7 @@ void BM_collation_element_lookup_084(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_084);
 
 uint32_t cps_085[] = {
-0x115b, 0x115c, 0x115d, 0x115e, 0x115f, 0x1160, 0x1161, 0x1162, 0x1163, 0x1164, 0x1165, 0x1166, 0x1167, 0x1168, 0x1169, 0x116a, 0x116b, 0x116c, 0x116d, 0x116e, 0x116f, 0x1170, 0x1171, 0x1172, 0x1173, 0x1174, 0x1175, 0x1176, 0x1177, 0x1178, 0x1179, 0x117a, 0x117b, 0x117c, 0x117d, 0x117e, 0x117f, 0x1180, 0x1181, 0x1182, 0x1183, 0x1184, 0x1185, 0x1186, 0x1187, 0x1188, 0x1189, 0x118a, 0x118b, 0x118c
+0x10ac, 0x10ad, 0x10ae, 0x10af, 0x10b0, 0x10b1, 0x10b2, 0x10b3, 0x10b4, 0x10b5, 0x10b6, 0x10b7, 0x10b8, 0x10b9, 0x10ba, 0x10bb, 0x10bc, 0x10bd, 0x10be, 0x10bf, 0x10c0, 0x10c1, 0x10c2, 0x10c3, 0x10c4, 0x10c5, 0x10c7, 0x10cd, 0x10d0, 0x10d1, 0x10d2, 0x10d3, 0x10d4, 0x10d5, 0x10d6, 0x10d7, 0x10d8, 0x10d9, 0x10da, 0x10db, 0x10dc, 0x10dd, 0x10de, 0x10df, 0x10e0, 0x10e1, 0x10e2, 0x10e3, 0x10e4, 0x10e5
 };
 
 void BM_collation_element_lookup_085(benchmark::State & state)
@@ -5269,7 +5269,7 @@ void BM_collation_element_lookup_085(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_085);
 
 uint32_t cps_086[] = {
-0x118d, 0x118e, 0x118f, 0x1190, 0x1191, 0x1192, 0x1193, 0x1194, 0x1195, 0x1196, 0x1197, 0x1198, 0x1199, 0x119a, 0x119b, 0x119c, 0x119d, 0x119e, 0x119f, 0x11a0, 0x11a1, 0x11a2, 0x11a3, 0x11a4, 0x11a5, 0x11a6, 0x11a7, 0x11a8, 0x11a9, 0x11aa, 0x11ab, 0x11ac, 0x11ad, 0x11ae, 0x11af, 0x11b0, 0x11b1, 0x11b2, 0x11b3, 0x11b4, 0x11b5, 0x11b6, 0x11b7, 0x11b8, 0x11b9, 0x11ba, 0x11bb, 0x11bc, 0x11bd, 0x11be
+0x10e6, 0x10e7, 0x10e8, 0x10e9, 0x10ea, 0x10eb, 0x10ec, 0x10ed, 0x10ee, 0x10ef, 0x10f0, 0x10f1, 0x10f2, 0x10f3, 0x10f4, 0x10f5, 0x10f6, 0x10f7, 0x10f8, 0x10f9, 0x10fa, 0x10fb, 0x10fc, 0x10fd, 0x10fe, 0x10ff, 0x1100, 0x1101, 0x1102, 0x1103, 0x1104, 0x1105, 0x1106, 0x1107, 0x1108, 0x1109, 0x110a, 0x110b, 0x110c, 0x110d, 0x110e, 0x110f, 0x1110, 0x1111, 0x1112, 0x1113, 0x1114, 0x1115, 0x1116, 0x1117
 };
 
 void BM_collation_element_lookup_086(benchmark::State & state)
@@ -5330,7 +5330,7 @@ void BM_collation_element_lookup_086(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_086);
 
 uint32_t cps_087[] = {
-0x11bf, 0x11c0, 0x11c1, 0x11c2, 0x11c3, 0x11c4, 0x11c5, 0x11c6, 0x11c7, 0x11c8, 0x11c9, 0x11ca, 0x11cb, 0x11cc, 0x11cd, 0x11ce, 0x11cf, 0x11d0, 0x11d1, 0x11d2, 0x11d3, 0x11d4, 0x11d5, 0x11d6, 0x11d7, 0x11d8, 0x11d9, 0x11da, 0x11db, 0x11dc, 0x11dd, 0x11de, 0x11df, 0x11e0, 0x11e1, 0x11e2, 0x11e3, 0x11e4, 0x11e5, 0x11e6, 0x11e7, 0x11e8, 0x11e9, 0x11ea, 0x11eb, 0x11ec, 0x11ed, 0x11ee, 0x11ef, 0x11f0
+0x1118, 0x1119, 0x111a, 0x111b, 0x111c, 0x111d, 0x111e, 0x111f, 0x1120, 0x1121, 0x1122, 0x1123, 0x1124, 0x1125, 0x1126, 0x1127, 0x1128, 0x1129, 0x112a, 0x112b, 0x112c, 0x112d, 0x112e, 0x112f, 0x1130, 0x1131, 0x1132, 0x1133, 0x1134, 0x1135, 0x1136, 0x1137, 0x1138, 0x1139, 0x113a, 0x113b, 0x113c, 0x113d, 0x113e, 0x113f, 0x1140, 0x1141, 0x1142, 0x1143, 0x1144, 0x1145, 0x1146, 0x1147, 0x1148, 0x1149
 };
 
 void BM_collation_element_lookup_087(benchmark::State & state)
@@ -5391,7 +5391,7 @@ void BM_collation_element_lookup_087(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_087);
 
 uint32_t cps_088[] = {
-0x11f1, 0x11f2, 0x11f3, 0x11f4, 0x11f5, 0x11f6, 0x11f7, 0x11f8, 0x11f9, 0x11fa, 0x11fb, 0x11fc, 0x11fd, 0x11fe, 0x11ff, 0x1200, 0x1201, 0x1202, 0x1203, 0x1204, 0x1205, 0x1206, 0x1207, 0x1208, 0x1209, 0x120a, 0x120b, 0x120c, 0x120d, 0x120e, 0x120f, 0x1210, 0x1211, 0x1212, 0x1213, 0x1214, 0x1215, 0x1216, 0x1217, 0x1218, 0x1219, 0x121a, 0x121b, 0x121c, 0x121d, 0x121e, 0x121f, 0x1220, 0x1221, 0x1222
+0x114a, 0x114b, 0x114c, 0x114d, 0x114e, 0x114f, 0x1150, 0x1151, 0x1152, 0x1153, 0x1154, 0x1155, 0x1156, 0x1157, 0x1158, 0x1159, 0x115a, 0x115b, 0x115c, 0x115d, 0x115e, 0x115f, 0x1160, 0x1161, 0x1162, 0x1163, 0x1164, 0x1165, 0x1166, 0x1167, 0x1168, 0x1169, 0x116a, 0x116b, 0x116c, 0x116d, 0x116e, 0x116f, 0x1170, 0x1171, 0x1172, 0x1173, 0x1174, 0x1175, 0x1176, 0x1177, 0x1178, 0x1179, 0x117a, 0x117b
 };
 
 void BM_collation_element_lookup_088(benchmark::State & state)
@@ -5452,7 +5452,7 @@ void BM_collation_element_lookup_088(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_088);
 
 uint32_t cps_089[] = {
-0x1223, 0x1224, 0x1225, 0x1226, 0x1227, 0x1228, 0x1229, 0x122a, 0x122b, 0x122c, 0x122d, 0x122e, 0x122f, 0x1230, 0x1231, 0x1232, 0x1233, 0x1234, 0x1235, 0x1236, 0x1237, 0x1238, 0x1239, 0x123a, 0x123b, 0x123c, 0x123d, 0x123e, 0x123f, 0x1240, 0x1241, 0x1242, 0x1243, 0x1244, 0x1245, 0x1246, 0x1247, 0x1248, 0x124a, 0x124b, 0x124c, 0x124d, 0x1250, 0x1251, 0x1252, 0x1253, 0x1254, 0x1255, 0x1256, 0x1258
+0x117c, 0x117d, 0x117e, 0x117f, 0x1180, 0x1181, 0x1182, 0x1183, 0x1184, 0x1185, 0x1186, 0x1187, 0x1188, 0x1189, 0x118a, 0x118b, 0x118c, 0x118d, 0x118e, 0x118f, 0x1190, 0x1191, 0x1192, 0x1193, 0x1194, 0x1195, 0x1196, 0x1197, 0x1198, 0x1199, 0x119a, 0x119b, 0x119c, 0x119d, 0x119e, 0x119f, 0x11a0, 0x11a1, 0x11a2, 0x11a3, 0x11a4, 0x11a5, 0x11a6, 0x11a7, 0x11a8, 0x11a9, 0x11aa, 0x11ab, 0x11ac, 0x11ad
 };
 
 void BM_collation_element_lookup_089(benchmark::State & state)
@@ -5513,7 +5513,7 @@ void BM_collation_element_lookup_089(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_089);
 
 uint32_t cps_090[] = {
-0x125a, 0x125b, 0x125c, 0x125d, 0x1260, 0x1261, 0x1262, 0x1263, 0x1264, 0x1265, 0x1266, 0x1267, 0x1268, 0x1269, 0x126a, 0x126b, 0x126c, 0x126d, 0x126e, 0x126f, 0x1270, 0x1271, 0x1272, 0x1273, 0x1274, 0x1275, 0x1276, 0x1277, 0x1278, 0x1279, 0x127a, 0x127b, 0x127c, 0x127d, 0x127e, 0x127f, 0x1280, 0x1281, 0x1282, 0x1283, 0x1284, 0x1285, 0x1286, 0x1287, 0x1288, 0x128a, 0x128b, 0x128c, 0x128d, 0x1290
+0x11ae, 0x11af, 0x11b0, 0x11b1, 0x11b2, 0x11b3, 0x11b4, 0x11b5, 0x11b6, 0x11b7, 0x11b8, 0x11b9, 0x11ba, 0x11bb, 0x11bc, 0x11bd, 0x11be, 0x11bf, 0x11c0, 0x11c1, 0x11c2, 0x11c3, 0x11c4, 0x11c5, 0x11c6, 0x11c7, 0x11c8, 0x11c9, 0x11ca, 0x11cb, 0x11cc, 0x11cd, 0x11ce, 0x11cf, 0x11d0, 0x11d1, 0x11d2, 0x11d3, 0x11d4, 0x11d5, 0x11d6, 0x11d7, 0x11d8, 0x11d9, 0x11da, 0x11db, 0x11dc, 0x11dd, 0x11de, 0x11df
 };
 
 void BM_collation_element_lookup_090(benchmark::State & state)
@@ -5574,7 +5574,7 @@ void BM_collation_element_lookup_090(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_090);
 
 uint32_t cps_091[] = {
-0x1291, 0x1292, 0x1293, 0x1294, 0x1295, 0x1296, 0x1297, 0x1298, 0x1299, 0x129a, 0x129b, 0x129c, 0x129d, 0x129e, 0x129f, 0x12a0, 0x12a1, 0x12a2, 0x12a3, 0x12a4, 0x12a5, 0x12a6, 0x12a7, 0x12a8, 0x12a9, 0x12aa, 0x12ab, 0x12ac, 0x12ad, 0x12ae, 0x12af, 0x12b0, 0x12b2, 0x12b3, 0x12b4, 0x12b5, 0x12b8, 0x12b9, 0x12ba, 0x12bb, 0x12bc, 0x12bd, 0x12be, 0x12c0, 0x12c2, 0x12c3, 0x12c4, 0x12c5, 0x12c8, 0x12c9
+0x11e0, 0x11e1, 0x11e2, 0x11e3, 0x11e4, 0x11e5, 0x11e6, 0x11e7, 0x11e8, 0x11e9, 0x11ea, 0x11eb, 0x11ec, 0x11ed, 0x11ee, 0x11ef, 0x11f0, 0x11f1, 0x11f2, 0x11f3, 0x11f4, 0x11f5, 0x11f6, 0x11f7, 0x11f8, 0x11f9, 0x11fa, 0x11fb, 0x11fc, 0x11fd, 0x11fe, 0x11ff, 0x1200, 0x1201, 0x1202, 0x1203, 0x1204, 0x1205, 0x1206, 0x1207, 0x1208, 0x1209, 0x120a, 0x120b, 0x120c, 0x120d, 0x120e, 0x120f, 0x1210, 0x1211
 };
 
 void BM_collation_element_lookup_091(benchmark::State & state)
@@ -5635,7 +5635,7 @@ void BM_collation_element_lookup_091(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_091);
 
 uint32_t cps_092[] = {
-0x12ca, 0x12cb, 0x12cc, 0x12cd, 0x12ce, 0x12cf, 0x12d0, 0x12d1, 0x12d2, 0x12d3, 0x12d4, 0x12d5, 0x12d6, 0x12d8, 0x12d9, 0x12da, 0x12db, 0x12dc, 0x12dd, 0x12de, 0x12df, 0x12e0, 0x12e1, 0x12e2, 0x12e3, 0x12e4, 0x12e5, 0x12e6, 0x12e7, 0x12e8, 0x12e9, 0x12ea, 0x12eb, 0x12ec, 0x12ed, 0x12ee, 0x12ef, 0x12f0, 0x12f1, 0x12f2, 0x12f3, 0x12f4, 0x12f5, 0x12f6, 0x12f7, 0x12f8, 0x12f9, 0x12fa, 0x12fb, 0x12fc
+0x1212, 0x1213, 0x1214, 0x1215, 0x1216, 0x1217, 0x1218, 0x1219, 0x121a, 0x121b, 0x121c, 0x121d, 0x121e, 0x121f, 0x1220, 0x1221, 0x1222, 0x1223, 0x1224, 0x1225, 0x1226, 0x1227, 0x1228, 0x1229, 0x122a, 0x122b, 0x122c, 0x122d, 0x122e, 0x122f, 0x1230, 0x1231, 0x1232, 0x1233, 0x1234, 0x1235, 0x1236, 0x1237, 0x1238, 0x1239, 0x123a, 0x123b, 0x123c, 0x123d, 0x123e, 0x123f, 0x1240, 0x1241, 0x1242, 0x1243
 };
 
 void BM_collation_element_lookup_092(benchmark::State & state)
@@ -5696,7 +5696,7 @@ void BM_collation_element_lookup_092(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_092);
 
 uint32_t cps_093[] = {
-0x12fd, 0x12fe, 0x12ff, 0x1300, 0x1301, 0x1302, 0x1303, 0x1304, 0x1305, 0x1306, 0x1307, 0x1308, 0x1309, 0x130a, 0x130b, 0x130c, 0x130d, 0x130e, 0x130f, 0x1310, 0x1312, 0x1313, 0x1314, 0x1315, 0x1318, 0x1319, 0x131a, 0x131b, 0x131c, 0x131d, 0x131e, 0x131f, 0x1320, 0x1321, 0x1322, 0x1323, 0x1324, 0x1325, 0x1326, 0x1327, 0x1328, 0x1329, 0x132a, 0x132b, 0x132c, 0x132d, 0x132e, 0x132f, 0x1330, 0x1331
+0x1244, 0x1245, 0x1246, 0x1247, 0x1248, 0x124a, 0x124b, 0x124c, 0x124d, 0x1250, 0x1251, 0x1252, 0x1253, 0x1254, 0x1255, 0x1256, 0x1258, 0x125a, 0x125b, 0x125c, 0x125d, 0x1260, 0x1261, 0x1262, 0x1263, 0x1264, 0x1265, 0x1266, 0x1267, 0x1268, 0x1269, 0x126a, 0x126b, 0x126c, 0x126d, 0x126e, 0x126f, 0x1270, 0x1271, 0x1272, 0x1273, 0x1274, 0x1275, 0x1276, 0x1277, 0x1278, 0x1279, 0x127a, 0x127b, 0x127c
 };
 
 void BM_collation_element_lookup_093(benchmark::State & state)
@@ -5757,7 +5757,7 @@ void BM_collation_element_lookup_093(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_093);
 
 uint32_t cps_094[] = {
-0x1332, 0x1333, 0x1334, 0x1335, 0x1336, 0x1337, 0x1338, 0x1339, 0x133a, 0x133b, 0x133c, 0x133d, 0x133e, 0x133f, 0x1340, 0x1341, 0x1342, 0x1343, 0x1344, 0x1345, 0x1346, 0x1347, 0x1348, 0x1349, 0x134a, 0x134b, 0x134c, 0x134d, 0x134e, 0x134f, 0x1350, 0x1351, 0x1352, 0x1353, 0x1354, 0x1355, 0x1356, 0x1357, 0x1358, 0x1359, 0x135a, 0x135d, 0x135e, 0x135f, 0x1360, 0x1361, 0x1362, 0x1363, 0x1364, 0x1365
+0x127d, 0x127e, 0x127f, 0x1280, 0x1281, 0x1282, 0x1283, 0x1284, 0x1285, 0x1286, 0x1287, 0x1288, 0x128a, 0x128b, 0x128c, 0x128d, 0x1290, 0x1291, 0x1292, 0x1293, 0x1294, 0x1295, 0x1296, 0x1297, 0x1298, 0x1299, 0x129a, 0x129b, 0x129c, 0x129d, 0x129e, 0x129f, 0x12a0, 0x12a1, 0x12a2, 0x12a3, 0x12a4, 0x12a5, 0x12a6, 0x12a7, 0x12a8, 0x12a9, 0x12aa, 0x12ab, 0x12ac, 0x12ad, 0x12ae, 0x12af, 0x12b0, 0x12b2
 };
 
 void BM_collation_element_lookup_094(benchmark::State & state)
@@ -5818,7 +5818,7 @@ void BM_collation_element_lookup_094(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_094);
 
 uint32_t cps_095[] = {
-0x1366, 0x1367, 0x1368, 0x1369, 0x136a, 0x136b, 0x136c, 0x136d, 0x136e, 0x136f, 0x1370, 0x1371, 0x1372, 0x1373, 0x1374, 0x1375, 0x1376, 0x1377, 0x1378, 0x1379, 0x137a, 0x137b, 0x137c, 0x1380, 0x1381, 0x1382, 0x1383, 0x1384, 0x1385, 0x1386, 0x1387, 0x1388, 0x1389, 0x138a, 0x138b, 0x138c, 0x138d, 0x138e, 0x138f, 0x1390, 0x1391, 0x1392, 0x1393, 0x1394, 0x1395, 0x1396, 0x1397, 0x1398, 0x1399, 0x13a0
+0x12b3, 0x12b4, 0x12b5, 0x12b8, 0x12b9, 0x12ba, 0x12bb, 0x12bc, 0x12bd, 0x12be, 0x12c0, 0x12c2, 0x12c3, 0x12c4, 0x12c5, 0x12c8, 0x12c9, 0x12ca, 0x12cb, 0x12cc, 0x12cd, 0x12ce, 0x12cf, 0x12d0, 0x12d1, 0x12d2, 0x12d3, 0x12d4, 0x12d5, 0x12d6, 0x12d8, 0x12d9, 0x12da, 0x12db, 0x12dc, 0x12dd, 0x12de, 0x12df, 0x12e0, 0x12e1, 0x12e2, 0x12e3, 0x12e4, 0x12e5, 0x12e6, 0x12e7, 0x12e8, 0x12e9, 0x12ea, 0x12eb
 };
 
 void BM_collation_element_lookup_095(benchmark::State & state)
@@ -5879,7 +5879,7 @@ void BM_collation_element_lookup_095(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_095);
 
 uint32_t cps_096[] = {
-0x13a1, 0x13a2, 0x13a3, 0x13a4, 0x13a5, 0x13a6, 0x13a7, 0x13a8, 0x13a9, 0x13aa, 0x13ab, 0x13ac, 0x13ad, 0x13ae, 0x13af, 0x13b0, 0x13b1, 0x13b2, 0x13b3, 0x13b4, 0x13b5, 0x13b6, 0x13b7, 0x13b8, 0x13b9, 0x13ba, 0x13bb, 0x13bc, 0x13bd, 0x13be, 0x13bf, 0x13c0, 0x13c1, 0x13c2, 0x13c3, 0x13c4, 0x13c5, 0x13c6, 0x13c7, 0x13c8, 0x13c9, 0x13ca, 0x13cb, 0x13cc, 0x13cd, 0x13ce, 0x13cf, 0x13d0, 0x13d1, 0x13d2
+0x12ec, 0x12ed, 0x12ee, 0x12ef, 0x12f0, 0x12f1, 0x12f2, 0x12f3, 0x12f4, 0x12f5, 0x12f6, 0x12f7, 0x12f8, 0x12f9, 0x12fa, 0x12fb, 0x12fc, 0x12fd, 0x12fe, 0x12ff, 0x1300, 0x1301, 0x1302, 0x1303, 0x1304, 0x1305, 0x1306, 0x1307, 0x1308, 0x1309, 0x130a, 0x130b, 0x130c, 0x130d, 0x130e, 0x130f, 0x1310, 0x1312, 0x1313, 0x1314, 0x1315, 0x1318, 0x1319, 0x131a, 0x131b, 0x131c, 0x131d, 0x131e, 0x131f, 0x1320
 };
 
 void BM_collation_element_lookup_096(benchmark::State & state)
@@ -5940,7 +5940,7 @@ void BM_collation_element_lookup_096(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_096);
 
 uint32_t cps_097[] = {
-0x13d3, 0x13d4, 0x13d5, 0x13d6, 0x13d7, 0x13d8, 0x13d9, 0x13da, 0x13db, 0x13dc, 0x13dd, 0x13de, 0x13df, 0x13e0, 0x13e1, 0x13e2, 0x13e3, 0x13e4, 0x13e5, 0x13e6, 0x13e7, 0x13e8, 0x13e9, 0x13ea, 0x13eb, 0x13ec, 0x13ed, 0x13ee, 0x13ef, 0x13f0, 0x13f1, 0x13f2, 0x13f3, 0x13f4, 0x13f5, 0x13f8, 0x13f9, 0x13fa, 0x13fb, 0x13fc, 0x13fd, 0x1400, 0x1401, 0x1402, 0x1403, 0x1404, 0x1405, 0x1406, 0x1407, 0x1408
+0x1321, 0x1322, 0x1323, 0x1324, 0x1325, 0x1326, 0x1327, 0x1328, 0x1329, 0x132a, 0x132b, 0x132c, 0x132d, 0x132e, 0x132f, 0x1330, 0x1331, 0x1332, 0x1333, 0x1334, 0x1335, 0x1336, 0x1337, 0x1338, 0x1339, 0x133a, 0x133b, 0x133c, 0x133d, 0x133e, 0x133f, 0x1340, 0x1341, 0x1342, 0x1343, 0x1344, 0x1345, 0x1346, 0x1347, 0x1348, 0x1349, 0x134a, 0x134b, 0x134c, 0x134d, 0x134e, 0x134f, 0x1350, 0x1351, 0x1352
 };
 
 void BM_collation_element_lookup_097(benchmark::State & state)
@@ -6001,7 +6001,7 @@ void BM_collation_element_lookup_097(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_097);
 
 uint32_t cps_098[] = {
-0x1409, 0x140a, 0x140b, 0x140c, 0x140d, 0x140e, 0x140f, 0x1410, 0x1411, 0x1412, 0x1413, 0x1414, 0x1415, 0x1416, 0x1417, 0x1418, 0x1419, 0x141a, 0x141b, 0x141c, 0x141d, 0x141e, 0x141f, 0x1420, 0x1421, 0x1422, 0x1423, 0x1424, 0x1425, 0x1426, 0x1427, 0x1428, 0x1429, 0x142a, 0x142b, 0x142c, 0x142d, 0x142e, 0x142f, 0x1430, 0x1431, 0x1432, 0x1433, 0x1434, 0x1435, 0x1436, 0x1437, 0x1438, 0x1439, 0x143a
+0x1353, 0x1354, 0x1355, 0x1356, 0x1357, 0x1358, 0x1359, 0x135a, 0x135d, 0x135e, 0x135f, 0x1360, 0x1361, 0x1362, 0x1363, 0x1364, 0x1365, 0x1366, 0x1367, 0x1368, 0x1369, 0x136a, 0x136b, 0x136c, 0x136d, 0x136e, 0x136f, 0x1370, 0x1371, 0x1372, 0x1373, 0x1374, 0x1375, 0x1376, 0x1377, 0x1378, 0x1379, 0x137a, 0x137b, 0x137c, 0x1380, 0x1381, 0x1382, 0x1383, 0x1384, 0x1385, 0x1386, 0x1387, 0x1388, 0x1389
 };
 
 void BM_collation_element_lookup_098(benchmark::State & state)
@@ -6062,7 +6062,7 @@ void BM_collation_element_lookup_098(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_098);
 
 uint32_t cps_099[] = {
-0x143b, 0x143c, 0x143d, 0x143e, 0x143f, 0x1440, 0x1441, 0x1442, 0x1443, 0x1444, 0x1445, 0x1446, 0x1447, 0x1448, 0x1449, 0x144a, 0x144b, 0x144c, 0x144d, 0x144e, 0x144f, 0x1450, 0x1451, 0x1452, 0x1453, 0x1454, 0x1455, 0x1456, 0x1457, 0x1458, 0x1459, 0x145a, 0x145b, 0x145c, 0x145d, 0x145e, 0x145f, 0x1460, 0x1461, 0x1462, 0x1463, 0x1464, 0x1465, 0x1466, 0x1467, 0x1468, 0x1469, 0x146a, 0x146b, 0x146c
+0x138a, 0x138b, 0x138c, 0x138d, 0x138e, 0x138f, 0x1390, 0x1391, 0x1392, 0x1393, 0x1394, 0x1395, 0x1396, 0x1397, 0x1398, 0x1399, 0x13a0, 0x13a1, 0x13a2, 0x13a3, 0x13a4, 0x13a5, 0x13a6, 0x13a7, 0x13a8, 0x13a9, 0x13aa, 0x13ab, 0x13ac, 0x13ad, 0x13ae, 0x13af, 0x13b0, 0x13b1, 0x13b2, 0x13b3, 0x13b4, 0x13b5, 0x13b6, 0x13b7, 0x13b8, 0x13b9, 0x13ba, 0x13bb, 0x13bc, 0x13bd, 0x13be, 0x13bf, 0x13c0, 0x13c1
 };
 
 void BM_collation_element_lookup_099(benchmark::State & state)

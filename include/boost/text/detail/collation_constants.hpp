@@ -65,7 +65,7 @@ namespace boost { namespace text { namespace detail {
         min_tertiary_byte = 0x03,
         common_secondary_byte = 0x05,
         common_tertiary_byte = 0x05,
-        max_secondary_byte = 0xfe,
+        max_secondary_byte = 0xff,
         max_tertiary_byte = 0xb8,
 
         implicit_weights_spacing_times_ten = 80,
