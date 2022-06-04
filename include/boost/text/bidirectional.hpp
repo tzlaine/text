@@ -2897,7 +2897,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             {
                 using closure_func_type = decltype(
                     boost::text::bind_back(*this, paragraph_embedding_level));
-                closure<closure_func_type>(
+                return closure<closure_func_type>(
                     boost::text::bind_back(*this, paragraph_embedding_level));
             }
 
@@ -3115,9 +3115,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
             auto operator()(int paragraph_embedding_level) const
             {
-                closure(boost::text::bind_back(
-                    *this,
-                    paragraph_embedding_level));
+                return closure(
+                    boost::text::bind_back(*this, paragraph_embedding_level));
             }
 
             template<
