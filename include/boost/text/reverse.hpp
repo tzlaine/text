@@ -7,7 +7,6 @@
 #define BOOST_TEXT_REVERSE_HPP
 
 #include <boost/text/view_adaptor.hpp>
-#include <boost/text/detail/algorithm.hpp>
 
 
 namespace boost { namespace text {
@@ -69,7 +68,7 @@ namespace boost { namespace text {
             template<
                 typename V,
                 typename E = std::enable_if_t<
-                    std::is_same<detail::remove_cv_ref_t<V>, View>::value>>
+                    std::is_same<std::remove_reference_t<V>, View>::value>>
 #endif
             constexpr reverse_view(int, V && v) : v_{(V &&) v}
             {
@@ -100,7 +99,7 @@ namespace boost { namespace text {
         template<
             typename R,
             bool ReverseView =
-                is_reverse_view<detail::remove_cv_ref_t<R>>::value>
+                is_reverse_view<std::remove_reference_t<R>>::value>
         struct reverse_impl_impl
         {
             static constexpr auto call(R && r) { return ((R &&) r).base(); }
@@ -110,7 +109,7 @@ namespace boost { namespace text {
         {
             static constexpr auto call(R && r)
             {
-                return reverse_view<detail::remove_cv_ref_t<R>>(0, (R &&) r);
+                return reverse_view<std::remove_reference_t<R>>(0, (R &&) r);
             }
         };
 
