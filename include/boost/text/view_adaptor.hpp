@@ -14,6 +14,39 @@
 #include <type_traits>
 
 
+#if !defined(BOOST_TEXT_DOXYGEN)
+
+#if defined(__cpp_lib_ranges) && 202202L <= __cpp_lib_ranges
+#define BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE 1
+#else
+#define BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
+#if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE &&                         \
+    BOOST_STL_INTERFACES_USE_CONCEPTS && defined(__GNUC__) && 12 <= __GNUC__
+#define BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE 1
+#else
+#define BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
+#if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE && defined(_MSC_VER) &&    \
+    _MSC_VER <= 1929
+#define BOOST_TEXT_NEED_VS_COMPATIBLE_RANGE_ADAPTOR_CLOSURE 1
+#else
+#define BOOST_TEXT_NEED_VS_COMPATIBLE_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
+#if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE &&                         \
+    !BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE &&                   \
+    !BOOST_TEXT_NEED_VS_COMPATIBLE_RANGE_ADAPTOR_CLOSURE
+#define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 1
+#else
+#define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 0
+#endif
+
+#endif
+
+
 namespace boost { namespace text {
     namespace detail {
 
@@ -95,38 +128,6 @@ namespace boost { namespace text {
             0, (Func &&) f, (Args &&) args...);
     }
 
-#if !defined(BOOST_TEXT_DOXYGEN)
-
-#if defined(__cpp_lib_ranges) && 202202L <= __cpp_lib_ranges
-#define BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE 1
-#else
-#define BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE 0
-#endif
-
-#if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE && defined(__GNUC__) &&    \
-    12 <= __GNUC__
-#define BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE 1
-#else
-#define BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE 0
-#endif
-
-#if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE && defined(_MSC_VER) &&    \
-    _MSC_VER <= 1929
-#define BOOST_TEXT_NEED_VS2019_COMPATIBLE_RANGE_ADAPTOR_CLOSURE 1
-#else
-#define BOOST_TEXT_NEED_VS2019_COMPATIBLE_RANGE_ADAPTOR_CLOSURE 0
-#endif
-
-#if !BOOST_TEXT_USE_CPP23_STD_RANGE_ADAPTOR_CLOSURE &&                         \
-    !BOOST_TEXT_USE_LIBSTDCPP_GCC12_RANGE_ADAPTOR_CLOSURE &&                   \
-    !BOOST_TEXT_NEED_VS2019_COMPATIBLE_RANGE_ADAPTOR_CLOSURE
-#define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 1
-#else
-#define BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE 0
-#endif
-
-#endif
-
 #if BOOST_TEXT_DEFINE_CUSTOM_RANGE_ADAPTOR_CLOSURE || defined(BOOST_TEXT_DOXYGEN)
 
     /** A backwards-compatible implementation of C++23's
@@ -173,7 +174,7 @@ namespace boost { namespace text {
     template<typename D>
     using range_adaptor_closure = std::views::__adaptor::_RangeAdaptorClosure;
 
-#elif BOOST_TEXT_NEED_VS2019_COMPATIBLE_RANGE_ADAPTOR_CLOSURE
+#elif BOOST_TEXT_NEED_VS_COMPATIBLE_RANGE_ADAPTOR_CLOSURE
 
     template<typename D>
     using range_adaptor_closure = detail::pipeable<D>;
@@ -283,12 +284,7 @@ namespace boost { namespace text {
         constexpr adaptor(F f) : f_(f) {}
 
         // clang-format off
-#if BOOST_TEXT_USE_CONCEPTS
         template<typename... Args>
-        requires std::invocable<F const &, Args...>
-#else
-        template<typename... Args>
-#endif
         constexpr auto operator()(Args &&... args) const
         // clang-format on
         {
@@ -296,7 +292,8 @@ namespace boost { namespace text {
             if constexpr (std::is_invocable_v<F const &, Args...>) {
                 return f((Args &&) args...);
             } else {
-                return closure(text::bind_back(f_, (Args &&) args...));
+                return closure(
+                    text::bind_back(f_, (Args &&) args...));
             }
 #else
             return detail::adaptor_impl<
