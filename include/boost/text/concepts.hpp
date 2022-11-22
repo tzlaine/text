@@ -118,38 +118,35 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
 
     namespace dtl {
-        template<typename T>
-        concept eraseable_sized_bidi_range =
+        template<typename T, class CodeUnit>
+        concept eraseable_insertable_sized_bidi_range =
             // clang-format off
             std::ranges::sized_range<T> &&
-            std::ranges::bidirectional_range<T> && requires(T t) {
-            { t.erase(t.begin(), t.end()) } ->
-                std::same_as<std::ranges::iterator_t<T>>;
-            // clang-format on
-        };
+            std::ranges::bidirectional_range<T> &&
+            requires(T t, CodeUnit const * it) {
+                { t.erase(t.begin(), t.end()) } ->
+                    std::same_as<std::ranges::iterator_t<T>>;
+                { t.insert(t.end(), it, it) } ->
+                    std::same_as<std::ranges::iterator_t<T>>;
+            };
+        // clang-format on
     }
 
     template<typename T>
     concept utf8_string =
         // clang-format off
-        dtl::eraseable_sized_bidi_range<T> &&
         utf8_code_unit<std::ranges::range_value_t<T>> &&
-        requires(T t, char const * it) {
-        { t.insert(t.end(), it, it) } ->
-            std::same_as<std::ranges::iterator_t<T>>;
+        dtl::eraseable_insertable_sized_bidi_range<
+            T, std::ranges::range_value_t<T>>;
         // clang-format on
-    };
 
     template<typename T>
     concept utf16_string =
         // clang-format off
-        dtl::eraseable_sized_bidi_range<T> &&
         utf16_code_unit<std::ranges::range_value_t<T>> &&
-        requires(T t, uint16_t const * it) {
-        { t.insert(t.end(), it, it) } ->
-            std::same_as<std::ranges::iterator_t<T>>;
+        dtl::eraseable_insertable_sized_bidi_range<
+            T, std::ranges::range_value_t<T>>;
         // clang-format on
-    };
 
     template<typename T>
     concept utf_string = utf8_string<T> || utf16_string<T>;
