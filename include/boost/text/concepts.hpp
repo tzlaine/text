@@ -178,13 +178,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         utf_pointer<std::remove_reference_t<T>>;
     // clang-format on
 
-    namespace dtl {
-        template<typename T>
-        concept bounded_array_ref =
-            std::is_reference_v<T> &&
-            std::is_bounded_array_v<std::remove_reference_t<T>>;
-    }
-
     template<typename T>
     concept utf8_input_range_like =
         (std::ranges::input_range<std::remove_reference_t<T>> &&
