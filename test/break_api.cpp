@@ -185,6 +185,7 @@ TEST(break_apis, grapheme_break)
         }
         EXPECT_EQ(i, (int)grapheme_bounds.size());
 
+#if 0 // TODO
         i = 0;
         for (auto grapheme :
                  all_graphemes | boost::text::reverse | std::views::reverse) {
@@ -195,6 +196,7 @@ TEST(break_apis, grapheme_break)
             ++i;
         }
         EXPECT_EQ(i, (int)grapheme_bounds.size());
+#endif
 
         auto const all_graphemes_reversed = std::views::all(cps) |
                                             boost::text::as_graphemes |
