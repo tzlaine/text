@@ -1273,11 +1273,6 @@ namespace boost { namespace text {
             out = detail::write_cp_utf8(cp, out);
             return *this;
         }
-
-        Iter base() const
-        {
-            return const_cast<utf_32_to_8_out_iterator * const>(this)->iter();
-        }
     };
 
     /** An insert-iterator analogous to std::insert_iterator, that also
@@ -1813,11 +1808,6 @@ namespace boost { namespace text {
             return *this;
         }
 
-        Iter base() const
-        {
-            return const_cast<utf_8_to_32_out_iterator * const>(this)->iter();
-        }
-
 #ifndef BOOST_TEXT_DOXYGEN
     private:
         int state_;
@@ -2152,11 +2142,6 @@ namespace boost { namespace text {
             auto & out = this->iter();
             out = detail::write_cp_utf16(cp, out);
             return *this;
-        }
-
-        Iter base() const
-        {
-            return const_cast<utf_32_to_16_out_iterator * const>(this)->iter();
         }
     };
 
@@ -2528,11 +2513,6 @@ namespace boost { namespace text {
             auto & out = this->iter();
             out = detail::assign_16_to_32_insert(prev_cu_, cu, out);
             return *this;
-        }
-
-        Iter base() const
-        {
-            return const_cast<utf_16_to_32_out_iterator * const>(this)->iter();
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -2951,11 +2931,6 @@ namespace boost { namespace text {
             return *this;
         }
 
-        Iter base() const
-        {
-            return const_cast<utf_16_to_8_out_iterator * const>(this)->iter();
-        }
-
 #ifndef BOOST_TEXT_DOXYGEN
     private:
         uint16_t prev_cu_;
@@ -3294,11 +3269,6 @@ namespace boost { namespace text {
             auto & out = this->iter();
             out = detail::assign_8_to_16_insert(cu, cp_, state_, out);
             return *this;
-        }
-
-        Iter base() const
-        {
-            return const_cast<utf_8_to_16_out_iterator * const>(this)->iter();
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
