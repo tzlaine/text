@@ -6,6 +6,8 @@
 #ifndef BOOST_TEXT_IN_OUT_RESULT_HPP
 #define BOOST_TEXT_IN_OUT_RESULT_HPP
 
+#include <boost/text/config.hpp>
+
 
 namespace boost { namespace text {
 
@@ -19,5 +21,27 @@ namespace boost { namespace text {
     };
 
 }}
+
+#if BOOST_TEXT_USE_CONCEPTS
+
+#include <ranges>
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    namespace dtl {
+        template<typename R>
+        std::ranges::borrowed_iterator_t<R> result_iterator(R &&);
+        template<typename Ptr>
+            requires std::is_pointer_v<std::remove_reference_t<Ptr>>
+        Ptr result_iterator(Ptr &&);
+
+        template<typename T>
+        using uc_result_iterator =
+            decltype(dtl::result_iterator(std::declval<T>()));
+    }
+
+}}}
+
+#endif
 
 #endif

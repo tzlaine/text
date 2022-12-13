@@ -34,6 +34,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     concept code_unit_iter =
         std::bidirectional_iterator<T> && code_unit<std::iter_value_t<T>, F>;
 
+    template<typename T>
+    concept utf_code_unit =
+        utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>;
+
+
     template<typename T, format F>
     concept code_unit_pointer =
         std::is_pointer_v<T> && code_unit<std::iter_value_t<T>, F>;
@@ -81,6 +86,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     concept code_point_iter = utf32_iter<T>;
     template<typename T>
     concept code_point_range = utf32_range<T>;
+
+    template<typename T>
+    concept utf_iter = utf8_iter<T> || utf16_iter<T> || utf32_iter<T>;
+    template<typename T>
+    concept utf_pointer =
+        utf8_pointer<T> || utf16_pointer<T> || utf32_pointer<T>;
+    template<typename T>
+    concept utf_range = utf8_range<T> || utf16_range<T> || utf32_range<T>;
 
 
     template<typename T>
@@ -159,18 +172,39 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
     template<typename T>
-    concept utf_iter = utf8_iter<T> || utf16_iter<T> || utf32_iter<T>;
-
-    template<typename T>
     // clang-format off
     concept utf_range_like =
-        utf8_range<std::remove_reference_t<T>> ||
-        utf16_range<std::remove_reference_t<T>> ||
-        utf32_range<std::remove_reference_t<T>> ||
-        utf8_pointer<std::remove_reference_t<T>> ||
-        utf16_pointer<std::remove_reference_t<T>> ||
-        utf32_pointer<std::remove_reference_t<T>>;
+        utf_range<std::remove_reference_t<T>> ||
+        utf_pointer<std::remove_reference_t<T>>;
     // clang-format on
+
+    namespace dtl {
+        template<typename T>
+        concept bounded_array_ref =
+            std::is_reference_v<T> &&
+            std::is_bounded_array_v<std::remove_reference_t<T>>;
+    }
+
+    template<typename T>
+    concept utf8_input_range_like =
+        (std::ranges::input_range<std::remove_reference_t<T>> &&
+         utf8_code_unit<std::iter_value_t<T>>) ||
+        utf8_pointer<std::remove_reference_t<T>>;
+    template<typename T>
+    concept utf16_input_range_like =
+        (std::ranges::input_range<std::remove_reference_t<T>> &&
+         utf16_code_unit<std::iter_value_t<T>>) ||
+        utf16_pointer<std::remove_reference_t<T>>;
+    template<typename T>
+    concept utf32_input_range_like =
+        (std::ranges::input_range<std::remove_reference_t<T>> &&
+         utf32_code_unit<std::iter_value_t<T>>) ||
+        utf32_pointer<std::remove_reference_t<T>>;
+
+    template<typename T>
+    concept utf_input_range_like =
+        utf8_input_range_like<T> || utf16_input_range_like<T> ||
+        utf32_input_range_like<T>;
 
     //]
 
