@@ -1801,7 +1801,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_32_out_iterator & operator=(uint16_t cu)
+        utf_8_to_32_out_iterator & operator=(uint8_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_32_insert(cu, cp_, state_, out);
@@ -3264,7 +3264,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_16_out_iterator & operator=(uint16_t cu)
+        utf_8_to_16_out_iterator & operator=(uint8_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_16_insert(cu, cp_, state_, out);
