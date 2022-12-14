@@ -232,22 +232,33 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<
         nf Normalization,
-        code_point_iter I,
+        utf_iter I,
         std::sentinel_for<I> S,
         utf_string String>
     inline void normalize_append(I first, S last, String & s)
     {
-        detail::normalization_string_appender_t<Normalization, String, I, S>
-            appender(s);
-        detail::norm_impl<Normalization, decltype(s.begin()), I, S>::call(
-            first, last, appender);
+        if constexpr (utf32_iter<I>) {
+            detail::normalization_string_appender_t<Normalization, String, I, S>
+                appender(s);
+            detail::norm_impl<Normalization, decltype(s.begin()), I, S>::call(
+                first, last, appender);
+        } else {
+            auto code_points = as_utf32(first, last);
+            return boost::text::normalize_append(
+                code_points.begin(), code_points.end(), s);
+        }
     }
 
-    template<nf Normalization, code_point_range R, utf_string String>
+    template<nf Normalization, utf_range_like R, utf_string String>
     inline void normalize_append(R && r, String & s)
     {
-        return boost::text::normalize_append<Normalization>(
-            detail::begin(r), detail::end(r), s);
+        if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
+            return boost::text::normalize_append<Normalization>(
+                r, null_sentinel, s);
+        } else {
+            return boost::text::normalize_append<Normalization>(
+                detail::begin(r), detail::end(r), s);
+        }
     }
 
     namespace dtl {

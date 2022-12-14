@@ -277,43 +277,64 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<
         nf Normalization,
-        code_point_iter I,
+        utf_iter I,
         std::sentinel_for<I> S,
         std::output_iterator<uint32_t> O>
     O normalize(I first, S last, O out)
     {
-        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
-        detail::normalization_appender_t<Normalization, I, S, O> appender(out);
-        return detail::norm_impl<Normalization, O, I, S>::call(
-                   first, last, appender)
-            .out_;
+        if constexpr (utf32_iter<I>) {
+            BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+            detail::normalization_appender_t<Normalization, I, S, O> appender(
+                out);
+            return detail::norm_impl<Normalization, O, I, S>::call(
+                       first, last, appender)
+                .out_;
+        } else {
+            auto code_points = as_utf32(first, last);
+            return boost::text::normalize(
+                code_points.begin(), code_points.end(), out);
+        }
     }
 
     template<
         nf Normalization,
-        code_point_range R,
+        utf_range_like R,
         std::output_iterator<uint32_t> O>
     O normalize(R && r, O out)
     {
-        return boost::text::normalize<Normalization>(
-            std::ranges::begin(r), std::ranges::end(r), out);
+        if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
+            return boost::text::normalize<Normalization>(r, null_sentinel, out);
+        } else {
+            return boost::text::normalize<Normalization>(
+                std::ranges::begin(r), std::ranges::end(r), out);
+        }
     }
 
-    template<nf Normalization, code_point_iter I, std::sentinel_for<I> S>
+    template<nf Normalization, utf_iter I, std::sentinel_for<I> S>
     bool normalized(I first, S last)
     {
-        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
-        detail::null_appender appender;
-        return detail::norm_impl<Normalization, bool, I, S>::call(
-                   first, last, appender)
-            .normalized_;
+        if constexpr (utf32_iter<I>) {
+            BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+            detail::null_appender appender;
+            return detail::norm_impl<Normalization, bool, I, S>::call(
+                       first, last, appender)
+                .normalized_;
+        } else {
+            auto code_points = as_utf32(first, last);
+            return boost::text::normalized(
+                code_points.begin(), code_points.end());
+        }
     }
 
-    template<nf Normalization, code_point_range R>
+    template<nf Normalization, utf_range_like R>
     bool normalized(R && r)
     {
-        return boost::text::normalized<Normalization>(
-            std::ranges::begin(r), std::ranges::end(r));
+        if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
+            return boost::text::normalized<Normalization>(r, null_sentinel);
+        } else {
+            return boost::text::normalized<Normalization>(
+                std::ranges::begin(r), std::ranges::end(r));
+        }
     }
 
 }}}
