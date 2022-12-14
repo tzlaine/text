@@ -1255,7 +1255,7 @@ namespace boost { namespace text {
 
     /** An out iterator that converts UTF-32 to UTF-8. */
 #if BOOST_TEXT_USE_CONCEPTS
-    template<std::output_iterator<uint8_t> Iter>
+    template<std::output_iterator<char> Iter>
 #else
     template<typename Iter>
 #endif
@@ -1801,7 +1801,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_32_out_iterator & operator=(uint8_t cu)
+        utf_8_to_32_out_iterator & operator=(char cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_32_insert(cu, cp_, state_, out);
@@ -2911,7 +2911,7 @@ namespace boost { namespace text {
 
     /** An out iterator that converts UTF-16 to UTF-8. */
 #if BOOST_TEXT_USE_CONCEPTS
-    template<std::output_iterator<uint8_t> Iter>
+    template<std::output_iterator<char> Iter>
 #else
     template<typename Iter>
 #endif
@@ -3264,7 +3264,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_16_out_iterator & operator=(uint8_t cu)
+        utf_8_to_16_out_iterator & operator=(char cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_16_insert(cu, cp_, state_, out);
@@ -3570,7 +3570,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     /** Returns a `utf_32_to_8_out_iterator<O>` constructed from the given
         iterator. */
-    template<std::output_iterator<uint8_t> O>
+    template<std::output_iterator<char> O>
     utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it);
 
     /** Returns a `utf_8_to_32_out_iterator<O>` constructed from the given
@@ -3590,7 +3590,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     /** Returns a `utf_16_to_8_out_iterator<O>` constructed from the given
         iterator. */
-    template<std::output_iterator<uint8_t> O>
+    template<std::output_iterator<char> O>
     utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it);
 
     /** Returns a `utf_8_to_16_out_iterator<O>` constructed from the given
@@ -3870,7 +3870,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    template<std::output_iterator<uint8_t> O>
+    template<std::output_iterator<char> O>
     utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it)
     {
         return utf_32_to_8_out_iterator<O>(it);
@@ -3894,7 +3894,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf_16_to_32_out_iterator<O>(it);
     }
 
-    template<std::output_iterator<uint8_t> O>
+    template<std::output_iterator<char> O>
     utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it)
     {
         return utf_16_to_8_out_iterator<O>(it);
