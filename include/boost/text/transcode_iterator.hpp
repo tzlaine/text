@@ -3927,7 +3927,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
-        std::is_integral_v<typename Cont::value_type>
+        utf_code_unit<typename Cont::value_type>
     auto from_utf8_inserter(Cont & c, typename Cont::iterator it)
     // clang-format on
     {
@@ -3943,7 +3943,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
-        std::is_integral_v<typename Cont::value_type>
+        utf_code_unit<typename Cont::value_type>
     auto from_utf16_inserter(Cont & c, typename Cont::iterator it)
     // clang-format on
     {
@@ -3959,7 +3959,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
-        std::is_integral_v<typename Cont::value_type>
+        utf_code_unit<typename Cont::value_type>
     auto from_utf32_inserter(Cont & c, typename Cont::iterator it)
     // clang-format on
     {
@@ -3975,7 +3975,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
-        std::is_integral_v<typename Cont::value_type>
+        utf_code_unit<typename Cont::value_type>
     auto from_utf8_back_inserter(Cont & c)
     // clang-format on
     {
@@ -3991,7 +3991,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
-        std::is_integral_v<typename Cont::value_type>
+        utf_code_unit<typename Cont::value_type>
     auto from_utf16_back_inserter(Cont & c)
     // clang-format on
     {
@@ -4007,7 +4007,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
-        std::is_integral_v<typename Cont::value_type>
+        utf_code_unit<typename Cont::value_type>
     auto from_utf32_back_inserter(Cont & c)
     // clang-format on
     {
@@ -4023,7 +4023,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
-        std::is_integral_v<typename Cont::value_type>
+        utf_code_unit<typename Cont::value_type>
     auto from_utf8_front_inserter(Cont & c)
     // clang-format on
     {
@@ -4039,7 +4039,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
-        std::is_integral_v<typename Cont::value_type>
+        utf_code_unit<typename Cont::value_type>
     auto from_utf16_front_inserter(Cont & c)
     // clang-format on
     {
@@ -4055,7 +4055,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename Cont>
     // clang-format off
         requires requires { typename Cont::value_type; } &&
-        std::is_integral_v<typename Cont::value_type>
+        utf_code_unit<typename Cont::value_type>
     auto from_utf32_front_inserter(Cont & c)
     // clang-format on
     {
