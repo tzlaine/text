@@ -33,7 +33,8 @@ namespace boost { namespace text {
         cluster. */
     struct grapheme
     {
-        using const_iterator = utf_8_to_32_iterator<char const *>;
+        using iterator = utf_8_to_32_iterator<char const *>;
+        using const_iterator = iterator;
 
         /** Default ctor. */
         grapheme() {}
@@ -43,7 +44,7 @@ namespace boost { namespace text {
             \pre The code points in [first, last) comprise at most one
             grapheme. */
 #if BOOST_TEXT_USE_CONCEPTS
-        template<code_point_iter I, std::sentinel_for<I> S>
+        template<utf_iter I, std::sentinel_for<I> S>
 #else
         template<typename I, typename S>
 #endif
@@ -65,18 +66,23 @@ namespace boost { namespace text {
 
         /** Constructs *this from r.
 
-            \pre The code points in r comprise at most one grapheme.
-            \pre The code points in [first, last) comprise at most one
-            grapheme. */
+            \pre The code points in r comprise at most one grapheme. */
 #if BOOST_TEXT_USE_CONCEPTS
-        template<code_point_iter I, std::sentinel_for<I> S>
+        template<utf_range_like R>
 #else
-        template<typename I, typename S>
+        template<typename R>
 #endif
-        grapheme(utf32_view<I, S> r)
+        grapheme(R && r)
         {
-            boost::text::transcode_to_utf8(
-                r.begin(), r.end(), std::back_inserter(chars_));
+            if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
+                boost::text::transcode_to_utf8(
+                    r, null_sentinel, std::back_inserter(chars_));
+            } else {
+                boost::text::transcode_to_utf8(
+                    std::ranges::begin(r),
+                    std::ranges::end(r),
+                    std::back_inserter(chars_));
+            }
             BOOST_ASSERT(
                 boost::text::next_grapheme_break(begin(), end()) == end());
         }
@@ -137,8 +143,6 @@ namespace boost { namespace text {
 #endif
     struct grapheme_ref : utf32_view<I>
     {
-        using iterator = I;
-
         /** Default ctor. */
         constexpr grapheme_ref() = default;
 
@@ -146,8 +150,7 @@ namespace boost { namespace text {
 
             \pre The code points in [first, last) comprise at most one
             grapheme. */
-        constexpr grapheme_ref(iterator first, iterator last) :
-            utf32_view<iterator>(first, last)
+        constexpr grapheme_ref(I first, I last) : utf32_view<I>(first, last)
         {
             BOOST_ASSERT(boost::text::next_grapheme_break(first, last) == last);
         }
@@ -155,13 +158,16 @@ namespace boost { namespace text {
         /** Constructs *this from r.
 
             \pre The code points in r comprise at most one grapheme. */
-        constexpr grapheme_ref(utf32_view<iterator> r) :
+        constexpr grapheme_ref(utf32_view<I> r) :
             grapheme_ref(r.begin(), r.end())
         {}
 
         /** Constructs *this from g. */
-        constexpr grapheme_ref(grapheme const & g) :
-            utf32_view<iterator>(g.begin(), g.end())
+        constexpr grapheme_ref(grapheme const & g)
+#if BOOST_TEXT_USE_CONCEPTS
+            requires std::same_as<I, grapheme::iterator>
+#endif
+            : utf32_view<I>(g.begin(), g.end())
         {}
 
         /** Returns true if lhs the same sequence of code points as rhs. */
