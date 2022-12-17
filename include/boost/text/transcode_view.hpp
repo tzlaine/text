@@ -120,6 +120,17 @@ namespace boost { namespace text {
             return tagged_range<utf32_tag, Iter, Sentinel>{f, l};
         }
 
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename ResultType, typename I1, typename I2, typename S>
+        static auto make_iter(I1 first, I2 it, S last)
+        {
+            if constexpr (requires { ResultType(first, it, last); }) {
+                return ResultType{first, it, last};
+            } else {
+                return it;
+            }
+        }
+#else
         template<typename ResultType, typename Iterator, typename Sentinel>
         constexpr auto
         make_iter(Iterator first, Iterator it, Sentinel last)
@@ -148,6 +159,7 @@ namespace boost { namespace text {
         {
             return it;
         }
+#endif
     }
 
     /** A view over UTF-8 code units. */
