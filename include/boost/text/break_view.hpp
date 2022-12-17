@@ -221,6 +221,24 @@ namespace boost { namespace text {
 
 #if BOOST_TEXT_USE_CONCEPTS
 
+#include <ranges>
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    namespace dtl {
+        template<typename R>
+        std::ranges::iterator_t<R> iterator_for_range_like(R &&);
+        template<typename Ptr>
+            requires std::is_pointer_v<std::remove_reference_t<Ptr>>
+        Ptr iterator_for_range_like(Ptr &&);
+
+        template<typename T>
+        using uc_range_like_iterator =
+            decltype(dtl::iterator_for_range_like(std::declval<T>()));
+    }
+
+}}}
+
 namespace std::ranges {
     template<
         typename CPIter,

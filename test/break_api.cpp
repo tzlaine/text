@@ -443,8 +443,36 @@ TEST(break_apis, word_break)
         }
     }
     {
+        std::vector<uint32_t> const empty_cps{1};
+        auto subranges = boost::text::words(empty_cps.data());
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+    {
         std::string const empty_cus;
         auto subranges = boost::text::words(boost::text::as_utf32(empty_cus));
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+    {
+        std::string const empty_cus;
+        auto subranges = boost::text::words(empty_cus);
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+    {
+        std::string const empty_cus;
+        auto subranges = boost::text::words(empty_cus.begin(), empty_cus.end());
+        for (auto subrange : subranges) {
+            (void)subrange;
+        }
+    }
+    {
+        std::string const empty_cus;
+        auto subranges = boost::text::words(empty_cus.c_str());
         for (auto subrange : subranges) {
             (void)subrange;
         }
@@ -542,6 +570,77 @@ TEST(break_apis, word_break)
         EXPECT_EQ(
             boost::text::next_word_break(cps, cps.begin() + 0) - cps.begin(),
             3);
+    }
+    // Transcoding API
+    std::string cus;
+    {
+        auto r = boost::text::as_utf8(cps);
+        cus.insert(cus.end(), r.begin(), r.end());
+    }
+    {
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cus.begin(), cus.begin() + 0, cus.end()) -
+                cus.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_word_break(cus.begin() + 0, cus.end()) -
+                cus.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cus.begin(), cus.begin() + 1, cus.end()) -
+                cus.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_word_break(cus.begin() + 0, cus.end()) -
+                cus.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cus.begin(), cus.begin() + 2, cus.end()) -
+                cus.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_word_break(cus.begin() + 0, cus.end()) -
+                cus.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cus.begin(), cus.begin() + 3, cus.end()) -
+                cus.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::next_word_break(cus.begin() + 3, cus.end()) -
+                cus.begin(),
+            4);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cus.begin(), cus.begin() + 4, cus.end()) -
+                cus.begin(),
+            4);
+        EXPECT_EQ(
+            boost::text::next_word_break(cus.begin() + 4, cus.end()) -
+                cus.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cus.begin(), cus.begin() + 5, cus.end()) -
+                cus.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::next_word_break(cus.begin() + 5, cus.end()) -
+                cus.begin(),
+            6);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cus.begin(), cus.begin() + 6, cus.end()) -
+                cus.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::next_word_break(cus.begin() + 5, cus.end()) -
+                cus.begin(),
+            6);
     }
 
     {

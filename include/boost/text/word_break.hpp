@@ -1719,7 +1719,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     //]
 
     template<
-        code_point_iter I,
+        utf_iter I,
         std::sentinel_for<I> S,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
@@ -1730,12 +1730,22 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        return detail::prev_word_break_impl(
-            first, it, last, word_prop, word_break);
+        if constexpr (utf32_iter<I>) {
+            return detail::prev_word_break_impl(
+                first, it, last, word_prop, word_break);
+        } else {
+            auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
+            auto r = boost::text::as_utf32(unpacked.f_, unpacked.l_);
+            auto first_ = r.begin();
+            decltype(first_) it_{first, it, last};
+            auto cp_it = detail::prev_word_break_impl(
+                first_, it_, r.end(), word_prop, word_break);
+            return unpacked.repack_(cp_it.base());
+        }
     }
 
     template<
-        code_point_iter I,
+        utf_iter I,
         std::sentinel_for<I> S,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
@@ -1745,20 +1755,42 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        return detail::next_word_break_impl(first, last, word_prop, word_break);
+        if constexpr (utf32_iter<I>) {
+            return detail::next_word_break_impl(
+                first, last, word_prop, word_break);
+        } else {
+            auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
+            auto r = boost::text::as_utf32(unpacked.f_, unpacked.l_);
+            auto cp_it = detail::next_word_break_impl(
+                std::ranges::begin(r),
+                std::ranges::end(r),
+                word_prop,
+                word_break);
+            return unpacked.repack_(cp_it.base());
+        }
     }
 
     template<
-        code_point_range R,
+        utf_range_like R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::borrowed_iterator_t<R> prev_word_break(
+    dtl::uc_result_iterator<R> prev_word_break(
         R && r,
-        std::ranges::iterator_t<R> it,
+        dtl::uc_range_like_iterator<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        return detail::prev_word_break_cr_impl(r, it, word_prop, word_break);
+        if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
+            return v2::prev_word_break(
+                r, it, null_sentinel, word_prop, word_break);
+        } else {
+            return v2::prev_word_break(
+                std::ranges::begin(r),
+                it,
+                std::ranges::end(r),
+                word_prop,
+                word_break);
+        }
     }
 
     template<
@@ -1775,16 +1807,23 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<
-        code_point_range R,
+        std::ranges::forward_range R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    std::ranges::borrowed_iterator_t<R> next_word_break(
+        requires utf_code_unit<std::ranges::range_value_t<R>>
+    dtl::uc_result_iterator<R> next_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        return detail::next_word_break_cr_impl(r, it, word_prop, word_break);
+        if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
+            return v2::next_word_break(
+                it, null_sentinel, word_prop, word_break);
+        } else {
+            return v2::next_word_break(
+                it, std::ranges::end(r), word_prop, word_break);
+        }
     }
 
     template<
@@ -1801,7 +1840,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<
-        code_point_iter I,
+        utf_iter I,
         std::sentinel_for<I> S,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
@@ -1812,20 +1851,39 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        return detail::at_word_break_impl(first, it, last, word_prop, word_break);
+        if constexpr (utf32_iter<I>) {
+            return detail::at_word_break_impl(
+                first, it, last, word_prop, word_break);
+        } else {
+            auto r = boost::text::as_utf32(first, last);
+            auto first_ = r.begin();
+            decltype(first_) it_{first, it, last};
+            return detail::at_word_break_impl(
+                first_, it_, r.end(), word_prop, word_break);
+        }
     }
 
     template<
-        code_point_range R,
+        utf_range_like R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
     bool at_word_break(
         R && r,
-        std::ranges::iterator_t<R> it,
+        dtl::uc_range_like_iterator<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        return detail::at_word_break_cr_impl(r, it, word_prop, word_break);
+        if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
+            return v2::at_word_break(
+                r, it, null_sentinel, word_prop, word_break);
+        } else {
+            return v2::at_word_break(
+                std::ranges::begin(r),
+                it,
+                std::ranges::end(r),
+                word_prop,
+                word_break);
+        }
     }
 
     template<
@@ -1842,7 +1900,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<
-        code_point_iter I,
+        utf_iter I,
         std::sentinel_for<I> S,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
@@ -1853,11 +1911,23 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        return detail::word_impl(first, it, last, word_prop, word_break);
+        if constexpr (utf32_iter<I>) {
+            return detail::word_impl(first, it, last, word_prop, word_break);
+        } else {
+            auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
+            auto r = boost::text::as_utf32(unpacked.f_, unpacked.l_);
+            auto first_ = r.begin();
+            decltype(first_) it_{first, it, last};
+            auto result =
+                detail::word_impl(first_, it_, r.end(), word_prop, word_break);
+            return {
+                unpacked.repack_(result.begin()),
+                unpacked.repack_(result.end())};
+        }
     }
 
     template<
-        code_point_range R,
+        utf_range_like R,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
     auto word(
@@ -1866,10 +1936,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
     {
-        if constexpr (std::ranges::borrowed_range<R>)
-            return detail::word_cr_impl(r, it, word_prop, word_break);
-        else
+        if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
+            return v2::word(
+                r, it, null_sentinel, word_prop, word_break);
+        } else if constexpr (std::ranges::borrowed_range<R>) {
+            return v2::word(
+                std::ranges::begin(r),
+                it,
+                std::ranges::end(r),
+                word_prop,
+                word_break);
+        } else {
             return std::ranges::dangling{};
+        }
     }
 
     template<
@@ -1892,7 +1971,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         struct words_impl : range_adaptor_closure<words_impl>
         {
             template<
-                code_point_iter I,
+                utf_iter I,
                 std::sentinel_for<I> S,
                 word_prop_func WordPropFunc = word_prop_callable,
                 word_break_func WordBreakFunc = untailored_word_break>
@@ -1902,12 +1981,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 WordPropFunc word_prop = WordPropFunc{},
                 WordBreakFunc word_break = WordBreakFunc{}) const
             {
+                auto r = boost::text::as_utf32(first, last);
                 return detail::words_impl(
-                    first, last, std::move(word_prop), std::move(word_break));
+                    std::ranges::begin(r),
+                    std::ranges::end(r),
+                    std::move(word_prop),
+                    std::move(word_break));
             }
 
             template<
-                code_point_range R,
+                utf_range_like R,
                 word_prop_func WordPropFunc = word_prop_callable,
                 word_break_func WordBreakFunc = untailored_word_break>
             auto operator()(
@@ -1915,11 +1998,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 WordPropFunc word_prop = WordPropFunc{},
                 WordBreakFunc word_break = WordBreakFunc{}) const
             {
-                if constexpr (std::ranges::borrowed_range<R>) {
-                    return detail::words_cr_impl(
-                        r, std::move(word_prop), std::move(word_break));
+                if constexpr (
+                    !std::is_pointer_v<std::remove_reference_t<R>> &&
+                    !std::ranges::borrowed_range<R>) {
+                     return std::ranges::dangling{};
                 } else {
-                    return std::ranges::dangling{};
+                     auto code_points = boost::text::as_utf32(r);
+                     return detail::words_impl(
+                         std::ranges::begin(code_points),
+                         std::ranges::end(code_points),
+                         std::move(word_prop),
+                         std::move(word_break));
                 }
             }
 
@@ -1932,11 +2021,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 WordPropFunc word_prop = WordPropFunc{},
                 WordBreakFunc word_break = WordBreakFunc{}) const
             {
-                if constexpr (std::ranges::borrowed_range<R>) {
+                if constexpr (!std::ranges::borrowed_range<R>) {
+                    return std::ranges::dangling{};
+                } else {
                     return detail::words_gr_impl(
                         r, std::move(word_prop), std::move(word_break));
-                } else {
-                    return std::ranges::dangling{};
                 }
             }
         };
