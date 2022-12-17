@@ -10,6 +10,7 @@
 #include <boost/text/concepts.hpp>
 #include <boost/text/dangling.hpp>
 #include <boost/text/in_out_result.hpp>
+#include <boost/text/transcode_view.hpp>
 #include <boost/text/view_adaptor.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 
@@ -521,27 +522,25 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     namespace dtl {
         struct as_stream_safe_impl : range_adaptor_closure<as_stream_safe_impl>
         {
-            template<code_point_iter I, std::sentinel_for<I> S>
-            constexpr stream_safe_view<stream_safe_iterator<I, S>, S>
-            operator()(I first, S last) const
+            template<utf_iter I, std::sentinel_for<I> S>
+            constexpr auto operator()(I first, S last) const
             {
-                return detail::as_stream_safe_impl(first, last);
+                auto intermediate = boost::text::as_utf32(first, last);
+                return detail::as_stream_safe_impl(
+                    intermediate.begin(), intermediate.end());
             }
 
-            template<code_point_iter I>
-            constexpr stream_safe_view<stream_safe_iterator<I>>
-            operator()(I first, I last) const
-            {
-                return detail::as_stream_safe_impl(first, last);
-            }
-
-            template<code_point_range R>
+            template<utf_range_like R>
             constexpr auto operator()(R && r) const
             {
-                if constexpr (std::ranges::borrowed_range<R>)
-                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
-                else
+                if constexpr (
+                    !std::is_pointer_v<std::remove_reference_t<R>> &&
+                    !std::ranges::borrowed_range<R>) {
                     return std::ranges::dangling{};
+                } else {
+                    auto intermediate = boost::text::as_utf32(r);
+                    return (*this)(intermediate.begin(), intermediate.end());
+                }
             }
         };
     }
