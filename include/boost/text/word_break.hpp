@@ -1932,7 +1932,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         word_break_func WordBreakFunc = untailored_word_break>
     auto word(
         R && r,
-        std::ranges::iterator_t<R> it,
+        dtl::uc_range_like_iterator<R> it,
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
     {
