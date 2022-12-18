@@ -1978,15 +1978,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             auto operator()(
                 I first,
                 S last,
-                WordPropFunc word_prop = WordPropFunc{},
-                WordBreakFunc word_break = WordBreakFunc{}) const
+                WordPropFunc const & word_prop = WordPropFunc{},
+                WordBreakFunc const & word_break = WordBreakFunc{}) const
             {
                 auto r = boost::text::as_utf32(first, last);
                 return detail::words_impl(
                     std::ranges::begin(r),
                     std::ranges::end(r),
-                    std::move(word_prop),
-                    std::move(word_break));
+                    word_prop,
+                    word_break);
             }
 
             template<
@@ -1995,8 +1995,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 word_break_func WordBreakFunc = untailored_word_break>
             auto operator()(
                 R && r,
-                WordPropFunc word_prop = WordPropFunc{},
-                WordBreakFunc word_break = WordBreakFunc{}) const
+                WordPropFunc const & word_prop = WordPropFunc{},
+                WordBreakFunc const & word_break = WordBreakFunc{}) const
             {
                 if constexpr (
                     !std::is_pointer_v<std::remove_reference_t<R>> &&
@@ -2007,8 +2007,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                      return detail::words_impl(
                          std::ranges::begin(code_points),
                          std::ranges::end(code_points),
-                         std::move(word_prop),
-                         std::move(word_break));
+                         word_prop,
+                         word_break);
                 }
             }
 
