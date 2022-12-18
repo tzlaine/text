@@ -412,6 +412,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
+    // TODO: These need to be converted from code point inputs to UTF-N
+    // inputs, following P2745.
+
     template<code_point_iter I, std::sentinel_for<I> S>
     I prev_grapheme_break(I first, I it, S last)
     {
