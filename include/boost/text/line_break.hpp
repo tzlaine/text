@@ -24,6 +24,7 @@
 #include <memory>
 #endif
 #include <numeric>
+#include <type_traits>
 #include <unordered_map>
 
 #include <stdint.h>
@@ -2677,7 +2678,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         std::sentinel_for<I> S,
         typename Extent,
         line_break_cp_extent_func<I, Extent> ExtentFunc>
-    requires std::integral<Extent> || std::floating_point<Extent>
     detail::unspecified lines(
         I first,
         S last,
@@ -2698,7 +2698,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         typename Extent,
         line_break_cp_extent_func<std::ranges::iterator_t<R>, Extent>
             ExtentFunc>
-    requires std::integral<Extent> || std::floating_point<Extent>
     detail::unspecified lines(
         R && r,
         Extent max_extent,
@@ -2717,7 +2716,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         grapheme_range R,
         typename Extent,
         line_break_cp_extent_func<code_point_iterator_t<R>, Extent> ExtentFunc>
-    requires std::integral<Extent> || std::floating_point<Extent>
     detail::unspecified lines(
         R && r,
         Extent max_extent,
@@ -2961,6 +2959,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename T, typename I, typename Extent>
     concept line_break_cp_extent_func = std::invocable<T, I, I> &&
         std::convertible_to<std::invoke_result_t<T, I, I>, Extent>;
+
+    template<typename T>
+    concept text_extent = std::same_as<std::remove_cvref_t<T>, T> &&
+        std::regular<T> && requires(T t) {
+        {t += t} -> std::same_as<T &>;
+        {t + t} -> std::convertible_to<T>;
+        {t < t} -> std::convertible_to<bool>;
+    };
     //]
 
     template<code_point_iter I, std::sentinel_for<I> S>
@@ -3113,25 +3119,54 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     namespace dtl {
+        template<typename I, typename S>
+        auto make_utf32_iter_for(I i, S s)
+        {
+            if constexpr (utf32_iter<I>) {
+                return i;
+            } else if constexpr (std::is_pointer_v<
+                                     std::remove_reference_t<I>>) {
+                return boost::text::as_utf32(i, null_sentinel).begin();
+            } else if constexpr (std::ranges::range<I>) {
+                return std::ranges::begin(i);
+            } else {
+                return std::ranges::begin(boost::text::as_utf32(i, s));
+            }
+        }
+
+        template<typename I, typename S = I>
+        using utf32_iter_for =
+            decltype(make_utf32_iter_for(declval<I>(), declval<S>()));
+
         struct lines_impl : range_adaptor_closure<lines_impl>
         {
-            template<code_point_iter I, std::sentinel_for<I> S>
+            template<utf_iter I, std::sentinel_for<I> S>
             auto operator()(I first, S last) const
             {
-                return detail::breaks_impl<
-                    detail::prev_hard_line_break_callable,
-                    detail::next_hard_line_break_callable>(first, last);
+                if constexpr (utf32_iter<I>) {
+                    return detail::breaks_impl<
+                        detail::prev_hard_line_break_callable,
+                        detail::next_hard_line_break_callable>(first, last);
+                } else {
+                    auto r = boost::text::as_utf32(first, last);
+                    return detail::breaks_impl<
+                        detail::prev_hard_line_break_callable,
+                        detail::next_hard_line_break_callable>(
+                        r.begin(), r.end());
+                }
             }
 
-            template<code_point_range R>
+            template<utf_range_like R>
             auto operator()(R && r) const
             {
-                if constexpr (std::ranges::borrowed_range<R>) {
-                    return detail::breaks_cr_impl<
-                        detail::prev_hard_line_break_callable,
-                        detail::next_hard_line_break_callable>(r);
-                } else {
+                if constexpr (
+                    !std::is_pointer_v<remove_reference_t<R>> &&
+                    !std::ranges::borrowed_range<R>) {
                     return std::ranges::dangling{};
+                } else if constexpr (std::is_pointer_v<remove_reference_t<R>>) {
+                    return (*this)(r, null_sentinel);
+                } else {
+                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
                 }
             }
 
@@ -3148,32 +3183,40 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
 
             template<
-                code_point_iter I,
+                utf_iter I,
                 std::sentinel_for<I> S,
-                typename Extent,
-                line_break_cp_extent_func<I, Extent> ExtentFunc>
-            requires std::integral<Extent> || std::floating_point<Extent>
+                text_extent Extent,
+                line_break_cp_extent_func<utf32_iter_for<I, S>, Extent>
+                    ExtentFunc>
             auto operator()(
                 I first,
                 S last,
                 Extent max_extent,
-                ExtentFunc && cp_extent,
+                ExtentFunc cp_extent,
                 bool break_overlong_lines = true) const
             {
-                return detail::lines_impl(
-                    first,
-                    last,
-                    max_extent,
-                    std::move(cp_extent),
-                    break_overlong_lines);
+                if constexpr (utf32_iter<I>) {
+                    return detail::lines_impl(
+                        first,
+                        last,
+                        max_extent,
+                        std::move(cp_extent),
+                        break_overlong_lines);
+                } else {
+                    auto r = boost::text::as_utf32(first, last);
+                    return detail::lines_impl(
+                        r.begin(),
+                        r.end(),
+                        max_extent,
+                        std::move(cp_extent),
+                        break_overlong_lines);
+                }
             }
 
             template<
-                code_point_range R,
-                typename Extent,
-                line_break_cp_extent_func<std::ranges::iterator_t<R>, Extent>
-                    ExtentFunc>
-            requires std::integral<Extent> || std::floating_point<Extent>
+                utf_range_like R,
+                text_extent Extent,
+                line_break_cp_extent_func<utf32_iter_for<R>, Extent> ExtentFunc>
             auto operator()(
                 R && r,
                 Extent max_extent,
@@ -3193,10 +3236,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
             template<
                 grapheme_range R,
-                typename Extent,
+                text_extent Extent,
                 line_break_cp_extent_func<code_point_iterator_t<R>, Extent>
                     ExtentFunc>
-            requires std::integral<Extent> || std::floating_point<Extent>
             auto operator()(
                 R && r,
                 Extent max_extent,
@@ -3214,8 +3256,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 }
             }
 
-            template<typename Extent, typename ExtentFunc>
-            requires std::integral<Extent> || std::floating_point<Extent>
+            template<text_extent Extent, typename ExtentFunc>
             auto operator()(
                 Extent max_extent,
                 ExtentFunc cp_extent,
@@ -3228,19 +3269,26 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     std::move(break_overlong_lines)));
             }
 
-            template<code_point_iter I, std::sentinel_for<I> S>
+            template<utf_iter I, std::sentinel_for<I> S>
             auto operator()(I first, S last, allowed_breaks_t) const
             {
-                return detail::allowed_lines_impl(first, last);
+                auto r = boost::text::as_utf32(first, last);
+                return detail::allowed_lines_impl(r.begin(), r.end());
             }
 
-            template<code_point_range R>
-            auto operator()(R && r, allowed_breaks_t) const
+            template<utf_range_like R>
+            auto operator()(R && r, allowed_breaks_t ab) const
             {
-                if constexpr (std::ranges::borrowed_range<R>)
-                    return detail::allowed_lines_cr_impl(r);
-                else
+                if constexpr (
+                    !std::is_pointer_v<remove_reference_t<R>> &&
+                    !std::ranges::borrowed_range<R>) {
                     return std::ranges::dangling{};
+                } else if constexpr (std::is_pointer_v<remove_reference_t<R>>) {
+                    return (*this)(r, null_sentinel);
+                } else {
+                    return (*this)(
+                        std::ranges::begin(r), std::ranges::end(r), ab);
+                }
             }
 
             template<grapheme_range R>
