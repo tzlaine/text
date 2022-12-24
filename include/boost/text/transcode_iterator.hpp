@@ -562,18 +562,21 @@ namespace boost { namespace text {
             using reference = void;
             using iterator_category = std::output_iterator_tag;
 
-            trans_ins_iter() {}
-            trans_ins_iter(Iter it) : it_(it) {}
-            Derived & operator*() { return derived(); }
-            Derived & operator++() { return derived(); }
-            Derived operator++(int) { return derived(); }
-            Iter base() const { return it_; }
+            constexpr trans_ins_iter() {}
+            constexpr trans_ins_iter(Iter it) : it_(it) {}
+            constexpr Derived & operator*() { return derived(); }
+            constexpr Derived & operator++() { return derived(); }
+            constexpr Derived operator++(int) { return derived(); }
+            constexpr Iter base() const { return it_; }
 
         protected:
-            Iter & iter() { return it_; }
+            constexpr Iter & iter() { return it_; }
 
         private:
-            Derived & derived() { return static_cast<Derived &>(*this); }
+            constexpr Derived & derived()
+            {
+                return static_cast<Derived &>(*this);
+            }
             Iter it_;
         };
 
@@ -1145,7 +1148,7 @@ namespace boost { namespace text {
             utf_32_to_8_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
 
-        friend bool
+        friend constexpr bool
         operator==(utf_32_to_8_iterator lhs, utf_32_to_8_iterator rhs)
         {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
@@ -1262,12 +1265,12 @@ namespace boost { namespace text {
     struct utf_32_to_8_out_iterator
         : detail::trans_ins_iter<utf_32_to_8_out_iterator<Iter>, Iter>
     {
-        utf_32_to_8_out_iterator() {}
-        explicit utf_32_to_8_out_iterator(Iter it) :
+        constexpr utf_32_to_8_out_iterator() {}
+        explicit constexpr utf_32_to_8_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_32_to_8_out_iterator<Iter>, Iter>(it)
         {}
 
-        utf_32_to_8_out_iterator & operator=(uint32_t cp)
+        constexpr utf_32_to_8_out_iterator & operator=(uint32_t cp)
         {
             auto & out = this->iter();
             out = detail::write_cp_utf8(cp, out);
@@ -1282,15 +1285,15 @@ namespace boost { namespace text {
                                              utf_32_to_8_insert_iterator<Cont>,
                                              std::insert_iterator<Cont>>
     {
-        utf_32_to_8_insert_iterator() {}
-        utf_32_to_8_insert_iterator(
+        constexpr utf_32_to_8_insert_iterator() {}
+        constexpr utf_32_to_8_insert_iterator(
             Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_32_to_8_insert_iterator<Cont>,
                 std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it))
         {}
 
-        utf_32_to_8_insert_iterator & operator=(uint32_t cp)
+        constexpr utf_32_to_8_insert_iterator & operator=(uint32_t cp)
         {
             auto & out = this->iter();
             out = detail::write_cp_utf8(cp, out);
@@ -1306,15 +1309,15 @@ namespace boost { namespace text {
               utf_32_to_8_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_32_to_8_front_insert_iterator() {}
-        explicit utf_32_to_8_front_insert_iterator(Cont & c) :
+        constexpr utf_32_to_8_front_insert_iterator() {}
+        explicit constexpr utf_32_to_8_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_32_to_8_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
                 std::front_insert_iterator<Cont>(c))
         {}
 
-        utf_32_to_8_front_insert_iterator & operator=(uint32_t cp)
+        constexpr utf_32_to_8_front_insert_iterator & operator=(uint32_t cp)
         {
             auto & out = this->iter();
             out = detail::write_cp_utf8(cp, out);
@@ -1330,15 +1333,15 @@ namespace boost { namespace text {
               utf_32_to_8_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_32_to_8_back_insert_iterator() {}
-        explicit utf_32_to_8_back_insert_iterator(Cont & c) :
+        constexpr utf_32_to_8_back_insert_iterator() {}
+        explicit constexpr utf_32_to_8_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_32_to_8_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
                 std::back_insert_iterator<Cont>(c))
         {}
 
-        utf_32_to_8_back_insert_iterator & operator=(uint32_t cp)
+        constexpr utf_32_to_8_back_insert_iterator & operator=(uint32_t cp)
         {
             auto & out = this->iter();
             out = detail::write_cp_utf8(cp, out);
@@ -1414,7 +1417,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        friend bool
+        friend constexpr bool
         operator==(utf_8_to_32_iterator lhs, utf_8_to_32_iterator rhs)
         {
             return lhs.base() == rhs.base();
@@ -1795,13 +1798,13 @@ namespace boost { namespace text {
     struct utf_8_to_32_out_iterator
         : detail::trans_ins_iter<utf_8_to_32_out_iterator<Iter>, Iter>
     {
-        utf_8_to_32_out_iterator() {}
-        explicit utf_8_to_32_out_iterator(Iter it) :
+        constexpr utf_8_to_32_out_iterator() {}
+        explicit constexpr utf_8_to_32_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_8_to_32_out_iterator<Iter>, Iter>(it),
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_32_out_iterator & operator=(char cu)
+        constexpr utf_8_to_32_out_iterator & operator=(char cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_32_insert(cu, cp_, state_, out);
@@ -1822,8 +1825,8 @@ namespace boost { namespace text {
                                              utf_8_to_32_insert_iterator<Cont>,
                                              std::insert_iterator<Cont>>
     {
-        utf_8_to_32_insert_iterator() {}
-        utf_8_to_32_insert_iterator(
+        constexpr utf_8_to_32_insert_iterator() {}
+        constexpr utf_8_to_32_insert_iterator(
             Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_8_to_32_insert_iterator<Cont>,
@@ -1831,7 +1834,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_32_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_8_to_32_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_32_insert(cu, cp_, state_, out);
@@ -1853,8 +1856,8 @@ namespace boost { namespace text {
               utf_8_to_32_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_8_to_32_front_insert_iterator() {}
-        explicit utf_8_to_32_front_insert_iterator(Cont & c) :
+        constexpr utf_8_to_32_front_insert_iterator() {}
+        explicit constexpr utf_8_to_32_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_8_to_32_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
@@ -1862,7 +1865,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_32_front_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_8_to_32_front_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_32_insert(cu, cp_, state_, out);
@@ -1884,8 +1887,8 @@ namespace boost { namespace text {
               utf_8_to_32_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_8_to_32_back_insert_iterator() {}
-        explicit utf_8_to_32_back_insert_iterator(Cont & c) :
+        constexpr utf_8_to_32_back_insert_iterator() {}
+        explicit constexpr utf_8_to_32_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_8_to_32_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
@@ -1893,7 +1896,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_32_back_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_8_to_32_back_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_32_insert(cu, cp_, state_, out);
@@ -2020,7 +2023,7 @@ namespace boost { namespace text {
             utf_32_to_16_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
 
-        friend bool operator==(
+        friend constexpr bool operator==(
             utf_32_to_16_iterator lhs, utf_32_to_16_iterator rhs)
         {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
@@ -2132,12 +2135,12 @@ namespace boost { namespace text {
     struct utf_32_to_16_out_iterator
         : detail::trans_ins_iter<utf_32_to_16_out_iterator<Iter>, Iter>
     {
-        utf_32_to_16_out_iterator() {}
-        explicit utf_32_to_16_out_iterator(Iter it) :
+        constexpr utf_32_to_16_out_iterator() {}
+        explicit constexpr utf_32_to_16_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_32_to_16_out_iterator<Iter>, Iter>(it)
         {}
 
-        utf_32_to_16_out_iterator & operator=(uint32_t cp)
+        constexpr utf_32_to_16_out_iterator & operator=(uint32_t cp)
         {
             auto & out = this->iter();
             out = detail::write_cp_utf16(cp, out);
@@ -2153,15 +2156,15 @@ namespace boost { namespace text {
               utf_32_to_16_insert_iterator<Cont>,
               std::insert_iterator<Cont>>
     {
-        utf_32_to_16_insert_iterator() {}
-        utf_32_to_16_insert_iterator(
+        constexpr utf_32_to_16_insert_iterator() {}
+        constexpr utf_32_to_16_insert_iterator(
             Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_32_to_16_insert_iterator<Cont>,
                 std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it))
         {}
 
-        utf_32_to_16_insert_iterator & operator=(uint32_t cp)
+        constexpr utf_32_to_16_insert_iterator & operator=(uint32_t cp)
         {
             auto & out = this->iter();
             out = detail::write_cp_utf16(cp, out);
@@ -2177,15 +2180,15 @@ namespace boost { namespace text {
               utf_32_to_16_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_32_to_16_front_insert_iterator() {}
-        explicit utf_32_to_16_front_insert_iterator(Cont & c) :
+        constexpr utf_32_to_16_front_insert_iterator() {}
+        explicit constexpr utf_32_to_16_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_32_to_16_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
                 std::front_insert_iterator<Cont>(c))
         {}
 
-        utf_32_to_16_front_insert_iterator & operator=(uint32_t cp)
+        constexpr utf_32_to_16_front_insert_iterator & operator=(uint32_t cp)
         {
             auto & out = this->iter();
             out = detail::write_cp_utf16(cp, out);
@@ -2201,15 +2204,15 @@ namespace boost { namespace text {
               utf_32_to_16_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_32_to_16_back_insert_iterator() {}
-        explicit utf_32_to_16_back_insert_iterator(Cont & c) :
+        constexpr utf_32_to_16_back_insert_iterator() {}
+        explicit constexpr utf_32_to_16_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_32_to_16_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
                 std::back_insert_iterator<Cont>(c))
         {}
 
-        utf_32_to_16_back_insert_iterator & operator=(uint32_t cp)
+        constexpr utf_32_to_16_back_insert_iterator & operator=(uint32_t cp)
         {
             auto & out = this->iter();
             out = detail::write_cp_utf16(cp, out);
@@ -2303,7 +2306,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        friend bool operator==(
+        friend constexpr bool operator==(
             utf_16_to_32_iterator lhs, utf_16_to_32_iterator rhs)
         {
             return lhs.base() == rhs.base();
@@ -2502,13 +2505,13 @@ namespace boost { namespace text {
     struct utf_16_to_32_out_iterator
         : detail::trans_ins_iter<utf_16_to_32_out_iterator<Iter>, Iter>
     {
-        utf_16_to_32_out_iterator() {}
-        explicit utf_16_to_32_out_iterator(Iter it) :
+        constexpr utf_16_to_32_out_iterator() {}
+        explicit constexpr utf_16_to_32_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_16_to_32_out_iterator<Iter>, Iter>(it),
             prev_cu_(0)
         {}
 
-        utf_16_to_32_out_iterator & operator=(uint16_t cu)
+        constexpr utf_16_to_32_out_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_16_to_32_insert(prev_cu_, cu, out);
@@ -2529,8 +2532,8 @@ namespace boost { namespace text {
               utf_16_to_32_insert_iterator<Cont>,
               std::insert_iterator<Cont>>
     {
-        utf_16_to_32_insert_iterator() {}
-        utf_16_to_32_insert_iterator(
+        constexpr utf_16_to_32_insert_iterator() {}
+        constexpr utf_16_to_32_insert_iterator(
             Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_16_to_32_insert_iterator<Cont>,
@@ -2538,7 +2541,7 @@ namespace boost { namespace text {
             prev_cu_(0)
         {}
 
-        utf_16_to_32_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_16_to_32_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_16_to_32_insert(prev_cu_, cu, out);
@@ -2559,8 +2562,8 @@ namespace boost { namespace text {
               utf_16_to_32_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_16_to_32_front_insert_iterator() {}
-        explicit utf_16_to_32_front_insert_iterator(Cont & c) :
+        constexpr utf_16_to_32_front_insert_iterator() {}
+        explicit constexpr utf_16_to_32_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_16_to_32_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
@@ -2568,7 +2571,7 @@ namespace boost { namespace text {
             prev_cu_(0)
         {}
 
-        utf_16_to_32_front_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_16_to_32_front_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_16_to_32_insert(prev_cu_, cu, out);
@@ -2589,8 +2592,8 @@ namespace boost { namespace text {
               utf_16_to_32_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_16_to_32_back_insert_iterator() {}
-        explicit utf_16_to_32_back_insert_iterator(Cont & c) :
+        constexpr utf_16_to_32_back_insert_iterator() {}
+        explicit constexpr utf_16_to_32_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_16_to_32_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
@@ -2598,7 +2601,7 @@ namespace boost { namespace text {
             prev_cu_(0)
         {}
 
-        utf_16_to_32_back_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_16_to_32_back_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_16_to_32_insert(prev_cu_, cu, out);
@@ -2719,7 +2722,7 @@ namespace boost { namespace text {
             utf_16_to_8_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
 
-        friend bool
+        friend constexpr bool
         operator==(utf_16_to_8_iterator lhs, utf_16_to_8_iterator rhs)
         {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
@@ -2918,13 +2921,13 @@ namespace boost { namespace text {
     struct utf_16_to_8_out_iterator
         : detail::trans_ins_iter<utf_16_to_8_out_iterator<Iter>, Iter>
     {
-        utf_16_to_8_out_iterator() {}
-        explicit utf_16_to_8_out_iterator(Iter it) :
+        constexpr utf_16_to_8_out_iterator() {}
+        explicit constexpr utf_16_to_8_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_16_to_8_out_iterator<Iter>, Iter>(it),
             prev_cu_(0)
         {}
 
-        utf_16_to_8_out_iterator & operator=(uint16_t cu)
+        constexpr utf_16_to_8_out_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_16_to_8_insert(prev_cu_, cu, out);
@@ -2944,8 +2947,8 @@ namespace boost { namespace text {
                                              utf_16_to_8_insert_iterator<Cont>,
                                              std::insert_iterator<Cont>>
     {
-        utf_16_to_8_insert_iterator() {}
-        utf_16_to_8_insert_iterator(
+        constexpr utf_16_to_8_insert_iterator() {}
+        constexpr utf_16_to_8_insert_iterator(
             Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_16_to_8_insert_iterator<Cont>,
@@ -2953,7 +2956,7 @@ namespace boost { namespace text {
             prev_cu_(0)
         {}
 
-        utf_16_to_8_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_16_to_8_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_16_to_8_insert(prev_cu_, cu, out);
@@ -2974,8 +2977,8 @@ namespace boost { namespace text {
               utf_16_to_8_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_16_to_8_front_insert_iterator() {}
-        explicit utf_16_to_8_front_insert_iterator(Cont & c) :
+        constexpr utf_16_to_8_front_insert_iterator() {}
+        explicit constexpr utf_16_to_8_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_16_to_8_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
@@ -2983,7 +2986,7 @@ namespace boost { namespace text {
             prev_cu_(0)
         {}
 
-        utf_16_to_8_front_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_16_to_8_front_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_16_to_8_insert(prev_cu_, cu, out);
@@ -3004,8 +3007,8 @@ namespace boost { namespace text {
               utf_16_to_8_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_16_to_8_back_insert_iterator() {}
-        explicit utf_16_to_8_back_insert_iterator(Cont & c) :
+        constexpr utf_16_to_8_back_insert_iterator() {}
+        explicit constexpr utf_16_to_8_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_16_to_8_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
@@ -3013,7 +3016,7 @@ namespace boost { namespace text {
             prev_cu_(0)
         {}
 
-        utf_16_to_8_back_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_16_to_8_back_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_16_to_8_insert(prev_cu_, cu, out);
@@ -3115,7 +3118,7 @@ namespace boost { namespace text {
             utf_8_to_16_iterator<I2, S2, ErrorHandler2> const & rhs)
             -> decltype(lhs.base() == rhs.base());
 
-        friend bool
+        friend constexpr bool
         operator==(utf_8_to_16_iterator lhs, utf_8_to_16_iterator rhs)
         {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
@@ -3258,13 +3261,13 @@ namespace boost { namespace text {
     struct utf_8_to_16_out_iterator
         : detail::trans_ins_iter<utf_8_to_16_out_iterator<Iter>, Iter>
     {
-        utf_8_to_16_out_iterator() {}
-        explicit utf_8_to_16_out_iterator(Iter it) :
+        constexpr utf_8_to_16_out_iterator() {}
+        explicit constexpr utf_8_to_16_out_iterator(Iter it) :
             detail::trans_ins_iter<utf_8_to_16_out_iterator<Iter>, Iter>(it),
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_16_out_iterator & operator=(char cu)
+        constexpr utf_8_to_16_out_iterator & operator=(char cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_16_insert(cu, cp_, state_, out);
@@ -3285,8 +3288,8 @@ namespace boost { namespace text {
                                              utf_8_to_16_insert_iterator<Cont>,
                                              std::insert_iterator<Cont>>
     {
-        utf_8_to_16_insert_iterator() {}
-        utf_8_to_16_insert_iterator(
+        constexpr utf_8_to_16_insert_iterator() {}
+        constexpr utf_8_to_16_insert_iterator(
             Cont & c, typename Cont::iterator it) :
             detail::trans_ins_iter<
                 utf_8_to_16_insert_iterator<Cont>,
@@ -3294,7 +3297,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_16_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_8_to_16_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_16_insert(cu, cp_, state_, out);
@@ -3316,8 +3319,8 @@ namespace boost { namespace text {
               utf_8_to_16_front_insert_iterator<Cont>,
               std::front_insert_iterator<Cont>>
     {
-        utf_8_to_16_front_insert_iterator() {}
-        explicit utf_8_to_16_front_insert_iterator(Cont & c) :
+        constexpr utf_8_to_16_front_insert_iterator() {}
+        explicit constexpr utf_8_to_16_front_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_8_to_16_front_insert_iterator<Cont>,
                 std::front_insert_iterator<Cont>>(
@@ -3325,7 +3328,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_16_front_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_8_to_16_front_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_16_insert(cu, cp_, state_, out);
@@ -3347,8 +3350,8 @@ namespace boost { namespace text {
               utf_8_to_16_back_insert_iterator<Cont>,
               std::back_insert_iterator<Cont>>
     {
-        utf_8_to_16_back_insert_iterator() {}
-        explicit utf_8_to_16_back_insert_iterator(Cont & c) :
+        constexpr utf_8_to_16_back_insert_iterator() {}
+        explicit constexpr utf_8_to_16_back_insert_iterator(Cont & c) :
             detail::trans_ins_iter<
                 utf_8_to_16_back_insert_iterator<Cont>,
                 std::back_insert_iterator<Cont>>(
@@ -3356,7 +3359,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        utf_8_to_16_back_insert_iterator & operator=(uint16_t cu)
+        constexpr utf_8_to_16_back_insert_iterator & operator=(uint16_t cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_16_insert(cu, cp_, state_, out);
@@ -3871,55 +3874,55 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<std::output_iterator<char> O>
-    utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it)
+    constexpr utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it)
     {
         return utf_32_to_8_out_iterator<O>(it);
     }
 
     template<std::output_iterator<uint32_t> O>
-    utf_8_to_32_out_iterator<O> utf_8_to_32_out(O it)
+    constexpr utf_8_to_32_out_iterator<O> utf_8_to_32_out(O it)
     {
         return utf_8_to_32_out_iterator<O>(it);
     }
 
     template<std::output_iterator<uint16_t> O>
-    utf_32_to_16_out_iterator<O> utf_32_to_16_out(O it)
+    constexpr utf_32_to_16_out_iterator<O> utf_32_to_16_out(O it)
     {
         return utf_32_to_16_out_iterator<O>(it);
     }
 
     template<std::output_iterator<uint32_t> O>
-    utf_16_to_32_out_iterator<O> utf_16_to_32_out(O it)
+    constexpr utf_16_to_32_out_iterator<O> utf_16_to_32_out(O it)
     {
         return utf_16_to_32_out_iterator<O>(it);
     }
 
     template<std::output_iterator<char> O>
-    utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it)
+    constexpr utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it)
     {
         return utf_16_to_8_out_iterator<O>(it);
     }
 
     template<std::output_iterator<uint16_t> O>
-    utf_8_to_16_out_iterator<O> utf_8_to_16_out(O it)
+    constexpr utf_8_to_16_out_iterator<O> utf_8_to_16_out(O it)
     {
         return utf_8_to_16_out_iterator<O>(it);
     }
 
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto utf8_iterator(I first, I it, S last)
+    constexpr auto utf8_iterator(I first, I it, S last)
     {
         return v1::utf8_iterator(first, it, last);
     }
 
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto utf16_iterator(I first, I it, S last)
+    constexpr auto utf16_iterator(I first, I it, S last)
     {
         return v1::utf16_iterator(first, it, last);
     }
 
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto utf32_iterator(I first, I it, S last)
+    constexpr auto utf32_iterator(I first, I it, S last)
     {
         return v1::utf32_iterator(first, it, last);
     }
@@ -3928,7 +3931,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         utf_code_unit<typename Cont::value_type>
-    auto from_utf8_inserter(Cont & c, typename Cont::iterator it)
+    constexpr auto from_utf8_inserter(Cont & c, typename Cont::iterator it)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -3944,7 +3947,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         utf_code_unit<typename Cont::value_type>
-    auto from_utf16_inserter(Cont & c, typename Cont::iterator it)
+    constexpr auto from_utf16_inserter(Cont & c, typename Cont::iterator it)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -3960,7 +3963,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         utf_code_unit<typename Cont::value_type>
-    auto from_utf32_inserter(Cont & c, typename Cont::iterator it)
+    constexpr auto from_utf32_inserter(Cont & c, typename Cont::iterator it)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -3976,7 +3979,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         utf_code_unit<typename Cont::value_type>
-    auto from_utf8_back_inserter(Cont & c)
+    constexpr auto from_utf8_back_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -3992,7 +3995,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         utf_code_unit<typename Cont::value_type>
-    auto from_utf16_back_inserter(Cont & c)
+    constexpr auto from_utf16_back_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4008,7 +4011,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         utf_code_unit<typename Cont::value_type>
-    auto from_utf32_back_inserter(Cont & c)
+    constexpr auto from_utf32_back_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4024,7 +4027,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         utf_code_unit<typename Cont::value_type>
-    auto from_utf8_front_inserter(Cont & c)
+    constexpr auto from_utf8_front_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4040,7 +4043,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         utf_code_unit<typename Cont::value_type>
-    auto from_utf16_front_inserter(Cont & c)
+    constexpr auto from_utf16_front_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
@@ -4056,7 +4059,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format off
         requires requires { typename Cont::value_type; } &&
         utf_code_unit<typename Cont::value_type>
-    auto from_utf32_front_inserter(Cont & c)
+    constexpr auto from_utf32_front_inserter(Cont & c)
     // clang-format on
     {
         if constexpr (sizeof(typename Cont::value_type) == 1) {
