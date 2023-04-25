@@ -25,7 +25,7 @@ namespace boost { namespace text {
 
         template<typename CPIter, typename Sentinel>
         using utf8_range_expr = is_char_iter<decltype(
-            detail::unpack_iterator_and_sentinel(
+            text::unpack_iterator_and_sentinel(
                 std::declval<CPIter>(), std::declval<Sentinel>())
                 .f_)>;
 

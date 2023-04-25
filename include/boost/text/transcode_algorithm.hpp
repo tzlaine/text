@@ -9,7 +9,6 @@
 
 #include <boost/text/in_out_result.hpp>
 #include <boost/text/transcode_iterator.hpp>
-#include <boost/text/detail/unpack.hpp>
 #if BOOST_TEXT_USE_CONCEPTS
 #include <algorithm>
 #endif
@@ -333,9 +332,17 @@ namespace boost { namespace text {
                 first, last, n, out, std::input_iterator_tag{});
         }
 
+        template<format Tag>
+        struct tag_t
+        {};
+
         template<bool UseN, typename Iter, typename Sentinel, typename OutIter>
         transcode_result<Iter, OutIter> transcode_to_8(
-            utf8_tag, Iter first, Sentinel last, std::ptrdiff_t n, OutIter out)
+            tag_t<format::utf8>,
+            Iter first,
+            Sentinel last,
+            std::ptrdiff_t n,
+            OutIter out)
         {
             for (; first != last && (!UseN || n); ++first, ++out) {
                 *out = *first;
@@ -346,7 +353,11 @@ namespace boost { namespace text {
 
         template<bool UseN, typename Iter, typename Sentinel, typename OutIter>
         transcode_result<Iter, OutIter> transcode_to_16(
-            utf8_tag, Iter first, Sentinel last, std::ptrdiff_t n, OutIter out)
+            tag_t<format::utf8>,
+            Iter first,
+            Sentinel last,
+            std::ptrdiff_t n,
+            OutIter out)
         {
             return detail::transcode_utf_8_to_16<UseN>(
                 first,
@@ -358,7 +369,11 @@ namespace boost { namespace text {
 
         template<bool UseN, typename Iter, typename Sentinel, typename OutIter>
         transcode_result<Iter, OutIter> transcode_to_32(
-            utf8_tag, Iter first, Sentinel last, std::ptrdiff_t n, OutIter out)
+            tag_t<format::utf8>,
+            Iter first,
+            Sentinel last,
+            std::ptrdiff_t n,
+            OutIter out)
         {
             return detail::transcode_utf_8_to_32<UseN>(
                 first,
@@ -370,7 +385,11 @@ namespace boost { namespace text {
 
         template<bool UseN, typename Iter, typename Sentinel, typename OutIter>
         transcode_result<Iter, OutIter> transcode_to_8(
-            utf16_tag, Iter first, Sentinel last, std::ptrdiff_t n, OutIter out)
+            tag_t<format::utf16>,
+            Iter first,
+            Sentinel last,
+            std::ptrdiff_t n,
+            OutIter out)
         {
             uint32_t const high_surrogate_max = 0xdbff;
             uint16_t const high_surrogate_base = 0xd7c0;
@@ -408,7 +427,11 @@ namespace boost { namespace text {
 
         template<bool UseN, typename Iter, typename Sentinel, typename OutIter>
         transcode_result<Iter, OutIter> transcode_to_16(
-            utf16_tag, Iter first, Sentinel last, std::ptrdiff_t n, OutIter out)
+            tag_t<format::utf16>,
+            Iter first,
+            Sentinel last,
+            std::ptrdiff_t n,
+            OutIter out)
         {
             for (; first != last && (!UseN || n); ++first, ++out, --n) {
                 *out = *first;
@@ -418,7 +441,11 @@ namespace boost { namespace text {
 
         template<bool UseN, typename Iter, typename Sentinel, typename OutIter>
         transcode_result<Iter, OutIter> transcode_to_32(
-            utf16_tag, Iter first, Sentinel last, std::ptrdiff_t n, OutIter out)
+            tag_t<format::utf16>,
+            Iter first,
+            Sentinel last,
+            std::ptrdiff_t n,
+            OutIter out)
         {
             uint32_t const high_surrogate_max = 0xdbff;
             uint16_t const high_surrogate_base = 0xd7c0;
@@ -457,7 +484,11 @@ namespace boost { namespace text {
 
         template<bool UseN, typename Iter, typename Sentinel, typename OutIter>
         transcode_result<Iter, OutIter> transcode_to_8(
-            utf32_tag, Iter first, Sentinel last, std::ptrdiff_t n, OutIter out)
+            tag_t<format::utf32>,
+            Iter first,
+            Sentinel last,
+            std::ptrdiff_t n,
+            OutIter out)
         {
             for (; first != last && (!UseN || n); ++first, --n) {
                 out = detail::read_into_utf8_iter(*first, out);
@@ -467,7 +498,11 @@ namespace boost { namespace text {
 
         template<bool UseN, typename Iter, typename Sentinel, typename OutIter>
         transcode_result<Iter, OutIter> transcode_to_16(
-            utf32_tag, Iter first, Sentinel last, std::ptrdiff_t n, OutIter out)
+            tag_t<format::utf32>,
+            Iter first,
+            Sentinel last,
+            std::ptrdiff_t n,
+            OutIter out)
         {
             for (; first != last && (!UseN || n); ++first, --n) {
                 out = detail::read_into_utf16_iter(*first, out);
@@ -477,7 +512,11 @@ namespace boost { namespace text {
 
         template<bool UseN, typename Iter, typename Sentinel, typename OutIter>
         transcode_result<Iter, OutIter> transcode_to_32(
-            utf32_tag, Iter first, Sentinel last, std::ptrdiff_t n, OutIter out)
+            tag_t<format::utf32>,
+            Iter first,
+            Sentinel last,
+            std::ptrdiff_t n,
+            OutIter out)
         {
             for (; first != last && (!UseN || n); ++first, ++out, --n) {
                 *out = *first;
@@ -494,7 +533,8 @@ namespace boost { namespace text {
         InputIter first, Sentinel last, std::ptrdiff_t n, OutIter out)
     {
         auto const r = detail::unpack_iterator_and_sentinel(first, last);
-        return detail::transcode_to_32<true>(r.tag_, r.f_, r.l_, n, out);
+        return detail::transcode_to_32<true>(
+            detail::tag_t<r.format_tag>{}, r.first, r.last, n, out);
     }
 
     /** Copies the first `n` code points in the range [first, last) to out,
@@ -504,7 +544,8 @@ namespace boost { namespace text {
         InputIter first, Sentinel last, std::ptrdiff_t n, OutIter out)
     {
         auto const r = detail::unpack_iterator_and_sentinel(first, last);
-        return detail::transcode_to_32<true>(r.tag_, r.f_, r.l_, n, out);
+        return detail::transcode_to_32<true>(
+            detail::tag_t<r.format_tag>{}, r.first, r.last, n, out);
     }
 
     /** Copies the first `n` code points in the range [first, last) to out,
@@ -639,11 +680,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Range && r, std::ptrdiff_t n, OutIter out)
                 -> transcode_result<decltype(detail::begin(r)), OutIter>
             {
-                auto const u = detail::unpack_iterator_and_sentinel(
+                auto const u = text::unpack_iterator_and_sentinel(
                     detail::begin(r), detail::end(r));
-                auto unpacked =
-                    detail::transcode_to_8<UseN>(u.tag_, u.f_, u.l_, n, out);
-                return {u.repack_(unpacked.in), unpacked.out};
+                auto unpacked = detail::transcode_to_8<UseN>(
+                    detail::tag_t<u.format_tag>{}, u.first, u.last, n, out);
+                return {u.repack(unpacked.in), unpacked.out};
             }
         };
 
@@ -654,7 +695,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_8<UseN>(
-                    detail::utf16_tag{}, p, null_sentinel, n, out);
+                    detail::tag_t<format::utf16>{}, p, null_sentinel, n, out);
             }
         };
 
@@ -665,7 +706,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_8<UseN>(
-                    detail::utf32_tag{}, p, null_sentinel, n, out);
+                    detail::tag_t<format::utf32>{}, p, null_sentinel, n, out);
             }
         };
 
@@ -681,11 +722,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Range && r, std::ptrdiff_t n, OutIter out)
                 -> transcode_result<decltype(detail::begin(r)), OutIter>
             {
-                auto const u = detail::unpack_iterator_and_sentinel(
+                auto const u = text::unpack_iterator_and_sentinel(
                     detail::begin(r), detail::end(r));
-                auto unpacked =
-                    detail::transcode_to_16<UseN>(u.tag_, u.f_, u.l_, n, out);
-                return {u.repack_(unpacked.in), unpacked.out};
+                auto unpacked = detail::transcode_to_16<UseN>(
+                    detail::tag_t<u.format_tag>{}, u.first, u.last, n, out);
+                return {u.repack(unpacked.in), unpacked.out};
             }
         };
 
@@ -696,7 +737,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_16<UseN>(
-                    detail::utf8_tag{}, p, null_sentinel, n, out);
+                    detail::tag_t<format::utf8>{}, p, null_sentinel, n, out);
             }
         };
 
@@ -707,7 +748,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_16<UseN>(
-                    detail::utf32_tag{}, p, null_sentinel, n, out);
+                    detail::tag_t<format::utf32>{}, p, null_sentinel, n, out);
             }
         };
 
@@ -723,11 +764,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Range && r, std::ptrdiff_t n, OutIter out)
                 -> transcode_result<decltype(detail::begin(r)), OutIter>
             {
-                auto const u = detail::unpack_iterator_and_sentinel(
+                auto const u = text::unpack_iterator_and_sentinel(
                     detail::begin(r), detail::end(r));
-                auto unpacked =
-                    detail::transcode_to_32<UseN>(u.tag_, u.f_, u.l_, n, out);
-                return {u.repack_(unpacked.in), unpacked.out};
+                auto unpacked = detail::transcode_to_32<UseN>(
+                    detail::tag_t<u.format_tag>{}, u.first, u.last, n, out);
+                return {u.repack(unpacked.in), unpacked.out};
             }
         };
 
@@ -738,7 +779,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_32<UseN>(
-                    detail::utf8_tag{}, p, null_sentinel, n, out);
+                    detail::tag_t<format::utf8>{}, p, null_sentinel, n, out);
             }
         };
 
@@ -749,7 +790,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             call(Ptr p, std::ptrdiff_t n, OutIter out)
             {
                 return detail::transcode_to_32<UseN>(
-                    detail::utf16_tag{}, p, null_sentinel, n, out);
+                    detail::tag_t<format::utf16>{}, p, null_sentinel, n, out);
             }
         };
     }
@@ -758,10 +799,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     transcode_result<Iter, OutIter> transcode_to_utf8(
         Iter first, Sentinel last, OutIter out)
     {
-        auto const r = detail::unpack_iterator_and_sentinel(first, last);
-        auto unpacked =
-            detail::transcode_to_8<false>(r.tag_, r.f_, r.l_, -1, out);
-        return {r.repack_(unpacked.in), unpacked.out};
+        auto const r = text::unpack_iterator_and_sentinel(first, last);
+        auto unpacked = detail::transcode_to_8<false>(
+            detail::tag_t<r.format_tag>{}, r.first, r.last, -1, out);
+        return {r.repack(unpacked.in), unpacked.out};
     }
 
     template<typename Range, typename OutIter>
@@ -776,10 +817,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     transcode_result<Iter, OutIter> transcode_to_utf16(
         Iter first, Sentinel last, OutIter out)
     {
-        auto const r = detail::unpack_iterator_and_sentinel(first, last);
-        auto unpacked =
-            detail::transcode_to_16<false>(r.tag_, r.f_, r.l_, -1, out);
-        return {r.repack_(unpacked.in), unpacked.out};
+        auto const r = text::unpack_iterator_and_sentinel(first, last);
+        auto unpacked = detail::transcode_to_16<false>(
+            detail::tag_t<r.format_tag>{}, r.first, r.last, -1, out);
+        return {r.repack(unpacked.in), unpacked.out};
     }
 
     template<typename Range, typename OutIter>
@@ -794,10 +835,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     transcode_result<Iter, OutIter> transcode_to_utf32(
         Iter first, Sentinel last, OutIter out)
     {
-        auto const r = detail::unpack_iterator_and_sentinel(first, last);
-        auto unpacked =
-            detail::transcode_to_32<false>(r.tag_, r.f_, r.l_, -1, out);
-        return {r.repack_(unpacked.in), unpacked.out};
+        auto const r = text::unpack_iterator_and_sentinel(first, last);
+        auto unpacked = detail::transcode_to_32<false>(
+            detail::tag_t<r.format_tag>{}, r.first, r.last, -1, out);
+        return {r.repack(unpacked.in), unpacked.out};
     }
 
     template<typename Range, typename OutIter>
@@ -825,10 +866,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             utf32_code_unit<std::iter_value_t<I>>)
     transcode_result<I, O> transcode_to_utf8(I first, S last, O out)
     {
-        auto const r = detail::unpack_iterator_and_sentinel(first, last);
-        auto unpacked =
-            detail::transcode_to_8<false>(r.tag_, r.f_, r.l_, -1, out);
-        return {r.repack_(unpacked.in), unpacked.out};
+        auto const r = text::unpack_iterator_and_sentinel(first, last);
+        auto unpacked = detail::transcode_to_8<false>(
+            detail::tag_t<r.format_tag>{}, r.first, r.last, -1, out);
+        return {r.repack(unpacked.in), unpacked.out};
     }
 
     template<typename R, std::output_iterator<uint32_t> O>
@@ -856,10 +897,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             utf32_code_unit<std::iter_value_t<I>>)
     transcode_result<I, O> transcode_to_utf16(I first, S last, O out)
     {
-        auto const r = detail::unpack_iterator_and_sentinel(first, last);
-        auto unpacked =
-            detail::transcode_to_16<false>(r.tag_, r.f_, r.l_, -1, out);
-        return {r.repack_(unpacked.in), unpacked.out};
+        auto const r = text::unpack_iterator_and_sentinel(first, last);
+        auto unpacked = detail::transcode_to_16<false>(
+            detail::tag_t<r.format_tag>{}, r.first, r.last, -1, out);
+        return {r.repack(unpacked.in), unpacked.out};
     }
 
     template<typename R, std::output_iterator<uint32_t> O>
@@ -887,10 +928,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             utf16_code_unit<std::iter_value_t<I>>)
     transcode_result<I, O> transcode_to_utf32(I first, S last, O out)
     {
-        auto const r = detail::unpack_iterator_and_sentinel(first, last);
-        auto unpacked =
-            detail::transcode_to_32<false>(r.tag_, r.f_, r.l_, -1, out);
-        return {r.repack_(unpacked.in), unpacked.out};
+        auto const r = text::unpack_iterator_and_sentinel(first, last);
+        auto unpacked = detail::transcode_to_32<false>(
+            detail::tag_t<r.format_tag>{}, r.first, r.last, -1, out);
+        return {r.repack(unpacked.in), unpacked.out};
     }
 
     template<typename R, std::output_iterator<uint32_t> O>

@@ -58,12 +58,12 @@ namespace boost { namespace text {
 
         constexpr grapheme_iterator(
             iterator first, iterator it, sentinel last) :
-            first_(detail::unpack_iterator_and_sentinel(first, last).f_),
-            grapheme_first_(detail::unpack_iterator_and_sentinel(it, last).f_),
-            grapheme_last_(detail::unpack_iterator_and_sentinel(
+            first_(text::unpack_iterator_and_sentinel(first, last).first),
+            grapheme_first_(text::unpack_iterator_and_sentinel(it, last).first),
+            grapheme_last_(text::unpack_iterator_and_sentinel(
                                boost::text::next_grapheme_break(it, last), last)
-                               .f_),
-            last_(detail::unpack_iterator_and_sentinel(first, last).l_)
+                               .first),
+            last_(text::unpack_iterator_and_sentinel(first, last).last)
         {}
 
 #if BOOST_TEXT_USE_CONCEPTS
@@ -101,7 +101,7 @@ namespace boost { namespace text {
                 boost::text::next_grapheme_break(gr_end(), seq_end());
             grapheme_first_ = grapheme_last_;
             grapheme_last_ =
-                detail::unpack_iterator_and_sentinel(next_break, seq_end()).f_;
+                text::unpack_iterator_and_sentinel(next_break, seq_end()).first;
             return *this;
         }
         constexpr grapheme_iterator operator++(int)
@@ -117,7 +117,7 @@ namespace boost { namespace text {
                 seq_begin(), std::prev(gr_begin()), seq_end());
             grapheme_last_ = grapheme_first_;
             grapheme_first_ =
-                detail::unpack_iterator_and_sentinel(prev_break, seq_end()).f_;
+                text::unpack_iterator_and_sentinel(prev_break, seq_end()).first;
             return *this;
         }
         constexpr grapheme_iterator operator--(int)
@@ -140,13 +140,13 @@ namespace boost { namespace text {
 
     private:
         using cu_iterator =
-            decltype(detail::unpack_iterator_and_sentinel(
+            decltype(text::unpack_iterator_and_sentinel(
                          std::declval<iterator>(), std::declval<sentinel>())
-                         .f_);
+                         .first);
         using cu_sentinel =
-            decltype(detail::unpack_iterator_and_sentinel(
+            decltype(text::unpack_iterator_and_sentinel(
                          std::declval<iterator>(), std::declval<sentinel>())
-                         .l_);
+                         .last);
 
         constexpr iterator seq_begin() const
         {

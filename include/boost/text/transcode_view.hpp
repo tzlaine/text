@@ -10,7 +10,6 @@
 #include <boost/text/concepts.hpp>
 #include <boost/text/dangling.hpp>
 #include <boost/text/view_adaptor.hpp>
-#include <boost/text/detail/unpack.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
@@ -21,103 +20,163 @@ namespace boost { namespace text {
 
         // UTF-8
         template<typename Iter, typename Sentinel>
-        constexpr auto make_utf8_range_(utf8_tag, Iter f, Sentinel l)
+        constexpr auto make_utf8_range_(tag_t<format::utf8>, Iter f, Sentinel l)
         {
-            return tagged_range<utf8_tag, Iter, Sentinel>{f, l};
+            return utf_tagged_range<
+                format::utf8,
+                Iter,
+                Sentinel,
+                no_op_repacker>{f, l};
         }
         template<typename Iter, typename Sentinel>
-        constexpr auto make_utf8_range_(utf16_tag, Iter f_, Sentinel l)
+        constexpr auto make_utf8_range_(tag_t<format::utf16>, Iter f_, Sentinel l)
         {
             auto f = utf_16_to_8_iterator<Iter, Sentinel>(f_, f_, l);
-            return tagged_range<utf8_tag, decltype(f), Sentinel>{f, l};
+            return utf_tagged_range<
+                format::utf8,
+                decltype(f),
+                Sentinel,
+                no_op_repacker>{f, l};
         }
         template<typename Iter>
-        constexpr auto make_utf8_range_(utf16_tag, Iter f_, Iter l_)
+        constexpr auto make_utf8_range_(tag_t<format::utf16>, Iter f_, Iter l_)
         {
             auto f = utf_16_to_8_iterator<Iter>(f_, f_, l_);
             auto l = utf_16_to_8_iterator<Iter>(f_, l_, l_);
-            return tagged_range<utf8_tag, decltype(f)>{f, l};
+            return utf_tagged_range<
+                format::utf8,
+                decltype(f),
+                decltype(f),
+                no_op_repacker>{f, l};
         }
         template<typename Iter, typename Sentinel>
-        constexpr auto make_utf8_range_(utf32_tag, Iter f_, Sentinel l)
+        constexpr auto make_utf8_range_(tag_t<format::utf32>, Iter f_, Sentinel l)
         {
             auto f = utf_32_to_8_iterator<Iter, Sentinel>(f_, f_, l);
-            return tagged_range<utf8_tag, decltype(f), Sentinel>{f, l};
+            return utf_tagged_range<
+                format::utf8,
+                decltype(f),
+                Sentinel,
+                no_op_repacker>{f, l};
         }
         template<typename Iter>
-        constexpr auto make_utf8_range_(utf32_tag, Iter f_, Iter l_)
+        constexpr auto make_utf8_range_(tag_t<format::utf32>, Iter f_, Iter l_)
         {
             auto f = utf_32_to_8_iterator<Iter>(f_, f_, l_);
             auto l = utf_32_to_8_iterator<Iter>(f_, l_, l_);
-            return tagged_range<utf8_tag, decltype(f)>{f, l};
+            return utf_tagged_range<
+                format::utf8,
+                decltype(f),
+                decltype(f),
+                no_op_repacker>{f, l};
         }
 
         // UTF-16
         template<typename Iter, typename Sentinel>
-        constexpr auto make_utf16_range_(utf8_tag, Iter f_, Sentinel l)
+        constexpr auto make_utf16_range_(tag_t<format::utf8>, Iter f_, Sentinel l)
         {
             auto f = utf_8_to_16_iterator<Iter, Sentinel>(f_, f_, l);
-            return tagged_range<utf16_tag, decltype(f), Sentinel>{f, l};
+            return utf_tagged_range<
+                format::utf16,
+                decltype(f),
+                Sentinel,
+                no_op_repacker>{f, l};
         }
         template<typename Iter>
-        constexpr auto make_utf16_range_(utf8_tag, Iter f_, Iter l_)
+        constexpr auto make_utf16_range_(tag_t<format::utf8>, Iter f_, Iter l_)
         {
             auto f = utf_8_to_16_iterator<Iter>(f_, f_, l_);
             auto l = utf_8_to_16_iterator<Iter>(f_, l_, l_);
-            return tagged_range<utf16_tag, decltype(f)>{f, l};
+            return utf_tagged_range<
+                format::utf16,
+                decltype(f),
+                decltype(f),
+                no_op_repacker>{f, l};
         }
         template<typename Iter, typename Sentinel>
-        constexpr auto make_utf16_range_(utf16_tag, Iter f, Sentinel l)
+        constexpr auto make_utf16_range_(tag_t<format::utf16>, Iter f, Sentinel l)
         {
-            return tagged_range<utf16_tag, Iter, Sentinel>{f, l};
+            return utf_tagged_range<
+                format::utf16,
+                Iter,
+                Sentinel,
+                no_op_repacker>{f, l};
         }
         template<typename Iter, typename Sentinel>
         constexpr auto
-        make_utf16_range_(utf32_tag, Iter f_, Sentinel l)
+        make_utf16_range_(tag_t<format::utf32>, Iter f_, Sentinel l)
         {
             auto f = utf_32_to_16_iterator<Iter, Sentinel>(f_, f_, l);
-            return tagged_range<utf16_tag, decltype(f), Sentinel>{f, l};
+            return utf_tagged_range<
+                format::utf16,
+                decltype(f),
+                Sentinel,
+                no_op_repacker>{f, l};
         }
         template<typename Iter>
-        constexpr auto make_utf16_range_(utf32_tag, Iter f_, Iter l_)
+        constexpr auto make_utf16_range_(tag_t<format::utf32>, Iter f_, Iter l_)
         {
             auto f = utf_32_to_16_iterator<Iter>(f_, f_, l_);
             auto l = utf_32_to_16_iterator<Iter>(f_, l_, l_);
-            return tagged_range<utf16_tag, decltype(f)>{f, l};
+            return utf_tagged_range<
+                format::utf16,
+                decltype(f),
+                decltype(f),
+                no_op_repacker>{f, l};
         }
 
         // UTF-32
         template<typename Iter, typename Sentinel>
-        constexpr auto make_utf32_range_(utf8_tag, Iter f_, Sentinel l)
+        constexpr auto make_utf32_range_(tag_t<format::utf8>, Iter f_, Sentinel l)
         {
             auto f = utf_8_to_32_iterator<Iter, Sentinel>(f_, f_, l);
-            return tagged_range<utf32_tag, decltype(f), Sentinel>{f, l};
+            return utf_tagged_range<
+                format::utf32,
+                decltype(f),
+                Sentinel,
+                no_op_repacker>{f, l};
         }
         template<typename Iter>
-        constexpr auto make_utf32_range_(utf8_tag, Iter f_, Iter l_)
+        constexpr auto make_utf32_range_(tag_t<format::utf8>, Iter f_, Iter l_)
         {
             auto f = utf_8_to_32_iterator<Iter>(f_, f_, l_);
             auto l = utf_8_to_32_iterator<Iter>(f_, l_, l_);
-            return tagged_range<utf32_tag, decltype(f)>{f, l};
+            return utf_tagged_range<
+                format::utf32,
+                decltype(f),
+                decltype(f),
+                no_op_repacker>{f, l};
         }
         template<typename Iter, typename Sentinel>
         constexpr auto
-        make_utf32_range_(utf16_tag, Iter f_, Sentinel l)
+        make_utf32_range_(tag_t<format::utf16>, Iter f_, Sentinel l)
         {
             auto f = utf_16_to_32_iterator<Iter, Sentinel>(f_, f_, l);
-            return tagged_range<utf32_tag, decltype(f), Sentinel>{f, l};
+            return utf_tagged_range<
+                format::utf32,
+                decltype(f),
+                Sentinel,
+                no_op_repacker>{f, l};
         }
         template<typename Iter>
-        constexpr auto make_utf32_range_(utf16_tag, Iter f_, Iter l_)
+        constexpr auto make_utf32_range_(tag_t<format::utf16>, Iter f_, Iter l_)
         {
             auto f = utf_16_to_32_iterator<Iter>(f_, f_, l_);
             auto l = utf_16_to_32_iterator<Iter>(f_, l_, l_);
-            return tagged_range<utf32_tag, decltype(f)>{f, l};
+            return utf_tagged_range<
+                format::utf32,
+                decltype(f),
+                decltype(f),
+                no_op_repacker>{f, l};
         }
         template<typename Iter, typename Sentinel>
-        constexpr auto make_utf32_range_(utf32_tag, Iter f, Sentinel l)
+        constexpr auto make_utf32_range_(tag_t<format::utf32>, Iter f, Sentinel l)
         {
-            return tagged_range<utf32_tag, Iter, Sentinel>{f, l};
+            return utf_tagged_range<
+                format::utf32,
+                Iter,
+                Sentinel,
+                no_op_repacker>{f, l};
         }
 
 #if BOOST_TEXT_USE_CONCEPTS
@@ -175,8 +234,8 @@ namespace boost { namespace text {
 
         constexpr utf8_view() {}
         constexpr utf8_view(iterator first, sentinel last) :
-            first_(detail::unpack_iterator_and_sentinel(first, last).f_),
-            last_(detail::unpack_iterator_and_sentinel(first, last).l_)
+            first_(text::unpack_iterator_and_sentinel(first, last).first),
+            last_(text::unpack_iterator_and_sentinel(first, last).last)
         {}
 
         constexpr iterator begin() const
@@ -219,12 +278,12 @@ namespace boost { namespace text {
 #endif
 
     private:
-        using iterator_t = decltype(detail::unpack_iterator_and_sentinel(
+        using iterator_t = decltype(text::unpack_iterator_and_sentinel(
                                         std::declval<I>(), std::declval<S>())
-                                        .f_);
-        using sentinel_t = decltype(detail::unpack_iterator_and_sentinel(
+                                        .first);
+        using sentinel_t = decltype(text::unpack_iterator_and_sentinel(
                                         std::declval<I>(), std::declval<S>())
-                                        .l_);
+                                        .last);
 
         iterator_t first_;
         [[no_unique_address]] sentinel_t last_;
@@ -243,8 +302,8 @@ namespace boost { namespace text {
 
         constexpr utf16_view() {}
         constexpr utf16_view(iterator first, sentinel last) :
-            first_(detail::unpack_iterator_and_sentinel(first, last).f_),
-            last_(detail::unpack_iterator_and_sentinel(first, last).l_)
+            first_(text::unpack_iterator_and_sentinel(first, last).first),
+            last_(text::unpack_iterator_and_sentinel(first, last).last)
         {}
 
         constexpr iterator begin() const
@@ -287,12 +346,12 @@ namespace boost { namespace text {
 #endif
 
     private:
-        using iterator_t = decltype(detail::unpack_iterator_and_sentinel(
+        using iterator_t = decltype(text::unpack_iterator_and_sentinel(
                                         std::declval<I>(), std::declval<S>())
-                                        .f_);
-        using sentinel_t = decltype(detail::unpack_iterator_and_sentinel(
+                                        .first);
+        using sentinel_t = decltype(text::unpack_iterator_and_sentinel(
                                         std::declval<I>(), std::declval<S>())
-                                        .l_);
+                                        .last);
 
         iterator_t first_;
         [[no_unique_address]] sentinel_t last_;
@@ -311,8 +370,8 @@ namespace boost { namespace text {
 
         constexpr utf32_view() {}
         constexpr utf32_view(iterator first, sentinel last) :
-            first_(detail::unpack_iterator_and_sentinel(first, last).f_),
-            last_(detail::unpack_iterator_and_sentinel(first, last).l_)
+            first_(text::unpack_iterator_and_sentinel(first, last).first),
+            last_(text::unpack_iterator_and_sentinel(first, last).last)
         {}
 
         constexpr iterator begin() const
@@ -353,12 +412,12 @@ namespace boost { namespace text {
 #endif
 
     private:
-        using iterator_t = decltype(detail::unpack_iterator_and_sentinel(
+        using iterator_t = decltype(text::unpack_iterator_and_sentinel(
                                         std::declval<I>(), std::declval<S>())
-                                        .f_);
-        using sentinel_t = decltype(detail::unpack_iterator_and_sentinel(
+                                        .first);
+        using sentinel_t = decltype(text::unpack_iterator_and_sentinel(
                                         std::declval<I>(), std::declval<S>())
-                                        .l_);
+                                        .last);
 
         iterator_t first_;
         [[no_unique_address]] sentinel_t last_;
@@ -401,10 +460,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             constexpr auto operator()(Iter first, Sentinel last) const
             {
                 auto unpacked =
-                    detail::unpack_iterator_and_sentinel(first, last);
+                    text::unpack_iterator_and_sentinel(first, last);
                 auto r = detail::make_utf8_range_(
-                    unpacked.tag_, unpacked.f_, unpacked.l_);
-                return utf8_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+                    detail::tag_t<unpacked.format_tag>{},
+                    unpacked.first,
+                    unpacked.last);
+                return utf8_view<decltype(r.first), decltype(r.last)>(
+                    r.first, r.last);
             }
 
             template<typename Range>
@@ -459,10 +521,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             constexpr auto operator()(Iter first, Sentinel last) const
             {
                 auto unpacked =
-                    detail::unpack_iterator_and_sentinel(first, last);
+                    text::unpack_iterator_and_sentinel(first, last);
                 auto r = detail::make_utf16_range_(
-                    unpacked.tag_, unpacked.f_, unpacked.l_);
-                return utf16_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+                    detail::tag_t<unpacked.format_tag>{},
+                    unpacked.first,
+                    unpacked.last);
+                return utf16_view<decltype(r.first), decltype(r.last)>(
+                    r.first, r.last);
             }
 
             template<typename Range>
@@ -517,10 +582,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             constexpr auto operator()(Iter first, Sentinel last) const
             {
                 auto unpacked =
-                    detail::unpack_iterator_and_sentinel(first, last);
+                    text::unpack_iterator_and_sentinel(first, last);
                 auto r = detail::make_utf32_range_(
-                    unpacked.tag_, unpacked.f_, unpacked.l_);
-                return utf32_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+                    detail::tag_t<unpacked.format_tag>{},
+                    unpacked.first,
+                    unpacked.last);
+                return utf32_view<decltype(r.first), decltype(r.last)>(
+                    r.first, r.last);
             }
 
             template<typename Range>
@@ -571,10 +639,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             constexpr auto operator()(I first, S last) const
             {
                 auto unpacked =
-                    detail::unpack_iterator_and_sentinel(first, last);
+                    text::unpack_iterator_and_sentinel(first, last);
                 auto r = detail::make_utf8_range_(
-                    unpacked.tag_, unpacked.f_, unpacked.l_);
-                return utf8_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+                    detail::tag_t<unpacked.format_tag>{},
+                    unpacked.first,
+                    unpacked.last);
+                return utf8_view<decltype(r.first), decltype(r.last)>(
+                    r.first, r.last);
             }
 
             template<utf_range_like R>
@@ -613,11 +684,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<utf_iter I, std::sentinel_for<I> S>
             constexpr auto operator()(I first, S last) const
             {
-                auto unpacked =
-                    detail::unpack_iterator_and_sentinel(first, last);
+                auto unpacked = text::unpack_iterator_and_sentinel(first, last);
                 auto r = detail::make_utf16_range_(
-                    unpacked.tag_, unpacked.f_, unpacked.l_);
-                return utf16_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+                    detail::tag_t<unpacked.format_tag>{},
+                    unpacked.first,
+                    unpacked.last);
+                return utf16_view<decltype(r.first), decltype(r.last)>(
+                    r.first, r.last);
             }
 
             template<utf_range_like R>
@@ -658,10 +731,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             constexpr auto operator()(I first, S last) const
             {
                 auto unpacked =
-                    detail::unpack_iterator_and_sentinel(first, last);
+                    text::unpack_iterator_and_sentinel(first, last);
                 auto r = detail::make_utf32_range_(
-                    unpacked.tag_, unpacked.f_, unpacked.l_);
-                return utf32_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+                    detail::tag_t<unpacked.format_tag>{},
+                    unpacked.first,
+                    unpacked.last);
+                return utf32_view<decltype(r.first), decltype(r.last)>(
+                    r.first, r.last);
             }
 
             template<utf_range_like R>

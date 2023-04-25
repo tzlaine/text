@@ -44,22 +44,22 @@ namespace boost { namespace text {
         }
 
         template<typename Iter, typename Sentinel, typename Repack>
-        auto
-        stream_safe_out(tagged_range<utf8_tag, Iter, Sentinel, Repack> unpacked)
+        auto stream_safe_out(
+            utf_tagged_range<format::utf8, Iter, Sentinel, Repack> unpacked)
         {
-            return boost::text::utf_32_to_8_out(unpacked.f_);
+            return boost::text::utf_32_to_8_out(unpacked.first);
         }
         template<typename Iter, typename Sentinel, typename Repack>
         auto stream_safe_out(
-            tagged_range<utf16_tag, Iter, Sentinel, Repack> unpacked)
+            utf_tagged_range<format::utf16, Iter, Sentinel, Repack> unpacked)
         {
-            return boost::text::utf_32_to_16_out(unpacked.f_);
+            return boost::text::utf_32_to_16_out(unpacked.first);
         }
         template<typename Iter, typename Sentinel, typename Repack>
         auto stream_safe_out(
-            tagged_range<utf32_tag, Iter, Sentinel, Repack> unpacked)
+            utf_tagged_range<format::utf32, Iter, Sentinel, Repack> unpacked)
         {
-            return unpacked.f_;
+            return unpacked.first;
         }
 
         template<
@@ -68,11 +68,11 @@ namespace boost { namespace text {
             typename Sentinel,
             typename Repack>
         auto stream_safe_result(
-            tagged_range<utf8_tag, Iter, Sentinel, Repack> unpacked,
+            utf_tagged_range<format::utf8, Iter, Sentinel, Repack> unpacked,
             OutIter out)
         {
             return boost::text::utf32_iterator(
-                unpacked.f_, out.base(), unpacked.l_);
+                unpacked.first, out.base(), unpacked.last);
         }
         template<
             typename OutIter,
@@ -80,14 +80,14 @@ namespace boost { namespace text {
             typename Sentinel,
             typename Repack>
         auto stream_safe_result(
-            tagged_range<utf16_tag, Iter, Sentinel, Repack> unpacked,
+            utf_tagged_range<format::utf16, Iter, Sentinel, Repack> unpacked,
             OutIter out)
         {
             return boost::text::utf32_iterator(
-                unpacked.f_, out.base(), unpacked.l_);
+                unpacked.first, out.base(), unpacked.last);
         }
         template<typename OutIter>
-        auto stream_safe_result(utf32_tag, OutIter out)
+        auto stream_safe_result(detail::tag_t<format::utf32>, OutIter out)
         {
             return out;
         }
@@ -111,7 +111,7 @@ namespace boost { namespace text {
         auto stream_safe_impl(I first, S last)
         {
             auto const unpacked =
-                detail::unpack_iterator_and_sentinel(first, last);
+                boost::text::unpack_iterator_and_sentinel(first, last);
             auto out = detail::stream_safe_out(unpacked);
             out = detail::stream_safe_copy_impl(first, last, out).out;
             return detail::stream_safe_result(unpacked, out);

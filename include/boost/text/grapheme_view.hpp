@@ -192,11 +192,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             constexpr auto operator()(Iter first, Sentinel last) const
             {
                 auto unpacked =
-                    detail::unpack_iterator_and_sentinel(first, last);
+                    boost::text::unpack_iterator_and_sentinel(first, last);
                 auto r = detail::make_utf32_range_(
-                    unpacked.tag_, unpacked.f_, unpacked.l_);
-                return grapheme_view<decltype(r.f_), decltype(r.l_)>(
-                    r.f_, r.l_);
+                    detail::tag_t<unpacked.format_tag>{},
+                    unpacked.first,
+                    unpacked.last);
+                return grapheme_view<decltype(r.first), decltype(r.last)>(
+                    r.first, r.last);
             }
 
             template<typename Range>
@@ -230,11 +232,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             constexpr auto operator()(I first, S last) const
             {
                 auto unpacked =
-                    detail::unpack_iterator_and_sentinel(first, last);
+                    boost::text::unpack_iterator_and_sentinel(first, last);
                 auto r = detail::make_utf32_range_(
-                    unpacked.tag_, unpacked.f_, unpacked.l_);
-                return grapheme_view<decltype(r.f_), decltype(r.l_)>(
-                    r.f_, r.l_);
+                    detail::tag_t<unpacked.format_tag>{},
+                    unpacked.first,
+                    unpacked.last);
+                return grapheme_view<decltype(r.first), decltype(r.last)>(
+                    r.first, r.last);
             }
 
             template<utf_range_like R>

@@ -6,6 +6,7 @@
 #ifndef BOOST_TEXT_TRANSCODE_ITERATOR_HPP
 #define BOOST_TEXT_TRANSCODE_ITERATOR_HPP
 
+#include <boost/text/transcode_iterator_fwd.hpp>
 #include <boost/text/config.hpp>
 #include <boost/text/concepts.hpp>
 #include <boost/text/utf.hpp>
@@ -1028,13 +1029,10 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_CONCEPTS
     template<
         utf8_iter I,
-        std::sentinel_for<I> S = I,
-        transcoding_error_handler ErrorHandler = use_replacement_character>
+        std::sentinel_for<I> S,
+        transcoding_error_handler ErrorHandler>
 #else
-    template<
-        typename I,
-        typename Sentinel = I,
-        typename ErrorHandler = use_replacement_character>
+    template<typename I, typename Sentinel, typename ErrorHandler>
 #endif
     struct utf_8_to_16_iterator;
 
@@ -1043,13 +1041,10 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_CONCEPTS
     template<
         utf32_iter I,
-        std::sentinel_for<I> S = I,
-        transcoding_error_handler ErrorHandler = use_replacement_character>
+        std::sentinel_for<I> S,
+        transcoding_error_handler ErrorHandler>
 #else
-    template<
-        typename I,
-        typename S = I,
-        typename ErrorHandler = use_replacement_character>
+    template<typename I, typename S, typename ErrorHandler>
 #endif
     struct utf_32_to_8_iterator
         : detail::trans_iter<utf_32_to_8_iterator<I, S, ErrorHandler>, char>
@@ -1354,13 +1349,10 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_CONCEPTS
     template<
         utf8_iter I,
-        std::sentinel_for<I> S = I,
-        transcoding_error_handler ErrorHandler = use_replacement_character>
+        std::sentinel_for<I> S,
+        transcoding_error_handler ErrorHandler>
 #else
-    template<
-        typename I,
-        typename S = I,
-        typename ErrorHandler = use_replacement_character>
+    template<typename I, typename S, typename ErrorHandler>
 #endif
     struct utf_8_to_32_iterator
         : detail::trans_iter<utf_8_to_32_iterator<I, S, ErrorHandler>, uint32_t>
@@ -1915,13 +1907,10 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_CONCEPTS
     template<
         utf32_iter I,
-        std::sentinel_for<I> S = I,
-        transcoding_error_handler ErrorHandler = use_replacement_character>
+        std::sentinel_for<I> S,
+        transcoding_error_handler ErrorHandler>
 #else
-    template<
-        typename I,
-        typename S = I,
-        typename ErrorHandler = use_replacement_character>
+    template<typename I, typename S, typename ErrorHandler>
 #endif
     struct utf_32_to_16_iterator
         : detail::
@@ -2225,13 +2214,10 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_CONCEPTS
     template<
         utf16_iter I,
-        std::sentinel_for<I> S = I,
-        transcoding_error_handler ErrorHandler = use_replacement_character>
+        std::sentinel_for<I> S,
+        transcoding_error_handler ErrorHandler>
 #else
-    template<
-        typename I,
-        typename S = I,
-        typename ErrorHandler = use_replacement_character>
+    template<typename I, typename S, typename ErrorHandler>
 #endif
     struct utf_16_to_32_iterator
         : detail::
@@ -2619,13 +2605,10 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_CONCEPTS
     template<
         utf16_iter I,
-        std::sentinel_for<I> S = I,
-        transcoding_error_handler ErrorHandler = use_replacement_character>
+        std::sentinel_for<I> S,
+        transcoding_error_handler ErrorHandler>
 #else
-    template<
-        typename I,
-        typename S = I,
-        typename ErrorHandler = use_replacement_character>
+    template<typename I,typename S, typename ErrorHandler>
 #endif
     struct utf_16_to_8_iterator
         : detail::trans_iter<utf_16_to_8_iterator<I, S, ErrorHandler>, char>
@@ -3375,15 +3358,15 @@ namespace boost { namespace text {
 
 }}
 
-#include <boost/text/detail/unpack.hpp>
+#include <boost/text/unpack.hpp>
 
 namespace boost { namespace text { namespace detail {
 
-    template<typename Tag>
+    template<format Tag>
     struct make_utf8_dispatch;
 
     template<>
-    struct make_utf8_dispatch<detail::utf8_tag>
+    struct make_utf8_dispatch<format::utf8>
     {
         template<typename Iter, typename Sentinel>
         static constexpr Iter call(Iter first, Iter it, Sentinel last)
@@ -3393,7 +3376,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     template<>
-    struct make_utf8_dispatch<detail::utf16_tag>
+    struct make_utf8_dispatch<format::utf16>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_16_to_8_iterator<Iter, Sentinel>
@@ -3404,7 +3387,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     template<>
-    struct make_utf8_dispatch<detail::utf32_tag>
+    struct make_utf8_dispatch<format::utf32>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_32_to_8_iterator<Iter, Sentinel>
@@ -3414,11 +3397,11 @@ namespace boost { namespace text { namespace detail {
         }
     };
 
-    template<typename Tag>
+    template<format Tag>
     struct make_utf16_dispatch;
 
     template<>
-    struct make_utf16_dispatch<detail::utf8_tag>
+    struct make_utf16_dispatch<format::utf8>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_8_to_16_iterator<Iter, Sentinel>
@@ -3429,7 +3412,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     template<>
-    struct make_utf16_dispatch<detail::utf16_tag>
+    struct make_utf16_dispatch<format::utf16>
     {
         template<typename Iter, typename Sentinel>
         static constexpr Iter call(Iter first, Iter it, Sentinel last)
@@ -3439,7 +3422,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     template<>
-    struct make_utf16_dispatch<detail::utf32_tag>
+    struct make_utf16_dispatch<format::utf32>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_32_to_16_iterator<Iter, Sentinel>
@@ -3449,11 +3432,11 @@ namespace boost { namespace text { namespace detail {
         }
     };
 
-    template<typename Tag>
+    template<format Tag>
     struct make_utf32_dispatch;
 
     template<>
-    struct make_utf32_dispatch<detail::utf8_tag>
+    struct make_utf32_dispatch<format::utf8>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_8_to_32_iterator<Iter, Sentinel>
@@ -3464,7 +3447,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     template<>
-    struct make_utf32_dispatch<detail::utf16_tag>
+    struct make_utf32_dispatch<format::utf16>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_16_to_32_iterator<Iter, Sentinel>
@@ -3475,7 +3458,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     template<>
-    struct make_utf32_dispatch<detail::utf32_tag>
+    struct make_utf32_dispatch<format::utf32>
     {
         template<typename Iter, typename Sentinel>
         static constexpr Iter call(Iter first, Iter it, Sentinel last)
@@ -3738,34 +3721,34 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename Iter, typename Sentinel>
     auto utf8_iterator(Iter first, Iter it, Sentinel last)
     {
-        auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto const unpacked = text::unpack_iterator_and_sentinel(first, last);
         auto const unpacked_it =
-            detail::unpack_iterator_and_sentinel(it, last).f_;
-        using tag_type = decltype(unpacked.tag_);
-        return detail::make_utf8_dispatch<tag_type>::call(
-            unpacked.f_, unpacked_it, unpacked.l_);
+            text::unpack_iterator_and_sentinel(it, last).first;
+        constexpr format tag = unpacked.format_tag;
+        return detail::make_utf8_dispatch<tag>::call(
+            unpacked.first, unpacked_it, unpacked.last);
     }
 
     template<typename Iter, typename Sentinel>
     auto utf16_iterator(Iter first, Iter it, Sentinel last)
     {
-        auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto const unpacked = text::unpack_iterator_and_sentinel(first, last);
         auto const unpacked_it =
-            detail::unpack_iterator_and_sentinel(it, last).f_;
-        using tag_type = decltype(unpacked.tag_);
-        return detail::make_utf16_dispatch<tag_type>::call(
-            unpacked.f_, unpacked_it, unpacked.l_);
+            text::unpack_iterator_and_sentinel(it, last).first;
+        constexpr format tag = unpacked.format_tag;
+        return detail::make_utf16_dispatch<tag>::call(
+            unpacked.first, unpacked_it, unpacked.last);
     }
 
     template<typename Iter, typename Sentinel>
     auto utf32_iterator(Iter first, Iter it, Sentinel last)
     {
-        auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto const unpacked = text::unpack_iterator_and_sentinel(first, last);
         auto const unpacked_it =
-            detail::unpack_iterator_and_sentinel(it, last).f_;
-        using tag_type = decltype(unpacked.tag_);
-        return detail::make_utf32_dispatch<tag_type>::call(
-            unpacked.f_, unpacked_it, unpacked.l_);
+            text::unpack_iterator_and_sentinel(it, last).first;
+        constexpr format tag = unpacked.format_tag;
+        return detail::make_utf32_dispatch<tag>::call(
+            unpacked.first, unpacked_it, unpacked.last);
     }
 
     template<typename Cont>

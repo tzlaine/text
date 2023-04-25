@@ -879,10 +879,10 @@ namespace boost { namespace text {
 
         template<typename Iter, typename Sentinel, typename LeadByteFunc>
         auto collate_impl(
-            utf8_tag,
+            detail::tag_t<format::utf8>,
             Iter first1,
             Sentinel last1,
-            utf8_tag,
+            detail::tag_t<format::utf8>,
             Iter first2,
             Sentinel last2,
             collation_strength strength,
@@ -1486,9 +1486,13 @@ namespace boost { namespace text { namespace detail {
     {
         auto it = first;
         {
-            auto u = detail::unpack_iterator_and_sentinel(it, last);
+            auto u = boost::text::unpack_iterator_and_sentinel(it, last);
             auto copy_result = detail::transcode_to_32<true>(
-                u.tag_, u.f_, u.l_, buffer.end() - buf_it, buf_it);
+                tag_t<u.format_tag>{},
+                u.first,
+                u.last,
+                buffer.end() - buf_it,
+                buf_it);
             it = detail::make_iterator(first, copy_result.in, last);
             buf_it = copy_result.out;
         }
@@ -1612,15 +1616,15 @@ namespace boost { namespace text { namespace detail {
         if (table.case_lvl())
             case_lvl = *table.case_lvl();
 
-        auto lhs_u = detail::unpack_iterator_and_sentinel(first1, last1);
-        auto rhs_u = detail::unpack_iterator_and_sentinel(first2, last2);
+        auto lhs_u = boost::text::unpack_iterator_and_sentinel(first1, last1);
+        auto rhs_u = boost::text::unpack_iterator_and_sentinel(first2, last2);
         return detail::collate_impl(
-            lhs_u.tag_,
-            lhs_u.f_,
-            lhs_u.l_,
-            rhs_u.tag_,
-            rhs_u.f_,
-            rhs_u.l_,
+            tag_t<lhs_u.format_tag>{},
+            lhs_u.first,
+            lhs_u.last,
+            tag_t<rhs_u.format_tag>{},
+            rhs_u.first,
+            rhs_u.last,
             strength,
             case_1st,
             case_lvl,
@@ -1649,10 +1653,10 @@ namespace boost { namespace text { namespace detail {
 
     template<typename Iter, typename Sentinel, typename LeadByteFunc>
     auto collate_impl(
-        utf8_tag,
+        detail::tag_t<format::utf8>,
         Iter first1,
         Sentinel last1,
-        utf8_tag,
+        detail::tag_t<format::utf8>,
         Iter first2,
         Sentinel last2,
         collation_strength strength,

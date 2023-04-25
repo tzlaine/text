@@ -1734,13 +1734,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return detail::prev_word_break_impl(
                 first, it, last, word_prop, word_break);
         } else {
-            auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
-            auto r = boost::text::as_utf32(unpacked.f_, unpacked.l_);
+            auto unpacked =
+                boost::text::unpack_iterator_and_sentinel(first, last);
+            auto r = boost::text::as_utf32(unpacked.first, unpacked.last);
             auto first_ = r.begin();
             decltype(first_) it_{first, it, last};
             auto cp_it = detail::prev_word_break_impl(
                 first_, it_, r.end(), word_prop, word_break);
-            return unpacked.repack_(cp_it.base());
+            return unpacked.repack(cp_it.base());
         }
     }
 
@@ -1759,14 +1760,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return detail::next_word_break_impl(
                 first, last, word_prop, word_break);
         } else {
-            auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
-            auto r = boost::text::as_utf32(unpacked.f_, unpacked.l_);
+            auto unpacked =
+                boost::text::unpack_iterator_and_sentinel(first, last);
+            auto r = boost::text::as_utf32(unpacked.first, unpacked.last);
             auto cp_it = detail::next_word_break_impl(
                 std::ranges::begin(r),
                 std::ranges::end(r),
                 word_prop,
                 word_break);
-            return unpacked.repack_(cp_it.base());
+            return unpacked.repack(cp_it.base());
         }
     }
 
@@ -1914,15 +1916,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         if constexpr (utf32_iter<I>) {
             return detail::word_impl(first, it, last, word_prop, word_break);
         } else {
-            auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
-            auto r = boost::text::as_utf32(unpacked.f_, unpacked.l_);
+            auto unpacked =
+                boost::text::unpack_iterator_and_sentinel(first, last);
+            auto r = boost::text::as_utf32(unpacked.first, unpacked.last);
             auto first_ = r.begin();
             decltype(first_) it_{first, it, last};
             auto result =
                 detail::word_impl(first_, it_, r.end(), word_prop, word_break);
             return {
-                unpacked.repack_(result.begin()),
-                unpacked.repack_(result.end())};
+                unpacked.repack(result.begin()),
+                unpacked.repack(result.end())};
         }
     }
 

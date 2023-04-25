@@ -464,15 +464,14 @@ namespace boost { namespace text { namespace detail {
             String & string, CPIter first_, CPIter last_, Buffer const & buffer)
         {
             auto const unpacked =
-                boost::text::detail::unpack_iterator_and_sentinel(
-                    first_, last_);
-            BOOST_ASSERT((std::is_same<
-                          decltype(unpacked.tag_),
-                          decltype(detail::unpack_iterator_and_sentinel(
-                                       string.begin(), string.end())
-                                       .tag_)>::value));
-            auto const first = unpacked.f_;
-            auto const last = unpacked.l_;
+                boost::text::unpack_iterator_and_sentinel(first_, last_);
+            BOOST_ASSERT(
+                (unpacked.format_tag ==
+                 boost::text::unpack_iterator_and_sentinel(
+                     string.begin(), string.end())
+                     .format_tag));
+            auto const first = unpacked.first;
+            auto const last = unpacked.last;
             auto const replaceable_size = std::distance(first, last);
             if ((std::ptrdiff_t)buffer.size() <= replaceable_size) {
                 auto it = std::copy(buffer.begin(), buffer.end(), first);
@@ -503,15 +502,14 @@ namespace boost { namespace text { namespace detail {
             String & string, CPIter first_, CPIter last_, Buffer const & buffer)
         {
             auto const unpacked =
-                boost::text::detail::unpack_iterator_and_sentinel(
-                    first_, last_);
-            BOOST_ASSERT((std::is_same<
-                          decltype(unpacked.tag_),
-                          decltype(detail::unpack_iterator_and_sentinel(
-                                       string.begin(), string.end())
-                                       .tag_)>::value));
-            auto const first = unpacked.f_;
-            auto const last = unpacked.l_;
+                boost::text::unpack_iterator_and_sentinel(first_, last_);
+            BOOST_ASSERT(
+                (unpacked.format_tag ==
+                 boost::text::unpack_iterator_and_sentinel(
+                     string.begin(), string.end())
+                     .format_tag));
+            auto const first = unpacked.first;
+            auto const last = unpacked.last;
             auto const first_offset = first - string.begin();
             string.replace(first, last, buffer.begin(), buffer.end());
             return {
