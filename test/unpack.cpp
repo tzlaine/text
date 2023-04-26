@@ -361,9 +361,7 @@ namespace my {
     {
         _8_to_32() = default;
         _8_to_32(
-            wchar_t const * first,
-            wchar_t const * it,
-            boost::text::null_sentinel_t) :
+            char const * first, char const * it, boost::text::null_sentinel_t) :
             it_{first, it, boost::text::null_sentinel}
         {}
 
@@ -378,7 +376,7 @@ namespace my {
     private:
         friend boost::stl_interfaces::access;
         using iterator_t = boost::text::
-            utf_32_to_8_iterator<wchar_t const *, boost::text::null_sentinel_t>;
+            utf_8_to_32_iterator<char const *, boost::text::null_sentinel_t>;
         iterator_t & base_reference() noexcept { return it_; }
         iterator_t base_reference() const noexcept { return it_; }
         iterator_t it_;
@@ -390,25 +388,71 @@ namespace my {
     {
         boost::text::repacker<
             _8_to_32,
-            wchar_t const *,
+            char const *,
             boost::text::null_sentinel_t,
             Repack>
             repack(it.base().begin(), it.base().end(), repack_);
         return boost::text::utf_tagged_range<
             boost::text::format::utf8,
-            wchar_t const *,
+            char const *,
             boost::text::null_sentinel_t,
             decltype(repack)>{
             it.base().begin(), boost::text::null_sentinel, repack};
     }
+
+    template<typename I>
+    struct template_8_to_32 : boost::stl_interfaces::iterator_interface<
+                                  template_8_to_32<I>,
+                                  std::bidirectional_iterator_tag,
+                                  int>
+    {
+        template_8_to_32() = default;
+        template_8_to_32(I first, I it, boost::text::null_sentinel_t) :
+            it_{first, it, boost::text::null_sentinel}
+        {}
+
+        friend bool
+        operator==(template_8_to_32<I> first, boost::text::null_sentinel_t last)
+        {
+            return first.it_ == last;
+        }
+
+        auto base() const { return it_; }
+
+    private:
+        friend boost::stl_interfaces::access;
+        using iterator_t =
+            boost::text::utf_8_to_32_iterator<I, boost::text::null_sentinel_t>;
+        iterator_t & base_reference() noexcept { return it_; }
+        iterator_t base_reference() const noexcept { return it_; }
+        iterator_t it_;
+    };
+
+    template<typename I, typename Repack = boost::text::no_op_repacker>
+    auto unpack_iterator_and_sentinel(
+        template_8_to_32<I> it,
+        boost::text::null_sentinel_t,
+        Repack repack_ = Repack())
+    {
+        boost::text::repacker<
+            template_8_to_32<I>,
+            char const *,
+            boost::text::null_sentinel_t,
+            Repack>
+            repack(it.base().begin(), it.base().end(), repack_);
+        return boost::text::utf_tagged_range<
+            boost::text::format::utf8,
+            char const *,
+            boost::text::null_sentinel_t,
+            decltype(repack)>{
+            it.base().begin(), boost::text::null_sentinel, repack};
+    }
+
 }
 
-// Because _8_to_32 uses wchar_t as its value_type, and yet it transcodes from
-// UTF-8 (not -16), this also tests that the bottom encoding and the bottom
-// value_type can have a different number of bits.
 TEST(unpack, user_type)
 {
-    wchar_t str[4] = {'f', 'o', 'o', 0};
+    char str[4] = {'f', 'o', 'o', 0};
 
     {
         my::_8_to_32 it(str, str, boost::text::null_sentinel);
@@ -416,7 +460,24 @@ TEST(unpack, user_type)
             it, boost::text::null_sentinel);
         static_assert(unpacked.format_tag == boost::text::format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), wchar_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), char const *>::value, "");
+        static_assert(
+            std::is_same<
+                decltype(unpacked.last),
+                boost::text::null_sentinel_t>::value,
+            "");
+        EXPECT_EQ(unpacked.first, str);
+        EXPECT_EQ(unpacked.repack(unpacked.first), it);
+    }
+
+    {
+        my::template_8_to_32<char const *> it(
+            str, str, boost::text::null_sentinel);
+        auto unpacked = boost::text::unpack_iterator_and_sentinel(
+            it, boost::text::null_sentinel);
+        static_assert(unpacked.format_tag == boost::text::format::utf8, "");
+        static_assert(
+            std::is_same<decltype(unpacked.first), char const *>::value, "");
         static_assert(
             std::is_same<
                 decltype(unpacked.last),

@@ -36,62 +36,62 @@ namespace boost { namespace text {
     };
 
     namespace detail {
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto
         unpack_iterator_and_sentinel_impl(I first, S last, Repack repack);
 
         // 8 -> 32
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_8_to_32_iterator<I> first,
             utf_8_to_32_iterator<I> last,
             Repack repack);
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_8_to_32_iterator<I, S> first, S last, Repack repack);
         // 32 -> 8
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_32_to_8_iterator<I> first,
             utf_32_to_8_iterator<I> last,
             Repack repack);
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_32_to_8_iterator<I, S> first, S last, Repack repack);
         // 16 -> 32
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_16_to_32_iterator<I> first,
             utf_16_to_32_iterator<I> last,
             Repack repack);
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_16_to_32_iterator<I, S> first, S last, Repack repack);
         // 32 -> 16
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_32_to_16_iterator<I> first,
             utf_32_to_16_iterator<I> last,
             Repack repack);
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_32_to_16_iterator<I, S> first, S last, Repack repack);
         // 8 -> 16
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_8_to_16_iterator<I> first,
             utf_8_to_16_iterator<I> last,
             Repack repack);
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_8_to_16_iterator<I, S> first, S last, Repack repack);
         // 16 -> 8
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_16_to_8_iterator<I> first,
             utf_16_to_8_iterator<I> last,
             Repack repack);
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_16_to_8_iterator<I, S> first, S last, Repack repack);
 
@@ -99,8 +99,16 @@ namespace boost { namespace text {
         constexpr auto
         unpack_iterator_and_sentinel(I first, S last, Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
-                first, last, repack);
+            if constexpr (utf8_iter<I>) {
+                return detail::unpack_iterator_and_sentinel_impl<format::utf8>(
+                    first, last, repack);
+            } else if constexpr (utf16_iter<I>) {
+                return detail::unpack_iterator_and_sentinel_impl<format::utf16>(
+                    first, last, repack);
+            } else {
+                return detail::unpack_iterator_and_sentinel_impl<format::utf32>(
+                    first, last, repack);
+            }
         }
 
         struct unpack_iterator_and_sentinel_cpo
@@ -137,20 +145,11 @@ namespace boost { namespace text {
     };
 
     namespace detail {
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto
         unpack_iterator_and_sentinel_impl(I first, S last, Repack repack)
         {
-            if constexpr (utf8_iter<I>) {
-                return utf_tagged_range<format::utf8, I, S, Repack>{
-                    first, last, repack};
-            } else if constexpr (utf16_iter<I>) {
-                return utf_tagged_range<format::utf16, I, S, Repack>{
-                    first, last, repack};
-            } else {
-                return utf_tagged_range<format::utf32, I, S, Repack>{
-                    first, last, repack};
-            }
+            return utf_tagged_range<Format, I, S, Repack>{first, last, repack};
         }
 
     }
@@ -161,46 +160,46 @@ namespace boost { namespace text {
 namespace boost { namespace text { namespace detail {
 
         // 8 -> 32
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_8_to_32_iterator<I> first,
             utf_8_to_32_iterator<I> last,
             Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf8>(
                 first.base(),
                 last.base(),
                 repacker<utf_8_to_32_iterator<I>, I, I, Repack>(
                     first.begin(), first.end(), repack));
         }
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_8_to_32_iterator<I, S> first, S last, Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf8>(
                 first.base(),
                 last,
                 repacker<utf_8_to_32_iterator<I, S>, I, S, Repack>(
                     first.begin(), first.end(), repack));
         }
         // 32 -> 8
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_32_to_8_iterator<I> first,
             utf_32_to_8_iterator<I> last,
             Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf32>(
                 first.base(),
                 last.base(),
                 repacker<utf_32_to_8_iterator<I>, I, I, Repack>(
                     first.begin(), first.end(), repack));
         }
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_32_to_8_iterator<I, S> first, S last, Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf32>(
                 first.base(),
                 last,
                 repacker<utf_32_to_8_iterator<I, S>, I, S, Repack>(
@@ -208,46 +207,46 @@ namespace boost { namespace text { namespace detail {
         }
 
         // 16 -> 32
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_16_to_32_iterator<I> first,
             utf_16_to_32_iterator<I> last,
             Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf16>(
                 first.base(),
                 last.base(),
                 repacker<utf_16_to_32_iterator<I>, I, I, Repack>(
                     first.begin(), first.end(), repack));
         }
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_16_to_32_iterator<I, S> first, S last, Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf16>(
                 first.base(),
                 last,
                 repacker<utf_16_to_32_iterator<I, S>, I, S, Repack>(
                     first.begin(), first.end(), repack));
         }
         // 32 -> 16
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_32_to_16_iterator<I> first,
             utf_32_to_16_iterator<I> last,
             Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf32>(
                 first.base(),
                 last.base(),
                 repacker<utf_32_to_16_iterator<I>, I, I, Repack>(
                     first.begin(), first.end(), repack));
         }
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_32_to_16_iterator<I, S> first, S last, Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf32>(
                 first.base(),
                 last,
                 repacker<utf_32_to_16_iterator<I, S>, I, S, Repack>(
@@ -255,46 +254,46 @@ namespace boost { namespace text { namespace detail {
         }
 
         // 8 -> 16
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_8_to_16_iterator<I> first,
             utf_8_to_16_iterator<I> last,
             Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf8>(
                 first.base(),
                 last.base(),
                 repacker<utf_8_to_16_iterator<I>, I, I, Repack>(
                     first.begin(), first.end(), repack));
         }
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_8_to_16_iterator<I, S> first, S last, Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf8>(
                 first.base(),
                 last,
                 repacker<utf_8_to_16_iterator<I, S>, I, S, Repack>(
                     first.begin(), first.end(), repack));
         }
         // 16 -> 8
-        template<typename I, typename Repack>
+        template<format Format, typename I, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_16_to_8_iterator<I> first,
             utf_16_to_8_iterator<I> last,
             Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf16>(
                 first.base(),
                 last.base(),
                 repacker<utf_16_to_8_iterator<I>, I, I, Repack>(
                     first.begin(), first.end(), repack));
         }
-        template<typename I, typename S, typename Repack>
+        template<format Format, typename I, typename S, typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
             utf_16_to_8_iterator<I, S> first, S last, Repack repack)
         {
-            return detail::unpack_iterator_and_sentinel_impl(
+            return detail::unpack_iterator_and_sentinel_impl<format::utf16>(
                 first.base(),
                 last,
                 repacker<utf_16_to_8_iterator<I, S>, I, S, Repack>(
