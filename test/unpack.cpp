@@ -371,7 +371,9 @@ namespace my {
             return first.it_ == last;
         }
 
-        auto base() const { return it_; }
+        auto base() const { return it_.base(); }
+        auto begin() const { return it_.begin(); }
+        auto end() const { return it_.end(); }
 
     private:
         friend boost::stl_interfaces::access;
@@ -391,13 +393,12 @@ namespace my {
             char const *,
             boost::text::null_sentinel_t,
             Repack>
-            repack(it.base().begin(), it.base().end(), repack_);
+            repack(it.begin(), it.end(), repack_);
         return boost::text::utf_tagged_range<
             boost::text::format::utf8,
             char const *,
             boost::text::null_sentinel_t,
-            decltype(repack)>{
-            it.base().begin(), boost::text::null_sentinel, repack};
+            decltype(repack)>{it.begin(), boost::text::null_sentinel, repack};
     }
 
     template<typename I>
@@ -417,7 +418,9 @@ namespace my {
             return first.it_ == last;
         }
 
-        auto base() const { return it_; }
+        auto base() const { return it_.base(); }
+        auto begin() const { return it_.begin(); }
+        auto end() const { return it_.end(); }
 
     private:
         friend boost::stl_interfaces::access;
@@ -430,22 +433,18 @@ namespace my {
 
     template<typename I, typename Repack = boost::text::no_op_repacker>
     auto unpack_iterator_and_sentinel(
-        template_8_to_32<I> it,
-        boost::text::null_sentinel_t,
-        Repack repack_ = Repack())
+        template_8_to_32<I> first,
+        boost::text::null_sentinel_t last,
+        Repack repack = Repack())
     {
-        boost::text::repacker<
-            template_8_to_32<I>,
-            char const *,
-            boost::text::null_sentinel_t,
-            Repack>
-            repack(it.base().begin(), it.base().end(), repack_);
-        return boost::text::utf_tagged_range<
-            boost::text::format::utf8,
-            char const *,
-            boost::text::null_sentinel_t,
-            decltype(repack)>{
-            it.base().begin(), boost::text::null_sentinel, repack};
+        return boost::text::unpack_iterator_and_sentinel(
+            first.base(),
+            last,
+            boost::text::repacker<
+                template_8_to_32<I>,
+                I,
+                boost::text::null_sentinel_t,
+                Repack>(first.begin(), first.end(), repack));
     }
 
 }
@@ -473,6 +472,61 @@ TEST(unpack, user_type)
     {
         my::template_8_to_32<char const *> it(
             str, str, boost::text::null_sentinel);
+        auto unpacked = boost::text::unpack_iterator_and_sentinel(
+            it, boost::text::null_sentinel);
+        static_assert(unpacked.format_tag == boost::text::format::utf8, "");
+        static_assert(
+            std::is_same<decltype(unpacked.first), char const *>::value, "");
+        static_assert(
+            std::is_same<
+                decltype(unpacked.last),
+                boost::text::null_sentinel_t>::value,
+            "");
+        EXPECT_EQ(unpacked.first, str);
+        EXPECT_EQ(unpacked.repack(unpacked.first), it);
+    }
+}
+
+TEST(unpack, user_type_interop)
+{
+    char str[4] = {'f', 'o', 'o', 0};
+
+    {
+        my::template_8_to_32<char const *> bottom(
+            str, str, boost::text::null_sentinel);
+
+        boost::text::utf_32_to_8_iterator<
+            my::template_8_to_32<char const *>,
+            boost::text::null_sentinel_t>
+            it(bottom, bottom, boost::text::null_sentinel);
+
+        auto unpacked = boost::text::unpack_iterator_and_sentinel(
+            it, boost::text::null_sentinel);
+        static_assert(unpacked.format_tag == boost::text::format::utf8, "");
+        static_assert(
+            std::is_same<decltype(unpacked.first), char const *>::value, "");
+        static_assert(
+            std::is_same<
+                decltype(unpacked.last),
+                boost::text::null_sentinel_t>::value,
+            "");
+        EXPECT_EQ(unpacked.first, str);
+        EXPECT_EQ(unpacked.repack(unpacked.first), it);
+    }
+
+    {
+        my::template_8_to_32<char const *> bottom(
+            str, str, boost::text::null_sentinel);
+        boost::text::utf_32_to_8_iterator<
+            my::template_8_to_32<char const *>,
+            boost::text::null_sentinel_t>
+            middle(bottom, bottom, boost::text::null_sentinel);
+
+        my::template_8_to_32<boost::text::utf_32_to_8_iterator<
+            my::template_8_to_32<char const *>,
+            boost::text::null_sentinel_t>>
+            it(middle, middle, boost::text::null_sentinel);
+
         auto unpacked = boost::text::unpack_iterator_and_sentinel(
             it, boost::text::null_sentinel);
         static_assert(unpacked.format_tag == boost::text::format::utf8, "");
