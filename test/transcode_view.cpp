@@ -816,32 +816,13 @@ TEST(transcode_view, detail_make_utf32)
 // Unicode 9, 3.9/D90-D92
 uint32_t const utf32_[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
 uint16_t const utf16_[5] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
-char const utf8_[10] = {
-    0x4d,
-    char(0xd0),
-    char(0xb0),
-    char(0xe4),
-    char(0xba),
-    char(0x8c),
-    char(0xf0),
-    char(0x90),
-    char(0x8c),
-    char(0x82)};
+char8_t const utf8_[10] = {
+    0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82};
 
 uint32_t const utf32_null[5] = {0x004d, 0x0430, 0x4e8c, 0x10302, 0};
 uint16_t const utf16_null[6] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02, 0};
-char const utf8_null[11] = {
-    0x4d,
-    char(0xd0),
-    char(0xb0),
-    char(0xe4),
-    char(0xba),
-    char(0x8c),
-    char(0xf0),
-    char(0x90),
-    char(0x8c),
-    char(0x82),
-    0};
+char8_t const utf8_null[11] = {
+    0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82, 0};
 
 TEST(transcode_view, as_utfN)
 {
@@ -859,8 +840,9 @@ TEST(transcode_view, as_utfN)
     {
         auto r = as_utf8(utf8_);
         static_assert(
-            std::is_same<decltype(r.begin()), char const *>::value, "");
-        static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
+            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(r.end()), char8_t const *>::value, "");
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
@@ -877,8 +859,9 @@ TEST(transcode_view, as_utfN)
     {
         auto r = utf8_ | as_utf8;
         static_assert(
-            std::is_same<decltype(r.begin()), char const *>::value, "");
-        static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
+            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(r.end()), char8_t const *>::value, "");
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
@@ -911,10 +894,10 @@ TEST(transcode_view, as_utfN)
 
     // single pointers
     {
-        char const * ptr = utf8_null;
+        char8_t const * ptr = utf8_null;
         auto r = as_utf8(ptr);
         static_assert(
-            std::is_same<decltype(r.begin()), char const *>::value, "");
+            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
         static_assert(
             std::is_same<decltype(r.end()), null_sentinel_t>::value, "");
         auto truth = utf8_null;
@@ -946,7 +929,7 @@ TEST(transcode_view, as_utfN)
         }
     }
     {
-        char const * ptr = utf8_null;
+        char8_t const * ptr = utf8_null;
         auto r = as_utf16(ptr);
         static_assert(
             std::is_same<decltype(r.end()), null_sentinel_t>::value, "");
@@ -979,7 +962,7 @@ TEST(transcode_view, as_utfN)
         }
     }
     {
-        char const * ptr = utf8_null;
+        char8_t const * ptr = utf8_null;
         auto r = as_utf32(ptr);
         static_assert(
             std::is_same<decltype(r.end()), null_sentinel_t>::value, "");
@@ -1012,10 +995,10 @@ TEST(transcode_view, as_utfN)
         }
     }
     {
-        char const * ptr = utf8_null;
+        char8_t const * ptr = utf8_null;
         auto r = ptr | as_utf8;
         static_assert(
-            std::is_same<decltype(r.begin()), char const *>::value, "");
+            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
         static_assert(
             std::is_same<decltype(r.end()), null_sentinel_t>::value, "");
         auto truth = utf8_null;
@@ -1047,7 +1030,7 @@ TEST(transcode_view, as_utfN)
         }
     }
     {
-        char const * ptr = utf8_null;
+        char8_t const * ptr = utf8_null;
         auto r = ptr | as_utf16;
         static_assert(
             std::is_same<decltype(r.end()), null_sentinel_t>::value, "");
@@ -1080,7 +1063,7 @@ TEST(transcode_view, as_utfN)
         }
     }
     {
-        char const * ptr = utf8_null;
+        char8_t const * ptr = utf8_null;
         auto r = ptr | as_utf32;
         static_assert(
             std::is_same<decltype(r.end()), null_sentinel_t>::value, "");
@@ -1121,8 +1104,9 @@ TEST(transcode_view, as_utfN)
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
         static_assert(
-            std::is_same<decltype(r.begin()), char const *>::value, "");
-        static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
+            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(r.end()), char8_t const *>::value, "");
     }
     {
         auto r = utf8_ | as_utf8 | as_utf16 | as_utf32 | as_utf8 | as_utf16 |
@@ -1130,30 +1114,31 @@ TEST(transcode_view, as_utfN)
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
         static_assert(
-            std::is_same<decltype(r.begin()), char const *>::value, "");
-        static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
+            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(r.end()), char8_t const *>::value, "");
     }
 }
 
 TEST(transcode_view, stream_insertion)
 {
-    std::string const truth = utf8_null;
+    std::string const truth(std::begin(utf8_null), std::end(utf8_null) - 1);
     {
-        char const * ptr = utf8_null;
+        char8_t const * ptr = utf8_null;
         auto r = as_utf8(ptr);
         std::stringstream ss;
         ss << r;
         EXPECT_EQ(ss.str(), truth);
     }
     {
-        char const * ptr = utf8_null;
+        char8_t const * ptr = utf8_null;
         auto r = as_utf16(ptr);
         std::stringstream ss;
         ss << r;
         EXPECT_EQ(ss.str(), truth);
     }
     {
-        char const * ptr = utf8_null;
+        char8_t const * ptr = utf8_null;
         auto r = as_utf32(ptr);
         std::stringstream ss;
         ss << r;

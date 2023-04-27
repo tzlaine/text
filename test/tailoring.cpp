@@ -1281,7 +1281,7 @@ TEST(tailoring, th)
         EXPECT_LE(collation, 0) << "i=" << i;
         if (0 < collation) {
             for (auto cp : i_) {
-                std::cout << "0x" << std::hex << cp << " ";
+                std::cout << "0x" << std::hex << (uint32_t)cp << " ";
             }
             std::cout << "\n";
 
@@ -1293,7 +1293,7 @@ TEST(tailoring, th)
                       << "\n";
 
             for (auto cp : i_1) {
-                std::cout << "0x" << std::hex << cp << " ";
+                std::cout << "0x" << std::hex << (uint32_t)cp << " ";
             }
             std::cout << "\n";
 

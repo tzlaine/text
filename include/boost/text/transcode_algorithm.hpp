@@ -607,26 +607,26 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<
         std::input_iterator I,
         std::sentinel_for<I> S,
-        std::output_iterator<uint16_t> O>
+        std::output_iterator<char16_t> O>
     requires (utf8_code_unit<std::iter_value_t<I>> ||
               utf32_code_unit<std::iter_value_t<I>>)
     transcode_result<I, O> transcode_to_utf16(I first, S last, O out);
 
     /** Copies the code points in the range `[p, null_sentinel)` to `out`,
         changing the encoding to UTF-16.  */
-    template<typename Ptr, std::output_iterator<uint16_t> O>
+    template<typename Ptr, std::output_iterator<char16_t> O>
     requires (utf8_pointer<Ptr> || utf32_pointer<Ptr>)
     transcode_result<Ptr, O> transcode_to_utf16(Ptr p, O out);
 
     /** Copies the code points in the array `arr` to `out`, changing the
         encoding to UTF-16.  */
-    template<std::size_t N, typename Char, std::output_iterator<uint16_t> O>
+    template<std::size_t N, typename Char, std::output_iterator<char16_t> O>
     requires (utf8_code_unit<Char> || utf32_code_unit<Char>)
     transcode_result<Char *, O> transcode_to_utf16(Char (&arr)[N], O out);
 
     /** Copies the code points in the range `r` to `out`, changing the
         encoding to UTF-16.  */
-    template<std::ranges::input_range R, std::output_iterator<uint16_t> O>
+    template<std::ranges::input_range R, std::output_iterator<cjar16_t> O>
     requires (utf8_code_unit<std::ranges::range_value_t<R>> ||
               utf32_code_unit<std::ranges::range_value_t<R>>)
     transcode_result<std::ranges::borrowed_iterator_t<R>, O>
@@ -891,7 +891,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<
         std::input_iterator I,
         std::sentinel_for<I> S,
-        std::output_iterator<uint16_t> O>
+        std::output_iterator<char16_t> O>
         requires(
             utf8_code_unit<std::iter_value_t<I>> ||
             utf32_code_unit<std::iter_value_t<I>>)
