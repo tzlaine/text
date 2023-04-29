@@ -166,8 +166,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<typename T>
     // clang-format off
-    concept transcoding_error_handler = requires(T t) {
-        { t("") } -> code_point;
+        concept transcoding_error_handler = requires(T t, char const * msg) {
+        { t(msg) } -> code_point;
         // clang-format on
     };
 

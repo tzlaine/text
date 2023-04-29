@@ -30,7 +30,7 @@ namespace boost { namespace text {
             return then(RepackedIterator(first, it, last));
         }
 
-        [[no_unique_address]] I first;
+        I first;
         [[no_unique_address]] S last;
         [[no_unique_address]] Then then;
     };
@@ -133,7 +133,7 @@ namespace boost { namespace text {
 
         I first;
         [[no_unique_address]] S last;
-        Repack repack;
+        [[no_unique_address]] Repack repack;
     };
 
     namespace detail {
