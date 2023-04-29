@@ -219,42 +219,102 @@ namespace boost { namespace text {
             return it;
         }
 #endif
+
+        template<typename I, typename S, format FromFormat, format ToFormat>
+        struct transcoding_iterator;
+        template<typename I, typename S>
+        struct transcoding_iterator<I, S, format::utf8, format::utf16>
+        {
+            using type = utf_8_to_16_iterator<I, S>;
+        };
+        template<typename I, typename S>
+        struct transcoding_iterator<I, S, format::utf8, format::utf32>
+        {
+            using type = utf_8_to_32_iterator<I, S>;
+        };
+        template<typename I, typename S>
+        struct transcoding_iterator<I, S, format::utf16, format::utf8>
+        {
+            using type = utf_16_to_8_iterator<I, S>;
+        };
+        template<typename I, typename S>
+        struct transcoding_iterator<I, S, format::utf16, format::utf32>
+        {
+            using type = utf_16_to_32_iterator<I, S>;
+        };
+        template<typename I, typename S>
+        struct transcoding_iterator<I, S, format::utf32, format::utf8>
+        {
+            using type = utf_32_to_8_iterator<I, S>;
+        };
+        template<typename I, typename S>
+        struct transcoding_iterator<I, S, format::utf32, format::utf16>
+        {
+            using type = utf_32_to_16_iterator<I, S>;
+        };
+        template<typename I, typename S, format FromFormat, format ToFormat>
+        using transcoding_iterator_t =
+            typename transcoding_iterator<I, S, FromFormat, ToFormat>::type;
+
+        template<format Format, typename Unpacked>
+        constexpr auto make_utf_view_iter(Unpacked unpacked)
+        {
+            if constexpr (unpacked.format_tag == Format) {
+                return unpacked.first;
+            } else {
+                return transcoding_iterator_t<
+                    decltype(unpacked.first),
+                    decltype(unpacked.last),
+                    unpacked.format_tag,
+                    Format>{unpacked.first, unpacked.first, unpacked.last};
+            }
+        }
+        template<format Format, typename Unpacked>
+        constexpr auto make_utf_view_sent(Unpacked unpacked)
+        {
+            if constexpr (
+                unpacked.format_tag == Format || !std::is_same_v<
+                                                     decltype(unpacked.first),
+                                                     decltype(unpacked.last)>) {
+                return unpacked.last;
+            } else {
+                return transcoding_iterator_t<
+                    decltype(unpacked.first),
+                    decltype(unpacked.last),
+                    unpacked.format_tag,
+                    Format>{unpacked.first, unpacked.last, unpacked.last};
+            }
+        }
     }
 
     /** A view over UTF-8 code units. */
 #if BOOST_TEXT_USE_CONCEPTS
-    template<utf8_iter I, std::sentinel_for<I> S = I>
+    template<utf_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
 #endif
     struct utf8_view : stl_interfaces::view_interface<utf8_view<I, S>>
     {
-        using iterator = I;
-        using sentinel = S;
+        using from_iterator = I;
+        using from_sentinel = S;
+
+        using iterator = decltype(detail::make_utf_view_iter<format::utf8>(
+            boost::text::unpack_iterator_and_sentinel(
+                std::declval<I>(), std::declval<S>())));
+        using sentinel = decltype(detail::make_utf_view_sent<format::utf8>(
+            boost::text::unpack_iterator_and_sentinel(
+                std::declval<I>(), std::declval<S>())));
 
         constexpr utf8_view() {}
-        constexpr utf8_view(iterator first, sentinel last) :
-            first_(text::unpack_iterator_and_sentinel(first, last).first),
-            last_(text::unpack_iterator_and_sentinel(first, last).last)
-        {}
-
-        constexpr iterator begin() const
+        constexpr utf8_view(iterator first, sentinel last)
         {
-            return detail::make_iter<iterator>(first_, first_, last_);
-        }
-        constexpr sentinel end() const
-        {
-            return detail::make_iter<sentinel>(first_, last_, last_);
+            auto r = boost::text::unpack_iterator_and_sentinel(first, last);
+            first_ = detail::make_utf_view_iter<format::utf8>(r);
+            last_ = detail::make_utf_view_sent<format::utf8>(r);
         }
 
-        friend constexpr bool operator==(utf8_view lhs, utf8_view rhs)
-        {
-            return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
-        }
-        friend constexpr bool operator!=(utf8_view lhs, utf8_view rhs)
-        {
-            return !(lhs == rhs);
-        }
+        constexpr iterator begin() const { return first_; }
+        constexpr sentinel end() const { return last_; }
 
         /** Stream inserter; performs unformatted output, in UTF-8
             encoding. */
@@ -278,51 +338,38 @@ namespace boost { namespace text {
 #endif
 
     private:
-        using iterator_t = decltype(text::unpack_iterator_and_sentinel(
-                                        std::declval<I>(), std::declval<S>())
-                                        .first);
-        using sentinel_t = decltype(text::unpack_iterator_and_sentinel(
-                                        std::declval<I>(), std::declval<S>())
-                                        .last);
-
-        iterator_t first_;
-        [[no_unique_address]] sentinel_t last_;
+        iterator first_;
+        [[no_unique_address]] sentinel last_;
     };
 
     /** A view over UTF-16 code units. */
 #if BOOST_TEXT_USE_CONCEPTS
-    template<utf16_iter I, std::sentinel_for<I> S = I>
+    template<utf_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
 #endif
     struct utf16_view : stl_interfaces::view_interface<utf16_view<I, S>>
     {
-        using iterator = I;
-        using sentinel = S;
+        using from_iterator = I;
+        using from_sentinel = S;
+
+        using iterator = decltype(detail::make_utf_view_iter<format::utf16>(
+            boost::text::unpack_iterator_and_sentinel(
+                std::declval<I>(), std::declval<S>())));
+        using sentinel = decltype(detail::make_utf_view_sent<format::utf16>(
+            boost::text::unpack_iterator_and_sentinel(
+                std::declval<I>(), std::declval<S>())));
 
         constexpr utf16_view() {}
-        constexpr utf16_view(iterator first, sentinel last) :
-            first_(text::unpack_iterator_and_sentinel(first, last).first),
-            last_(text::unpack_iterator_and_sentinel(first, last).last)
-        {}
-
-        constexpr iterator begin() const
+        constexpr utf16_view(I first, S last)
         {
-            return detail::make_iter<iterator>(first_, first_, last_);
-        }
-        constexpr sentinel end() const
-        {
-            return detail::make_iter<sentinel>(first_, last_, last_);
+            auto r = boost::text::unpack_iterator_and_sentinel(first, last);
+            first_ = detail::make_utf_view_iter<format::utf16>(r);
+            last_ = detail::make_utf_view_sent<format::utf16>(r);
         }
 
-        friend constexpr bool operator==(utf16_view lhs, utf16_view rhs)
-        {
-            return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
-        }
-        friend constexpr bool operator!=(utf16_view lhs, utf16_view rhs)
-        {
-            return !(lhs == rhs);
-        }
+        constexpr iterator begin() const { return first_; }
+        constexpr sentinel end() const { return last_; }
 
         /** Stream inserter; performs unformatted output, in UTF-8
             encoding. */
@@ -346,51 +393,38 @@ namespace boost { namespace text {
 #endif
 
     private:
-        using iterator_t = decltype(text::unpack_iterator_and_sentinel(
-                                        std::declval<I>(), std::declval<S>())
-                                        .first);
-        using sentinel_t = decltype(text::unpack_iterator_and_sentinel(
-                                        std::declval<I>(), std::declval<S>())
-                                        .last);
-
-        iterator_t first_;
-        [[no_unique_address]] sentinel_t last_;
+        iterator first_;
+        [[no_unique_address]] sentinel last_;
     };
 
     /** A view over UTF-32 code units. */
 #if BOOST_TEXT_USE_CONCEPTS
-    template<utf32_iter I, std::sentinel_for<I> S = I>
+    template<utf_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
 #endif
     struct utf32_view : stl_interfaces::view_interface<utf32_view<I, S>>
     {
-        using iterator = I;
-        using sentinel = S;
+        using from_iterator = I;
+        using from_sentinel = S;
+
+        using iterator = decltype(detail::make_utf_view_iter<format::utf32>(
+            boost::text::unpack_iterator_and_sentinel(
+                std::declval<I>(), std::declval<S>())));
+        using sentinel = decltype(detail::make_utf_view_sent<format::utf32>(
+            boost::text::unpack_iterator_and_sentinel(
+                std::declval<I>(), std::declval<S>())));
 
         constexpr utf32_view() {}
-        constexpr utf32_view(iterator first, sentinel last) :
-            first_(text::unpack_iterator_and_sentinel(first, last).first),
-            last_(text::unpack_iterator_and_sentinel(first, last).last)
-        {}
-
-        constexpr iterator begin() const
+        constexpr utf32_view(I first, S last)
         {
-            return detail::make_iter<iterator>(first_, first_, last_);
-        }
-        constexpr sentinel end() const
-        {
-            return detail::make_iter<sentinel>(first_, last_, last_);
+            auto r = boost::text::unpack_iterator_and_sentinel(first, last);
+            first_ = detail::make_utf_view_iter<format::utf32>(r);
+            last_ = detail::make_utf_view_sent<format::utf32>(r);
         }
 
-        friend constexpr bool operator==(utf32_view lhs, utf32_view rhs)
-        {
-            return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
-        }
-        friend constexpr bool operator!=(utf32_view lhs, utf32_view rhs)
-        {
-            return !(lhs == rhs);
-        }
+        constexpr iterator begin() const { return first_; }
+        constexpr sentinel end() const { return last_; }
 
         /** Stream inserter; performs unformatted output, in UTF-8
             encoding. */
@@ -412,15 +446,8 @@ namespace boost { namespace text {
 #endif
 
     private:
-        using iterator_t = decltype(text::unpack_iterator_and_sentinel(
-                                        std::declval<I>(), std::declval<S>())
-                                        .first);
-        using sentinel_t = decltype(text::unpack_iterator_and_sentinel(
-                                        std::declval<I>(), std::declval<S>())
-                                        .last);
-
-        iterator_t first_;
-        [[no_unique_address]] sentinel_t last_;
+        iterator first_;
+        [[no_unique_address]] sentinel last_;
     };
 
 }}
@@ -520,8 +547,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             template<typename Iter, typename Sentinel>
             constexpr auto operator()(Iter first, Sentinel last) const
             {
-                auto unpacked =
-                    text::unpack_iterator_and_sentinel(first, last);
+                auto unpacked = text::unpack_iterator_and_sentinel(first, last);
                 auto r = detail::make_utf16_range_(
                     detail::tag_t<unpacked.format_tag>{},
                     unpacked.first,
