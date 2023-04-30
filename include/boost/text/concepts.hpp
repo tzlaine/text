@@ -32,7 +32,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<typename T, format F>
     concept code_unit_iter =
-        std::bidirectional_iterator<T> && code_unit<std::iter_value_t<T>, F>;
+        std::input_iterator<T> && code_unit<std::iter_value_t<T>, F>;
 
     template<typename T>
     concept utf_code_unit =
@@ -44,7 +44,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::is_pointer_v<T> && code_unit<std::iter_value_t<T>, F>;
 
     template<typename T, format F>
-    concept code_unit_range = std::ranges::bidirectional_range<T> &&
+    concept code_unit_range = std::ranges::input_range<T> &&
         code_unit<std::ranges::range_value_t<T>, F>;
 
     template<typename T, format F>
@@ -99,7 +99,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename T>
     concept grapheme_iter =
         // clang-format off
-        std::bidirectional_iterator<T> &&
+        std::input_iterator<T> &&
         code_point_range<std::iter_reference_t<T>> &&
         requires(T t) {
         { t.base() } -> code_point_iter;
@@ -107,7 +107,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
     template<typename T>
-    concept grapheme_range = std::ranges::bidirectional_range<T> &&
+    concept grapheme_range = std::ranges::input_range<T> &&
         grapheme_iter<std::ranges::iterator_t<T>>;
 
     template<typename R>
@@ -135,7 +135,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         concept eraseable_insertable_sized_bidi_range =
             // clang-format off
             std::ranges::sized_range<T> &&
-            std::ranges::bidirectional_range<T> &&
+            std::ranges::input_range<T> &&
             requires(T t, CodeUnit const * it) {
                 { t.erase(t.begin(), t.end()) } ->
                     std::same_as<std::ranges::iterator_t<T>>;

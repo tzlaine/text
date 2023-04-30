@@ -109,6 +109,18 @@ namespace boost { namespace text {
         using enable_utf16_cp = std::enable_if<is_16_iter_v<T>, U>;
         template<typename T, typename U = T>
         using enable_utf16_cp_t = typename enable_utf16_cp<T, U>::type;
+
+        template<typename I>
+        auto bidirectional_at_most()
+        {
+            if constexpr (std::bidirectional_iterator<I>) {
+                return std::bidirectional_iterator_tag{};
+            } else if constexpr (std::forward_iterator<I>) {
+                return std::forward_iterator_tag{};
+            } else if constexpr (std::input_iterator<I>) {
+                return std::input_iterator_tag{};
+            }
+        }
     }
 
     /** The replacement character used to mark invalid portions of a Unicode
@@ -582,10 +594,10 @@ namespace boost { namespace text {
             Iter it_;
         };
 
-        template<typename Derived, typename ValueType>
+        template<typename Derived, typename I, typename ValueType>
         using trans_iter = stl_interfaces::iterator_interface<
             Derived,
-            std::bidirectional_iterator_tag,
+            decltype(detail::bidirectional_at_most<I>()),
             ValueType,
             ValueType>;
     }
@@ -1048,18 +1060,19 @@ namespace boost { namespace text {
     template<typename I, typename S, typename ErrorHandler>
 #endif
     struct utf_32_to_8_iterator
-        : detail::trans_iter<utf_32_to_8_iterator<I, S, ErrorHandler>, char8_t>
+        : detail::
+              trans_iter<utf_32_to_8_iterator<I, S, ErrorHandler>, I, char8_t>
     {
 #if !BOOST_TEXT_USE_CONCEPTS
         static_assert(
             std::is_same<
                 typename std::iterator_traits<I>::iterator_category,
-                std::bidirectional_iterator_tag>::value ||
+                std::input_iterator_tag>::value ||
                 std::is_same<
                     typename std::iterator_traits<I>::iterator_category,
                     std::random_access_iterator_tag>::value,
             "utf_32_to_8_iterator requires its I parameter to be at least "
-            "bidirectional.");
+            "input.");
         static_assert(
             sizeof(typename std::iterator_traits<I>::value_type) == 4,
             "utf_32_to_8_iterator requires its I parameter to produce a "
@@ -1121,6 +1134,7 @@ namespace boost { namespace text {
         }
 
         constexpr utf_32_to_8_iterator & operator--()
+            requires std::bidirectional_iterator<I>
         {
             if (0 < index_) {
                 --index_;
@@ -1151,7 +1165,7 @@ namespace boost { namespace text {
         }
 
         using base_type = detail::
-            trans_iter<utf_32_to_8_iterator<I, S, ErrorHandler>, char8_t>;
+            trans_iter<utf_32_to_8_iterator<I, S, ErrorHandler>, I, char8_t>;
         using base_type::operator++;
         using base_type::operator--;
 
@@ -1356,12 +1370,21 @@ namespace boost { namespace text {
     template<typename I, typename S, typename ErrorHandler>
 #endif
     struct utf_8_to_32_iterator
-        : detail::trans_iter<utf_8_to_32_iterator<I, S, ErrorHandler>, char32_t>
+        : detail::
+              trans_iter<utf_8_to_32_iterator<I, S, ErrorHandler>, I, char32_t>
     {
         constexpr utf_8_to_32_iterator() : first_(), it_(), last_() {}
         explicit constexpr utf_8_to_32_iterator(I first, I it, S last) :
             first_(first), it_(it), last_(last)
-        {}
+        {
+            if (at_end(it_))
+                return;
+            unsigned char curr_c = *it_;
+            to_increment_ = 1;
+            cp_ = curr_c;
+            if (0x80 <= curr_c)
+                get_value(curr_c);
+        }
 #if BOOST_TEXT_USE_CONCEPTS
         template<typename I2, typename S2>
         // clang-format off
@@ -1379,7 +1402,9 @@ namespace boost { namespace text {
             // clang-format on
             first_(other.first_),
             it_(other.it_),
-            last_(other.last_)
+            last_(other.last_),
+            to_increment_(other.to_increment_),
+            cp_(other.cp_)
         {}
 
         constexpr I begin() const { return first_; }
@@ -1388,10 +1413,7 @@ namespace boost { namespace text {
         constexpr char32_t operator*() const
         {
             BOOST_ASSERT(!at_end(it_));
-            unsigned char curr_c = *it_;
-            if (curr_c < 0x80)
-                return curr_c;
-            return get_value().value_;
+            return cp_;
         }
 
         constexpr I base() const { return it_; }
@@ -1399,14 +1421,30 @@ namespace boost { namespace text {
         constexpr utf_8_to_32_iterator & operator++()
         {
             BOOST_ASSERT(it_ != last_);
-            it_ = increment();
+            BOOST_ASSERT(to_increment_);
+            std::advance(it_, to_increment_);
+            if (!at_end(it_)) {
+                unsigned char curr_c = *it_;
+                to_increment_ = 1;
+                cp_ = curr_c;
+                if (0x80 <= curr_c)
+                    get_value(curr_c);
+            }
             return *this;
         }
 
         constexpr utf_8_to_32_iterator & operator--()
+            requires std::bidirectional_iterator<I>
         {
             BOOST_ASSERT(it_ != first_);
             it_ = detail::decrement(first_, it_);
+            if (!at_end(it_)) {
+                unsigned char curr_c = *it_;
+                to_increment_ = 1;
+                cp_ = curr_c;
+                if (0x80 <= curr_c)
+                    get_value(curr_c);
+            }
             return *this;
         }
 
@@ -1417,18 +1455,12 @@ namespace boost { namespace text {
         }
 
         using base_type = detail::
-            trans_iter<utf_8_to_32_iterator<I, S, ErrorHandler>, char32_t>;
+            trans_iter<utf_8_to_32_iterator<I, S, ErrorHandler>, I, char32_t>;
         using base_type::operator++;
         using base_type::operator--;
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
-        struct get_value_result
-        {
-            char32_t value_;
-            I it_;
-        };
-
         constexpr bool check_continuation(
             unsigned char c,
             unsigned char lo = 0x80,
@@ -1456,7 +1488,7 @@ namespace boost { namespace text {
             }
         }
 
-        constexpr get_value_result get_value() const
+        constexpr void get_value(unsigned int curr_c)
         {
             // It turns out that this naive implementation is faster than the
             // table implementation for the converting iterators.
@@ -1478,190 +1510,251 @@ namespace boost { namespace text {
                 U+100000..U+10FFFF F4         80..8F      80..BF     80..BF
             */
 
-            char32_t value = 0;
             I next = it_;
-            unsigned char curr_c = *next;
 
-            auto error = []() { return ErrorHandler{}("Ill-formed UTF-8."); };
+            auto error = [this]() {
+                cp_ = ErrorHandler{}("Ill-formed UTF-8.");
+                --to_increment_;
+            };
+            auto incr = [&next, this]() {
+                ++next;
+                ++to_increment_;
+            };
 
             // One-byte case handled by caller
 
             // Two-byte
             if (detail::in(0xc2, curr_c, 0xdf)) {
-                value = curr_c & 0b00011111;
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                cp_ = curr_c & 0b00011111;
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
                 // Three-byte
             } else if (curr_c == 0xe0) {
-                value = curr_c & 0b00001111;
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                cp_ = curr_c & 0b00001111;
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c, 0xa0, 0xbf))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                if (!check_continuation(curr_c, 0xa0, 0xbf)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
             } else if (detail::in(0xe1, curr_c, 0xec)) {
-                value = curr_c & 0b00001111;
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                cp_ = curr_c & 0b00001111;
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
             } else if (curr_c == 0xed) {
-                value = curr_c & 0b00001111;
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                cp_ = curr_c & 0b00001111;
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c, 0x80, 0x9f))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                if (!check_continuation(curr_c, 0x80, 0x9f)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
             } else if (detail::in(0xed, curr_c, 0xef)) {
-                value = curr_c & 0b00001111;
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                cp_ = curr_c & 0b00001111;
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
                 // Four-byte
             } else if (curr_c == 0xf0) {
-                value = curr_c & 0b00000111;
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                cp_ = curr_c & 0b00000111;
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c, 0x90, 0xbf))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                if (!check_continuation(curr_c, 0x90, 0xbf)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
             } else if (detail::in(0xf1, curr_c, 0xf3)) {
-                value = curr_c & 0b00000111;
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                cp_ = curr_c & 0b00000111;
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
             } else if (curr_c == 0xf4) {
-                value = curr_c & 0b00000111;
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                cp_ = curr_c & 0b00000111;
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c, 0x80, 0x8f))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                if (!check_continuation(curr_c, 0x80, 0x8f)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
-                if (at_end(next))
-                    return get_value_result{error(), next};
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
+                incr();
+                if (at_end(next)) {
+                    error();
+                    return;
+                }
                 curr_c = *next;
-                if (!check_continuation(curr_c))
-                    return get_value_result{error(), next};
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next;
+                if (!check_continuation(curr_c)) {
+                    error();
+                    return;
+                }
+                cp_ = (cp_ << 6) + (curr_c & 0b00111111);
             } else {
-                value = ErrorHandler{}("Invalid initial UTF-8 code unit.");
-                ++next;
+                cp_ = ErrorHandler{}("Invalid initial UTF-8 code unit.");
             }
-            return get_value_result{value, next};
 #else
             I next = it_;
-            char32_t const value = detail::advance(next, last_);
-            return get_value_result{value, next};
+            char32_t const cp_ = detail::advance(next, last_);
+            to_increment_ = std::distance(it_, next);
 #endif
-        }
-
-        constexpr I increment() const
-        {
-            unsigned char curr_c = *it_;
-            if (curr_c < 0x80)
-                return std::next(it_);
-            return get_value().it_;
         }
 
         I first_;
         I it_;
         S last_;
+        int to_increment_ = 0;
+        char32_t cp_ = 0;
 
 #if BOOST_TEXT_USE_CONCEPTS
         template<
@@ -1917,19 +2010,19 @@ namespace boost { namespace text {
 #endif
     struct utf_32_to_16_iterator
         : detail::
-              trans_iter<utf_32_to_16_iterator<I, S, ErrorHandler>, char16_t>
+              trans_iter<utf_32_to_16_iterator<I, S, ErrorHandler>, I, char16_t>
     {
 #if !BOOST_TEXT_USE_CONCEPTS
         static_assert(
             std::is_same<
                 typename std::iterator_traits<I>::iterator_category,
-                std::bidirectional_iterator_tag>::value ||
+                std::input_iterator_tag>::value ||
                 std::is_same<
                     typename std::iterator_traits<I>::iterator_category,
                     std::random_access_iterator_tag>::value,
             "utf_32_to_16_iterator requires its I parameter to be at "
             "least "
-            "bidirectional.");
+            "input.");
         static_assert(
             sizeof(typename std::iterator_traits<I>::value_type) == 4,
             "utf_32_to_16_iterator requires its I parameter to produce a "
@@ -1992,6 +2085,7 @@ namespace boost { namespace text {
         }
 
         constexpr utf_32_to_16_iterator & operator--()
+            requires std::bidirectional_iterator<I>
         {
             if (0 < index_) {
                 --index_;
@@ -2022,7 +2116,7 @@ namespace boost { namespace text {
         }
 
         using base_type = detail::
-            trans_iter<utf_32_to_16_iterator<I, S, ErrorHandler>, char16_t>;
+            trans_iter<utf_32_to_16_iterator<I, S, ErrorHandler>, I, char16_t>;
         using base_type::operator++;
         using base_type::operator--;
 
@@ -2224,19 +2318,19 @@ namespace boost { namespace text {
 #endif
     struct utf_16_to_32_iterator
         : detail::
-              trans_iter<utf_16_to_32_iterator<I, S, ErrorHandler>, char32_t>
+              trans_iter<utf_16_to_32_iterator<I, S, ErrorHandler>, I, char32_t>
     {
 #if !BOOST_TEXT_USE_CONCEPTS
         static_assert(
             std::is_same<
                 typename std::iterator_traits<I>::iterator_category,
-                std::bidirectional_iterator_tag>::value ||
+                std::input_iterator_tag>::value ||
                 std::is_same<
                     typename std::iterator_traits<I>::iterator_category,
                     std::random_access_iterator_tag>::value,
             "utf_16_to_32_iterator requires its I parameter to be at "
             "least "
-            "bidirectional.");
+            "input.");
         static_assert(
             sizeof(typename std::iterator_traits<I>::value_type) == 2,
             "utf_16_to_32_iterator requires its I parameter to produce a "
@@ -2285,6 +2379,7 @@ namespace boost { namespace text {
         }
 
         constexpr utf_16_to_32_iterator & operator--()
+            requires std::bidirectional_iterator<I>
         {
             BOOST_ASSERT(it_ != first_);
             if (boost::text::low_surrogate(*--it_)) {
@@ -2302,7 +2397,7 @@ namespace boost { namespace text {
         }
 
         using base_type = detail::
-            trans_iter<utf_16_to_32_iterator<I, S, ErrorHandler>, char32_t>;
+            trans_iter<utf_16_to_32_iterator<I, S, ErrorHandler>, I, char32_t>;
         using base_type::operator++;
         using base_type::operator--;
 
@@ -2616,18 +2711,18 @@ namespace boost { namespace text {
     template<typename I,typename S, typename ErrorHandler>
 #endif
     struct utf_16_to_8_iterator
-        : detail::trans_iter<utf_16_to_8_iterator<I, S, ErrorHandler>, char8_t>
+        : detail::trans_iter<utf_16_to_8_iterator<I, S, ErrorHandler>, I, char8_t>
     {
 #if !BOOST_TEXT_USE_CONCEPTS
         static_assert(
             std::is_same<
                 typename std::iterator_traits<I>::iterator_category,
-                std::bidirectional_iterator_tag>::value ||
+                std::input_iterator_tag>::value ||
                 std::is_same<
                     typename std::iterator_traits<I>::iterator_category,
                     std::random_access_iterator_tag>::value,
             "utf_16_to_8_iterator requires its I parameter to be at least "
-            "bidirectional.");
+            "input.");
         static_assert(
             sizeof(typename std::iterator_traits<I>::value_type) == 2,
             "utf_16_to_8_iterator requires its I parameter to produce a "
@@ -2687,6 +2782,7 @@ namespace boost { namespace text {
         }
 
         constexpr utf_16_to_8_iterator & operator--()
+            requires std::bidirectional_iterator<I>
         {
             if (0 < index_) {
                 --index_;
@@ -2717,7 +2813,7 @@ namespace boost { namespace text {
         }
 
         using base_type = detail::
-            trans_iter<utf_16_to_8_iterator<I, S, ErrorHandler>, char8_t>;
+            trans_iter<utf_16_to_8_iterator<I, S, ErrorHandler>, I, char8_t>;
         using base_type::operator++;
         using base_type::operator--;
 
@@ -3027,7 +3123,8 @@ namespace boost { namespace text {
     template<typename I, typename S, typename ErrorHandler>
 #endif
     struct utf_8_to_16_iterator
-        : detail::trans_iter<utf_8_to_16_iterator<I, S, ErrorHandler>, char16_t>
+        : detail::
+              trans_iter<utf_8_to_16_iterator<I, S, ErrorHandler>, I, char16_t>
     {
         constexpr utf_8_to_16_iterator() : it_(), index_(2), buf_() {}
         explicit constexpr utf_8_to_16_iterator(I first, I it, S last) :
@@ -3064,10 +3161,7 @@ namespace boost { namespace text {
             return buf_[index_];
         }
 
-        constexpr I base() const
-        {
-            return it_.base();
-        }
+        constexpr I base() const { return it_.base(); }
 
         constexpr utf_8_to_16_iterator & operator++()
         {
@@ -3083,6 +3177,7 @@ namespace boost { namespace text {
         }
 
         constexpr utf_8_to_16_iterator & operator--()
+            requires std::bidirectional_iterator<I>
         {
             if (0 < index_) {
                 --index_;
@@ -3113,7 +3208,7 @@ namespace boost { namespace text {
         }
 
         using base_type = detail::
-            trans_iter<utf_8_to_16_iterator<I, S, ErrorHandler>, char16_t>;
+            trans_iter<utf_8_to_16_iterator<I, S, ErrorHandler>, I, char16_t>;
         using base_type::operator++;
         using base_type::operator--;
 
@@ -3591,17 +3686,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-8. */
-    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    template<std::input_iterator I, std::sentinel_for<I> S>
     auto utf8_iterator(I first, I it, S last);
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-16. */
-    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    template<std::input_iterator I, std::sentinel_for<I> S>
     auto utf16_iterator(I first, I it, S last);
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-32. */
-    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    template<std::input_iterator I, std::sentinel_for<I> S>
     auto utf32_iterator(I first, I it, S last);
 
     /** Returns a inserting iterator that transcodes from UTF-8 to UTF-8,
@@ -3897,19 +3992,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf_8_to_16_out_iterator<O>(it);
     }
 
-    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    template<std::input_iterator I, std::sentinel_for<I> S>
     constexpr auto utf8_iterator(I first, I it, S last)
     {
         return v1::utf8_iterator(first, it, last);
     }
 
-    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    template<std::input_iterator I, std::sentinel_for<I> S>
     constexpr auto utf16_iterator(I first, I it, S last)
     {
         return v1::utf16_iterator(first, it, last);
     }
 
-    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    template<std::input_iterator I, std::sentinel_for<I> S>
     constexpr auto utf32_iterator(I first, I it, S last)
     {
         return v1::utf32_iterator(first, it, last);
