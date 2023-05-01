@@ -1449,7 +1449,7 @@ namespace boost { namespace text {
             if (it == last_) {
                 ErrorHandler{}(
                     "Invalid UTF-8 sequence; expected another code unit "
-                    "before the end of string.");
+                    "before end of range.");
                 return true;
             } else {
                 return false;
@@ -1482,6 +1482,8 @@ namespace boost { namespace text {
             I next = it_;
             unsigned char curr_c = *next;
 
+            auto error = []() { return ErrorHandler{}("Ill-formed UTF-8."); };
+
             // One-byte case handled by caller
 
             // Two-byte
@@ -1489,10 +1491,10 @@ namespace boost { namespace text {
                 value = curr_c & 0b00011111;
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 // Three-byte
@@ -1500,68 +1502,68 @@ namespace boost { namespace text {
                 value = curr_c & 0b00001111;
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c, 0xa0, 0xbf))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
             } else if (detail::in(0xe1, curr_c, 0xec)) {
                 value = curr_c & 0b00001111;
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
             } else if (curr_c == 0xed) {
                 value = curr_c & 0b00001111;
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c, 0x80, 0x9f))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
             } else if (detail::in(0xed, curr_c, 0xef)) {
                 value = curr_c & 0b00001111;
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 // Four-byte
@@ -1569,72 +1571,72 @@ namespace boost { namespace text {
                 value = curr_c & 0b00000111;
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c, 0x90, 0xbf))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
             } else if (detail::in(0xf1, curr_c, 0xf3)) {
                 value = curr_c & 0b00000111;
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
             } else if (curr_c == 0xf4) {
                 value = curr_c & 0b00000111;
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c, 0x80, 0x8f))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
                 if (at_end(next))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{error(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
             } else {
@@ -2317,7 +2319,7 @@ namespace boost { namespace text {
             if (it == last_) {
                 ErrorHandler{}(
                     "Invalid UTF-16 sequence; expected another code unit "
-                    "before the end of string.");
+                    "before end of range.");
                 return true;
             } else {
                 return false;
@@ -2332,16 +2334,18 @@ namespace boost { namespace text {
             if (high_surrogate(curr)) {
                 value = (curr - high_surrogate_base) << 10;
                 if (at_end(next)) {
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{
+                        ErrorHandler{}("Ill-formed UTF-16."), next};
                 }
                 curr = *next++;
                 if (!low_surrogate(curr)) {
-                    return get_value_result{replacement_character(), next};
+                    return get_value_result{
+                        ErrorHandler{}("Ill-formed UTF-16."), next};
                 }
                 value += curr - low_surrogate_base;
             } else if (low_surrogate(curr)) {
-                value = ErrorHandler{}("Invalid initial UTF-16 code unit.");
-                return get_value_result{replacement_character(), next};
+                return get_value_result{
+                    ErrorHandler{}("Invalid initial UTF-16 code unit."), next};
             } else {
                 value = curr;
             }
@@ -2741,22 +2745,22 @@ namespace boost { namespace text {
             char32_t second = 0;
             char32_t cp = first;
             if (boost::text::high_surrogate(first)) {
-                if (at_end(++next))
-                    cp = replacement_character();
-                else {
+                if (at_end(++next)) {
+                    cp = ErrorHandler{}(
+                        "Invalid UTF-16 sequence; unexpected end of range "
+                        "after high surrogate.");
+                } else {
                     second = static_cast<char32_t>(*next);
                     if (!boost::text::low_surrogate(second)) {
-                        ErrorHandler{}(
+                        cp = ErrorHandler{}(
                             "Invalid UTF-16 sequence; expected low surrogate "
                             "after high surrogate.");
-                        cp = replacement_character();
                     } else {
                         cp = (first << 10) + second + surrogate_offset;
                     }
                 }
             } else if (boost::text::surrogate(first)) {
-                ErrorHandler{}("Invalid initial UTF-16 code unit.");
-                cp = replacement_character();
+                cp = ErrorHandler{}("Invalid initial UTF-16 code unit.");
             }
 
             char8_t * retval = detail::read_into_buf(cp, buf_.data());
