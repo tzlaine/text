@@ -923,6 +923,12 @@ namespace boost { namespace text {
     struct null_sentinel_t
     {
         constexpr null_sentinel_t base() const { return {}; }
+
+        template<typename T>
+        friend constexpr auto operator==(T const * p, null_sentinel_t)
+        {
+            return *p == T{};
+        }
     };
 
 #if defined(__cpp_inline_variables)
@@ -932,111 +938,6 @@ namespace boost { namespace text {
         constexpr null_sentinel_t null_sentinel;
     }
 #endif
-
-#if defined(BOOST_TEXT_DOXYGEN)
-
-    template<typename T>
-    requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator==(T * p, null_sentinel_t);
-
-    template<typename T>
-    requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator!=(T * p, null_sentinel_t);
-
-    template<typename T>
-    requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator==(null_sentinel_t, T * p);
-
-    template<typename T>
-    requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator!=(null_sentinel_t, T * p);
-
-#else
-
-#if BOOST_TEXT_USE_CONCEPTS
-
-    template<typename T>
-        // clang-format off
-        requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator==(T * p, null_sentinel_t)
-    // clang-format on
-    {
-        return *p == 0;
-    }
-#if 1 // TODO: This should not be necessary, one better support for op==
-      // rewriting is widely supported.
-    template<typename T>
-        // clang-format off
-        requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator!=(T * p, null_sentinel_t)
-    // clang-format on
-    {
-        return *p != 0;
-    }
-    template<typename T>
-        // clang-format off
-        requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator==(null_sentinel_t, T * p)
-    // clang-format on
-    {
-        return *p == 0;
-    }
-    template<typename T>
-        // clang-format off
-        requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
-    constexpr auto operator!=(null_sentinel_t, T * p)
-    // clang-format on
-    {
-        return *p != 0;
-    }
-#endif
-
-#else
-
-    namespace detail {
-        template<
-            typename Iter,
-            bool UTF8 =
-                is_char_ptr_v<Iter> || is_16_ptr_v<Iter> || is_cp_ptr_v<Iter>>
-        struct null_sent_eq_dispatch
-        {};
-
-        template<typename Ptr>
-        struct null_sent_eq_dispatch<Ptr, true>
-        {
-            static constexpr bool call(Ptr p) { return *p == 0; }
-        };
-    }
-
-    template<typename T>
-    constexpr auto operator==(T * p, null_sentinel_t)
-        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return detail::null_sent_eq_dispatch<T *>::call(p);
-    }
-    template<typename T>
-    constexpr auto operator!=(T * p, null_sentinel_t)
-        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return !detail::null_sent_eq_dispatch<T *>::call(p);
-    }
-    template<typename T>
-    constexpr auto operator==(null_sentinel_t, T * p)
-        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return detail::null_sent_eq_dispatch<T *>::call(p);
-    }
-    template<typename T>
-    constexpr auto operator!=(null_sentinel_t, T * p)
-        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return !detail::null_sent_eq_dispatch<T *>::call(p);
-    }
-
-#endif
-
-#endif
-
 
     /** A UTF-8 to UTF-16 converting iterator. */
 #if BOOST_TEXT_USE_CONCEPTS
