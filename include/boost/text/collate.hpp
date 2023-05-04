@@ -2125,8 +2125,10 @@ namespace boost { namespace text { namespace detail {
             lhs_it = l_prim.it_;
             rhs_it = r_prim.it_;
 
-            BOOST_ASSERT(boost::text::starts_encoded(lhs_it, last1));
-            BOOST_ASSERT(boost::text::starts_encoded(rhs_it, last2));
+            BOOST_ASSERT(boost::text::starts_encoded(
+                std::ranges::subrange(lhs_it, last1)));
+            BOOST_ASSERT(boost::text::starts_encoded(
+                std::ranges::subrange(rhs_it, last2)));
 
 #if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
             std::cout << "**************** at end of loop:\n";

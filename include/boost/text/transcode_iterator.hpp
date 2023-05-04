@@ -608,51 +608,55 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 #if defined(BOOST_TEXT_DOXYGEN)
 
-    /** Returns the first code unit in `[first, last)` that is not properly
-        UTF-8 encoded, or `last` if no such code unit is found. */
-    template<utf8_iter I>
-    requires std::random_access_iterator<I>
-    constexpr I find_invalid_encoding(I first, I last);
+    /** Returns the first code unit in `[r.begin(), r.end())` that is not
+        properly UTF-8 encoded, or `std::advance(r.begin(), std::size(r))` if
+        no such code unit is found. */
+    template<utf8_range R>
+        requires std::ranges::forward_range<R>
+    constexpr std::ranges::borrowed_iterator_t<R> find_invalid_encoding(R && r);
 
-    /** Returns the first code unit in `[first, last)` that is not properly
-        UTF-16 encoded, or `last` if no such code unit is found. */
-    template<utf16_iter I>
-    requires std::random_access_iterator<I>
-    constexpr I find_invalid_encoding(I first, I last);
+    /** Returns the first code unit in `[r.begin(), r.end())` that is not
+        properly UTF-16 encoded, or `std::advance(r.begin(), std::size(r))` if
+        no such code unit is found. */
+    template<utf16_range R>
+        requires std::ranges::forward_range<R>
+    constexpr std::ranges::borrowed_iterator_t<R> find_invalid_encoding(R && r);
 
-    /** Returns true iff `[first, last)` is properly UTF-8 encoded. */
-    template<utf8_iter I>
-    requires std::random_access_iterator<I>
-    constexpr bool encoded(I first, I last);
+    /** Returns true iff `r` is properly UTF-8 encoded. */
+    template<utf8_range R>
+        requires std::ranges::forward_range<R>
+    constexpr bool encoded(R && r);
 
-    /** Returns true iff `[first, last)` is properly UTF-16 encoded */
-    template<utf16_iter I>
-    requires std::random_access_iterator<I>
-    constexpr bool encoded(I first, I last);
+    /** Returns true iff `r` is properly UTF-16 encoded */
+    template<utf16_range R>
+        requires std::ranges::forward_range<R>
+    constexpr bool encoded(R && r);
 
-    /** Returns true iff `[first, last)` is empty or the initial UTF-8 code
-        units in `[first, last)` form a valid Unicode code point. */
-    template<utf8_iter I>
-    requires std::random_access_iterator<I>
-    constexpr bool starts_encoded(I first, I last);
+    /** Returns true iff `r` is empty or the initial UTF-8 code units in `r`
+        form a valid Unicode code point. */
+    template<utf8_range R>
+        requires std::ranges::forward_range<R>
+    constexpr bool starts_encoded(R && r);
 
-    /** Returns true iff `[first, last)` is empty or the initial UTF-16 code
-        units in `[first, last)` form a valid Unicode code point. */
-    template<utf16_iter I>
-    requires std::random_access_iterator<I>
-    constexpr bool starts_encoded(I first, I last);
+    /** Returns true iff `r` is empty or the initial UTF-16 code units in `r`
+        form a valid Unicode code point. */
+    template<utf16_range R>
+        requires std::ranges::forward_range<R>
+    constexpr bool starts_encoded(R && r);
 
-    /** Returns true iff `[first, last)` is empty or the final UTF-8 code
-       units in `[first, last)` form a valid Unicode code point. */
-    template<utf8_iter I>
-    requires std::random_access_iterator<I>
-    constexpr bool ends_encoded(I first, I last);
+    /** Returns true iff `r` is empty or the final UTF-8 code units in `r`
+        form a valid Unicode code point. */
+    template<utf8_range R>
+        requires std::ranges::bidirectional_range<R> &&
+                 std::ranges::common_range<R>
+    constexpr bool ends_encoded(R && r);
 
-    /** Returns true iff `[first, last)` is empty or the final UTF-16 code
-       units in `[first, last)` form a valid Unicode code point. */
-    template<utf16_iter I>
-    requires std::random_access_iterator<I>
-    constexpr bool ends_encoded(I first, I last);
+    /** Returns true iff `r` is empty or the final UTF-16 code units in `r`
+        form a valid Unicode code point. */
+    template<utf8_range R>
+        requires std::ranges::bidirectional_range<R> &&
+                 std::ranges::common_range<R>
+    constexpr bool ends_encoded(R && r);
 
 #endif
 
@@ -768,12 +772,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    template<utf8_iter I>
-    // clang-format off
-        requires std::random_access_iterator<I>
-    constexpr I find_invalid_encoding(I first, I last)
-    // clang-format on
+    template<utf8_range R>
+        requires std::ranges::forward_range<R>
+    constexpr std::ranges::borrowed_iterator_t<R> find_invalid_encoding(R && r)
     {
+        auto first = std::ranges::begin(r);
+        auto last = std::ranges::end(r);
+
         while (first != last) {
             int const cp_bytes = boost::text::utf8_code_units(*first);
             if (cp_bytes == -1 || last - first < cp_bytes)
@@ -785,15 +790,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             first += cp_bytes;
         }
 
-        return last;
+        if constexpr (std::ranges::borrowed_range<R>) {
+            return last;
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
-    template<utf16_iter I>
-    // clang-format off
-        requires std::random_access_iterator<I>
-    constexpr I find_invalid_encoding(I first, I last)
-    // clang-format on
+    template<utf16_range R>
+        requires std::ranges::forward_range<R>
+    constexpr std::ranges::borrowed_iterator_t<R> find_invalid_encoding(R && r)
     {
+        auto first = std::ranges::begin(r);
+        auto last = std::ranges::end(r);
+
         while (first != last) {
             int const cp_units = boost::text::utf16_code_units(*first);
             if (cp_units == -1 || last - first < cp_units)
@@ -805,33 +815,36 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             first += cp_units;
         }
 
-        return last;
+        if constexpr (std::ranges::borrowed_range<R>) {
+            return last;
+        } else {
+            return std::ranges::dangling{};
+        }
     }
 
-    template<utf8_iter I>
-    // clang-format off
-        requires std::random_access_iterator<I>
-    constexpr bool encoded(I first, I last)
-    // clang-format on
+    template<utf8_range R>
+        requires std::ranges::forward_range<R>
+    constexpr bool encoded(R && r)
     {
-        return boost::text::find_invalid_encoding(first, last) == last;
+        return boost::text::v1::find_invalid_encoding(r.begin(), r.end()) ==
+               r.end();
     }
 
-    template<utf16_iter I>
-    // clang-format off
-        requires std::random_access_iterator<I>
-    constexpr bool encoded(I first, I last)
-    // clang-format on
+    template<utf16_range R>
+        requires std::ranges::forward_range<R>
+    constexpr bool encoded(R && r)
     {
-        return boost::text::find_invalid_encoding(first, last) == last;
+        return boost::text::v1::find_invalid_encoding(r.begin(), r.end()) ==
+               r.end();
     }
 
-    template<utf8_iter I>
-    // clang-format off
-        requires std::random_access_iterator<I>
-    constexpr bool starts_encoded(I first, I last)
-    // clang-format on
+    template<utf8_range R>
+        requires std::ranges::forward_range<R>
+    constexpr bool starts_encoded(R && r)
     {
+        auto first = std::ranges::begin(r);
+        auto last = std::ranges::end(r);
+
         if (first == last)
             return true;
 
@@ -842,12 +855,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return !detail::end_of_invalid_utf8(first);
     }
 
-    template<utf16_iter I>
-    // clang-format off
-        requires std::random_access_iterator<I>
-    constexpr bool starts_encoded(I first, I last)
-    // clang-format on
+    template<utf16_range R>
+        requires std::ranges::forward_range<R>
+    constexpr bool starts_encoded(R && r)
     {
+        auto first = std::ranges::begin(r);
+        auto last = std::ranges::end(r);
+
         if (first == last)
             return true;
 
@@ -858,12 +872,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
     }
 
-    template<utf8_iter I>
-    // clang-format off
-        requires std::random_access_iterator<I>
-    constexpr bool ends_encoded(I first, I last)
-    // clang-format on
+    template<utf8_range R>
+        requires std::ranges::bidirectional_range<R> &&
+                 std::ranges::common_range<R>
+    constexpr bool ends_encoded(R && r)
     {
+        auto first = std::ranges::begin(r);
+        auto last = std::ranges::end(r);
+
         if (first == last)
             return true;
 
@@ -874,12 +890,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return boost::text::starts_encoded(it, last);
     }
 
-    template<utf16_iter I>
-    // clang-format off
-        requires std::random_access_iterator<I>
-    constexpr bool ends_encoded(I first, I last)
-    // clang-format on
+    template<utf16_range R>
+        requires std::ranges::bidirectional_range<R> &&
+                 std::ranges::common_range<R>
+    constexpr bool ends_encoded(R && r)
     {
+        auto first = std::ranges::begin(r);
+        auto last = std::ranges::end(r);
+
         if (first == last)
             return true;
 
