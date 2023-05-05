@@ -58,9 +58,10 @@ namespace boost { namespace text {
         static_assert(
             utf_format == format::utf8 || utf_format == format::utf16, "");
 
-        using value_type = utf32_view<detail::rope_transcode_iterator_t<
-            char_type,
-            detail::const_rope_view_iterator<char_type, string>>>;
+        using value_type =
+            utf32_view<std::ranges::subrange<detail::rope_transcode_iterator_t<
+                char_type,
+                detail::const_rope_view_iterator<char_type, string>>>>;
         using size_type = std::size_t;
         using iterator = grapheme_iterator<detail::rope_transcode_iterator_t<
             char_type,

@@ -1020,7 +1020,8 @@ namespace boost { namespace text {
         // https://unicode.org/reports/tr9/#L1
         template<typename CPIter>
         inline void
-        l1(utf32_view<props_and_embeddings_cp_iterator<CPIter>> line,
+        l1(utf_view<format::utf32, props_and_embeddings_cp_iterator<CPIter>>
+               line,
            int paragraph_embedding_level)
         {
             // L1.1, L1.2

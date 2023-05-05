@@ -146,7 +146,7 @@ namespace boost { namespace text { namespace detail {
         typename CPIter,
         typename Sentinel,
         typename NextFunc,
-        typename CPRange = utf32_view<CPIter>,
+        typename CPRange = utf_view<format::utf32, CPIter>,
         template<class, class, class, class> class IteratorTemplate =
             detail::const_lazy_segment_iterator,
         bool Reverse = false>

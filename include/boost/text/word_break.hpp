@@ -297,7 +297,10 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             using type = T;
         };
 
-        template<typename T, typename F, typename R = utf32_view<uint32_t *>>
+        template<
+            typename T,
+            typename F,
+            typename R = utf_view<format::utf32, uint32_t *>>
         using word_prop_func_ret_t = typename word_prop_func_ret<T, F, R>::type;
 
         template<
@@ -1025,7 +1028,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             typename Sentinel,
             typename WordPropFunc = word_prop_callable,
             typename WordBreakFunc = untailored_word_break>
-        utf32_view<CPIter> word_impl(
+        utf_view<format::utf32, CPIter> word_impl(
             CPIter first,
             CPIter it,
             Sentinel last,
@@ -1034,9 +1037,10 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         {
             first = detail::prev_word_break_impl(
                 first, it, last, word_prop, word_break);
-            return utf32_view<CPIter>{
+            return utf_view<format::utf32, CPIter>{
                 first,
-                detail::next_word_break_impl(first, last, word_prop, word_break)};
+                detail::next_word_break_impl(
+                    first, last, word_prop, word_break)};
         }
 
         template<
@@ -1044,7 +1048,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             typename CPIter,
             typename WordPropFunc = word_prop_callable,
             typename WordBreakFunc = untailored_word_break>
-        utf32_view<iterator_t<CPRange>> word_cr_impl(
+        utf_view<format::utf32, iterator_t<CPRange>> word_cr_impl(
             CPRange && range,
             CPIter it,
             WordPropFunc const & word_prop = WordPropFunc{},
@@ -1052,7 +1056,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         {
             auto first = detail::prev_word_break_impl(
                 detail::begin(range), it, detail::end(range), word_prop, word_break);
-            return utf32_view<iterator_t<CPRange>>{
+            return utf_view<format::utf32, iterator_t<CPRange>>{
                 first,
                 detail::next_word_break_impl(
                     first, detail::end(range), word_prop, word_break)};
@@ -1481,7 +1485,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         std::sentinel_for<I> S,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    utf32_view<I> word(
+    utf_view<format::utf32, I> word(
         I first,
         I it,
         S last,
@@ -1489,8 +1493,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordBreakFunc const & word_break = WordBreakFunc{});
 
     /** Returns the bounds of the word that `it` lies within.  Returns a
-        `utf32_view`; in C++20 and later, if `std::ranges::borrowed_range<R>`
-        is `false`, this function returns a `std::ranges::dangling` instead.
+        `utf_view`; in C++20 and later, if `std::ranges::borrowed_range<R>` is
+        `false`, this function returns a `std::ranges::dangling` instead.
 
         See the Text Segmentation section of the tutorial for WordPropFunc
         semantics. */
@@ -1573,7 +1577,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         typename Sentinel,
         typename WordPropFunc = word_prop_callable,
         typename WordBreakFunc = untailored_word_break>
-    utf32_view<CPIter> word(
+    utf_view<format::utf32, CPIter> word(
         CPIter first,
         CPIter it,
         Sentinel last,
@@ -1594,7 +1598,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         WordPropFunc const & word_prop = WordPropFunc{},
         WordBreakFunc const & word_break = WordBreakFunc{})
         ->detail::word_prop_func_ret_t<
-            utf32_view<detail::iterator_t<CPRange>>,
+            utf_view<format::utf32, detail::iterator_t<CPRange>>,
             WordPropFunc,
             CPRange>
     {
@@ -1906,7 +1910,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I> S,
         word_prop_func WordPropFunc = word_prop_callable,
         word_break_func WordBreakFunc = untailored_word_break>
-    utf32_view<I> word(
+    utf_view<format::utf32, I> word(
         I first,
         I it,
         S last,

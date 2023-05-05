@@ -609,15 +609,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 #if defined(BOOST_TEXT_DOXYGEN)
 
     /** Returns the first code unit in `[r.begin(), r.end())` that is not
-        properly UTF-8 encoded, or `std::advance(r.begin(), std::size(r))` if
-        no such code unit is found. */
+        properly UTF-8 encoded, or `r.begin() + std::distance(r)` if no such
+        code unit is found. */
     template<utf8_range R>
         requires std::ranges::forward_range<R>
     constexpr std::ranges::borrowed_iterator_t<R> find_invalid_encoding(R && r);
 
     /** Returns the first code unit in `[r.begin(), r.end())` that is not
-        properly UTF-16 encoded, or `std::advance(r.begin(), std::size(r))` if
-        no such code unit is found. */
+        properly UTF-16 encoded, or `r.begin() + std::distance(r)` if no such
+        code unit is found. */
     template<utf16_range R>
         requires std::ranges::forward_range<R>
     constexpr std::ranges::borrowed_iterator_t<R> find_invalid_encoding(R && r);

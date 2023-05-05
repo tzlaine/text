@@ -736,21 +736,21 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         }
 
         template<typename CPIter, typename Sentinel>
-        utf32_view<CPIter>
+        utf_view<format::utf32, CPIter>
         sentence_impl(CPIter first, CPIter it, Sentinel last)
         {
             first = detail::prev_sentence_break_impl(first, it, last);
-            return utf32_view<CPIter>{
+            return utf_view<format::utf32, CPIter>{
                 first, detail::next_sentence_break_impl(first, last)};
         }
 
         template<typename CPRange, typename CPIter>
-        utf32_view<iterator_t<CPRange>>
+        utf_view<format::utf32, iterator_t<CPRange>>
         sentence_cr_impl(CPRange && range, CPIter it)
         {
             auto first = detail::prev_sentence_break_impl(
                 detail::begin(range), it, detail::end(range));
-            return utf32_view<iterator_t<CPRange>>{
+            return utf_view<format::utf32, iterator_t<CPRange>>{
                 first,
                 detail::next_sentence_break_impl(first, detail::end(range))};
         }
@@ -844,7 +844,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     /** Returns the bounds of the sentence that `it` lies within. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    utf32_view<I> sentence(I first, I it, S last);
+    utf_view<format::utf32, I> sentence(I first, I it, S last);
 
     /** Returns the bounds of the sentence that `it` lies within.  Returns a
         `utf32_view`; in C++20 and later, if `std::ranges::borrowed_range<R>`
@@ -944,14 +944,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename CPIter, typename Sentinel>
-    utf32_view<CPIter> sentence(CPIter first, CPIter it, Sentinel last)
+    utf_view<format::utf32, CPIter> sentence(
+        CPIter first, CPIter it, Sentinel last)
     {
         return detail::sentence_impl(first, it, last);
     }
 
     template<typename CPRange, typename CPIter>
-    auto sentence(CPRange && range, CPIter it) -> detail::
-        cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
+    auto sentence(CPRange && range, CPIter it)
+        ->detail::cp_rng_alg_ret_t<
+            utf_view<format::utf32, detail::iterator_t<CPRange>>,
+            CPRange>
     {
         return detail::sentence_cr_impl(range, it);
     }
@@ -1082,10 +1085,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    utf32_view<I> sentence(I first, I it, S last)
+    utf_view<format::utf32, I> sentence(I first, I it, S last)
     {
         first = boost::text::prev_sentence_break(first, it, last);
-        return utf32_view<I>{
+        return utf_view<format::utf32, I>{
             first, boost::text::next_sentence_break(first, last)};
     }
 

@@ -865,6 +865,25 @@ TEST(transcode_view, as_utfN)
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
+    {
+        auto r = utf32_ | as_utf8;
+        EXPECT_TRUE(boost::algorithm::equal(
+            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
+    }
+    {
+        auto r = utf16_ | as_utf8;
+        EXPECT_TRUE(boost::algorithm::equal(
+            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
+    }
+    {
+        auto r = utf8_ | as_utf8;
+        static_assert(
+            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(r.end()), char8_t const *>::value, "");
+        EXPECT_TRUE(boost::algorithm::equal(
+            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
+    }
 
     // ptr/sentinel
     {

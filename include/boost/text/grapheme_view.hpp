@@ -249,7 +249,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     !std::ranges::borrowed_range<R>) {
                     return std::ranges::dangling{};
                 } else {
-                    auto intermediate = boost::text::as_utf32(r);
+                    auto intermediate = r | boost::text::as_utf32;
                     return grapheme_view<
                         std::ranges::iterator_t<decltype(intermediate)>,
                         std::ranges::sentinel_t<decltype(intermediate)>>(

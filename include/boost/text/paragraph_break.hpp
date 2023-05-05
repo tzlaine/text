@@ -148,22 +148,23 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename CPIter, typename Sentinel>
-    utf32_view<CPIter>
+    utf_view<format::utf32, CPIter>
     paragraph_impl(CPIter first, CPIter it, Sentinel last)
     {
         first = detail::prev_paragraph_break_impl(first, it, last);
-        return utf32_view<CPIter>{
+        return utf_view<format::utf32, CPIter>{
             first, detail::next_paragraph_break_impl(first, last)};
     }
 
     template<typename CPRange, typename CPIter>
-    utf32_view<iterator_t<CPRange>>
+    utf_view<format::utf32, iterator_t<CPRange>>
     paragraph_cr_impl(CPRange && range, CPIter it)
     {
         auto first = detail::prev_paragraph_break_impl(
             detail::begin(range), it, detail::end(range));
-        return utf32_view<CPIter>{
-            first, detail::next_paragraph_break_impl(first, detail::end(range))};
+        return utf_view<format::utf32, CPIter>{
+            first,
+            detail::next_paragraph_break_impl(first, detail::end(range))};
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -255,7 +256,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     /** Returns the bounds of the paragraph that `it` lies within. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    utf32_view<I> paragraph(I first, I it, S last);
+    utf_view<format::utf32, I> paragraph(I first, I it, S last);
 
     /** Returns the bounds of the paragraph that `it` lies within.  Returns a
         `utf32_view`; in C++20 and later, if `std::ranges::borrowed_range<R>`
@@ -359,15 +360,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     template<typename CPIter, typename Sentinel>
-    utf32_view<CPIter> paragraph(
+    utf_view<format::utf32, CPIter> paragraph(
         CPIter first, CPIter it, Sentinel last)
     {
         return detail::paragraph_impl(first, it, last);
     }
 
     template<typename CPRange, typename CPIter>
-    auto paragraph(CPRange && range, CPIter it) -> detail::
-        cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
+    auto paragraph(CPRange && range, CPIter it)
+        ->detail::cp_rng_alg_ret_t<
+            utf_view<format::utf32, detail::iterator_t<CPRange>>,
+            CPRange>
     {
         return detail::paragraph_cr_impl(range, it);
     }
@@ -498,7 +501,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    utf32_view<I> paragraph(I first, I it, S last)
+    utf_view<format::utf32, I> paragraph(I first, I it, S last)
     {
         return detail::paragraph_impl(first, it, last);
     }

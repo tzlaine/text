@@ -163,12 +163,13 @@ namespace boost { namespace text {
 #else
     template<typename I>
 #endif
-    struct line_break_cp_view : utf32_view<I>
+    struct line_break_cp_view : utf_view<format::utf32, I>
     {
-        line_break_cp_view() : utf32_view<I>(), hard_break_() {}
+        line_break_cp_view() : utf_view<format::utf32, I>(), hard_break_() {}
         line_break_cp_view(
             line_break_result<I> first, line_break_result<I> last) :
-            utf32_view<I>(first.iter, last.iter), hard_break_(last.hard_break)
+            utf_view<format::utf32, I>(first.iter, last.iter),
+            hard_break_(last.hard_break)
         {}
 
         /** Returns true if the end of *this is a hard line break boundary. */
@@ -1750,21 +1751,21 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
 
         template<typename CPIter, typename Sentinel>
-        utf32_view<CPIter>
+        utf_view<format::utf32, CPIter>
         line_impl(CPIter first, CPIter it, Sentinel last)
         {
             first = detail::prev_hard_line_break_impl(first, it, last);
-            return utf32_view<CPIter>{
+            return utf_view<format::utf32, CPIter>{
                 first, detail::next_hard_line_break_impl(first, last)};
         }
 
         template<typename CPRange, typename CPIter>
         auto line_cr_impl(CPRange && range, CPIter it)
-            -> utf32_view<iterator_t<CPRange>>
+            -> utf_view<format::utf32, iterator_t<CPRange>>
         {
             auto first = detail::prev_hard_line_break_impl<iterator_t<CPRange>>(
                 detail::begin(range), it, detail::end(range));
-            return utf32_view<iterator_t<CPRange>>{
+            return utf_view<format::utf32, iterator_t<CPRange>>{
                 first,
                 detail::next_hard_line_break_impl(first, detail::end(range))};
         }
@@ -2584,7 +2585,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns the bounds of the line (using hard line breaks) that
         `it` lies within. */
     template<code_point_iter I, std::sentinel_for<I> S>
-    utf32_view<I> line(I first, I it, S last);
+    utf_view<format::utf32, I> line(I first, I it, S last);
 
     /** Returns the bounds of the line (using hard line breaks) that `it` lies
         within.  Returns a `utf32_view`; in C++20 and later, if
@@ -2641,14 +2642,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 #else
 
     template<typename CPIter, typename Sentinel>
-    utf32_view<CPIter> line(CPIter first, CPIter it, Sentinel last)
+    utf_view<format::utf32, CPIter> line(CPIter first, CPIter it, Sentinel last)
     {
         return detail::line_impl(first, it, last);
     }
 
     template<typename CPRange, typename CPIter>
-    auto line(CPRange && range, CPIter it) -> detail::
-        cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
+    auto line(CPRange && range, CPIter it)
+        ->detail::cp_rng_alg_ret_t<
+            utf_view<format::utf32, detail::iterator_t<CPRange>>,
+            CPRange>
     {
         return detail::line_cr_impl(range, it);
     }
@@ -3071,7 +3074,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
-    utf32_view<I> line(I first, I it, S last)
+    utf_view<format::utf32, I> line(I first, I it, S last)
     {
         return detail::line_impl(first, it, last);
     }

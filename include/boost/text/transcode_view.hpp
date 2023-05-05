@@ -287,30 +287,61 @@ namespace boost { namespace text {
         }
     }
 
-    /** A view over UTF-8 code units. */
-#if BOOST_TEXT_USE_CONCEPTS
-    template<utf_iter I, std::sentinel_for<I> S = I>
-#else
-    template<typename I, typename S = I>
-#endif
-    struct utf8_view : stl_interfaces::view_interface<utf8_view<I, S>>
-    {
-        using from_iterator = I;
-        using from_sentinel = S;
-
-        using iterator = decltype(detail::make_utf_view_iter<format::utf8>(
-            boost::text::unpack_iterator_and_sentinel(
-                std::declval<I>(), std::declval<S>())));
-        using sentinel = decltype(detail::make_utf_view_sent<format::utf8>(
-            boost::text::unpack_iterator_and_sentinel(
-                std::declval<I>(), std::declval<S>())));
-
-        constexpr utf8_view() {}
-        constexpr utf8_view(iterator first, sentinel last)
+    namespace detail {
+        template<typename V>
+        struct utf_view_iter
         {
-            auto r = boost::text::unpack_iterator_and_sentinel(first, last);
-            first_ = detail::make_utf_view_iter<format::utf8>(r);
-            last_ = detail::make_utf_view_sent<format::utf8>(r);
+            using type = decltype(std::ranges::begin(std::declval<V>()));
+        };
+        template<typename V>
+        struct utf_view_iter<V *>
+        {
+            using type = V *;
+        };
+        template<typename V>
+        using utf_view_iter_t = typename utf_view_iter<V>::type;
+        template<typename V>
+        struct utf_view_sent
+        {
+            using type = decltype(std::ranges::end(std::declval<V>()));
+        };
+        template<typename V>
+        struct utf_view_sent<V *>
+        {
+            using type = null_sentinel_t;
+        };
+        template<typename V>
+        using utf_view_sent_t = typename utf_view_sent<V>::type;
+    }
+
+    template<format Format, utf_range_like V>
+        requires std::ranges::view<V> || utf_pointer<V>
+    struct utf_view : stl_interfaces::view_interface<utf_view<Format, V>>
+    {
+        using from_iterator = detail::utf_view_iter_t<V>;
+        using from_sentinel = detail::utf_view_sent_t<V>;
+
+        using iterator = decltype(detail::make_utf_view_iter<Format>(
+            boost::text::unpack_iterator_and_sentinel(
+                std::declval<from_iterator>(), std::declval<from_sentinel>())));
+        using sentinel = decltype(detail::make_utf_view_sent<Format>(
+            boost::text::unpack_iterator_and_sentinel(
+                std::declval<from_iterator>(), std::declval<from_sentinel>())));
+
+        constexpr utf_view() {}
+        constexpr utf_view(V base)
+        {
+            if constexpr (std::is_pointer_v<V>) {
+                auto r = boost::text::unpack_iterator_and_sentinel(
+                    base, null_sentinel);
+                first_ = detail::make_utf_view_iter<Format>(r);
+                last_ = detail::make_utf_view_sent<Format>(r);
+            } else {
+                auto r = boost::text::unpack_iterator_and_sentinel(
+                    std::ranges::begin(base), std::ranges::end(base));
+                first_ = detail::make_utf_view_iter<Format>(r);
+                last_ = detail::make_utf_view_sent<Format>(r);
+            }
         }
 
         constexpr iterator begin() const { return first_; }
@@ -318,129 +349,33 @@ namespace boost { namespace text {
 
         /** Stream inserter; performs unformatted output, in UTF-8
             encoding. */
-        friend std::ostream & operator<<(std::ostream & os, utf8_view v)
+        friend std::ostream & operator<<(std::ostream & os, utf_view v)
         {
-            auto out = std::ostreambuf_iterator<char>(os);
-            for (auto it = v.begin(); it != v.end(); ++it, ++out) {
-                *out = *it;
+            if constexpr (Format == format::utf8) {
+                auto out = std::ostreambuf_iterator<char>(os);
+                for (auto it = v.begin(); it != v.end(); ++it, ++out) {
+                    *out = *it;
+                }
+            } else {
+                boost::text::transcode_to_utf8(
+                    v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
             }
             return os;
         }
 #if defined(BOOST_TEXT_DOXYGEN) || defined(_MSC_VER)
         /** Stream inserter; performs unformatted output, in UTF-16 encoding.
             Defined on Windows only. */
-        friend std::wostream & operator<<(std::wostream & os, utf8_view v)
+        friend std::wostream & operator<<(std::wostream & os, utf_view v)
         {
-            boost::text::transcode_to_utf16(
-                v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
-            return os;
-        }
-#endif
-
-    private:
-        iterator first_;
-        [[no_unique_address]] sentinel last_;
-    };
-
-    /** A view over UTF-16 code units. */
-#if BOOST_TEXT_USE_CONCEPTS
-    template<utf_iter I, std::sentinel_for<I> S = I>
-#else
-    template<typename I, typename S = I>
-#endif
-    struct utf16_view : stl_interfaces::view_interface<utf16_view<I, S>>
-    {
-        using from_iterator = I;
-        using from_sentinel = S;
-
-        using iterator = decltype(detail::make_utf_view_iter<format::utf16>(
-            boost::text::unpack_iterator_and_sentinel(
-                std::declval<I>(), std::declval<S>())));
-        using sentinel = decltype(detail::make_utf_view_sent<format::utf16>(
-            boost::text::unpack_iterator_and_sentinel(
-                std::declval<I>(), std::declval<S>())));
-
-        constexpr utf16_view() {}
-        constexpr utf16_view(I first, S last)
-        {
-            auto r = boost::text::unpack_iterator_and_sentinel(first, last);
-            first_ = detail::make_utf_view_iter<format::utf16>(r);
-            last_ = detail::make_utf_view_sent<format::utf16>(r);
-        }
-
-        constexpr iterator begin() const { return first_; }
-        constexpr sentinel end() const { return last_; }
-
-        /** Stream inserter; performs unformatted output, in UTF-8
-            encoding. */
-        friend std::ostream & operator<<(std::ostream & os, utf16_view v)
-        {
-            boost::text::transcode_to_utf8(
-                v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
-            return os;
-        }
-#if defined(BOOST_TEXT_DOXYGEN) || defined(_MSC_VER)
-        /** Stream inserter; performs unformatted output, in UTF-16 encoding.
-            Defined on Windows only. */
-        friend std::wostream & operator<<(std::wostream & os, utf16_view v)
-        {
-            auto out = std::ostreambuf_iterator<wchar_t>(os);
-            for (auto it = v.begin(); it != v.end(); ++it, ++out) {
-                *out = *it;
+            if constexpr (Format == format::utf16) {
+                auto out = std::ostreambuf_iterator<wchar_t>(os);
+                for (auto it = v.begin(); it != v.end(); ++it, ++out) {
+                    *out = *it;
+                }
+            } else {
+                boost::text::transcode_to_utf8(
+                    v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
             }
-            return os;
-        }
-#endif
-
-    private:
-        iterator first_;
-        [[no_unique_address]] sentinel last_;
-    };
-
-    /** A view over UTF-32 code units. */
-#if BOOST_TEXT_USE_CONCEPTS
-    template<utf_iter I, std::sentinel_for<I> S = I>
-#else
-    template<typename I, typename S = I>
-#endif
-    struct utf32_view : stl_interfaces::view_interface<utf32_view<I, S>>
-    {
-        using from_iterator = I;
-        using from_sentinel = S;
-
-        using iterator = decltype(detail::make_utf_view_iter<format::utf32>(
-            boost::text::unpack_iterator_and_sentinel(
-                std::declval<I>(), std::declval<S>())));
-        using sentinel = decltype(detail::make_utf_view_sent<format::utf32>(
-            boost::text::unpack_iterator_and_sentinel(
-                std::declval<I>(), std::declval<S>())));
-
-        constexpr utf32_view() {}
-        constexpr utf32_view(I first, S last)
-        {
-            auto r = boost::text::unpack_iterator_and_sentinel(first, last);
-            first_ = detail::make_utf_view_iter<format::utf32>(r);
-            last_ = detail::make_utf_view_sent<format::utf32>(r);
-        }
-
-        constexpr iterator begin() const { return first_; }
-        constexpr sentinel end() const { return last_; }
-
-        /** Stream inserter; performs unformatted output, in UTF-8
-            encoding. */
-        friend std::ostream & operator<<(std::ostream & os, utf32_view v)
-        {
-            boost::text::transcode_to_utf8(
-                v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
-            return os;
-        }
-#if defined(BOOST_TEXT_DOXYGEN) || defined(_MSC_VER)
-        /** Stream inserter; performs unformatted output, in UTF-16 encoding.
-            Defined on Windows only. */
-        friend std::wostream & operator<<(std::wostream & os, utf32_view v)
-        {
-            boost::text::transcode_to_utf16(
-                v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
             return os;
         }
 #endif
@@ -492,8 +427,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                     detail::tag_t<unpacked.format_tag>{},
                     unpacked.first,
                     unpacked.last);
-                return utf8_view<decltype(r.first), decltype(r.last)>(
-                    r.first, r.last);
+                auto subrange = std::ranges::subrange(r.first, r.last);
+                return utf_view<format::utf8, decltype(subrange)>(subrange);
             }
 
             template<typename Range>
@@ -552,8 +487,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                     detail::tag_t<unpacked.format_tag>{},
                     unpacked.first,
                     unpacked.last);
-                return utf16_view<decltype(r.first), decltype(r.last)>(
-                    r.first, r.last);
+                auto subrange = std::ranges::subrange(r.first, r.last);
+                return utf_view<format::utf16, decltype(subrange)>(subrange);
             }
 
             template<typename Range>
@@ -613,9 +548,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                     detail::tag_t<unpacked.format_tag>{},
                     unpacked.first,
                     unpacked.last);
-                return utf32_view<decltype(r.first), decltype(r.last)>(
-                    r.first, r.last);
-            }
+                auto subrange = std::ranges::subrange(r.first, r.last);
+                return utf_view<format::utf32, decltype(subrange)>(subrange);
+           }
 
             template<typename Range>
             constexpr auto operator()(Range && r) const
@@ -670,8 +605,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     detail::tag_t<unpacked.format_tag>{},
                     unpacked.first,
                     unpacked.last);
-                return utf8_view<decltype(r.first), decltype(r.last)>(
-                    r.first, r.last);
+                auto subrange = std::ranges::subrange(r.first, r.last);
+                return utf_view<format::utf8, decltype(subrange)>(subrange);
             }
 
             template<utf_range_like R>
@@ -715,8 +650,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     detail::tag_t<unpacked.format_tag>{},
                     unpacked.first,
                     unpacked.last);
-                return utf16_view<decltype(r.first), decltype(r.last)>(
-                    r.first, r.last);
+                auto subrange = std::ranges::subrange(r.first, r.last);
+                return utf_view<format::utf16, decltype(subrange)>(subrange);
             }
 
             template<utf_range_like R>
@@ -762,8 +697,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     detail::tag_t<unpacked.format_tag>{},
                     unpacked.first,
                     unpacked.last);
-                return utf32_view<decltype(r.first), decltype(r.last)>(
-                    r.first, r.last);
+                auto subrange = std::ranges::subrange(r.first, r.last);
+                return utf_view<format::utf32, decltype(subrange)>(subrange);
             }
 
             template<utf_range_like R>
@@ -783,17 +718,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 }}}
 
 namespace std::ranges {
-    template<boost::text::utf8_iter I, std::sentinel_for<I> S>
-    inline constexpr bool enable_borrowed_range<boost::text::utf8_view<I, S>> =
-        true;
-
-    template<boost::text::utf16_iter I, std::sentinel_for<I> S>
-    inline constexpr bool enable_borrowed_range<boost::text::utf16_view<I, S>> =
-        true;
-
-    template<boost::text::utf32_iter I, std::sentinel_for<I> S>
-    inline constexpr bool enable_borrowed_range<boost::text::utf32_view<I, S>> =
-        true;
+template<boost::text::format Format, typename V>
+inline constexpr bool enable_borrowed_range<boost::text::utf_view<Format, V>> =
+    true;
 }
 
 #endif

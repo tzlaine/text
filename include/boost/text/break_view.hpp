@@ -170,7 +170,7 @@ namespace boost { namespace text {
         typename CPSentinel,
         typename PrevFunc,
         typename NextFunc,
-        typename Subrange = utf32_view<CPIter>>
+        typename Subrange = utf_view<format::utf32, CPIter>>
     struct break_view
         : stl_interfaces::view_interface<
               break_view<CPIter, CPSentinel, PrevFunc, NextFunc, Subrange>>

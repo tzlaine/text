@@ -141,7 +141,7 @@ namespace boost { namespace text {
 #else
     template<typename I>
 #endif
-    struct grapheme_ref : utf32_view<I>
+    struct grapheme_ref : utf_view<format::utf32, std::ranges::subrange<I>>
     {
         /** Default ctor. */
         constexpr grapheme_ref() = default;
@@ -150,7 +150,8 @@ namespace boost { namespace text {
 
             \pre The code points in [first, last) comprise at most one
             grapheme. */
-        constexpr grapheme_ref(I first, I last) : utf32_view<I>(first, last)
+        constexpr grapheme_ref(I first, I last) :
+            utf_view<format::utf32, I>(first, last)
         {
             BOOST_ASSERT(boost::text::next_grapheme_break(first, last) == last);
         }
@@ -158,7 +159,8 @@ namespace boost { namespace text {
         /** Constructs *this from r.
 
             \pre The code points in r comprise at most one grapheme. */
-        constexpr grapheme_ref(utf32_view<I> r) :
+        constexpr grapheme_ref(
+            utf_view<format::utf32, std::ranges::subrange<I>> r) :
             grapheme_ref(r.begin(), r.end())
         {}
 
@@ -167,7 +169,7 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_CONCEPTS
             requires std::same_as<I, grapheme::iterator>
 #endif
-            : utf32_view<I>(g.begin(), g.end())
+            : utf_view<format::utf32, I>(g.begin(), g.end())
         {}
 
         /** Returns true if lhs the same sequence of code points as rhs. */
@@ -195,7 +197,7 @@ namespace boost { namespace text {
 #else
     template<typename I>
 #endif
-    grapheme_ref(utf32_view<I>) -> grapheme_ref<I>;
+    grapheme_ref(utf_view<format::utf32, I>) -> grapheme_ref<I>;
 
 #if !defined(_MSC_VER)
     grapheme_ref(grapheme) -> grapheme_ref<grapheme::const_iterator>;
