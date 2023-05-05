@@ -373,7 +373,7 @@ namespace boost { namespace text {
                     *out = *it;
                 }
             } else {
-                boost::text::transcode_to_utf8(
+                boost::text::transcode_to_utf16(
                     v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
             }
             return os;
