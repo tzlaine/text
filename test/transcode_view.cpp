@@ -16,6 +16,36 @@
 
 using namespace boost::text;
 
+TEST(transcode_view, adaptor_semantics) {
+    static_assert(std::is_same_v<
+                  decltype(std::views::all(u8"text") | boost::text::as_utf16),
+                  boost::text::utf_view<boost::text::format::utf16, std::ranges::ref_view<const char8_t [5]>>>);
+
+    std::u8string str = u8"text";
+
+    static_assert(std::is_same_v<
+                  decltype(std::views::all(str) | boost::text::as_utf16),
+                  boost::text::utf_view<boost::text::format::utf16, std::ranges::ref_view<std::u8string>>>);
+
+    static_assert(std::is_same_v<
+                  decltype(str.c_str() | boost::text::as_utf16),
+                  boost::text::utf_view<boost::text::format::utf16, const char8_t *>>);
+
+    static_assert(std::is_same_v<
+                  decltype(std::ranges::empty_view<int>{} | boost::text::as_utf16),
+                  std::ranges::empty_view<int>>);
+
+    std::u16string str2 = u"text";
+
+    static_assert(std::is_same_v<
+                  decltype(std::views::all(str2) | boost::text::as_utf16),
+                  std::ranges::ref_view<std::u16string>>);
+
+    static_assert(std::is_same_v<
+                  decltype(str2.c_str() | boost::text::as_utf16),
+                  std::ranges::subrange<const char16_t *, boost::text::null_sentinel_t>>);
+}
+
 TEST(transcode_view, detail_make_utf8)
 {
     char const * str8 = "foo";

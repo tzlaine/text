@@ -594,6 +594,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 #endif
 
     namespace dtl {
+        template<typename T>
+        struct is_empty_view : std::false_type {};
+        template<typename T>
+        struct is_empty_view<std::ranges::empty_view<T>> : std::true_type {};
+        template<typename T>
+        constexpr bool is_empty_view_v = is_empty_view<T>::value;
+
         struct as_utf8_impl : range_adaptor_closure<as_utf8_impl>
         {
             template<utf_iter I, std::sentinel_for<I> S>
@@ -657,12 +664,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<utf_range_like R>
             constexpr auto operator()(R && r) const
             {
-                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>)
-                    return (*this)(r, null_sentinel);
-                else if constexpr (std::ranges::borrowed_range<R>)
-                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
-                else
-                    return std::ranges::dangling{};
+                using T = std::remove_cvref_t<decltype((r))>;
+                if constexpr (std::ranges::range<T>) {
+                    if constexpr (dtl::is_empty_view_v<T> ||
+                                  code_unit_iter<std::ranges::iterator_t<T>, format::utf16>) {
+                        return r;
+                    } else {
+                        return utf_view<format::utf16, T>((R &&)r);
+                    }
+                } else {
+                    if constexpr (code_unit_iter<T, format::utf16>) {
+                        return std::ranges::subrange(r, null_sentinel);
+                    } else {
+                        return utf_view<format::utf16, T>((R &&)r);
+                    }
+                }
             }
         };
     }
