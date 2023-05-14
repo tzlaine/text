@@ -309,7 +309,8 @@ namespace boost { namespace text { namespace detail {
 
         match_result longest_subsequence(uint32_t cp) const
         {
-            auto const r = boost::text::as_utf16(&cp, &cp + 1);
+            auto const r =
+                std::ranges::subrange(&cp, &cp + 1) | boost::text::as_utf16;
             return impl_.longest_subsequence(r.begin(), r.end());
         }
 
@@ -328,7 +329,8 @@ namespace boost { namespace text { namespace detail {
 
         match_result extend_subsequence(match_result prev, uint32_t cp) const
         {
-            auto const r = boost::text::as_utf16(&cp, &cp + 1);
+            auto const r =
+                std::ranges::subrange(&cp, &cp + 1) | boost::text::as_utf16;
             return impl_.extend_subsequence(prev, r.begin(), r.end());
         }
 

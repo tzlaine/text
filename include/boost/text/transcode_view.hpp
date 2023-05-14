@@ -579,158 +579,58 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
 #if defined(BOOST_TEXT_DOXYGEN)
 
-    /** Returns a `utf8_view` over the data in `[first, last)`.  The view will
-        transcode the data if necessary. */
-    template<utf_iter I, std::sentinel_for<I> S>
-    constexpr detail::unspecified as_utf8(I first, S last);
+    /** A view adaptor that produces a UTF-8 view of the given view. */
+    constexpr detail::unspecified as_utf8;
 
-    /** Returns a `utf8_view` over the data in `r`.  The view will transcode
-        the data if necessary.  If `std::remove_reference_t<R>` is not a
-        pointer, the result is returned as a `borrowed_view_t` (C++20 and
-        later only). */
-    template<utf_range_like R>
-    constexpr detail::unspecified as_utf8(R && r);
+    /** A view adaptor that produces a UTF-16 view of the given view. */
+    constexpr detail::unspecified as_utf16;
+
+    /** A view adaptor that produces a UTF-32 view of the given view. */
+    constexpr detail::unspecified as_utf32;
 
 #endif
 
     namespace dtl {
         template<typename T>
-        struct is_empty_view : std::false_type {};
+        struct is_empty_view : std::false_type
+        {};
         template<typename T>
-        struct is_empty_view<std::ranges::empty_view<T>> : std::true_type {};
+        struct is_empty_view<std::ranges::empty_view<T>> : std::true_type
+        {};
         template<typename T>
         constexpr bool is_empty_view_v = is_empty_view<T>::value;
 
-        struct as_utf8_impl : range_adaptor_closure<as_utf8_impl>
+        template<format Format>
+        struct as_utf_impl : range_adaptor_closure<as_utf_impl<Format>>
         {
-            template<utf_iter I, std::sentinel_for<I> S>
-            constexpr auto operator()(I first, S last) const
-            {
-                auto unpacked =
-                    text::unpack_iterator_and_sentinel(first, last);
-                auto r = detail::make_utf8_range_(
-                    detail::tag_t<unpacked.format_tag>{},
-                    unpacked.first,
-                    unpacked.last);
-                auto subrange = std::ranges::subrange(r.first, r.last);
-                return utf_view<format::utf8, decltype(subrange)>(subrange);
-            }
-
-            template<utf_range_like R>
-            constexpr auto operator()(R && r) const
-            {
-                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>)
-                    return (*this)(r, null_sentinel);
-                else if constexpr (std::ranges::borrowed_range<R>)
-                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
-                else
-                    return std::ranges::dangling{};
-            }
-        };
-    }
-
-    inline constexpr dtl::as_utf8_impl as_utf8;
-
-#if defined(BOOST_TEXT_DOXYGEN)
-
-    /** Returns a `utf16_view` over the data in `[first, last)`.  The view
-        will transcode the data if necessary. */
-    template<utf_iter I, std::sentinel_for<I> S>
-    constexpr detail::unspecified as_utf16(I first, S last);
-
-    /** Returns a `utf16_view` over the data in `r` the data if necessary.  If
-        `std::remove_reference_t<R>` is not a pointer, the result is returned
-        as a `borrowed_view_t` (C++20 and later only). */
-    template<utf_range_like R>
-    constexpr detail::unspecified as_utf16(R && r);
-
-#endif
-
-    namespace dtl {
-        struct as_utf16_impl : range_adaptor_closure<as_utf16_impl>
-        {
-            template<utf_iter I, std::sentinel_for<I> S>
-            constexpr auto operator()(I first, S last) const
-            {
-                auto unpacked = text::unpack_iterator_and_sentinel(first, last);
-                auto r = detail::make_utf16_range_(
-                    detail::tag_t<unpacked.format_tag>{},
-                    unpacked.first,
-                    unpacked.last);
-                auto subrange = std::ranges::subrange(r.first, r.last);
-                return utf_view<format::utf16, decltype(subrange)>(subrange);
-            }
-
             template<utf_range_like R>
             constexpr auto operator()(R && r) const
             {
                 using T = std::remove_cvref_t<decltype((r))>;
                 if constexpr (std::ranges::range<T>) {
-                    if constexpr (dtl::is_empty_view_v<T> ||
-                                  code_unit_iter<std::ranges::iterator_t<T>, format::utf16>) {
+                    if constexpr (
+                        dtl::is_empty_view_v<T> ||
+                        code_unit_iter<std::ranges::iterator_t<T>, Format>) {
                         return r;
                     } else {
-                        return utf_view<format::utf16, T>((R &&)r);
+                        return utf_view<Format, T>((R &&) r);
                     }
                 } else {
-                    if constexpr (code_unit_iter<T, format::utf16>) {
+                    if constexpr (code_unit_pointer<T, Format>) {
                         return std::ranges::subrange(r, null_sentinel);
                     } else {
-                        return utf_view<format::utf16, T>((R &&)r);
+                        return utf_view<Format, T>((R &&) r);
                     }
                 }
             }
         };
     }
 
-    inline constexpr dtl::as_utf16_impl as_utf16;
+    inline constexpr dtl::as_utf_impl<format::utf8> as_utf8;
 
-#if defined(BOOST_TEXT_DOXYGEN)
+    inline constexpr dtl::as_utf_impl<format::utf16> as_utf16;
 
-    /** Returns a `utf32_view` over the data in `[first, last)`.  The view
-         will transcode the data if necessary. */
-    template<utf_iter I, std::sentinel_for<I> S>
-    constexpr detail::unspecified as_utf32(I first, S last);
-
-    /** Returns a `utf32_view` over the data in `r`.  The view will transcode
-        the data if necessary.  If `std::remove_reference_t<R>` is not a
-        pointer, the result is returned as a `borrowed_view_t` (C++20 and
-        later only). */
-    template<utf_range_like R>
-    constexpr detail::unspecified as_utf32(R && r);
-
-#endif
-
-    namespace dtl {
-        struct as_utf32_impl : range_adaptor_closure<as_utf32_impl>
-        {
-            template<utf_iter I, std::sentinel_for<I> S>
-            constexpr auto operator()(I first, S last) const
-            {
-                auto unpacked =
-                    text::unpack_iterator_and_sentinel(first, last);
-                auto r = detail::make_utf32_range_(
-                    detail::tag_t<unpacked.format_tag>{},
-                    unpacked.first,
-                    unpacked.last);
-                auto subrange = std::ranges::subrange(r.first, r.last);
-                return utf_view<format::utf32, decltype(subrange)>(subrange);
-            }
-
-            template<utf_range_like R>
-            constexpr auto operator()(R && r) const
-            {
-                if constexpr (std::is_pointer_v<std::remove_reference_t<R>>)
-                    return (*this)(r, null_sentinel);
-                else if constexpr (std::ranges::borrowed_range<R>)
-                    return (*this)(std::ranges::begin(r), std::ranges::end(r));
-                else
-                    return std::ranges::dangling{};
-            }
-        };
-    }
-
-    inline constexpr dtl::as_utf32_impl as_utf32;
+    inline constexpr dtl::as_utf_impl<format::utf32> as_utf32;
 }}}
 
 namespace std::ranges {

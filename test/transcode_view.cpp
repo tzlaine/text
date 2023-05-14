@@ -858,17 +858,17 @@ TEST(transcode_view, as_utfN)
 {
     // array
     {
-        auto r = as_utf8(utf32_);
+        auto r = std::views::all(utf32_) | as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
     {
-        auto r = as_utf8(utf16_);
+        auto r = std::views::all(utf16_) | as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
     {
-        auto r = as_utf8(utf8_);
+        auto r = std::views::all(utf8_) | as_utf8;
         static_assert(
             std::is_same<decltype(r.begin()), char8_t const *>::value, "");
         static_assert(
@@ -877,36 +877,17 @@ TEST(transcode_view, as_utfN)
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
     {
-        auto r = utf32_ | as_utf8;
+        auto r = std::views::all(utf32_) | as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
     {
-        auto r = utf16_ | as_utf8;
+        auto r = std::views::all(utf16_) | as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
     {
-        auto r = utf8_ | as_utf8;
-        static_assert(
-            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
-        static_assert(
-            std::is_same<decltype(r.end()), char8_t const *>::value, "");
-        EXPECT_TRUE(boost::algorithm::equal(
-            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
-    }
-    {
-        auto r = utf32_ | as_utf8;
-        EXPECT_TRUE(boost::algorithm::equal(
-            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
-    }
-    {
-        auto r = utf16_ | as_utf8;
-        EXPECT_TRUE(boost::algorithm::equal(
-            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
-    }
-    {
-        auto r = utf8_ | as_utf8;
+        auto r = std::views::all(utf8_) | as_utf8;
         static_assert(
             std::is_same<decltype(r.begin()), char8_t const *>::value, "");
         static_assert(
@@ -917,7 +898,7 @@ TEST(transcode_view, as_utfN)
 
     // ptr/sentinel
     {
-        auto r = as_utf8(utf32_null, null_sentinel);
+        auto r = (utf32_null + 0) | as_utf8;
         auto truth = utf8_;
         int i = 0;
         for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
@@ -925,7 +906,7 @@ TEST(transcode_view, as_utfN)
         }
     }
     {
-        auto r = as_utf8(utf16_null, null_sentinel);
+        auto r = (utf16_null + 0) | as_utf8;
         auto truth = utf8_;
         int i = 0;
         for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
@@ -933,7 +914,7 @@ TEST(transcode_view, as_utfN)
         }
     }
     {
-        auto r = as_utf8(utf8_null, null_sentinel);
+        auto r = (utf8_null + 0) | as_utf8;
         auto truth = utf8_;
         int i = 0;
         for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
@@ -1149,17 +1130,8 @@ TEST(transcode_view, as_utfN)
 
     // funkyzeit
     {
-        auto r = as_utf8(as_utf16(as_utf8(as_utf32(as_utf16(as_utf8(utf8_))))));
-        EXPECT_TRUE(boost::algorithm::equal(
-            r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
-        static_assert(
-            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
-        static_assert(
-            std::is_same<decltype(r.end()), char8_t const *>::value, "");
-    }
-    {
-        auto r = utf8_ | as_utf8 | as_utf16 | as_utf32 | as_utf8 | as_utf16 |
-                 as_utf8;
+        auto r = std::views::all(utf8_) | as_utf8 | as_utf16 | as_utf32 |
+                 as_utf8 | as_utf16 | as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
         static_assert(
@@ -1174,21 +1146,21 @@ TEST(transcode_view, stream_insertion)
     std::string const truth(std::begin(utf8_null), std::end(utf8_null) - 1);
     {
         char8_t const * ptr = utf8_null;
-        auto r = as_utf8(ptr);
+        auto r = utf_view<format::utf8, char8_t const *>(ptr);
         std::stringstream ss;
         ss << r;
         EXPECT_EQ(ss.str(), truth);
     }
     {
         char8_t const * ptr = utf8_null;
-        auto r = as_utf16(ptr);
+        auto r = ptr | as_utf16;
         std::stringstream ss;
         ss << r;
         EXPECT_EQ(ss.str(), truth);
     }
     {
         char8_t const * ptr = utf8_null;
-        auto r = as_utf32(ptr);
+        auto r = ptr | as_utf32;
         std::stringstream ss;
         ss << r;
         EXPECT_EQ(ss.str(), truth);
