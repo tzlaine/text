@@ -16,7 +16,8 @@
 
 using namespace boost::text;
 
-TEST(transcode_view, adaptor_semantics) {
+TEST(transcode_view, adaptor_semantics)
+{
     static_assert(std::is_same_v<
                   decltype(std::views::all(u8"text") | boost::text::as_utf16),
                   boost::text::utf_view<boost::text::format::utf16, std::ranges::ref_view<const char8_t [5]>>>);
