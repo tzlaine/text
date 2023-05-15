@@ -525,9 +525,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             template<utf_iter I, std::sentinel_for<I> S>
             constexpr auto operator()(I first, S last) const
             {
-                auto intermediate = boost::text::as_utf32(first, last);
+                auto intermediate =
+                    std::ranges::subrange(first, last) | boost::text::as_utf32;
                 return detail::as_stream_safe_impl(
-                    intermediate.begin(), intermediate.end());
+                    std::ranges::begin(intermediate),
+                    std::ranges::end(intermediate));
             }
 
             template<utf_range_like R>
@@ -538,8 +540,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     !std::ranges::borrowed_range<R>) {
                     return std::ranges::dangling{};
                 } else {
-                    auto intermediate = boost::text::as_utf32(r);
-                    return (*this)(intermediate.begin(), intermediate.end());
+                    auto intermediate = r | boost::text::as_utf32;
+                    return (*this)(
+                        std::ranges::begin(intermediate),
+                        std::ranges::end(intermediate));
                 }
             }
         };

@@ -151,7 +151,8 @@ namespace boost { namespace text {
             \pre The code points in [first, last) comprise at most one
             grapheme. */
         constexpr grapheme_ref(I first, I last) :
-            utf_view<format::utf32, I>(first, last)
+            utf_view<format::utf32, std::ranges::subrange<I>>(
+                std::ranges::subrange(first, last))
         {
             BOOST_ASSERT(boost::text::next_grapheme_break(first, last) == last);
         }
@@ -161,15 +162,21 @@ namespace boost { namespace text {
             \pre The code points in r comprise at most one grapheme. */
         constexpr grapheme_ref(
             utf_view<format::utf32, std::ranges::subrange<I>> r) :
-            grapheme_ref(r.begin(), r.end())
-        {}
+            utf_view<format::utf32, std::ranges::subrange<I>>(r)
+        {
+            auto const f = std::ranges::begin(r);
+            auto const l = std::ranges::end(r);
+            BOOST_ASSERT(boost::text::next_grapheme_break(f, l) == l);
+        }
 
         /** Constructs *this from g. */
         constexpr grapheme_ref(grapheme const & g)
 #if BOOST_TEXT_USE_CONCEPTS
             requires std::same_as<I, grapheme::iterator>
 #endif
-            : utf_view<format::utf32, I>(g.begin(), g.end())
+            :
+            utf_view<format::utf32, std::ranges::subrange<I>>(
+                std::views::all(g))
         {}
 
         /** Returns true if lhs the same sequence of code points as rhs. */
@@ -185,19 +192,12 @@ namespace boost { namespace text {
     };
 
 #if defined(__cpp_deduction_guides)
-#if BOOST_TEXT_USE_CONCEPTS
-    template<code_point_iter I>
-#else
     template<typename I>
-#endif
     grapheme_ref(I, I) -> grapheme_ref<I>;
 
-#if BOOST_TEXT_USE_CONCEPTS
-    template<code_point_iter I>
-#else
-    template<typename I>
-#endif
-    grapheme_ref(utf_view<format::utf32, I>) -> grapheme_ref<I>;
+    template<typename V>
+    grapheme_ref(utf_view<format::utf32, V>)
+        -> grapheme_ref<std::ranges::iterator_t<V>>;
 
 #if !defined(_MSC_VER)
     grapheme_ref(grapheme) -> grapheme_ref<grapheme::const_iterator>;

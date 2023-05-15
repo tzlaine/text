@@ -532,7 +532,7 @@ namespace boost { namespace text { namespace detail {
         template<typename Iter>
         static void call(Buffer & buffer, Iter first, Iter last)
         {
-            auto r = boost::text::as_utf16(first, last);
+            auto r = std::ranges::subrange(first, last) | as_utf16;
             buffer.insert(buffer.end(), r.begin(), r.end());
         }
     };
@@ -543,7 +543,7 @@ namespace boost { namespace text { namespace detail {
         template<typename Iter>
         static void call(Buffer & buffer, Iter first, Iter last)
         {
-            auto r = boost::text::as_utf8(first, last);
+            auto r = std::ranges::subrange(first, last) | as_utf8;
             buffer.insert(buffer.end(), r.begin(), r.end());
         }
     };
@@ -560,7 +560,7 @@ namespace boost { namespace text { namespace detail {
         stable_cps_result_t<Iter> string_prefix_range,
         stable_cps_result_t<Iter> string_suffix_range)
     {
-        auto const buffer_cps = boost::text::as_utf32(buffer);
+        auto const buffer_cps = std::views::all(buffer) | boost::text::as_utf32;
 
         auto const first_buffer_mismatch_offset =
             std::mismatch(
@@ -614,8 +614,7 @@ namespace boost { namespace text { namespace detail {
                 string, str_first, str_last);
         }
 
-        auto const string_cps =
-            boost::text::as_utf32(string.begin(), string.end());
+        auto const string_cps = std::views::all(string) | boost::text::as_utf32;
         auto const string_cp_first = boost::text::utf32_iterator(
             string.begin(), str_first, string.end());
         auto const string_cp_last =
@@ -714,8 +713,7 @@ namespace boost { namespace text { namespace detail {
         if (first == last)
             return {first, first};
 
-        auto const string_cps =
-            boost::text::as_utf32(string.begin(), string.end());
+        auto const string_cps = std::views::all(string) | boost::text::as_utf32;
         auto const string_cp_first =
             boost::text::utf32_iterator(string.begin(), first, string.end());
         auto const string_cp_last =

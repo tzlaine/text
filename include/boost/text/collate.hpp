@@ -473,7 +473,8 @@ namespace boost { namespace text {
                 }
 
                 {
-                    auto it_16 = boost::text::as_utf16(first, last).begin();
+                    auto it_16 = std::ranges::begin(
+                        std::ranges::subrange(first, last) | as_utf16);
                     auto s = collation_.size;
                     int cps = 0;
                     while (s) {
@@ -920,8 +921,8 @@ namespace boost { namespace text {
             collation_element const * ces_first,
             LeadByteFunc const & lead_byte)
         {
-            auto const lhs = boost::text::as_utf32(first1, last1);
-            auto const rhs = boost::text::as_utf32(first2, last2);
+            auto const lhs = std::ranges::subrange(first1, last1) | as_utf32;
+            auto const rhs = std::ranges::subrange(first2, last2) | as_utf32;
             text_sort_key const lhs_sk = detail::collation_sort_key(
                 lhs.begin(),
                 lhs.end(),
@@ -1800,7 +1801,7 @@ namespace boost { namespace text { namespace detail {
                 // Check that moving backward one CP still includes the
                 // current CP cp.
                 uint32_t cps[] = {cp2, cp};
-                auto const cus = boost::text::as_utf16(cps);
+                auto const cus = std::views::all(cps) | as_utf16;
                 auto coll = trie.longest_subsequence(cps, cps + 2);
                 if (coll.size != std::distance(cus.begin(), cus.end()))
                     break;
@@ -1985,14 +1986,16 @@ namespace boost { namespace text { namespace detail {
                 std::cout << "before getting primaries:\n";
 
                 std::cout << " left: cps: " << std::hex;
-                auto const l_r = boost::text::as_utf32(l_prim.it_, last1);
+                auto const l_r =
+                    std::ranges::subrange(l_prim.it_, last1) | as_utf32;
                 for (auto cp : l_r) {
                     std::cout << "0x" << cp << " ";
                 }
                 std::cout << "\n";
 
                 std::cout << "right: cps: " << std::hex;
-                auto const r_r = boost::text::as_utf32(r_prim.it_, last2);
+                auto const r_r =
+                    std::ranges::subrange(r_prim.it_, last2) | as_utf32;
                 for (auto cp : r_r) {
                     std::cout << "0x" << cp << " ";
                 }
@@ -2032,14 +2035,16 @@ namespace boost { namespace text { namespace detail {
                 std::cout << "after getting primaries:\n";
 
                 std::cout << " left: cps: " << std::hex;
-                auto const l_r = boost::text::as_utf32(l_prim.it_, last1);
+                auto const l_r =
+                    std::ranges::subrange(l_prim.it_, last1) | as_utf32;
                 for (auto cp : l_r) {
                     std::cout << "0x" << cp << " ";
                 }
                 std::cout << "\n";
 
                 std::cout << "right: cps: " << std::hex;
-                auto const r_r = boost::text::as_utf32(r_prim.it_, last2);
+                auto const r_r =
+                    std::ranges::subrange(r_prim.it_, last2) | as_utf32;
                 for (auto cp : r_r) {
                     std::cout << "0x" << cp << " ";
                 }
@@ -2134,7 +2139,7 @@ namespace boost { namespace text { namespace detail {
             std::cout << "**************** at end of loop:\n";
 
             std::cout << " left: cps: " << std::hex;
-            auto const l_r = boost::text::as_utf32(lhs_it, last1);
+            auto const l_r = std::ranges::subrange(lhs_it_, last1) | as_utf32;
             for (auto cp : l_r) {
                 std::cout << "0x" << cp << " ";
             }
@@ -2145,7 +2150,7 @@ namespace boost { namespace text { namespace detail {
             std::cout << "\n";
 
             std::cout << "right: cps: " << std::hex;
-            auto const r_r = boost::text::as_utf32(rhs_it, last2);
+            auto const r_r = std::ranges::subrange(rhs_it_, last1) | as_utf32;
             for (auto cp : r_r) {
                 std::cout << "0x" << cp << " ";
             }
@@ -2161,9 +2166,9 @@ namespace boost { namespace text { namespace detail {
             return 0;
 
         auto const lhs =
-            boost::text::as_utf32(lhs_identical_prefix, last1);
+            std::ranges::subrange(lhs_identical_prefix, last1) | as_utf32;
         auto const rhs =
-            boost::text::as_utf32(rhs_identical_prefix, last2);
+            std::ranges::subrange(rhs_identical_prefix, last2) | as_utf32;
         text_sort_key const lhs_sk = detail::collation_sort_key(
             lhs.begin(),
             lhs.end(),

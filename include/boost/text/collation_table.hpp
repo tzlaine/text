@@ -1472,7 +1472,7 @@ namespace boost { namespace text {
                     continue;
                 }
                 buf.assign(pair.key.begin(), pair.key.end());
-                auto const cps = boost::text::as_utf32(buf);
+                auto const cps = std::views::all(buf) | as_utf32;
                 std::copy(
                     std::next(cps.begin()),
                     cps.end(),

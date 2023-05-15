@@ -290,7 +290,7 @@ namespace boost { namespace text { namespace detail {
             static_assert(std::is_same<
                           std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
-            return impl_.contains(boost::text::as_utf16(key));
+            return impl_.contains(std::views::all(key) | as_utf16);
         }
 
         template<typename KeyIter, typename Sentinel>
@@ -299,7 +299,7 @@ namespace boost { namespace text { namespace detail {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
             return impl_.longest_subsequence(
-                boost::text::as_utf16(first, last));
+                std::ranges::subrange(first, last) | as_utf16);
         }
 
         match_result longest_subsequence(uint16_t cu) const
@@ -309,8 +309,7 @@ namespace boost { namespace text { namespace detail {
 
         match_result longest_subsequence(uint32_t cp) const
         {
-            auto const r =
-                std::ranges::subrange(&cp, &cp + 1) | boost::text::as_utf16;
+            auto const r = std::ranges::subrange(&cp, &cp + 1) | as_utf16;
             return impl_.longest_subsequence(r.begin(), r.end());
         }
 
@@ -319,7 +318,8 @@ namespace boost { namespace text { namespace detail {
         {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
-            return impl_.longest_match(boost::text::as_utf16(first, last));
+            return impl_.longest_match(
+                std::ranges::subrange(first, last) | as_utf16);
         }
 
         match_result extend_subsequence(match_result prev, uint16_t cu) const
@@ -329,8 +329,7 @@ namespace boost { namespace text { namespace detail {
 
         match_result extend_subsequence(match_result prev, uint32_t cp) const
         {
-            auto const r =
-                std::ranges::subrange(&cp, &cp + 1) | boost::text::as_utf16;
+            auto const r = std::ranges::subrange(&cp, &cp + 1) | as_utf16;
             return impl_.extend_subsequence(prev, r.begin(), r.end());
         }
 
@@ -341,7 +340,7 @@ namespace boost { namespace text { namespace detail {
             static_assert(std::is_same<
                           std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
-            return impl_[boost::text::as_utf16(key)];
+            return impl_[std::views::all(key) | as_utf16];
         }
 
         boost::text::optional_ref<value_type const>
@@ -363,7 +362,7 @@ namespace boost { namespace text { namespace detail {
                           std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
             return impl_.insert(
-                boost::text::as_utf16(key), std::move(value));
+                std::views::all(key) | as_utf16, std::move(value));
         }
 
         template<typename KeyIter, typename Sentinel>
@@ -372,7 +371,8 @@ namespace boost { namespace text { namespace detail {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
             return impl_.insert_or_assign(
-                boost::text::as_utf16(first, last), std::move(value));
+                std::ranges::subrange(first, last) | as_utf16,
+                std::move(value));
         }
 
         template<typename KeyRange>
@@ -382,7 +382,7 @@ namespace boost { namespace text { namespace detail {
                           std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
             return impl_.insert_or_assign(
-                boost::text::as_utf16(key), std::move(value));
+                std::views::all(key) | as_utf16, std::move(value));
         }
 
         bool erase(match_result match) { return impl_.erase(match); }

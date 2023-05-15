@@ -76,7 +76,7 @@ TEST(str_algo, find)
     }
     {
         char const * here_ptr = "here";
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         auto const result = text::find(here_ptr, he);
         EXPECT_TRUE(
             result.begin() == std::next(text::as_utf32(here_ptr).begin(), 0));
@@ -86,7 +86,7 @@ TEST(str_algo, find)
     {
         char const * here_ptr = "here";
         auto const here = text::as_utf32(here_ptr);
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         auto const result = text::find(here, he);
         EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
@@ -140,7 +140,7 @@ TEST(str_algo, find)
         EXPECT_TRUE(result.end() == std::next(r1.begin(), 4));
     }
     {
-        auto const r1 = text::as_graphemes(here_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
         auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         auto const result =
             text::find(r1.begin(), r1.end(), r2.begin(), r2.end());
@@ -149,15 +149,17 @@ TEST(str_algo, find)
     }
     {
         auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r2 =
+            text::as_graphemes(std::views::all(std::views::all(he_array)));
         auto const result =
             text::find(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result.begin() == std::next(r1.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(r1.begin(), 2));
     }
     {
-        auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
+        auto const r2 =
+            text::as_graphemes(std::views::all(std::views::all(he_array)));
         auto const result =
             text::find(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result.begin() == std::next(r1.begin(), 0));
@@ -166,34 +168,40 @@ TEST(str_algo, find)
 
     // Grapheme ranges.
     {
-        auto const here = text::as_graphemes(here_array);
-        auto const he = text::as_graphemes(he_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
+        auto const he =
+            text::as_graphemes(std::views::all(std::views::all(he_array)));
         auto const result = text::find(here, he);
         EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
     }
     {
-        auto const result = text::find(text::as_graphemes(here_array), "he");
+        auto const result =
+            text::find(text::as_graphemes(std::views::all(here_array)), "he");
         EXPECT_TRUE(result.begin() == here_array + 0);
         EXPECT_TRUE(result.end() == here_array + 2);
     }
     {
         char const * he_ptr = "he";
-        auto const result = text::find(text::as_graphemes(here_array), he_ptr);
+        auto const result =
+            text::find(text::as_graphemes(std::views::all(here_array)), he_ptr);
         EXPECT_TRUE(result.begin() == here_array + 0);
         EXPECT_TRUE(result.end() == here_array + 2);
     }
     {
         char16_t const here_array[] = {'h', 'e', 'r', 'e'};
-        auto const result =
-            text::find(here_array, text::as_graphemes(he_array));
-        auto const here = text::as_graphemes(here_array);
+        auto const result = text::find(
+            std::views::all(here_array),
+            text::as_graphemes(std::views::all(std::views::all(he_array))));
+        auto const here = text::as_graphemes(std::views::all(here_array));
         EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
     }
     {
         char16_t const * here_ptr = u"here";
-        auto const result = text::find(here_ptr, text::as_graphemes(he_array));
+        auto const result = text::find(
+            here_ptr,
+            text::as_graphemes(std::views::all(std::views::all(he_array))));
         auto const here = text::as_graphemes(here_ptr);
         EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
@@ -231,7 +239,7 @@ TEST(str_algo, rfind)
     }
     {
         char const * teehee_ptr = "teehee";
-        auto const he = text::as_utf32("ee");
+        auto const he = std::views::all("ee") | text::as_utf32;
         auto const result = text::rfind(teehee_ptr, he);
         EXPECT_TRUE(
             result.begin() == std::next(text::as_utf32(teehee_ptr).begin(), 4));
@@ -241,7 +249,7 @@ TEST(str_algo, rfind)
     {
         char const * teehee_ptr = "teehee";
         auto const teehee = text::as_utf32(teehee_ptr);
-        auto const he = text::as_utf32("ee");
+        auto const he = std::views::all("ee") | text::as_utf32;
         auto const result = text::rfind(teehee, he);
         EXPECT_TRUE(result.begin() == std::next(teehee.begin(), 4));
         EXPECT_TRUE(result.end() == std::next(teehee.begin(), 6));
@@ -273,8 +281,8 @@ TEST(str_algo, rfind)
 
     // Grapheme iterators.
     {
-        auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
+        auto const r2 = text::as_graphemes(std::views::all(he_array));
         auto const result =
             text::rfind(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result.begin() == std::next(r1.begin(), 0));
@@ -283,20 +291,20 @@ TEST(str_algo, rfind)
 
     // Grapheme ranges.
     {
-        auto const here = text::as_graphemes(here_array);
-        auto const he = text::as_graphemes(he_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
+        auto const he = text::as_graphemes(std::views::all(he_array));
         auto const result = text::rfind(here, he);
         EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
     }
     {
-        auto const here = text::as_graphemes(here_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
         auto const result = text::rfind(here, "he");
         EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
     }
     {
-        auto const here = text::as_graphemes(here_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
         char const * he_ptr = "he";
         auto const result = text::rfind(here, he_ptr);
         EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
@@ -304,14 +312,16 @@ TEST(str_algo, rfind)
     }
     {
         char16_t const here_array[] = {'h', 'e', 'r', 'e'};
-        auto const result = text::rfind(here_array, text::as_graphemes(he_array));
-        auto const here = text::as_graphemes(here_array);
+        auto const result = text::rfind(
+            here_array, text::as_graphemes(std::views::all(he_array)));
+        auto const here = text::as_graphemes(std::views::all(here_array));
         EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
     }
     {
         char16_t const * here_ptr = u"here";
-        auto const result = text::rfind(here_ptr, text::as_graphemes(he_array));
+        auto const result = text::rfind(
+            here_ptr, text::as_graphemes(std::views::all(he_array)));
         auto const here = text::as_graphemes(here_ptr);
         EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
@@ -369,14 +379,14 @@ TEST(str_algo, find_first_of)
     }
     {
         char const * here_ptr = "here";
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         auto const result = text::find_first_of(here_ptr, he);
         EXPECT_TRUE(result == std::next(text::as_utf32(here_ptr).begin(), 0));
     }
     {
         char const * here_ptr = "here";
         auto const here = text::as_utf32(here_ptr);
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         auto const result = text::find_first_of(here, he);
         EXPECT_TRUE(result == std::next(here.begin(), 0));
     }
@@ -415,7 +425,7 @@ TEST(str_algo, find_first_of)
         EXPECT_TRUE(result == std::next(r1.begin(), 1));
     }
     {
-        auto const r1 = text::as_graphemes(here_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
         auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         auto const result =
             text::find_first_of(r1.begin(), r1.end(), r2.begin(), r2.end());
@@ -423,14 +433,14 @@ TEST(str_algo, find_first_of)
     }
     {
         auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r2 = text::as_graphemes(std::views::all(he_array));
         auto const result =
             text::find_first_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 0));
     }
     {
-        auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
+        auto const r2 = text::as_graphemes(std::views::all(he_array));
         auto const result =
             text::find_first_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 0));
@@ -438,33 +448,33 @@ TEST(str_algo, find_first_of)
 
     // Grapheme ranges.
     {
-        auto const here = text::as_graphemes(here_array);
-        auto const he = text::as_graphemes(he_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
+        auto const he = text::as_graphemes(std::views::all(he_array));
         auto const result = text::find_first_of(here, he);
         EXPECT_TRUE(result == std::next(here.begin(), 0));
     }
     {
-        auto const here = text::as_graphemes(here_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
         auto const result = text::find_first_of(here, "he");
         EXPECT_TRUE(result == std::next(here.begin(), 0));
     }
     {
-        auto const here = text::as_graphemes(here_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
         char const * he_ptr = "he";
         auto const result = text::find_first_of(here, he_ptr);
         EXPECT_TRUE(result == std::next(here.begin(), 0));
     }
     {
         char16_t const here_array[] = {'h', 'e', 'r', 'e'};
-        auto const result =
-            text::find_first_of(here_array, text::as_graphemes(he_array));
-        auto const here = text::as_graphemes(here_array);
+        auto const result = text::find_first_of(
+            here_array, text::as_graphemes(std::views::all(he_array)));
+        auto const here = text::as_graphemes(std::views::all(here_array));
         EXPECT_TRUE(result == std::next(here.begin(), 0));
     }
     {
         char16_t const * here_ptr = u"here";
-        auto const result =
-            text::find_first_of(here_ptr, text::as_graphemes(he_array));
+        auto const result = text::find_first_of(
+            here_ptr, text::as_graphemes(std::views::all(he_array)));
         auto const here = text::as_graphemes(here_ptr);
         EXPECT_TRUE(result == std::next(here.begin(), 0));
     }
@@ -496,14 +506,14 @@ TEST(str_algo, find_last_of)
     }
     {
         char const * here_ptr = "here";
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         auto const result = text::find_last_of(here_ptr, he);
         EXPECT_TRUE(result == std::next(text::as_utf32(here_ptr).begin(), 3));
     }
     {
         char const * here_ptr = "here";
         auto const here = text::as_utf32(here_ptr);
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         auto const result = text::find_last_of(here, he);
         EXPECT_TRUE(result == std::next(here.begin(), 3));
     }
@@ -521,8 +531,8 @@ TEST(str_algo, find_last_of)
 
     // Grapheme iterators.
     {
-        auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
+        auto const r2 = text::as_graphemes(std::views::all(he_array));
         auto const result =
             text::find_last_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 3));
@@ -530,33 +540,33 @@ TEST(str_algo, find_last_of)
 
     // Grapheme ranges.
     {
-        auto const here = text::as_graphemes(here_array);
-        auto const he = text::as_graphemes(he_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
+        auto const he = text::as_graphemes(std::views::all(he_array));
         auto const result = text::find_last_of(here, he);
         EXPECT_TRUE(result == std::next(here.begin(), 3));
     }
     {
-        auto const here = text::as_graphemes(here_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
         auto const result = text::find_last_of(here, "he");
         EXPECT_TRUE(result == std::next(here.begin(), 3));
     }
     {
-        auto const here = text::as_graphemes(here_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
         char const * he_ptr = "he";
         auto const result = text::find_last_of(here, he_ptr);
         EXPECT_TRUE(result == std::next(here.begin(), 3));
     }
     {
         char16_t const here_array[] = {'h', 'e', 'r', 'e'};
-        auto const result =
-            text::find_last_of(here_array, text::as_graphemes(he_array));
-        auto const here = text::as_graphemes(here_array);
+        auto const result = text::find_last_of(
+            here_array, text::as_graphemes(std::views::all(he_array)));
+        auto const here = text::as_graphemes(std::views::all(here_array));
         EXPECT_TRUE(result == std::next(here.begin(), 3));
     }
     {
         char16_t const * here_ptr = u"here";
-        auto const result =
-            text::find_last_of(here_ptr, text::as_graphemes(he_array));
+        auto const result = text::find_last_of(
+            here_ptr, text::as_graphemes(std::views::all(he_array)));
         auto const here = text::as_graphemes(here_ptr);
         EXPECT_TRUE(result == std::next(here.begin(), 3));
     }
@@ -613,14 +623,14 @@ TEST(str_algo, find_first_not_of)
     }
     {
         char const * here_ptr = "here";
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         auto const result = text::find_first_not_of(here_ptr, he);
         EXPECT_TRUE(result == std::next(text::as_utf32(here_ptr).begin(), 2));
     }
     {
         char const * here_ptr = "here";
         auto const here = text::as_utf32(here_ptr);
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         auto const result = text::find_first_not_of(here, he);
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
@@ -664,7 +674,7 @@ TEST(str_algo, find_first_not_of)
         EXPECT_TRUE(result == std::next(r1.begin(), 0));
     }
     {
-        auto const r1 = text::as_graphemes(here_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
         auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         auto const result =
             text::find_first_not_of(r1.begin(), r1.end(), r2.begin(), r2.end());
@@ -672,14 +682,14 @@ TEST(str_algo, find_first_not_of)
     }
     {
         auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r2 = text::as_graphemes(std::views::all(he_array));
         auto const result =
             text::find_first_not_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 2));
     }
     {
-        auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
+        auto const r2 = text::as_graphemes(std::views::all(he_array));
         auto const result =
             text::find_first_not_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 2));
@@ -687,33 +697,33 @@ TEST(str_algo, find_first_not_of)
 
     // Grapheme ranges.
     {
-        auto const here = text::as_graphemes(here_array);
-        auto const he = text::as_graphemes(he_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
+        auto const he = text::as_graphemes(std::views::all(he_array));
         auto const result = text::find_first_not_of(here, he);
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
     {
-        auto const here = text::as_graphemes(here_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
         auto const result = text::find_first_not_of(here, "he");
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
     {
-        auto const here = text::as_graphemes(here_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
         char const * he_ptr = "he";
         auto const result = text::find_first_not_of(here, he_ptr);
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
     {
         char16_t const here_array[] = {'h', 'e', 'r', 'e'};
-        auto const result =
-            text::find_first_not_of(here_array, text::as_graphemes(he_array));
-        auto const here = text::as_graphemes(here_array);
+        auto const result = text::find_first_not_of(
+            here_array, text::as_graphemes(std::views::all(he_array)));
+        auto const here = text::as_graphemes(std::views::all(here_array));
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
     {
         char16_t const * here_ptr = u"here";
-        auto const result =
-            text::find_first_not_of(here_ptr, text::as_graphemes(he_array));
+        auto const result = text::find_first_not_of(
+            here_ptr, text::as_graphemes(std::views::all(he_array)));
         auto const here = text::as_graphemes(here_ptr);
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
@@ -745,14 +755,14 @@ TEST(str_algo, find_last_not_of)
     }
     {
         char const * here_ptr = "here";
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         auto const result = text::find_last_not_of(here_ptr, he);
         EXPECT_TRUE(result == std::next(text::as_utf32(here_ptr).begin(), 2));
     }
     {
         char const * here_ptr = "here";
         auto const here = text::as_utf32(here_ptr);
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         auto const result = text::find_last_not_of(here, he);
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
@@ -770,8 +780,8 @@ TEST(str_algo, find_last_not_of)
 
     // Grapheme iterators.
     {
-        auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
+        auto const r2 = text::as_graphemes(std::views::all(he_array));
         auto const result =
             text::find_last_not_of(r1.begin(), r1.end(), r2.begin(), r2.end());
         EXPECT_TRUE(result == std::next(r1.begin(), 2));
@@ -779,33 +789,33 @@ TEST(str_algo, find_last_not_of)
 
     // Grapheme ranges.
     {
-        auto const here = text::as_graphemes(here_array);
-        auto const he = text::as_graphemes(he_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
+        auto const he = text::as_graphemes(std::views::all(he_array));
         auto const result = text::find_last_not_of(here, he);
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
     {
-        auto const here = text::as_graphemes(here_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
         auto const result = text::find_last_not_of(here, "he");
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
     {
-        auto const here = text::as_graphemes(here_array);
+        auto const here = text::as_graphemes(std::views::all(here_array));
         char const * he_ptr = "he";
         auto const result = text::find_last_not_of(here, he_ptr);
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
     {
         char16_t const here_array[] = {'h', 'e', 'r', 'e'};
-        auto const result =
-            text::find_last_not_of(here_array, text::as_graphemes(he_array));
-        auto const here = text::as_graphemes(here_array);
+        auto const result = text::find_last_not_of(
+            here_array, text::as_graphemes(std::views::all(he_array)));
+        auto const here = text::as_graphemes(std::views::all(here_array));
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
     {
         char16_t const * here_ptr = u"here";
-        auto const result =
-            text::find_last_not_of(here_ptr, text::as_graphemes(he_array));
+        auto const result = text::find_last_not_of(
+            here_ptr, text::as_graphemes(std::views::all(he_array)));
         auto const here = text::as_graphemes(here_ptr);
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
@@ -845,16 +855,16 @@ TEST(str_algo, starts_with)
         EXPECT_TRUE(text::starts_with("here", "he"));
     }
     {
-        auto const here = text::as_utf32("here");
+        auto const here = std::views::all("here") | text::as_utf32;
         EXPECT_TRUE(text::starts_with(here, "he"));
     }
     {
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         EXPECT_TRUE(text::starts_with("here", he));
     }
     {
-        auto const here = text::as_utf32("here");
-        auto const he = text::as_utf32("he");
+        auto const here = std::views::all("here") | text::as_utf32;
+        auto const he = std::views::all("he") | text::as_utf32;
         EXPECT_TRUE(text::starts_with(here, he));
     }
     {
@@ -884,20 +894,20 @@ TEST(str_algo, starts_with)
             text::starts_with(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
-        auto const r1 = text::as_graphemes(here_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
         auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         EXPECT_TRUE(
             text::starts_with(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
         auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r2 = text::as_graphemes(std::views::all(he_array));
         EXPECT_TRUE(
             text::starts_with(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
-        auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
+        auto const r2 = text::as_graphemes(std::views::all(he_array));
         EXPECT_TRUE(
             text::starts_with(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
@@ -905,21 +915,26 @@ TEST(str_algo, starts_with)
     // Grapheme ranges.
     {
         EXPECT_TRUE(text::starts_with(
-            text::as_graphemes(here_array), text::as_graphemes(he_array)));
-    }
-    {
-        EXPECT_TRUE(text::starts_with(text::as_graphemes(here_array), "he"));
-    }
-    {
-        EXPECT_TRUE(text::starts_with(
-            text::as_graphemes(here_array), (char const *)"he"));
-    }
-    {
-        EXPECT_TRUE(text::starts_with(U"here", text::as_graphemes(he_array)));
+            text::as_graphemes(std::views::all(here_array)),
+            text::as_graphemes(std::views::all(he_array))));
     }
     {
         EXPECT_TRUE(text::starts_with(
-            (char32_t const *)U"here", text::as_graphemes(he_array)));
+            text::as_graphemes(std::views::all(here_array)), "he"));
+    }
+    {
+        EXPECT_TRUE(text::starts_with(
+            text::as_graphemes(std::views::all(here_array)),
+            (char const *)"he"));
+    }
+    {
+        EXPECT_TRUE(text::starts_with(
+            U"here", text::as_graphemes(std::views::all(he_array))));
+    }
+    {
+        EXPECT_TRUE(text::starts_with(
+            (char32_t const *)U"here",
+            text::as_graphemes(std::views::all(he_array))));
     }
 }
 
@@ -939,16 +954,16 @@ TEST(str_algo, ends_with)
         EXPECT_TRUE(text::ends_with("here", "re"));
     }
     {
-        auto const here = text::as_utf32("here");
+        auto const here = std::views::all("here") | text::as_utf32;
         EXPECT_TRUE(text::ends_with(here, "re"));
     }
     {
-        auto const re = text::as_utf32("re");
+        auto const re = std::views::all("re") | text::as_utf32;
         EXPECT_TRUE(text::ends_with("here", re));
     }
     {
-        auto const here = text::as_utf32("here");
-        auto const re = text::as_utf32("re");
+        auto const here = std::views::all("here") | text::as_utf32;
+        auto const re = std::views::all("re") | text::as_utf32;
         EXPECT_TRUE(text::ends_with(here, re));
     }
     {
@@ -972,8 +987,8 @@ TEST(str_algo, ends_with)
 
     // Grapheme iterators.
     {
-        auto const r1 = text::as_graphemes(U"here");
-        auto const r2 = text::as_graphemes(U"re");
+        auto const r1 = text::as_graphemes(std::views::all(U"here"));
+        auto const r2 = text::as_graphemes(std::views::all(U"re"));
         EXPECT_TRUE(
             text::ends_with(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
@@ -981,21 +996,26 @@ TEST(str_algo, ends_with)
     // Grapheme ranges.
     {
         EXPECT_TRUE(text::ends_with(
-            text::as_graphemes(here_array), text::as_graphemes(re_array)));
-    }
-    {
-        EXPECT_TRUE(text::ends_with(text::as_graphemes(here_array), "re"));
-    }
-    {
-        EXPECT_TRUE(text::ends_with(
-            text::as_graphemes(here_array), (char const *)"re"));
-    }
-    {
-        EXPECT_TRUE(text::ends_with(U"here", text::as_graphemes(re_array)));
+            text::as_graphemes(std::views::all(here_array)),
+            text::as_graphemes(std::views::all(re_array))));
     }
     {
         EXPECT_TRUE(text::ends_with(
-            (char32_t const *)U"here", text::as_graphemes(re_array)));
+            text::as_graphemes(std::views::all(here_array)), "re"));
+    }
+    {
+        EXPECT_TRUE(text::ends_with(
+            text::as_graphemes(std::views::all(here_array)),
+            (char const *)"re"));
+    }
+    {
+        EXPECT_TRUE(text::ends_with(
+            U"here", text::as_graphemes(std::views::all(re_array))));
+    }
+    {
+        EXPECT_TRUE(text::ends_with(
+            (char32_t const *)U"here",
+            text::as_graphemes(std::views::all(re_array))));
     }
 }
 
@@ -1041,16 +1061,16 @@ TEST(str_algo, contains)
         EXPECT_TRUE(text::contains("here", "he"));
     }
     {
-        auto const here = text::as_utf32("here");
+        auto const here = std::views::all("here") | text::as_utf32;
         EXPECT_TRUE(text::contains(here, "he"));
     }
     {
-        auto const he = text::as_utf32("he");
+        auto const he = std::views::all("he") | text::as_utf32;
         EXPECT_TRUE(text::contains("here", he));
     }
     {
-        auto const here = text::as_utf32("here");
-        auto const he = text::as_utf32("he");
+        auto const here = std::views::all("here") | text::as_utf32;
+        auto const he = std::views::all("he") | text::as_utf32;
         EXPECT_TRUE(text::contains(here, he));
     }
     {
@@ -1086,38 +1106,43 @@ TEST(str_algo, contains)
         EXPECT_TRUE(text::contains(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
-        auto const r1 = text::as_graphemes(here_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
         auto const r2 = text::as_graphemes(U"he", text::null_sentinel);
         EXPECT_TRUE(text::contains(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
         auto const r1 = text::as_graphemes(U"here", text::null_sentinel);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r2 = text::as_graphemes(std::views::all(he_array));
         EXPECT_TRUE(text::contains(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
     {
-        auto const r1 = text::as_graphemes(here_array);
-        auto const r2 = text::as_graphemes(he_array);
+        auto const r1 = text::as_graphemes(std::views::all(here_array));
+        auto const r2 = text::as_graphemes(std::views::all(he_array));
         EXPECT_TRUE(text::contains(r1.begin(), r1.end(), r2.begin(), r2.end()));
     }
 
     // Grapheme ranges.
     {
         EXPECT_TRUE(text::contains(
-            text::as_graphemes(here_array), text::as_graphemes(he_array)));
-    }
-    {
-        EXPECT_TRUE(text::contains(text::as_graphemes(here_array), "he"));
-    }
-    {
-        EXPECT_TRUE(
-            text::contains(text::as_graphemes(here_array), (char const *)"he"));
-    }
-    {
-        EXPECT_TRUE(text::contains(u"here", text::as_graphemes(he_array)));
+            text::as_graphemes(std::views::all(here_array)),
+            text::as_graphemes(std::views::all(he_array))));
     }
     {
         EXPECT_TRUE(text::contains(
-            (char16_t const *)u"here", text::as_graphemes(he_array)));
+            text::as_graphemes(std::views::all(here_array)), "he"));
+    }
+    {
+        EXPECT_TRUE(text::contains(
+            text::as_graphemes(std::views::all(here_array)),
+            (char const *)"he"));
+    }
+    {
+        EXPECT_TRUE(text::contains(
+            u"here", text::as_graphemes(std::views::all(he_array))));
+    }
+    {
+        EXPECT_TRUE(text::contains(
+            (char16_t const *)u"here",
+            text::as_graphemes(std::views::all(he_array))));
     }
 }

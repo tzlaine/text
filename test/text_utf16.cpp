@@ -478,7 +478,9 @@ TEST(text_utf16, test_replace_iter)
                 expected.insert(expected.end(), final_cp, last);
                 expected.insert(
                     expected.end(),
-                    text::as_utf16(after.begin().base(), after.end().base()));
+                    std::ranges::subrange(
+                        after.begin().base(), after.end().base()) |
+                        text::as_utf16);
 
                 t.replace(substr_first, substr_last, final_cp, last);
                 EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
@@ -543,10 +545,13 @@ TEST(text_utf16, normalization)
     uint32_t const circumflex_utf32[] = {0x302};       // ◌̂
     uint32_t const a_with_circumflex_utf32[] = {0xe2}; // â
 
-    auto const r1 = text::as_utf16(circumflex_utf32, circumflex_utf32 + 1);
+    auto const r1 =
+        std::ranges::subrange(circumflex_utf32, circumflex_utf32 + 1) |
+        text::as_utf16;
     string16 const s_circumflex(r1.begin(), r1.end());
-    auto const r2 =
-        text::as_utf16(a_with_circumflex_utf32, a_with_circumflex_utf32 + 1);
+    auto const r2 = std::ranges::subrange(
+                        a_with_circumflex_utf32, a_with_circumflex_utf32 + 1) |
+                    text::as_utf16;
     string16 const s_a_with_circumflex(r2.begin(), r2.end());
 
     text16 const t_circumflex(s_circumflex);

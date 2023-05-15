@@ -50,7 +50,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<code_point_iter I, std::sentinel_for<I> S>
     std::string to_string(I first, S last)
     {
-        auto const r = boost::text::as_utf8(first, last);
+        auto const r = std::ranges::subrange(first, last) | as_utf8;
         return std::string(r.begin(), r.end());
     }
 

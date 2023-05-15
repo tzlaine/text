@@ -58,8 +58,9 @@ namespace boost { namespace text {
         static_assert(
             utf_format == format::utf8 || utf_format == format::utf16, "");
 
-        using value_type =
-            utf32_view<std::ranges::subrange<detail::rope_transcode_iterator_t<
+        using value_type = utf_view<
+            format::utf32,
+            std::ranges::subrange<detail::rope_transcode_iterator_t<
                 char_type,
                 detail::const_rope_view_iterator<char_type, string>>>>;
         using size_type = std::size_t;
@@ -149,9 +150,11 @@ namespace boost { namespace text {
                 auto const size = boost::text::estimated_width_of_graphemes(
                     rv.begin().base(), rv.end().base());
                 detail::pad_width_before(os, size);
-                if (os.good())
-                    os << boost::text::as_utf8(
+                if (os.good()) {
+                    auto v = std::ranges::subrange(
                         rv.begin().base().base(), rv.end().base().base());
+                    os << utf_view<format::utf8, decltype(v)>(v);
+                }
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
@@ -167,9 +170,11 @@ namespace boost { namespace text {
                 auto const size = boost::text::estimated_width_of_graphemes(
                     rv.begin().base(), rv.end().base());
                 detail::pad_width_before(os, size);
-                if (os.good())
-                    os << boost::text::as_utf16(
+                if (os.good()) {
+                    auto v = std::ranges::subrange(
                         rv.begin().base().base(), rv.end().base().base());
+                    os << (v | as_utf16);
+                }
                 if (os.good())
                     detail::pad_width_after(os, size);
             }

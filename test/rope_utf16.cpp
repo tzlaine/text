@@ -798,11 +798,12 @@ TEST(rope_utf16, normalization)
     uint32_t const circumflex_utf32[] = {0x302};       // ◌̂
     uint32_t const a_with_circumflex_utf32[] = {0xe2}; // â
 
-    auto const s_circumflex_utf16 = text::as_utf16(circumflex_utf32);
+    auto const s_circumflex_utf16 =
+        std::views::all(circumflex_utf32) | text::as_utf16;
     rope16::string const s_circumflex(
         s_circumflex_utf16.begin(), s_circumflex_utf16.end());
     auto const s_a_with_circumflex_utf16 =
-        text::as_utf16(a_with_circumflex_utf32);
+        std::views::all(a_with_circumflex_utf32) | text::as_utf16;
     rope16::string const s_a_with_circumflex(
         s_a_with_circumflex_utf16.begin(), s_a_with_circumflex_utf16.end());
 

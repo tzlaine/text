@@ -209,7 +209,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<nf Normalization, typename String>
     void normalize(String & s)
     {
-        auto const r = as_utf32(s);
+        auto const r = std::views::all(s) | as_utf32;
 
         dtl::normalize_string_impl<String> impl;
 
@@ -243,7 +243,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             detail::norm_impl<Normalization, decltype(s.begin()), I, S>::call(
                 first, last, appender);
         } else {
-            auto code_points = as_utf32(first, last);
+            auto code_points = std::ranges::subrange(first, last) | as_utf32;
             return boost::text::normalize_append(
                 code_points.begin(), code_points.end(), s);
         }
@@ -275,7 +275,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<nf Normalization, utf_string String>
     void normalize(String & s)
     {
-        auto const r = as_utf32(s);
+        auto const r = std::views::all(s) | as_utf32;
 
         String temp;
         if constexpr (dtl::reserve_capacity_sized_range<String>) {

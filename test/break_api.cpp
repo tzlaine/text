@@ -45,7 +45,7 @@ TEST(break_apis, grapheme_break)
     {
         std::string const empty_cus;
         auto subranges =
-            boost::text::as_graphemes(boost::text::as_utf32(empty_cus));
+            boost::text::as_graphemes(std::views::all(empty_cus) | as_utf32);
         for (auto subrange : subranges) {
             (void)subrange;
         }

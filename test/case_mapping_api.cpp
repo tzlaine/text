@@ -15,15 +15,18 @@ using namespace boost;
 using namespace boost::text::detail;
 
 using u32_iter = text::utf_8_to_32_iterator<char const *, text::null_sentinel_t>;
-using sentinel_cp_range_t = text::utf32_view<u32_iter, text::null_sentinel_t>;
+using null_sent_cp_subrange =
+    std::ranges::subrange<u32_iter, text::null_sentinel_t>;
+using sentinel_cp_range_t =
+    text::utf_view<text::format::utf32, null_sent_cp_subrange>;
 
 void to_sentinel_cp_range(
     std::string & s, sentinel_cp_range_t & r, std::vector<uint32_t> cps)
 {
     s = text::to_string(cps.begin(), cps.end());
-    r = sentinel_cp_range_t{
+    r = sentinel_cp_range_t{null_sent_cp_subrange(
         u32_iter(s.data(), s.data(), text::null_sentinel),
-        text::null_sentinel};
+        text::null_sentinel)};
 }
 
 
@@ -287,7 +290,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΑΔΙΚΟΣ, ΚΕΙΜΕΝΟ, ΙΡΙΔΑ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -297,7 +300,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΠΑΤΑΤΑ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -307,7 +310,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΑΕΡΑΣ, ΜΥΣΤΗΡΙΟ, ΩΡΑΙΟ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -317,7 +320,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΜΑΪΟΥ, ΠΟΡΟΣ, ΡΥΘΜΙΣΗ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -327,7 +330,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"Ϋ, ΤΗΡΩ, ΜΑΪΟΣ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -337,7 +340,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΑΫΛΟΣ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -347,7 +350,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΑΫΛΟΣ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -359,7 +362,7 @@ TEST(case_mapping_api, greek_special_casing)
             (char const *)u8"ΑΚΛΙΤΑ ΡΗΜΑΤΑ Ή ΑΚΛΙΤΕΣ ΜΕΤΟΧΕΣ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -371,7 +374,7 @@ TEST(case_mapping_api, greek_special_casing)
             (char const *)u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ ΤΗΣ ΑΞΙΟΠΡΕΠΕΙΑΣ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -381,7 +384,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -391,7 +394,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -401,7 +404,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -411,7 +414,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΝΕΟ, ΔΗΜΙΟΥΡΓΙΑ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -423,7 +426,7 @@ TEST(case_mapping_api, greek_special_casing)
             (char const *)u8"ΕΛΑΤΕ ΝΑ ΦΑΤΕ ΤΑ ΚΑΛΥΤΕΡΑ ΠΑΪΔΑΚΙΑ!";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -433,7 +436,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΜΑΪΟΥ, ΤΡΟΛΕΪ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -443,7 +446,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΤΟ ΕΝΑ Ή ΤΟ ΑΛΛΟ.";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
@@ -453,7 +456,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string const to = (char const *)u8"ΡΩΜΕΪΚΑ";
         std::string result;
         text::to_upper(
-            text::as_utf32(from),
+            std::views::all(from) | text::as_utf32,
             text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }

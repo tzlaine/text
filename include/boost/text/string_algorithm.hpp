@@ -22,32 +22,51 @@ namespace boost { namespace text { namespace detail {
     using ptr_arr_value_t =
         std::remove_pointer_t<std::remove_extent_t<std::remove_reference_t<T>>>;
 
-    template<typename I, typename S>
-    utf32_view<I, S> remove_utf32_terminator(utf32_view<I, S> view)
+    template<typename V>
+    auto remove_utf32_terminator(utf_view<format::utf32, V> view)
     {
-        return view;
+        if constexpr (std::ranges::common_range<V>) {
+            if (!view.empty() && view.back() == 0){
+                return std::ranges::subrange(
+                           view.begin(), std::prev(view.end())) |
+                       as_utf32;
+            } else {
+                return std::ranges::subrange(view.begin(), view.end());
+            }
+        } else {
+            return view;
+        }
     }
-    template<typename I>
-    utf32_view<I> remove_utf32_terminator(utf32_view<I> view)
+
+    template<typename Char>
+    auto
+    remove_utf32_terminator(std::ranges::subrange<Char *, null_sentinel_t> view)
     {
-        if (!view.empty() && view.back() == 0)
-            return utf32_view<I>(view.begin(), std::prev(view.end()));
         return view;
     }
 
     template<typename R>
     auto as_utf32_no_terminator(R & r)
-        -> decltype(detail::remove_utf32_terminator(boost::text::as_utf32(r)))
+        -> decltype(detail::remove_utf32_terminator(
+            std::views::all(r) | as_utf32))
     {
-        return detail::remove_utf32_terminator(boost::text::as_utf32(r));
+        return detail::remove_utf32_terminator(std::views::all(r) | as_utf32);
+    }
+
+    template<typename Char>
+    auto as_utf32_no_terminator(Char * r)
+        -> decltype(detail::remove_utf32_terminator(r | as_utf32))
+    {
+        return detail::remove_utf32_terminator(r | as_utf32);
     }
 
     template<typename I>
-    auto as_utf32_no_sentinel_or_terminator(I first, I last) -> decltype(
-        detail::remove_utf32_terminator(boost::text::as_utf32(first, last)))
+    auto as_utf32_no_sentinel_or_terminator(I first, I last)
+        -> decltype(detail::remove_utf32_terminator(
+            std::ranges::subrange(first, last) | as_utf32))
     {
         return detail::remove_utf32_terminator(
-            boost::text::as_utf32(first, last));
+            std::ranges::subrange(first, last) | as_utf32);
     }
 
     template<typename I, typename S>
@@ -57,7 +76,7 @@ namespace boost { namespace text { namespace detail {
         while (it != last) {
             ++it;
         }
-        return boost::text::as_utf32(first, it);
+        return std::ranges::subrange(first, it) | as_utf32;
     }
 
     template<
@@ -79,11 +98,12 @@ namespace boost { namespace text { namespace detail {
     {
         using char_type = std::remove_pointer_t<Ptr>;
         using string_view_t = basic_string_view<char_type>;
-        static constexpr auto call(Ptr p) -> decltype(boost::text::as_utf32(
-            std::declval<char_type *>(), std::declval<char_type *>()))
+        static constexpr auto call(Ptr p)
+            -> decltype(std::ranges::subrange((char_type *)0, (char_type *)0) | as_utf32)
         {
             string_view_t sv(p);
-            return boost::text::as_utf32(sv.data(), sv.data() + sv.size());
+            return std::ranges::subrange(sv.data(), sv.data() + sv.size()) |
+                   as_utf32;
         }
     };
 

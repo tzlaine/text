@@ -586,8 +586,10 @@ namespace boost { namespace text {
                 auto const size = boost::text::estimated_width_of_graphemes(
                     t.begin().base(), t.end().base());
                 detail::pad_width_before(os, size);
-                if (os.good())
-                    os << boost::text::as_utf8(t.str_);
+                if (os.good()) {
+                    auto v = std::views::all(t.str_);
+                    os << utf_view<format::utf8, decltype(v)>(v);
+                }
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
@@ -603,8 +605,10 @@ namespace boost { namespace text {
                 auto const size = boost::text::estimated_width_of_graphemes(
                     t.begin().base(), t.end().base());
                 detail::pad_width_before(os, size);
-                if (os.good())
-                    os << boost::text::as_utf16(t.str_);
+                if (os.good()) {
+                    auto v = std::views::all(t.str_);
+                    os << (v | as_utf16);
+                }
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
@@ -867,7 +871,7 @@ namespace boost { namespace text {
                 str_.begin() + (first.base().base() - str_.data());
             auto const str_last =
                 str_.begin() + (last.base().base() - str_.data());
-            auto const insertion = boost::text::as_utf32(f, l);
+            auto const insertion = std::ranges::subrange(f, l) | as_utf32;
             auto const retval = boost::text::normalize_replace<normalization>(
                 str_,
                 str_first,

@@ -489,7 +489,9 @@ TEST(text_tests, test_replace_iter)
                 expected.insert(expected.end(), final_cp, last);
                 expected.insert(
                     expected.end(),
-                    text::as_utf8(after.begin().base(), after.end().base()));
+                    std::ranges::subrange(
+                        after.begin().base(), after.end().base()) |
+                        text::as_utf8);
 
                 t.replace(substr_first, substr_last, final_cp, last);
                 EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
@@ -533,7 +535,7 @@ TEST(text_tests, test_replace_grapheme_iter)
         char(0x90),
         char(0x8c),
         char(0x82)};
-    auto const graphemes = text::as_graphemes(utf8);
+    auto const graphemes = text::as_graphemes(std::views::all(utf8));
     auto const first = graphemes.begin();
     auto const final_cp = std::prev(graphemes.end());
     auto const last = graphemes.end();
@@ -574,7 +576,9 @@ TEST(text_tests, test_replace_grapheme_iter)
                 expected.insert(expected.end(), final_cp, last);
                 expected.insert(
                     expected.end(),
-                    text::as_utf8(after.begin().base(), after.end().base()));
+                    std::ranges::subrange(
+                        after.begin().base(), after.end().base()) |
+                        text::as_utf8);
 
                 t.replace(substr_first, substr_last, final_cp, last);
                 EXPECT_EQ(t, expected) << "i=" << i << " j=" << j

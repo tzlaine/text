@@ -492,8 +492,10 @@ namespace boost { namespace text {
                 auto const size = boost::text::estimated_width_of_graphemes(
                     r.begin().base(), r.end().base());
                 detail::pad_width_before(os, size);
-                if (os.good())
-                    os << boost::text::as_utf8(r.rope_);
+                if (os.good()) {
+                    auto v = std::views::all(r.rope_);
+                    os << utf_view<format::utf8, decltype(v)>(v);
+                }
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
@@ -509,8 +511,10 @@ namespace boost { namespace text {
                 auto const size = boost::text::estimated_width_of_graphemes(
                     r.begin().base(), r.end().base());
                 detail::pad_width_before(os, size);
-                if (os.good())
-                    os << boost::text::as_utf16(r.rope_);
+                if (os.good()) {
+                    auto v = std::views::all(r.rope_);
+                    os << (v | as_utf16);
+                }
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
@@ -868,7 +872,8 @@ namespace boost { namespace text {
             if (first == last)
                 return {at, at};
             auto const rope_at = at.base().base();
-            auto const insertion = boost::text::as_utf32(first, last);
+            auto const insertion =
+                std::ranges::subrange(first, last) | as_utf32;
             auto const retval = detail::replace_impl<true, normalization>(
                 rope_,
                 rope_at,
@@ -887,7 +892,8 @@ namespace boost { namespace text {
             CUIter last2,
             insertion_normalization insertion_norm)
         {
-            auto const insertion = boost::text::as_utf32(first2, last2);
+            auto const insertion =
+                std::ranges::subrange(first2, last2) | as_utf32;
             auto const retval = detail::replace_impl<true, normalization>(
                 rope_,
                 first1.base().base(),

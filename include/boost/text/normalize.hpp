@@ -57,7 +57,7 @@ namespace boost { namespace text {
             {
                 constexpr bool do_writes = !std::is_same<OutIter, bool>::value;
 
-                auto const r = boost::text::as_utf16(first_, last_);
+                auto const r = std::ranges::subrange(first_, last_) | as_utf16;
                 auto first = r.begin();
                 auto const last = r.end();
 
@@ -109,7 +109,7 @@ namespace boost { namespace text {
             {
                 constexpr bool do_writes = !std::is_same<OutIter, bool>::value;
 
-                auto const r = boost::text::as_utf16(first, last);
+                auto const r = std::ranges::subrange(first, last) | as_utf16;
                 auto const & table = Normalization == nf::kc
                                          ? detail::nfkc_table()
                                          : detail::nfc_table();
@@ -135,7 +135,7 @@ namespace boost { namespace text {
             {
                 constexpr bool do_writes = !std::is_same<OutIter, bool>::value;
 
-                auto const r = boost::text::as_utf8(first, last);
+                auto const r = std::ranges::subrange(first, last) | as_utf8;
                 auto const & table = Normalization == nf::kc
                                          ? detail::nfkc_table()
                                          : detail::nfc_table();
@@ -290,7 +290,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                        first, last, appender)
                 .out_;
         } else {
-            auto code_points = as_utf32(first, last);
+            auto const code_points =
+                std::ranges::subrange(first, last) | as_utf32;
             return boost::text::normalize(
                 code_points.begin(), code_points.end(), out);
         }
@@ -320,7 +321,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                        first, last, appender)
                 .normalized_;
         } else {
-            auto code_points = as_utf32(first, last);
+            auto const code_points =
+                std::ranges::subrange(first, last) | as_utf32;
             return boost::text::normalized(
                 code_points.begin(), code_points.end());
         }

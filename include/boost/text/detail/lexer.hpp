@@ -266,7 +266,9 @@ namespace boost { namespace text { namespace detail {
             auto const code_units = boost::text::utf8_code_units(initial_char);
             if (code_units < 0 || last - first < code_units - 1)
                 return 0;
-            auto const r = as_utf32(first - 1, first - 1 + code_units);
+            auto const r =
+                std::ranges::subrange(first - 1, first - 1 + code_units) |
+                as_utf32;
             uint32_t const cp = *r.begin();
 
             // Unicode Pattern_White_Space
@@ -354,7 +356,8 @@ namespace boost { namespace text { namespace detail {
             if (1 < code_units) {
                 consume(code_units - 1, "Incomplete UTF-8 sequence", buf + 1);
             }
-            auto const r = as_utf32(buf, buf + code_units);
+            auto const r =
+                std::ranges::subrange(buf, buf + code_units) | as_utf32;
             auto const cp = *r.begin();
             if (!in_quote && cp == '-')
                 push(token_kind::dash);

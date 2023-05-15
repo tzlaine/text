@@ -253,7 +253,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     return grapheme_view<
                         std::ranges::iterator_t<decltype(intermediate)>,
                         std::ranges::sentinel_t<decltype(intermediate)>>(
-                        intermediate.begin(), intermediate.end());
+                        std::ranges::begin(intermediate),
+                        std::ranges::end(intermediate));
                 }
             }
         };
