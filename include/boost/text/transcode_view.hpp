@@ -291,7 +291,7 @@ namespace boost { namespace text {
         template<typename V>
         struct utf_view_iter
         {
-            using type = decltype(std::ranges::begin(std::declval<V>()));
+            using type = decltype(std::ranges::begin(std::declval<V &>()));
         };
         template<typename V>
         struct utf_view_iter<V *>
@@ -303,7 +303,7 @@ namespace boost { namespace text {
         template<typename V>
         struct utf_view_sent
         {
-            using type = decltype(std::ranges::end(std::declval<V>()));
+            using type = decltype(std::ranges::end(std::declval<V &>()));
         };
         template<typename V>
         struct utf_view_sent<V *>
@@ -314,8 +314,7 @@ namespace boost { namespace text {
         using utf_view_sent_t = typename utf_view_sent<V>::type;
     }
 
-    template<format Format, utf_range_like V>
-        requires std::ranges::view<V> || utf_pointer<V>
+    template<format Format, typename V>
     struct utf_view : stl_interfaces::view_interface<utf_view<Format, V>>
     {
         using from_iterator = detail::utf_view_iter_t<V>;
@@ -384,6 +383,41 @@ namespace boost { namespace text {
         iterator first_;
         [[no_unique_address]] sentinel last_;
     };
+
+    template<utf_range_like V>
+        requires std::ranges::view<V> || utf_pointer<V>
+    struct utf8_view : utf_view<format::utf8, V>
+    {
+        constexpr utf8_view() = default;
+        constexpr utf8_view(V base) :
+            utf_view<format::utf8, V>{std::move(base)}
+        {}
+    };
+    template<utf_range_like V>
+        requires std::ranges::view<V> || utf_pointer<V>
+    struct utf16_view : utf_view<format::utf16, V>
+    {
+        constexpr utf16_view() = default;
+        constexpr utf16_view(V base) :
+            utf_view<format::utf16, V>{std::move(base)}
+        {}
+    };
+    template<utf_range_like V>
+        requires std::ranges::view<V> || utf_pointer<V>
+    struct utf32_view : utf_view<format::utf32, V>
+    {
+        constexpr utf32_view() = default;
+        constexpr utf32_view(V base) :
+            utf_view<format::utf32, V>{std::move(base)}
+        {}
+    };
+
+    template<typename R>
+    utf8_view(R &&) -> utf8_view<std::views::all_t<R>>;
+    template<typename R>
+    utf16_view(R &&) -> utf16_view<std::views::all_t<R>>;
+    template<typename R>
+    utf32_view(R &&) -> utf32_view<std::views::all_t<R>>;
 
 }}
 
@@ -600,43 +634,55 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         template<typename T>
         constexpr bool is_empty_view_v = is_empty_view<T>::value;
 
-        template<format Format>
-        struct as_utf_impl : range_adaptor_closure<as_utf_impl<Format>>
+        template<typename R, template<typename> typename View>
+        concept can_utf_view = requires { View(std::declval<R>()); };
+
+        template<template<typename> typename View, format Format>
+        struct as_utf_impl : range_adaptor_closure<as_utf_impl<View, Format>>
         {
-            template<utf_range_like R>
-            constexpr auto operator()(R && r) const
+            template<typename R>
+                requires(std::ranges::viewable_range<R> &&
+                         can_utf_view<std::remove_cvref_t<R>, View>) ||
+                        utf_pointer<std::remove_cvref_t<R>>
+            [[nodiscard]] constexpr auto operator()(R && r) const
             {
-                using T = std::remove_cvref_t<decltype((r))>;
-                if constexpr (std::ranges::range<T>) {
+                using T = std::remove_cvref_t<R>;
+                if constexpr (std::is_array_v<T>) {
+                    if constexpr (code_unit_iter<
+                                      std::ranges::iterator_t<T>,
+                                      Format>) {
+                        return r;
+                    } else {
+                        return View((R &&) r);
+                    }
+                } else if constexpr (std::ranges::range<T>) {
                     if constexpr (
                         dtl::is_empty_view_v<T> ||
                         code_unit_iter<std::ranges::iterator_t<T>, Format>) {
                         return r;
                     } else {
-                        return utf_view<Format, T>((R &&) r);
+                        return View((R &&) r);
                     }
                 } else {
                     if constexpr (code_unit_pointer<T, Format>) {
                         return std::ranges::subrange(r, null_sentinel);
                     } else {
-                        return utf_view<Format, T>((R &&) r);
+                        return View(std::ranges::subrange(r, null_sentinel));
                     }
                 }
             }
         };
     }
 
-    inline constexpr dtl::as_utf_impl<format::utf8> as_utf8;
-
-    inline constexpr dtl::as_utf_impl<format::utf16> as_utf16;
-
-    inline constexpr dtl::as_utf_impl<format::utf32> as_utf32;
+    inline constexpr dtl::as_utf_impl<utf8_view, format::utf8> as_utf8;
+    inline constexpr dtl::as_utf_impl<utf16_view, format::utf16> as_utf16;
+    inline constexpr dtl::as_utf_impl<utf32_view, format::utf32> as_utf32;
 }}}
 
 namespace std::ranges {
 template<boost::text::format Format, typename V>
 inline constexpr bool enable_borrowed_range<boost::text::utf_view<Format, V>> =
-    true;
+    enable_borrowed_range<V>;
 }
 
 #endif
