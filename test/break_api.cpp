@@ -44,8 +44,7 @@ TEST(break_apis, grapheme_break)
     }
     {
         std::string const empty_cus;
-        auto subranges =
-            boost::text::as_graphemes(std::views::all(empty_cus) | as_utf32);
+        auto subranges = boost::text::as_graphemes(empty_cus | as_utf32);
         for (auto subrange : subranges) {
             (void)subrange;
         }
@@ -198,9 +197,8 @@ TEST(break_apis, grapheme_break)
         EXPECT_EQ(i, (int)grapheme_bounds.size());
 #endif
 
-        auto const all_graphemes_reversed = std::views::all(cps) |
-                                            boost::text::as_graphemes |
-                                            std::views::reverse;
+        auto const all_graphemes_reversed =
+            cps | boost::text::as_graphemes | std::views::reverse;
         i = grapheme_bounds.size();
         for (auto grapheme : all_graphemes_reversed) {
             --i;
@@ -1832,8 +1830,8 @@ TEST(break_apis, line_break)
 #if TEST_STD_VIEWS
     // std closures interop
     {
-        auto const all_lines = std::views::all(cps) |
-                               boost::text::lines(boost::text::allowed_breaks);
+        auto const all_lines =
+            cps | boost::text::lines(boost::text::allowed_breaks);
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -1849,8 +1847,7 @@ TEST(break_apis, line_break)
         EXPECT_EQ(i, (int)line_bounds.size());
 
         auto const all_lines_reversed =
-            std::views::all(cps) |
-            boost::text::lines(boost::text::allowed_breaks) |
+            cps | boost::text::lines(boost::text::allowed_breaks) |
             std::views::reverse;
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {

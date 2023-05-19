@@ -174,9 +174,7 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_CONCEPTS
             requires std::same_as<I, grapheme::iterator>
 #endif
-            :
-            utf_view<format::utf32, std::ranges::subrange<I>>(
-                std::views::all(g))
+            : utf_view<format::utf32, std::ranges::subrange<I>>(g)
         {}
 
         /** Returns true if lhs the same sequence of code points as rhs. */

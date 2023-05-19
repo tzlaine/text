@@ -1801,7 +1801,7 @@ namespace boost { namespace text { namespace detail {
                 // Check that moving backward one CP still includes the
                 // current CP cp.
                 uint32_t cps[] = {cp2, cp};
-                auto const cus = std::views::all(cps) | as_utf16;
+                auto const cus = cps | as_utf16;
                 auto coll = trie.longest_subsequence(cps, cps + 2);
                 if (coll.size != std::distance(cus.begin(), cus.end()))
                     break;

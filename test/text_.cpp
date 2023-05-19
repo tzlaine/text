@@ -535,7 +535,7 @@ TEST(text_tests, test_replace_grapheme_iter)
         char(0x90),
         char(0x8c),
         char(0x82)};
-    auto const graphemes = text::as_graphemes(std::views::all(utf8));
+    auto const graphemes = text::as_graphemes(utf8);
     auto const first = graphemes.begin();
     auto const final_cp = std::prev(graphemes.end());
     auto const last = graphemes.end();

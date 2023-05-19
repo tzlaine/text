@@ -24,7 +24,7 @@ namespace boost { namespace text { namespace detail {
             boost::text::normalize_append<nf::fcc>(
                 str.begin().base(), str.end().base(), buffer);
             return boost::text::collation_sort_key(
-                std::views::all(buffer) | as_utf32, table, flags);
+                buffer | as_utf32, table, flags);
         } else {
             return boost::text::collation_sort_key(
                 str.begin().base(), str.end().base(), table, flags);
@@ -50,12 +50,12 @@ namespace boost { namespace text { namespace detail {
             detail::collation_norm_buffer_for<utf_format1> buffer1;
             boost::text::normalize_append<nf::fcc>(
                 str1.begin().base(), str1.end().base(), buffer1);
-            auto const r1 = std::views::all(buffer1) | as_utf32;
+            auto const r1 = buffer1 | as_utf32;
             if (Normalization2 != nf::d && Normalization2 != nf::fcc) {
                 detail::collation_norm_buffer_for<utf_format2> buffer2;
                 boost::text::normalize_append<nf::fcc>(
                     str2.begin().base(), str2.end().base(), buffer2);
-                auto const r2 = std::views::all(buffer2) | as_utf32;
+                auto const r2 = buffer2 | as_utf32;
                 return boost::text::collate(r1, r2, table, flags);
             }
             return boost::text::collate(
@@ -69,7 +69,7 @@ namespace boost { namespace text { namespace detail {
             detail::collation_norm_buffer_for<utf_format2> buffer2;
             boost::text::normalize_append<nf::fcc>(
                 str2.begin().base(), str2.end().base(), buffer2);
-            auto const r2 = std::views::all(buffer2) | as_utf32;
+            auto const r2 = buffer2 | as_utf32;
             return boost::text::collate(
                 str1.begin().base(),
                 str1.end().base(),

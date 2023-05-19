@@ -47,10 +47,9 @@ namespace boost { namespace text { namespace detail {
 
     template<typename R>
     auto as_utf32_no_terminator(R & r)
-        -> decltype(detail::remove_utf32_terminator(
-            std::views::all(r) | as_utf32))
+        -> decltype(detail::remove_utf32_terminator(r | as_utf32))
     {
-        return detail::remove_utf32_terminator(std::views::all(r) | as_utf32);
+        return detail::remove_utf32_terminator(r | as_utf32);
     }
 
     template<typename Char>

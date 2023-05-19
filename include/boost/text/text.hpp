@@ -586,10 +586,8 @@ namespace boost { namespace text {
                 auto const size = boost::text::estimated_width_of_graphemes(
                     t.begin().base(), t.end().base());
                 detail::pad_width_before(os, size);
-                if (os.good()) {
-                    auto v = std::views::all(t.str_);
-                    os << utf_view<format::utf8, decltype(v)>(v);
-                }
+                if (os.good())
+                    os << (t.str_ | as_utf8);
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
@@ -605,10 +603,8 @@ namespace boost { namespace text {
                 auto const size = boost::text::estimated_width_of_graphemes(
                     t.begin().base(), t.end().base());
                 detail::pad_width_before(os, size);
-                if (os.good()) {
-                    auto v = std::views::all(t.str_);
-                    os << (v | as_utf16);
-                }
+                if (os.good())
+                    os << (t.str_ | as_utf16);
                 if (os.good())
                     detail::pad_width_after(os, size);
             }

@@ -20,8 +20,8 @@ uint32_t const (&cps_1)[2] = cps_0;
 TEST(break_apis, grapheme_break)
 {
     {
-        auto r_0 = as_graphemes(std::views::all(cps_0));
-        auto r_1 = as_graphemes(std::views::all(cps_1));
+        auto r_0 = as_graphemes(cps_0);
+        auto r_1 = as_graphemes(cps_1);
 
         EXPECT_EQ(r_0.begin(), r_0.begin());
         EXPECT_NE(r_0.begin(), r_0.end());

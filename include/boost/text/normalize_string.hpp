@@ -209,7 +209,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<nf Normalization, typename String>
     void normalize(String & s)
     {
-        auto const r = std::views::all(s) | as_utf32;
+        auto const r = s | as_utf32;
 
         dtl::normalize_string_impl<String> impl;
 
@@ -275,7 +275,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<nf Normalization, utf_string String>
     void normalize(String & s)
     {
-        auto const r = std::views::all(s) | as_utf32;
+        auto const r = s | as_utf32;
 
         String temp;
         if constexpr (dtl::reserve_capacity_sized_range<String>) {

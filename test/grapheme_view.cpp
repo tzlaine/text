@@ -48,9 +48,9 @@ TEST(grapheme_view, as_graphemes_)
 {
     // array
     {
-        auto r_8 = as_graphemes(std::views::all(utf8_));
-        auto r_16 = as_graphemes(std::views::all(utf16_));
-        auto r_32 = as_graphemes(std::views::all(utf32_));
+        auto r_8 = as_graphemes(utf8_);
+        auto r_16 = as_graphemes(utf16_);
+        auto r_32 = as_graphemes(utf32_);
 
         EXPECT_TRUE(boost::algorithm::equal(
             r_8.begin(), r_8.end(), r_16.begin(), r_16.end()));
@@ -102,7 +102,7 @@ TEST(grapheme_view, as_graphemes_)
 
     // stream inserters
     {
-        auto r = as_graphemes(std::views::all(utf8_));
+        auto r = as_graphemes(utf8_);
         std::stringstream ss;
         ss << r;
         std::string str = ss.str();

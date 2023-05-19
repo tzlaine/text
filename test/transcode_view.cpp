@@ -25,7 +25,7 @@ TEST(transcode_view, adaptor_semantics)
     std::u8string str = u8"text";
 
     static_assert(std::is_same_v<
-                  decltype(std::views::all(str) | boost::text::as_utf16),
+                  decltype(str | boost::text::as_utf16),
                   boost::text::utf16_view<std::ranges::subrange<std::u8string::iterator>>>);
 
     static_assert(std::is_same_v<
@@ -39,7 +39,7 @@ TEST(transcode_view, adaptor_semantics)
     std::u16string str2 = u"text";
 
     static_assert(std::is_same_v<
-                  decltype(std::views::all(str2) | boost::text::as_utf16),
+                  decltype(str2 | boost::text::as_utf16),
                   boost::text::utf16_view<std::ranges::subrange<std::u16string::iterator>>>);
 
     static_assert(std::is_same_v<
@@ -142,7 +142,8 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.last);
         static_assert(r.format_tag == format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint16_t const *>::value, "");
         EXPECT_EQ(
@@ -166,7 +167,8 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.last);
         static_assert(r.format_tag == format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(
@@ -187,7 +189,8 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.last);
         static_assert(r.format_tag == format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint16_t const *>::value, "");
         EXPECT_EQ(
@@ -211,7 +214,8 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.last);
         static_assert(r.format_tag == format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(
@@ -233,7 +237,8 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.last);
         static_assert(r.format_tag == format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint32_t const *>::value, "");
         EXPECT_EQ(
@@ -257,7 +262,8 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.last);
         static_assert(r.format_tag == format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(
@@ -278,7 +284,8 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.last);
         static_assert(r.format_tag == format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint32_t const *>::value, "");
         EXPECT_EQ(
@@ -302,7 +309,8 @@ TEST(transcode_view, detail_make_utf8)
             unpacked.last);
         static_assert(r.format_tag == format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(
@@ -419,7 +427,8 @@ TEST(transcode_view, detail_make_utf16)
             unpacked.last);
         static_assert(r.format_tag == format::utf16, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint16_t const *>::value, "");
         EXPECT_EQ(unpacked.first, str16);
@@ -438,7 +447,8 @@ TEST(transcode_view, detail_make_utf16)
             unpacked.last);
         static_assert(r.format_tag == format::utf16, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(
@@ -460,7 +470,8 @@ TEST(transcode_view, detail_make_utf16)
             unpacked.last);
         static_assert(r.format_tag == format::utf16, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint16_t const *>::value, "");
         EXPECT_EQ(unpacked.first, str16);
@@ -479,7 +490,8 @@ TEST(transcode_view, detail_make_utf16)
             unpacked.last);
         static_assert(r.format_tag == format::utf16, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(unpacked.first, str16);
@@ -499,7 +511,8 @@ TEST(transcode_view, detail_make_utf16)
             unpacked.last);
         static_assert(r.format_tag == format::utf16, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint32_t const *>::value, "");
         EXPECT_EQ(
@@ -523,7 +536,8 @@ TEST(transcode_view, detail_make_utf16)
             unpacked.last);
         static_assert(r.format_tag == format::utf16, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(
@@ -544,7 +558,8 @@ TEST(transcode_view, detail_make_utf16)
             unpacked.last);
         static_assert(r.format_tag == format::utf16, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint32_t const *>::value, "");
         EXPECT_EQ(
@@ -568,7 +583,8 @@ TEST(transcode_view, detail_make_utf16)
             unpacked.last);
         static_assert(r.format_tag == format::utf16, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(
@@ -685,7 +701,8 @@ TEST(transcode_view, detail_make_utf32)
             unpacked.last);
         static_assert(r.format_tag == format::utf32, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint16_t const *>::value, "");
         EXPECT_EQ(
@@ -709,7 +726,8 @@ TEST(transcode_view, detail_make_utf32)
             unpacked.last);
         static_assert(r.format_tag == format::utf32, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(
@@ -733,7 +751,8 @@ TEST(transcode_view, detail_make_utf32)
             unpacked.last);
         static_assert(r.format_tag == format::utf32, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint16_t const *>::value, "");
         EXPECT_EQ(
@@ -757,7 +776,8 @@ TEST(transcode_view, detail_make_utf32)
             unpacked.last);
         static_assert(r.format_tag == format::utf32, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint16_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint16_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(
@@ -779,7 +799,8 @@ TEST(transcode_view, detail_make_utf32)
             unpacked.last);
         static_assert(r.format_tag == format::utf32, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint32_t const *>::value, "");
         EXPECT_EQ(unpacked.first, str32);
@@ -798,7 +819,8 @@ TEST(transcode_view, detail_make_utf32)
             unpacked.last);
         static_assert(r.format_tag == format::utf32, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(unpacked.first, str32);
@@ -817,7 +839,8 @@ TEST(transcode_view, detail_make_utf32)
             unpacked.last);
         static_assert(r.format_tag == format::utf32, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), uint32_t const *>::value, "");
         EXPECT_EQ(unpacked.first, str32);
@@ -836,7 +859,8 @@ TEST(transcode_view, detail_make_utf32)
             unpacked.last);
         static_assert(r.format_tag == format::utf32, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), uint32_t const *>::value, "");
+            std::is_same<decltype(unpacked.first), uint32_t const *>::value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.last), null_sentinel_t>::value, "");
         EXPECT_EQ(unpacked.first, str32);
@@ -859,17 +883,17 @@ TEST(transcode_view, as_utfN)
 {
     // array
     {
-        auto r = std::views::all(utf32_) | as_utf8;
+        auto r = utf32_ | as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
     {
-        auto r = std::views::all(utf16_) | as_utf8;
+        auto r = utf16_ | as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
     {
-        auto r = std::views::all(utf8_) | as_utf8;
+        auto r = utf8_ | as_utf8;
         static_assert(
             std::is_same<decltype(r.begin()), char8_t const *>::value, "");
         static_assert(
@@ -878,17 +902,17 @@ TEST(transcode_view, as_utfN)
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
     {
-        auto r = std::views::all(utf32_) | as_utf8;
+        auto r = utf32_ | as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
     {
-        auto r = std::views::all(utf16_) | as_utf8;
+        auto r = utf16_ | as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
     {
-        auto r = std::views::all(utf8_) | as_utf8;
+        auto r = utf8_ | as_utf8;
         static_assert(
             std::is_same<decltype(r.begin()), char8_t const *>::value, "");
         static_assert(
@@ -1131,8 +1155,8 @@ TEST(transcode_view, as_utfN)
 
     // funkyzeit
     {
-        auto r = std::views::all(utf8_) | as_utf8 | as_utf16 | as_utf32 |
-                 as_utf8 | as_utf16 | as_utf8;
+        auto r = utf8_ | as_utf8 | as_utf16 | as_utf32 | as_utf8 | as_utf16 |
+                 as_utf8;
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
         static_assert(

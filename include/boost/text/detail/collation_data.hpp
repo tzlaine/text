@@ -290,7 +290,7 @@ namespace boost { namespace text { namespace detail {
             static_assert(std::is_same<
                           std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
-            return impl_.contains(std::views::all(key) | as_utf16);
+            return impl_.contains(key | as_utf16);
         }
 
         template<typename KeyIter, typename Sentinel>
@@ -340,7 +340,7 @@ namespace boost { namespace text { namespace detail {
             static_assert(std::is_same<
                           std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
-            return impl_[std::views::all(key) | as_utf16];
+            return impl_[key | as_utf16];
         }
 
         boost::text::optional_ref<value_type const>
@@ -361,8 +361,7 @@ namespace boost { namespace text { namespace detail {
             static_assert(std::is_same<
                           std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
-            return impl_.insert(
-                std::views::all(key) | as_utf16, std::move(value));
+            return impl_.insert(key | as_utf16, std::move(value));
         }
 
         template<typename KeyIter, typename Sentinel>
@@ -381,8 +380,7 @@ namespace boost { namespace text { namespace detail {
             static_assert(std::is_same<
                           std::decay_t<decltype(*detail::begin(key))>,
                           uint32_t>::value, "");
-            return impl_.insert_or_assign(
-                std::views::all(key) | as_utf16, std::move(value));
+            return impl_.insert_or_assign(key | as_utf16, std::move(value));
         }
 
         bool erase(match_result match) { return impl_.erase(match); }
