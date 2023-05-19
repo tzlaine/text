@@ -20,13 +20,13 @@ TEST(transcode_view, adaptor_semantics)
 {
     static_assert(std::is_same_v<
                   decltype(u8"text" | boost::text::as_utf16),
-                  boost::text::utf16_view<std::ranges::ref_view<const char8_t [5]>>>);
+                  boost::text::utf16_view<std::ranges::subrange<const char8_t*, const char8_t*>>>);
 
     std::u8string str = u8"text";
 
     static_assert(std::is_same_v<
                   decltype(std::views::all(str) | boost::text::as_utf16),
-                  boost::text::utf16_view<std::ranges::ref_view<std::u8string>>>);
+                  boost::text::utf16_view<std::ranges::subrange<std::u8string::iterator>>>);
 
     static_assert(std::is_same_v<
                   decltype(str.c_str() | boost::text::as_utf16),
@@ -40,11 +40,11 @@ TEST(transcode_view, adaptor_semantics)
 
     static_assert(std::is_same_v<
                   decltype(std::views::all(str2) | boost::text::as_utf16),
-                  std::ranges::ref_view<std::u16string>>);
+                  boost::text::utf16_view<std::ranges::subrange<std::u16string::iterator>>>);
 
     static_assert(std::is_same_v<
                   decltype(str2.c_str() | boost::text::as_utf16),
-                  std::ranges::subrange<const char16_t *, boost::text::null_sentinel_t>>);
+                  boost::text::utf16_view<std::ranges::subrange<const char16_t *, boost::text::null_sentinel_t>>>);
 }
 
 TEST(transcode_view, detail_make_utf8)

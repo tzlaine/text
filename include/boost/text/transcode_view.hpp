@@ -256,33 +256,28 @@ namespace boost { namespace text {
         using transcoding_iterator_t =
             typename transcoding_iterator<I, S, FromFormat, ToFormat>::type;
 
-        template<format Format, typename Unpacked>
-        constexpr auto make_utf_view_iter(Unpacked unpacked)
+        template<format Format, typename I, typename S>
+        constexpr auto make_utf_view_iter(I first, S last)
         {
-            if constexpr (unpacked.format_tag == Format) {
-                return unpacked.first;
+            constexpr format from_format =
+                detail::format_of<std::iter_value_t<I>>();
+            if constexpr (from_format == Format) {
+                return first;
             } else {
-                return transcoding_iterator_t<
-                    decltype(unpacked.first),
-                    decltype(unpacked.last),
-                    unpacked.format_tag,
-                    Format>{unpacked.first, unpacked.first, unpacked.last};
+                return transcoding_iterator_t<I, S, from_format, Format>{
+                    first, first, last};
             }
         }
-        template<format Format, typename Unpacked>
-        constexpr auto make_utf_view_sent(Unpacked unpacked)
+        template<format Format, typename I, typename S>
+        constexpr auto make_utf_view_sent(I first, S last)
         {
-            if constexpr (
-                unpacked.format_tag == Format || !std::is_same_v<
-                                                     decltype(unpacked.first),
-                                                     decltype(unpacked.last)>) {
-                return unpacked.last;
+            constexpr format from_format =
+                detail::format_of<std::iter_value_t<I>>();
+            if constexpr (from_format == Format || !std::is_same_v<I, S>) {
+                return last;
             } else {
-                return transcoding_iterator_t<
-                    decltype(unpacked.first),
-                    decltype(unpacked.last),
-                    unpacked.format_tag,
-                    Format>{unpacked.first, unpacked.last, unpacked.last};
+                return transcoding_iterator_t<I, S, from_format, Format>{
+                    first, last, last};
             }
         }
     }
@@ -294,30 +289,25 @@ namespace boost { namespace text {
         using from_sentinel = std::ranges::sentinel_t<V>;
 
         using iterator = decltype(detail::make_utf_view_iter<Format>(
-            boost::text::unpack_iterator_and_sentinel(
-                std::declval<from_iterator>(), std::declval<from_sentinel>())));
+            std::declval<from_iterator>(), std::declval<from_sentinel>()));
         using sentinel = decltype(detail::make_utf_view_sent<Format>(
-            boost::text::unpack_iterator_and_sentinel(
-                std::declval<from_iterator>(), std::declval<from_sentinel>())));
+            std::declval<from_iterator>(), std::declval<from_sentinel>()));
 
         constexpr utf_view() {}
-        constexpr utf_view(V base)
-        {
-            if constexpr (std::is_pointer_v<V>) {
-                auto r = boost::text::unpack_iterator_and_sentinel(
-                    base, null_sentinel);
-                first_ = detail::make_utf_view_iter<Format>(r);
-                last_ = detail::make_utf_view_sent<Format>(r);
-            } else {
-                auto r = boost::text::unpack_iterator_and_sentinel(
-                    std::ranges::begin(base), std::ranges::end(base));
-                first_ = detail::make_utf_view_iter<Format>(r);
-                last_ = detail::make_utf_view_sent<Format>(r);
-            }
-        }
+        constexpr utf_view(V base) : base_{base} {}
 
-        constexpr iterator begin() const { return first_; }
-        constexpr sentinel end() const { return last_; }
+        constexpr V base() const { return base_; }
+
+        constexpr iterator begin() const
+        {
+            return detail::make_utf_view_iter<Format>(
+                std::ranges::begin(base_), std::ranges::end(base_));
+        }
+        constexpr sentinel end() const
+        {
+            return detail::make_utf_view_sent<Format>(
+                std::ranges::begin(base_), std::ranges::end(base_));
+        }
 
         /** Stream inserter; performs unformatted output, in UTF-8
             encoding. */
@@ -353,8 +343,7 @@ namespace boost { namespace text {
 #endif
 
     private:
-        iterator first_;
-        [[no_unique_address]] sentinel last_;
+        V base_;
     };
 
     template<utf_range V>
@@ -620,26 +609,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
                 using T = std::remove_cvref_t<R>;
-                if constexpr (std::is_array_v<T>) {
-                    if constexpr (code_unit_iter<
-                                      std::ranges::iterator_t<T>,
-                                      Format>) {
-                        return r;
-                    } else {
-                        return View((R &&) r);
-                    }
-                } else if constexpr (std::ranges::range<T>) {
-                    if constexpr (
-                        dtl::is_empty_view_v<T> ||
-                        code_unit_iter<std::ranges::iterator_t<T>, Format>) {
-                        return r;
-                    } else {
-                        return View((R &&) r);
-                    }
-                } else if constexpr (code_unit_pointer<T, Format>) {
-                    return std::ranges::subrange(r, null_sentinel);
+                if constexpr (dtl::is_empty_view_v<T>) {
+                    return r;
+                } else if constexpr (std::is_pointer_v<T>) {
+                    auto unpacked = boost::text::unpack_iterator_and_sentinel(
+                        r, null_sentinel);
+                    return View(
+                        std::ranges::subrange(unpacked.first, unpacked.last));
                 } else {
-                    return View(std::ranges::subrange(r, null_sentinel));
+                    auto unpacked = boost::text::unpack_iterator_and_sentinel(
+                        std::ranges::begin(r), std::ranges::end(r));
+                    return View(
+                        std::ranges::subrange(unpacked.first, unpacked.last));
                 }
             }
         };
