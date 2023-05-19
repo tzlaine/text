@@ -1147,13 +1147,6 @@ TEST(transcode_view, stream_insertion)
     std::string const truth(std::begin(utf8_null), std::end(utf8_null) - 1);
     {
         char8_t const * ptr = utf8_null;
-        auto r = utf_view<format::utf8, char8_t const *>(ptr);
-        std::stringstream ss;
-        ss << r;
-        EXPECT_EQ(ss.str(), truth);
-    }
-    {
-        char8_t const * ptr = utf8_null;
         auto r = ptr | as_utf16;
         std::stringstream ss;
         ss << r;
