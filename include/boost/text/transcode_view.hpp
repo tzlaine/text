@@ -298,7 +298,11 @@ namespace boost { namespace text {
         constexpr utf_view() {}
         constexpr utf_view(V base) : base_{base} {}
 
-        constexpr V base() const { return base_; }
+        constexpr V base() const & requires std::copy_constructible<V>
+        {
+            return base_;
+        }
+        constexpr V base() && { return std::move(base_); }
 
         constexpr iterator begin() const
         {
