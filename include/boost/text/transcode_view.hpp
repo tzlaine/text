@@ -254,50 +254,20 @@ namespace boost { namespace text {
         {
             using type = utf_32_to_16_iterator<I, S>;
         };
-        template<typename I, typename S, format FromFormat, format ToFormat>
-        using transcoding_iterator_t =
-            typename transcoding_iterator<I, S, FromFormat, ToFormat>::type;
-
-        template<format Format, typename I, typename S>
-        constexpr auto make_utf_view_iter(I first, S last)
-        {
-            constexpr format from_format =
-                detail::format_of<std::iter_value_t<I>>();
-            if constexpr (from_format == Format) {
-                return first;
-            } else {
-                return transcoding_iterator_t<I, S, from_format, Format>{
-                    first, first, last};
-            }
-        }
-        template<format Format, typename I, typename S>
-        constexpr auto make_utf_view_sent(I first, S last)
-        {
-            constexpr format from_format =
-                detail::format_of<std::iter_value_t<I>>();
-            if constexpr (from_format == Format || !std::is_same_v<I, S>) {
-                return last;
-            } else {
-                return transcoding_iterator_t<I, S, from_format, Format>{
-                    first, last, last};
-            }
-        }
+        template<typename V, format FromFormat, format ToFormat>
+        using transcoding_iterator_t = typename transcoding_iterator<
+            std::ranges::iterator_t<V>,
+            std::ranges::sentinel_t<V>,
+            FromFormat,
+            ToFormat>::type;
     }
 
     template<format Format, typename V>
     class utf_view : public stl_interfaces::view_interface<utf_view<Format, V>>
     {
-        using from_iterator = std::ranges::iterator_t<V>;
-        using from_sentinel = std::ranges::sentinel_t<V>;
-
         V base_ = V();
 
     public:
-        using iterator = decltype(detail::make_utf_view_iter<Format>(
-            std::declval<from_iterator>(), std::declval<from_sentinel>()));
-        using sentinel = decltype(detail::make_utf_view_sent<Format>(
-            std::declval<from_iterator>(), std::declval<from_sentinel>()));
-
         constexpr utf_view() {}
         constexpr utf_view(V base) : base_{base} {}
 
@@ -307,15 +277,32 @@ namespace boost { namespace text {
         }
         constexpr V base() && { return std::move(base_); }
 
-        constexpr iterator begin() const
+        constexpr auto begin() const
         {
-            return detail::make_utf_view_iter<Format>(
-                std::ranges::begin(base_), std::ranges::end(base_));
+            constexpr format from_format =
+                detail::format_of<std::ranges::range_value_t<V>>();
+            if constexpr (from_format == Format) {
+                return std::ranges::begin(base_);
+            } else {
+                return detail::transcoding_iterator_t<V, from_format, Format>{
+                    std::ranges::begin(base_),
+                    std::ranges::begin(base_),
+                    std::ranges::end(base_)};
+            }
         }
-        constexpr sentinel end() const
+        constexpr auto end() const
         {
-            return detail::make_utf_view_sent<Format>(
-                std::ranges::begin(base_), std::ranges::end(base_));
+            constexpr format from_format =
+                detail::format_of<std::ranges::range_value_t<V>>();
+            if constexpr (
+                from_format == Format || !std::ranges::common_range<V>) {
+                return std::ranges::end(base_);
+            } else {
+                return detail::transcoding_iterator_t<V, from_format, Format>{
+                    std::ranges::begin(base_),
+                    std::ranges::end(base_),
+                    std::ranges::end(base_)};
+            }
         }
 
         /** Stream inserter; performs unformatted output, in UTF-8
