@@ -349,7 +349,7 @@ namespace boost { namespace text {
 #endif
 
     private:
-        V base_;
+        V base_ = V();
     };
 
     template<utf_range V>
