@@ -50,11 +50,9 @@ TEST(transcode_non_bidi, forward)
     {
         std::forward_list<char> list(std::begin(utf8), std::end(utf8));
 
-        auto it = text::utf_8_to_32_iterator(
-            list.begin(), list.begin(), list.end());
+        auto it = text::new_utf_8_to_32_iterator(list.begin(), list.end());
 
-        auto const end = text::utf_8_to_32_iterator(
-            list.begin(), list.end(), list.end());
+        auto const end = text::new_utf_8_to_32_iterator(list.end(), list.end());
 
         EXPECT_EQ(*it, utf32[0]);
         ++it;
@@ -74,9 +72,9 @@ TEST(transcode_non_bidi, forward)
         auto const first = input_iter(std::begin(utf8));
         auto const last = input_iter(std::end(utf8));
 
-        auto it = text::utf_8_to_32_iterator(first, first, last);
+        auto it = text::new_utf_8_to_32_iterator(first, last);
 
-        auto const end = text::utf_8_to_32_iterator(first, last, last);
+        auto const end = text::new_utf_8_to_32_iterator(last, last);
 
         EXPECT_EQ(*it, utf32[0]);
         ++it;
@@ -98,9 +96,9 @@ TEST(transcode_non_bidi, forward)
         auto const first = input_iter(std::begin(utf32));
         auto const last = input_iter(std::end(utf32));
 
-        auto it = text::utf_32_to_8_iterator(first, first, last);
+        auto it = text::new_utf_32_to_8_iterator(first, last);
 
-        auto const end = text::utf_32_to_8_iterator(first, last, last);
+        auto const end = text::new_utf_32_to_8_iterator(last, last);
 
         EXPECT_EQ(*it, utf8[0]);
         it++;
@@ -132,9 +130,9 @@ TEST(transcode_non_bidi, forward)
         auto const first = input_iter(std::begin(utf32));
         auto const last = input_iter(std::end(utf32));
 
-        auto it = text::utf_32_to_8_iterator(first, first, last);
+        auto it = text::new_utf_32_to_8_iterator(first, last);
 
-        auto const end = text::utf_32_to_8_iterator(first, last, last);
+        auto const end = text::new_utf_32_to_8_iterator(last, last);
 
         EXPECT_EQ(*it, utf8[0]);
         it++;
@@ -167,11 +165,9 @@ TEST(transcode_non_bidi, forward)
     {
         std::forward_list<char> list(std::begin(utf8), std::end(utf8));
 
-        auto it = text::utf_8_to_16_iterator(
-            list.begin(), list.begin(), list.end());
+        auto it = text::new_utf_8_to_16_iterator(list.begin(), list.end());
 
-        auto const end = text::utf_8_to_16_iterator(
-            list.begin(), list.end(), list.end());
+        auto const end = text::new_utf_8_to_16_iterator(list.end(), list.end());
 
         EXPECT_EQ(*it, utf16[0]);
         ++it;
@@ -193,9 +189,9 @@ TEST(transcode_non_bidi, forward)
         auto const first = input_iter(std::begin(utf8));
         auto const last = input_iter(std::end(utf8));
 
-        auto it = text::utf_8_to_16_iterator(first, first, last);
+        auto it = text::new_utf_8_to_16_iterator(first, last);
 
-        auto const end = text::utf_8_to_16_iterator(first, last, last);
+        auto const end = text::new_utf_8_to_16_iterator(last, last);
 
         EXPECT_EQ(*it, utf16[0]);
         ++it;
@@ -218,11 +214,9 @@ TEST(transcode_non_bidi, forward)
     {
         std::forward_list<uint16_t> list(std::begin(utf16), std::end(utf16));
 
-        auto it =
-            text::utf_16_to_8_iterator(list.begin(), list.begin(), list.end());
+        auto it = text::new_utf_16_to_8_iterator(list.begin(), list.end());
 
-        auto const end =
-            text::utf_16_to_8_iterator(list.begin(), list.end(), list.end());
+        auto const end = text::new_utf_16_to_8_iterator(list.end(), list.end());
 
         EXPECT_EQ(*it, utf8[0]);
         ++it;
@@ -255,9 +249,9 @@ TEST(transcode_non_bidi, forward)
         auto const first = input_iter(std::begin(utf16));
         auto const last = input_iter(std::end(utf16));
 
-        auto it = text::utf_16_to_8_iterator(first, first, last);
+        auto it = text::new_utf_16_to_8_iterator(first, last);
 
-        auto const end = text::utf_16_to_8_iterator(first, last, last);
+        auto const end = text::new_utf_16_to_8_iterator(last, last);
 
         EXPECT_EQ(*it, utf16[0]);
         ++it;
@@ -291,11 +285,10 @@ TEST(transcode_non_bidi, forward)
     {
         std::forward_list<uint16_t> list(std::begin(utf16), std::end(utf16));
 
-        auto it = text::utf_16_to_32_iterator(
-            list.begin(), list.begin(), list.end());
+        auto it = text::new_utf_16_to_32_iterator(list.begin(), list.end());
 
-        auto const end = text::utf_16_to_32_iterator(
-            list.begin(), list.end(), list.end());
+        auto const end =
+            text::new_utf_16_to_32_iterator(list.end(), list.end());
 
         EXPECT_EQ(*it, utf32[0]);
         ++it;
@@ -315,9 +308,9 @@ TEST(transcode_non_bidi, forward)
         auto const first = input_iter(std::begin(utf16));
         auto const last = input_iter(std::end(utf16));
 
-        auto it = text::utf_16_to_32_iterator(first, first, last);
+        auto it = text::new_utf_16_to_32_iterator(first, last);
 
-        auto const end = text::utf_16_to_32_iterator(first, last, last);
+        auto const end = text::new_utf_16_to_32_iterator(last, last);
 
         EXPECT_EQ(*it, utf32[0]);
         ++it;
@@ -338,11 +331,10 @@ TEST(transcode_non_bidi, forward)
     {
         std::forward_list<uint32_t> list(std::begin(utf32), std::end(utf32));
 
-        auto it = text::utf_32_to_16_iterator(
-            list.begin(), list.begin(), list.end());
+        auto it = text::new_utf_32_to_16_iterator(list.begin(), list.end());
 
-        auto const end = text::utf_32_to_16_iterator(
-            list.begin(), list.end(), list.end());
+        auto const end =
+            text::new_utf_32_to_16_iterator(list.end(), list.end());
 
         EXPECT_EQ(*it, utf16[0]);
         it++;
@@ -364,9 +356,9 @@ TEST(transcode_non_bidi, forward)
         auto const first = input_iter(std::begin(utf32));
         auto const last = input_iter(std::end(utf32));
 
-        auto it = text::utf_32_to_16_iterator(first, first, last);
+        auto it = text::new_utf_32_to_16_iterator(first, last);
 
-        auto const end = text::utf_32_to_16_iterator(first, last, last);
+        auto const end = text::new_utf_32_to_16_iterator(last, last);
 
         EXPECT_EQ(*it, utf16[0]);
         it++;

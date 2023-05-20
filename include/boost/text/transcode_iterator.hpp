@@ -371,7 +371,7 @@ namespace boost { namespace text {
             Iter retval = it;
 
             int backup = 0;
-            while (backup < 4 && it != first &&
+            while (backup < 4 && retval != first &&
                    boost::text::continuation(*--retval)) {
                 ++backup;
             }
@@ -918,7 +918,7 @@ namespace boost { namespace text {
         provides the Unicode replacement character on errors. */
     struct use_replacement_character
     {
-        constexpr char32_t operator()(char const *) const
+        constexpr char32_t operator()(char const *) const noexcept
         {
             return replacement_character();
         }
@@ -1693,7 +1693,7 @@ namespace boost { namespace text {
 #else
         template<typename I2, typename S2, typename ErrorHandler2>
 #endif
-        friend struct utf_8_to_32_iterator;
+        friend class utf_8_to_32_iterator;
 
 #endif
     };
@@ -4072,6 +4072,581 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return std::front_insert_iterator<Cont>(c);
         }
     }
+
+    namespace dtl {
+        template<format Format>
+        constexpr auto format_to_type()
+        {
+            if constexpr (Format == format::utf8) {
+                return char8_t{};
+            } else if constexpr (Format == format::utf16) {
+                return char16_t{};
+            } else {
+                return char32_t{};
+            }
+        }
+        template<
+            typename I,
+            bool SupportReverse = std::bidirectional_iterator<I>>
+        struct first_and_curr
+        {
+            first_and_curr() = default;
+            first_and_curr(I curr) : curr{curr} {}
+            first_and_curr(const first_and_curr & other) = default;
+            template<class I2>
+            requires std::convertible_to<I2, I>
+            first_and_curr(const first_and_curr<I2> & other) : curr{other.curr}
+            {}
+
+            I curr;
+        };
+        template<typename I>
+        struct first_and_curr<I, true>
+        {
+            first_and_curr() = default;
+            first_and_curr(I first, I curr) : first{first}, curr{curr} {}
+            first_and_curr(const first_and_curr & other) = default;
+            template<class I2>
+            requires std::convertible_to<I2, I>
+            first_and_curr(const first_and_curr<I2> & other) :
+                first{other.first}, curr{other.curr}
+            {}
+
+            I first;
+            I curr;
+        };
+    }
+
+    template<
+        format FromFormat,
+        format ToFormat,
+        utf_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+    class transcoding_iterator
+        : public stl_interfaces::iterator_interface<
+              transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
+              decltype(detail::bidirectional_at_most<I>()),
+              decltype(dtl::format_to_type<ToFormat>()),
+              decltype(dtl::format_to_type<ToFormat>())>
+    {
+        static_assert(
+            FromFormat == format::utf8 || FromFormat == format::utf16 ||
+            FromFormat == format::utf32);
+        static_assert(
+            ToFormat == format::utf8 || ToFormat == format::utf16 ||
+            ToFormat == format::utf32);
+
+    public:
+        using value_type = decltype(dtl::format_to_type<ToFormat>());
+
+        constexpr transcoding_iterator() = default;
+
+        constexpr transcoding_iterator(
+            I first, I it, S last) requires std::bidirectional_iterator<I>
+            : first_and_curr_{first, it}, last_(last)
+        {
+            if (curr() != last_)
+                read();
+        }
+        constexpr transcoding_iterator(I it, S last) requires(
+            !std::bidirectional_iterator<I>) :
+            first_and_curr_{it}, last_(last)
+        {
+            if (curr() != last_)
+                read();
+        }
+
+        template<class I2, class S2>
+        requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
+        constexpr transcoding_iterator(transcoding_iterator<
+                                       FromFormat,
+                                       ToFormat,
+                                       I2,
+                                       S2,
+                                       ErrorHandler> const & other) :
+            buf_(other.buf_),
+            first_and_curr_(other.first_and_curr_),
+            buf_index_(other.buf_index_),
+            buf_last_(other.buf_last_),
+            last_(other.last_)
+        {
+            if (curr() != last_)
+                read();
+        }
+
+        constexpr I begin() const requires std::bidirectional_iterator<I> { return first(); }
+        constexpr S end() const { return last_; }
+
+        constexpr I base() const { return curr(); }
+
+        constexpr value_type operator*() const
+        {
+            BOOST_ASSERT(buf_index_ < buf_last_);
+            return buf_[buf_index_];
+        }
+
+        constexpr transcoding_iterator & operator++()
+        {
+            BOOST_ASSERT(buf_index_ != buf_last_ || curr() != last_);
+            if (buf_index_ + 1 == buf_last_ && curr() != last_)
+                read();
+            else
+                ++buf_index_;
+            return *this;
+        }
+
+        constexpr transcoding_iterator &
+        operator--() requires std::bidirectional_iterator<I>
+        {
+            BOOST_ASSERT(buf_index_ || curr() != first());
+            if (!buf_index_ && curr() != first())
+                read_reverse();
+            else
+                --buf_index_;
+            return *this;
+        }
+
+        friend constexpr bool
+        operator==(transcoding_iterator lhs, transcoding_iterator rhs)
+        {
+            return lhs.curr() == rhs.curr() &&
+                   (lhs.buf_index_ == rhs.buf_index_ ||
+                    (lhs.buf_index_ == lhs.buf_last_ &&
+                     rhs.buf_index_ == rhs.buf_last_));
+        }
+
+        // exposition only
+        using base_type = stl_interfaces::iterator_interface<
+            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
+            decltype(detail::bidirectional_at_most<I>()),
+            value_type,
+            value_type>;
+        using base_type::operator++;
+        using base_type::operator--;
+
+    private:
+        constexpr char32_t decode_code_point()
+        {
+            if constexpr (FromFormat == format::utf8) {
+                char32_t cp = *curr();
+                ++curr();
+                if (cp < 0x80)
+                    return cp;
+
+                // clang-format off
+
+                // It turns out that this naive implementation is faster than
+                // the table implementation for the converting iterators.
+
+            /*
+                Unicode 3.9/D92
+                Table 3-7. Well-Formed UTF-8 Byte Sequences
+
+                Code Points        First Byte Second Byte Third Byte Fourth Byte
+                ===========        ========== =========== ========== ===========
+                U+0000..U+007F     00..7F
+                U+0080..U+07FF     C2..DF     80..BF
+                U+0800..U+0FFF     E0         A0..BF      80..BF
+                U+1000..U+CFFF     E1..EC     80..BF      80..BF
+                U+D000..U+D7FF     ED         80..9F      80..BF
+                U+E000..U+FFFF     EE..EF     80..BF      80..BF
+                U+10000..U+3FFFF   F0         90..BF      80..BF     80..BF
+                U+40000..U+FFFFF   F1..F3     80..BF      80..BF     80..BF
+                U+100000..U+10FFFF F4         80..8F      80..BF     80..BF
+            */
+                // clang-format on
+
+                char8_t curr_c = cp;
+
+                auto error = [&]() {
+                    return ErrorHandler{}("Ill-formed UTF-8.");
+                };
+
+                // One-byte case handled above
+
+                // Two-byte
+                if (detail::in(0xc2, curr_c, 0xdf)) {
+                    cp = curr_c & 0b00011111;
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    // Three-byte
+                } else if (curr_c == 0xe0) {
+                    cp = curr_c & 0b00001111;
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0xa0, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                } else if (detail::in(0xe1, curr_c, 0xec)) {
+                    cp = curr_c & 0b00001111;
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                } else if (curr_c == 0xed) {
+                    cp = curr_c & 0b00001111;
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0x9f))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                } else if (detail::in(0xee, curr_c, 0xef)) {
+                    cp = curr_c & 0b00001111;
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    // Four-byte
+                } else if (curr_c == 0xf0) {
+                    cp = curr_c & 0b00000111;
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x90, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                } else if (detail::in(0xf1, curr_c, 0xf3)) {
+                    cp = curr_c & 0b00000111;
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                } else if (curr_c == 0xf4) {
+                    cp = curr_c & 0b00000111;
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0x8f))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                    if (curr() == last_)
+                        return error();
+                    curr_c = *curr();
+                    if (!detail::in(0x80, curr_c, 0xbf))
+                        return error();
+                    cp = (cp << 6) + (curr_c & 0b00111111);
+                    ++curr();
+                } else {
+                    return error();
+                }
+                return cp;
+            } else if constexpr (FromFormat == format::utf16) {
+                char16_t hi = *curr();
+                ++curr();
+                if (!boost::text::surrogate(hi))
+                    return hi;
+
+                if (boost::text::low_surrogate(hi)) {
+                    return ErrorHandler{}(
+                        "Invalid UTF-16 sequence; lone trailing surrogate.");
+                }
+
+                // high surrogate
+                if (curr() == last_) {
+                    return ErrorHandler{}(
+                        "Invalid UTF-16 sequence; lone leading surrogate.");
+                }
+
+                char16_t lo = *curr();
+                if (!boost::text::low_surrogate(lo)) {
+                    return ErrorHandler{}(
+                        "Invalid UTF-16 sequence; lone leading surrogate.");
+                }
+
+                ++curr();
+                return char32_t((hi - high_surrogate_base) << 10) +
+                       (lo - low_surrogate_base);
+            } else {
+                char32_t retval = *curr();
+                ++curr();
+                return retval;
+            }
+        }
+
+        constexpr char32_t
+        decode_code_point_reverse() requires std::bidirectional_iterator<I>
+        {
+            if constexpr (FromFormat == format::utf8) {
+                if (buf_index_ != buf_last_ || curr() != last_)
+                    curr() = detail::decrement(first(), curr());
+
+                curr() = detail::decrement(first(), curr());
+                return decode_code_point();
+            } else if constexpr (FromFormat == format::utf16) {
+                if (buf_index_ != buf_last_ || curr() != last_) {
+                    if (boost::text::low_surrogate(*--curr())) {
+                        if (curr() != first() &&
+                            boost::text::high_surrogate(*std::prev(curr()))) {
+                            --curr();
+                        }
+                    }
+                }
+
+                auto prev = curr();
+
+                char16_t lo = *--prev;
+                if (!boost::text::surrogate(lo))
+                    return lo;
+
+                if (boost::text::high_surrogate(lo)) {
+                    return ErrorHandler{}(
+                        "Invalid UTF-16 sequence; lone leading surrogate.");
+                }
+
+                // low surrogate
+                if (prev == first()) {
+                    return ErrorHandler{}(
+                        "Invalid UTF-16 sequence; lone trailing surrogate.");
+                }
+
+                char16_t hi = *--prev;
+                if (!boost::text::high_surrogate(hi)) {
+                    return ErrorHandler{}(
+                        "Invalid UTF-16 sequence; lone trailing surrogate.");
+                }
+
+                return char32_t((hi - high_surrogate_base) << 10) +
+                       (lo - low_surrogate_base);
+            } else {
+                if (buf_index_ != buf_last_ || curr() != last_)
+                    --curr();
+
+                return *std::prev(curr());
+            }
+        }
+
+        template<class Out>
+        constexpr Out encode_code_point(char32_t cp, Out out)
+        {
+            if constexpr (ToFormat == format::utf8) {
+                if (cp < 0x80) {
+                    *out++ = static_cast<char8_t>(cp);
+                } else if (cp < 0x800) {
+                    *out++ = static_cast<char8_t>(0xC0 + (cp >> 6));
+                    *out++ = static_cast<char8_t>(0x80 + (cp & 0x3f));
+                } else if (cp < 0x10000) {
+                    *out++ = static_cast<char8_t>(0xe0 + (cp >> 12));
+                    *out++ = static_cast<char8_t>(0x80 + ((cp >> 6) & 0x3f));
+                    *out++ = static_cast<char8_t>(0x80 + (cp & 0x3f));
+                } else {
+                    *out++ = static_cast<char8_t>(0xf0 + (cp >> 18));
+                    *out++ = static_cast<char8_t>(0x80 + ((cp >> 12) & 0x3f));
+                    *out++ = static_cast<char8_t>(0x80 + ((cp >> 6) & 0x3f));
+                    *out++ = static_cast<char8_t>(0x80 + (cp & 0x3f));
+                }
+            } else if constexpr (ToFormat == format::utf16) {
+                if (cp < 0x10000) {
+                    *out++ = static_cast<char16_t>(cp);
+                } else {
+                    *out++ =
+                        static_cast<char16_t>(cp >> 10) + high_surrogate_base;
+                    *out++ =
+                        static_cast<char16_t>(cp & 0x3ff) + low_surrogate_base;
+                }
+            } else {
+                *out++ = cp;
+            }
+            return out;
+        }
+
+        constexpr void read()
+        {
+            if constexpr (noexcept(ErrorHandler{}(""))) {
+                char32_t cp = decode_code_point();
+                auto it = encode_code_point(cp, buf_.begin());
+                buf_index_ = 0;
+                buf_last_ = it - buf_.begin();
+            } else {
+                auto curr = curr();
+                auto buf = buf_;
+                try {
+                    char32_t cp = decode_code_point();
+                    auto it = encode_code_point(cp, buf_.begin());
+                    buf_index_ = 0;
+                    buf_last_ = it - buf_.begin();
+                } catch (...) {
+                    buf_ = buf_;
+                    curr() = curr;
+                    throw;
+                }
+            }
+        }
+
+        constexpr void read_reverse()
+        {
+            if constexpr (noexcept(ErrorHandler{}(""))) {
+                char32_t cp = decode_code_point_reverse();
+                auto it = encode_code_point(cp, buf_.begin());
+                buf_last_ = it - buf_.begin();
+                buf_index_ = buf_last_ - 1;
+            } else {
+                auto curr = curr();
+                auto buf = buf_;
+                try {
+                    char32_t cp = decode_code_point_reverse();
+                    auto it = encode_code_point(cp, buf_.begin());
+                    buf_last_ = it - buf_.begin();
+                    buf_index_ = buf_last_ - 1;
+                } catch (...) {
+                    buf_ = buf_;
+                    curr() = curr;
+                    throw;
+                }
+            }
+        }
+
+        constexpr I first() const requires std::bidirectional_iterator<I>
+        {
+            return first_and_curr_.first;
+        }
+        constexpr I & curr() { return first_and_curr_.curr; }
+        constexpr I curr() const { return first_and_curr_.curr; }
+
+        std::array<value_type, 4 / static_cast<int>(ToFormat)> buf_;
+
+        dtl::first_and_curr<I> first_and_curr_;
+
+        uint8_t buf_index_ = 0;
+        uint8_t buf_last_ = 0;
+
+        [[no_unique_address]] S last_;
+
+        template<
+            format FromFormat2,
+            format ToFormat2,
+            utf_iter I2,
+            std::sentinel_for<I2> S2,
+            transcoding_error_handler ErrorHandler2>
+        friend class transcoding_iterator;
+    };
+
+    template<
+        utf8_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+    using new_utf_8_to_16_iterator =
+        transcoding_iterator<format::utf8, format::utf16, I, S, ErrorHandler>;
+
+    template<
+        utf16_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+    using new_utf_16_to_8_iterator =
+        transcoding_iterator<format::utf16, format::utf8, I, S, ErrorHandler>;
+
+
+    template<
+        utf8_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+    using new_utf_8_to_32_iterator =
+        transcoding_iterator<format::utf8, format::utf32, I, S, ErrorHandler>;
+
+    template<
+        utf32_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+    using new_utf_32_to_8_iterator =
+        transcoding_iterator<format::utf32, format::utf8, I, S, ErrorHandler>;
+
+
+    template<
+        utf16_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+    using new_utf_16_to_32_iterator =
+        transcoding_iterator<format::utf16, format::utf32, I, S, ErrorHandler>;
+
+    template<
+        utf32_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+    using new_utf_32_to_16_iterator =
+        transcoding_iterator<format::utf32, format::utf16, I, S, ErrorHandler>;
 
 }}}
 

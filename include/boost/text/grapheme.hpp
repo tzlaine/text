@@ -34,6 +34,7 @@ namespace boost { namespace text {
     struct grapheme
     {
         using iterator = utf_8_to_32_iterator<char const *>;
+        static_assert(code_point_iter<iterator>);
         using const_iterator = iterator;
 
         /** Default ctor. */

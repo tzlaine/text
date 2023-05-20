@@ -91,6 +91,14 @@ namespace boost { namespace text {
 #endif
     struct utf_32_to_16_iterator;
 
+    template<
+        format FromFormat,
+        format ToFormat,
+        utf32_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+    class transcoding_iterator;
+
 }}
 
 #endif
