@@ -4,6 +4,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 #include <boost/text/transcode_view.hpp>
+#include <boost/text/formatter.hpp> // TODO
 
 #include <boost/algorithm/cxx14/equal.hpp>
 
@@ -45,6 +46,36 @@ TEST(transcode_view, adaptor_semantics)
     static_assert(std::is_same_v<
                   decltype(str2.c_str() | boost::text::as_utf16),
                   boost::text::utf16_view<std::ranges::subrange<const char16_t *, boost::text::null_sentinel_t>>>);
+}
+
+TEST(formatter, basic) // TODO
+{
+    {
+        auto v = u"text" | boost::text::as_utf8;
+        std::string result = std::format("{}", v);
+    }
+    {
+        auto v = u"text" | boost::text::as_utf8;
+        std::wstring result = std::format(L"{}", v);
+    }
+
+    {
+        auto v = u8"text" | boost::text::as_utf16;
+        std::string result = std::format("{}", v);
+    }
+    {
+        auto v = u8"text" | boost::text::as_utf16;
+        std::wstring result = std::format(L"{}", v);
+    }
+
+    {
+        auto v = u8"text" | boost::text::as_utf32;
+        std::string result = std::format("{}", v);
+    }
+    {
+        auto v = u8"text" | boost::text::as_utf32;
+        std::wstring result = std::format(L"{}", v);
+    }
 }
 
 TEST(transcode_view, detail_make_utf8)

@@ -13,6 +13,8 @@
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
+#include <format>
+
 
 namespace boost { namespace text {
 
