@@ -285,11 +285,14 @@ namespace boost { namespace text {
     }
 
     template<format Format, typename V>
-    struct utf_view : stl_interfaces::view_interface<utf_view<Format, V>>
+    class utf_view : public stl_interfaces::view_interface<utf_view<Format, V>>
     {
         using from_iterator = std::ranges::iterator_t<V>;
         using from_sentinel = std::ranges::sentinel_t<V>;
 
+        V base_ = V();
+
+    public:
         using iterator = decltype(detail::make_utf_view_iter<Format>(
             std::declval<from_iterator>(), std::declval<from_sentinel>()));
         using sentinel = decltype(detail::make_utf_view_sent<Format>(
@@ -347,9 +350,6 @@ namespace boost { namespace text {
             return os;
         }
 #endif
-
-    private:
-        V base_ = V();
     };
 
     template<utf_range V>
