@@ -20,80 +20,63 @@ namespace boost { namespace text {
         }
     };
 
-    // Using this custom template is quite a bit faster than using lambdas.
-    // Unexpected.
-    template<typename RepackedIterator, typename I, typename S, typename Then>
-    struct repacker
-    {
-        auto operator()(I it) const
-        {
-            return then(RepackedIterator(first, it, last));
-        }
-
-        I first;
-        [[no_unique_address]] S last;
-        [[no_unique_address]] Then then;
-    };
-
     namespace detail {
+        // Using this custom template is quite a bit faster than using lambdas.
+        // Unexpected.
+        template<
+            typename RepackedIterator,
+            typename I,
+            typename S,
+            typename Then>
+        struct bidi_repacker
+        {
+            bidi_repacker() = default;
+            bidi_repacker(I first, S last, Then then) :
+                first{first}, last{last}, then{then}
+            {}
+
+            auto operator()(I it) const
+            {
+                auto repacked = RepackedIterator(first, it, last);
+                --repacked;
+                repacked.buf_index_ = 0;
+                return then(repacked);
+            }
+
+            I first;
+            [[no_unique_address]] S last;
+            [[no_unique_address]] Then then;
+        };
+
         template<typename I, typename S, typename Repack>
         constexpr auto
         unpack_iterator_and_sentinel_impl(I first, S last, Repack repack);
 
-        // 8 -> 32
-        template<typename I, typename Repack>
+        template<
+            format FromFormat,
+            format ToFormat,
+            typename I,
+            typename S,
+            typename ErrorHandler,
+            typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_8_to_32_iterator<I> first,
-            utf_8_to_32_iterator<I> last,
+            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>
+                first,
+            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler> last,
             Repack repack);
-        template<typename I, typename S, typename Repack>
+
+        template<
+            format FromFormat,
+            format ToFormat,
+            typename I,
+            typename S,
+            typename ErrorHandler,
+            typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_8_to_32_iterator<I, S> first, S last, Repack repack);
-        // 32 -> 8
-        template<typename I, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_32_to_8_iterator<I> first,
-            utf_32_to_8_iterator<I> last,
+            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>
+                first,
+            S last,
             Repack repack);
-        template<typename I, typename S, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_32_to_8_iterator<I, S> first, S last, Repack repack);
-        // 16 -> 32
-        template<typename I, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_16_to_32_iterator<I> first,
-            utf_16_to_32_iterator<I> last,
-            Repack repack);
-        template<typename I, typename S, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_16_to_32_iterator<I, S> first, S last, Repack repack);
-        // 32 -> 16
-        template<typename I, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_32_to_16_iterator<I> first,
-            utf_32_to_16_iterator<I> last,
-            Repack repack);
-        template<typename I, typename S, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_32_to_16_iterator<I, S> first, S last, Repack repack);
-        // 8 -> 16
-        template<typename I, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_8_to_16_iterator<I> first,
-            utf_8_to_16_iterator<I> last,
-            Repack repack);
-        template<typename I, typename S, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_8_to_16_iterator<I, S> first, S last, Repack repack);
-        // 16 -> 8
-        template<typename I, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_16_to_8_iterator<I> first,
-            utf_16_to_8_iterator<I> last,
-            Repack repack);
-        template<typename I, typename S, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_16_to_8_iterator<I, S> first, S last, Repack repack);
 
         template<typename I, typename S, typename Repack>
         constexpr auto
@@ -160,146 +143,78 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { namespace detail {
 
-        // 8 -> 32
-        template<typename I, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_8_to_32_iterator<I> first,
-            utf_8_to_32_iterator<I> last,
-            Repack repack)
-        {
-            return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
-                last.base(),
-                repacker<utf_8_to_32_iterator<I>, I, I, Repack>(
-                    first.begin(), first.end(), repack));
+    template<format Format, typename I>
+    auto back_up_one_cp(I first, I it)
+    {
+        if constexpr (Format == format::utf8) {
+            it = detail::decrement(first, it);
+        } else if constexpr (Format == format::utf16) {
+            if (it == first)
+                return it;
+            if (boost::text::low_surrogate(*--it)) {
+                if (it != first &&
+                    boost::text::high_surrogate(*std::prev(it))) {
+                    --it;
+                }
+            }
+        } else {
+            if (it != first)
+                --it;
         }
-        template<typename I, typename S, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_8_to_32_iterator<I, S> first, S last, Repack repack)
-        {
-            return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
-                last,
-                repacker<utf_8_to_32_iterator<I, S>, I, S, Repack>(
-                    first.begin(), first.end(), repack));
-        }
-        // 32 -> 8
-        template<typename I, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_32_to_8_iterator<I> first,
-            utf_32_to_8_iterator<I> last,
-            Repack repack)
-        {
-            return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
-                last.base(),
-                repacker<utf_32_to_8_iterator<I>, I, I, Repack>(
-                    first.begin(), first.end(), repack));
-        }
-        template<typename I, typename S, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_32_to_8_iterator<I, S> first, S last, Repack repack)
-        {
-            return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
-                last,
-                repacker<utf_32_to_8_iterator<I, S>, I, S, Repack>(
-                    first.begin(), first.end(), repack));
-        }
+        return it;
+    }
 
-        // 16 -> 32
-        template<typename I, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_16_to_32_iterator<I> first,
-            utf_16_to_32_iterator<I> last,
-            Repack repack)
-        {
+    template<
+        format FromFormat,
+        format ToFormat,
+        typename I,
+        typename S,
+        typename ErrorHandler,
+        typename Repack>
+    constexpr auto unpack_iterator_and_sentinel_impl(
+        transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler> first,
+        transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler> last,
+        Repack repack)
+    {
+        using iterator =
+            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>;
+        if constexpr (std::bidirectional_iterator<I>) {
             return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
+                detail::back_up_one_cp<FromFormat>(first.begin(), first.base()),
                 last.base(),
-                repacker<utf_16_to_32_iterator<I>, I, I, Repack>(
+                bidi_repacker<iterator, I, S, Repack>(
                     first.begin(), first.end(), repack));
-        }
-        template<typename I, typename S, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_16_to_32_iterator<I, S> first, S last, Repack repack)
-        {
+        } else {
             return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
-                last,
-                repacker<utf_16_to_32_iterator<I, S>, I, S, Repack>(
-                    first.begin(), first.end(), repack));
+                std::move(first).base(), last.base(), no_op_repacker{});
         }
-        // 32 -> 16
-        template<typename I, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_32_to_16_iterator<I> first,
-            utf_32_to_16_iterator<I> last,
-            Repack repack)
-        {
-            return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
-                last.base(),
-                repacker<utf_32_to_16_iterator<I>, I, I, Repack>(
-                    first.begin(), first.end(), repack));
-        }
-        template<typename I, typename S, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_32_to_16_iterator<I, S> first, S last, Repack repack)
-        {
-            return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
-                last,
-                repacker<utf_32_to_16_iterator<I, S>, I, S, Repack>(
-                    first.begin(), first.end(), repack));
-        }
+    }
 
-        // 8 -> 16
-        template<typename I, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_8_to_16_iterator<I> first,
-            utf_8_to_16_iterator<I> last,
-            Repack repack)
-        {
+    template<
+        format FromFormat,
+        format ToFormat,
+        typename I,
+        typename S,
+        typename ErrorHandler,
+        typename Repack>
+    constexpr auto unpack_iterator_and_sentinel_impl(
+        transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler> first,
+        S last,
+        Repack repack)
+    {
+        using iterator =
+            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>;
+        if constexpr (std::bidirectional_iterator<I>) {
             return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
-                last.base(),
-                repacker<utf_8_to_16_iterator<I>, I, I, Repack>(
-                    first.begin(), first.end(), repack));
-        }
-        template<typename I, typename S, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_8_to_16_iterator<I, S> first, S last, Repack repack)
-        {
-            return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
+                detail::back_up_one_cp<FromFormat>(first.begin(), first.base()),
                 last,
-                repacker<utf_8_to_16_iterator<I, S>, I, S, Repack>(
+                bidi_repacker<iterator, I, S, Repack>(
                     first.begin(), first.end(), repack));
-        }
-        // 16 -> 8
-        template<typename I, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_16_to_8_iterator<I> first,
-            utf_16_to_8_iterator<I> last,
-            Repack repack)
-        {
+        } else {
             return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
-                last.base(),
-                repacker<utf_16_to_8_iterator<I>, I, I, Repack>(
-                    first.begin(), first.end(), repack));
+                std::move(first).base(), last, no_op_repacker{});
         }
-        template<typename I, typename S, typename Repack>
-        constexpr auto unpack_iterator_and_sentinel_impl(
-            utf_16_to_8_iterator<I, S> first, S last, Repack repack)
-        {
-            return boost::text::unpack_iterator_and_sentinel(
-                first.base(),
-                last,
-                repacker<utf_16_to_8_iterator<I, S>, I, S, Repack>(
-                    first.begin(), first.end(), repack));
-        }
+    }
 
 }}}
 
