@@ -60,9 +60,8 @@ namespace boost { namespace text {
             typename ErrorHandler,
             typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
-            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>
-                first,
-            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler> last,
+            utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler> first,
+            utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler> last,
             Repack repack);
 
         template<
@@ -73,8 +72,7 @@ namespace boost { namespace text {
             typename ErrorHandler,
             typename Repack>
         constexpr auto unpack_iterator_and_sentinel_impl(
-            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>
-                first,
+            utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler> first,
             S last,
             Repack repack);
 
@@ -172,12 +170,11 @@ namespace boost { namespace text { namespace detail {
         typename ErrorHandler,
         typename Repack>
     constexpr auto unpack_iterator_and_sentinel_impl(
-        transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler> first,
-        transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler> last,
+        utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler> first,
+        utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler> last,
         Repack repack)
     {
-        using iterator =
-            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>;
+        using iterator = utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>;
         if constexpr (std::bidirectional_iterator<I>) {
             return boost::text::unpack_iterator_and_sentinel(
                 detail::back_up_one_cp<FromFormat>(first.begin(), first.base()),
@@ -198,12 +195,11 @@ namespace boost { namespace text { namespace detail {
         typename ErrorHandler,
         typename Repack>
     constexpr auto unpack_iterator_and_sentinel_impl(
-        transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler> first,
+        utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler> first,
         S last,
         Repack repack)
     {
-        using iterator =
-            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>;
+        using iterator = utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>;
         if constexpr (std::bidirectional_iterator<I>) {
             return boost::text::unpack_iterator_and_sentinel(
                 detail::back_up_one_cp<FromFormat>(first.begin(), first.base()),

@@ -245,7 +245,7 @@ namespace boost { namespace text {
             if constexpr (from_format == Format) {
                 return std::ranges::begin(base_);
             } else {
-                return transcoding_iterator<
+                return utf_iterator<
                     from_format,
                     Format,
                     std::ranges::iterator_t<V>,
@@ -263,7 +263,7 @@ namespace boost { namespace text {
                 from_format == Format || !std::ranges::common_range<V>) {
                 return std::ranges::end(base_);
             } else {
-                return transcoding_iterator<
+                return utf_iterator<
                     from_format,
                     Format,
                     std::ranges::iterator_t<V>,

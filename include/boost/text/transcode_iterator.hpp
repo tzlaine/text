@@ -2502,9 +2502,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         utf_iter I,
         std::sentinel_for<I> S,
         transcoding_error_handler ErrorHandler>
-    class transcoding_iterator
+    class utf_iterator
         : public stl_interfaces::iterator_interface<
-              transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
+              utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
               decltype(detail::bidirectional_at_most<I>()),
               decltype(dtl::format_to_type<ToFormat>()),
               decltype(dtl::format_to_type<ToFormat>())>
@@ -2519,16 +2519,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     public:
         using value_type = decltype(dtl::format_to_type<ToFormat>());
 
-        constexpr transcoding_iterator() = default;
+        constexpr utf_iterator() = default;
 
-        constexpr transcoding_iterator(
+        constexpr utf_iterator(
             I first, I it, S last) requires std::bidirectional_iterator<I>
             : first_and_curr_{first, it}, last_(last)
         {
             if (curr() != last_)
                 read();
         }
-        constexpr transcoding_iterator(I it, S last) requires(
+        constexpr utf_iterator(I it, S last) requires(
             !std::bidirectional_iterator<I>) :
             first_and_curr_{it}, last_(last)
         {
@@ -2538,12 +2538,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         template<class I2, class S2>
         requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
-        constexpr transcoding_iterator(transcoding_iterator<
-                                       FromFormat,
-                                       ToFormat,
-                                       I2,
-                                       S2,
-                                       ErrorHandler> const & other) :
+        constexpr utf_iterator(
+            utf_iterator<FromFormat, ToFormat, I2, S2, ErrorHandler> const &
+                other) :
             buf_(other.buf_),
             first_and_curr_(other.first_and_curr_),
             buf_index_(other.buf_index_),
@@ -2565,7 +2562,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return buf_[buf_index_];
         }
 
-        constexpr transcoding_iterator & operator++()
+        constexpr utf_iterator & operator++()
         {
             BOOST_ASSERT(buf_index_ != buf_last_ || curr() != last_);
             if (buf_index_ + 1 == buf_last_ && curr() != last_)
@@ -2575,7 +2572,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return *this;
         }
 
-        constexpr transcoding_iterator &
+        constexpr utf_iterator &
         operator--() requires std::bidirectional_iterator<I>
         {
             BOOST_ASSERT(buf_index_ || curr() != first());
@@ -2586,8 +2583,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return *this;
         }
 
-        friend constexpr bool
-        operator==(transcoding_iterator lhs, transcoding_iterator rhs)
+        friend constexpr bool operator==(utf_iterator lhs, utf_iterator rhs)
         {
             if (lhs.curr() != rhs.curr())
                 return false;
@@ -2601,15 +2597,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                    rhs.buf_index_ == rhs.buf_last_;
         }
 
-        friend constexpr bool operator==(
-            transcoding_iterator lhs, S rhs) requires(!std::same_as<I, S>)
+        friend constexpr bool
+        operator==(utf_iterator lhs, S rhs) requires(!std::same_as<I, S>)
         {
             return lhs.curr() == rhs && lhs.buf_index_ == lhs.buf_last_;
         }
 
         // exposition only
         using base_type = stl_interfaces::iterator_interface<
-            transcoding_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
+            utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
             decltype(detail::bidirectional_at_most<I>()),
             value_type,
             value_type>;
@@ -2992,7 +2988,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             utf_iter I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
-        friend class transcoding_iterator;
+        friend class utf_iterator;
 
         template<
             typename RepackedIterator,

@@ -31,20 +31,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         utf_iter I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
-    class transcoding_iterator;
+    class utf_iterator;
 
     template<
         utf8_iter I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
     using utf_8_to_16_iterator =
-        transcoding_iterator<format::utf8, format::utf16, I, S, ErrorHandler>;
+        utf_iterator<format::utf8, format::utf16, I, S, ErrorHandler>;
     template<
         utf16_iter I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
     using utf_16_to_8_iterator =
-        transcoding_iterator<format::utf16, format::utf8, I, S, ErrorHandler>;
+        utf_iterator<format::utf16, format::utf8, I, S, ErrorHandler>;
 
 
     template<
@@ -52,13 +52,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
     using utf_8_to_32_iterator =
-        transcoding_iterator<format::utf8, format::utf32, I, S, ErrorHandler>;
+        utf_iterator<format::utf8, format::utf32, I, S, ErrorHandler>;
     template<
         utf32_iter I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
     using utf_32_to_8_iterator =
-        transcoding_iterator<format::utf32, format::utf8, I, S, ErrorHandler>;
+        utf_iterator<format::utf32, format::utf8, I, S, ErrorHandler>;
 
 
     template<
@@ -66,13 +66,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
     using utf_16_to_32_iterator =
-        transcoding_iterator<format::utf16, format::utf32, I, S, ErrorHandler>;
+        utf_iterator<format::utf16, format::utf32, I, S, ErrorHandler>;
     template<
         utf32_iter I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
     using utf_32_to_16_iterator =
-        transcoding_iterator<format::utf32, format::utf16, I, S, ErrorHandler>;
+        utf_iterator<format::utf32, format::utf16, I, S, ErrorHandler>;
 
 }}}
 
