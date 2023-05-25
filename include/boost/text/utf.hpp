@@ -8,6 +8,7 @@
 
 #include <boost/text/config.hpp>
 
+#include <cstdint>
 #include <type_traits>
 
 
