@@ -2546,10 +2546,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             buf_index_(other.buf_index_),
             buf_last_(other.buf_last_),
             last_(other.last_)
-        {
-            if (curr() != last_)
-                read();
-        }
+        {}
 
         constexpr I begin() const requires std::bidirectional_iterator<I> { return first(); }
         constexpr S end() const { return last_; }
