@@ -2499,7 +2499,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<
         format FromFormat,
         format ToFormat,
-        utf_iter I,
+        code_unit_iter<FromFormat> I,
         std::sentinel_for<I> S,
         transcoding_error_handler ErrorHandler>
     class utf_iterator
@@ -2985,7 +2985,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         template<
             format FromFormat2,
             format ToFormat2,
-            utf_iter I2,
+            code_unit_iter<FromFormat2> I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
         friend class utf_iterator;

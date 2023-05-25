@@ -28,7 +28,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<
         format FromFormat,
         format ToFormat,
-        utf_iter I,
+        code_unit_iter<FromFormat> I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
     class utf_iterator;
