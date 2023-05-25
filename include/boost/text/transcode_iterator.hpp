@@ -2554,7 +2554,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         constexpr I begin() const requires std::bidirectional_iterator<I> { return first(); }
         constexpr S end() const { return last_; }
 
-        constexpr I base() const { return curr(); }
+        constexpr I base() const requires std::forward_iterator<I> { return curr(); }
+        constexpr I base() && { return std::move(curr()); }
 
         constexpr value_type operator*() const
         {
