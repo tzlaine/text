@@ -170,12 +170,28 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         template<typename R, template<typename> typename View>
         concept can_utf_view = requires { View(std::declval<R &>()); };
 
+        template<typename R>
+        constexpr auto unpack_range(R && r)
+        {
+            using T = std::remove_cvref_t<R>;
+            if constexpr (std::ranges::forward_range<T>) {
+                auto unpacked = boost::text::unpack_iterator_and_sentinel(
+                    std::ranges::begin(r), std::ranges::end(r));
+                return std::ranges::subrange(unpacked.first, unpacked.last);
+            } else {
+                return std::forward<R>(r);
+            }
+        }
+
+        template<typename R>
+        using unpacked_range = decltype(dtl::unpack_range(std::declval<R>()));
+
         template<template<typename> typename View, format Format>
         struct as_utf_impl : range_adaptor_closure<as_utf_impl<View, Format>>
         {
             template<typename R>
                 requires(std::ranges::viewable_range<R> &&
-                         can_utf_view<std::remove_cvref_t<R>, View>) ||
+                         can_utf_view<unpacked_range<R>, View>) ||
                         utf_pointer<std::remove_cvref_t<R>>
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
@@ -185,10 +201,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 } else if constexpr (std::is_pointer_v<T>) {
                     return View(std::ranges::subrange(r, null_sentinel));
                 } else {
-                    auto unpacked = boost::text::unpack_iterator_and_sentinel(
-                        std::ranges::begin(r), std::ranges::end(r));
-                    return View(
-                        std::ranges::subrange(unpacked.first, unpacked.last));
+                    return View(dtl::unpack_range(std::forward<R>(r)));
                 }
             }
         };
