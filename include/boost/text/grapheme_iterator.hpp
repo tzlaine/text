@@ -20,6 +20,51 @@
 
 namespace boost { namespace text {
 
+    namespace detail {
+
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename ResultType, typename I1, typename I2, typename S>
+        static auto make_iter(I1 first, I2 it, S last)
+        {
+            if constexpr (requires { ResultType(first, it, last); }) {
+                return ResultType{first, it, last};
+            } else {
+                return it;
+            }
+        }
+#else
+        template<typename ResultType, typename Iterator, typename Sentinel>
+        constexpr auto
+        make_iter(Iterator first, Iterator it, Sentinel last)
+            -> decltype(ResultType(first, it, last))
+        {
+            return ResultType(first, it, last);
+        }
+        template<typename ResultType>
+        constexpr auto
+        make_iter(ResultType first, ResultType it, ResultType last)
+            -> decltype(ResultType(it))
+        {
+            return it;
+        }
+        template<typename ResultType, typename Sentinel>
+        constexpr auto
+        make_iter(ResultType first, ResultType it, Sentinel last)
+            -> decltype(ResultType(it))
+        {
+            return it;
+        }
+        template<typename ResultType, typename Iterator>
+        constexpr auto
+        make_iter(Iterator first, ResultType it, ResultType last)
+            -> decltype(ResultType(it))
+        {
+            return it;
+        }
+#endif
+
+    }
+
     /** A bidirectional filtering iterator that iterates over the extended
         grapheme clusters in a sequence of code points. */
 #if BOOST_TEXT_USE_CONCEPTS
