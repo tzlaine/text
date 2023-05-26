@@ -36,7 +36,7 @@ namespace boost { namespace text {
                                                                  last{last},
                                                                  then{then}
             {}
-            repacker(S last, Then then) requires Bidi : last{last}, then{then}
+            repacker(S last, Then then) requires (!Bidi) : last{last}, then{then}
             {}
 
             auto operator()(I it) const
@@ -164,13 +164,18 @@ namespace boost { namespace text { namespace detail {
             return boost::text::unpack_iterator_and_sentinel(
                 first.base(),
                 last.base(),
-                repacker<iterator, I, S, Repack, true>(
-                    first.begin(), first.end(), repack));
+                repacker<
+                    iterator,
+                    decltype(first.begin()),
+                    decltype(first.end()),
+                    Repack,
+                    true>(first.begin(), first.end(), repack));
         } else {
             return boost::text::unpack_iterator_and_sentinel(
                 first.base(),
                 last.base(),
-                repacker<iterator, I, S, Repack, false>(first.end(), repack));
+                repacker<iterator, int, decltype(first.end()), Repack, false>(
+                    first.end(), repack));
         }
     }
 
@@ -191,13 +196,17 @@ namespace boost { namespace text { namespace detail {
             return boost::text::unpack_iterator_and_sentinel(
                 first.base(),
                 last,
-                repacker<iterator, I, S, Repack, true>(
-                    first.begin(), first.end(), repack));
+                repacker<
+                    iterator,
+                    decltype(first.begin()),
+                    decltype(first.end()),
+                    Repack,
+                    true>(first.begin(), first.end(), repack));
         } else {
             return boost::text::unpack_iterator_and_sentinel(
                 first.base(),
                 last,
-                repacker<iterator, I, S, Repack, false>(last, repack));
+                repacker<iterator, int, S, Repack, false>(last, repack));
         }
     }
 

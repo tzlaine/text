@@ -50,9 +50,7 @@ namespace boost { namespace text {
         {
             constexpr format from_format =
                 detail::format_of<std::ranges::range_value_t<V>>();
-            if constexpr (!std::ranges::forward_range<V>) {
-                return std::ranges::begin(base_);
-            } else {
+            if constexpr (std::ranges::bidirectional_range<V>) {
                 return utf_iterator<
                     from_format,
                     Format,
@@ -61,17 +59,22 @@ namespace boost { namespace text {
                     std::ranges::begin(base_),
                     std::ranges::begin(base_),
                     std::ranges::end(base_)};
+            } else {
+                return utf_iterator<
+                    from_format,
+                    Format,
+                    std::ranges::iterator_t<V>,
+                    std::ranges::sentinel_t<V>>{
+                    std::ranges::begin(base_), std::ranges::end(base_)};
             }
         }
         constexpr auto end() const
         {
             constexpr format from_format =
                 detail::format_of<std::ranges::range_value_t<V>>();
-            if constexpr (
-                !std::ranges::common_range<V> ||
-                !std::ranges::forward_range<V>) {
+            if constexpr (!std::ranges::common_range<V>) {
                 return std::ranges::end(base_);
-            } else {
+            } else if constexpr (std::ranges::bidirectional_range<V>) {
                 return utf_iterator<
                     from_format,
                     Format,
@@ -80,6 +83,13 @@ namespace boost { namespace text {
                     std::ranges::begin(base_),
                     std::ranges::end(base_),
                     std::ranges::end(base_)};
+            } else {
+                return utf_iterator<
+                    from_format,
+                    Format,
+                    std::ranges::iterator_t<V>,
+                    std::ranges::sentinel_t<V>>{
+                    std::ranges::end(base_), std::ranges::end(base_)};
             }
         }
 

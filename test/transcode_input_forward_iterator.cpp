@@ -10,6 +10,8 @@
 #include <gtest/gtest.h>
 
 #include <forward_list>
+#include <iterator>
+#include <sstream>
 #include <iso646.h> // For "not" "token" on MSVC
 
 #include "ill_formed.hpp"
@@ -38,7 +40,7 @@ private:
 };
 
 
-TEST(transcode_non_bidi, forward)
+TEST(transcode_non_bidi, forward_and_input)
 {
     // Unicode 3.9/D90-D92
     uint32_t const utf32[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
@@ -71,6 +73,30 @@ TEST(transcode_non_bidi, forward)
     {
         auto const first = input_iter(std::begin(utf8));
         auto const last = input_iter(std::end(utf8));
+
+        auto it = text::utf_8_to_32_iterator(first, last);
+
+        auto const end = text::utf_8_to_32_iterator(last, last);
+
+        EXPECT_EQ(*it, utf32[0]);
+        ++it;
+        EXPECT_EQ(*it, utf32[1]);
+        ++it;
+        EXPECT_EQ(*it, utf32[2]);
+        ++it;
+        EXPECT_EQ(*it, utf32[3]);
+        ++it;
+
+        EXPECT_EQ(it, end);
+
+        static_assert(ill_formed<has_prefix_decrement, decltype(it)>::value);
+        static_assert(ill_formed<has_postfix_decrement, decltype(it)>::value);
+    }
+    {
+        std::string str(std::begin(utf8), std::end(utf8));
+        std::istringstream iss(str);
+        std::istreambuf_iterator<char> first(iss);
+        std::istreambuf_iterator<char> last;
 
         auto it = text::utf_8_to_32_iterator(first, last);
 
@@ -244,7 +270,6 @@ TEST(transcode_non_bidi, forward)
         static_assert(ill_formed<has_prefix_decrement, decltype(it)>::value);
         static_assert(ill_formed<has_postfix_decrement, decltype(it)>::value);
     }
-#if 0 // TODO
     {
         auto const first = input_iter(std::begin(utf16));
         auto const last = input_iter(std::end(utf16));
@@ -253,25 +278,25 @@ TEST(transcode_non_bidi, forward)
 
         auto const end = text::utf_16_to_8_iterator(last, last);
 
-        EXPECT_EQ(*it, utf16[0]);
+        EXPECT_EQ(*it, utf8[0]);
         ++it;
-        EXPECT_EQ(*it, utf16[1]);
+        EXPECT_EQ(*it, utf8[1]);
         ++it;
-        EXPECT_EQ(*it, utf16[2]);
+        EXPECT_EQ(*it, utf8[2]);
         ++it;
-        EXPECT_EQ(*it, utf16[3]);
+        EXPECT_EQ(*it, utf8[3]);
         ++it;
-        EXPECT_EQ(*it, utf16[4]);
+        EXPECT_EQ(*it, utf8[4]);
         ++it;
-        EXPECT_EQ(*it, utf16[5]);
+        EXPECT_EQ(*it, utf8[5]);
         ++it;
-        EXPECT_EQ(*it, utf16[6]);
+        EXPECT_EQ(*it, utf8[6]);
         ++it;
-        EXPECT_EQ(*it, utf16[7]);
+        EXPECT_EQ(*it, utf8[7]);
         ++it;
-        EXPECT_EQ(*it, utf16[16]);
+        EXPECT_EQ(*it, utf8[8]);
         ++it;
-        EXPECT_EQ(*it, utf16[9]);
+        EXPECT_EQ(*it, utf8[9]);
         ++it;
 
         EXPECT_EQ(it, end);
@@ -279,7 +304,6 @@ TEST(transcode_non_bidi, forward)
         static_assert(ill_formed<has_prefix_decrement, decltype(it)>::value);
         static_assert(ill_formed<has_postfix_decrement, decltype(it)>::value);
     }
-#endif
 
     // UTF-16 -> UTF-32
     {
@@ -368,6 +392,126 @@ TEST(transcode_non_bidi, forward)
         it++;
         EXPECT_EQ(*it, utf16[4]);
         it++;
+
+        EXPECT_EQ(it, end);
+
+        static_assert(ill_formed<has_prefix_decrement, decltype(it)>::value);
+        static_assert(ill_formed<has_postfix_decrement, decltype(it)>::value);
+    }
+}
+
+TEST(transcode_non_bidi, range_adaptors)
+{
+    // Unicode 3.9/D90-D92
+    uint32_t const utf32[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char8_t const utf8[] = {
+        0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82};
+
+    {
+        std::forward_list<char> list(std::begin(utf8), std::end(utf8));
+
+        auto r = list | text::as_utf32;
+        auto it = r.begin();
+        auto const end = r.end();
+
+        EXPECT_EQ(*it, utf32[0]);
+        ++it;
+        EXPECT_EQ(*it, utf32[1]);
+        ++it;
+        EXPECT_EQ(*it, utf32[2]);
+        ++it;
+        EXPECT_EQ(*it, utf32[3]);
+        ++it;
+
+        EXPECT_EQ(it, end);
+
+        static_assert(ill_formed<has_prefix_decrement, decltype(it)>::value);
+        static_assert(ill_formed<has_postfix_decrement, decltype(it)>::value);
+    }
+    {
+        auto const first = input_iter(std::begin(utf8));
+        auto const last = input_iter(std::end(utf8));
+
+        auto r = std::ranges::subrange(first, last) | text::as_utf32;
+        auto it = r.begin();
+        auto const end = r.end();
+
+        EXPECT_EQ(*it, utf32[0]);
+        ++it;
+        EXPECT_EQ(*it, utf32[1]);
+        ++it;
+        EXPECT_EQ(*it, utf32[2]);
+        ++it;
+        EXPECT_EQ(*it, utf32[3]);
+        ++it;
+
+        EXPECT_EQ(it, end);
+
+        static_assert(ill_formed<has_prefix_decrement, decltype(it)>::value);
+        static_assert(ill_formed<has_postfix_decrement, decltype(it)>::value);
+    }
+}
+
+TEST(transcode_non_bidi, chained_range_adaptors)
+{
+    // Unicode 3.9/D90-D92
+    uint32_t const utf32[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char8_t const utf8[] = {
+        0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82};
+
+    {
+        std::forward_list<char> list(std::begin(utf8), std::end(utf8));
+
+        auto simple = list | text::as_utf32;
+
+        auto r = list | text::as_utf32 | text::as_utf16 | text::as_utf32;
+        auto it = r.begin();
+        auto const end = r.end();
+
+        static_assert(std::same_as<decltype(it), decltype(simple.begin())>);
+        static_assert(std::same_as<
+                      std::remove_const_t<decltype(end)>,
+                      decltype(simple.end())>);
+
+        EXPECT_EQ(*it, utf32[0]);
+        ++it;
+        EXPECT_EQ(*it, utf32[1]);
+        ++it;
+        EXPECT_EQ(*it, utf32[2]);
+        ++it;
+        EXPECT_EQ(*it, utf32[3]);
+        ++it;
+
+        EXPECT_EQ(it, end);
+
+        static_assert(ill_formed<has_prefix_decrement, decltype(it)>::value);
+        static_assert(ill_formed<has_postfix_decrement, decltype(it)>::value);
+    }
+    {
+        auto const first = input_iter(std::begin(utf8));
+        auto const last = input_iter(std::end(utf8));
+
+        auto simple = std::ranges::subrange(first, last) | text::as_utf32;
+
+        auto r = std::ranges::subrange(first, last) | text::as_utf32 |
+                 text::as_utf16 | text::as_utf32;
+        auto it = r.begin();
+        auto const end = r.end();
+
+        // These types should not match for input ranges -- no unpacking.
+        static_assert(!std::same_as<decltype(it), decltype(simple.begin())>);
+        static_assert(!std::same_as<
+                      std::remove_const_t<decltype(end)>,
+                      decltype(simple.end())>);
+
+        EXPECT_EQ(*it, utf32[0]);
+        ++it;
+        EXPECT_EQ(*it, utf32[1]);
+        ++it;
+        EXPECT_EQ(*it, utf32[2]);
+        ++it;
+        EXPECT_EQ(*it, utf32[3]);
+        ++it;
 
         EXPECT_EQ(it, end);
 
