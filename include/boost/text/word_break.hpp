@@ -300,7 +300,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         template<
             typename T,
             typename F,
-            typename R = utf_view<format::utf32, uint32_t *>>
+            typename R/*TODO = utf_view<format::utf32, uint32_t *>*/>
         using word_prop_func_ret_t = typename word_prop_func_ret<T, F, R>::type;
 
         template<

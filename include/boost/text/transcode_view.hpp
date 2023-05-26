@@ -31,7 +31,7 @@ namespace boost { namespace text {
             utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>> = true;
     }
 
-    template<format Format, typename V>
+    template<format Format, std::ranges::view V>
     class utf_view : public stl_interfaces::view_interface<utf_view<Format, V>>
     {
         V base_ = V();
@@ -155,11 +155,11 @@ namespace boost { namespace text {
         {}
     };
 
-    template<typename R>
+    template<class R>
     utf8_view(R &&) -> utf8_view<std::views::all_t<R>>;
-    template<typename R>
+    template<class R>
     utf16_view(R &&) -> utf16_view<std::views::all_t<R>>;
-    template<typename R>
+    template<class R>
     utf32_view(R &&) -> utf32_view<std::views::all_t<R>>;
 
 }}
