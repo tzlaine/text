@@ -2516,6 +2516,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             ToFormat == format::utf8 || ToFormat == format::utf16 ||
             ToFormat == format::utf32);
 
+        static_assert(!std::input_iterator<I> || noexcept(ErrorHandler{}("")));
+
     public:
         using value_type = decltype(dtl::format_to_type<ToFormat>());
 
@@ -2552,7 +2554,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         constexpr S end() const { return last_; }
 
         constexpr I base() const requires std::forward_iterator<I> { return curr(); }
-        constexpr I base() && { return std::move(curr()); }
 
         constexpr value_type operator*() const
         {
@@ -2563,10 +2564,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         constexpr utf_iterator & operator++()
         {
             BOOST_ASSERT(buf_index_ != buf_last_ || curr() != last_);
-            if (buf_index_ + 1 == buf_last_ && curr() != last_)
-                read();
-            else
+            if (buf_index_ + 1 == buf_last_ && curr() != last_) {
+                if constexpr (std::forward_iterator<I>) {
+                    std::advance(curr(), to_increment_);
+                }
+                if (curr() == last_)
+                    buf_index_ = 0;
+                else
+                    read();
+            } else {
                 ++buf_index_;
+            }
             return *this;
         }
 
@@ -2582,23 +2590,32 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
 
         friend constexpr bool operator==(utf_iterator lhs, utf_iterator rhs)
+            requires std::forward_iterator<I> || requires(I i) { i != i; }
         {
-            if (lhs.curr() != rhs.curr())
-                return false;
+            if constexpr (std::forward_iterator<I>) {
+                return lhs.curr() == rhs.curr() && lhs.buf_index_ == rhs.buf_index_;
+            } else {
+                if (lhs.curr() != rhs.curr())
+                    return false;
 
-            if (lhs.buf_index_ == rhs.buf_index_ &&
-                lhs.buf_last_ == rhs.buf_last_) {
-                return true;
+                if (lhs.buf_index_ == rhs.buf_index_ &&
+                    lhs.buf_last_ == rhs.buf_last_) {
+                    return true;
+                }
+
+                return lhs.buf_index_ == lhs.buf_last_ &&
+                       rhs.buf_index_ == rhs.buf_last_;
             }
-
-            return lhs.buf_index_ == lhs.buf_last_ &&
-                   rhs.buf_index_ == rhs.buf_last_;
         }
 
         friend constexpr bool
         operator==(utf_iterator lhs, S rhs) requires(!std::same_as<I, S>)
         {
-            return lhs.curr() == rhs && lhs.buf_index_ == lhs.buf_last_;
+            if constexpr (std::forward_iterator<I>) {
+                return lhs.curr() == rhs;
+            } else {
+                return lhs.curr() == rhs && lhs.buf_index_ == lhs.buf_last_;
+            }
         }
 
         // exposition only
@@ -2616,6 +2633,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             if constexpr (FromFormat == format::utf8) {
                 char32_t cp = *curr();
                 ++curr();
+                to_increment_ = 1;
                 if (cp < 0x80)
                     return cp;
 
@@ -2647,6 +2665,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 auto error = [&]() {
                     return ErrorHandler{}("Ill-formed UTF-8.");
                 };
+                auto next = [&]() {
+                    ++curr();
+                    ++to_increment_;
+                };
 
                 // One-byte case handled above
 
@@ -2659,7 +2681,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     // Three-byte
                 } else if (curr_c == 0xe0) {
                     cp = curr_c & 0b00001111;
@@ -2669,14 +2691,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     if (!detail::in(0xa0, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     if (curr() == last_)
                         return error();
                     curr_c = *curr();
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                 } else if (detail::in(0xe1, curr_c, 0xec)) {
                     cp = curr_c & 0b00001111;
                     if (curr() == last_)
@@ -2685,14 +2707,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     if (curr() == last_)
                         return error();
                     curr_c = *curr();
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                 } else if (curr_c == 0xed) {
                     cp = curr_c & 0b00001111;
                     if (curr() == last_)
@@ -2701,14 +2723,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     if (!detail::in(0x80, curr_c, 0x9f))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     if (curr() == last_)
                         return error();
                     curr_c = *curr();
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                 } else if (detail::in(0xee, curr_c, 0xef)) {
                     cp = curr_c & 0b00001111;
                     if (curr() == last_)
@@ -2717,14 +2739,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     if (curr() == last_)
                         return error();
                     curr_c = *curr();
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     // Four-byte
                 } else if (curr_c == 0xf0) {
                     cp = curr_c & 0b00000111;
@@ -2734,21 +2756,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     if (!detail::in(0x90, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     if (curr() == last_)
                         return error();
                     curr_c = *curr();
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     if (curr() == last_)
                         return error();
                     curr_c = *curr();
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                 } else if (detail::in(0xf1, curr_c, 0xf3)) {
                     cp = curr_c & 0b00000111;
                     if (curr() == last_)
@@ -2757,21 +2779,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     if (curr() == last_)
                         return error();
                     curr_c = *curr();
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     if (curr() == last_)
                         return error();
                     curr_c = *curr();
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                 } else if (curr_c == 0xf4) {
                     cp = curr_c & 0b00000111;
                     if (curr() == last_)
@@ -2780,21 +2802,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     if (!detail::in(0x80, curr_c, 0x8f))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     if (curr() == last_)
                         return error();
                     curr_c = *curr();
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                     if (curr() == last_)
                         return error();
                     curr_c = *curr();
                     if (!detail::in(0x80, curr_c, 0xbf))
                         return error();
                     cp = (cp << 6) + (curr_c & 0b00111111);
-                    ++curr();
+                    next();
                 } else {
                     return error();
                 }
@@ -2802,6 +2824,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             } else if constexpr (FromFormat == format::utf16) {
                 char16_t hi = *curr();
                 ++curr();
+                to_increment_ = 1;
                 if (!boost::text::surrogate(hi))
                     return hi;
 
@@ -2818,6 +2841,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
                 char16_t lo = *curr();
                 ++curr();
+                ++to_increment_;
                 if (!boost::text::low_surrogate(lo)) {
                     return ErrorHandler{}(
                         "Invalid UTF-16 sequence; lone leading surrogate.");
@@ -2828,6 +2852,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             } else {
                 char32_t retval = *curr();
                 ++curr();
+                to_increment_ = 1;
                 return retval;
             }
         }
@@ -2836,24 +2861,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         decode_code_point_reverse() requires std::bidirectional_iterator<I>
         {
             if constexpr (FromFormat == format::utf8) {
-                if (buf_index_ != buf_last_ || curr() != last_)
-                    curr() = detail::decrement(first(), curr());
-
                 curr() = detail::decrement(first(), curr());
-                return decode_code_point();
+                auto initial = curr();
+                char32_t cp = decode_code_point();
+                curr() = initial;
+                return cp;
             } else if constexpr (FromFormat == format::utf16) {
-                if (buf_index_ != buf_last_ || curr() != last_) {
-                    if (boost::text::low_surrogate(*--curr())) {
-                        if (curr() != first() &&
-                            boost::text::high_surrogate(*std::prev(curr()))) {
-                            --curr();
-                        }
-                    }
-                }
-
-                auto prev = curr();
-
-                char16_t lo = *--prev;
+                char16_t lo = *--curr();
                 if (!boost::text::surrogate(lo))
                     return lo;
 
@@ -2863,24 +2877,22 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 }
 
                 // low surrogate
-                if (prev == first()) {
+                if (curr() == first()) {
                     return ErrorHandler{}(
                         "Invalid UTF-16 sequence; lone trailing surrogate.");
                 }
 
-                char16_t hi = *--prev;
+                char16_t hi = *std::prev(curr());
                 if (!boost::text::high_surrogate(hi)) {
                     return ErrorHandler{}(
                         "Invalid UTF-16 sequence; lone trailing surrogate.");
                 }
+                --curr();
 
                 return char32_t((hi - high_surrogate_base) << 10) +
                        (lo - low_surrogate_base);
             } else {
-                if (buf_index_ != buf_last_ || curr() != last_)
-                    --curr();
-
-                return *std::prev(curr());
+                return *--curr();
             }
         }
 
@@ -2920,13 +2932,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         constexpr void read()
         {
+            I initial;
+            if constexpr (std::forward_iterator<I>) {
+                initial = curr();
+            }
             if constexpr (noexcept(ErrorHandler{}(""))) {
                 char32_t cp = decode_code_point();
                 auto it = encode_code_point(cp, buf_.begin());
                 buf_index_ = 0;
                 buf_last_ = it - buf_.begin();
             } else {
-                auto curr = curr();
                 auto buf = buf_;
                 try {
                     char32_t cp = decode_code_point();
@@ -2935,30 +2950,35 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     buf_last_ = it - buf_.begin();
                 } catch (...) {
                     buf_ = buf_;
-                    curr() = curr;
+                    curr() = initial;
                     throw;
                 }
+            }
+            if constexpr (std::forward_iterator<I>) {
+                curr() = initial;
             }
         }
 
         constexpr void read_reverse()
         {
+            auto initial = curr();
             if constexpr (noexcept(ErrorHandler{}(""))) {
                 char32_t cp = decode_code_point_reverse();
                 auto it = encode_code_point(cp, buf_.begin());
                 buf_last_ = it - buf_.begin();
                 buf_index_ = buf_last_ - 1;
+                to_increment_ = std::distance(curr(), initial);
             } else {
-                auto curr = curr();
                 auto buf = buf_;
                 try {
                     char32_t cp = decode_code_point_reverse();
                     auto it = encode_code_point(cp, buf_.begin());
                     buf_last_ = it - buf_.begin();
                     buf_index_ = buf_last_ - 1;
+                    to_increment_ = std::distance(curr(), initial);
                 } catch (...) {
                     buf_ = buf_;
-                    curr() = curr;
+                    curr() = initial;
                     throw;
                 }
             }
@@ -2977,6 +2997,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         uint8_t buf_index_ = 0;
         uint8_t buf_last_ = 0;
+        uint8_t to_increment_ = 0;
 
         [[no_unique_address]] S last_;
 

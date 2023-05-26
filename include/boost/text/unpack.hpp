@@ -37,10 +37,7 @@ namespace boost { namespace text {
 
             auto operator()(I it) const
             {
-                auto repacked = RepackedIterator(first, it, last);
-                --repacked;
-                repacked.buf_index_ = 0;
-                return then(repacked);
+                return then(RepackedIterator(first, it, last));
             }
 
             I first;
@@ -141,27 +138,6 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { namespace detail {
 
-    template<format Format, typename I>
-    auto back_up_one_cp(I first, I it)
-    {
-        if constexpr (Format == format::utf8) {
-            it = detail::decrement(first, it);
-        } else if constexpr (Format == format::utf16) {
-            if (it == first)
-                return it;
-            if (boost::text::low_surrogate(*--it)) {
-                if (it != first &&
-                    boost::text::high_surrogate(*std::prev(it))) {
-                    --it;
-                }
-            }
-        } else {
-            if (it != first)
-                --it;
-        }
-        return it;
-    }
-
     template<
         format FromFormat,
         format ToFormat,
@@ -177,7 +153,7 @@ namespace boost { namespace text { namespace detail {
         using iterator = utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>;
         if constexpr (std::bidirectional_iterator<I>) {
             return boost::text::unpack_iterator_and_sentinel(
-                detail::back_up_one_cp<FromFormat>(first.begin(), first.base()),
+                first.base(),
                 last.base(),
                 bidi_repacker<iterator, I, S, Repack>(
                     first.begin(), first.end(), repack));
@@ -202,7 +178,7 @@ namespace boost { namespace text { namespace detail {
         using iterator = utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>;
         if constexpr (std::bidirectional_iterator<I>) {
             return boost::text::unpack_iterator_and_sentinel(
-                detail::back_up_one_cp<FromFormat>(first.begin(), first.base()),
+                first.base(),
                 last,
                 bidi_repacker<iterator, I, S, Repack>(
                     first.begin(), first.end(), repack));

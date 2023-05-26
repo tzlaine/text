@@ -388,10 +388,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 if constexpr (dtl::is_empty_view_v<T>) {
                     return r;
                 } else if constexpr (std::is_pointer_v<T>) {
-                    auto unpacked = boost::text::unpack_iterator_and_sentinel(
-                        r, null_sentinel);
-                    return View(
-                        std::ranges::subrange(unpacked.first, unpacked.last));
+                    return View(std::ranges::subrange(r, null_sentinel));
                 } else {
                     auto unpacked = boost::text::unpack_iterator_and_sentinel(
                         std::ranges::begin(r), std::ranges::end(r));
