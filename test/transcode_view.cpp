@@ -315,9 +315,17 @@ TEST(transcode_view, as_utfN)
     {
         auto r = utf8_ | as_utf8;
         static_assert(
-            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
+            std::is_same<
+                decltype(r.begin()),
+                utf_iterator<format::utf8, format::utf8, char8_t const *>>::
+                value,
+            "");
         static_assert(
-            std::is_same<decltype(r.end()), char8_t const *>::value, "");
+            std::is_same<
+                decltype(r.begin()),
+                utf_iterator<format::utf8, format::utf8, char8_t const *>>::
+                value,
+            "");
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
@@ -334,9 +342,17 @@ TEST(transcode_view, as_utfN)
     {
         auto r = utf8_ | as_utf8;
         static_assert(
-            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
+            std::is_same<
+                decltype(r.begin()),
+                utf_iterator<format::utf8, format::utf8, char8_t const *>>::
+                value,
+            "");
         static_assert(
-            std::is_same<decltype(r.end()), char8_t const *>::value, "");
+            std::is_same<
+                decltype(r.end()),
+                utf_iterator<format::utf8, format::utf8, char8_t const *>>::
+                value,
+            "");
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
@@ -372,7 +388,14 @@ TEST(transcode_view, as_utfN)
         char8_t const * ptr = utf8_null;
         auto r = as_utf8(ptr);
         static_assert(
-            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
+            std::is_same<
+                decltype(r.begin()),
+                utf_iterator<
+                    format::utf8,
+                    format::utf8,
+                    char8_t const *,
+                    null_sentinel_t>>::value,
+            "");
         static_assert(
             std::is_same<decltype(r.end()), null_sentinel_t>::value, "");
         auto truth = utf8_null;
@@ -473,7 +496,14 @@ TEST(transcode_view, as_utfN)
         char8_t const * ptr = utf8_null;
         auto r = ptr | as_utf8;
         static_assert(
-            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
+            std::is_same<
+                decltype(r.begin()),
+                utf_iterator<
+                    format::utf8,
+                    format::utf8,
+                    char8_t const *,
+                    null_sentinel_t>>::value,
+            "");
         static_assert(
             std::is_same<decltype(r.end()), null_sentinel_t>::value, "");
         auto truth = utf8_null;
@@ -580,9 +610,17 @@ TEST(transcode_view, as_utfN)
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
         static_assert(
-            std::is_same<decltype(r.begin()), char8_t const *>::value, "");
+            std::is_same<
+                decltype(r.begin()),
+                utf_iterator<format::utf8, format::utf8, char8_t const *>>::
+                value,
+            "");
         static_assert(
-            std::is_same<decltype(r.end()), char8_t const *>::value, "");
+            std::is_same<
+                decltype(r.end()),
+                utf_iterator<format::utf8, format::utf8, char8_t const *>>::
+                value,
+            "");
     }
 }
 

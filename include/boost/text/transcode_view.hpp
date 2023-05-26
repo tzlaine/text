@@ -18,6 +18,19 @@
 
 namespace boost { namespace text {
 
+    namespace detail {
+        template<typename T>
+        constexpr bool is_utf_iterator = false;
+        template<
+            format FromFormat,
+            format ToFormat,
+            class I,
+            class S,
+            class ErrorHandler>
+        constexpr bool is_utf_iterator<
+            utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>> = true;
+    }
+
     template<format Format, typename V>
     class utf_view : public stl_interfaces::view_interface<utf_view<Format, V>>
     {
@@ -37,7 +50,7 @@ namespace boost { namespace text {
         {
             constexpr format from_format =
                 detail::format_of<std::ranges::range_value_t<V>>();
-            if constexpr (from_format == Format) {
+            if constexpr (!std::ranges::forward_range<V>) {
                 return std::ranges::begin(base_);
             } else {
                 return utf_iterator<
@@ -55,7 +68,8 @@ namespace boost { namespace text {
             constexpr format from_format =
                 detail::format_of<std::ranges::range_value_t<V>>();
             if constexpr (
-                from_format == Format || !std::ranges::common_range<V>) {
+                !std::ranges::common_range<V> ||
+                !std::ranges::forward_range<V>) {
                 return std::ranges::end(base_);
             } else {
                 return utf_iterator<
