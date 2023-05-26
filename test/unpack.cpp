@@ -388,11 +388,12 @@ namespace my {
     auto unpack_iterator_and_sentinel(
         _8_to_32 it, boost::text::null_sentinel_t, Repack repack_ = Repack())
     {
-        boost::text::repacker<
+        boost::text::detail::repacker<
             _8_to_32,
             char const *,
             boost::text::null_sentinel_t,
-            Repack>
+            Repack,
+            true>
             repack(it.begin(), it.end(), repack_);
         return boost::text::utf_tagged_range<
             boost::text::format::utf8,
@@ -440,11 +441,12 @@ namespace my {
         return boost::text::unpack_iterator_and_sentinel(
             first.base(),
             last,
-            boost::text::repacker<
+            boost::text::detail::repacker<
                 template_8_to_32<I>,
                 I,
                 boost::text::null_sentinel_t,
-                Repack>(first.begin(), first.end(), repack));
+                Repack,
+                true>(first.begin(), first.end(), repack));
     }
 
 }

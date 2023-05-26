@@ -27,20 +27,28 @@ namespace boost { namespace text {
             typename RepackedIterator,
             typename I,
             typename S,
-            typename Then>
-        struct bidi_repacker
+            typename Then,
+            bool Bidi>
+        struct repacker
         {
-            bidi_repacker() = default;
-            bidi_repacker(I first, S last, Then then) :
-                first{first}, last{last}, then{then}
+            repacker() = default;
+            repacker(I first, S last, Then then) requires Bidi : first{first},
+                                                                 last{last},
+                                                                 then{then}
+            {}
+            repacker(S last, Then then) requires Bidi : last{last}, then{then}
             {}
 
             auto operator()(I it) const
             {
-                return then(RepackedIterator(first, it, last));
+                if constexpr (Bidi) {
+                    return then(RepackedIterator(*first, it, last));
+                } else {
+                    return then(RepackedIterator(it, last));
+                }
             }
 
-            I first;
+            std::optional<I> first;
             [[no_unique_address]] S last;
             [[no_unique_address]] Then then;
         };
@@ -87,6 +95,7 @@ namespace boost { namespace text {
                 utf_iter I,
                 std::sentinel_for<I> S,
                 typename Repack = no_op_repacker>
+            requires std::forward_iterator<I>
             constexpr auto
             operator()(I first, S last, Repack repack = Repack()) const
             {
@@ -155,11 +164,13 @@ namespace boost { namespace text { namespace detail {
             return boost::text::unpack_iterator_and_sentinel(
                 first.base(),
                 last.base(),
-                bidi_repacker<iterator, I, S, Repack>(
+                repacker<iterator, I, S, Repack, true>(
                     first.begin(), first.end(), repack));
         } else {
             return boost::text::unpack_iterator_and_sentinel(
-                std::move(first).base(), last.base(), no_op_repacker{});
+                first.base(),
+                last.base(),
+                repacker<iterator, I, S, Repack, false>(first.end(), repack));
         }
     }
 
@@ -180,11 +191,13 @@ namespace boost { namespace text { namespace detail {
             return boost::text::unpack_iterator_and_sentinel(
                 first.base(),
                 last,
-                bidi_repacker<iterator, I, S, Repack>(
+                repacker<iterator, I, S, Repack, true>(
                     first.begin(), first.end(), repack));
         } else {
             return boost::text::unpack_iterator_and_sentinel(
-                std::move(first).base(), last, no_op_repacker{});
+                first.base(),
+                last,
+                repacker<iterator, I, S, Repack, false>(last, repack));
         }
     }
 
