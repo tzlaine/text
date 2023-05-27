@@ -2897,7 +2897,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
 
         template<class Out>
-        constexpr Out encode_code_point(char32_t cp, Out out)
+        static constexpr Out encode_code_point(char32_t cp, Out out)
         {
             if constexpr (ToFormat == format::utf8) {
                 if (cp < 0x80) {
@@ -3008,13 +3008,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
         friend class utf_iterator;
-
-        template<
-            typename RepackedIterator,
-            typename I2,
-            typename S2,
-            typename Then>
-        friend struct boost::text::detail::bidi_repacker;
     };
 
 }}}
