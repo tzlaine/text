@@ -121,6 +121,9 @@ namespace boost { namespace text {
                 return std::input_iterator_tag{};
             }
         }
+
+        template<typename I>
+        using bidirectional_at_most_t = decltype(bidirectional_at_most<I>());
     }
 
     /** The replacement character used to mark invalid portions of a Unicode
@@ -597,7 +600,7 @@ namespace boost { namespace text {
         template<typename Derived, typename I, typename ValueType>
         using trans_iter = stl_interfaces::iterator_interface<
             Derived,
-            decltype(detail::bidirectional_at_most<I>()),
+            bidirectional_at_most_t<I>,
             ValueType,
             ValueType>;
     }
@@ -2464,6 +2467,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 return char32_t{};
             }
         }
+
+        template<format Format>
+        using format_to_type_t = decltype(format_to_type<Format>());
+
         template<
             typename I,
             bool SupportReverse = std::bidirectional_iterator<I>>
@@ -2505,9 +2512,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     class utf_iterator
         : public stl_interfaces::iterator_interface<
               utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
-              decltype(detail::bidirectional_at_most<I>()),
-              decltype(dtl::format_to_type<ToFormat>()),
-              decltype(dtl::format_to_type<ToFormat>())>
+              detail::bidirectional_at_most_t<I>,
+              dtl::format_to_type_t<ToFormat>,
+              dtl::format_to_type_t<ToFormat>>
     {
         static_assert(
             FromFormat == format::utf8 || FromFormat == format::utf16 ||
@@ -2519,7 +2526,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         static_assert(!std::input_iterator<I> || noexcept(ErrorHandler{}("")));
 
     public:
-        using value_type = decltype(dtl::format_to_type<ToFormat>());
+        using value_type = dtl::format_to_type_t<ToFormat>;
 
         constexpr utf_iterator() = default;
 
@@ -2621,7 +2628,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         // exposition only
         using base_type = stl_interfaces::iterator_interface<
             utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
-            decltype(detail::bidirectional_at_most<I>()),
+            detail::bidirectional_at_most_t<I>,
             value_type,
             value_type>;
         using base_type::operator++;
