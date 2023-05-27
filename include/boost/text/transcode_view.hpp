@@ -24,8 +24,8 @@ namespace boost { namespace text {
         V base_ = V();
 
     public:
-        constexpr utf_view() {}
-        constexpr utf_view(V base) : base_{base} {}
+        constexpr utf_view() requires std::default_initializable<V> = default;
+        constexpr utf_view(V base) : base_{std::move(base)} {}
 
         constexpr V base() const & requires std::copy_constructible<V> { return base_; }
         constexpr V base() && { return std::move(base_); }
@@ -226,9 +226,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 }}}
 
 namespace std::ranges {
-template<boost::text::format Format, class V>
-inline constexpr bool enable_borrowed_range<boost::text::utf_view<Format, V>> =
-    enable_borrowed_range<V>;
+    template<boost::text::format Format, class V>
+    inline constexpr bool enable_borrowed_range<boost::text::utf_view<Format, V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::utf8_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::utf16_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::utf32_view<V>> =
+        enable_borrowed_range<V>;
 }
 
 #endif

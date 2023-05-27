@@ -35,8 +35,8 @@ namespace boost { namespace text {
         V base_ = V();
 
     public:
-        constexpr grapheme_view() = default;
-        constexpr grapheme_view(V base) : base_{base} {}
+        constexpr grapheme_view() requires std::default_initializable<V> = default;
+        constexpr grapheme_view(V base) : base_{std::move(base)} {}
 
         constexpr V base() const & requires std::copy_constructible<V> { return base_; }
         constexpr V base() && { return std::move(base_); }
