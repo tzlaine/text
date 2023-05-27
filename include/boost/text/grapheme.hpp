@@ -19,22 +19,14 @@
 namespace boost { namespace text {
 
     struct grapheme;
-#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
-#else
-    template<typename I>
-#endif
     struct grapheme_ref;
-
-    /** Returns the number of code_units controlled by g. */
-    int storage_code_units(grapheme const & g);
 
     /** An owning sequence of code points that comprise an extended grapheme
         cluster. */
     struct grapheme
     {
-        using iterator = utf_8_to_32_iterator<char const *>;
-        static_assert(code_point_iter<iterator>);
+        using iterator = utf_8_to_32_iterator<char8_t const *>;
         using const_iterator = iterator;
 
         /** Default ctor. */
@@ -44,11 +36,7 @@ namespace boost { namespace text {
 
             \pre The code points in [first, last) comprise at most one
             grapheme. */
-#if BOOST_TEXT_USE_CONCEPTS
         template<utf_iter I, std::sentinel_for<I> S>
-#else
-        template<typename I, typename S>
-#endif
         grapheme(I first, S last)
         {
             boost::text::transcode_to_utf8(
@@ -58,9 +46,9 @@ namespace boost { namespace text {
         }
 
         /** Constructs *this from the code point cp. */
-        grapheme(uint32_t cp)
+        grapheme(char32_t cp)
         {
-            uint32_t cps[1] = {cp};
+            char32_t cps[1] = {cp};
             boost::text::transcode_to_utf8(
                 cps, cps + 1, std::back_inserter(chars_));
         }
@@ -68,11 +56,7 @@ namespace boost { namespace text {
         /** Constructs *this from r.
 
             \pre The code points in r comprise at most one grapheme. */
-#if BOOST_TEXT_USE_CONCEPTS
         template<utf_range_like R>
-#else
-        template<typename R>
-#endif
         grapheme(R && r)
         {
             if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
@@ -97,14 +81,14 @@ namespace boost { namespace text {
 
         const_iterator begin() const
         {
-            auto const first = &*chars_.begin();
+            auto const first = chars_.data();
             auto const last = first + chars_.size();
             return grapheme::const_iterator{first, first, last};
         }
 
         const_iterator end() const
         {
-            auto const first = &*chars_.begin();
+            auto const first = chars_.data();
             auto const last = first + chars_.size();
             return grapheme::const_iterator{first, last, last};
         }
@@ -112,17 +96,12 @@ namespace boost { namespace text {
         /** Stream inserter; performs unformatted output, in UTF-8 encoding. */
         friend std::ostream & operator<<(std::ostream & os, grapheme const & g)
         {
-            return os.write(
-                g.begin().base(), g.end().base() - g.begin().base());
+            return os << (g.chars_ | as_utf8);
         }
 
         bool operator==(grapheme const & other) const
         {
             return chars_ == other.chars_;
-        }
-        bool operator!=(grapheme const & other) const
-        {
-            return chars_ != other.chars_;
         }
 
         friend int storage_code_units(grapheme const & g)
@@ -131,18 +110,14 @@ namespace boost { namespace text {
         }
 
     private:
-        container::small_vector<char, 8> chars_;
+        container::small_vector<char8_t, 8> chars_;
     };
 
 
     /** A non-owning reference to a range of code points that comprise a
         grapheme. */
-#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
-#else
-    template<typename I>
-#endif
-    struct grapheme_ref : utf_view<format::utf32, std::ranges::subrange<I>>
+    struct grapheme_ref : utf32_view<std::ranges::subrange<I>>
     {
         /** Default ctor. */
         constexpr grapheme_ref() = default;
@@ -152,7 +127,7 @@ namespace boost { namespace text {
             \pre The code points in [first, last) comprise at most one
             grapheme. */
         constexpr grapheme_ref(I first, I last) :
-            utf_view<format::utf32, std::ranges::subrange<I>>(
+            utf32_view<std::ranges::subrange<I>>(
                 std::ranges::subrange(first, last))
         {
             BOOST_ASSERT(boost::text::next_grapheme_break(first, last) == last);
@@ -161,42 +136,33 @@ namespace boost { namespace text {
         /** Constructs *this from r.
 
             \pre The code points in r comprise at most one grapheme. */
-        constexpr grapheme_ref(
-            utf_view<format::utf32, std::ranges::subrange<I>> r) :
-            utf_view<format::utf32, std::ranges::subrange<I>>(r)
+        template<std::ranges::view R>
+        // clang-format off
+            requires std::same_as<std::ranges::iterator_t<R>, I> && utf_range<R> && std::ranges::common_range<R>
+        // clang-format on
+        constexpr grapheme_ref(R && r) :
+             utf32_view<std::ranges::subrange<I>>(
+                 std::ranges::subrange(std::ranges::begin(r), std::ranges::end(r)))
         {
-            auto const f = std::ranges::begin(r);
-            auto const l = std::ranges::end(r);
-            BOOST_ASSERT(boost::text::next_grapheme_break(f, l) == l);
+            BOOST_ASSERT(
+                boost::text::next_grapheme_break(
+                    std::ranges::begin(r), std::ranges::end(r)) ==
+                std::ranges::end(r));
         }
 
         /** Constructs *this from g. */
         constexpr grapheme_ref(grapheme const & g)
-#if BOOST_TEXT_USE_CONCEPTS
-            requires std::same_as<I, grapheme::iterator>
-#endif
-            : utf_view<format::utf32, std::ranges::subrange<I>>(g)
+            requires std::same_as<grapheme::iterator, I>
+            : utf32_view<std::ranges::subrange<I>>(g)
         {}
-
-        /** Returns true if lhs the same sequence of code points as rhs. */
-        friend constexpr bool operator==(grapheme_ref lhs, grapheme_ref rhs)
-        {
-            return algorithm::equal(
-                lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-        }
-        friend constexpr bool operator!=(grapheme_ref lhs, grapheme_ref rhs)
-        {
-            return !(lhs == rhs);
-        }
     };
 
 #if defined(__cpp_deduction_guides)
-    template<typename I>
+    template<class I>
     grapheme_ref(I, I) -> grapheme_ref<I>;
 
-    template<typename V>
-    grapheme_ref(utf_view<format::utf32, V>)
-        -> grapheme_ref<std::ranges::iterator_t<V>>;
+    template<class R>
+    grapheme_ref(R &&) -> grapheme_ref<std::ranges::iterator_t<R>>;
 
 #if !defined(_MSC_VER)
     grapheme_ref(grapheme) -> grapheme_ref<grapheme::const_iterator>;
@@ -204,86 +170,17 @@ namespace boost { namespace text {
 #endif
 
     /** Returns the number of bytes g refers to. */
-#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
-#else
-    template<typename I>
-#endif
     int storage_code_units(grapheme_ref<I> g)
     {
         return std::distance(g.begin().base(), g.end().base());
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-#if BOOST_TEXT_USE_CONCEPTS
-    template<code_point_iter I1, code_point_iter I2>
-#else
-    template<typename I1, typename I2>
-#endif
-    constexpr bool
-    operator==(grapheme_ref<I1> lhs, grapheme_ref<I2> rhs)
+    template<class I1, class I2>
+    constexpr bool operator==(grapheme_ref<I1> lhs, grapheme_ref<I2> rhs)
     {
         return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-    }
-
-    /** Returns true if lhs the same sequence of code points as rhs. */
-#if BOOST_TEXT_USE_CONCEPTS
-    template<code_point_iter I1, code_point_iter I2>
-#else
-    template<typename I1, typename I2>
-#endif
-    constexpr bool
-    operator!=(grapheme_ref<I1> lhs, grapheme_ref<I2> rhs)
-    {
-        return !(lhs == rhs);
-    }
-
-    /** Returns true if lhs the same sequence of code points as rhs. */
-#if BOOST_TEXT_USE_CONCEPTS
-    template<code_point_iter I>
-#else
-    template<typename I>
-#endif
-    constexpr bool
-    operator==(grapheme const & lhs, grapheme_ref<I> rhs)
-    {
-        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-    }
-
-    /** Returns true if lhs the same sequence of code points as rhs. */
-#if BOOST_TEXT_USE_CONCEPTS
-    template<code_point_iter I>
-#else
-    template<typename I>
-#endif
-    constexpr bool
-    operator==(grapheme_ref<I> lhs, grapheme const & rhs)
-    {
-        return rhs == lhs;
-    }
-
-    /** Returns true if lhs the same sequence of code points as rhs. */
-#if BOOST_TEXT_USE_CONCEPTS
-    template<code_point_iter I>
-#else
-    template<typename I>
-#endif
-    constexpr bool
-    operator!=(grapheme const & lhs, grapheme_ref<I> rhs)
-    {
-        return !(lhs == rhs);
-    }
-
-    /** Returns true if lhs the same sequence of code points as rhs. */
-#if BOOST_TEXT_USE_CONCEPTS
-    template<code_point_iter I>
-#else
-    template<typename I>
-#endif
-    constexpr bool
-    operator!=(grapheme_ref<I> rhs, grapheme const & lhs)
-    {
-        return !(rhs == lhs);
     }
 
 }}

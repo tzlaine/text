@@ -32,7 +32,7 @@ namespace boost { namespace text {
     }
 
     template<format Format, std::ranges::view V>
-    class utf_view : public stl_interfaces::view_interface<utf_view<Format, V>>
+    class utf_view : public std::ranges::view_interface<utf_view<Format, V>>
     {
         V base_ = V();
 
@@ -40,10 +40,7 @@ namespace boost { namespace text {
         constexpr utf_view() {}
         constexpr utf_view(V base) : base_{base} {}
 
-        constexpr V base() const & requires std::copy_constructible<V>
-        {
-            return base_;
-        }
+        constexpr V base() const & requires std::copy_constructible<V> { return base_; }
         constexpr V base() && { return std::move(base_); }
 
         constexpr auto begin() const
@@ -182,20 +179,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 #endif
 
     namespace dtl {
-        template<typename T>
+        template<class T>
         struct is_empty_view : std::false_type
         {};
-        template<typename T>
+        template<class T>
         struct is_empty_view<std::ranges::empty_view<T>> : std::true_type
         {};
-        template<typename T>
+        template<class T>
         constexpr bool is_empty_view_v = is_empty_view<T>::value;
 
-        template<typename R, template<typename> typename View>
+        template<class R, template<class> class View>
         concept can_utf_view = requires { View(std::declval<R &>()); };
 
-        template<typename R>
-        constexpr auto unpack_range(R && r)
+        template<class R>
+        constexpr decltype(auto) unpack_range(R && r)
         {
             using T = std::remove_cvref_t<R>;
             if constexpr (std::ranges::forward_range<T>) {
@@ -207,13 +204,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
         }
 
-        template<typename R>
+        template<class R>
         using unpacked_range = decltype(dtl::unpack_range(std::declval<R>()));
 
-        template<template<typename> typename View, format Format>
+        template<template<class> class View, format Format>
         struct as_utf_impl : range_adaptor_closure<as_utf_impl<View, Format>>
         {
-            template<typename R>
+            template<class R>
                 requires(std::ranges::viewable_range<R> &&
                          can_utf_view<unpacked_range<R>, View>) ||
                         utf_pointer<std::remove_cvref_t<R>>
@@ -237,7 +234,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 }}}
 
 namespace std::ranges {
-template<boost::text::format Format, typename V>
+template<boost::text::format Format, class V>
 inline constexpr bool enable_borrowed_range<boost::text::utf_view<Format, V>> =
     enable_borrowed_range<V>;
 }
