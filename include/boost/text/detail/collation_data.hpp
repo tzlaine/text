@@ -249,7 +249,7 @@ namespace boost { namespace text { namespace detail {
 
         iterator erase(iterator at)
         {
-            BOOST_ASSERT(at == std::prev(end()));
+            BOOST_ASSERT(at == std::ranges::prev(end()));
             --size_;
             return --at;
         }

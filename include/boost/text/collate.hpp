@@ -1510,11 +1510,11 @@ namespace boost { namespace text { namespace detail {
                 if (detail::ccc(*--s2_it) == 0)
                     break;
             }
-            // TODO: This will produce incorrect results if std::prev(s2_it)
+            // TODO: This will produce incorrect results if std::ranges::prev(s2_it)
             // points to a CP with variable-weighted CEs.
         }
 
-        auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
+        auto const end_of_raw_input = std::ranges::prev(it, s2_it - buf_it);
         auto const ces_size = ces.size();
         ces.resize(ces_size + M);
         auto ces_end = table.copy_collation_elements(

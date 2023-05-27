@@ -29,8 +29,10 @@ namespace boost { namespace text { namespace detail {
     prev_paragraph_break_impl(CPIter first, CPIter it, Sentinel last)
     {
         // CRLF special case.
-        if (it != first && it != last && *std::prev(it) == 0xd && *it == 0xa)
+        if (it != first && it != last && *std::ranges::prev(it) == 0xd &&
+            *it == 0xa) {
             --it;
+        }
         auto prev_it =
             boost::text::find_if_backward(first, it, detail::paragraph_break);
         if (prev_it == it)
@@ -44,12 +46,12 @@ namespace boost { namespace text { namespace detail {
         if (first == last)
             return first;
         first = boost::text::find_if(
-            std::next(first), last, detail::paragraph_break);
+            std::ranges::next(first), last, detail::paragraph_break);
         if (first == last)
             return first;
         // Eat LF after CR.
-        if (*first == 0xd && std::next(first) != last &&
-            *std::next(first) == 0xa) {
+        if (*first == 0xd && std::ranges::next(first) != last &&
+            *std::ranges::next(first) == 0xa) {
             ++first;
         }
         return ++first;

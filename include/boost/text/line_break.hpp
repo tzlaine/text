@@ -360,7 +360,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 detail::lb9_x(state.prev_prop) &&
                 detail::skippable(state.prop)) {
                 auto temp_it = boost::text::find_if_not(
-                    std::next(state.it), last, [](uint32_t cp) {
+                    std::ranges::next(state.it), last, [](uint32_t cp) {
                         return detail::skippable(
                             boost::text::line_prop(cp));
                     });
@@ -371,9 +371,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     state.it = temp_it;
                     state.prop = temp_prop;
                     state.next_prop = line_property::AL;
-                    if (std::next(state.it) != last) {
+                    if (std::ranges::next(state.it) != last) {
                         state.next_prop =
-                            boost::text::line_prop(*std::next(state.it));
+                            boost::text::line_prop(*std::ranges::next(state.it));
                     }
                 }
             }
@@ -404,9 +404,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     state.it = it;
                     state.prop = temp_prop;
                     state.next_prop = line_property::AL;
-                    if (std::next(state.it) != last) {
+                    if (std::ranges::next(state.it) != last) {
                         state.next_prop =
-                            boost::text::line_prop(*std::next(state.it));
+                            boost::text::line_prop(*std::ranges::next(state.it));
                     }
                 }
             }
@@ -437,7 +437,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     state.prev_prev_prop = line_property::AL;
                     if (state.it != first) {
                         state.prev_prev_prop =
-                            boost::text::line_prop(*std::prev(state.it));
+                            boost::text::line_prop(*std::ranges::prev(state.it));
                     }
                 }
             }
@@ -553,7 +553,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                         state.it = it_;
                         state.prop = boost::text::line_prop(*state.it);
                         state.next_prop =
-                            boost::text::line_prop(*std::next(state.it));
+                            boost::text::line_prop(*std::ranges::next(state.it));
                     }
                 }
 
@@ -574,14 +574,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             }
 
             state.prev_prev_prop = line_property::AL;
-            if (std::prev(state.it) != first)
+            if (std::ranges::prev(state.it) != first)
                 state.prev_prev_prop =
-                    boost::text::line_prop(*std::prev(state.it, 2));
-            state.prev_prop = boost::text::line_prop(*std::prev(state.it));
+                    boost::text::line_prop(*std::ranges::prev(state.it, 2));
+            state.prev_prop = boost::text::line_prop(*std::ranges::prev(state.it));
             state.next_prop = line_property::AL;
-            if (std::next(state.it) != last)
+            if (std::ranges::next(state.it) != last)
                 state.next_prop =
-                    boost::text::line_prop(*std::next(state.it));
+                    boost::text::line_prop(*std::ranges::next(state.it));
 
             state.emoji_state = detail::line_break_emoji_state_t::none;
 
@@ -611,7 +611,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                             state.prev_prev_prop = line_property::AL;
                         } else {
                             state.prev_prev_prop =
-                                boost::text::line_prop(*std::prev(temp_it));
+                                boost::text::line_prop(*std::ranges::prev(temp_it));
                         }
                     }
                 }
@@ -619,9 +619,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             };
 
             for (; state.it != first; state = detail::prev(state)) {
-                if (std::prev(state.it) != first)
+                if (std::ranges::prev(state.it) != first)
                     state.prev_prev_prop =
-                        boost::text::line_prop(*std::prev(state.it, 2));
+                        boost::text::line_prop(*std::ranges::prev(state.it, 2));
                 else
                     state.prev_prev_prop = line_property::AL;
 
@@ -653,10 +653,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                         if (temp_state.prev_prop == line_property::RI) {
                             temp_state = detail::prev(temp_state);
                             if (temp_state.it != first &&
-                                std::prev(temp_state.it) != first) {
+                                std::ranges::prev(temp_state.it) != first) {
                                 temp_state.prev_prev_prop =
                                     boost::text::line_prop(
-                                        *std::prev(temp_state.it, 2));
+                                        *std::ranges::prev(temp_state.it, 2));
                             } else {
                                 temp_state.prev_prev_prop = line_property::AL;
                             }
@@ -860,11 +860,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                             state.prev_prev_prop = line_property::AL;
                             if (state.it != first) {
                                 state.prev_prop = boost::text::line_prop(
-                                    *std::prev(state.it));
-                                if (std::prev(state.it) != first) {
+                                    *std::ranges::prev(state.it));
+                                if (std::ranges::prev(state.it) != first) {
                                     state.prev_prev_prop =
                                         boost::text::line_prop(
-                                            *std::prev(state.it, 2));
+                                            *std::ranges::prev(state.it, 2));
                                 }
                             }
 
@@ -923,7 +923,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             Iter it = first;
             while (0 < n) {
                 auto const n_over_2 = n >> 1;
-                auto const mid = std::next(it, n_over_2);
+                auto const mid = std::ranges::next(it, n_over_2);
                 if (eval(first, mid) <= x) {
                     it = mid;
                     n -= n_over_2;
@@ -964,9 +964,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             state.prev_prop = boost::text::line_prop(*first);
             state.prop = boost::text::line_prop(*state.it);
             state.next_prop = line_property::AL;
-            if (std::next(state.it) != last)
+            if (std::ranges::next(state.it) != last)
                 state.next_prop =
-                    boost::text::line_prop(*std::next(state.it));
+                    boost::text::line_prop(*std::ranges::next(state.it));
 
             state.emoji_state = state.prev_prop == line_property::RI
                                     ? line_break_emoji_state_t::first_emoji
@@ -983,7 +983,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                                    max_extent](result_t result) {
                 if (!result.hard_break)
                     result.hard_break =
-                        detail::hard_break_cp(*std::prev(result.iter));
+                        detail::hard_break_cp(*std::ranges::prev(result.iter));
 
                 if (break_overlong_lines) {
                     CPIter const latest_extent_it =
@@ -1033,7 +1033,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                                first,
                                max_extent](CPIter it) {
                 auto const result =
-                    result_t{it, detail::hard_break_cp(*std::prev(it))};
+                    result_t{it, detail::hard_break_cp(*std::ranges::prev(it))};
                 auto const extent =
                     cp_extent(latest_result ? latest_result->iter : first, it);
                 auto const exceeds = max_extent < latest_extent + extent;
@@ -1047,9 +1047,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             };
 
             for (; state.it != last; state = detail::next(state)) {
-                if (std::next(state.it) != last)
+                if (std::ranges::next(state.it) != last)
                     state.next_prop =
-                        boost::text::line_prop(*std::next(state.it));
+                        boost::text::line_prop(*std::ranges::next(state.it));
                 else
                     state.next_prop = line_property::AL;
 
@@ -1170,12 +1170,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     // applies, since if we didn't, we'd bail out before
                     // ever reaching it due to LB12a above on the next
                     // iteration.
-                    if (std::next(state.it) != last) {
+                    if (std::ranges::next(state.it) != last) {
                         // LB16
                         auto next_state = detail::next(state);
-                        if (std::next(next_state.it) != last) {
+                        if (std::ranges::next(next_state.it) != last) {
                             next_state.next_prop = boost::text::line_prop(
-                                *std::next(next_state.it));
+                                *std::ranges::next(next_state.it));
                         } else {
                             next_state.next_prop = line_property::AL;
                         }
@@ -1214,9 +1214,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                         state.it = --it;
                         state.prop = boost::text::line_prop(*state.it);
                         state.next_prop = line_property::AL;
-                        if (std::next(state.it) != last)
+                        if (std::ranges::next(state.it) != last)
                             state.next_prop = boost::text::line_prop(
-                                *std::next(state.it));
+                                *std::ranges::next(state.it));
                     }
 
                     continue;
@@ -1307,9 +1307,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     state.it = --it;
                     state.prop = boost::text::line_prop(*state.it);
                     state.next_prop = line_property::AL;
-                    if (std::next(state.it) != last) {
-                        state.next_prop =
-                            boost::text::line_prop(*std::next(state.it));
+                    if (std::ranges::next(state.it) != last) {
+                        state.next_prop = boost::text::line_prop(
+                            *std::ranges::next(state.it));
                     }
                     continue;
                 }
@@ -2105,7 +2105,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 bool const at_end = seg_.first == seg_.second;
 
                 auto const prev_it = detail::prev_line_break_impl(
-                    first_, std::prev(seg_.first.iter), last_, false);
+                    first_, std::ranges::prev(seg_.first.iter), last_, false);
                 seg_.second = seg_.first;
                 seg_.first = prev_it;
 

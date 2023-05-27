@@ -875,7 +875,7 @@ namespace boost { namespace text {
                     key.insert(key.end(), e);
                 from_trie_impl(*n, key, false);
                 if (!root)
-                    key.erase(std::prev(key.end()));
+                    key.erase(std::ranges::prev(key.end()));
             }
         }
 

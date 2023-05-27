@@ -225,7 +225,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         void push_back(grapheme_ref<CPIter> g);
 
-        void pop_back() { erase(std::prev(end())); }
+        void pop_back() { erase(std::ranges::prev(end())); }
 
         iterator begin()
         {
@@ -317,7 +317,7 @@ namespace boost { namespace text {
         replace_result<iterator> erase(const_iterator at)
         {
             BOOST_ASSERT(at != end());
-            return erase(at, std::next(at));
+            return erase(at, std::ranges::next(at));
         }
 
         /** Replaces the portion of `*this` delimited by `[first1, last1)`

@@ -762,7 +762,7 @@ namespace boost { namespace text {
             auto ces_it = detail::last_ce_at_least_strength(
                 ces.begin(), ces.end(), strength);
             if (ces_it != ces.end())
-                ces.erase(std::next(ces_it), ces.end());
+                ces.erase(std::ranges::next(ces_it), ces.end());
             if (ces_it == ces.end()) {
                 ces.clear();
                 ces.push_back(collation_element{0, 0, 0, 0});
@@ -1474,7 +1474,7 @@ namespace boost { namespace text {
                 buf.assign(pair.key.begin(), pair.key.end());
                 auto const cps = buf | as_utf32;
                 std::copy(
-                    std::next(cps.begin()),
+                    std::ranges::next(cps.begin()),
                     cps.end(),
                     std::back_inserter(nonstarters));
             }

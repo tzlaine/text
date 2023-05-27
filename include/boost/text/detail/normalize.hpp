@@ -295,7 +295,7 @@ namespace boost { namespace text { namespace detail {
             BOOST_ASSERT(first != last);
             if (!inhibit_flushes_) {
                 flush();
-                auto second_to_last = std::prev(last);
+                auto second_to_last = std::ranges::prev(last);
                 if (boost::text::low_surrogate(*second_to_last))
                     --second_to_last;
                 appender_.append(first, second_to_last);
@@ -477,7 +477,7 @@ namespace boost { namespace text { namespace detail {
             buffer[0] = *first + delta;
             buffer_last = buffer + 1;
         } else {
-            int32_t trail = *std::prev(last) + delta;
+            int32_t trail = *std::ranges::prev(last) + delta;
             if (0x80 <= trail && trail <= 0xbf) {
                 --last;
                 buffer_last = std::copy(first, last, buffer);
@@ -809,7 +809,7 @@ namespace boost { namespace text { namespace detail {
                     break;
                 } else {
                     uint16_t c2;
-                    auto next = std::next(first);
+                    auto next = std::ranges::next(first);
                     if (next != last &&
                         boost::text::low_surrogate(c2 = *next)) {
                         c = detail::surrogates_to_cp(c, c2);
@@ -943,7 +943,7 @@ namespace boost { namespace text { namespace detail {
                 }
             } else if (
                 table.get_jamo_vt(norm16) && prev_boundary != prev_first) {
-                uint16_t prev = *std::prev(prev_first);
+                uint16_t prev = *std::ranges::prev(prev_first);
                 if (c < TBase) {
                     uint16_t l = (uint16_t)(prev - LBase);
                     if (l < LCount) {

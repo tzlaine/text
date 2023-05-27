@@ -184,11 +184,11 @@ namespace boost { namespace text {
             } else {
                 auto const it = boost::text::find_if_backward(
                     first_, it_, [](auto cp) { return detail::ccc(cp) == 0; });
-                auto const from = it == it_ ? first_ : std::next(it);
+                auto const from = it == it_ ? first_ : std::ranges::next(it);
                 std::size_t const nonstarters = std::distance(from, it_);
                 nonstarters_ = (std::min)(
                     nonstarters, detail::stream_safe_max_nonstarters - 1);
-                it_ = std::next(it == it_ ? first_ : it, nonstarters_);
+                it_ = std::ranges::next(it == it_ ? first_ : it, nonstarters_);
             }
             return *this;
         }

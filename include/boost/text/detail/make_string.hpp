@@ -26,7 +26,8 @@ namespace boost { namespace text { namespace detail {
     auto make_string(CharIter first, Sentinel last)
     {
         return String(
-            first, std::next(first, boost::text::distance(first, last)));
+            first,
+            std::ranges::next(first, boost::text::distance(first, last)));
     }
 
 }}}

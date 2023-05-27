@@ -81,8 +81,8 @@ namespace boost { namespace text {
                     return *this;
                 }
 
-                auto const prev_it =
-                    (*prev_func_)(first_, std::prev(seg_.first), seg_.second);
+                auto const prev_it = (*prev_func_)(
+                    first_, std::ranges::prev(seg_.first), seg_.second);
                 seg_.second = seg_.first;
                 seg_.first = prev_it;
                 return *this;

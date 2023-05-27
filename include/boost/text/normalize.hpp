@@ -72,7 +72,7 @@ namespace boost { namespace text {
                          ++first, ++input_last, ++n) {
                         *input_last = *first;
                     }
-                    if (high_surrogate(*std::prev(input_last)) &&
+                    if (high_surrogate(*std::ranges::prev(input_last)) &&
                         first != last) {
                         *input_last++ = *first;
                         ++first;

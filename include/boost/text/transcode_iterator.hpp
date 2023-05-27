@@ -2882,7 +2882,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                         "Invalid UTF-16 sequence; lone trailing surrogate.");
                 }
 
-                char16_t hi = *std::prev(curr());
+                char16_t hi = *std::ranges::prev(curr());
                 if (!boost::text::high_surrogate(hi)) {
                     return ErrorHandler{}(
                         "Invalid UTF-16 sequence; lone trailing surrogate.");

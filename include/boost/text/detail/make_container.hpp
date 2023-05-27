@@ -20,7 +20,8 @@ namespace boost { namespace text { namespace detail {
     auto make_container(Iter first, Sentinel last)
     {
         return Container(
-            first, std::next(first, boost::text::distance(first, last)));
+            first,
+            std::ranges::next(first, boost::text::distance(first, last)));
     }
 
 }}}

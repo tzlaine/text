@@ -432,11 +432,11 @@ namespace boost { namespace text { namespace detail {
             return false;
         auto const lead_byte = it->first_.l1_ & 0xff000000;
         if (it != reorder_groups().begin() &&
-            (std::prev(it)->first_.l1_ & 0xff000000) == lead_byte) {
+            (std::ranges::prev(it)->first_.l1_ & 0xff000000) == lead_byte) {
             return true;
         }
-        if (std::next(it) != reorder_groups().end() &&
-            (std::next(it)->first_.l1_ & 0xff000000) == lead_byte) {
+        if (std::ranges::next(it) != reorder_groups().end() &&
+            (std::ranges::next(it)->first_.l1_ & 0xff000000) == lead_byte) {
             return true;
         }
         return false;
@@ -716,19 +716,19 @@ namespace boost { namespace text { namespace detail {
                     boost::throw_exception(one_token_parse_error(
                         "Script code 'Common'/'Zyyy' may not be used in "
                         "reorderings",
-                        std::prev(it),
+                        std::ranges::prev(it),
                         end));
                 } else if (*str == "Inherited" || *str == "Zinh") {
                     boost::throw_exception(one_token_parse_error(
                         "Script code 'Inherited'/'Zinh' may not be used in "
                         "reorderings",
-                        std::prev(it),
+                        std::ranges::prev(it),
                         end));
                 } else {
                     auto group = find_reorder_group(*str);
                     if (!group && *str != "others" && *str != "Zzzz") {
                         boost::throw_exception(one_token_parse_error(
-                            "Unknown script code", std::prev(it), end));
+                            "Unknown script code", std::ranges::prev(it), end));
                     }
                     reorderings.push_back(std::move(*str));
                     if (group)

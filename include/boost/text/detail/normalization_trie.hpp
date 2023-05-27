@@ -60,7 +60,8 @@ namespace boost { namespace text { namespace detail {
             } else {
                 uint16_t c2;
                 if (boost::text::low_surrogate(cp) && last != first &&
-                    boost::text::high_surrogate(c2 = *std::prev(last))) {
+                    boost::text::high_surrogate(
+                        c2 = *std::ranges::prev(last))) {
                     --last;
                     cp = detail::surrogates_to_cp(c2, cp);
                     index = small_index_(cp);

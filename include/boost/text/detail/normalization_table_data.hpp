@@ -221,8 +221,8 @@ namespace boost { namespace text { namespace detail {
             int32_t cp = *--last;
             if (boost::text::low_surrogate(cp)) {
                 uint16_t cu = 0;
-                if (first != last &&
-                    boost::text::high_surrogate(cu = *std::prev(last))) {
+                if (first != last && boost::text::high_surrogate(
+                                         cu = *std::ranges::prev(last))) {
                     --last;
                     cp = detail::surrogates_to_cp(cu, cp);
                 }

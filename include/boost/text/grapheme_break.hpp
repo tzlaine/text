@@ -177,12 +177,13 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
             grapheme_break_state<CPIter> state;
             state.it = it;
             state.prop = boost::text::grapheme_prop(*state.it);
-            state.prev_prop = boost::text::grapheme_prop(*std::prev(state.it));
+            state.prev_prop =
+                boost::text::grapheme_prop(*std::ranges::prev(state.it));
             state.emoji_state = grapheme_break_emoji_state_t::none;
 
             for (; state.it != first; state = prev(state)) {
                 state.prev_prop =
-                    boost::text::grapheme_prop(*std::prev(state.it));
+                    boost::text::grapheme_prop(*std::ranges::prev(state.it));
 
                 // When we see an RI, back up to the first RI so we can see what
                 // emoji state we're supposed to be in here.
@@ -207,7 +208,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
                 // GB11
                 if (state.prev_prop == grapheme_property::ZWJ &&
                     state.prop == grapheme_property::ExtPict &&
-                    detail::gb11_prefix(first, std::prev(state.it))) {
+                    detail::gb11_prefix(first, std::ranges::prev(state.it))) {
                     continue;
                 }
 
@@ -249,7 +250,8 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
             if (++state.it == last)
                 return state.it;
 
-            state.prev_prop = boost::text::grapheme_prop(*std::prev(state.it));
+            state.prev_prop =
+                boost::text::grapheme_prop(*std::ranges::prev(state.it));
             state.prop = boost::text::grapheme_prop(*state.it);
 
             state.emoji_state =
@@ -263,7 +265,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
                 // GB11
                 if (state.prev_prop == grapheme_property::ZWJ &&
                     state.prop == grapheme_property::ExtPict &&
-                    detail::gb11_prefix(first, std::prev(state.it))) {
+                    detail::gb11_prefix(first, std::ranges::prev(state.it))) {
                     continue;
                 }
 

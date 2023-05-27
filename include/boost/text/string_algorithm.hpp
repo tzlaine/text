@@ -28,7 +28,7 @@ namespace boost { namespace text { namespace detail {
         if constexpr (std::ranges::common_range<V>) {
             if (!view.empty() && view.back() == 0){
                 return std::ranges::subrange(
-                           view.begin(), std::prev(view.end())) |
+                           view.begin(), std::ranges::prev(view.end())) |
                        as_utf32;
             } else {
                 return std::ranges::subrange(view.begin(), view.end());
@@ -156,7 +156,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 std::equal_to<>{});
             if (result == last1_)
                 return last1;
-            return std::prev(result.base());
+            return std::ranges::prev(result.base());
         }
 
         template<typename I1, typename S1, typename I2, typename S2>
@@ -181,7 +181,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
                 });
             if (result == last1)
                 return last1_;
-            return std::prev(result.base());
+            return std::ranges::prev(result.base());
         }
 
         template<typename I1, typename S1, typename I2, typename S2>

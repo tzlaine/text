@@ -363,7 +363,7 @@ namespace boost { namespace text {
 
                 // Just pass over any zeros after a nonzero.
                 if (!curr_size && size_it != size_first &&
-                    *std::prev(size_it)) {
+                    *std::ranges::prev(size_it)) {
                     while (size_it != size_last && !*size_it) {
                         size_it++;
                     }
@@ -600,7 +600,7 @@ namespace boost { namespace text {
             std::random_access_iterator_tag,
             non_sentinel_tag)
         {
-            return std::next(it, (std::min)(n, last - it));
+            return std::ranges::next(it, (std::min)(n, last - it));
         }
 
         template<typename Iter, typename Sentinel>
@@ -704,7 +704,7 @@ namespace boost { namespace text {
                       << collation_element_dumper(
                              std::vector<collation_element>(
                                  pattern_ces_first,
-                                 std::next(pattern_ces_first, pattern_length)))
+                                 std::ranges::next(pattern_ces_first, pattern_length)))
                       << "\n";
 #endif
 
@@ -871,7 +871,7 @@ namespace boost { namespace text {
                     // pattern_length CEs) for the search below to work.
                     if (0 < str_ces_needed_for_search) {
                         auto const append_it =
-                            std::next(it, str_ce_sizes.size());
+                            std::ranges::next(it, str_ce_sizes.size());
                         detail::append_search_ces_and_sizes(
                             append_it,
                             detail::next_until(
@@ -1062,7 +1062,7 @@ namespace boost { namespace text {
 
             std::ptrdiff_t i = 0;
             for (auto it = pattern_ces_.begin(),
-                      end = std::prev(pattern_ces_.end());
+                      end = std::ranges::prev(pattern_ces_.end());
                  it != end;
                  ++it, ++i) {
                 skips_.insert(*it, pattern_ces_.size() - 1 - i);

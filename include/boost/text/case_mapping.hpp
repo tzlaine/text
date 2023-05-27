@@ -563,7 +563,7 @@ namespace boost { namespace text {
             auto after_vowel_with_accent = [first](CPIter it) {
                 if (it == first)
                     return false;
-                return (detail::greek_case_data(*std::prev(it)) &
+                return (detail::greek_case_data(*std::ranges::prev(it)) &
                         (has_vowel | has_accent | has_dialytika)) ==
                        (has_vowel | has_accent);
             };
@@ -607,7 +607,7 @@ namespace boost { namespace text {
                     continue;
                 }
 
-                auto const condition_first = std::next(it);
+                auto const condition_first = std::ranges::next(it);
 
                 uint32_t greek_data = mode == map_case_mode::upper
                                           ? detail::greek_case_data(*it)

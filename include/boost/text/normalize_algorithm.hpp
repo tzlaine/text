@@ -476,7 +476,7 @@ namespace boost { namespace text { namespace detail {
             if ((std::ptrdiff_t)buffer.size() <= replaceable_size) {
                 auto it = std::copy(buffer.begin(), buffer.end(), first);
                 it = string.erase(it, last);
-                return {std::prev(it, buffer.size()), it};
+                return {std::ranges::prev(it, buffer.size()), it};
             } else {
                 auto const copy_last = buffer.begin() + replaceable_size;
                 std::copy(buffer.begin(), copy_last, first);
@@ -488,8 +488,8 @@ namespace boost { namespace text { namespace detail {
                 string.insert(last, copy_last, buffer.end());
                 auto const it = string.begin() + insertion_offset;
                 return {
-                    std::prev(it, replaceable_size),
-                    std::next(it, buffer.end() - copy_last)};
+                    std::ranges::prev(it, replaceable_size),
+                    std::ranges::next(it, buffer.end() - copy_last)};
             }
         }
     };
@@ -513,8 +513,8 @@ namespace boost { namespace text { namespace detail {
             auto const first_offset = first - string.begin();
             string.replace(first, last, buffer.begin(), buffer.end());
             return {
-                std::next(string.begin(), first_offset),
-                std::next(string.begin(), first_offset + buffer.size())};
+                std::ranges::next(string.begin(), first_offset),
+                std::ranges::next(string.begin(), first_offset + buffer.size())};
         }
     };
 
@@ -589,8 +589,8 @@ namespace boost { namespace text { namespace detail {
             buffer);
 
         return {
-            std::next(replaced_range.begin(), first_buffer_mismatch_offset),
-            std::next(replaced_range.end(), last_buffer_mismatch_offset)};
+            std::ranges::next(replaced_range.begin(), first_buffer_mismatch_offset),
+            std::ranges::next(replaced_range.end(), last_buffer_mismatch_offset)};
     }
 
     template<
