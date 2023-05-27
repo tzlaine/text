@@ -46,10 +46,6 @@ TEST(break_apis, grapheme_break)
         auto r_0 = cus_0 | as_graphemes;
         auto r_1 = cus_1 | as_graphemes;
 
-        auto x = typename std::iterator_traits<
-            utf_iterator<format::utf8, format::utf32, char8_t *>>::
-            iterator_category();
-        r_0.begin();
         EXPECT_EQ(r_0.begin(), r_0.begin());
         EXPECT_NE(r_0.begin(), r_0.end());
 
