@@ -31,6 +31,7 @@ namespace boost { namespace text {
         constexpr char32_t high_surrogate_max = 0xdbff;
         constexpr char32_t low_surrogate_min = 0xdc00;
         constexpr char32_t low_surrogate_max = 0xdfff;
+        constexpr char32_t replacement_character = 0xfffd;
     }
 
     namespace detail {
@@ -125,12 +126,6 @@ namespace boost { namespace text {
         template<typename I>
         using bidirectional_at_most_t = decltype(bidirectional_at_most<I>());
     }
-
-    /** The replacement character used to mark invalid portions of a Unicode
-        sequence when converting between two encodings.
-
-        \see Unicode 3.2/C10 */
-    constexpr char32_t replacement_character() { return 0xfffd; }
 
     /** Returns true iff `c` is a Unicode surrogate. */
     inline constexpr bool surrogate(char32_t c)
@@ -555,10 +550,10 @@ namespace boost { namespace text {
                     char_class const class_ = octet_classes[cu];
                     state = transitions[state + class_];
                     if (state == err)
-                        return replacement_character();
+                        return replacement_character;
                     ++first;
                 } else {
-                    return replacement_character();
+                    return replacement_character;
                 }
             }
 
@@ -923,7 +918,7 @@ namespace boost { namespace text {
     {
         constexpr char32_t operator()(char const *) const noexcept
         {
-            return replacement_character();
+            return replacement_character;
         }
     };
 
@@ -1080,7 +1075,7 @@ namespace boost { namespace text {
                 if (state == bgn) {
                     write();
                 } else if (state == err) {
-                    *out = replacement_character();
+                    *out = replacement_character;
                     ++out;
                     start_cp();
                 }
@@ -1313,7 +1308,7 @@ namespace boost { namespace text {
         {
             if (high_surrogate(cu)) {
                 if (prev_cu) {
-                    *out = replacement_character();
+                    *out = replacement_character;
                     ++out;
                 }
                 prev_cu = cu;
@@ -1322,13 +1317,13 @@ namespace boost { namespace text {
                     *out = detail::surrogates_to_cp(prev_cu, cu);
                     ++out;
                 } else {
-                    *out = replacement_character();
+                    *out = replacement_character;
                     ++out;
                 }
                 prev_cu = 0;
             } else {
                 if (prev_cu) {
-                    *out = replacement_character();
+                    *out = replacement_character;
                     ++out;
                 }
                 *out = cu;
@@ -1465,19 +1460,19 @@ namespace boost { namespace text {
         {
             if (high_surrogate(cu)) {
                 if (prev_cu)
-                    out = detail::write_cp_utf8(replacement_character(), out);
+                    out = detail::write_cp_utf8(replacement_character, out);
                 prev_cu = cu;
             } else if (low_surrogate(cu)) {
                 if (prev_cu) {
                     auto const cp = detail::surrogates_to_cp(prev_cu, cu);
                     out = detail::write_cp_utf8(cp, out);
                 } else {
-                    out = detail::write_cp_utf8(replacement_character(), out);
+                    out = detail::write_cp_utf8(replacement_character, out);
                 }
                 prev_cu = 0;
             } else {
                 if (prev_cu)
-                    out = detail::write_cp_utf8(replacement_character(), out);
+                    out = detail::write_cp_utf8(replacement_character, out);
                 out = detail::write_cp_utf8(cu, out);
                 prev_cu = 0;
             }
@@ -1628,7 +1623,7 @@ namespace boost { namespace text {
                 if (state == bgn) {
                     write();
                 } else if (state == err) {
-                    out = detail::write_cp_utf16(replacement_character(), out);
+                    out = detail::write_cp_utf16(replacement_character, out);
                     start_cp();
                 }
             }

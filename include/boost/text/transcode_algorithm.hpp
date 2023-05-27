@@ -401,7 +401,7 @@ namespace boost { namespace text {
                     if (hi <= high_surrogate_max) {
                         ++first;
                         if (first == last) {
-                            uint32_t const cp = replacement_character();
+                            uint32_t const cp = replacement_character;
                             out = detail::read_into_utf8_iter(cp, out);
                             ++out;
                             return {first, out};
@@ -416,7 +416,7 @@ namespace boost { namespace text {
                         }
                     }
                     out = detail::read_into_utf8_iter(
-                        replacement_character(), out);
+                        replacement_character, out);
                 } else {
                     out = detail::read_into_utf8_iter(hi, out);
                 }
@@ -457,7 +457,7 @@ namespace boost { namespace text {
                     if (hi <= high_surrogate_max) {
                         ++first;
                         if (first == last) {
-                            *out = replacement_character();
+                            *out = replacement_character;
                             ++out;
                             return {first, out};
                         }
@@ -471,7 +471,7 @@ namespace boost { namespace text {
                             continue;
                         }
                     }
-                    *out = replacement_character();
+                    *out = replacement_character;
                     ++out;
                 } else {
                     *out = hi;
