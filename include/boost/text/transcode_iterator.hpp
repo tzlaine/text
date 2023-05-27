@@ -2574,7 +2574,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     buf_index_ = 0;
                 else
                     read();
-            } else {
+            } else if (buf_index_ + 1 <= buf_last_) {
                 ++buf_index_;
             }
             return *this;
@@ -2586,7 +2586,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             BOOST_ASSERT(buf_index_ || curr() != first());
             if (!buf_index_ && curr() != first())
                 read_reverse();
-            else
+            else if (buf_index_)
                 --buf_index_;
             return *this;
         }
