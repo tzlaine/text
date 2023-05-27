@@ -198,6 +198,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             if constexpr (std::ranges::forward_range<T>) {
                 auto unpacked = boost::text::unpack_iterator_and_sentinel(
                     std::ranges::begin(r), std::ranges::end(r));
+                if constexpr (std::is_bounded_array_v<T>) {
+                    constexpr auto n = std::extent_v<T>;
+                    if (n && !r[n - 1])
+                        --unpacked.last;
+                }
                 return std::ranges::subrange(unpacked.first, unpacked.last);
             } else {
                 return std::forward<R>(r);

@@ -288,6 +288,19 @@ TEST(transcode_view, from_utf32)
     }
 }
 
+TEST(transcode_view, null_terminated_arrays)
+{
+    char8_t const utf8_[10] = {
+        0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82};
+    char8_t const utf8_null[] = {
+        0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82, 0};
+
+    EXPECT_TRUE(std::ranges::equal(utf8_ | as_utf32, utf8_null | as_utf32));
+    EXPECT_TRUE(std::ranges::equal(
+        utf8_ | as_utf32,
+        u8"\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82" | as_utf32));
+}
+
 // Unicode 9, 3.9/D90-D92
 uint32_t const utf32_[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
 uint16_t const utf16_[5] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
