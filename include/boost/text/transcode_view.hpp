@@ -18,19 +18,6 @@
 
 namespace boost { namespace text {
 
-    namespace detail {
-        template<typename T>
-        constexpr bool is_utf_iterator = false;
-        template<
-            format FromFormat,
-            format ToFormat,
-            class I,
-            class S,
-            class ErrorHandler>
-        constexpr bool is_utf_iterator<
-            utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>> = true;
-    }
-
     template<format Format, std::ranges::view V>
     class utf_view : public std::ranges::view_interface<utf_view<Format, V>>
     {
