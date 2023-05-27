@@ -113,8 +113,9 @@ namespace boost { namespace text {
 
     template<utf_range V>
         requires std::ranges::view<V>
-    struct utf8_view : utf_view<format::utf8, V>
+    class utf8_view : public utf_view<format::utf8, V>
     {
+    public:
         constexpr utf8_view() = default;
         constexpr utf8_view(V base) :
             utf_view<format::utf8, V>{std::move(base)}
@@ -122,8 +123,9 @@ namespace boost { namespace text {
     };
     template<utf_range V>
         requires std::ranges::view<V>
-    struct utf16_view : utf_view<format::utf16, V>
+    class utf16_view : public utf_view<format::utf16, V>
     {
+    public:
         constexpr utf16_view() = default;
         constexpr utf16_view(V base) :
             utf_view<format::utf16, V>{std::move(base)}
@@ -131,8 +133,9 @@ namespace boost { namespace text {
     };
     template<utf_range V>
         requires std::ranges::view<V>
-    struct utf32_view : utf_view<format::utf32, V>
+    class utf32_view : public utf_view<format::utf32, V>
     {
+    public:
         constexpr utf32_view() = default;
         constexpr utf32_view(V base) :
             utf_view<format::utf32, V>{std::move(base)}
