@@ -202,8 +202,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         template<class R>
         using unpacked_range = decltype(dtl::unpack_range(std::declval<R>()));
 
-        template<template<class> class View, format Format>
-        struct as_utf_impl : range_adaptor_closure<as_utf_impl<View, Format>>
+        template<template<class> class View>
+        struct as_utf_impl : range_adaptor_closure<as_utf_impl<View>>
         {
             template<class R>
                 requires(std::ranges::viewable_range<R> &&
@@ -223,9 +223,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         };
     }
 
-    inline constexpr dtl::as_utf_impl<utf8_view, format::utf8> as_utf8;
-    inline constexpr dtl::as_utf_impl<utf16_view, format::utf16> as_utf16;
-    inline constexpr dtl::as_utf_impl<utf32_view, format::utf32> as_utf32;
+    inline constexpr dtl::as_utf_impl<utf8_view> as_utf8;
+    inline constexpr dtl::as_utf_impl<utf16_view> as_utf16;
+    inline constexpr dtl::as_utf_impl<utf32_view> as_utf32;
 }}}
 
 namespace std::ranges {
