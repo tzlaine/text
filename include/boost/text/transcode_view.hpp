@@ -116,7 +116,7 @@ namespace boost { namespace text {
     class utf8_view : public utf_view<format::utf8, V>
     {
     public:
-        constexpr utf8_view() = default;
+        constexpr utf8_view() requires std::default_initializable<V> = default;
         constexpr utf8_view(V base) :
             utf_view<format::utf8, V>{std::move(base)}
         {}
@@ -126,7 +126,7 @@ namespace boost { namespace text {
     class utf16_view : public utf_view<format::utf16, V>
     {
     public:
-        constexpr utf16_view() = default;
+        constexpr utf16_view() requires std::default_initializable<V> = default;
         constexpr utf16_view(V base) :
             utf_view<format::utf16, V>{std::move(base)}
         {}
@@ -136,7 +136,7 @@ namespace boost { namespace text {
     class utf32_view : public utf_view<format::utf32, V>
     {
     public:
-        constexpr utf32_view() = default;
+        constexpr utf32_view() requires std::default_initializable<V> = default;
         constexpr utf32_view(V base) :
             utf_view<format::utf32, V>{std::move(base)}
         {}
