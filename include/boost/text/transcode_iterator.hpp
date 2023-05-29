@@ -20,6 +20,7 @@
 #include <iterator>
 #include <type_traits>
 #include <stdexcept>
+#include <string_view>
 
 
 namespace boost { namespace text {
@@ -916,7 +917,7 @@ namespace boost { namespace text {
         provides the Unicode replacement character on errors. */
     struct use_replacement_character
     {
-        constexpr char32_t operator()(char const *) const noexcept
+        constexpr char32_t operator()(std::string_view) const noexcept
         {
             return replacement_character;
         }
@@ -926,9 +927,10 @@ namespace boost { namespace text {
         throws `std::logic_error` on errors. */
     struct throw_logic_error
     {
-        char32_t operator()(char const * msg) const
+        char32_t operator()(std::string_view msg) const
         {
-            boost::throw_exception(std::logic_error(msg));
+            boost::throw_exception(
+                std::logic_error(std::string(msg.begin(), msg.end())));
             return 0;
         }
     };

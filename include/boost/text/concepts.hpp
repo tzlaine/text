@@ -12,6 +12,7 @@
 #if BOOST_TEXT_USE_CONCEPTS
 
 #include <ranges>
+#include <string_view>
 
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
@@ -166,8 +167,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<typename T>
     // clang-format off
-        concept transcoding_error_handler = requires(T t, char const * msg) {
-        { t(msg) } -> code_point;
+        concept transcoding_error_handler = requires(T t, std::string_view msg) {
+        { t(msg) } -> std::same_as<char32_t>;
         // clang-format on
     };
 
