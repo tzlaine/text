@@ -105,7 +105,7 @@ struct std::formatter<boost::text::utf_view<Format, V>, CharT>
 
     template<typename Out>
     Out format(
-        boost::text::utf_view<Format, V> view,
+        const boost::text::utf_view<Format, V> & view,
         std::basic_format_context<Out, CharT> & ctx) const
     {
         if (spec_._M_type == std::__format::_Pres_esc) {
@@ -171,7 +171,7 @@ struct std::formatter<boost::text::utf8_view<V>, CharT>
     : std::formatter<boost::text::utf_view<boost::text::format::utf8, V>, CharT>
 {
     template<class FormatContext>
-    auto format(boost::text::utf8_view<V> view, FormatContext & ctx) const
+    auto format(const boost::text::utf8_view<V>& view, FormatContext & ctx) const
     {
         return std::formatter<
             boost::text::utf_view<boost::text::format::utf8, V>,
@@ -185,7 +185,7 @@ struct std::formatter<boost::text::utf16_view<V>, CharT>
           formatter<boost::text::utf_view<boost::text::format::utf16, V>, CharT>
 {
     template<class FormatContext>
-    auto format(boost::text::utf16_view<V> view, FormatContext & ctx) const
+    auto format(const boost::text::utf16_view<V>& view, FormatContext & ctx) const
     {
         return std::formatter<
             boost::text::utf_view<boost::text::format::utf16, V>,
@@ -199,7 +199,7 @@ struct std::formatter<boost::text::utf32_view<V>, CharT>
           formatter<boost::text::utf_view<boost::text::format::utf32, V>, CharT>
 {
     template<class FormatContext>
-    auto format(boost::text::utf32_view<V> view, FormatContext & ctx) const
+    auto format(const boost::text::utf32_view<V>& view, FormatContext & ctx) const
     {
         return std::formatter<
             boost::text::utf_view<boost::text::format::utf32, V>,
