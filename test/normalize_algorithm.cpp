@@ -45,7 +45,7 @@ TEST(normalization_algorithm, detail_cons_view)
 
     result.clear();
     v = boost::text::detail::cons_view<uint32_t>(
-        r1, r2, std::prev(r1.end(), 1), std::next(r2.begin(), 1));
+        r1, r2, std::ranges::prev(r1.end(), 1), std::next(r2.begin(), 1));
     std::copy(v.begin(), v.end(), std::back_inserter(result));
     EXPECT_EQ(result, std::vector<int>({'o', 'b'}));
 

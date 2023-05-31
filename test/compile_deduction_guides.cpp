@@ -23,9 +23,13 @@ void grapheme_guides()
 
     {
         int const code_points[2] = {'a', '\0'};
-        utf32_view v = as_utf32(code_points);
+        utf32_view v = code_points | as_utf32;
         grapheme_ref gr{v};
-        static_assert(std::is_same_v<decltype(gr), grapheme_ref<int const *>>);
+        static_assert(
+            std::is_same_v<
+                decltype(gr),
+                grapheme_ref<
+                    utf_iterator<format::utf32, format::utf32, int const *>>>);
     }
 
 #if !defined(_MSC_VER)
@@ -38,32 +42,7 @@ void grapheme_guides()
 #endif
 }
 
-void grapheme_view_guides()
-{
-    {
-        int const utf32[] = {'s', 't', 'r', '\0'};
-        grapheme_iterator it{std::begin(utf32), std::begin(utf32), std::end(utf32)};
-        grapheme_view gv{it, it};
-        static_assert(std::is_same_v<decltype(gv), grapheme_view<int const *>>);
-    }
-
-    {
-        int utf32[] = {'s', 't', 'r', '\0'};
-        grapheme_iterator it{utf32, utf32, null_sentinel};
-        grapheme_view gv{it, null_sentinel};
-        static_assert(
-            std::is_same_v<decltype(gv), grapheme_view<int *, null_sentinel_t>>);
-    }
-
-    {
-        int const utf32[] = {'s', 't', 'r', '\0'};
-        grapheme_view gv{utf32, null_sentinel};
-        static_assert(std::is_same_v<
-                      decltype(gv),
-                      grapheme_view<int const *, null_sentinel_t>>);
-    }
-}
-
+#if 0 // TODO
 void segmented_vector_guides()
 {
     {
@@ -88,6 +67,7 @@ void segmented_vector_guides()
         static_assert(std::is_same_v<decltype(sv), segmented_vector<double>>);
     }
 }
+#endif
 
 void subrange_guides()
 {

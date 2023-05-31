@@ -136,9 +136,9 @@ namespace boost { namespace text {
         /** Constructs *this from r.
 
             \pre The code points in r comprise at most one grapheme. */
-        template<std::ranges::view R>
+        template<std::ranges::viewable_range R>
         // clang-format off
-            requires std::same_as<std::ranges::iterator_t<R>, I> && utf_range<R> && std::ranges::common_range<R>
+            requires std::same_as<std::ranges::iterator_t<R>, I> && utf32_range<R> && std::ranges::common_range<R>
         // clang-format on
         constexpr grapheme_ref(R && r) :
              utf32_view<std::ranges::subrange<I>>(
