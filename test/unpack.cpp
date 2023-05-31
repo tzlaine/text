@@ -395,7 +395,7 @@ namespace my {
             Repack,
             true>
             repack(it.begin(), it.end(), repack_);
-        return boost::text::utf_tagged_range<
+        return boost::text::unpack_result<
             boost::text::format::utf8,
             char const *,
             boost::text::null_sentinel_t,

@@ -13,7 +13,7 @@ namespace boost { namespace text {
 
     struct no_op_repacker
     {
-        template<typename T>
+        template<class T>
         T operator()(T x) const
         {
             return x;
@@ -113,8 +113,8 @@ namespace boost { namespace text {
         format FormatTag,
         utf_iter I,
         std::sentinel_for<I> S,
-        typename Repack>
-    struct utf_tagged_range
+        class Repack>
+    struct unpack_result
     {
         static constexpr format format_tag = FormatTag;
 
@@ -129,13 +129,13 @@ namespace boost { namespace text {
         unpack_iterator_and_sentinel_impl(I first, S last, Repack repack)
         {
             if constexpr (utf8_iter<I>) {
-                return utf_tagged_range<format::utf8, I, S, Repack>{
+                return unpack_result<format::utf8, I, S, Repack>{
                     first, last, repack};
             } else if constexpr (utf16_iter<I>) {
-                return utf_tagged_range<format::utf16, I, S, Repack>{
+                return unpack_result<format::utf16, I, S, Repack>{
                     first, last, repack};
             } else {
-                return utf_tagged_range<format::utf32, I, S, Repack>{
+                return unpack_result<format::utf32, I, S, Repack>{
                     first, last, repack};
             }
         }

@@ -160,10 +160,10 @@ TEST(transcode_insert_iterator, utf16_inserters_errors)
         0,
     };
     std::vector<uint32_t> expected_cps = {
-        text::replacement_character(),
-        text::replacement_character(),
+        text::replacement_character,
+        text::replacement_character,
         0x10000,
-        text::replacement_character(),
+        text::replacement_character,
         0,
     };
 
@@ -277,10 +277,10 @@ TEST(transcode_insert_iterator, utf8_inserters_errors)
         0,
     };
     std::vector<uint32_t> expected_cps = {
-        text::replacement_character(),
-        text::replacement_character(),
+        text::replacement_character,
+        text::replacement_character,
         0x10000,
-        text::replacement_character(),
+        text::replacement_character,
         0,
     };
 

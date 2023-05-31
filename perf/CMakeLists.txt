@@ -3,6 +3,8 @@ if (NOT MSVC)
     set(warnings_flag -Wall)
 endif ()
 
+return() # TODO
+
 set(DISABLE_ICU ${LIMIT_TESTING_FOR_CI})
 
 macro(add_perf_executable name)

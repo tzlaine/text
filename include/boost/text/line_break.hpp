@@ -163,12 +163,14 @@ namespace boost { namespace text {
 #else
     template<typename I>
 #endif
-    struct line_break_cp_view : utf_view<format::utf32, I>
+    struct line_break_cp_view
+        : utf_view<format::utf32, std::ranges::subrange<I>>
     {
         line_break_cp_view() : utf_view<format::utf32, I>(), hard_break_() {}
         line_break_cp_view(
             line_break_result<I> first, line_break_result<I> last) :
-            utf_view<format::utf32, I>(first.iter, last.iter),
+            utf_view<format::utf32, std::ranges::subrange<I>>(
+                std::ranges::subrange(first.iter, last.iter)),
             hard_break_(last.hard_break)
         {}
 
@@ -185,19 +187,23 @@ namespace boost { namespace text {
 #else
     template<typename I>
 #endif
-    struct line_break_grapheme_view : grapheme_view<I>
+    struct line_break_grapheme_view : grapheme_view<std::ranges::subrange<I>>
     {
-        line_break_grapheme_view() : grapheme_view<I>(), hard_break_() {}
+        line_break_grapheme_view() :
+            grapheme_view<std::ranges::subrange<I>>(), hard_break_()
+        {}
         line_break_grapheme_view(
             line_break_result<I> first, line_break_result<I> last) :
-            grapheme_view<I>(first.iter, last.iter),
+            grapheme_view<std::ranges::subrange<I>>(
+                std::ranges::subrange(first.iter, last.iter)),
             hard_break_(last.hard_break)
         {}
         template<typename GraphemeIter>
         line_break_grapheme_view(
             line_break_result<GraphemeIter> first,
             line_break_result<GraphemeIter> last) :
-            grapheme_view<I>(first.iter.base(), last.iter.base()),
+            grapheme_view<std::ranges::subrange<I>>(
+                std::ranges::subrange(first.iter.base(), last.iter.base())),
             hard_break_(last.hard_break)
         {}
 

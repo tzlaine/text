@@ -23,14 +23,14 @@ TEST(grapheme, iterator_00_0_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -51,14 +51,14 @@ TEST(grapheme, iterator_00_0_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_0_fab)
@@ -69,26 +69,26 @@ TEST(grapheme, iterator_00_0_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -98,14 +98,14 @@ TEST(grapheme, iterator_00_0_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_0_baf)
@@ -121,8 +121,8 @@ TEST(grapheme, iterator_00_0_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -132,20 +132,20 @@ TEST(grapheme, iterator_00_0_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -179,24 +179,24 @@ TEST(grapheme, iterator_00_0_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[1]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -209,14 +209,14 @@ TEST(grapheme, iterator_00_1_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().base(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -237,14 +237,14 @@ TEST(grapheme, iterator_00_1_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().base(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_1_fab)
@@ -255,26 +255,26 @@ TEST(grapheme, iterator_00_1_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().base(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().base(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -284,14 +284,14 @@ TEST(grapheme, iterator_00_1_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().base(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_1_baf)
@@ -307,8 +307,8 @@ TEST(grapheme, iterator_00_1_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().base(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -318,20 +318,20 @@ TEST(grapheme, iterator_00_1_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().base(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().base(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -365,24 +365,24 @@ TEST(grapheme, iterator_00_1_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -395,14 +395,14 @@ TEST(grapheme, iterator_00_2_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -423,14 +423,14 @@ TEST(grapheme, iterator_00_2_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_2_fab)
@@ -441,26 +441,26 @@ TEST(grapheme, iterator_00_2_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -470,14 +470,14 @@ TEST(grapheme, iterator_00_2_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_2_baf)
@@ -493,8 +493,8 @@ TEST(grapheme, iterator_00_2_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -504,20 +504,20 @@ TEST(grapheme, iterator_00_2_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().base(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().base(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -551,24 +551,24 @@ TEST(grapheme, iterator_00_2_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[1]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -581,14 +581,14 @@ TEST(grapheme, iterator_00_3_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -609,14 +609,14 @@ TEST(grapheme, iterator_00_3_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_3_fab)
@@ -627,26 +627,26 @@ TEST(grapheme, iterator_00_3_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -656,14 +656,14 @@ TEST(grapheme, iterator_00_3_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_3_baf)
@@ -679,8 +679,8 @@ TEST(grapheme, iterator_00_3_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -690,20 +690,20 @@ TEST(grapheme, iterator_00_3_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -737,24 +737,24 @@ TEST(grapheme, iterator_00_3_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -767,14 +767,14 @@ TEST(grapheme, iterator_00_4_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -795,14 +795,14 @@ TEST(grapheme, iterator_00_4_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_4_fab)
@@ -813,26 +813,26 @@ TEST(grapheme, iterator_00_4_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -842,14 +842,14 @@ TEST(grapheme, iterator_00_4_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_4_baf)
@@ -865,8 +865,8 @@ TEST(grapheme, iterator_00_4_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -876,20 +876,20 @@ TEST(grapheme, iterator_00_4_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -923,24 +923,24 @@ TEST(grapheme, iterator_00_4_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[1]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -953,14 +953,14 @@ TEST(grapheme, iterator_00_5_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -981,14 +981,14 @@ TEST(grapheme, iterator_00_5_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_5_fab)
@@ -999,26 +999,26 @@ TEST(grapheme, iterator_00_5_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -1028,14 +1028,14 @@ TEST(grapheme, iterator_00_5_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_5_baf)
@@ -1051,8 +1051,8 @@ TEST(grapheme, iterator_00_5_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -1062,20 +1062,20 @@ TEST(grapheme, iterator_00_5_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -1109,24 +1109,24 @@ TEST(grapheme, iterator_00_5_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -1139,14 +1139,14 @@ TEST(grapheme, iterator_00_6_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -1167,14 +1167,14 @@ TEST(grapheme, iterator_00_6_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_6_fab)
@@ -1185,26 +1185,26 @@ TEST(grapheme, iterator_00_6_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -1214,14 +1214,14 @@ TEST(grapheme, iterator_00_6_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_6_baf)
@@ -1237,8 +1237,8 @@ TEST(grapheme, iterator_00_6_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -1248,20 +1248,20 @@ TEST(grapheme, iterator_00_6_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -1295,24 +1295,24 @@ TEST(grapheme, iterator_00_6_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[1]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -1325,14 +1325,14 @@ TEST(grapheme, iterator_00_7_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -1353,14 +1353,14 @@ TEST(grapheme, iterator_00_7_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_7_fab)
@@ -1371,26 +1371,26 @@ TEST(grapheme, iterator_00_7_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -1400,14 +1400,14 @@ TEST(grapheme, iterator_00_7_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_7_baf)
@@ -1423,8 +1423,8 @@ TEST(grapheme, iterator_00_7_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -1434,20 +1434,20 @@ TEST(grapheme, iterator_00_7_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -1481,24 +1481,24 @@ TEST(grapheme, iterator_00_7_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -1511,8 +1511,8 @@ TEST(grapheme, iterator_00_8_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -1533,8 +1533,8 @@ TEST(grapheme, iterator_00_8_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_8_fab)
@@ -1545,8 +1545,8 @@ TEST(grapheme, iterator_00_8_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -1556,8 +1556,8 @@ TEST(grapheme, iterator_00_8_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_8_baf)
@@ -1573,8 +1573,8 @@ TEST(grapheme, iterator_00_8_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -1608,15 +1608,15 @@ TEST(grapheme, iterator_00_8_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -1629,8 +1629,8 @@ TEST(grapheme, iterator_00_9_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -1651,8 +1651,8 @@ TEST(grapheme, iterator_00_9_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 3);
     }
 }
 TEST(grapheme, iterator_00_9_fab)
@@ -1663,8 +1663,8 @@ TEST(grapheme, iterator_00_9_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -1674,8 +1674,8 @@ TEST(grapheme, iterator_00_9_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 3);
     }
 }
 TEST(grapheme, iterator_00_9_baf)
@@ -1691,8 +1691,8 @@ TEST(grapheme, iterator_00_9_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -1726,15 +1726,15 @@ TEST(grapheme, iterator_00_9_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -1747,14 +1747,14 @@ TEST(grapheme, iterator_00_10_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -1775,14 +1775,14 @@ TEST(grapheme, iterator_00_10_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_10_fab)
@@ -1793,26 +1793,26 @@ TEST(grapheme, iterator_00_10_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -1822,14 +1822,14 @@ TEST(grapheme, iterator_00_10_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_10_baf)
@@ -1845,8 +1845,8 @@ TEST(grapheme, iterator_00_10_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -1856,20 +1856,20 @@ TEST(grapheme, iterator_00_10_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -1903,24 +1903,24 @@ TEST(grapheme, iterator_00_10_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[1]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -1933,14 +1933,14 @@ TEST(grapheme, iterator_00_11_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -1961,14 +1961,14 @@ TEST(grapheme, iterator_00_11_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_11_fab)
@@ -1979,26 +1979,26 @@ TEST(grapheme, iterator_00_11_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2008,14 +2008,14 @@ TEST(grapheme, iterator_00_11_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_11_baf)
@@ -2031,8 +2031,8 @@ TEST(grapheme, iterator_00_11_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2042,20 +2042,20 @@ TEST(grapheme, iterator_00_11_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2089,24 +2089,24 @@ TEST(grapheme, iterator_00_11_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -2119,14 +2119,14 @@ TEST(grapheme, iterator_00_12_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -2147,14 +2147,14 @@ TEST(grapheme, iterator_00_12_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_12_fab)
@@ -2165,26 +2165,26 @@ TEST(grapheme, iterator_00_12_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -2194,14 +2194,14 @@ TEST(grapheme, iterator_00_12_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_12_baf)
@@ -2217,8 +2217,8 @@ TEST(grapheme, iterator_00_12_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -2228,20 +2228,20 @@ TEST(grapheme, iterator_00_12_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -2275,24 +2275,24 @@ TEST(grapheme, iterator_00_12_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[1]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -2305,14 +2305,14 @@ TEST(grapheme, iterator_00_13_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2333,14 +2333,14 @@ TEST(grapheme, iterator_00_13_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_13_fab)
@@ -2351,26 +2351,26 @@ TEST(grapheme, iterator_00_13_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2380,14 +2380,14 @@ TEST(grapheme, iterator_00_13_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_13_baf)
@@ -2403,8 +2403,8 @@ TEST(grapheme, iterator_00_13_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2414,20 +2414,20 @@ TEST(grapheme, iterator_00_13_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2461,24 +2461,24 @@ TEST(grapheme, iterator_00_13_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -2491,8 +2491,8 @@ TEST(grapheme, iterator_00_14_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -2513,8 +2513,8 @@ TEST(grapheme, iterator_00_14_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_14_fab)
@@ -2525,8 +2525,8 @@ TEST(grapheme, iterator_00_14_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -2536,8 +2536,8 @@ TEST(grapheme, iterator_00_14_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_14_baf)
@@ -2553,8 +2553,8 @@ TEST(grapheme, iterator_00_14_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -2588,15 +2588,15 @@ TEST(grapheme, iterator_00_14_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -2609,8 +2609,8 @@ TEST(grapheme, iterator_00_15_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2631,8 +2631,8 @@ TEST(grapheme, iterator_00_15_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 3);
     }
 }
 TEST(grapheme, iterator_00_15_fab)
@@ -2643,8 +2643,8 @@ TEST(grapheme, iterator_00_15_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2654,8 +2654,8 @@ TEST(grapheme, iterator_00_15_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 3);
     }
 }
 TEST(grapheme, iterator_00_15_baf)
@@ -2671,8 +2671,8 @@ TEST(grapheme, iterator_00_15_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2706,15 +2706,15 @@ TEST(grapheme, iterator_00_15_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -2727,14 +2727,14 @@ TEST(grapheme, iterator_00_16_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -2755,14 +2755,14 @@ TEST(grapheme, iterator_00_16_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_16_fab)
@@ -2773,26 +2773,26 @@ TEST(grapheme, iterator_00_16_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -2802,14 +2802,14 @@ TEST(grapheme, iterator_00_16_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_16_baf)
@@ -2825,8 +2825,8 @@ TEST(grapheme, iterator_00_16_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -2836,20 +2836,20 @@ TEST(grapheme, iterator_00_16_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -2883,24 +2883,24 @@ TEST(grapheme, iterator_00_16_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[1]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -2913,14 +2913,14 @@ TEST(grapheme, iterator_00_17_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2941,14 +2941,14 @@ TEST(grapheme, iterator_00_17_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_17_fab)
@@ -2959,26 +2959,26 @@ TEST(grapheme, iterator_00_17_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -2988,14 +2988,14 @@ TEST(grapheme, iterator_00_17_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_17_baf)
@@ -3011,8 +3011,8 @@ TEST(grapheme, iterator_00_17_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -3022,20 +3022,20 @@ TEST(grapheme, iterator_00_17_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -3069,24 +3069,24 @@ TEST(grapheme, iterator_00_17_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -3099,14 +3099,14 @@ TEST(grapheme, iterator_00_18_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3127,14 +3127,14 @@ TEST(grapheme, iterator_00_18_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_18_fab)
@@ -3145,26 +3145,26 @@ TEST(grapheme, iterator_00_18_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3174,14 +3174,14 @@ TEST(grapheme, iterator_00_18_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_18_baf)
@@ -3197,8 +3197,8 @@ TEST(grapheme, iterator_00_18_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3208,20 +3208,20 @@ TEST(grapheme, iterator_00_18_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3255,24 +3255,24 @@ TEST(grapheme, iterator_00_18_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[1]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -3285,14 +3285,14 @@ TEST(grapheme, iterator_00_19_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -3313,14 +3313,14 @@ TEST(grapheme, iterator_00_19_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_19_fab)
@@ -3331,26 +3331,26 @@ TEST(grapheme, iterator_00_19_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -3360,14 +3360,14 @@ TEST(grapheme, iterator_00_19_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_19_baf)
@@ -3383,8 +3383,8 @@ TEST(grapheme, iterator_00_19_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -3394,20 +3394,20 @@ TEST(grapheme, iterator_00_19_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -3441,24 +3441,24 @@ TEST(grapheme, iterator_00_19_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -3471,14 +3471,14 @@ TEST(grapheme, iterator_00_20_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3499,14 +3499,14 @@ TEST(grapheme, iterator_00_20_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_20_fab)
@@ -3517,26 +3517,26 @@ TEST(grapheme, iterator_00_20_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3546,14 +3546,14 @@ TEST(grapheme, iterator_00_20_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_20_baf)
@@ -3569,8 +3569,8 @@ TEST(grapheme, iterator_00_20_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3580,20 +3580,20 @@ TEST(grapheme, iterator_00_20_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3627,24 +3627,24 @@ TEST(grapheme, iterator_00_20_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[1]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -3657,14 +3657,14 @@ TEST(grapheme, iterator_00_21_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -3685,14 +3685,14 @@ TEST(grapheme, iterator_00_21_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_21_fab)
@@ -3703,26 +3703,26 @@ TEST(grapheme, iterator_00_21_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -3732,14 +3732,14 @@ TEST(grapheme, iterator_00_21_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_21_baf)
@@ -3755,8 +3755,8 @@ TEST(grapheme, iterator_00_21_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -3766,20 +3766,20 @@ TEST(grapheme, iterator_00_21_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -3813,24 +3813,24 @@ TEST(grapheme, iterator_00_21_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -3843,14 +3843,14 @@ TEST(grapheme, iterator_00_22_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3871,14 +3871,14 @@ TEST(grapheme, iterator_00_22_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_22_fab)
@@ -3889,26 +3889,26 @@ TEST(grapheme, iterator_00_22_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3918,14 +3918,14 @@ TEST(grapheme, iterator_00_22_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_22_baf)
@@ -3941,8 +3941,8 @@ TEST(grapheme, iterator_00_22_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3952,20 +3952,20 @@ TEST(grapheme, iterator_00_22_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -3999,24 +3999,24 @@ TEST(grapheme, iterator_00_22_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[1]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -4029,14 +4029,14 @@ TEST(grapheme, iterator_00_23_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -4057,14 +4057,14 @@ TEST(grapheme, iterator_00_23_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_23_fab)
@@ -4075,26 +4075,26 @@ TEST(grapheme, iterator_00_23_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -4104,14 +4104,14 @@ TEST(grapheme, iterator_00_23_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_23_baf)
@@ -4127,8 +4127,8 @@ TEST(grapheme, iterator_00_23_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -4138,20 +4138,20 @@ TEST(grapheme, iterator_00_23_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -4185,24 +4185,24 @@ TEST(grapheme, iterator_00_23_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -4215,14 +4215,14 @@ TEST(grapheme, iterator_00_24_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -4243,14 +4243,14 @@ TEST(grapheme, iterator_00_24_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_24_fab)
@@ -4261,26 +4261,26 @@ TEST(grapheme, iterator_00_24_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -4290,14 +4290,14 @@ TEST(grapheme, iterator_00_24_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
     }
 }
 TEST(grapheme, iterator_00_24_baf)
@@ -4313,8 +4313,8 @@ TEST(grapheme, iterator_00_24_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -4324,20 +4324,20 @@ TEST(grapheme, iterator_00_24_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 1);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 1);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
@@ -4371,24 +4371,24 @@ TEST(grapheme, iterator_00_24_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[1]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(*(*it).begin(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[1]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 
@@ -4401,14 +4401,14 @@ TEST(grapheme, iterator_00_25_fwd)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -4429,14 +4429,14 @@ TEST(grapheme, iterator_00_25_rev)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_25_fab)
@@ -4447,26 +4447,26 @@ TEST(grapheme, iterator_00_25_fab)
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -4476,14 +4476,14 @@ TEST(grapheme, iterator_00_25_fab)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
     }
 }
 TEST(grapheme, iterator_00_25_baf)
@@ -4499,8 +4499,8 @@ TEST(grapheme, iterator_00_25_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -4510,20 +4510,20 @@ TEST(grapheme, iterator_00_25_baf)
         --it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         --it;
 
         EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).begin().begin(), cps + 0);
+        EXPECT_EQ((*it).end().base(), cps + 2);
 
         ++it;
 
         EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).begin().begin(), cps + 2);
+        EXPECT_EQ((*it).end().base(), cps + 3);
 
         ++it;
 
@@ -4557,24 +4557,24 @@ TEST(grapheme, iterator_00_25_utf8)
             iter_t{cus, cus, boost::text::null_sentinel}, iter_t{cus, cus, boost::text::null_sentinel}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[0]);
+        EXPECT_EQ(*(*it).end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[0]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[2]);
 
         ++it;
 
         EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(*(*it).begin(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+        EXPECT_EQ((*it).begin().base().base(), cus + cp_indices[2]);
+        EXPECT_EQ((*it).end().base().base(), cus + cp_indices[3]);
 
         ++it;
 
         EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
 

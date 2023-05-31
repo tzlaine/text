@@ -17,6 +17,38 @@
 
 using namespace boost::text;
 
+TEST(transcode_view, paper_example)
+{
+    {
+        std::u8string str = u8"some text";
+
+        auto utf16_str = str | boost::text::as_utf16;
+
+        static_assert(std::same_as<
+                      decltype(utf16_str.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf8,
+                          boost::text::format::utf16,
+                          std::u8string::iterator>>);
+
+        auto utf32_str = str | boost::text::as_utf32;
+
+        static_assert(std::same_as<
+                      decltype(utf32_str.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf8,
+                          boost::text::format::utf32,
+                          std::u8string::iterator>>);
+    }
+    {
+        std::u8string str = u8"";
+        auto first = str.begin();
+        auto it = first;
+        auto last = str.end();
+        boost::text::utf_8_to_32_iterator(first, it, last);
+    }
+}
+
 TEST(transcode_view, adaptor_semantics)
 {
     static_assert(std::is_same_v<

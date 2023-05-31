@@ -316,6 +316,7 @@ namespace boost { namespace text {
                 std::bidirectional_iterator_tag,
                 prop_and_embedding_t<CPIter>>;
             using base_type::operator++;
+            using base_type::operator--;
 
         private:
             typename level_run<CPIter>::iterator it_;
@@ -573,8 +574,8 @@ namespace boost { namespace text {
                 auto const pred_it =
                     boost::text::find_if_backward(first, from_it, strong);
                 if ((pred_it == from_it && seq.sos() == trigger) ||
-                    pred_it->prop() == trigger) {
-                    from_it->prop_ = (uint8_t)replacement;
+                    (*pred_it).prop() == trigger) {
+                    (*from_it).prop_ = (uint8_t)replacement;
                 }
                 --it;
             }
@@ -625,16 +626,16 @@ namespace boost { namespace text {
                       end = seq.end();
                  next_it != end;
                  ++prev_it, ++it, ++next_it) {
-                if (prev_it->prop() == bidi_property::EN &&
-                    it->prop() == bidi_property::ES &&
-                    next_it->prop() == bidi_property::EN) {
-                    it->prop_ = (uint8_t)bidi_property::EN;
+                if ((*prev_it).prop() == bidi_property::EN &&
+                    (*it).prop() == bidi_property::ES &&
+                    (*next_it).prop() == bidi_property::EN) {
+                    (*it).prop_ = (uint8_t)bidi_property::EN;
                 } else if (
-                    it->prop() == bidi_property::CS &&
-                    prev_it->prop() == next_it->prop() &&
-                    (prev_it->prop() == bidi_property::EN ||
-                     prev_it->prop() == bidi_property::AN)) {
-                    it->prop_ = (uint8_t)prev_it->prop();
+                    (*it).prop() == bidi_property::CS &&
+                    (*prev_it).prop() == (*next_it).prop() &&
+                    ((*prev_it).prop() == bidi_property::EN ||
+                     (*prev_it).prop() == bidi_property::AN)) {
+                    (*it).prop_ = (uint8_t)(*prev_it).prop();
                 }
             }
         }
@@ -670,9 +671,10 @@ namespace boost { namespace text {
                 },
                 [&seq](foreach_subrange_range<iter_t> r) {
                     if ((r.begin() != seq.begin() &&
-                         std::ranges::prev(r.begin())->prop() == bidi_property::EN) ||
+                         (*std::ranges::prev(r.begin())).prop() ==
+                             bidi_property::EN) ||
                         (r.end() != seq.end() &&
-                         r.end()->prop() == bidi_property::EN)) {
+                         (*r.end()).prop() == bidi_property::EN)) {
                         std::transform(
                             r.begin(),
                             r.end(),
@@ -753,9 +755,9 @@ namespace boost { namespace text {
             stack_t stack;
 
             for (auto it = seq.begin(), end = seq.end(); it != end; ++it) {
-                if (it->prop() != bidi_property::ON)
+                if ((*it).prop() != bidi_property::ON)
                     continue;
-                auto const bracket = detail::bidi_bracket(it->cp());
+                auto const bracket = detail::bidi_bracket((*it).cp());
                 if (bracket && bracket.type_ == bidi_bracket_type::open) {
                     if (stack.size() == stack.capacity())
                         break;
@@ -771,7 +773,7 @@ namespace boost { namespace text {
                         stack.rend(),
                         [&it, &canonical_equivalents](
                             bracket_stack_element_t<CPIter> elem) {
-                            if (it->cp() == elem.paired_bracket_)
+                            if ((*it).cp() == elem.paired_bracket_)
                                 return true;
 
                             // Check if the current CP is a canonical
@@ -791,7 +793,7 @@ namespace boost { namespace text {
                                         canonical_equivalents->first_,
                                     all_canonical_decompositions_ptr() +
                                         canonical_equivalents->last_,
-                                    it->cp());
+                                    (*it).cp());
                                 if (equiv_it !=
                                     all_canonical_decompositions_ptr() +
                                         canonical_equivalents->last_) {
@@ -803,7 +805,7 @@ namespace boost { namespace text {
                             // equivalent to the current CP.
                             {
                                 auto const cp_props_it =
-                                    cp_props_map().find(it->cp());
+                                    cp_props_map().find((*it).cp());
                                 if (cp_props_it == cp_props_map().end())
                                     return false;
                                 auto const canonical_equivalents =
@@ -864,7 +866,7 @@ namespace boost { namespace text {
                                  typename run_sequence_t<CPIter>::iterator end,
                                  bidi_property prop) {
                 prev_strong_prop = prop;
-                pair.begin()->prop_ = (uint8_t)prop;
+                (*pair.begin()).prop_ = (uint8_t)prop;
                 auto transform_end = std::find_if(
                     std::ranges::next(pair.end()),
                     end,
@@ -887,8 +889,8 @@ namespace boost { namespace text {
             for (auto it = seq.begin(), end = seq.end();
                  it != end && bracket_it != bracket_pairs.end();
                  ++it) {
-                if (strong(it->prop()))
-                    prev_strong_prop = it->prop();
+                if (strong((*it).prop()))
+                    prev_strong_prop = (*it).prop();
                 if (it == bracket_it->begin()) {
                     auto const pair = *bracket_it++;
                     bool strong_found = false;
@@ -1020,7 +1022,9 @@ namespace boost { namespace text {
         // https://unicode.org/reports/tr9/#L1
         template<typename CPIter>
         inline void
-        l1(utf_view<format::utf32, props_and_embeddings_cp_iterator<CPIter>>
+        l1(utf_view<
+               format::utf32,
+               std::ranges::subrange<props_and_embeddings_cp_iterator<CPIter>>>
                line,
            int paragraph_embedding_level)
         {

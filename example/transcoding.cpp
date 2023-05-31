@@ -67,7 +67,7 @@ auto it = boost::text::utf32_iterator(
     std::begin(broken_utf8_for_0x8d00),
     std::end(broken_utf8_for_0x8d00));
 
-assert(*it == boost::text::replacement_character());
+assert(*it == boost::text::replacement_character);
 
 // --it; // Undefined behavior!
 ++it; // Ok.  Incrementing through a broken sequence is defined.

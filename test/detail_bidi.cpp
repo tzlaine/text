@@ -248,11 +248,11 @@ TEST(detail_bidi, W1)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AL);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AL);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AL);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AL);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AL);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AL);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -269,7 +269,7 @@ TEST(detail_bidi, W1)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 1);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -287,9 +287,9 @@ TEST(detail_bidi, W1)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 2);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::LRI);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::LRI);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -307,9 +307,9 @@ TEST(detail_bidi, W1)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 2);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::PDI);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::PDI);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -328,11 +328,11 @@ TEST(detail_bidi, W1)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AL);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AL);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AL);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AL);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AL);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AL);
     }
 }
 
@@ -357,9 +357,9 @@ TEST(detail_bidi, W2)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 2);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AL);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AL);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -378,11 +378,11 @@ TEST(detail_bidi, W2)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AL);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AL);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::B);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::B);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -400,9 +400,9 @@ TEST(detail_bidi, W2)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 2);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::B);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::B);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -421,11 +421,11 @@ TEST(detail_bidi, W2)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::B);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::B);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -444,11 +444,11 @@ TEST(detail_bidi, W2)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::B);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::B);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
 }
 
@@ -474,11 +474,11 @@ TEST(detail_bidi, W4)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -497,11 +497,11 @@ TEST(detail_bidi, W4)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -520,11 +520,11 @@ TEST(detail_bidi, W4)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -543,11 +543,11 @@ TEST(detail_bidi, W4)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -566,11 +566,11 @@ TEST(detail_bidi, W4)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -589,11 +589,11 @@ TEST(detail_bidi, W4)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
 }
 
@@ -619,11 +619,11 @@ TEST(detail_bidi, W5)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -642,11 +642,11 @@ TEST(detail_bidi, W5)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -665,11 +665,11 @@ TEST(detail_bidi, W5)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -688,11 +688,11 @@ TEST(detail_bidi, W5)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ET);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ET);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -711,11 +711,11 @@ TEST(detail_bidi, W5)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ET);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ET);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -734,11 +734,11 @@ TEST(detail_bidi, W5)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -757,11 +757,11 @@ TEST(detail_bidi, W5)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -780,11 +780,11 @@ TEST(detail_bidi, W5)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
 }
 
@@ -809,9 +809,9 @@ TEST(detail_bidi, W6)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 2);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -830,11 +830,11 @@ TEST(detail_bidi, W6)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -853,11 +853,11 @@ TEST(detail_bidi, W6)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -875,9 +875,9 @@ TEST(detail_bidi, W6)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 2);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
 
     {
@@ -896,9 +896,9 @@ TEST(detail_bidi, W6)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 2);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -917,11 +917,11 @@ TEST(detail_bidi, W6)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -940,11 +940,11 @@ TEST(detail_bidi, W6)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -962,9 +962,9 @@ TEST(detail_bidi, W6)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 2);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -982,9 +982,9 @@ TEST(detail_bidi, W6)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 2);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
 }
 
@@ -1010,11 +1010,11 @@ TEST(detail_bidi, W7)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::B);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::B);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1033,11 +1033,11 @@ TEST(detail_bidi, W7)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::B);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::B);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1057,13 +1057,13 @@ TEST(detail_bidi, W7)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 4);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::BN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::BN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::B);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::B);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1083,13 +1083,13 @@ TEST(detail_bidi, W7)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 4);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::B);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::B);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::BN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::BN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
 }
 
@@ -1154,8 +1154,8 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 1);
-        EXPECT_EQ(it->begin().base() - paes.begin(), 1);
-        EXPECT_EQ(it->end().base() - paes.begin(), 3);
+        EXPECT_EQ((*it).begin().base() - paes.begin(), 1);
+        EXPECT_EQ((*it).end().base() - paes.begin(), 3);
     }
     {
         uint32_t cps[] = {'a', '(', 'b', '[', 'c', ')', 'd', ']'};
@@ -1179,8 +1179,8 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 1);
-        EXPECT_EQ(it->begin().base() - paes.begin(), 1);
-        EXPECT_EQ(it->end().base() - paes.begin(), 5);
+        EXPECT_EQ((*it).begin().base() - paes.begin(), 1);
+        EXPECT_EQ((*it).end().base() - paes.begin(), 5);
     }
     {
         uint32_t cps[] = {'a', '(', 'b', ']', 'c', ')', 'd'};
@@ -1203,8 +1203,8 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 1);
-        EXPECT_EQ(it->begin().base() - paes.begin(), 1);
-        EXPECT_EQ(it->end().base() - paes.begin(), 5);
+        EXPECT_EQ((*it).begin().base() - paes.begin(), 1);
+        EXPECT_EQ((*it).end().base() - paes.begin(), 5);
     }
     {
         uint32_t cps[] = {'a', '(', 'b', ')', 'c', ')', 'd'};
@@ -1227,8 +1227,8 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 1);
-        EXPECT_EQ(it->begin().base() - paes.begin(), 1);
-        EXPECT_EQ(it->end().base() - paes.begin(), 3);
+        EXPECT_EQ((*it).begin().base() - paes.begin(), 1);
+        EXPECT_EQ((*it).end().base() - paes.begin(), 3);
     }
     {
         uint32_t cps[] = {'a', '(', 'b', '(', 'c', ')', 'd'};
@@ -1251,8 +1251,8 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 1);
-        EXPECT_EQ(it->begin().base() - paes.begin(), 3);
-        EXPECT_EQ(it->end().base() - paes.begin(), 5);
+        EXPECT_EQ((*it).begin().base() - paes.begin(), 3);
+        EXPECT_EQ((*it).end().base() - paes.begin(), 5);
     }
     {
         uint32_t cps[] = {'a', '(', 'b', '(', 'c', ')', 'd', ')'};
@@ -1276,11 +1276,11 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 2);
-        EXPECT_EQ(it->begin().base() - paes.begin(), 1);
-        EXPECT_EQ(it->end().base() - paes.begin(), 7);
+        EXPECT_EQ((*it).begin().base() - paes.begin(), 1);
+        EXPECT_EQ((*it).end().base() - paes.begin(), 7);
         ++it;
-        EXPECT_EQ(it->begin().base() - paes.begin(), 3);
-        EXPECT_EQ(it->end().base() - paes.begin(), 5);
+        EXPECT_EQ((*it).begin().base() - paes.begin(), 3);
+        EXPECT_EQ((*it).end().base() - paes.begin(), 5);
     }
     {
         uint32_t cps[] = {'a', '(', 'b', '{', 'c', '}', 'd', ')'};
@@ -1304,11 +1304,11 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 2);
-        EXPECT_EQ(it->begin().base() - paes.begin(), 1);
-        EXPECT_EQ(it->end().base() - paes.begin(), 7);
+        EXPECT_EQ((*it).begin().base() - paes.begin(), 1);
+        EXPECT_EQ((*it).end().base() - paes.begin(), 7);
         ++it;
-        EXPECT_EQ(it->begin().base() - paes.begin(), 3);
-        EXPECT_EQ(it->end().base() - paes.begin(), 5);
+        EXPECT_EQ((*it).begin().base() - paes.begin(), 3);
+        EXPECT_EQ((*it).end().base() - paes.begin(), 5);
     }
 }
 
@@ -1347,33 +1347,33 @@ TEST(detail_bidi, n0_)
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()),
             14);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::ON);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::ON);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
     }
     {
         uint32_t cps[] = {'s', 'm', 'i', 't', 'h', ' ', '(', 'f', 'a', 'b', 'r', 'i', 'k', 'a', 'm', ' ', 'A', 'R', 'A', 'B', 'I', 'C', ')', ' ', 'H', 'E', 'B', 'R', 'E', 'W'};
@@ -1422,65 +1422,65 @@ TEST(detail_bidi, n0_)
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()),
             30);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::WS);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::WS);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::WS);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::WS);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::WS);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::WS);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
     }
     {
         uint32_t cps[] = {'s', 'm', 'i', 't', 'h', ' ', '(', 'A', 'R', 'A', 'B', 'I', 'C', ' ', 'f', 'a', 'b', 'r', 'i', 'k', 'a', 'm', ')', ' ', 'H', 'E', 'B', 'R', 'E', 'W'};
@@ -1529,65 +1529,65 @@ TEST(detail_bidi, n0_)
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()),
             30);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::WS);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::WS);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::WS);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::WS);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::WS);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::WS);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
     }
     {
         uint32_t cps[] = {'A', 'R', 'A', 'B', 'I', 'C', ' ', 'b', 'o', 'o', 'k', '(', 's', ')'};
@@ -1620,33 +1620,33 @@ TEST(detail_bidi, n0_)
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()),
             14);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::WS);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::WS);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
     }
 }
 
@@ -1670,11 +1670,11 @@ TEST(detail_bidi, n1_)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::L);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::L);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1692,11 +1692,11 @@ TEST(detail_bidi, n1_)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1714,11 +1714,11 @@ TEST(detail_bidi, n1_)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1736,11 +1736,11 @@ TEST(detail_bidi, n1_)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1758,11 +1758,11 @@ TEST(detail_bidi, n1_)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1780,11 +1780,11 @@ TEST(detail_bidi, n1_)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1802,11 +1802,11 @@ TEST(detail_bidi, n1_)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1824,11 +1824,11 @@ TEST(detail_bidi, n1_)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1846,11 +1846,11 @@ TEST(detail_bidi, n1_)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::AN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::AN);
     }
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1868,11 +1868,11 @@ TEST(detail_bidi, n1_)
         auto it = run_sequences[0].begin();
         EXPECT_EQ(
             std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::R);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::R);
         ++it;
-        EXPECT_EQ(it->prop_, (uint8_t)bidi_property::EN);
+        EXPECT_EQ((*it).prop_, (uint8_t)bidi_property::EN);
     }
 }
 
@@ -1909,7 +1909,7 @@ TEST(detail_bidi, l2_)
             if (run.reversed()) {
                 for (auto it = run.rbegin(), end = run.rend(); it != end;
                      ++it) {
-                    cps[0] = it->cp();
+                    cps[0] = (*it).cp();
                     result += to_string(cps, cps + 1);
                 }
             } else {
@@ -1953,7 +1953,7 @@ TEST(detail_bidi, l2_)
             if (run.reversed()) {
                 for (auto it = run.rbegin(), end = run.rend(); it != end;
                      ++it) {
-                    cps[0] = it->cp();
+                    cps[0] = (*it).cp();
                     result += to_string(cps, cps + 1);
                 }
             } else {
@@ -2032,7 +2032,7 @@ TEST(detail_bidi, l2_)
             if (run.reversed()) {
                 for (auto it = run.rbegin(), end = run.rend(); it != end;
                      ++it) {
-                    cps[0] = it->cp();
+                    cps[0] = (*it).cp();
                     result += to_string(cps, cps + 1);
                 }
             } else {
@@ -2102,7 +2102,7 @@ TEST(detail_bidi, l2_)
             if (run.reversed()) {
                 for (auto it = run.rbegin(), end = run.rend(); it != end;
                      ++it) {
-                    cps[0] = it->cp();
+                    cps[0] = (*it).cp();
                     result += to_string(cps, cps + 1);
                 }
             } else {

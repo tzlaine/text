@@ -10,7 +10,7 @@
 #include <boost/text/paragraph_break.hpp>
 #include <boost/text/bidirectional.hpp>
 #include <boost/text/string_utility.hpp>
-#include <boost/text/text.hpp>
+// TODO #include <boost/text/text.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/reverse.hpp>
 
@@ -37,30 +37,19 @@ TEST(break_apis, grapheme_break)
     {
         std::vector<uint32_t> const empty_cps;
         auto subranges =
-            boost::text::as_graphemes(empty_cps.begin(), empty_cps.end());
+            std::ranges::subrange(empty_cps.begin(), empty_cps.end()) |
+            as_graphemes;
         for (auto subrange : subranges) {
             (void)subrange;
         }
     }
     {
         std::string const empty_cus;
-        auto subranges = boost::text::as_graphemes(empty_cus | as_utf32);
+        auto subranges = empty_cus | as_utf32 | as_graphemes;
         for (auto subrange : subranges) {
             (void)subrange;
         }
     }
-
-#if BOOST_TEXT_USE_CONCEPTS
-    // dangling range
-    {
-        using result_type = decltype(boost::text::as_graphemes(std::string{}));
-        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
-    }
-    {
-        using result_type = decltype(std::string{} | boost::text::as_graphemes);
-        static_assert(std::is_same_v<result_type, std::ranges::dangling>);
-    }
-#endif
 
     // ÷ 1F3FB × 0308 ÷ 1100 ÷
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0]
@@ -133,8 +122,7 @@ TEST(break_apis, grapheme_break)
 #endif
 
     {
-        auto const all_graphemes =
-            boost::text::as_graphemes(cps.begin(), cps.end());
+        auto const all_graphemes = cps | as_graphemes;
 
         std::array<std::pair<int, int>, 2> const grapheme_bounds = {
             {{0, 2}, {2, 3}}};
@@ -142,23 +130,26 @@ TEST(break_apis, grapheme_break)
         int i = 0;
         for (auto grapheme :
              all_graphemes | boost::text::reverse | boost::text::reverse) {
-            EXPECT_EQ(grapheme.begin() - cps.begin(), grapheme_bounds[i].first)
+            EXPECT_EQ(
+                grapheme.begin().base() - cps.begin(), grapheme_bounds[i].first)
                 << "i=" << i;
-            EXPECT_EQ(grapheme.end() - cps.begin(), grapheme_bounds[i].second)
+            EXPECT_EQ(
+                grapheme.end().base() - cps.begin(), grapheme_bounds[i].second)
                 << "i=" << i;
             ++i;
         }
         EXPECT_EQ(i, (int)grapheme_bounds.size());
 
         auto const all_graphemes_reversed =
-            boost::text::as_graphemes(cps.begin(), cps.end()) |
-            boost::text::reverse;
+            cps | as_graphemes | boost::text::reverse;
         i = grapheme_bounds.size();
         for (auto grapheme : all_graphemes_reversed) {
             --i;
-            EXPECT_EQ(grapheme.begin() - cps.begin(), grapheme_bounds[i].first)
+            EXPECT_EQ(
+                grapheme.begin().base() - cps.begin(), grapheme_bounds[i].first)
                 << "i=" << i;
-            EXPECT_EQ(grapheme.end() - cps.begin(), grapheme_bounds[i].second)
+            EXPECT_EQ(
+                grapheme.end().base() - cps.begin(), grapheme_bounds[i].second)
                 << "i=" << i;
         }
         EXPECT_EQ(i, 0);
