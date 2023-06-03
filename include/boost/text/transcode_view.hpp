@@ -34,7 +34,7 @@ namespace boost { namespace text {
       constexpr R&& base() && noexcept { return std::move(r_); }
       constexpr const R&& base() const && noexcept { return std::move(r_); }
 
-      constexpr V unpacked_base() const noexcept { return v_; }
+      constexpr V code_units() const noexcept { return v_; }
 
       constexpr auto begin() const { return std::ranges::begin(r_); }
       constexpr auto end() const { return std::ranges::end(r_); }
@@ -85,14 +85,24 @@ namespace boost { namespace text {
         constexpr V base() const & requires std::copy_constructible<V> { return base_; }
         constexpr V base() && { return std::move(base_); }
 
+        constexpr auto code_units() const noexcept
+            requires std::copy_constructible<V> || detail::is_unpacked_owning_view<V>
+        {
+            if constexpr (detail::is_unpacked_owning_view<V>) {
+                return base_.code_units();
+            } else {
+                return base_;
+            }
+        }
+
         constexpr auto begin() const
         {
             constexpr format from_format =
                 detail::format_of<std::ranges::range_value_t<V>>();
             if constexpr (detail::is_unpacked_owning_view<V>) {
                 return make_begin<from_format>(
-                    std::ranges::begin(base_.unpacked_base()),
-                    std::ranges::end(base_.unpacked_base()));
+                    std::ranges::begin(base_.code_units()),
+                    std::ranges::end(base_.code_units()));
             } else {
                 return make_begin<from_format>(
                     std::ranges::begin(base_), std::ranges::end(base_));
@@ -104,8 +114,8 @@ namespace boost { namespace text {
                 detail::format_of<std::ranges::range_value_t<V>>();
             if constexpr (detail::is_unpacked_owning_view<V>) {
                 return make_end<from_format>(
-                    std::ranges::begin(base_.unpacked_base()),
-                    std::ranges::end(base_.unpacked_base()));
+                    std::ranges::begin(base_.code_units()),
+                    std::ranges::end(base_.code_units()));
             } else {
                 return make_end<from_format>(
                     std::ranges::begin(base_), std::ranges::end(base_));
