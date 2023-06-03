@@ -18,10 +18,65 @@
 
 namespace boost { namespace text {
 
-    template<format Format, std::ranges::view V>
+    // clang-format off
+    template<std::ranges::range R, std::ranges::view V>
+      requires std::movable<R> // TODO && (!is-initializer-list<R>)
+    class unpacked_owning_view : public std::ranges::view_interface<unpacked_owning_view<R, V>> {
+      R r_ = R();
+      V v_ = V();
+
+    public:
+      constexpr unpacked_owning_view() requires std::default_initializable<R> && std::default_initializable<V> = default;
+      constexpr unpacked_owning_view(R&& r, V v) : r_(std::move(r)), v_(std::move(v)) {}
+
+      constexpr R& base() & noexcept { return r_; }
+      constexpr const R& base() const & noexcept { return r_; }
+      constexpr R&& base() && noexcept { return std::move(r_); }
+      constexpr const R&& base() const && noexcept { return std::move(r_); }
+
+      constexpr V unpacked_base() const noexcept { return v_; }
+
+      constexpr auto begin() const { return std::ranges::begin(r_); }
+      constexpr auto end() const { return std::ranges::end(r_); }
+    };
+    // clang-format on
+
+    namespace detail {
+        template<class T>
+        constexpr bool is_unpacked_owning_view = false;
+        template<class R, class V>
+        constexpr bool is_unpacked_owning_view<unpacked_owning_view<R, V>> =
+            true;
+    }
+
+    template<format Format, utf_range V>
+        requires std::ranges::view<V>
     class utf_view : public std::ranges::view_interface<utf_view<Format, V>>
     {
         V base_ = V();
+
+        template<format FromFormat, class I, class S>
+        static constexpr auto make_begin(I first, S last)
+        {
+            if constexpr (std::bidirectional_iterator<I>) {
+                return utf_iterator<FromFormat, Format, I, S>{
+                    first, first, last};
+            } else {
+                return utf_iterator<FromFormat, Format, I, S>{first, last};
+            }
+        }
+        template<format FromFormat, class I, class S>
+        static constexpr auto make_end(I first, S last)
+        {
+            if constexpr (!std::same_as<I, S>) {
+                return last;
+            } else if constexpr (std::bidirectional_iterator<I>) {
+                return utf_iterator<FromFormat, Format, I, S>{
+                    first, last, last};
+            } else {
+                return utf_iterator<FromFormat, Format, I, S>{last, last};
+            }
+        }
 
     public:
         constexpr utf_view() requires std::default_initializable<V> = default;
@@ -34,46 +89,26 @@ namespace boost { namespace text {
         {
             constexpr format from_format =
                 detail::format_of<std::ranges::range_value_t<V>>();
-            if constexpr (std::ranges::bidirectional_range<V>) {
-                return utf_iterator<
-                    from_format,
-                    Format,
-                    std::ranges::iterator_t<V>,
-                    std::ranges::sentinel_t<V>>{
-                    std::ranges::begin(base_),
-                    std::ranges::begin(base_),
-                    std::ranges::end(base_)};
+            if constexpr (detail::is_unpacked_owning_view<V>) {
+                return make_begin<from_format>(
+                    std::ranges::begin(base_.unpacked_base()),
+                    std::ranges::end(base_.unpacked_base()));
             } else {
-                return utf_iterator<
-                    from_format,
-                    Format,
-                    std::ranges::iterator_t<V>,
-                    std::ranges::sentinel_t<V>>{
-                    std::ranges::begin(base_), std::ranges::end(base_)};
+                return make_begin<from_format>(
+                    std::ranges::begin(base_), std::ranges::end(base_));
             }
         }
         constexpr auto end() const
         {
             constexpr format from_format =
                 detail::format_of<std::ranges::range_value_t<V>>();
-            if constexpr (!std::ranges::common_range<V>) {
-                return std::ranges::end(base_);
-            } else if constexpr (std::ranges::bidirectional_range<V>) {
-                return utf_iterator<
-                    from_format,
-                    Format,
-                    std::ranges::iterator_t<V>,
-                    std::ranges::sentinel_t<V>>{
-                    std::ranges::begin(base_),
-                    std::ranges::end(base_),
-                    std::ranges::end(base_)};
+            if constexpr (detail::is_unpacked_owning_view<V>) {
+                return make_end<from_format>(
+                    std::ranges::begin(base_.unpacked_base()),
+                    std::ranges::end(base_.unpacked_base()));
             } else {
-                return utf_iterator<
-                    from_format,
-                    Format,
-                    std::ranges::iterator_t<V>,
-                    std::ranges::sentinel_t<V>>{
-                    std::ranges::end(base_), std::ranges::end(base_)};
+                return make_end<from_format>(
+                    std::ranges::begin(base_), std::ranges::end(base_));
             }
         }
 
@@ -110,6 +145,7 @@ namespace boost { namespace text {
         }
 #endif
     };
+
 
     template<utf_range V>
         requires std::ranges::view<V>
@@ -170,16 +206,23 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     namespace dtl {
         template<class T>
-        struct is_empty_view : std::false_type
-        {};
+        constexpr bool is_empty_view = false;
         template<class T>
-        struct is_empty_view<std::ranges::empty_view<T>> : std::true_type
-        {};
-        template<class T>
-        constexpr bool is_empty_view_v = is_empty_view<T>::value;
+        constexpr bool is_empty_view<std::ranges::empty_view<T>> = true;
 
         template<class R, template<class> class View>
-        concept can_utf_view = requires { View(std::declval<R &>()); };
+        concept can_utf_view = requires { View(std::declval<R>()); };
+
+        template<class T>
+        constexpr bool is_utf_view = false;
+        template<class T>
+        constexpr bool is_utf_view<utf8_view<T>> = true;
+        template<class T>
+        constexpr bool is_utf_view<utf16_view<T>> = true;
+        template<class T>
+        constexpr bool is_utf_view<utf32_view<T>> = true;
+        template<format F, class T>
+        constexpr bool is_utf_view<utf_view<F, T>> = true;
 
         template<class R>
         constexpr decltype(auto) unpack_range(R && r)
@@ -193,7 +236,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     if (n && !r[n - 1])
                         --unpacked.last;
                 }
-                return std::ranges::subrange(unpacked.first, unpacked.last);
+                if constexpr (std::ranges::borrowed_range<T> || std::is_lvalue_reference_v<R>) {
+                    return std::ranges::subrange(unpacked.first, unpacked.last);
+                } else if constexpr (
+                    !std::same_as<decltype(unpacked.first), std::ranges::iterator_t<T>> ||
+                    !std::same_as<decltype(unpacked.last), std::ranges::sentinel_t<T>>) {
+                    return unpacked_owning_view(std::move(r), std::ranges::subrange(unpacked.first, unpacked.last));
+                } else {
+                    return std::forward<R>(r);
+                }
             } else {
                 return std::forward<R>(r);
             }
@@ -202,18 +253,21 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         template<class R>
         using unpacked_range = decltype(dtl::unpack_range(std::declval<R>()));
 
-        template<template<class> class View>
-        struct as_utf_impl : range_adaptor_closure<as_utf_impl<View>>
+        template<template<class> class View, format Format>
+        struct as_utf_impl : range_adaptor_closure<as_utf_impl<View, Format>>
         {
             template<class R>
-                requires(std::ranges::viewable_range<R> &&
-                         can_utf_view<unpacked_range<R>, View>) ||
-                        utf_pointer<std::remove_cvref_t<R>>
+                requires is_utf_view<std::remove_cvref_t<R>> ||
+                         (std::ranges::viewable_range<R> &&
+                          can_utf_view<unpacked_range<R>, View>) ||
+                         utf_pointer<std::remove_cvref_t<R>>
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
                 using T = std::remove_cvref_t<R>;
-                if constexpr (dtl::is_empty_view_v<T>) {
-                    return r;
+                if constexpr (dtl::is_empty_view<T>) {
+                    return std::ranges::empty_view<dtl::format_to_type_t<Format>>{};
+                } else if constexpr (is_utf_view<T>) {
+                    return View(std::forward<R>(r).base());
                 } else if constexpr (std::is_pointer_v<T>) {
                     return View(std::ranges::subrange(r, null_sentinel));
                 } else {
@@ -223,9 +277,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         };
     }
 
-    inline constexpr dtl::as_utf_impl<utf8_view> as_utf8;
-    inline constexpr dtl::as_utf_impl<utf16_view> as_utf16;
-    inline constexpr dtl::as_utf_impl<utf32_view> as_utf32;
+    inline constexpr dtl::as_utf_impl<utf8_view, format::utf8> as_utf8;
+    inline constexpr dtl::as_utf_impl<utf16_view, format::utf16> as_utf16;
+    inline constexpr dtl::as_utf_impl<utf32_view, format::utf32> as_utf32;
+
 }}}
 
 namespace std::ranges {

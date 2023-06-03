@@ -122,7 +122,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
                 using T = std::remove_cvref_t<R>;
-                if constexpr (dtl::is_empty_view_v<T>) {
+                if constexpr (dtl::is_empty_view<T>) {
                     return r;
                 } else if constexpr (std::is_pointer_v<T>) {
                     return grapheme_view(

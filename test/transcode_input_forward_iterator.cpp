@@ -466,12 +466,42 @@ TEST(transcode_non_bidi, chained_range_adaptors)
 
         auto r = list | text::as_utf32 | text::as_utf16 | text::as_utf32;
         auto it = r.begin();
-        auto const end = r.end();
+        auto end = r.end();
 
         static_assert(std::same_as<decltype(it), decltype(simple.begin())>);
-        static_assert(std::same_as<
-                      std::remove_const_t<decltype(end)>,
-                      decltype(simple.end())>);
+        static_assert(std::same_as<decltype(end), decltype(simple.end())>);
+
+        EXPECT_EQ(*it, utf32[0]);
+        ++it;
+        EXPECT_EQ(*it, utf32[1]);
+        ++it;
+        EXPECT_EQ(*it, utf32[2]);
+        ++it;
+        EXPECT_EQ(*it, utf32[3]);
+        ++it;
+
+        EXPECT_EQ(it, end);
+
+        static_assert(ill_formed<has_prefix_decrement, decltype(it)>::value);
+        static_assert(ill_formed<has_postfix_decrement, decltype(it)>::value);
+    }
+    {
+        auto const first = input_iter(std::begin(utf8));
+        auto const last = input_iter(std::end(utf8));
+
+        auto simple = std::ranges::subrange(first, last) | text::as_utf32;
+
+        // Like simple, but this is a subrange, rather than a utf_view.
+        auto almost_simple =
+            std::ranges::subrange(simple.begin(), simple.end());
+
+        auto r = almost_simple | text::as_utf16 | text::as_utf32;
+        auto it = r.begin();
+        auto end = r.end();
+
+        // These types should not match for input ranges -- no unpacking.
+        static_assert(!std::same_as<decltype(it), decltype(simple.begin())>);
+        static_assert(!std::same_as<decltype(end), decltype(simple.end())>);
 
         EXPECT_EQ(*it, utf32[0]);
         ++it;
@@ -496,13 +526,12 @@ TEST(transcode_non_bidi, chained_range_adaptors)
         auto r = std::ranges::subrange(first, last) | text::as_utf32 |
                  text::as_utf16 | text::as_utf32;
         auto it = r.begin();
-        auto const end = r.end();
+        auto end = r.end();
 
-        // These types should not match for input ranges -- no unpacking.
-        static_assert(!std::same_as<decltype(it), decltype(simple.begin())>);
-        static_assert(!std::same_as<
-                      std::remove_const_t<decltype(end)>,
-                      decltype(simple.end())>);
+        // These types *should*, even for input ranges -- due to the use of
+        // utf_view::base() in view adaptors called on utf_views.
+        static_assert(std::same_as<decltype(it), decltype(simple.begin())>);
+        static_assert(std::same_as<decltype(end), decltype(simple.end())>);
 
         EXPECT_EQ(*it, utf32[0]);
         ++it;
