@@ -19,22 +19,24 @@
 namespace boost { namespace text {
 
     // clang-format off
-    template<std::ranges::range R, std::ranges::view V>
+    template<std::ranges::range R>
       requires std::movable<R> // TODO && (!is-initializer-list<R>)
-    class unpacked_owning_view : public std::ranges::view_interface<unpacked_owning_view<R, V>> {
+    class unpacking_owning_view : public std::ranges::view_interface<unpacking_owning_view<R>> {
       R r_ = R();
-      V v_ = V();
 
     public:
-      constexpr unpacked_owning_view() requires std::default_initializable<R> && std::default_initializable<V> = default;
-      constexpr unpacked_owning_view(R&& r, V v) : r_(std::move(r)), v_(std::move(v)) {}
+      constexpr unpacking_owning_view() requires std::default_initializable<R> = default;
+      constexpr unpacking_owning_view(R&& r) : r_(std::move(r)) {}
 
       constexpr R& base() & noexcept { return r_; }
       constexpr const R& base() const & noexcept { return r_; }
       constexpr R&& base() && noexcept { return std::move(r_); }
       constexpr const R&& base() const && noexcept { return std::move(r_); }
 
-      constexpr V code_units() const noexcept { return v_; }
+      constexpr auto code_units() const noexcept {
+        auto unpacked = boost::text::unpack_iterator_and_sentinel(std::ranges::begin(r_), std::ranges::end(r_));
+        return std::ranges::subrange(unpacked.first, unpacked.last);
+      }
 
       constexpr auto begin() const { return std::ranges::begin(r_); }
       constexpr auto end() const { return std::ranges::end(r_); }
@@ -43,10 +45,9 @@ namespace boost { namespace text {
 
     namespace detail {
         template<class T>
-        constexpr bool is_unpacked_owning_view = false;
-        template<class R, class V>
-        constexpr bool is_unpacked_owning_view<unpacked_owning_view<R, V>> =
-            true;
+        constexpr bool is_unpacking_owning_view = false;
+        template<class R>
+        constexpr bool is_unpacking_owning_view<unpacking_owning_view<R>> = true;
     }
 
     template<format Format, utf_range V>
@@ -86,9 +87,9 @@ namespace boost { namespace text {
         constexpr V base() && { return std::move(base_); }
 
         constexpr auto code_units() const noexcept
-            requires std::copy_constructible<V> || detail::is_unpacked_owning_view<V>
+            requires std::copy_constructible<V> || detail::is_unpacking_owning_view<V>
         {
-            if constexpr (detail::is_unpacked_owning_view<V>) {
+            if constexpr (detail::is_unpacking_owning_view<V>) {
                 return base_.code_units();
             } else {
                 return base_;
@@ -99,7 +100,7 @@ namespace boost { namespace text {
         {
             constexpr format from_format =
                 detail::format_of<std::ranges::range_value_t<V>>();
-            if constexpr (detail::is_unpacked_owning_view<V>) {
+            if constexpr (detail::is_unpacking_owning_view<V>) {
                 return make_begin<from_format>(
                     std::ranges::begin(base_.code_units()),
                     std::ranges::end(base_.code_units()));
@@ -112,7 +113,7 @@ namespace boost { namespace text {
         {
             constexpr format from_format =
                 detail::format_of<std::ranges::range_value_t<V>>();
-            if constexpr (detail::is_unpacked_owning_view<V>) {
+            if constexpr (detail::is_unpacking_owning_view<V>) {
                 return make_end<from_format>(
                     std::ranges::begin(base_.code_units()),
                     std::ranges::end(base_.code_units()));
@@ -251,7 +252,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 } else if constexpr (
                     !std::same_as<decltype(unpacked.first), std::ranges::iterator_t<T>> ||
                     !std::same_as<decltype(unpacked.last), std::ranges::sentinel_t<T>>) {
-                    return unpacked_owning_view(std::move(r), std::ranges::subrange(unpacked.first, unpacked.last));
+                    return unpacking_owning_view(std::move(r));
                 } else {
                     return std::forward<R>(r);
                 }

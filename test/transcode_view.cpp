@@ -71,9 +71,8 @@ TEST(transcode_view, adaptor_semantics)
 {
     static_assert(std::is_same_v<
                   decltype(my_text_type(u8"text") | boost::text::as_utf16),
-                  boost::text::utf16_view<boost::text::unpacked_owning_view<
-                      my_text_type,
-                      std::ranges::subrange<std::u8string::const_iterator>>>>);
+                  boost::text::utf16_view<
+                      boost::text::unpacking_owning_view<my_text_type>>>);
 
     static_assert(
         std::is_same_v<
