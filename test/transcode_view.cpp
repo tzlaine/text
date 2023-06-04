@@ -28,7 +28,7 @@ struct my_text_type
     }
     auto end() const
     {
-        return utf_8_to_32_iterator(utf8_.begin(), utf8_.begin(), utf8_.end());
+        return utf_8_to_32_iterator(utf8_.begin(), utf8_.end(), utf8_.end());
     }
 
 private:
