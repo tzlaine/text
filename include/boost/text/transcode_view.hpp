@@ -8,15 +8,248 @@
 
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/concepts.hpp>
-#include <boost/text/dangling.hpp>
 #include <boost/text/view_adaptor.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
 
+#include <climits>
 #include <format>
 
 
 namespace boost { namespace text {
+
+    // TODO: This is a possible implementation, but it disables unpacking when
+    // followed by an as_utfN adaptor.
+#if 0
+    template<format Format>
+    struct as_charn_t_impl : range_adaptor_closure<as_charn_t_impl<Format>>
+    {
+        template<class R>
+        requires (std::ranges::viewable_range<R> &&
+                  std::integral<std::ranges::range_value_t<R>> &&
+                  (int)ToFormat <= sizeof(std::ranges::range_value_t<R>)) ||
+                 utf_pointer<std::remove_cvref_t<R>>
+        [[nodiscard]] constexpr auto operator()(R && r) const
+        {
+            using char_type = dtl::format_to_type_t<ToFormat>;
+            using T = std::remove_cvref_t<R>;
+            if constexpr (detail::is_empty_view_v<T>) {
+                return std::ranges::empty_view<dtl::format_to_type_t<Format>>{};
+            } else if constexpr (std::is_pointer_v<T>) {
+                return std::ranges::subrange(r, null_sentinel) |
+                       std::views::transform(
+                           [](auto c) { return static_cast<char_type>(c); });
+            } else {
+                return std::forward<R>(r) |
+                       std::views::transform(
+                           [](auto c) { return static_cast<char_type>(c); });
+            }
+        }
+    };
+
+    inline constexpr dtl::as_charn_t_impl<format::utf8> as_char8_t;
+    inline constexpr dtl::as_charn_t_impl<format::utf16> as_char16_t;
+    inline constexpr dtl::as_charn_t_impl<format::utf32> as_char32_t;
+#endif
+
+    namespace detail {
+        template<class T>
+        constexpr bool is_empty_view = false;
+        template<class T>
+        constexpr bool is_empty_view<std::ranges::empty_view<T>> = true;
+
+        template<class I>
+        constexpr auto iterator_to_tag()
+        {
+            if constexpr (std::contiguous_iterator<I>) {
+                return std::contiguous_iterator_tag{};
+            } else if constexpr (std::random_access_iterator<I>) {
+                return std::random_access_iterator_tag{};
+            } else if constexpr (std::bidirectional_iterator<I>) {
+                return std::bidirectional_iterator_tag{};
+            } else if constexpr (std::forward_iterator<I>) {
+                return std::forward_iterator_tag{};
+            } else {
+                return std::input_iterator_tag{};
+            }
+        }
+        template<class I>
+        using iterator_to_tag_t = decltype(iterator_to_tag<I>());
+
+        template<class I, class T>
+        struct charn_projection_iterator
+            : boost::stl_interfaces::proxy_iterator_interface<
+                  charn_projection_iterator<I, T>, // TODO
+                  iterator_to_tag_t<I>,
+                  T>
+        {
+            constexpr charn_projection_iterator() = default;
+            constexpr charn_projection_iterator(I it) : it_(std::move(it)) {}
+
+            constexpr T operator*() const { return T(*it_); }
+
+            friend constexpr bool operator==(charn_projection_iterator lhs, null_sentinel_t rhs)
+                requires std::sentinel_for<null_sentinel_t, I>
+            { return lhs.it_ == rhs; }
+
+        private:
+            friend boost::stl_interfaces::access;
+            I & base_reference() noexcept { return it_; }
+            I base_reference() const noexcept { return it_; }
+
+            I it_;
+        };
+    }
+
+    template<std::ranges::view V>
+        requires std::convertible_to<std::ranges::range_value_t<V>, char8_t>
+    class char8_view : public std::ranges::view_interface<char8_view<V>>
+    {
+        V base_ = V();
+
+    public:
+        using iterator =
+            detail::charn_projection_iterator<std::ranges::iterator_t<V>, char8_t>;
+        using const_iterator =
+            detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char8_t>;
+
+        constexpr char8_view() requires std::default_initializable<V> = default;
+        constexpr char8_view(V base) : base_{std::move(base)} {}
+
+        constexpr V & base() & { return base_; }
+        constexpr const V & base() const & { return base_; }
+        constexpr V base() && { return std::move(base_); }
+
+        constexpr auto begin() { return iterator{std::ranges::begin(base_)}; }
+        constexpr auto end()
+        {
+            if constexpr (std::ranges::common_range<V>) {
+                return iterator{std::ranges::end(base_)};
+            } else {
+                return std::ranges::end(base_);
+            }
+        }
+        constexpr auto begin() const { return const_iterator{std::ranges::begin(base_)}; }
+        constexpr auto end() const
+        {
+            if constexpr (std::ranges::common_range<const V>) {
+                return const_iterator{std::ranges::end(base_)};
+            } else {
+                return std::ranges::end(base_);
+            }
+        }
+    };
+
+    template<std::ranges::view V>
+        requires std::convertible_to<std::ranges::range_value_t<V>, char16_t>
+    class char16_view : public std::ranges::view_interface<char16_view<V>>
+    {
+        V base_ = V();
+
+    public:
+        using iterator =
+            detail::charn_projection_iterator<std::ranges::iterator_t<V>, char16_t>;
+        using const_iterator =
+            detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char16_t>;
+
+        constexpr char16_view() requires std::default_initializable<V> = default;
+        constexpr char16_view(V base) : base_{std::move(base)} {}
+
+        constexpr V & base() & { return base_; }
+        constexpr const V & base() const & { return base_; }
+        constexpr V base() && { return std::move(base_); }
+
+        constexpr auto begin() { return iterator{std::ranges::begin(base_)}; }
+        constexpr auto end()
+        {
+            if constexpr (std::ranges::common_range<V>) {
+                return iterator{std::ranges::end(base_)};
+            } else {
+                return std::ranges::end(base_);
+            }
+        }
+        constexpr auto begin() const { return const_iterator{std::ranges::begin(base_)}; }
+        constexpr auto end() const
+        {
+            if constexpr (std::ranges::common_range<const V>) {
+                return const_iterator{std::ranges::end(base_)};
+            } else {
+                return std::ranges::end(base_);
+            }
+        }
+    };
+
+    template<std::ranges::view V>
+        requires std::convertible_to<std::ranges::range_value_t<V>, char32_t>
+    class char32_view : public std::ranges::view_interface<char32_view<V>>
+    {
+        V base_ = V();
+
+    public:
+        using iterator =
+            detail::charn_projection_iterator<std::ranges::iterator_t<V>, char32_t>;
+        using const_iterator =
+            detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char32_t>;
+
+        constexpr char32_view() requires std::default_initializable<V> = default;
+        constexpr char32_view(V base) : base_{std::move(base)} {}
+
+        constexpr V & base() & { return base_; }
+        constexpr const V & base() const & { return base_; }
+        constexpr V base() && { return std::move(base_); }
+
+        constexpr auto begin() { return iterator{std::ranges::begin(base_)}; }
+        constexpr auto end()
+        {
+            if constexpr (std::ranges::common_range<V>) {
+                return iterator{std::ranges::end(base_)};
+            } else {
+                return std::ranges::end(base_);
+            }
+        }
+        constexpr auto begin() const { return const_iterator{std::ranges::begin(base_)}; }
+        constexpr auto end() const
+        {
+            if constexpr (std::ranges::common_range<const V>) {
+                return const_iterator{std::ranges::end(base_)};
+            } else {
+                return std::ranges::end(base_);
+            }
+        }
+    };
+
+    template<class R>
+    char8_view(R &&) -> char8_view<std::views::all_t<R>>;
+    template<class R>
+    char16_view(R &&) -> char16_view<std::views::all_t<R>>;
+    template<class R>
+    char32_view(R &&) -> char32_view<std::views::all_t<R>>;
+
+    namespace detail {
+        template<template<class> class View, format Format>
+        struct as_charn_impl : range_adaptor_closure<as_charn_impl<View, Format>>
+        {
+            template<class R>
+            requires (std::ranges::viewable_range<R> &&
+                      std::convertible_to<std::ranges::range_value_t<R>, dtl::format_to_type_t<Format>>) ||
+                     utf_pointer<std::remove_cvref_t<R>>
+            [[nodiscard]] constexpr auto operator()(R && r) const
+            {
+                using T = std::remove_cvref_t<R>;
+                if constexpr (detail::is_empty_view<T>) {
+                    return std::ranges::empty_view<dtl::format_to_type_t<Format>>{};
+                } else if constexpr (std::is_pointer_v<T>) {
+                    return View(std::ranges::subrange(r, null_sentinel));
+                } else {
+                    return View(std::forward<R>(r));
+                }
+            }
+        };
+    }
+
+    inline constexpr detail::as_charn_impl<char8_view, format::utf8> as_char8_t;
+    inline constexpr detail::as_charn_impl<char16_view, format::utf16> as_char16_t;
+    inline constexpr detail::as_charn_impl<char32_view, format::utf32> as_char32_t;
 
     // clang-format off
     template<std::ranges::range R>
@@ -96,6 +329,8 @@ namespace boost { namespace text {
             }
         }
 
+        // TODO: If base_ is an as_charN_t view, then we need to use its
+        // format as from_format, and we need to its *base*'s iterators.
         constexpr auto begin() const
         {
             constexpr format from_format =
@@ -216,11 +451,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 #endif
 
     namespace dtl {
-        template<class T>
-        constexpr bool is_empty_view = false;
-        template<class T>
-        constexpr bool is_empty_view<std::ranges::empty_view<T>> = true;
-
         template<class R, template<class> class View>
         concept can_utf_view = requires { View(std::declval<R>()); };
 
@@ -234,6 +464,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         constexpr bool is_utf_view<utf32_view<T>> = true;
         template<format F, class T>
         constexpr bool is_utf_view<utf_view<F, T>> = true;
+
+        template<class T>
+        constexpr bool is_char_n_view = false;
+        template<class V>
+        constexpr bool is_char_n_view<char8_view<V>> = true;
+        template<class V>
+        constexpr bool is_char_n_view<char16_view<V>> = true;
+        template<class V>
+        constexpr bool is_char_n_view<char32_view<V>> = true;
 
         template<class R>
         constexpr decltype(auto) unpack_range(R && r)
@@ -275,7 +514,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
                 using T = std::remove_cvref_t<R>;
-                if constexpr (dtl::is_empty_view<T>) {
+                if constexpr (detail::is_empty_view<T>) {
                     return std::ranges::empty_view<dtl::format_to_type_t<Format>>{};
                 } else if constexpr (is_utf_view<T>) {
                     return View(std::forward<R>(r).base());
@@ -295,9 +534,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 }}}
 
 namespace std::ranges {
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::char8_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::char16_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::char32_view<V>> =
+        enable_borrowed_range<V>;
+
     template<boost::text::format Format, class V>
     inline constexpr bool enable_borrowed_range<boost::text::utf_view<Format, V>> =
         enable_borrowed_range<V>;
+
     template<class V>
     inline constexpr bool enable_borrowed_range<boost::text::utf8_view<V>> =
         enable_borrowed_range<V>;
