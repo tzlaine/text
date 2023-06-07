@@ -109,8 +109,6 @@ namespace boost { namespace text {
 
     public:
         using iterator =
-            detail::charn_projection_iterator<std::ranges::iterator_t<V>, char8_t>;
-        using const_iterator =
             detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char8_t>;
 
         constexpr char8_view() requires std::default_initializable<V> = default;
@@ -120,20 +118,11 @@ namespace boost { namespace text {
         constexpr const V & base() const & { return base_; }
         constexpr V base() && { return std::move(base_); }
 
-        constexpr auto begin() { return iterator{std::ranges::begin(base_)}; }
-        constexpr auto end()
-        {
-            if constexpr (std::ranges::common_range<V>) {
-                return iterator{std::ranges::end(base_)};
-            } else {
-                return std::ranges::end(base_);
-            }
-        }
-        constexpr auto begin() const { return const_iterator{std::ranges::begin(base_)}; }
+        constexpr auto begin() const { return iterator{std::ranges::begin(base_)}; }
         constexpr auto end() const
         {
             if constexpr (std::ranges::common_range<const V>) {
-                return const_iterator{std::ranges::end(base_)};
+                return iterator{std::ranges::end(base_)};
             } else {
                 return std::ranges::end(base_);
             }
@@ -148,8 +137,6 @@ namespace boost { namespace text {
 
     public:
         using iterator =
-            detail::charn_projection_iterator<std::ranges::iterator_t<V>, char16_t>;
-        using const_iterator =
             detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char16_t>;
 
         constexpr char16_view() requires std::default_initializable<V> = default;
@@ -159,20 +146,11 @@ namespace boost { namespace text {
         constexpr const V & base() const & { return base_; }
         constexpr V base() && { return std::move(base_); }
 
-        constexpr auto begin() { return iterator{std::ranges::begin(base_)}; }
-        constexpr auto end()
-        {
-            if constexpr (std::ranges::common_range<V>) {
-                return iterator{std::ranges::end(base_)};
-            } else {
-                return std::ranges::end(base_);
-            }
-        }
-        constexpr auto begin() const { return const_iterator{std::ranges::begin(base_)}; }
+        constexpr auto begin() const { return iterator{std::ranges::begin(base_)}; }
         constexpr auto end() const
         {
             if constexpr (std::ranges::common_range<const V>) {
-                return const_iterator{std::ranges::end(base_)};
+                return iterator{std::ranges::end(base_)};
             } else {
                 return std::ranges::end(base_);
             }
@@ -187,8 +165,6 @@ namespace boost { namespace text {
 
     public:
         using iterator =
-            detail::charn_projection_iterator<std::ranges::iterator_t<V>, char32_t>;
-        using const_iterator =
             detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char32_t>;
 
         constexpr char32_view() requires std::default_initializable<V> = default;
@@ -198,20 +174,11 @@ namespace boost { namespace text {
         constexpr const V & base() const & { return base_; }
         constexpr V base() && { return std::move(base_); }
 
-        constexpr auto begin() { return iterator{std::ranges::begin(base_)}; }
-        constexpr auto end()
-        {
-            if constexpr (std::ranges::common_range<V>) {
-                return iterator{std::ranges::end(base_)};
-            } else {
-                return std::ranges::end(base_);
-            }
-        }
-        constexpr auto begin() const { return const_iterator{std::ranges::begin(base_)}; }
+        constexpr auto begin() const { return iterator{std::ranges::begin(base_)}; }
         constexpr auto end() const
         {
             if constexpr (std::ranges::common_range<const V>) {
-                return const_iterator{std::ranges::end(base_)};
+                return iterator{std::ranges::end(base_)};
             } else {
                 return std::ranges::end(base_);
             }
