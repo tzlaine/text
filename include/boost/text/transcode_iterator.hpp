@@ -2465,9 +2465,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
         }
 
-        template<format Format>
-        using format_to_type_t = decltype(format_to_type<Format>());
-
         template<
             typename I,
             bool SupportReverse = std::bidirectional_iterator<I>>
@@ -2503,9 +2500,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<
         format FromFormat,
         format ToFormat,
-        code_unit_iter<FromFormat> I,
+        std::input_iterator I,
         std::sentinel_for<I> S,
         transcoding_error_handler ErrorHandler>
+        requires std::convertible_to<std::iter_value_t<I>, dtl::format_to_type_t<FromFormat>>
     class utf_iterator
         : public stl_interfaces::iterator_interface<
               utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
@@ -3008,9 +3006,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         template<
             format FromFormat2,
             format ToFormat2,
-            code_unit_iter<FromFormat2> I2,
+            std::input_iterator I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
+        requires std::convertible_to<std::iter_value_t<I2>, dtl::format_to_type_t<FromFormat2>>
         friend class utf_iterator;
     };
 

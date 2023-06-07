@@ -212,6 +212,15 @@ namespace boost { namespace text {
                 }
             }
         };
+
+        template<class T>
+        constexpr bool is_charn_view = false;
+        template<class V>
+        constexpr bool is_charn_view<char8_view<V>> = true;
+        template<class V>
+        constexpr bool is_charn_view<char16_view<V>> = true;
+        template<class V>
+        constexpr bool is_charn_view<char32_view<V>> = true;
     }
 
     inline constexpr detail::as_charn_impl<char8_view, format::utf8> as_char8_t;
@@ -296,13 +305,15 @@ namespace boost { namespace text {
             }
         }
 
-        // TODO: If base_ is an as_charN_t view, then we need to use its
-        // format as from_format, and we need to its *base*'s iterators.
         constexpr auto begin() const
         {
             constexpr format from_format =
                 detail::format_of<std::ranges::range_value_t<V>>();
-            if constexpr (detail::is_unpacking_owning_view<V>) {
+            if constexpr(detail::is_charn_view<V>) {
+                return make_begin<from_format>(
+                    std::ranges::begin(base_.base()),
+                    std::ranges::end(base_.base()));
+            } else if constexpr (detail::is_unpacking_owning_view<V>) {
                 return make_begin<from_format>(
                     std::ranges::begin(base_.code_units()),
                     std::ranges::end(base_.code_units()));
@@ -315,7 +326,11 @@ namespace boost { namespace text {
         {
             constexpr format from_format =
                 detail::format_of<std::ranges::range_value_t<V>>();
-            if constexpr (detail::is_unpacking_owning_view<V>) {
+            if constexpr(detail::is_charn_view<V>) {
+                return make_end<from_format>(
+                    std::ranges::begin(base_.base()),
+                    std::ranges::end(base_.base()));
+            } else if constexpr (detail::is_unpacking_owning_view<V>) {
                 return make_end<from_format>(
                     std::ranges::begin(base_.code_units()),
                     std::ranges::end(base_.code_units()));
@@ -432,15 +447,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         template<format F, class T>
         constexpr bool is_utf_view<utf_view<F, T>> = true;
 
-        template<class T>
-        constexpr bool is_char_n_view = false;
-        template<class V>
-        constexpr bool is_char_n_view<char8_view<V>> = true;
-        template<class V>
-        constexpr bool is_char_n_view<char16_view<V>> = true;
-        template<class V>
-        constexpr bool is_char_n_view<char32_view<V>> = true;
-
         template<class R>
         constexpr decltype(auto) unpack_range(R && r)
         {
@@ -485,6 +491,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     return std::ranges::empty_view<dtl::format_to_type_t<Format>>{};
                 } else if constexpr (is_utf_view<T>) {
                     return View(std::forward<R>(r).base());
+                } else if constexpr (detail::is_charn_view<T>) {
+                    return View(std::forward<R>(r));
                 } else if constexpr (std::is_pointer_v<T>) {
                     return View(std::ranges::subrange(r, null_sentinel));
                 } else {

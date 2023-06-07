@@ -25,12 +25,21 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
+    namespace dtl {
+        template<format Format>
+        constexpr auto format_to_type();
+
+        template<format Format>
+        using format_to_type_t = decltype(format_to_type<Format>());
+    }
+
     template<
         format FromFormat,
         format ToFormat,
-        code_unit_iter<FromFormat> I,
+        std::input_iterator I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
+        requires std::convertible_to<std::iter_value_t<I>, dtl::format_to_type_t<FromFormat>>
     class utf_iterator;
 
     template<
