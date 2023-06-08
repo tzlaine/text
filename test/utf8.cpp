@@ -15,8 +15,8 @@ using namespace boost;
 TEST(utf_8, test_consecutive)
 {
     // Unicode 9, 3.9/D90-D92
-    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    uint16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+    char32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
     char8_t const utf8[] = {
         0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82, 0};
 
@@ -92,10 +92,10 @@ TEST(utf_8, test_consecutive)
 
     // UTF-32 -> UTF-8
     {
-        auto it = text::utf_32_to_8_iterator<uint32_t const *>(
+        auto it = text::utf_32_to_8_iterator<char32_t const *>(
             utf32, utf32, utf32 + 4);
 
-        auto const end = text::utf_32_to_8_iterator<uint32_t const *>(
+        auto const end = text::utf_32_to_8_iterator<char32_t const *>(
             utf32, utf32 + 4, utf32 + 4);
 
         auto const zero = it;
@@ -302,10 +302,10 @@ TEST(utf_8, test_consecutive)
 
     // UTF-16 -> UTF-8
     {
-        auto it = text::utf_16_to_8_iterator<uint16_t const *>(
+        auto it = text::utf_16_to_8_iterator<char16_t const *>(
             utf16, utf16, utf16 + 5);
 
-        auto const end = text::utf_16_to_8_iterator<uint16_t const *>(
+        auto const end = text::utf_16_to_8_iterator<char16_t const *>(
             utf16, utf16 + 5, utf16 + 5);
 
         auto const zero = it;
@@ -434,8 +434,8 @@ TEST(utf_8, test_consecutive)
 TEST(utf_8, test_back_and_forth)
 {
     // Unicode 9, 3.9/D90-D92
-    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    uint16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+    char32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
     char8_t const utf8[] = {
         0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82, 0};
 
@@ -472,7 +472,7 @@ TEST(utf_8, test_back_and_forth)
 
     // UTF-32 -> UTF-8
     for (int iterations = 1; iterations <= 10; ++iterations) {
-        auto it = text::utf_32_to_8_iterator<uint32_t const *>(
+        auto it = text::utf_32_to_8_iterator<char32_t const *>(
             utf32, utf32, utf32 + 4);
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf8[i])
@@ -485,7 +485,7 @@ TEST(utf_8, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 10; ++iterations) {
-        auto it = text::utf_32_to_8_iterator<uint32_t const *>(
+        auto it = text::utf_32_to_8_iterator<char32_t const *>(
             utf32, utf32 + 4, utf32 + 4);
         int i = 10;
         for (; i-- > iterations;) {
@@ -530,7 +530,7 @@ TEST(utf_8, test_back_and_forth)
 
     // UTF-16 -> UTF-8
     for (int iterations = 1; iterations <= 10; ++iterations) {
-        auto it = text::utf_16_to_8_iterator<uint16_t const *>(
+        auto it = text::utf_16_to_8_iterator<char16_t const *>(
             utf16, utf16, utf16 + 5);
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf8[i])
@@ -543,7 +543,7 @@ TEST(utf_8, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 10; ++iterations) {
-        auto it = text::utf_16_to_8_iterator<uint16_t const *>(
+        auto it = text::utf_16_to_8_iterator<char16_t const *>(
             utf16, utf16 + 5, utf16 + 5);
         int i = 10;
         for (; i-- > iterations;) {
@@ -564,7 +564,7 @@ template<int EncodingLength>
 struct coverage_test_case
 {
     char str_[EncodingLength + 4];
-    uint32_t utf32_;
+    char32_t utf32_;
 };
 
 TEST(utf_8, test_utf8_coverage_length_1)
@@ -783,7 +783,7 @@ TEST(utf_8, test_0xfffd)
         char(0xbf),
         0x64,
         0};
-    uint32_t const expected[] = {
+    char32_t const expected[] = {
         0x0061,
         0xfffd,
         0xfffd,
@@ -843,7 +843,7 @@ TEST(utf_8, test_end_of_invalid_utf8)
             char(0x80),
             char(0xbf),
             0x64};
-        // uint32_t const expected[] = {0x0061, 0xfffd, 0xfffd, 0xfffd, 0x0062,
+        // char32_t const expected[] = {0x0061, 0xfffd, 0xfffd, 0xfffd, 0x0062,
         // 0xfffd, 0x0063, 0xfffd, 0xfffd, 0x0064};
 
         EXPECT_EQ(text::detail::end_of_invalid_utf8(bad_utf8 + 0), none);
@@ -859,7 +859,7 @@ TEST(utf_8, test_end_of_invalid_utf8)
     }
     {
         // Unicode 9, 3.9/D90-D92
-        // uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+        // char32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
         char const utf8[] = {
             0x4d,
             char(0xd0),
@@ -881,8 +881,8 @@ TEST(utf_8, test_end_of_invalid_utf8)
 
 TEST(utf_8, iterator_conversions)
 {
-    uint32_t utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    uint16_t utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+    char32_t utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char16_t utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
     char utf8[] = {
         0x4d,
         char(0xd0),
@@ -908,10 +908,10 @@ TEST(utf_8, iterator_conversions)
     }
 
     {
-        text::utf_32_to_8_iterator<uint32_t *> const it =
-            text::utf_32_to_8_iterator<uint32_t *>(utf32, utf32, utf32 + 4);
+        text::utf_32_to_8_iterator<char32_t *> const it =
+            text::utf_32_to_8_iterator<char32_t *>(utf32, utf32, utf32 + 4);
 
-        text::utf_32_to_8_iterator<uint32_t const *> const it_const = it;
+        text::utf_32_to_8_iterator<char32_t const *> const it_const = it;
 
         EXPECT_EQ(it_const, it);
     }
@@ -925,10 +925,10 @@ TEST(utf_8, iterator_conversions)
         EXPECT_EQ(it_const, it);
     }
     {
-        text::utf_16_to_8_iterator<uint16_t *> const it =
-            text::utf_16_to_8_iterator<uint16_t *>(utf16, utf16, utf16 + 5);
+        text::utf_16_to_8_iterator<char16_t *> const it =
+            text::utf_16_to_8_iterator<char16_t *>(utf16, utf16, utf16 + 5);
 
-        text::utf_16_to_8_iterator<uint16_t const *> const it_const = it;
+        text::utf_16_to_8_iterator<char16_t const *> const it_const = it;
 
         EXPECT_EQ(it_const, it);
     }
@@ -937,8 +937,8 @@ TEST(utf_8, iterator_conversions)
 TEST(utf_8, make_utfN_iterator)
 {
     // Unicode 9, 3.9/D90-D92
-    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    uint16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+    char32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
     char const utf8[] = {
         0x4d,
         char(0xd0),
@@ -978,8 +978,8 @@ TEST(utf_8, make_utfN_iterator)
 
     // -> UTF-16
     {
-        std::vector<uint16_t> result;
-        std::vector<uint16_t> const expected{
+        std::vector<char16_t> result;
+        std::vector<char16_t> const expected{
             std::begin(utf16), std::end(utf16)};
         std::copy(
             text::utf16_iterator(
@@ -991,8 +991,8 @@ TEST(utf_8, make_utfN_iterator)
     }
 
     {
-        std::vector<uint16_t> result;
-        std::vector<uint16_t> const expected{
+        std::vector<char16_t> result;
+        std::vector<char16_t> const expected{
             std::begin(utf16), std::end(utf16)};
         std::copy(
             text::utf16_iterator(
@@ -1005,8 +1005,8 @@ TEST(utf_8, make_utfN_iterator)
 
     // -> UTF-32
     {
-        std::vector<uint32_t> result;
-        std::vector<uint32_t> const expected{
+        std::vector<char32_t> result;
+        std::vector<char32_t> const expected{
             std::begin(utf32), std::end(utf32)};
         std::copy(
             text::utf32_iterator(
@@ -1018,8 +1018,8 @@ TEST(utf_8, make_utfN_iterator)
     }
 
     {
-        std::vector<uint32_t> result;
-        std::vector<uint32_t> const expected{
+        std::vector<char32_t> result;
+        std::vector<char32_t> const expected{
             std::begin(utf32), std::end(utf32)};
         std::copy(
             text::utf32_iterator(
@@ -1033,13 +1033,13 @@ TEST(utf_8, make_utfN_iterator)
 
 TEST(utf8, utf_16_to_8_incomplete_surrogate_pair)
 {
-    uint16_t const utf16[] = {0xd800};
+    char16_t const utf16[] = {0xd800};
     char8_t const utf8[] = {0xef, 0xbf, 0xbd, 0};
 
-    auto it = text::utf_16_to_8_iterator<uint16_t const *>(
+    auto it = text::utf_16_to_8_iterator<char16_t const *>(
         std::begin(utf16), std::begin(utf16), std::end(utf16));
 
-    auto const end = text::utf_16_to_8_iterator<uint16_t const *>(
+    auto const end = text::utf_16_to_8_iterator<char16_t const *>(
         std::begin(utf16), std::end(utf16), std::end(utf16));
 
     EXPECT_EQ(*it++, utf8[0]);

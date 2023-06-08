@@ -31,8 +31,8 @@ namespace boost { namespace text {
     namespace detail {
         struct bidi_prop_interval
         {
-            uint32_t lo_;
-            uint32_t hi_;
+            char32_t lo_;
+            char32_t hi_;
             bidi_property prop_;
         };
 
@@ -50,7 +50,7 @@ namespace boost { namespace text {
 
     /** Returns the bidirectional algorithm property associated with code
         point `cp`. */
-    inline bidi_property bidi_prop(uint32_t cp)
+    inline bidi_property bidi_prop(char32_t cp)
     {
         static auto const map = detail::make_bidi_prop_map();
         static auto const intervals = detail::make_bidi_prop_intervals();
@@ -196,8 +196,8 @@ namespace boost { namespace text {
             : stl_interfaces::iterator_interface<
                   props_and_embeddings_cp_iterator<CPIter>,
                   std::bidirectional_iterator_tag,
-                  uint32_t const,
-                  uint32_t const>
+                  char32_t const,
+                  char32_t const>
         {
             using iterator_t =
                 typename props_and_embeddings_t<CPIter>::iterator;
@@ -207,7 +207,7 @@ namespace boost { namespace text {
 
             iterator_t base() const { return it_; }
 
-            uint32_t const operator*() const { return it_->cp(); }
+            char32_t const operator*() const { return it_->cp(); }
 
             props_and_embeddings_cp_iterator & operator++()
             {
@@ -230,8 +230,8 @@ namespace boost { namespace text {
             using base_type = stl_interfaces::iterator_interface<
                 props_and_embeddings_cp_iterator<CPIter>,
                 std::bidirectional_iterator_tag,
-                uint32_t const,
-                uint32_t const>;
+                char32_t const,
+                char32_t const>;
             using base_type::operator++;
             using base_type::operator--;
 
@@ -544,8 +544,8 @@ namespace boost { namespace text {
                 if (prop == bidi_property::NSM) {
                     elem.prop_ = prev_prop == bidi_property::PDI ||
                                          detail::isolate_initiator(prev_prop)
-                                     ? (uint8_t)bidi_property::ON
-                                     : (uint8_t)prev_prop;
+                                     ? (char8_t)bidi_property::ON
+                                     : (char8_t)prev_prop;
                     elem.originally_nsm_ = true;
                     prop = elem.prop();
                 }
@@ -575,7 +575,7 @@ namespace boost { namespace text {
                     boost::text::find_if_backward(first, from_it, strong);
                 if ((pred_it == from_it && seq.sos() == trigger) ||
                     (*pred_it).prop() == trigger) {
-                    (*from_it).prop_ = (uint8_t)replacement;
+                    (*from_it).prop_ = (char8_t)replacement;
                 }
                 --it;
             }
@@ -602,7 +602,7 @@ namespace boost { namespace text {
         {
             for (auto & elem : seq) {
                 if (elem.prop() == bidi_property::AL)
-                    elem.prop_ = (uint8_t)bidi_property::R;
+                    elem.prop_ = (char8_t)bidi_property::R;
             }
         }
 
@@ -629,13 +629,13 @@ namespace boost { namespace text {
                 if ((*prev_it).prop() == bidi_property::EN &&
                     (*it).prop() == bidi_property::ES &&
                     (*next_it).prop() == bidi_property::EN) {
-                    (*it).prop_ = (uint8_t)bidi_property::EN;
+                    (*it).prop_ = (char8_t)bidi_property::EN;
                 } else if (
                     (*it).prop() == bidi_property::CS &&
                     (*prev_it).prop() == (*next_it).prop() &&
                     ((*prev_it).prop() == bidi_property::EN ||
                      (*prev_it).prop() == bidi_property::AN)) {
-                    (*it).prop_ = (uint8_t)(*prev_it).prop();
+                    (*it).prop_ = (char8_t)(*prev_it).prop();
                 }
             }
         }
@@ -646,7 +646,7 @@ namespace boost { namespace text {
             prop_and_embedding_t<CPIter>
             operator()(prop_and_embedding_t<CPIter> pae)
             {
-                pae.prop_ = (uint8_t)prop_;
+                pae.prop_ = (char8_t)prop_;
                 return pae;
             }
             bidi_property prop_;
@@ -696,7 +696,7 @@ namespace boost { namespace text {
                     if (pae.prop() == bidi_property::ES ||
                         pae.prop() == bidi_property::CS ||
                         pae.prop() == bidi_property::ET) {
-                        pae.prop_ = (uint8_t)bidi_property::ON;
+                        pae.prop_ = (char8_t)bidi_property::ON;
                     }
                     return pae;
                 });
@@ -740,7 +740,7 @@ namespace boost { namespace text {
         struct bracket_stack_element_t
         {
             typename run_sequence_t<CPIter>::iterator it_;
-            uint32_t paired_bracket_;
+            char32_t paired_bracket_;
         };
 
         // https://unicode.org/reports/tr9/#BD16
@@ -866,7 +866,7 @@ namespace boost { namespace text {
                                  typename run_sequence_t<CPIter>::iterator end,
                                  bidi_property prop) {
                 prev_strong_prop = prop;
-                (*pair.begin()).prop_ = (uint8_t)prop;
+                (*pair.begin()).prop_ = (char8_t)prop;
                 auto transform_end = std::find_if(
                     std::ranges::next(pair.end()),
                     end,
@@ -990,7 +990,7 @@ namespace boost { namespace text {
                 seq.begin(),
                 [seq_embedding_prop](prop_and_embedding_t<CPIter> pae) {
                     if (detail::neutral_or_isolate(pae))
-                        pae.prop_ = (uint8_t)seq_embedding_prop;
+                        pae.prop_ = (char8_t)seq_embedding_prop;
                     return pae;
                 });
         }
@@ -1155,8 +1155,8 @@ namespace boost { namespace text {
         struct fwd_rev_cp_iter : stl_interfaces::iterator_interface<
                                      fwd_rev_cp_iter<CPIter>,
                                      std::bidirectional_iterator_tag,
-                                     uint32_t,
-                                     uint32_t>
+                                     char32_t,
+                                     char32_t>
         {
             using mirrors_array_t = remove_cv_ref_t<decltype(bidi_mirroreds())>;
             using kind_t = fwd_rev_cp_iter_kind;
@@ -1203,7 +1203,7 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            uint32_t operator*() const
+            char32_t operator*() const
             {
                 if (kind_ == kind_t::user_it)
                     return *it_;
@@ -1227,8 +1227,8 @@ namespace boost { namespace text {
             using base_type = stl_interfaces::iterator_interface<
                 fwd_rev_cp_iter<CPIter>,
                 std::bidirectional_iterator_tag,
-                uint32_t,
-                uint32_t>;
+                char32_t,
+                char32_t>;
             using base_type::operator++;
             using base_type::operator--;
 
@@ -1600,12 +1600,12 @@ namespace boost { namespace text {
                     if (stack.top().directional_override_ ==
                         directional_override_t::left_to_right) {
                         props_and_embeddings.back().prop_ =
-                            (uint8_t)bidi_property::L;
+                            (char8_t)bidi_property::L;
                     } else if (
                         stack.top().directional_override_ ==
                         directional_override_t::right_to_left) {
                         props_and_embeddings.back().prop_ =
-                            (uint8_t)bidi_property::R;
+                            (char8_t)bidi_property::R;
                     }
                 };
 
@@ -1682,7 +1682,7 @@ namespace boost { namespace text {
             for (auto it = para_first; it != para_last; ++it) {
                 auto const prop = boost::text::bidi_prop(*it);
                 props_and_embeddings.push_back(prop_and_embedding_t<CPIter>{
-                    it, stack.top().embedding_, (uint8_t)prop, false, false});
+                    it, stack.top().embedding_, (char8_t)prop, false, false});
 
                 switch (prop) {
                 case bidi_property::RLE:
@@ -1840,7 +1840,7 @@ namespace boost { namespace text {
         {
             mirrored(int & mirror_index) : mirror_index_(mirror_index) {}
 
-            bool operator()(uint32_t cp) const
+            bool operator()(char32_t cp) const
             {
                 mirror_index_ = detail::bidi_mirroring(cp);
                 return mirror_index_ != -1;

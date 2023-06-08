@@ -28,7 +28,7 @@ namespace boost { namespace text {
 
         Note that the iterator type refers to the underlying sequence, which
         may not itself be a sequence of code points.  For example, the
-        underlying sequence may be a sequence of `char` which is interpreted
+        underlying sequence may be a sequence of `char8_t` which is interpreted
         as UTF-8. */
     template<typename Iter>
     struct replace_result : subrange<Iter>
@@ -76,11 +76,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         `[str_first, str_last)` within `string`, and returning a view
         indicating the changed portion of `string`.  Note that the replacement
         operation may mutate some code points just before or just after the
-        inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is normalized and put into
-        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
-        The code points at either end of the insertion may need to be
-        normalized, regardless of whether the inserted string does.
+        inserted sequence.  The output is UTF-8 if `utf8_range<String>` is
+        `true`, and UTF-16 otherwise.  The inserted string is normalized and
+        put into stream-safe format if `insertion_norm` is
+        `insertion_not_normalized`.  The code points at either end of the
+        insertion may need to be normalized, regardless of whether the
+        inserted string does.
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
@@ -104,11 +105,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         returning a view indicating the changed portion of `string`.  Note
         that the insertion operation may mutate some code points just before
         or just after the inserted sequence.  The output is UTF-8 if
-        `sizeof(*s.begin()) == 1`, and UTF-16 otherwise.  The inserted string
-        is normalized and put into stream-safe format if `insertion_norm` is
-        `insertion_not_normalized`.  The code points at either end of the
-        insertion may need to be normalized, regardless of whether the
-        inserted string does.
+        `utf8_range<String>` is `true`, and UTF-16 otherwise.  The inserted
+        string is normalized and put into stream-safe format if
+        `insertion_norm` is `insertion_not_normalized`.  The code points at
+        either end of the insertion may need to be normalized, regardless of
+        whether the inserted string does.
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
@@ -130,11 +131,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Inserts `r` into string `string` at location `at`, returning a view
         indicating the changed portion of `string`.  Note that the insertion
         operation may mutate some code points just before or just after the
-        inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is normalized and put into
-        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
-        The code points at either end of the insertion may need to be
-        normalized, regardless of whether the inserted string does.
+        inserted sequence.  The output is UTF-8 if `utf8_range<String>` is
+        `true`, and UTF-16 otherwise.  The inserted string is normalized and
+        put into stream-safe format if `insertion_norm` is
+        `insertion_not_normalized`.  The code points at either end of the
+        insertion may need to be normalized, regardless of whether the
+        inserted string does.
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
@@ -520,13 +522,11 @@ namespace boost { namespace text { namespace detail {
 
     template<typename String>
     using normalized_insert_buffer_t = std::conditional_t<
-        sizeof(*std::declval<String>().begin()) == 1,
-        container::small_vector<char, 1024>,
-        container::small_vector<uint16_t, 512>>;
+        utf8_range<String>,
+        container::small_vector<char8_t, 1024>,
+        container::small_vector<char16_t, 512>>;
 
-    template<
-        typename Buffer,
-        bool UTF8 = sizeof(*std::declval<Buffer>().begin()) == 1>
+    template<typename Buffer, bool UTF8 = utf8_range<Buffer>>
     struct append_normalized_to_buffer
     {
         template<typename Iter>
@@ -648,14 +648,14 @@ namespace boost { namespace text { namespace detail {
         bool const all_at_once = insertion_first_stable == last;
 
         // [first-stable-cp-before-str_first, first-stable-cp-after-first)
-        auto const lo_cons_view = detail::cons_view<uint32_t>(
+        auto const lo_cons_view = detail::cons_view<char32_t>(
             string_prefix_range,
             insertion_range,
             string_prefix_range.begin(),
             insertion_first_stable);
 
         if (all_at_once) {
-            auto const cons_view = detail::cons_view<uint32_t>(
+            auto const cons_view = detail::cons_view<char32_t>(
                 lo_cons_view,
                 string_suffix_range,
                 lo_cons_view.begin(),
@@ -685,7 +685,7 @@ namespace boost { namespace text { namespace detail {
         }
 
         // [first-stable-cp-before-last, first-stable-cp-after-str_last)
-        auto const hi_cons_view = detail::cons_view<uint32_t>(
+        auto const hi_cons_view = detail::cons_view<char32_t>(
             insertion_range,
             string_suffix_range,
             insertion_last_stable,
@@ -737,7 +737,7 @@ namespace boost { namespace text { namespace detail {
         normalized_insert_buffer_t<String> buffer;
 
         // [first-stable-cp-before-at, first-stable-cp-after-first)
-        auto const cons_view = detail::cons_view<uint32_t>(
+        auto const cons_view = detail::cons_view<char32_t>(
             string_prefix_range,
             string_suffix_range,
             string_prefix_range.begin(),

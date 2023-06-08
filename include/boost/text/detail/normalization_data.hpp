@@ -20,7 +20,7 @@
 
 namespace boost { namespace text { namespace detail {
 
-    template<int Capacity, typename T = uint32_t>
+    template<int Capacity, typename T = char32_t>
     struct code_points
     {
         using storage_type = std::array<T, Capacity>;
@@ -67,18 +67,18 @@ namespace boost { namespace text { namespace detail {
         uint16_t last_;
     };
 
-    BOOST_TEXT_DECL std::array<uint32_t, 3404>
+    BOOST_TEXT_DECL std::array<char32_t, 3404>
     make_all_canonical_decompositions();
-    BOOST_TEXT_DECL std::array<uint32_t, 8974>
+    BOOST_TEXT_DECL std::array<char32_t, 8974>
     make_all_compatible_decompositions();
 
-    inline uint32_t const * all_canonical_decompositions_ptr()
+    inline char32_t const * all_canonical_decompositions_ptr()
     {
         static auto const retval = make_all_canonical_decompositions();
         return retval.data();
     }
 
-    inline uint32_t const * all_compatible_decompositions_ptr()
+    inline char32_t const * all_compatible_decompositions_ptr()
     {
         static auto const retval = make_all_compatible_decompositions();
         return retval.data();
@@ -97,9 +97,9 @@ namespace boost { namespace text { namespace detail {
 
     static_assert(sizeof(cp_props) == 12, "");
 
-    BOOST_TEXT_DECL std::unordered_map<uint32_t, cp_props> make_cp_props_map();
+    BOOST_TEXT_DECL std::unordered_map<char32_t, cp_props> make_cp_props_map();
 
-    inline std::unordered_map<uint32_t, cp_props> const & cp_props_map()
+    inline std::unordered_map<char32_t, cp_props> const & cp_props_map()
     {
         static auto const retval = make_cp_props_map();
         return retval;
@@ -195,20 +195,20 @@ namespace boost { namespace text { namespace detail {
         SCount = LCount * NCount
     };
 
-    inline constexpr bool hangul_syllable(uint32_t cp)
+    inline constexpr bool hangul_syllable(char32_t cp)
     {
         return SBase <= cp && cp < SBase + SCount;
     }
 
-    inline constexpr bool hangul_lv(uint32_t cp)
+    inline constexpr bool hangul_lv(char32_t cp)
     {
         return hangul_syllable(cp) && (cp - SBase) % TCount == 0;
     }
 
     // Hangul decomposition as described in Unicode 11.0 Section 3.12.
-    template<int Capacity, typename T = uint32_t>
+    template<int Capacity, typename T = char32_t>
     inline code_points<Capacity, T>
-    decompose_hangul_syllable(uint32_t cp)
+    decompose_hangul_syllable(char32_t cp)
     {
         BOOST_ASSERT(hangul_syllable(cp));
 
@@ -232,17 +232,17 @@ namespace boost { namespace text { namespace detail {
         return (cp0 << 32) | cp1;
     }
 
-    inline int ccc(uint32_t cp)
+    inline int ccc(char32_t cp)
     {
         static const two_stage_table<int, 18, 10> table(
             detail::cp_props_map().begin(),
             detail::cp_props_map().end(),
-            [](std::pair<uint32_t, cp_props> const & p) {
+            [](std::pair<char32_t, cp_props> const & p) {
                 auto const key = p.first;
                 BOOST_ASSERT(key < (uint32_t(1) << 18));
                 return key;
             },
-            [](std::pair<uint32_t, cp_props> const & p) {
+            [](std::pair<char32_t, cp_props> const & p) {
                 return p.second.ccc_;
             },
             0);
@@ -252,7 +252,7 @@ namespace boost { namespace text { namespace detail {
     /** Returns yes, no, or maybe if the given code point indicates that the
         sequence in which it is found in normalization form Normalization. */
     template<nf Normalization>
-    quick_check quick_check_code_point(uint32_t cp)
+    quick_check quick_check_code_point(char32_t cp)
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         switch (Normalization) {
@@ -261,12 +261,12 @@ namespace boost { namespace text { namespace detail {
             static const two_stage_table<quick_check, 18, 10> table(
                 detail::cp_props_map().begin(),
                 detail::cp_props_map().end(),
-                [](std::pair<uint32_t, cp_props> const & p) {
+                [](std::pair<char32_t, cp_props> const & p) {
                     auto const key = p.first;
                     BOOST_ASSERT(key < (uint32_t(1) << 18));
                     return key;
                 },
-                [](std::pair<uint32_t, cp_props> const & p) {
+                [](std::pair<char32_t, cp_props> const & p) {
                     return quick_check(p.second.nfc_quick_check_);
                 },
                 quick_check::yes);
@@ -276,12 +276,12 @@ namespace boost { namespace text { namespace detail {
             static const two_stage_table<quick_check, 18, 10> table(
                 detail::cp_props_map().begin(),
                 detail::cp_props_map().end(),
-                [](std::pair<uint32_t, cp_props> const & p) {
+                [](std::pair<char32_t, cp_props> const & p) {
                     auto const key = p.first;
                     BOOST_ASSERT(key < (uint32_t(1) << 18));
                     return key;
                 },
-                [](std::pair<uint32_t, cp_props> const & p) {
+                [](std::pair<char32_t, cp_props> const & p) {
                     return quick_check(p.second.nfd_quick_check_);
                 },
                 quick_check::yes);
@@ -291,12 +291,12 @@ namespace boost { namespace text { namespace detail {
             static const two_stage_table<quick_check, 18, 10> table(
                 detail::cp_props_map().begin(),
                 detail::cp_props_map().end(),
-                [](std::pair<uint32_t, cp_props> const & p) {
+                [](std::pair<char32_t, cp_props> const & p) {
                     auto const key = p.first;
                     BOOST_ASSERT(key < (uint32_t(1) << 18));
                     return key;
                 },
-                [](std::pair<uint32_t, cp_props> const & p) {
+                [](std::pair<char32_t, cp_props> const & p) {
                     return quick_check(p.second.nfkc_quick_check_);
                 },
                 quick_check::yes);
@@ -306,12 +306,12 @@ namespace boost { namespace text { namespace detail {
             static const two_stage_table<quick_check, 18, 10> table(
                 detail::cp_props_map().begin(),
                 detail::cp_props_map().end(),
-                [](std::pair<uint32_t, cp_props> const & p) {
+                [](std::pair<char32_t, cp_props> const & p) {
                     auto const key = p.first;
                     BOOST_ASSERT(key < (uint32_t(1) << 18));
                     return key;
                 },
-                [](std::pair<uint32_t, cp_props> const & p) {
+                [](std::pair<char32_t, cp_props> const & p) {
                     return quick_check(p.second.nfkd_quick_check_);
                 },
                 quick_check::yes);
@@ -326,24 +326,24 @@ namespace boost { namespace text { namespace detail {
     {
         bool empty() const { return first_ == last_; }
 
-        uint32_t const * first_;
-        uint32_t const * last_;
+        char32_t const * first_;
+        char32_t const * last_;
     };
 
     /** Returns a range of CPs that is the compatible decomposistion of `cp`.
         The result will be an empty range if `cp` has no such
         decomposition. */
-    inline decomposition compatible_decompose(uint32_t cp)
+    inline decomposition compatible_decompose(char32_t cp)
     {
         static const two_stage_table<cp_range_, 18, 10> table(
             detail::cp_props_map().begin(),
             detail::cp_props_map().end(),
-            [](std::pair<uint32_t, cp_props> const & p) {
+            [](std::pair<char32_t, cp_props> const & p) {
                 auto const key = p.first;
                 BOOST_ASSERT(key < (uint32_t(1) << 18));
                 return key;
             },
-            [](std::pair<uint32_t, cp_props> const & p) {
+            [](std::pair<char32_t, cp_props> const & p) {
                 return p.second.compatible_decomposition_;
             },
             cp_range_{0, 0});
@@ -358,7 +358,7 @@ namespace boost { namespace text { namespace detail {
 
         \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
     template<nf Normalization>
-    bool stable_code_point(uint32_t cp)
+    bool stable_code_point(char32_t cp)
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         constexpr nf form = Normalization == nf::fcc ? nf::c : Normalization;
@@ -368,7 +368,7 @@ namespace boost { namespace text { namespace detail {
 
     struct lzw_to_cp_props_iter
     {
-        using value_type = std::pair<uint32_t, cp_props>;
+        using value_type = std::pair<char32_t, cp_props>;
         using difference_type = int;
         using pointer = value_type *;
         using reference = value_type &;
@@ -376,7 +376,7 @@ namespace boost { namespace text { namespace detail {
         using buffer_t = container::small_vector<unsigned char, 256>;
 
         lzw_to_cp_props_iter(
-            std::unordered_map<uint32_t, cp_props> & map, buffer_t & buf) :
+            std::unordered_map<char32_t, cp_props> & map, buffer_t & buf) :
             map_(&map),
             buf_(&buf)
         {}
@@ -422,7 +422,7 @@ namespace boost { namespace text { namespace detail {
         lzw_to_cp_props_iter & operator++(int) { return *this; }
 
     private:
-        std::unordered_map<uint32_t, cp_props> * map_;
+        std::unordered_map<char32_t, cp_props> * map_;
         buffer_t * buf_;
     };
 

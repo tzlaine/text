@@ -146,8 +146,8 @@ namespace boost { namespace text {
     struct stream_safe_iterator : stl_interfaces::iterator_interface<
                                       stream_safe_iterator<I, S>,
                                       std::bidirectional_iterator_tag,
-                                      uint32_t,
-                                      uint32_t>
+                                      char32_t,
+                                      char32_t>
     {
         using iterator = I;
         using sentinel = S;
@@ -160,7 +160,7 @@ namespace boost { namespace text {
             nonstarters_(it_ != last_ && detail::ccc(*it_) ? 1 : 0)
         {}
 
-        uint32_t operator*() const
+        char32_t operator*() const
         {
             BOOST_ASSERT(it_ != last_);
             return *it_;
@@ -202,8 +202,8 @@ namespace boost { namespace text {
         using base_type = stl_interfaces::iterator_interface<
             stream_safe_iterator<I, S>,
             std::bidirectional_iterator_tag,
-            uint32_t,
-            uint32_t>;
+            char32_t,
+            char32_t>;
         using base_type::operator++;
         using base_type::operator--;
 

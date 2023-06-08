@@ -32,8 +32,8 @@ TEST(break_apis, grapheme_break)
         EXPECT_NE(r_0.begin(), r_1.end());
     }
     {
-        auto r_0 = (uint32_t *)cps_0 | as_graphemes;
-        auto r_1 = (uint32_t const *)cps_1 | as_graphemes;
+        auto r_0 = (char32_t *)cps_0 | as_graphemes;
+        auto r_1 = (char32_t const *)cps_1 | as_graphemes;
 
         EXPECT_EQ(r_0.begin(), r_0.begin());
         EXPECT_NE(r_0.begin(), r_0.end());
@@ -53,8 +53,8 @@ TEST(break_apis, grapheme_break)
         EXPECT_NE(r_0.begin(), r_1.end());
     }
     {
-        auto r_0 = (uint32_t *)cus_0 | as_graphemes;
-        auto r_1 = (uint32_t const *)cus_1 | as_graphemes;
+        auto r_0 = (char32_t *)cus_0 | as_graphemes;
+        auto r_1 = (char32_t const *)cus_1 | as_graphemes;
 
         EXPECT_EQ(r_0.begin(), r_0.begin());
         EXPECT_NE(r_0.begin(), r_0.end());

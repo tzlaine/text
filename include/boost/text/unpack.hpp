@@ -109,11 +109,7 @@ namespace boost { namespace text {
             unpack_iterator_and_sentinel{};
     }
 
-    template<
-        format FormatTag,
-        utf_iter I,
-        std::sentinel_for<I> S,
-        class Repack>
+    template<format FormatTag, utf_iter I, std::sentinel_for<I> S, class Repack>
     struct unpack_result
     {
         static constexpr format format_tag = FormatTag;
@@ -124,6 +120,8 @@ namespace boost { namespace text {
     };
 
     namespace detail {
+        struct no_such_type
+        {};
         template<typename I, typename S, typename Repack>
         constexpr auto
         unpack_iterator_and_sentinel_impl(I first, S last, Repack repack)
@@ -134,9 +132,14 @@ namespace boost { namespace text {
             } else if constexpr (utf16_iter<I>) {
                 return unpack_result<format::utf16, I, S, Repack>{
                     first, last, repack};
-            } else {
+            } else if constexpr (utf32_iter<I>) {
                 return unpack_result<format::utf32, I, S, Repack>{
                     first, last, repack};
+            } else {
+                static_assert(
+                    std::same_as<Repack, no_such_type>,
+                    "Unpacked iterator is not a utf_iter!");
+                return 0;
             }
         }
 

@@ -15,7 +15,7 @@
 
 using namespace boost;
 
-uint32_t const cps[] = {
+char32_t const cps[] = {
     0x1053B, 0x0062, 0x1053C, 0x0021, 0x1053C, 0x003F, 0x1053C, 0x0334,
     0x1053C, 0x0061, 0x1053C, 0x0041, 0x1053C, 0x0062, 0x1053D, 0x0021,
     0x1053D, 0x003F, 0x1053D, 0x0334, 0x1053D, 0x0061, 0x1053D, 0x0041,
@@ -81,18 +81,18 @@ uint32_t const cps[] = {
 
 TEST(transcode_insert_iterator, utf16_inserters_long)
 {
-    std::vector<uint16_t> cus;
+    std::vector<char16_t> cus;
     auto const utf16_first =
         text::utf16_iterator(std::begin(cps), std::begin(cps), std::end(cps));
     auto const utf16_last =
         text::utf16_iterator(std::begin(cps), std::end(cps), std::end(cps));
     std::copy(utf16_first, utf16_last, std::back_inserter(cus));
 
-    std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
+    std::vector<char32_t> const cps_copy(std::begin(cps), std::end(cps));
 
     // UTF-16 pointer -> UTF-32 inserter
     {
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         std::copy(
             cus.begin(),
             cus.end(),
@@ -101,16 +101,16 @@ TEST(transcode_insert_iterator, utf16_inserters_long)
     }
     // UTF-16 pointer -> UTF-32 back inserter
     {
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         std::copy(
             cus.begin(), cus.end(), text::from_utf16_back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-16 pointer -> UTF-32 front inserter
     {
-        std::deque<uint32_t> const cps_copy_deque(
+        std::deque<char32_t> const cps_copy_deque(
             std::begin(cps), std::end(cps));
-        std::deque<uint32_t> result;
+        std::deque<char32_t> result;
         std::copy(
             cus.begin(), cus.end(), text::from_utf16_front_inserter(result));
         std::reverse(result.begin(), result.end());
@@ -119,31 +119,31 @@ TEST(transcode_insert_iterator, utf16_inserters_long)
 
     // UTF-16 pointer -> UTF-8 inserter
     {
-        std::vector<char> chars;
+        std::vector<char8_t> chars;
         std::copy(
             cus.begin(),
             cus.end(),
             text::from_utf16_inserter(chars, chars.end()));
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         text::transcode_to_utf32(chars, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-16 pointer -> UTF-8 back inserter
     {
-        std::vector<char> chars;
+        std::vector<char8_t> chars;
         std::copy(
             cus.begin(), cus.end(), text::from_utf16_back_inserter(chars));
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         text::transcode_to_utf32(chars, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-16 pointer -> UTF-8 front inserter
     {
-        std::deque<char> chars;
+        std::deque<char8_t> chars;
         std::copy(
             cus.begin(), cus.end(), text::from_utf16_front_inserter(chars));
         std::reverse(chars.begin(), chars.end());
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         text::transcode_to_utf32(chars, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
@@ -151,15 +151,15 @@ TEST(transcode_insert_iterator, utf16_inserters_long)
 
 TEST(transcode_insert_iterator, utf16_inserters_errors)
 {
-    std::vector<uint16_t> cus = {
-        (uint16_t)text::low_surrogate_min, // -> replacement
-        (uint16_t)text::high_surrogate_min, // -> replacement, due to next CU
-        (uint16_t)text::high_surrogate_min, // -> ok
-        (uint16_t)text::low_surrogate_min,  // -> ok
-        (uint16_t)text::high_surrogate_min, // -> replacement, due to next CU
+    std::vector<char16_t> cus = {
+        (char16_t)text::low_surrogate_min, // -> replacement
+        (char16_t)text::high_surrogate_min, // -> replacement, due to next CU
+        (char16_t)text::high_surrogate_min, // -> ok
+        (char16_t)text::low_surrogate_min,  // -> ok
+        (char16_t)text::high_surrogate_min, // -> replacement, due to next CU
         0,
     };
-    std::vector<uint32_t> expected_cps = {
+    std::vector<char32_t> expected_cps = {
         text::replacement_character,
         text::replacement_character,
         0x10000,
@@ -169,7 +169,7 @@ TEST(transcode_insert_iterator, utf16_inserters_errors)
 
     // UTF-16 pointer -> UTF-32 inserter
     {
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         std::copy(
             cus.begin(),
             cus.end(),
@@ -178,16 +178,16 @@ TEST(transcode_insert_iterator, utf16_inserters_errors)
     }
     // UTF-16 pointer -> UTF-32 back inserter
     {
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         std::copy(
             cus.begin(), cus.end(), text::from_utf16_back_inserter(result));
         EXPECT_EQ(result, expected_cps);
     }
     // UTF-16 pointer -> UTF-32 front inserter
     {
-        std::deque<uint32_t> const expected_cps_deque(
+        std::deque<char32_t> const expected_cps_deque(
             std::begin(expected_cps), std::end(expected_cps));
-        std::deque<uint32_t> result;
+        std::deque<char32_t> result;
         std::copy(
             cus.begin(), cus.end(), text::from_utf16_front_inserter(result));
         std::reverse(result.begin(), result.end());
@@ -197,15 +197,15 @@ TEST(transcode_insert_iterator, utf16_inserters_errors)
 
 TEST(transcode_insert_iterator, utf8_inserters_long)
 {
-    std::vector<char> cus;
+    std::vector<char8_t> cus;
     text::transcode_to_utf8(
         std::begin(cps), std::end(cps), std::back_inserter(cus));
 
-    std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
+    std::vector<char32_t> const cps_copy(std::begin(cps), std::end(cps));
 
     // UTF-8 pointer -> UTF-32 inserter
     {
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         std::copy(
             cus.begin(),
             cus.end(),
@@ -214,16 +214,16 @@ TEST(transcode_insert_iterator, utf8_inserters_long)
     }
     // UTF-8 pointer -> UTF-32 back inserter
     {
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         std::copy(
             cus.begin(), cus.end(), text::from_utf8_back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-8 pointer -> UTF-32 front inserter
     {
-        std::deque<uint32_t> const cps_copy_deque(
+        std::deque<char32_t> const cps_copy_deque(
             std::begin(cps), std::end(cps));
-        std::deque<uint32_t> result;
+        std::deque<char32_t> result;
         std::copy(
             cus.begin(), cus.end(), text::from_utf8_front_inserter(result));
         std::reverse(result.begin(), result.end());
@@ -232,35 +232,35 @@ TEST(transcode_insert_iterator, utf8_inserters_long)
 
     // UTF-8 pointer -> UTF-16 inserter
     {
-        std::vector<uint16_t> chars_utf16;
+        std::vector<char16_t> chars_utf16;
         std::copy(
             cus.begin(),
             cus.end(),
             text::from_utf8_inserter(chars_utf16, chars_utf16.end()));
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         text::transcode_to_utf32(chars_utf16, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-8 pointer -> UTF-16 back inserter
     {
-        std::vector<uint16_t> chars_utf16;
+        std::vector<char16_t> chars_utf16;
         std::copy(
             cus.begin(),
             cus.end(),
             text::from_utf8_back_inserter(chars_utf16));
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         text::transcode_to_utf32(chars_utf16, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-8 pointer -> UTF-16 front inserter
     {
-        std::deque<uint16_t> chars_utf16;
+        std::deque<char16_t> chars_utf16;
         std::copy(
             cus.begin(),
             cus.end(),
             text::from_utf8_front_inserter(chars_utf16));
         std::reverse(chars_utf16.begin(), chars_utf16.end());
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         text::transcode_to_utf32(chars_utf16, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
@@ -268,15 +268,15 @@ TEST(transcode_insert_iterator, utf8_inserters_long)
 
 TEST(transcode_insert_iterator, utf8_inserters_errors)
 {
-    std::vector<uint16_t> cus = {
-        (uint16_t)text::low_surrogate_min,  // -> replacement
-        (uint16_t)text::high_surrogate_min, // -> replacement, due to next CU
-        (uint16_t)text::high_surrogate_min, // -> ok
-        (uint16_t)text::low_surrogate_min,  // -> ok
-        (uint16_t)text::high_surrogate_min, // -> replacement, due to next CU
+    std::vector<char16_t> cus = {
+        (char16_t)text::low_surrogate_min,  // -> replacement
+        (char16_t)text::high_surrogate_min, // -> replacement, due to next CU
+        (char16_t)text::high_surrogate_min, // -> ok
+        (char16_t)text::low_surrogate_min,  // -> ok
+        (char16_t)text::high_surrogate_min, // -> replacement, due to next CU
         0,
     };
-    std::vector<uint32_t> expected_cps = {
+    std::vector<char32_t> expected_cps = {
         text::replacement_character,
         text::replacement_character,
         0x10000,
@@ -286,7 +286,7 @@ TEST(transcode_insert_iterator, utf8_inserters_errors)
 
     // UTF-8 pointer -> UTF-32 inserter
     {
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         std::copy(
             cus.begin(),
             cus.end(),
@@ -295,16 +295,16 @@ TEST(transcode_insert_iterator, utf8_inserters_errors)
     }
     // UTF-8 pointer -> UTF-32 back inserter
     {
-        std::vector<uint32_t> result;
+        std::vector<char32_t> result;
         std::copy(
             cus.begin(), cus.end(), text::from_utf16_back_inserter(result));
         EXPECT_EQ(result, expected_cps);
     }
     // UTF-8 pointer -> UTF-32 front inserter
     {
-        std::deque<uint32_t> const expected_cps_deque(
+        std::deque<char32_t> const expected_cps_deque(
             std::begin(expected_cps), std::end(expected_cps));
-        std::deque<uint32_t> result;
+        std::deque<char32_t> result;
         std::copy(
             cus.begin(), cus.end(), text::from_utf16_front_inserter(result));
         std::reverse(result.begin(), result.end());

@@ -81,7 +81,9 @@ namespace boost { namespace text { namespace detail {
         template<typename CharIter>
         char_iter_ret_t<void, CharIter> append(CharIter first, CharIter last)
         {
-            out_ = boost::text::transcode_to_utf32(first, last, out_).out;
+            auto utf32 =
+                std::ranges::subrange(first, last) | as_char8_t | as_utf32;
+            out_ = std::ranges::copy(utf32, out_).out;
         }
 
         UTF32OutIter out() const { return out_; }
@@ -129,8 +131,9 @@ namespace boost { namespace text { namespace detail {
             s_->resize(initial_size + dist * 3, typename String::value_type{});
             auto * s_first = &*s_->begin();
             auto * out = s_first + initial_size;
-            out = boost::text::transcode_to_utf8(utf16_first, utf16_last, out)
-                      .out;
+            auto utf8 = std::ranges::subrange(utf16_first, utf16_last) |
+                        as_char16_t | as_utf8;
+            out = std::ranges::copy(utf8, out).out;
             s_->resize(out - s_first, typename String::value_type{});
         }
 
@@ -148,9 +151,9 @@ namespace boost { namespace text { namespace detail {
         template<typename Iter>
         _16_iter_ret_t<void, Iter> append(Iter utf16_first, Iter utf16_last)
         {
-            out_ =
-                boost::text::transcode_to_utf32(utf16_first, utf16_last, out_)
-                    .out;
+            auto utf32 = std::ranges::subrange(utf16_first, utf16_last) |
+                         as_char16_t | as_utf32;
+            out_ = std::ranges::copy(utf32, out_).out;
         }
 
         UTF32OutIter out() const { return out_; }
@@ -199,10 +202,10 @@ namespace boost { namespace text { namespace detail {
 
         int size() const { return last_ - begin(); }
 
-        uint16_t const * begin() const { return buf_.data(); }
-        uint16_t const * end() const { return last_; }
-        uint16_t * begin() { return buf_.data(); }
-        uint16_t * end() { return last_; }
+        char16_t const * begin() const { return buf_.data(); }
+        char16_t const * end() const { return last_; }
+        char16_t * begin() { return buf_.data(); }
+        char16_t * end() { return last_; }
 
         template<typename Iter>
         bool equals_utf16(Iter first, Iter last) const
@@ -216,7 +219,7 @@ namespace boost { namespace text { namespace detail {
             return algorithm::equal(begin(), end(), other.begin(), other.end());
         }
 
-        void append(int32_t c, uint8_t cc)
+        void append(int32_t c, char8_t cc)
         {
             if (c <= 0xffff)
                 return append_bmp(c, cc);
@@ -232,17 +235,15 @@ namespace boost { namespace text { namespace detail {
             }
         }
 
+        template<typename I>
         void append(
-            uint16_t const * first,
-            uint16_t const * last,
-            uint8_t lead_cc,
-            uint8_t trail_cc)
+            I const * first, I const * last, char8_t lead_cc, char8_t trail_cc)
         {
-            auto next_cp = [](uint16_t const *& first,
-                              uint16_t const * last) -> int32_t {
+            auto next_cp = [](auto const *& first,
+                              auto const * last) -> int32_t {
                 int32_t cp = *first++;
                 if (boost::text::high_surrogate(cp)) {
-                    uint16_t cu = 0;
+                    char16_t cu = 0;
                     if (first != last &&
                         boost::text::low_surrogate(cu = *first)) {
                         ++first;
@@ -275,7 +276,7 @@ namespace boost { namespace text { namespace detail {
             }
         }
 
-        void append_bmp(uint16_t c, uint8_t cc)
+        void append_bmp(char16_t c, char8_t cc)
         {
             if (last_cc_ <= cc || cc == 0) {
                 if (cc == 0 && !inhibit_flushes_)
@@ -313,7 +314,7 @@ namespace boost { namespace text { namespace detail {
             last_cc_ = 0;
         }
 
-        void set_last(uint16_t * last)
+        void set_last(char16_t * last)
         {
             first_ = last_ = last;
             last_cc_ = 0;
@@ -326,19 +327,19 @@ namespace boost { namespace text { namespace detail {
             clear();
         }
 
-        void insert(int32_t c, uint8_t cc)
+        void insert(int32_t c, char8_t cc)
         {
             for (set_first(), skip_previous(); cc < previous_cc();) {
             }
-            uint16_t * prev_last = last_;
-            last_ += uint32_t(c) <= 0xffff ? 1 : 2;
-            uint16_t * it = last_ - (prev_last - code_point_last_);
+            char16_t * prev_last = last_;
+            last_ += char32_t(c) <= 0xffff ? 1 : 2;
+            char16_t * it = last_ - (prev_last - code_point_last_);
             std::copy(code_point_last_, prev_last, it);
             write_code_point(code_point_last_, c);
             if (cc <= 1)
                 first_ = it;
         }
-        static void write_code_point(uint16_t * it, int32_t c)
+        static void write_code_point(char16_t * it, int32_t c)
         {
             if (c <= 0xffff)
                 *it = c;
@@ -350,19 +351,19 @@ namespace boost { namespace text { namespace detail {
         void skip_previous()
         {
             code_point_last_ = code_point_first_;
-            uint16_t c = *--code_point_first_;
+            char16_t c = *--code_point_first_;
             if (boost::text::low_surrogate(c) && begin() < code_point_first_ &&
                 boost::text::high_surrogate(*(code_point_first_ - 1))) {
                 --code_point_first_;
             }
         }
-        uint8_t previous_cc()
+        char8_t previous_cc()
         {
             code_point_last_ = code_point_first_;
             if (code_point_first_ <= first_)
                 return 0;
             int32_t c = *--code_point_first_;
-            uint16_t c2;
+            char16_t c2;
             if (boost::text::low_surrogate(c) && begin() < code_point_first_ &&
                 boost::text::high_surrogate(c2 = *(code_point_first_ - 1))) {
                 --code_point_first_;
@@ -373,25 +374,25 @@ namespace boost { namespace text { namespace detail {
 
         normalization_table_data const & table_;
         UTF16Appender & appender_;
-        std::array<uint16_t, 1024> buf_;
-        uint16_t * first_;
-        uint16_t * last_;
-        uint8_t last_cc_;
+        std::array<char16_t, 1024> buf_;
+        char16_t * first_;
+        char16_t * last_;
+        char8_t last_cc_;
         bool inhibit_flushes_;
-        uint16_t * code_point_first_;
-        uint16_t * code_point_last_;
+        char16_t * code_point_first_;
+        char16_t * code_point_last_;
     };
 
     template<typename UTF8Appender>
     void append_utf16(
-        uint16_t const * first, uint16_t const * last, UTF8Appender & appender)
+        char16_t const * first, char16_t const * last, UTF8Appender & appender)
     {
         int const buffer_size = 200;
-        char buffer[buffer_size];
+        char8_t buffer[buffer_size];
 
-        char * out = buffer;
+        char8_t * out = buffer;
         int32_t const capacity = buffer_size - (4 - 1);
-        char * const out_last = buffer + capacity;
+        char8_t * const out_last = buffer + capacity;
 
         while (first != last) {
             while (first != last && out != out_last) {
@@ -407,7 +408,7 @@ namespace boost { namespace text { namespace detail {
     template<typename UTF8Appender>
     void append_utf32(int32_t c, UTF8Appender & appender)
     {
-        char utf8[4];
+        char8_t utf8[4];
         auto const last = detail::write_cp_utf8(c, utf8);
         appender.append(utf8, last);
     }
@@ -417,16 +418,16 @@ namespace boost { namespace text { namespace detail {
     {
         switch (last - first) {
         case 1: return first[0];
-        case 2: return ((first[0] & 0x1f) << 6) | ((uint8_t)first[1] & 0x3f);
+        case 2: return ((first[0] & 0x1f) << 6) | ((char8_t)first[1] & 0x3f);
         case 3:
-            return (uint16_t)(
-                (first[0] << 12) | (((uint8_t)first[1] & 0x3f) << 6) |
-                ((uint8_t)first[2] & 0x3f));
+            return (char16_t)(
+                (first[0] << 12) | (((char8_t)first[1] & 0x3f) << 6) |
+                ((char8_t)first[2] & 0x3f));
         case 4:
             return ((first[0] & 0x7) << 18) |
-                   (((uint8_t)first[1] & 0x3f) << 12) |
-                   (((uint8_t)first[2] & 0x3f) << 6) |
-                   ((uint8_t)first[3] & 0x3f);
+                   (((char8_t)first[1] & 0x3f) << 12) |
+                   (((char8_t)first[2] & 0x3f) << 6) |
+                   ((char8_t)first[3] & 0x3f);
         default: BOOST_ASSERT(!"unreachable");
         }
         return -1;
@@ -437,11 +438,11 @@ namespace boost { namespace text { namespace detail {
     {
         if (3 <= (last - first)) {
             last -= 3;
-            uint8_t l = *last;
-            uint8_t t1, t2;
+            char8_t l = *last;
+            char8_t t1, t2;
             if (0xe1 <= l && l <= 0xed &&
-                (t1 = (uint8_t)((uint8_t)last[1] - 0x80)) <= 0x3f &&
-                (t2 = (uint8_t)((uint8_t)last[2] - 0x80)) <= 0x3f &&
+                (t1 = (char8_t)((char8_t)last[1] - 0x80)) <= 0x3f &&
+                (t2 = (char8_t)((char8_t)last[2] - 0x80)) <= 0x3f &&
                 (l < 0xed || t1 <= 0x1f)) {
                 return ((l & 0xf) << 12) | (t1 << 6) | t2;
             }
@@ -453,13 +454,13 @@ namespace boost { namespace text { namespace detail {
     int32_t jamo_t_minus_base(CharIter first, Sentinel last)
     {
         if (3 <= boost::text::distance(first, last) &&
-            (uint8_t)*first == 0xe1) {
-            if ((uint8_t)first[1] == 0x86) {
-                uint8_t t = first[2];
+            (char8_t)*first == 0xe1) {
+            if ((char8_t)first[1] == 0x86) {
+                char8_t t = first[2];
                 if (0xa8 <= t && t <= 0xbf)
                     return t - 0xa7;
-            } else if ((uint8_t)first[1] == 0x87) {
-                uint8_t t = first[2];
+            } else if ((char8_t)first[1] == 0x87) {
+                char8_t t = first[2];
                 if ((int8_t)t <= (int8_t)0x82u)
                     return t - (0xa7 - 0x40);
             }
@@ -471,7 +472,7 @@ namespace boost { namespace text { namespace detail {
     void append_code_point_delta(
         CharIter first, CharIter last, int32_t delta, UTF8Appender & appender)
     {
-        char buffer[4];
+        char8_t buffer[4];
         auto buffer_last = buffer;
         if ((first - last) == 1) {
             buffer[0] = *first + delta;
@@ -494,7 +495,7 @@ namespace boost { namespace text { namespace detail {
     bool decompose(
         normalization_table_data const & table,
         int32_t c,
-        uint16_t norm16,
+        char16_t norm16,
         reordering_appender<UTF16Appender> & buffer)
     {
         if (table.limit_no_no <= norm16) {
@@ -509,17 +510,17 @@ namespace boost { namespace text { namespace detail {
             buffer.append(c, 0);
             return true;
         } else if (table.hangul_lv(norm16) || table.hangul_lvt(norm16)) {
-            auto const decomp = decompose_hangul_syllable<3, uint16_t>(c);
+            auto const decomp = decompose_hangul_syllable<3, char16_t>(c);
             buffer.append_ccc_zero(decomp.begin(), decomp.end());
             return true;
         }
         uint16_t const * mapping = table.get_mapping(norm16);
-        uint16_t first_unit = *mapping;
+        char16_t first_unit = *mapping;
         int32_t length = first_unit & table.mapping_length_mask;
-        uint8_t lead_cc, trail_cc;
-        trail_cc = (uint8_t)(first_unit >> 8);
+        char8_t lead_cc, trail_cc;
+        trail_cc = (char8_t)(first_unit >> 8);
         if (first_unit & table.mapping_has_ccc_lccc_word)
-            lead_cc = (uint8_t)(*(mapping - 1) >> 8);
+            lead_cc = (char8_t)(*(mapping - 1) >> 8);
         else
             lead_cc = 0;
         buffer.append(mapping + 1, mapping + 1 + length, lead_cc, trail_cc);
@@ -540,7 +541,7 @@ namespace boost { namespace text { namespace detail {
                 return first;
             Iter prev_first = first;
             int32_t c = 0;
-            uint16_t norm16 = table.trie.fast_u16_next(first, last, c);
+            char16_t norm16 = table.trie.fast_u16_next(first, last, c);
             if (stop_at_comp_boundary &&
                 table.norm16_comp_boundary_before(norm16))
                 return prev_first;
@@ -565,7 +566,7 @@ namespace boost { namespace text { namespace detail {
     {
         while (first != last) {
             CharIter prev_first = first;
-            uint16_t norm16 = table.trie.fast_u8_next(first, last);
+            char16_t norm16 = table.trie.fast_u8_next(first, last);
             int32_t c = -1;
             if (table.limit_no_no <= norm16) {
                 if (table.maybe_or_non_zero_cc(norm16)) {
@@ -591,16 +592,16 @@ namespace boost { namespace text { namespace detail {
             } else if (table.hangul_lv(norm16) || table.hangul_lvt(norm16)) {
                 if (c < 0)
                     c = detail::utf8_to_cp(prev_first, first);
-                auto const decomp = decompose_hangul_syllable<3, uint16_t>(c);
+                auto const decomp = decompose_hangul_syllable<3, char16_t>(c);
                 buffer.append_ccc_zero(decomp.begin(), decomp.end());
             } else {
-                uint16_t const * mapping = table.get_mapping(norm16);
-                uint16_t first_unit = *mapping;
+                char16_t const * mapping = table.get_mapping(norm16);
+                char16_t first_unit = *mapping;
                 int32_t length = first_unit & table.mapping_length_mask;
-                uint8_t trail_cc = (uint8_t)(first_unit >> 8);
-                uint8_t lead_cc;
+                char8_t trail_cc = (char8_t)(first_unit >> 8);
+                char8_t lead_cc;
                 if (first_unit & table.mapping_has_ccc_lccc_word)
-                    lead_cc = (uint8_t)(*(mapping - 1) >> 8);
+                    lead_cc = (char8_t)(*(mapping - 1) >> 8);
                 else
                     lead_cc = 0;
                 buffer.append(
@@ -619,9 +620,9 @@ namespace boost { namespace text { namespace detail {
         uint16_t const * list,
         int32_t trail)
     {
-        uint16_t key1, first_unit;
+        char16_t key1, first_unit;
         if (trail < table.comp_1_trail_limit) {
-            key1 = (uint16_t)(trail << 1);
+            key1 = (char16_t)(trail << 1);
             while ((first_unit = *list) < key1) {
                 list += 2 + (first_unit & table.comp_1_triple);
             }
@@ -632,11 +633,11 @@ namespace boost { namespace text { namespace detail {
                     return list[1];
             }
         } else {
-            key1 = (uint16_t)(
+            key1 = (char16_t)(
                 table.comp_1_trail_limit +
                 (((trail >> table.comp_1_trail_shift)) & ~table.comp_1_triple));
-            uint16_t key2 = (uint16_t)(trail << table.comp_2_trail_shift);
-            uint16_t second_unit;
+            char16_t key2 = (char16_t)(trail << table.comp_2_trail_shift);
+            char16_t second_unit;
             for (;;) {
                 if ((first_unit = *list) < key1) {
                     list += 2 + (first_unit & table.comp_1_triple);
@@ -670,35 +671,35 @@ namespace boost { namespace text { namespace detail {
         int32_t recompose_first_index,
         bool only_contiguous)
     {
-        uint16_t * it = buffer.begin() + recompose_first_index;
-        uint16_t * last = buffer.end();
+        char16_t * it = buffer.begin() + recompose_first_index;
+        char16_t * last = buffer.end();
         if (it == last)
             return;
 
-        uint16_t * starter = nullptr;
-        uint16_t * remove = nullptr;
+        char16_t * starter = nullptr;
+        char16_t * remove = nullptr;
         uint16_t const * compositions_list = nullptr;
         int32_t c = 0;
         int32_t composite_and_fwd = 0;
-        uint16_t norm16 = 0;
-        uint8_t prev_cc = 0;
+        char16_t norm16 = 0;
+        char8_t prev_cc = 0;
         bool starter_supplementary = false;
 
         for (;;) {
             norm16 = table.trie.fast_u16_next(it, last, c);
-            uint8_t cc = table.get_cc_from_yes_or_maybe(norm16);
+            char8_t cc = table.get_cc_from_yes_or_maybe(norm16);
             if (table.maybe(norm16) && compositions_list != nullptr &&
                 (prev_cc < cc || prev_cc == 0)) {
                 if (table.get_jamo_vt(norm16)) {
                     if (c < TBase) {
-                        uint16_t prev = *starter - LBase;
+                        char16_t prev = *starter - LBase;
                         if (prev < LCount) {
                             remove = it - 1;
-                            uint16_t syllable =
+                            char16_t syllable =
                                 SBase + (prev * VCount + (c - VBase)) * TCount;
-                            uint16_t t;
+                            char16_t t;
                             if (it != last &&
-                                (t = (uint16_t)(*it - TBase)) < TCount) {
+                                (t = (char16_t)(*it - TBase)) < TCount) {
                                 ++it;
                                 syllable += t;
                             }
@@ -716,17 +717,17 @@ namespace boost { namespace text { namespace detail {
                               detail::combine(table, compositions_list, c))) {
                     int32_t composite = composite_and_fwd >> 1;
 
-                    remove = it - (uint32_t(c) <= 0xffff ? 1 : 2);
+                    remove = it - (char32_t(c) <= 0xffff ? 1 : 2);
                     if (starter_supplementary) {
-                        if ((uint32_t)(composite - 0x10000) <= 0xfffff) {
+                        if ((char32_t)(composite - 0x10000) <= 0xfffff) {
                             detail::write_cp_utf16(composite, starter);
                         } else {
-                            *starter = (uint16_t)composite;
+                            *starter = (char16_t)composite;
                             starter_supplementary = false;
                             std::copy(starter + 2, remove, starter + 1);
                             --remove;
                         }
-                    } else if ((uint32_t)(composite - 0x10000) <= 0xfffff) {
+                    } else if ((char32_t)(composite - 0x10000) <= 0xfffff) {
                         starter_supplementary = true;
                         ++starter;
                         ++remove;
@@ -734,7 +735,7 @@ namespace boost { namespace text { namespace detail {
                         --starter;
                         detail::write_cp_utf16(composite, starter);
                     } else {
-                        *starter = (uint16_t)composite;
+                        *starter = (char16_t)composite;
                     }
 
                     if (remove < it) {
@@ -764,7 +765,7 @@ namespace boost { namespace text { namespace detail {
                 if ((compositions_list =
                          table.get_compositions_list_for_decomp_yes(norm16)) !=
                     nullptr) {
-                    if (uint32_t(c) <= 0xffff) {
+                    if (char32_t(c) <= 0xffff) {
                         starter_supplementary = false;
                         starter = it - 1;
                     } else {
@@ -794,10 +795,10 @@ namespace boost { namespace text { namespace detail {
 
         Iter prev_first = first;
         int32_t c = 0;
-        uint16_t norm16 = 0;
+        char16_t norm16 = 0;
 
         Iter prev_boundary = first;
-        uint8_t prev_cc = 0;
+        char8_t prev_cc = 0;
 
         for (;;) {
             for (prev_first = first; first != last;) {
@@ -808,7 +809,7 @@ namespace boost { namespace text { namespace detail {
                 } else if (!boost::text::high_surrogate(c)) {
                     break;
                 } else {
-                    uint16_t c2;
+                    char16_t c2;
                     auto next = std::ranges::next(first);
                     if (next != last &&
                         boost::text::low_surrogate(c2 = *next)) {
@@ -834,13 +835,13 @@ namespace boost { namespace text { namespace detail {
             if (first == last)
                 break;
 
-            std::advance(first, uint32_t(c) <= 0xffff ? 1 : 2);
+            std::advance(first, char32_t(c) <= 0xffff ? 1 : 2);
             if (WriteToOut) {
                 if (!detail::decompose(table, c, norm16, buffer))
                     break;
             } else {
                 if (table.decomp_yes(norm16)) {
-                    uint8_t cc = table.get_cc_from_yes_or_maybe(norm16);
+                    char8_t cc = table.get_cc_from_yes_or_maybe(norm16);
                     if (prev_cc <= cc || cc == 0) {
                         prev_cc = cc;
                         if (cc <= 1)
@@ -872,7 +873,7 @@ namespace boost { namespace text { namespace detail {
         for (;;) {
             Iter prev_first = first;
             int32_t c = 0;
-            uint16_t norm16 = 0;
+            char16_t norm16 = 0;
             for (;;) {
                 if (first == last) {
                     if (prev_boundary != last && WriteToOut)
@@ -888,7 +889,7 @@ namespace boost { namespace text { namespace detail {
                     if (!boost::text::high_surrogate(c)) {
                         break;
                     } else {
-                        uint16_t c2 = 0;
+                        char16_t c2 = 0;
                         if (first != last &&
                             boost::text::low_surrogate(c2 = *first)) {
                             ++first;
@@ -922,8 +923,8 @@ namespace boost { namespace text { namespace detail {
                         if (prev_boundary != prev_first) {
                             buffer.append_ccc_zero(prev_boundary, prev_first);
                         }
-                        uint16_t const * mapping =
-                            reinterpret_cast<uint16_t const *>(
+                        char16_t const * mapping =
+                            reinterpret_cast<char16_t const *>(
                                 table.get_mapping(norm16));
                         int32_t length = *mapping++ & table.mapping_length_mask;
                         buffer.append_ccc_zero(mapping, mapping + length);
@@ -943,9 +944,9 @@ namespace boost { namespace text { namespace detail {
                 }
             } else if (
                 table.get_jamo_vt(norm16) && prev_boundary != prev_first) {
-                uint16_t prev = *std::ranges::prev(prev_first);
+                char16_t prev = *std::ranges::prev(prev_first);
                 if (c < TBase) {
-                    uint16_t l = (uint16_t)(prev - LBase);
+                    char16_t l = (char16_t)(prev - LBase);
                     if (l < LCount) {
                         if (!WriteToOut)
                             return false;
@@ -984,21 +985,21 @@ namespace boost { namespace text { namespace detail {
                     continue;
                 }
             } else if (table.jamo_vt < norm16) {
-                uint8_t cc = table.get_cc_from_normal_yes_or_maybe(norm16);
+                char8_t cc = table.get_cc_from_normal_yes_or_maybe(norm16);
                 if (OnlyContiguous && cc < table.get_previous_trail_cc_utf16(
                                                prev_boundary, prev_first)) {
                     if (!WriteToOut)
                         return false;
                 } else {
                     Iter next_first = first;
-                    uint16_t n16 = 0;
+                    char16_t n16 = 0;
                     for (;;) {
                         if (first == last) {
                             if (WriteToOut)
                                 buffer.append_ccc_zero(prev_boundary, first);
                             return true;
                         }
-                        uint8_t prev_cc = cc;
+                        char8_t prev_cc = cc;
                         next_first = first;
                         n16 = table.trie.fast_u16_next(next_first, last, c);
                         if (table.min_yes_yes_with_cc <= n16) {
@@ -1061,8 +1062,8 @@ namespace boost { namespace text { namespace detail {
         Sentinel last,
         UTF8Appender & appender)
     {
-        container::small_vector<uint16_t, 1024> s16;
-        uint8_t min_no_maybe_lead =
+        container::small_vector<char16_t, 1024> s16;
+        char8_t min_no_maybe_lead =
             table.min_comp_no_maybe_cp <= 0x7f
                 ? table.min_comp_no_maybe_cp
                 : table.min_comp_no_maybe_cp <= 0x7ff
@@ -1072,14 +1073,14 @@ namespace boost { namespace text { namespace detail {
 
         for (;;) {
             CharIter prev_first = first;
-            uint16_t norm16 = 0;
+            char16_t norm16 = 0;
             for (;;) {
                 if (first == last) {
                     if (prev_boundary != last && WriteToOut)
                         appender.append(prev_boundary, first);
                     return true;
                 }
-                if ((uint8_t)*first < min_no_maybe_lead) {
+                if ((char8_t)*first < min_no_maybe_lead) {
                     ++first;
                 } else {
                     prev_first = first;
@@ -1112,7 +1113,7 @@ namespace boost { namespace text { namespace detail {
                         table.comp_boundary_before_utf8(first, last)) {
                         if (prev_boundary != prev_first)
                             appender.append(prev_boundary, prev_first);
-                        uint16_t const * mapping = table.get_mapping(norm16);
+                        char16_t const * mapping = table.get_mapping(norm16);
                         int32_t length = *mapping++ & table.mapping_length_mask;
                         detail::append_utf16(
                             mapping, mapping + length, appender);
@@ -1131,12 +1132,12 @@ namespace boost { namespace text { namespace detail {
                 }
             } else if (table.get_jamo_vt(norm16)) {
                 BOOST_ASSERT(
-                    (first - prev_first) == 3 && (uint8_t)*prev_first == 0xe1);
+                    (first - prev_first) == 3 && (char8_t)*prev_first == 0xe1);
                 int32_t prev =
                     detail::previous_hangul_or_jamo(prev_boundary, prev_first);
-                if ((uint8_t)prev_first[1] == 0x85) {
+                if ((char8_t)prev_first[1] == 0x85) {
                     int32_t l = prev - LBase;
-                    if ((uint32_t)l < LCount) {
+                    if ((char32_t)l < LCount) {
                         if (!WriteToOut)
                             return false;
                         int32_t t = detail::jamo_t_minus_base(first, last);
@@ -1149,7 +1150,7 @@ namespace boost { namespace text { namespace detail {
                         if (0 <= t) {
                             int32_t syllable =
                                 SBase +
-                                (l * VCount + ((uint8_t)prev_first[2] - 0xa1)) *
+                                (l * VCount + ((char8_t)prev_first[2] - 0xa1)) *
                                     TCount +
                                 t;
                             prev_first -= 3;
@@ -1173,21 +1174,21 @@ namespace boost { namespace text { namespace detail {
                     continue;
                 }
             } else if (table.jamo_vt < norm16) {
-                uint8_t cc = table.get_cc_from_normal_yes_or_maybe(norm16);
+                char8_t cc = table.get_cc_from_normal_yes_or_maybe(norm16);
                 if (OnlyContiguous && cc < table.get_previous_trail_cc_utf8(
                                                prev_boundary, prev_first)) {
                     if (!WriteToOut)
                         return false;
                 } else {
                     CharIter next_first = first;
-                    uint16_t n16 = 0;
+                    char16_t n16 = 0;
                     for (;;) {
                         if (first == last) {
                             if (WriteToOut)
                                 appender.append(prev_boundary, first);
                             return true;
                         }
-                        uint8_t prev_cc = cc;
+                        char8_t prev_cc = cc;
                         next_first = first;
                         n16 = table.trie.fast_u8_next(next_first, last);
                         if (table.min_yes_yes_with_cc <= n16) {
@@ -1220,10 +1221,10 @@ namespace boost { namespace text { namespace detail {
             bool equals_utf8 = true;
             {
                 s16.clear();
-                utf16_appender<container::small_vector<uint16_t, 1024>>
+                utf16_appender<container::small_vector<char16_t, 1024>>
                     buffer_appender(s16);
                 reordering_appender<
-                    utf16_appender<container::small_vector<uint16_t, 1024>>>
+                    utf16_appender<container::small_vector<char16_t, 1024>>>
                     buffer(table, buffer_appender);
                 auto const no_flush = buffer.inhibit_flush();
                 detail::decompose_short_utf8(

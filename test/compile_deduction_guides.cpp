@@ -16,20 +16,20 @@ using namespace boost::text;
 void grapheme_guides()
 {
     {
-        int code_points[2] = {'a', '\0'};
+        char32_t code_points[2] = {'a', '\0'};
         grapheme_ref gr{std::begin(code_points), std::end(code_points)};
-        static_assert(std::is_same_v<decltype(gr), grapheme_ref<int *>>);
+        static_assert(std::is_same_v<decltype(gr), grapheme_ref<char32_t *>>);
     }
 
     {
-        int const code_points[2] = {'a', '\0'};
+        char32_t const code_points[2] = {'a', '\0'};
         utf32_view v = code_points | as_utf32;
         grapheme_ref gr{v};
         static_assert(
             std::is_same_v<
                 decltype(gr),
                 grapheme_ref<
-                    utf_iterator<format::utf32, format::utf32, int const *>>>);
+                    utf_iterator<format::utf32, format::utf32, char32_t const *>>>);
     }
 
 #if !defined(_MSC_VER)
@@ -72,27 +72,27 @@ void segmented_vector_guides()
 void subrange_guides()
 {
     {
-        int const utf32[] = {'s', 't', 'r', '\0'};
+        char32_t const utf32[] = {'s', 't', 'r', '\0'};
         subrange s{std::begin(utf32), std::begin(utf32)};
-        static_assert(std::is_same_v<decltype(s), subrange<int const *>>);
+        static_assert(std::is_same_v<decltype(s), subrange<char32_t const *>>);
     }
     {
-        int utf32[] = {'s', 't', 'r', '\0'};
+        char32_t utf32[] = {'s', 't', 'r', '\0'};
         subrange s{std::begin(utf32), null_sentinel};
         static_assert(
-            std::is_same_v<decltype(s), subrange<int *, null_sentinel_t>>);
+            std::is_same_v<decltype(s), subrange<char32_t *, null_sentinel_t>>);
     }
     {
-        int const utf32[] = {'s', 't', 'r', '\0'};
+        char32_t const utf32[] = {'s', 't', 'r', '\0'};
         subrange s{utf32};
-        static_assert(std::is_same_v<decltype(s), subrange<int const *>>);
+        static_assert(std::is_same_v<decltype(s), subrange<char32_t const *>>);
     }
     {
-        std::vector<int> const utf32 = {'s', 't', 'r', '\0'};
+        std::vector<char32_t> const utf32 = {'s', 't', 'r', '\0'};
         subrange s{utf32};
         static_assert(std::is_same_v<
                       decltype(s),
-                      subrange<std::vector<int>::const_iterator>>);
+                      subrange<std::vector<char32_t>::const_iterator>>);
     }
 }
 

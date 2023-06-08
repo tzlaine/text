@@ -16,7 +16,7 @@
 
 namespace boost { namespace text { namespace detail {
 
-    std::array<uint32_t, 3404> make_all_canonical_decompositions()
+    std::array<char32_t, 3404> make_all_canonical_decompositions()
     {
 return {{
     0x41,
@@ -3427,7 +3427,7 @@ return {{
     }};
     }
 
-    std::array<uint32_t, 8974> make_all_compatible_decompositions()
+    std::array<char32_t, 8974> make_all_compatible_decompositions()
     {
 return {{
     0x20,
@@ -17176,9 +17176,9 @@ return {{
         }
     }
 
-    std::unordered_map<uint32_t, cp_props> make_cp_props_map()
+    std::unordered_map<char32_t, cp_props> make_cp_props_map()
     {
-        std::unordered_map<uint32_t, cp_props> retval;
+        std::unordered_map<char32_t, cp_props> retval;
         container::small_vector<unsigned char, 256> buf;
         constexpr auto compressed = data();
         lzw_decompress(

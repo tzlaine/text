@@ -43,14 +43,14 @@ private:
 TEST(transcode_non_bidi, forward_and_input)
 {
     // Unicode 3.9/D90-D92
-    uint32_t const utf32[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    uint16_t const utf16[5] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+    char32_t const utf32[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char16_t const utf16[5] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
     char8_t const utf8[] = {
         0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82};
 
     // UTF-8 -> UTF-32
     {
-        std::forward_list<char> list(std::begin(utf8), std::end(utf8));
+        std::forward_list<char8_t> list(std::begin(utf8), std::end(utf8));
 
         auto it = text::utf_8_to_32_iterator(list.begin(), list.end());
 
@@ -189,7 +189,7 @@ TEST(transcode_non_bidi, forward_and_input)
 
     // UTF-8 -> UTF-16
     {
-        std::forward_list<char> list(std::begin(utf8), std::end(utf8));
+        std::forward_list<char8_t> list(std::begin(utf8), std::end(utf8));
 
         auto it = text::utf_8_to_16_iterator(list.begin(), list.end());
 
@@ -238,7 +238,7 @@ TEST(transcode_non_bidi, forward_and_input)
 
     // UTF-16 -> UTF-8
     {
-        std::forward_list<uint16_t> list(std::begin(utf16), std::end(utf16));
+        std::forward_list<char16_t> list(std::begin(utf16), std::end(utf16));
 
         auto it = text::utf_16_to_8_iterator(list.begin(), list.end());
 
@@ -307,7 +307,7 @@ TEST(transcode_non_bidi, forward_and_input)
 
     // UTF-16 -> UTF-32
     {
-        std::forward_list<uint16_t> list(std::begin(utf16), std::end(utf16));
+        std::forward_list<char16_t> list(std::begin(utf16), std::end(utf16));
 
         auto it = text::utf_16_to_32_iterator(list.begin(), list.end());
 
@@ -352,7 +352,7 @@ TEST(transcode_non_bidi, forward_and_input)
 
     // UTF-32 -> UTF-16
     {
-        std::forward_list<uint32_t> list(std::begin(utf32), std::end(utf32));
+        std::forward_list<char32_t> list(std::begin(utf32), std::end(utf32));
 
         auto it = text::utf_32_to_16_iterator(list.begin(), list.end());
 
@@ -403,12 +403,12 @@ TEST(transcode_non_bidi, forward_and_input)
 TEST(transcode_non_bidi, range_adaptors)
 {
     // Unicode 3.9/D90-D92
-    uint32_t const utf32[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char32_t const utf32[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
     char8_t const utf8[] = {
         0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82};
 
     {
-        std::forward_list<char> list(std::begin(utf8), std::end(utf8));
+        std::forward_list<char8_t> list(std::begin(utf8), std::end(utf8));
 
         auto r = list | text::as_utf32;
         auto it = r.begin();
@@ -455,12 +455,12 @@ TEST(transcode_non_bidi, range_adaptors)
 TEST(transcode_non_bidi, chained_range_adaptors)
 {
     // Unicode 3.9/D90-D92
-    uint32_t const utf32[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char32_t const utf32[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
     char8_t const utf8[] = {
         0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82};
 
     {
-        std::forward_list<char> list(std::begin(utf8), std::end(utf8));
+        std::forward_list<char8_t> list(std::begin(utf8), std::end(utf8));
 
         auto simple = list | text::as_utf32;
 

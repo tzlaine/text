@@ -16,15 +16,15 @@ using namespace boost;
 TEST(utf_16, test_consecutive)
 {
     // Unicode 3.9/D90-D92
-    uint32_t const utf32[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    uint16_t const utf16[5] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+    char32_t const utf32[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char16_t const utf16[5] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
 
     // UTF-16 -> UTF-32
     {
-        auto it = text::utf_16_to_32_iterator<uint16_t const *>(
+        auto it = text::utf_16_to_32_iterator<char16_t const *>(
             std::begin(utf16), std::begin(utf16), std::end(utf16));
 
-        auto end = text::utf_16_to_32_iterator<uint16_t const *>(
+        auto end = text::utf_16_to_32_iterator<char16_t const *>(
             std::begin(utf16), std::end(utf16), std::end(utf16));
 
         auto const zero = it;
@@ -89,10 +89,10 @@ TEST(utf_16, test_consecutive)
 
     // UTF-32 -> UTF-16
     {
-        auto it = text::utf_32_to_16_iterator<uint32_t const *>(
+        auto it = text::utf_32_to_16_iterator<char32_t const *>(
             std::begin(utf32), std::begin(utf32), std::end(utf32));
 
-        auto end = text::utf_32_to_16_iterator<uint32_t const *>(
+        auto end = text::utf_32_to_16_iterator<char32_t const *>(
             std::begin(utf32), std::end(utf32), std::end(utf32));
 
         auto const zero = it;
@@ -166,12 +166,12 @@ TEST(utf_16, test_consecutive)
 TEST(utf_16, test_back_and_forth)
 {
     // Unicode 3.9/D90-D92
-    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    uint16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+    char32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
 
     // UTF-16 -> UTF-32
     for (int iterations = 1; iterations <= 4; ++iterations) {
-        auto it = text::utf_16_to_32_iterator<uint16_t const *>(
+        auto it = text::utf_16_to_32_iterator<char16_t const *>(
             std::begin(utf16), std::begin(utf16), std::end(utf16));
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf32[i])
@@ -184,7 +184,7 @@ TEST(utf_16, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 4; ++iterations) {
-        auto it = text::utf_16_to_32_iterator<uint16_t const *>(
+        auto it = text::utf_16_to_32_iterator<char16_t const *>(
             std::begin(utf16), std::end(utf16), std::end(utf16));
         int i = 4;
         for (; i-- > iterations;) {
@@ -200,7 +200,7 @@ TEST(utf_16, test_back_and_forth)
 
     // UTF-32 -> UTF-16
     for (int iterations = 1; iterations <= 5; ++iterations) {
-        auto it = text::utf_32_to_16_iterator<uint32_t const *>(
+        auto it = text::utf_32_to_16_iterator<char32_t const *>(
             std::begin(utf32), std::begin(utf32), std::end(utf32));
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf16[i])
@@ -213,7 +213,7 @@ TEST(utf_16, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 5; ++iterations) {
-        auto it = text::utf_32_to_16_iterator<uint32_t const *>(
+        auto it = text::utf_32_to_16_iterator<char32_t const *>(
             std::begin(utf32), std::end(utf32), std::end(utf32));
         int i = 5;
         for (; i-- > iterations;) {
@@ -232,13 +232,13 @@ TEST(utf_16, invalid_surrogate_pairs)
 {
     // UTF-16 -> UTF-32 low surrogate without high surrogate
     {
-        uint32_t const utf32[] = {0xfffd};
-        uint16_t const utf16[] = {0xdc00};
+        char32_t const utf32[] = {0xfffd};
+        char16_t const utf16[] = {0xdc00};
 
-        auto it = text::utf_16_to_32_iterator<uint16_t const *>(
+        auto it = text::utf_16_to_32_iterator<char16_t const *>(
             std::begin(utf16), std::begin(utf16), std::end(utf16));
 
-        auto end = text::utf_16_to_32_iterator<uint16_t const *>(
+        auto end = text::utf_16_to_32_iterator<char16_t const *>(
             std::begin(utf16), std::end(utf16), std::end(utf16));
 
         EXPECT_EQ(*it, utf32[0]);
@@ -248,13 +248,13 @@ TEST(utf_16, invalid_surrogate_pairs)
 
     // UTF-16 -> UTF-32 valid high surrogate, invalid low surrogate
     {
-        uint32_t const utf32[] = {0xfffd};
-        uint16_t const utf16[] = {0xd800, 0xdb00};
+        char32_t const utf32[] = {0xfffd};
+        char16_t const utf16[] = {0xd800, 0xdb00};
 
-        auto it = text::utf_16_to_32_iterator<uint16_t const *>(
+        auto it = text::utf_16_to_32_iterator<char16_t const *>(
             std::begin(utf16), std::begin(utf16), std::end(utf16));
 
-        auto end = text::utf_16_to_32_iterator<uint16_t const *>(
+        auto end = text::utf_16_to_32_iterator<char16_t const *>(
             std::begin(utf16), std::end(utf16), std::end(utf16));
 
         EXPECT_EQ(*it, utf32[0]);

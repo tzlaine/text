@@ -19,8 +19,23 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     //[ concepts_concepts
 
+#define BOOST_TEXT_CODE_UNIT_CONCEPT_OPTION_2 1
+
+#if _MSC_VER
+    inline constexpr format wchar_t_format = format::utf32;
+#else
+    inline constexpr format wchar_t_format = format::utf32;
+#endif
+
     template<typename T, format F>
-    concept code_unit = std::integral<T> && sizeof(T) == (int)F;
+    concept code_unit = (std::same_as<T, char8_t> && F == format::utf8) ||
+                        (std::same_as<T, char16_t> && F == format::utf16) ||
+                        (std::same_as<T, char32_t> && F == format::utf32)
+#if BOOST_TEXT_CODE_UNIT_CONCEPT_OPTION_2
+                        || (std::same_as<T, char> && F == format::utf8) ||
+                        (std::same_as<T, wchar_t> && F == wchar_t_format)
+#endif
+        ;
 
     template<typename T>
     concept utf8_code_unit = code_unit<T, format::utf8>;

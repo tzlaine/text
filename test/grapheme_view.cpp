@@ -17,32 +17,15 @@
 using namespace boost::text;
 
 // Unicode 9, 3.9/D90-D92
-uint32_t const utf32_[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-uint16_t const utf16_[5] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
-char const utf8_[10] = {0x4d,
-                        char(0xd0),
-                        char(0xb0),
-                        char(0xe4),
-                        char(0xba),
-                        char(0x8c),
-                        char(0xf0),
-                        char(0x90),
-                        char(0x8c),
-                        char(0x82)};
+char32_t const utf32_[4] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+char16_t const utf16_[5] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+char8_t const utf8_[10] = {
+    0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82};
 
-uint32_t const utf32_null[5] = {0x004d, 0x0430, 0x4e8c, 0x10302, 0};
-uint16_t const utf16_null[6] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02, 0};
-char const utf8_null[11] = {0x4d,
-                            char(0xd0),
-                            char(0xb0),
-                            char(0xe4),
-                            char(0xba),
-                            char(0x8c),
-                            char(0xf0),
-                            char(0x90),
-                            char(0x8c),
-                            char(0x82),
-                            0};
+char32_t const utf32_null[5] = {0x004d, 0x0430, 0x4e8c, 0x10302, 0};
+char16_t const utf16_null[6] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02, 0};
+char8_t const utf8_null[11] = {
+    0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82, 0};
 
 TEST(grapheme_view, as_graphemes_)
 {
@@ -83,9 +66,9 @@ TEST(grapheme_view, as_graphemes_)
 
     // single pointers
     {
-        auto r_8 = as_graphemes((char const *)utf8_null);
-        auto r_16 = as_graphemes((uint16_t const *)utf16_null);
-        auto r_32 = as_graphemes((uint32_t const *)utf32_null);
+        auto r_8 = as_graphemes((char8_t const *)utf8_null);
+        auto r_16 = as_graphemes((char16_t const *)utf16_null);
+        auto r_32 = as_graphemes((char32_t const *)utf32_null);
 
         int i = 0;
         auto r_16_it = r_16.begin();
@@ -105,8 +88,9 @@ TEST(grapheme_view, as_graphemes_)
         auto r = as_graphemes(utf8_);
         std::stringstream ss;
         ss << r;
-        std::string str = ss.str();
-        EXPECT_TRUE(boost::algorithm::equal(
+        std::string str_ = ss.str();
+        std::u8string str(str_.begin(), str_.end());
+        EXPECT_TRUE(std::equal(
             str.begin(),
             str.end(),
             r.begin().base().base(),
@@ -116,8 +100,9 @@ TEST(grapheme_view, as_graphemes_)
         auto r = as_graphemes(std::ranges::subrange(utf8_null, null_sentinel));
         std::stringstream ss;
         ss << r;
-        std::string str = ss.str();
-
+        std::string str_ = ss.str();
+        std::u8string str(str_.begin(), str_.end());
+        
         int i = 0;
         auto str_it = str.begin();
         for (auto it = r.begin().base().base(); it != r.end().base().base();

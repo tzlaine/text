@@ -20,11 +20,11 @@ TEST(normalization, nfc_000_000)
     // 1E0A;1E0A;0044 0307;1E0A;0044 0307; 
     // (Ḋ; Ḋ; D◌̇; Ḋ; D◌̇; ) LATIN CAPITAL LETTER D WITH DOT ABOVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x1E0A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1E0A }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0044, 0x0307 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x1E0A }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0044, 0x0307 }};
+        std::array<char32_t, 1> const c1 = {{ 0x1E0A }};
+        std::array<char32_t, 1> const c2 = {{ 0x1E0A }};
+        std::array<char32_t, 2> const c3 = {{ 0x0044, 0x0307 }};
+        std::array<char32_t, 1> const c4 = {{ 0x1E0A }};
+        std::array<char32_t, 2> const c5 = {{ 0x0044, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -119,11 +119,11 @@ TEST(normalization, nfc_000_001)
     // 1E0C;1E0C;0044 0323;1E0C;0044 0323; 
     // (Ḍ; Ḍ; D◌̣; Ḍ; D◌̣; ) LATIN CAPITAL LETTER D WITH DOT BELOW
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x1E0C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1E0C }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0044, 0x0323 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x1E0C }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0044, 0x0323 }};
+        std::array<char32_t, 1> const c1 = {{ 0x1E0C }};
+        std::array<char32_t, 1> const c2 = {{ 0x1E0C }};
+        std::array<char32_t, 2> const c3 = {{ 0x0044, 0x0323 }};
+        std::array<char32_t, 1> const c4 = {{ 0x1E0C }};
+        std::array<char32_t, 2> const c5 = {{ 0x0044, 0x0323 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -218,11 +218,11 @@ TEST(normalization, nfc_000_002)
     // 1E0A 0323;1E0C 0307;0044 0323 0307;1E0C 0307;0044 0323 0307; 
     // (Ḋ◌̣; Ḍ◌̇; D◌̣◌̇; Ḍ◌̇; D◌̣◌̇; ) LATIN CAPITAL LETTER D WITH DOT ABOVE, COMBINING DOT BELOW
     {
-        std::array<uint32_t, 2> const c1 = {{ 0x1E0A, 0x0323 }};
-        std::array<uint32_t, 2> const c2 = {{ 0x1E0C, 0x0307 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x0044, 0x0323, 0x0307 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
+        std::array<char32_t, 2> const c1 = {{ 0x1E0A, 0x0323 }};
+        std::array<char32_t, 2> const c2 = {{ 0x1E0C, 0x0307 }};
+        std::array<char32_t, 3> const c3 = {{ 0x0044, 0x0323, 0x0307 }};
+        std::array<char32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
+        std::array<char32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -317,11 +317,11 @@ TEST(normalization, nfc_000_003)
     // 1E0C 0307;1E0C 0307;0044 0323 0307;1E0C 0307;0044 0323 0307; 
     // (Ḍ◌̇; Ḍ◌̇; D◌̣◌̇; Ḍ◌̇; D◌̣◌̇; ) LATIN CAPITAL LETTER D WITH DOT BELOW, COMBINING DOT ABOVE
     {
-        std::array<uint32_t, 2> const c1 = {{ 0x1E0C, 0x0307 }};
-        std::array<uint32_t, 2> const c2 = {{ 0x1E0C, 0x0307 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x0044, 0x0323, 0x0307 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
+        std::array<char32_t, 2> const c1 = {{ 0x1E0C, 0x0307 }};
+        std::array<char32_t, 2> const c2 = {{ 0x1E0C, 0x0307 }};
+        std::array<char32_t, 3> const c3 = {{ 0x0044, 0x0323, 0x0307 }};
+        std::array<char32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
+        std::array<char32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -416,11 +416,11 @@ TEST(normalization, nfc_000_004)
     // 0044 0307 0323;1E0C 0307;0044 0323 0307;1E0C 0307;0044 0323 0307; 
     // (D◌̇◌̣; Ḍ◌̇; D◌̣◌̇; Ḍ◌̇; D◌̣◌̇; ) LATIN CAPITAL LETTER D, COMBINING DOT ABOVE, COMBINING DOT BELOW
     {
-        std::array<uint32_t, 3> const c1 = {{ 0x0044, 0x0307, 0x0323 }};
-        std::array<uint32_t, 2> const c2 = {{ 0x1E0C, 0x0307 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x0044, 0x0323, 0x0307 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
+        std::array<char32_t, 3> const c1 = {{ 0x0044, 0x0307, 0x0323 }};
+        std::array<char32_t, 2> const c2 = {{ 0x1E0C, 0x0307 }};
+        std::array<char32_t, 3> const c3 = {{ 0x0044, 0x0323, 0x0307 }};
+        std::array<char32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
+        std::array<char32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -515,11 +515,11 @@ TEST(normalization, nfc_000_005)
     // 0044 0323 0307;1E0C 0307;0044 0323 0307;1E0C 0307;0044 0323 0307; 
     // (D◌̣◌̇; Ḍ◌̇; D◌̣◌̇; Ḍ◌̇; D◌̣◌̇; ) LATIN CAPITAL LETTER D, COMBINING DOT BELOW, COMBINING DOT ABOVE
     {
-        std::array<uint32_t, 3> const c1 = {{ 0x0044, 0x0323, 0x0307 }};
-        std::array<uint32_t, 2> const c2 = {{ 0x1E0C, 0x0307 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x0044, 0x0323, 0x0307 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
+        std::array<char32_t, 3> const c1 = {{ 0x0044, 0x0323, 0x0307 }};
+        std::array<char32_t, 2> const c2 = {{ 0x1E0C, 0x0307 }};
+        std::array<char32_t, 3> const c3 = {{ 0x0044, 0x0323, 0x0307 }};
+        std::array<char32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
+        std::array<char32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -614,11 +614,11 @@ TEST(normalization, nfc_000_006)
     // 1E0A 031B;1E0A 031B;0044 031B 0307;1E0A 031B;0044 031B 0307; 
     // (Ḋ◌̛; Ḋ◌̛; D◌̛◌̇; Ḋ◌̛; D◌̛◌̇; ) LATIN CAPITAL LETTER D WITH DOT ABOVE, COMBINING HORN
     {
-        std::array<uint32_t, 2> const c1 = {{ 0x1E0A, 0x031B }};
-        std::array<uint32_t, 2> const c2 = {{ 0x1E0A, 0x031B }};
-        std::array<uint32_t, 3> const c3 = {{ 0x0044, 0x031B, 0x0307 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x1E0A, 0x031B }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x031B, 0x0307 }};
+        std::array<char32_t, 2> const c1 = {{ 0x1E0A, 0x031B }};
+        std::array<char32_t, 2> const c2 = {{ 0x1E0A, 0x031B }};
+        std::array<char32_t, 3> const c3 = {{ 0x0044, 0x031B, 0x0307 }};
+        std::array<char32_t, 2> const c4 = {{ 0x1E0A, 0x031B }};
+        std::array<char32_t, 3> const c5 = {{ 0x0044, 0x031B, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -713,11 +713,11 @@ TEST(normalization, nfc_000_007)
     // 1E0C 031B;1E0C 031B;0044 031B 0323;1E0C 031B;0044 031B 0323; 
     // (Ḍ◌̛; Ḍ◌̛; D◌̛◌̣; Ḍ◌̛; D◌̛◌̣; ) LATIN CAPITAL LETTER D WITH DOT BELOW, COMBINING HORN
     {
-        std::array<uint32_t, 2> const c1 = {{ 0x1E0C, 0x031B }};
-        std::array<uint32_t, 2> const c2 = {{ 0x1E0C, 0x031B }};
-        std::array<uint32_t, 3> const c3 = {{ 0x0044, 0x031B, 0x0323 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x1E0C, 0x031B }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x031B, 0x0323 }};
+        std::array<char32_t, 2> const c1 = {{ 0x1E0C, 0x031B }};
+        std::array<char32_t, 2> const c2 = {{ 0x1E0C, 0x031B }};
+        std::array<char32_t, 3> const c3 = {{ 0x0044, 0x031B, 0x0323 }};
+        std::array<char32_t, 2> const c4 = {{ 0x1E0C, 0x031B }};
+        std::array<char32_t, 3> const c5 = {{ 0x0044, 0x031B, 0x0323 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -812,11 +812,11 @@ TEST(normalization, nfc_000_008)
     // 1E0A 031B 0323;1E0C 031B 0307;0044 031B 0323 0307;1E0C 031B 0307;0044 031B 0323 0307; 
     // (Ḋ◌̛◌̣; Ḍ◌̛◌̇; D◌̛◌̣◌̇; Ḍ◌̛◌̇; D◌̛◌̣◌̇; ) LATIN CAPITAL LETTER D WITH DOT ABOVE, COMBINING HORN, COMBINING DOT BELOW
     {
-        std::array<uint32_t, 3> const c1 = {{ 0x1E0A, 0x031B, 0x0323 }};
-        std::array<uint32_t, 3> const c2 = {{ 0x1E0C, 0x031B, 0x0307 }};
-        std::array<uint32_t, 4> const c3 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
-        std::array<uint32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
-        std::array<uint32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
+        std::array<char32_t, 3> const c1 = {{ 0x1E0A, 0x031B, 0x0323 }};
+        std::array<char32_t, 3> const c2 = {{ 0x1E0C, 0x031B, 0x0307 }};
+        std::array<char32_t, 4> const c3 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
+        std::array<char32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
+        std::array<char32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -911,11 +911,11 @@ TEST(normalization, nfc_000_009)
     // 1E0C 031B 0307;1E0C 031B 0307;0044 031B 0323 0307;1E0C 031B 0307;0044 031B 0323 0307; 
     // (Ḍ◌̛◌̇; Ḍ◌̛◌̇; D◌̛◌̣◌̇; Ḍ◌̛◌̇; D◌̛◌̣◌̇; ) LATIN CAPITAL LETTER D WITH DOT BELOW, COMBINING HORN, COMBINING DOT ABOVE
     {
-        std::array<uint32_t, 3> const c1 = {{ 0x1E0C, 0x031B, 0x0307 }};
-        std::array<uint32_t, 3> const c2 = {{ 0x1E0C, 0x031B, 0x0307 }};
-        std::array<uint32_t, 4> const c3 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
-        std::array<uint32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
-        std::array<uint32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
+        std::array<char32_t, 3> const c1 = {{ 0x1E0C, 0x031B, 0x0307 }};
+        std::array<char32_t, 3> const c2 = {{ 0x1E0C, 0x031B, 0x0307 }};
+        std::array<char32_t, 4> const c3 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
+        std::array<char32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
+        std::array<char32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1010,11 +1010,11 @@ TEST(normalization, nfc_000_010)
     // 0044 031B 0307 0323;1E0C 031B 0307;0044 031B 0323 0307;1E0C 031B 0307;0044 031B 0323 0307; 
     // (D◌̛◌̇◌̣; Ḍ◌̛◌̇; D◌̛◌̣◌̇; Ḍ◌̛◌̇; D◌̛◌̣◌̇; ) LATIN CAPITAL LETTER D, COMBINING HORN, COMBINING DOT ABOVE, COMBINING DOT BELOW
     {
-        std::array<uint32_t, 4> const c1 = {{ 0x0044, 0x031B, 0x0307, 0x0323 }};
-        std::array<uint32_t, 3> const c2 = {{ 0x1E0C, 0x031B, 0x0307 }};
-        std::array<uint32_t, 4> const c3 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
-        std::array<uint32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
-        std::array<uint32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
+        std::array<char32_t, 4> const c1 = {{ 0x0044, 0x031B, 0x0307, 0x0323 }};
+        std::array<char32_t, 3> const c2 = {{ 0x1E0C, 0x031B, 0x0307 }};
+        std::array<char32_t, 4> const c3 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
+        std::array<char32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
+        std::array<char32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1109,11 +1109,11 @@ TEST(normalization, nfc_000_011)
     // 0044 031B 0323 0307;1E0C 031B 0307;0044 031B 0323 0307;1E0C 031B 0307;0044 031B 0323 0307; 
     // (D◌̛◌̣◌̇; Ḍ◌̛◌̇; D◌̛◌̣◌̇; Ḍ◌̛◌̇; D◌̛◌̣◌̇; ) LATIN CAPITAL LETTER D, COMBINING HORN, COMBINING DOT BELOW, COMBINING DOT ABOVE
     {
-        std::array<uint32_t, 4> const c1 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
-        std::array<uint32_t, 3> const c2 = {{ 0x1E0C, 0x031B, 0x0307 }};
-        std::array<uint32_t, 4> const c3 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
-        std::array<uint32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
-        std::array<uint32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
+        std::array<char32_t, 4> const c1 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
+        std::array<char32_t, 3> const c2 = {{ 0x1E0C, 0x031B, 0x0307 }};
+        std::array<char32_t, 4> const c3 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
+        std::array<char32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
+        std::array<char32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1208,11 +1208,11 @@ TEST(normalization, nfc_000_012)
     // 00C8;00C8;0045 0300;00C8;0045 0300; 
     // (È; È; E◌̀; È; E◌̀; ) LATIN CAPITAL LETTER E WITH GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00C8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00C8 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00C8 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00C8 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00C8 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00C8 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1307,11 +1307,11 @@ TEST(normalization, nfc_000_013)
     // 0112;0112;0045 0304;0112;0045 0304; 
     // (Ē; Ē; E◌̄; Ē; E◌̄; ) LATIN CAPITAL LETTER E WITH MACRON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0112 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0112 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0304 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0112 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0304 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0112 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0112 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0304 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0112 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0304 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1406,11 +1406,11 @@ TEST(normalization, nfc_000_014)
     // 0045 0300;00C8;0045 0300;00C8;0045 0300; 
     // (E◌̀; È; E◌̀; È; E◌̀; ) LATIN CAPITAL LETTER E, COMBINING GRAVE ACCENT
     {
-        std::array<uint32_t, 2> const c1 = {{ 0x0045, 0x0300 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00C8 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00C8 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0300 }};
+        std::array<char32_t, 2> const c1 = {{ 0x0045, 0x0300 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00C8 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00C8 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1505,11 +1505,11 @@ TEST(normalization, nfc_000_015)
     // 0045 0304;0112;0045 0304;0112;0045 0304; 
     // (E◌̄; Ē; E◌̄; Ē; E◌̄; ) LATIN CAPITAL LETTER E, COMBINING MACRON
     {
-        std::array<uint32_t, 2> const c1 = {{ 0x0045, 0x0304 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0112 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0304 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0112 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0304 }};
+        std::array<char32_t, 2> const c1 = {{ 0x0045, 0x0304 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0112 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0304 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0112 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0304 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1604,11 +1604,11 @@ TEST(normalization, nfc_000_016)
     // 1E14;1E14;0045 0304 0300;1E14;0045 0304 0300; 
     // (Ḕ; Ḕ; E◌̄◌̀; Ḕ; E◌̄◌̀; ) LATIN CAPITAL LETTER E WITH MACRON AND GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x1E14 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1E14 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x0045, 0x0304, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x1E14 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0045, 0x0304, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x1E14 }};
+        std::array<char32_t, 1> const c2 = {{ 0x1E14 }};
+        std::array<char32_t, 3> const c3 = {{ 0x0045, 0x0304, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x1E14 }};
+        std::array<char32_t, 3> const c5 = {{ 0x0045, 0x0304, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1703,11 +1703,11 @@ TEST(normalization, nfc_000_017)
     // 0112 0300;1E14;0045 0304 0300;1E14;0045 0304 0300; 
     // (Ē◌̀; Ḕ; E◌̄◌̀; Ḕ; E◌̄◌̀; ) LATIN CAPITAL LETTER E WITH MACRON, COMBINING GRAVE ACCENT
     {
-        std::array<uint32_t, 2> const c1 = {{ 0x0112, 0x0300 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1E14 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x0045, 0x0304, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x1E14 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0045, 0x0304, 0x0300 }};
+        std::array<char32_t, 2> const c1 = {{ 0x0112, 0x0300 }};
+        std::array<char32_t, 1> const c2 = {{ 0x1E14 }};
+        std::array<char32_t, 3> const c3 = {{ 0x0045, 0x0304, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x1E14 }};
+        std::array<char32_t, 3> const c5 = {{ 0x0045, 0x0304, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1802,11 +1802,11 @@ TEST(normalization, nfc_000_018)
     // 1E14 0304;1E14 0304;0045 0304 0300 0304;1E14 0304;0045 0304 0300 0304; 
     // (Ḕ◌̄; Ḕ◌̄; E◌̄◌̀◌̄; Ḕ◌̄; E◌̄◌̀◌̄; ) LATIN CAPITAL LETTER E WITH MACRON AND GRAVE, COMBINING MACRON
     {
-        std::array<uint32_t, 2> const c1 = {{ 0x1E14, 0x0304 }};
-        std::array<uint32_t, 2> const c2 = {{ 0x1E14, 0x0304 }};
-        std::array<uint32_t, 4> const c3 = {{ 0x0045, 0x0304, 0x0300, 0x0304 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x1E14, 0x0304 }};
-        std::array<uint32_t, 4> const c5 = {{ 0x0045, 0x0304, 0x0300, 0x0304 }};
+        std::array<char32_t, 2> const c1 = {{ 0x1E14, 0x0304 }};
+        std::array<char32_t, 2> const c2 = {{ 0x1E14, 0x0304 }};
+        std::array<char32_t, 4> const c3 = {{ 0x0045, 0x0304, 0x0300, 0x0304 }};
+        std::array<char32_t, 2> const c4 = {{ 0x1E14, 0x0304 }};
+        std::array<char32_t, 4> const c5 = {{ 0x0045, 0x0304, 0x0300, 0x0304 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1901,11 +1901,11 @@ TEST(normalization, nfc_000_019)
     // 0045 0304 0300;1E14;0045 0304 0300;1E14;0045 0304 0300; 
     // (E◌̄◌̀; Ḕ; E◌̄◌̀; Ḕ; E◌̄◌̀; ) LATIN CAPITAL LETTER E, COMBINING MACRON, COMBINING GRAVE ACCENT
     {
-        std::array<uint32_t, 3> const c1 = {{ 0x0045, 0x0304, 0x0300 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x1E14 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x0045, 0x0304, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x1E14 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0045, 0x0304, 0x0300 }};
+        std::array<char32_t, 3> const c1 = {{ 0x0045, 0x0304, 0x0300 }};
+        std::array<char32_t, 1> const c2 = {{ 0x1E14 }};
+        std::array<char32_t, 3> const c3 = {{ 0x0045, 0x0304, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x1E14 }};
+        std::array<char32_t, 3> const c5 = {{ 0x0045, 0x0304, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2000,11 +2000,11 @@ TEST(normalization, nfc_000_020)
     // 0045 0300 0304;00C8 0304;0045 0300 0304;00C8 0304;0045 0300 0304; 
     // (E◌̀◌̄; È◌̄; E◌̀◌̄; È◌̄; E◌̀◌̄; ) LATIN CAPITAL LETTER E, COMBINING GRAVE ACCENT, COMBINING MACRON
     {
-        std::array<uint32_t, 3> const c1 = {{ 0x0045, 0x0300, 0x0304 }};
-        std::array<uint32_t, 2> const c2 = {{ 0x00C8, 0x0304 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x0045, 0x0300, 0x0304 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x00C8, 0x0304 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0045, 0x0300, 0x0304 }};
+        std::array<char32_t, 3> const c1 = {{ 0x0045, 0x0300, 0x0304 }};
+        std::array<char32_t, 2> const c2 = {{ 0x00C8, 0x0304 }};
+        std::array<char32_t, 3> const c3 = {{ 0x0045, 0x0300, 0x0304 }};
+        std::array<char32_t, 2> const c4 = {{ 0x00C8, 0x0304 }};
+        std::array<char32_t, 3> const c5 = {{ 0x0045, 0x0300, 0x0304 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2099,11 +2099,11 @@ TEST(normalization, nfc_000_021)
     // 05B8 05B9 05B1 0591 05C3 05B0 05AC 059F;05B1 05B8 05B9 0591 05C3 05B0 05AC 059F;05B1 05B8 05B9 0591 05C3 05B0 05AC 059F;05B1 05B8 05B9 0591 05C3 05B0 05AC 059F;05B1 05B8 05B9 0591 05C3 05B0 05AC 059F; 
     // (◌ָ◌ֹ◌ֱ◌֑׃◌ְ◌֬◌֟; ◌ֱ◌ָ◌ֹ◌֑׃◌ְ◌֬◌֟; ◌ֱ◌ָ◌ֹ◌֑׃◌ְ◌֬◌֟; ◌ֱ◌ָ◌ֹ◌֑׃◌ְ◌֬◌֟; ◌ֱ◌ָ◌ֹ◌֑׃◌ְ◌֬◌֟; ) HEBREW POINT QAMATS, HEBREW POINT HOLAM, HEBREW POINT HATAF SEGOL, HEBREW ACCENT ETNAHTA, HEBREW PUNCTUATION SOF PASUQ, HEBREW POINT SHEVA, HEBREW ACCENT ILUY, HEBREW ACCENT QARNEY PARA
     {
-        std::array<uint32_t, 8> const c1 = {{ 0x05B8, 0x05B9, 0x05B1, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
-        std::array<uint32_t, 8> const c2 = {{ 0x05B1, 0x05B8, 0x05B9, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
-        std::array<uint32_t, 8> const c3 = {{ 0x05B1, 0x05B8, 0x05B9, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
-        std::array<uint32_t, 8> const c4 = {{ 0x05B1, 0x05B8, 0x05B9, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
-        std::array<uint32_t, 8> const c5 = {{ 0x05B1, 0x05B8, 0x05B9, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
+        std::array<char32_t, 8> const c1 = {{ 0x05B8, 0x05B9, 0x05B1, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
+        std::array<char32_t, 8> const c2 = {{ 0x05B1, 0x05B8, 0x05B9, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
+        std::array<char32_t, 8> const c3 = {{ 0x05B1, 0x05B8, 0x05B9, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
+        std::array<char32_t, 8> const c4 = {{ 0x05B1, 0x05B8, 0x05B9, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
+        std::array<char32_t, 8> const c5 = {{ 0x05B1, 0x05B8, 0x05B9, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2206,11 +2206,11 @@ TEST(normalization, nfc_000_022)
     // 0592 05B7 05BC 05A5 05B0 05C0 05C4 05AD;05B0 05B7 05BC 05A5 0592 05C0 05AD 05C4;05B0 05B7 05BC 05A5 0592 05C0 05AD 05C4;05B0 05B7 05BC 05A5 0592 05C0 05AD 05C4;05B0 05B7 05BC 05A5 0592 05C0 05AD 05C4; 
     // (◌֒◌ַ◌ּ◌֥◌ְ׀◌ׄ◌֭; ◌ְ◌ַ◌ּ◌֥◌֒׀◌֭◌ׄ; ◌ְ◌ַ◌ּ◌֥◌֒׀◌֭◌ׄ; ◌ְ◌ַ◌ּ◌֥◌֒׀◌֭◌ׄ; ◌ְ◌ַ◌ּ◌֥◌֒׀◌֭◌ׄ; ) HEBREW ACCENT SEGOL, HEBREW POINT PATAH, HEBREW POINT DAGESH OR MAPIQ, HEBREW ACCENT MERKHA, HEBREW POINT SHEVA, HEBREW PUNCTUATION PASEQ, HEBREW MARK UPPER DOT, HEBREW ACCENT DEHI
     {
-        std::array<uint32_t, 8> const c1 = {{ 0x0592, 0x05B7, 0x05BC, 0x05A5, 0x05B0, 0x05C0, 0x05C4, 0x05AD }};
-        std::array<uint32_t, 8> const c2 = {{ 0x05B0, 0x05B7, 0x05BC, 0x05A5, 0x0592, 0x05C0, 0x05AD, 0x05C4 }};
-        std::array<uint32_t, 8> const c3 = {{ 0x05B0, 0x05B7, 0x05BC, 0x05A5, 0x0592, 0x05C0, 0x05AD, 0x05C4 }};
-        std::array<uint32_t, 8> const c4 = {{ 0x05B0, 0x05B7, 0x05BC, 0x05A5, 0x0592, 0x05C0, 0x05AD, 0x05C4 }};
-        std::array<uint32_t, 8> const c5 = {{ 0x05B0, 0x05B7, 0x05BC, 0x05A5, 0x0592, 0x05C0, 0x05AD, 0x05C4 }};
+        std::array<char32_t, 8> const c1 = {{ 0x0592, 0x05B7, 0x05BC, 0x05A5, 0x05B0, 0x05C0, 0x05C4, 0x05AD }};
+        std::array<char32_t, 8> const c2 = {{ 0x05B0, 0x05B7, 0x05BC, 0x05A5, 0x0592, 0x05C0, 0x05AD, 0x05C4 }};
+        std::array<char32_t, 8> const c3 = {{ 0x05B0, 0x05B7, 0x05BC, 0x05A5, 0x0592, 0x05C0, 0x05AD, 0x05C4 }};
+        std::array<char32_t, 8> const c4 = {{ 0x05B0, 0x05B7, 0x05BC, 0x05A5, 0x0592, 0x05C0, 0x05AD, 0x05C4 }};
+        std::array<char32_t, 8> const c5 = {{ 0x05B0, 0x05B7, 0x05BC, 0x05A5, 0x0592, 0x05C0, 0x05AD, 0x05C4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2313,11 +2313,11 @@ TEST(normalization, nfc_000_023)
     // 1100 AC00 11A8;1100 AC01;1100 1100 1161 11A8;1100 AC01;1100 1100 1161 11A8; 
     // (ᄀ각; ᄀ각; ᄀ각; ᄀ각; ᄀ각; ) HANGUL CHOSEONG KIYEOK, HANGUL SYLLABLE GA, HANGUL JONGSEONG KIYEOK
     {
-        std::array<uint32_t, 3> const c1 = {{ 0x1100, 0xAC00, 0x11A8 }};
-        std::array<uint32_t, 2> const c2 = {{ 0x1100, 0xAC01 }};
-        std::array<uint32_t, 4> const c3 = {{ 0x1100, 0x1100, 0x1161, 0x11A8 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x1100, 0xAC01 }};
-        std::array<uint32_t, 4> const c5 = {{ 0x1100, 0x1100, 0x1161, 0x11A8 }};
+        std::array<char32_t, 3> const c1 = {{ 0x1100, 0xAC00, 0x11A8 }};
+        std::array<char32_t, 2> const c2 = {{ 0x1100, 0xAC01 }};
+        std::array<char32_t, 4> const c3 = {{ 0x1100, 0x1100, 0x1161, 0x11A8 }};
+        std::array<char32_t, 2> const c4 = {{ 0x1100, 0xAC01 }};
+        std::array<char32_t, 4> const c5 = {{ 0x1100, 0x1100, 0x1161, 0x11A8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2412,11 +2412,11 @@ TEST(normalization, nfc_000_024)
     // 1100 AC00 11A8 11A8;1100 AC01 11A8;1100 1100 1161 11A8 11A8;1100 AC01 11A8;1100 1100 1161 11A8 11A8; 
     // (ᄀ각ᆨ; ᄀ각ᆨ; ᄀ각ᆨ; ᄀ각ᆨ; ᄀ각ᆨ; ) HANGUL CHOSEONG KIYEOK, HANGUL SYLLABLE GA, HANGUL JONGSEONG KIYEOK, HANGUL JONGSEONG KIYEOK
     {
-        std::array<uint32_t, 4> const c1 = {{ 0x1100, 0xAC00, 0x11A8, 0x11A8 }};
-        std::array<uint32_t, 3> const c2 = {{ 0x1100, 0xAC01, 0x11A8 }};
-        std::array<uint32_t, 5> const c3 = {{ 0x1100, 0x1100, 0x1161, 0x11A8, 0x11A8 }};
-        std::array<uint32_t, 3> const c4 = {{ 0x1100, 0xAC01, 0x11A8 }};
-        std::array<uint32_t, 5> const c5 = {{ 0x1100, 0x1100, 0x1161, 0x11A8, 0x11A8 }};
+        std::array<char32_t, 4> const c1 = {{ 0x1100, 0xAC00, 0x11A8, 0x11A8 }};
+        std::array<char32_t, 3> const c2 = {{ 0x1100, 0xAC01, 0x11A8 }};
+        std::array<char32_t, 5> const c3 = {{ 0x1100, 0x1100, 0x1161, 0x11A8, 0x11A8 }};
+        std::array<char32_t, 3> const c4 = {{ 0x1100, 0xAC01, 0x11A8 }};
+        std::array<char32_t, 5> const c5 = {{ 0x1100, 0x1100, 0x1161, 0x11A8, 0x11A8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2511,11 +2511,11 @@ TEST(normalization, nfc_000_025)
     // 00A0;00A0;00A0;0020;0020; 
     // ( ;  ;  ;  ;  ; ) NO-BREAK SPACE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00A0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00A0 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00A0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0020 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0020 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00A0 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00A0 }};
+        std::array<char32_t, 1> const c3 = {{ 0x00A0 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0020 }};
+        std::array<char32_t, 1> const c5 = {{ 0x0020 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2610,11 +2610,11 @@ TEST(normalization, nfc_000_026)
     // 00A8;00A8;00A8;0020 0308;0020 0308; 
     // (¨; ¨; ¨;  ◌̈;  ◌̈; ) DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00A8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00A8 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00A8 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x0020, 0x0308 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0020, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00A8 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00A8 }};
+        std::array<char32_t, 1> const c3 = {{ 0x00A8 }};
+        std::array<char32_t, 2> const c4 = {{ 0x0020, 0x0308 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0020, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2709,11 +2709,11 @@ TEST(normalization, nfc_000_027)
     // 00AA;00AA;00AA;0061;0061; 
     // (ª; ª; ª; a; a; ) FEMININE ORDINAL INDICATOR
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00AA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00AA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00AA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0061 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0061 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00AA }};
+        std::array<char32_t, 1> const c2 = {{ 0x00AA }};
+        std::array<char32_t, 1> const c3 = {{ 0x00AA }};
+        std::array<char32_t, 1> const c4 = {{ 0x0061 }};
+        std::array<char32_t, 1> const c5 = {{ 0x0061 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2808,11 +2808,11 @@ TEST(normalization, nfc_000_028)
     // 00AF;00AF;00AF;0020 0304;0020 0304; 
     // (¯; ¯; ¯;  ◌̄;  ◌̄; ) MACRON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00AF }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00AF }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00AF }};
-        std::array<uint32_t, 2> const c4 = {{ 0x0020, 0x0304 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0020, 0x0304 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00AF }};
+        std::array<char32_t, 1> const c2 = {{ 0x00AF }};
+        std::array<char32_t, 1> const c3 = {{ 0x00AF }};
+        std::array<char32_t, 2> const c4 = {{ 0x0020, 0x0304 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0020, 0x0304 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2907,11 +2907,11 @@ TEST(normalization, nfc_000_029)
     // 00B2;00B2;00B2;0032;0032; 
     // (²; ²; ²; 2; 2; ) SUPERSCRIPT TWO
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00B2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00B2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00B2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0032 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0032 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00B2 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00B2 }};
+        std::array<char32_t, 1> const c3 = {{ 0x00B2 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0032 }};
+        std::array<char32_t, 1> const c5 = {{ 0x0032 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3006,11 +3006,11 @@ TEST(normalization, nfc_000_030)
     // 00B3;00B3;00B3;0033;0033; 
     // (³; ³; ³; 3; 3; ) SUPERSCRIPT THREE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00B3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00B3 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00B3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0033 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0033 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00B3 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00B3 }};
+        std::array<char32_t, 1> const c3 = {{ 0x00B3 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0033 }};
+        std::array<char32_t, 1> const c5 = {{ 0x0033 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3105,11 +3105,11 @@ TEST(normalization, nfc_000_031)
     // 00B4;00B4;00B4;0020 0301;0020 0301; 
     // (´; ´; ´;  ◌́;  ◌́; ) ACUTE ACCENT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00B4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00B4 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00B4 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x0020, 0x0301 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0020, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00B4 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00B4 }};
+        std::array<char32_t, 1> const c3 = {{ 0x00B4 }};
+        std::array<char32_t, 2> const c4 = {{ 0x0020, 0x0301 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0020, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3204,11 +3204,11 @@ TEST(normalization, nfc_000_032)
     // 00B5;00B5;00B5;03BC;03BC; 
     // (µ; µ; µ; μ; μ; ) MICRO SIGN
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00B5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00B5 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00B5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x03BC }};
-        std::array<uint32_t, 1> const c5 = {{ 0x03BC }};
+        std::array<char32_t, 1> const c1 = {{ 0x00B5 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00B5 }};
+        std::array<char32_t, 1> const c3 = {{ 0x00B5 }};
+        std::array<char32_t, 1> const c4 = {{ 0x03BC }};
+        std::array<char32_t, 1> const c5 = {{ 0x03BC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3303,11 +3303,11 @@ TEST(normalization, nfc_000_033)
     // 00B8;00B8;00B8;0020 0327;0020 0327; 
     // (¸; ¸; ¸;  ◌̧;  ◌̧; ) CEDILLA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00B8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00B8 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00B8 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x0020, 0x0327 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0020, 0x0327 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00B8 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00B8 }};
+        std::array<char32_t, 1> const c3 = {{ 0x00B8 }};
+        std::array<char32_t, 2> const c4 = {{ 0x0020, 0x0327 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0020, 0x0327 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3402,11 +3402,11 @@ TEST(normalization, nfc_000_034)
     // 00B9;00B9;00B9;0031;0031; 
     // (¹; ¹; ¹; 1; 1; ) SUPERSCRIPT ONE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00B9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00B9 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00B9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0031 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x0031 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00B9 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00B9 }};
+        std::array<char32_t, 1> const c3 = {{ 0x00B9 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0031 }};
+        std::array<char32_t, 1> const c5 = {{ 0x0031 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3501,11 +3501,11 @@ TEST(normalization, nfc_000_035)
     // 00BA;00BA;00BA;006F;006F; 
     // (º; º; º; o; o; ) MASCULINE ORDINAL INDICATOR
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00BA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00BA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00BA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x006F }};
-        std::array<uint32_t, 1> const c5 = {{ 0x006F }};
+        std::array<char32_t, 1> const c1 = {{ 0x00BA }};
+        std::array<char32_t, 1> const c2 = {{ 0x00BA }};
+        std::array<char32_t, 1> const c3 = {{ 0x00BA }};
+        std::array<char32_t, 1> const c4 = {{ 0x006F }};
+        std::array<char32_t, 1> const c5 = {{ 0x006F }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3600,11 +3600,11 @@ TEST(normalization, nfc_000_036)
     // 00BC;00BC;00BC;0031 2044 0034;0031 2044 0034; 
     // (¼; ¼; ¼; 1⁄4; 1⁄4; ) VULGAR FRACTION ONE QUARTER
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00BC }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00BC }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00BC }};
-        std::array<uint32_t, 3> const c4 = {{ 0x0031, 0x2044, 0x0034 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0031, 0x2044, 0x0034 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00BC }};
+        std::array<char32_t, 1> const c2 = {{ 0x00BC }};
+        std::array<char32_t, 1> const c3 = {{ 0x00BC }};
+        std::array<char32_t, 3> const c4 = {{ 0x0031, 0x2044, 0x0034 }};
+        std::array<char32_t, 3> const c5 = {{ 0x0031, 0x2044, 0x0034 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3699,11 +3699,11 @@ TEST(normalization, nfc_000_037)
     // 00BD;00BD;00BD;0031 2044 0032;0031 2044 0032; 
     // (½; ½; ½; 1⁄2; 1⁄2; ) VULGAR FRACTION ONE HALF
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00BD }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00BD }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00BD }};
-        std::array<uint32_t, 3> const c4 = {{ 0x0031, 0x2044, 0x0032 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0031, 0x2044, 0x0032 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00BD }};
+        std::array<char32_t, 1> const c2 = {{ 0x00BD }};
+        std::array<char32_t, 1> const c3 = {{ 0x00BD }};
+        std::array<char32_t, 3> const c4 = {{ 0x0031, 0x2044, 0x0032 }};
+        std::array<char32_t, 3> const c5 = {{ 0x0031, 0x2044, 0x0032 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3798,11 +3798,11 @@ TEST(normalization, nfc_000_038)
     // 00BE;00BE;00BE;0033 2044 0034;0033 2044 0034; 
     // (¾; ¾; ¾; 3⁄4; 3⁄4; ) VULGAR FRACTION THREE QUARTERS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00BE }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00BE }};
-        std::array<uint32_t, 1> const c3 = {{ 0x00BE }};
-        std::array<uint32_t, 3> const c4 = {{ 0x0033, 0x2044, 0x0034 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x0033, 0x2044, 0x0034 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00BE }};
+        std::array<char32_t, 1> const c2 = {{ 0x00BE }};
+        std::array<char32_t, 1> const c3 = {{ 0x00BE }};
+        std::array<char32_t, 3> const c4 = {{ 0x0033, 0x2044, 0x0034 }};
+        std::array<char32_t, 3> const c5 = {{ 0x0033, 0x2044, 0x0034 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3897,11 +3897,11 @@ TEST(normalization, nfc_000_039)
     // 00C0;00C0;0041 0300;00C0;0041 0300; 
     // (À; À; A◌̀; À; A◌̀; ) LATIN CAPITAL LETTER A WITH GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00C0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00C0 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00C0 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00C0 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00C0 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0041, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00C0 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0041, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -3996,11 +3996,11 @@ TEST(normalization, nfc_000_040)
     // 00C1;00C1;0041 0301;00C1;0041 0301; 
     // (Á; Á; A◌́; Á; A◌́; ) LATIN CAPITAL LETTER A WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00C1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00C1 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00C1 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00C1 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00C1 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0041, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00C1 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0041, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4095,11 +4095,11 @@ TEST(normalization, nfc_000_041)
     // 00C2;00C2;0041 0302;00C2;0041 0302; 
     // (Â; Â; A◌̂; Â; A◌̂; ) LATIN CAPITAL LETTER A WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00C2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00C2 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00C2 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00C2 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00C2 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0041, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00C2 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0041, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4194,11 +4194,11 @@ TEST(normalization, nfc_000_042)
     // 00C3;00C3;0041 0303;00C3;0041 0303; 
     // (Ã; Ã; A◌̃; Ã; A◌̃; ) LATIN CAPITAL LETTER A WITH TILDE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00C3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00C3 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x0303 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00C3 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0303 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00C3 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00C3 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0041, 0x0303 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00C3 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0041, 0x0303 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4293,11 +4293,11 @@ TEST(normalization, nfc_000_043)
     // 00C4;00C4;0041 0308;00C4;0041 0308; 
     // (Ä; Ä; A◌̈; Ä; A◌̈; ) LATIN CAPITAL LETTER A WITH DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00C4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00C4 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x0308 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00C4 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00C4 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00C4 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0041, 0x0308 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00C4 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0041, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4392,11 +4392,11 @@ TEST(normalization, nfc_000_044)
     // 00C5;00C5;0041 030A;00C5;0041 030A; 
     // (Å; Å; A◌̊; Å; A◌̊; ) LATIN CAPITAL LETTER A WITH RING ABOVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00C5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00C5 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x030A }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00C5 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x030A }};
+        std::array<char32_t, 1> const c1 = {{ 0x00C5 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00C5 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0041, 0x030A }};
+        std::array<char32_t, 1> const c4 = {{ 0x00C5 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0041, 0x030A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4491,11 +4491,11 @@ TEST(normalization, nfc_000_045)
     // 00C7;00C7;0043 0327;00C7;0043 0327; 
     // (Ç; Ç; C◌̧; Ç; C◌̧; ) LATIN CAPITAL LETTER C WITH CEDILLA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00C7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00C7 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0043, 0x0327 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00C7 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0043, 0x0327 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00C7 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00C7 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0043, 0x0327 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00C7 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0043, 0x0327 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4590,11 +4590,11 @@ TEST(normalization, nfc_000_046)
     // 00C8;00C8;0045 0300;00C8;0045 0300; 
     // (È; È; E◌̀; È; E◌̀; ) LATIN CAPITAL LETTER E WITH GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00C8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00C8 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00C8 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00C8 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00C8 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00C8 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4689,11 +4689,11 @@ TEST(normalization, nfc_000_047)
     // 00C9;00C9;0045 0301;00C9;0045 0301; 
     // (É; É; E◌́; É; E◌́; ) LATIN CAPITAL LETTER E WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00C9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00C9 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00C9 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00C9 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00C9 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00C9 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4788,11 +4788,11 @@ TEST(normalization, nfc_000_048)
     // 00CA;00CA;0045 0302;00CA;0045 0302; 
     // (Ê; Ê; E◌̂; Ê; E◌̂; ) LATIN CAPITAL LETTER E WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00CA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00CA }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00CA }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00CA }};
+        std::array<char32_t, 1> const c2 = {{ 0x00CA }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00CA }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4887,11 +4887,11 @@ TEST(normalization, nfc_000_049)
     // 00CB;00CB;0045 0308;00CB;0045 0308; 
     // (Ë; Ë; E◌̈; Ë; E◌̈; ) LATIN CAPITAL LETTER E WITH DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00CB }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00CB }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0308 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00CB }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00CB }};
+        std::array<char32_t, 1> const c2 = {{ 0x00CB }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0308 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00CB }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4986,11 +4986,11 @@ TEST(normalization, nfc_000_050)
     // 00CC;00CC;0049 0300;00CC;0049 0300; 
     // (Ì; Ì; I◌̀; Ì; I◌̀; ) LATIN CAPITAL LETTER I WITH GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00CC }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00CC }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0049, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00CC }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00CC }};
+        std::array<char32_t, 1> const c2 = {{ 0x00CC }};
+        std::array<char32_t, 2> const c3 = {{ 0x0049, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00CC }};
+        std::array<char32_t, 2> const c5 = {{ 0x0049, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5085,11 +5085,11 @@ TEST(normalization, nfc_000_051)
     // 00CD;00CD;0049 0301;00CD;0049 0301; 
     // (Í; Í; I◌́; Í; I◌́; ) LATIN CAPITAL LETTER I WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00CD }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00CD }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0049, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00CD }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00CD }};
+        std::array<char32_t, 1> const c2 = {{ 0x00CD }};
+        std::array<char32_t, 2> const c3 = {{ 0x0049, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00CD }};
+        std::array<char32_t, 2> const c5 = {{ 0x0049, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5184,11 +5184,11 @@ TEST(normalization, nfc_000_052)
     // 00CE;00CE;0049 0302;00CE;0049 0302; 
     // (Î; Î; I◌̂; Î; I◌̂; ) LATIN CAPITAL LETTER I WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00CE }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00CE }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0049, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00CE }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00CE }};
+        std::array<char32_t, 1> const c2 = {{ 0x00CE }};
+        std::array<char32_t, 2> const c3 = {{ 0x0049, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00CE }};
+        std::array<char32_t, 2> const c5 = {{ 0x0049, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5283,11 +5283,11 @@ TEST(normalization, nfc_000_053)
     // 00CF;00CF;0049 0308;00CF;0049 0308; 
     // (Ï; Ï; I◌̈; Ï; I◌̈; ) LATIN CAPITAL LETTER I WITH DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00CF }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00CF }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0049, 0x0308 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00CF }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00CF }};
+        std::array<char32_t, 1> const c2 = {{ 0x00CF }};
+        std::array<char32_t, 2> const c3 = {{ 0x0049, 0x0308 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00CF }};
+        std::array<char32_t, 2> const c5 = {{ 0x0049, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5382,11 +5382,11 @@ TEST(normalization, nfc_000_054)
     // 00D1;00D1;004E 0303;00D1;004E 0303; 
     // (Ñ; Ñ; N◌̃; Ñ; N◌̃; ) LATIN CAPITAL LETTER N WITH TILDE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00D1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00D1 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004E, 0x0303 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00D1 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004E, 0x0303 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00D1 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00D1 }};
+        std::array<char32_t, 2> const c3 = {{ 0x004E, 0x0303 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00D1 }};
+        std::array<char32_t, 2> const c5 = {{ 0x004E, 0x0303 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5481,11 +5481,11 @@ TEST(normalization, nfc_000_055)
     // 00D2;00D2;004F 0300;00D2;004F 0300; 
     // (Ò; Ò; O◌̀; Ò; O◌̀; ) LATIN CAPITAL LETTER O WITH GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00D2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00D2 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004F, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00D2 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004F, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00D2 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00D2 }};
+        std::array<char32_t, 2> const c3 = {{ 0x004F, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00D2 }};
+        std::array<char32_t, 2> const c5 = {{ 0x004F, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5580,11 +5580,11 @@ TEST(normalization, nfc_000_056)
     // 00D3;00D3;004F 0301;00D3;004F 0301; 
     // (Ó; Ó; O◌́; Ó; O◌́; ) LATIN CAPITAL LETTER O WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00D3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00D3 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004F, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00D3 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004F, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00D3 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00D3 }};
+        std::array<char32_t, 2> const c3 = {{ 0x004F, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00D3 }};
+        std::array<char32_t, 2> const c5 = {{ 0x004F, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5679,11 +5679,11 @@ TEST(normalization, nfc_000_057)
     // 00D4;00D4;004F 0302;00D4;004F 0302; 
     // (Ô; Ô; O◌̂; Ô; O◌̂; ) LATIN CAPITAL LETTER O WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00D4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00D4 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004F, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00D4 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004F, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00D4 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00D4 }};
+        std::array<char32_t, 2> const c3 = {{ 0x004F, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00D4 }};
+        std::array<char32_t, 2> const c5 = {{ 0x004F, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5778,11 +5778,11 @@ TEST(normalization, nfc_000_058)
     // 00D5;00D5;004F 0303;00D5;004F 0303; 
     // (Õ; Õ; O◌̃; Õ; O◌̃; ) LATIN CAPITAL LETTER O WITH TILDE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00D5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00D5 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004F, 0x0303 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00D5 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004F, 0x0303 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00D5 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00D5 }};
+        std::array<char32_t, 2> const c3 = {{ 0x004F, 0x0303 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00D5 }};
+        std::array<char32_t, 2> const c5 = {{ 0x004F, 0x0303 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5877,11 +5877,11 @@ TEST(normalization, nfc_000_059)
     // 00D6;00D6;004F 0308;00D6;004F 0308; 
     // (Ö; Ö; O◌̈; Ö; O◌̈; ) LATIN CAPITAL LETTER O WITH DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00D6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00D6 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004F, 0x0308 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00D6 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004F, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00D6 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00D6 }};
+        std::array<char32_t, 2> const c3 = {{ 0x004F, 0x0308 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00D6 }};
+        std::array<char32_t, 2> const c5 = {{ 0x004F, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5976,11 +5976,11 @@ TEST(normalization, nfc_000_060)
     // 00D9;00D9;0055 0300;00D9;0055 0300; 
     // (Ù; Ù; U◌̀; Ù; U◌̀; ) LATIN CAPITAL LETTER U WITH GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00D9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00D9 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0055, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00D9 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0055, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00D9 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00D9 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0055, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00D9 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0055, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6075,11 +6075,11 @@ TEST(normalization, nfc_000_061)
     // 00DA;00DA;0055 0301;00DA;0055 0301; 
     // (Ú; Ú; U◌́; Ú; U◌́; ) LATIN CAPITAL LETTER U WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00DA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00DA }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0055, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00DA }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0055, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00DA }};
+        std::array<char32_t, 1> const c2 = {{ 0x00DA }};
+        std::array<char32_t, 2> const c3 = {{ 0x0055, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00DA }};
+        std::array<char32_t, 2> const c5 = {{ 0x0055, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6174,11 +6174,11 @@ TEST(normalization, nfc_000_062)
     // 00DB;00DB;0055 0302;00DB;0055 0302; 
     // (Û; Û; U◌̂; Û; U◌̂; ) LATIN CAPITAL LETTER U WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00DB }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00DB }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0055, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00DB }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0055, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00DB }};
+        std::array<char32_t, 1> const c2 = {{ 0x00DB }};
+        std::array<char32_t, 2> const c3 = {{ 0x0055, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00DB }};
+        std::array<char32_t, 2> const c5 = {{ 0x0055, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6273,11 +6273,11 @@ TEST(normalization, nfc_000_063)
     // 00DC;00DC;0055 0308;00DC;0055 0308; 
     // (Ü; Ü; U◌̈; Ü; U◌̈; ) LATIN CAPITAL LETTER U WITH DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00DC }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00DC }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0055, 0x0308 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00DC }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0055, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00DC }};
+        std::array<char32_t, 1> const c2 = {{ 0x00DC }};
+        std::array<char32_t, 2> const c3 = {{ 0x0055, 0x0308 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00DC }};
+        std::array<char32_t, 2> const c5 = {{ 0x0055, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6372,11 +6372,11 @@ TEST(normalization, nfc_000_064)
     // 00DD;00DD;0059 0301;00DD;0059 0301; 
     // (Ý; Ý; Y◌́; Ý; Y◌́; ) LATIN CAPITAL LETTER Y WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00DD }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00DD }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0059, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00DD }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0059, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00DD }};
+        std::array<char32_t, 1> const c2 = {{ 0x00DD }};
+        std::array<char32_t, 2> const c3 = {{ 0x0059, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00DD }};
+        std::array<char32_t, 2> const c5 = {{ 0x0059, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6471,11 +6471,11 @@ TEST(normalization, nfc_000_065)
     // 00E0;00E0;0061 0300;00E0;0061 0300; 
     // (à; à; a◌̀; à; a◌̀; ) LATIN SMALL LETTER A WITH GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00E0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00E0 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00E0 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00E0 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00E0 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0061, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00E0 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0061, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6570,11 +6570,11 @@ TEST(normalization, nfc_000_066)
     // 00E1;00E1;0061 0301;00E1;0061 0301; 
     // (á; á; a◌́; á; a◌́; ) LATIN SMALL LETTER A WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00E1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00E1 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00E1 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00E1 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00E1 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0061, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00E1 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0061, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6669,11 +6669,11 @@ TEST(normalization, nfc_000_067)
     // 00E2;00E2;0061 0302;00E2;0061 0302; 
     // (â; â; a◌̂; â; a◌̂; ) LATIN SMALL LETTER A WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00E2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00E2 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00E2 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00E2 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00E2 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0061, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00E2 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0061, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6768,11 +6768,11 @@ TEST(normalization, nfc_000_068)
     // 00E3;00E3;0061 0303;00E3;0061 0303; 
     // (ã; ã; a◌̃; ã; a◌̃; ) LATIN SMALL LETTER A WITH TILDE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00E3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00E3 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0303 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00E3 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0303 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00E3 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00E3 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0061, 0x0303 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00E3 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0061, 0x0303 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6867,11 +6867,11 @@ TEST(normalization, nfc_000_069)
     // 00E4;00E4;0061 0308;00E4;0061 0308; 
     // (ä; ä; a◌̈; ä; a◌̈; ) LATIN SMALL LETTER A WITH DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00E4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00E4 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0308 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00E4 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00E4 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00E4 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0061, 0x0308 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00E4 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0061, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6966,11 +6966,11 @@ TEST(normalization, nfc_000_070)
     // 00E5;00E5;0061 030A;00E5;0061 030A; 
     // (å; å; a◌̊; å; a◌̊; ) LATIN SMALL LETTER A WITH RING ABOVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00E5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00E5 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x030A }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00E5 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x030A }};
+        std::array<char32_t, 1> const c1 = {{ 0x00E5 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00E5 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0061, 0x030A }};
+        std::array<char32_t, 1> const c4 = {{ 0x00E5 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0061, 0x030A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7065,11 +7065,11 @@ TEST(normalization, nfc_000_071)
     // 00E7;00E7;0063 0327;00E7;0063 0327; 
     // (ç; ç; c◌̧; ç; c◌̧; ) LATIN SMALL LETTER C WITH CEDILLA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00E7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00E7 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0063, 0x0327 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00E7 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0063, 0x0327 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00E7 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00E7 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0063, 0x0327 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00E7 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0063, 0x0327 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7164,11 +7164,11 @@ TEST(normalization, nfc_000_072)
     // 00E8;00E8;0065 0300;00E8;0065 0300; 
     // (è; è; e◌̀; è; e◌̀; ) LATIN SMALL LETTER E WITH GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00E8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00E8 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00E8 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00E8 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00E8 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0065, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00E8 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0065, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7263,11 +7263,11 @@ TEST(normalization, nfc_000_073)
     // 00E9;00E9;0065 0301;00E9;0065 0301; 
     // (é; é; e◌́; é; e◌́; ) LATIN SMALL LETTER E WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00E9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00E9 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00E9 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00E9 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00E9 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0065, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00E9 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0065, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7362,11 +7362,11 @@ TEST(normalization, nfc_000_074)
     // 00EA;00EA;0065 0302;00EA;0065 0302; 
     // (ê; ê; e◌̂; ê; e◌̂; ) LATIN SMALL LETTER E WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00EA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00EA }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00EA }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00EA }};
+        std::array<char32_t, 1> const c2 = {{ 0x00EA }};
+        std::array<char32_t, 2> const c3 = {{ 0x0065, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00EA }};
+        std::array<char32_t, 2> const c5 = {{ 0x0065, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7461,11 +7461,11 @@ TEST(normalization, nfc_000_075)
     // 00EB;00EB;0065 0308;00EB;0065 0308; 
     // (ë; ë; e◌̈; ë; e◌̈; ) LATIN SMALL LETTER E WITH DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00EB }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00EB }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0308 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00EB }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00EB }};
+        std::array<char32_t, 1> const c2 = {{ 0x00EB }};
+        std::array<char32_t, 2> const c3 = {{ 0x0065, 0x0308 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00EB }};
+        std::array<char32_t, 2> const c5 = {{ 0x0065, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7560,11 +7560,11 @@ TEST(normalization, nfc_000_076)
     // 00EC;00EC;0069 0300;00EC;0069 0300; 
     // (ì; ì; i◌̀; ì; i◌̀; ) LATIN SMALL LETTER I WITH GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00EC }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00EC }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00EC }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00EC }};
+        std::array<char32_t, 1> const c2 = {{ 0x00EC }};
+        std::array<char32_t, 2> const c3 = {{ 0x0069, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00EC }};
+        std::array<char32_t, 2> const c5 = {{ 0x0069, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7659,11 +7659,11 @@ TEST(normalization, nfc_000_077)
     // 00ED;00ED;0069 0301;00ED;0069 0301; 
     // (í; í; i◌́; í; i◌́; ) LATIN SMALL LETTER I WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00ED }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00ED }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00ED }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00ED }};
+        std::array<char32_t, 1> const c2 = {{ 0x00ED }};
+        std::array<char32_t, 2> const c3 = {{ 0x0069, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00ED }};
+        std::array<char32_t, 2> const c5 = {{ 0x0069, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7758,11 +7758,11 @@ TEST(normalization, nfc_000_078)
     // 00EE;00EE;0069 0302;00EE;0069 0302; 
     // (î; î; i◌̂; î; i◌̂; ) LATIN SMALL LETTER I WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00EE }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00EE }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00EE }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00EE }};
+        std::array<char32_t, 1> const c2 = {{ 0x00EE }};
+        std::array<char32_t, 2> const c3 = {{ 0x0069, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00EE }};
+        std::array<char32_t, 2> const c5 = {{ 0x0069, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7857,11 +7857,11 @@ TEST(normalization, nfc_000_079)
     // 00EF;00EF;0069 0308;00EF;0069 0308; 
     // (ï; ï; i◌̈; ï; i◌̈; ) LATIN SMALL LETTER I WITH DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00EF }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00EF }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0308 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00EF }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00EF }};
+        std::array<char32_t, 1> const c2 = {{ 0x00EF }};
+        std::array<char32_t, 2> const c3 = {{ 0x0069, 0x0308 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00EF }};
+        std::array<char32_t, 2> const c5 = {{ 0x0069, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7956,11 +7956,11 @@ TEST(normalization, nfc_000_080)
     // 00F1;00F1;006E 0303;00F1;006E 0303; 
     // (ñ; ñ; n◌̃; ñ; n◌̃; ) LATIN SMALL LETTER N WITH TILDE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00F1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00F1 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006E, 0x0303 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00F1 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006E, 0x0303 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00F1 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00F1 }};
+        std::array<char32_t, 2> const c3 = {{ 0x006E, 0x0303 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00F1 }};
+        std::array<char32_t, 2> const c5 = {{ 0x006E, 0x0303 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8055,11 +8055,11 @@ TEST(normalization, nfc_000_081)
     // 00F2;00F2;006F 0300;00F2;006F 0300; 
     // (ò; ò; o◌̀; ò; o◌̀; ) LATIN SMALL LETTER O WITH GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00F2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00F2 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006F, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00F2 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006F, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00F2 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00F2 }};
+        std::array<char32_t, 2> const c3 = {{ 0x006F, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00F2 }};
+        std::array<char32_t, 2> const c5 = {{ 0x006F, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8154,11 +8154,11 @@ TEST(normalization, nfc_000_082)
     // 00F3;00F3;006F 0301;00F3;006F 0301; 
     // (ó; ó; o◌́; ó; o◌́; ) LATIN SMALL LETTER O WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00F3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00F3 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006F, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00F3 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006F, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00F3 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00F3 }};
+        std::array<char32_t, 2> const c3 = {{ 0x006F, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00F3 }};
+        std::array<char32_t, 2> const c5 = {{ 0x006F, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8253,11 +8253,11 @@ TEST(normalization, nfc_000_083)
     // 00F4;00F4;006F 0302;00F4;006F 0302; 
     // (ô; ô; o◌̂; ô; o◌̂; ) LATIN SMALL LETTER O WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00F4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00F4 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006F, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00F4 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006F, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00F4 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00F4 }};
+        std::array<char32_t, 2> const c3 = {{ 0x006F, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00F4 }};
+        std::array<char32_t, 2> const c5 = {{ 0x006F, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8352,11 +8352,11 @@ TEST(normalization, nfc_000_084)
     // 00F5;00F5;006F 0303;00F5;006F 0303; 
     // (õ; õ; o◌̃; õ; o◌̃; ) LATIN SMALL LETTER O WITH TILDE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00F5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00F5 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006F, 0x0303 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00F5 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006F, 0x0303 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00F5 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00F5 }};
+        std::array<char32_t, 2> const c3 = {{ 0x006F, 0x0303 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00F5 }};
+        std::array<char32_t, 2> const c5 = {{ 0x006F, 0x0303 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8451,11 +8451,11 @@ TEST(normalization, nfc_000_085)
     // 00F6;00F6;006F 0308;00F6;006F 0308; 
     // (ö; ö; o◌̈; ö; o◌̈; ) LATIN SMALL LETTER O WITH DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00F6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00F6 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006F, 0x0308 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00F6 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006F, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00F6 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00F6 }};
+        std::array<char32_t, 2> const c3 = {{ 0x006F, 0x0308 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00F6 }};
+        std::array<char32_t, 2> const c5 = {{ 0x006F, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8550,11 +8550,11 @@ TEST(normalization, nfc_000_086)
     // 00F9;00F9;0075 0300;00F9;0075 0300; 
     // (ù; ù; u◌̀; ù; u◌̀; ) LATIN SMALL LETTER U WITH GRAVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00F9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00F9 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0075, 0x0300 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00F9 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0075, 0x0300 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00F9 }};
+        std::array<char32_t, 1> const c2 = {{ 0x00F9 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0075, 0x0300 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00F9 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0075, 0x0300 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8649,11 +8649,11 @@ TEST(normalization, nfc_000_087)
     // 00FA;00FA;0075 0301;00FA;0075 0301; 
     // (ú; ú; u◌́; ú; u◌́; ) LATIN SMALL LETTER U WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00FA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00FA }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0075, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00FA }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0075, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00FA }};
+        std::array<char32_t, 1> const c2 = {{ 0x00FA }};
+        std::array<char32_t, 2> const c3 = {{ 0x0075, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00FA }};
+        std::array<char32_t, 2> const c5 = {{ 0x0075, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8748,11 +8748,11 @@ TEST(normalization, nfc_000_088)
     // 00FB;00FB;0075 0302;00FB;0075 0302; 
     // (û; û; u◌̂; û; u◌̂; ) LATIN SMALL LETTER U WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00FB }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00FB }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0075, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00FB }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0075, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00FB }};
+        std::array<char32_t, 1> const c2 = {{ 0x00FB }};
+        std::array<char32_t, 2> const c3 = {{ 0x0075, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00FB }};
+        std::array<char32_t, 2> const c5 = {{ 0x0075, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8847,11 +8847,11 @@ TEST(normalization, nfc_000_089)
     // 00FC;00FC;0075 0308;00FC;0075 0308; 
     // (ü; ü; u◌̈; ü; u◌̈; ) LATIN SMALL LETTER U WITH DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00FC }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00FC }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0075, 0x0308 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00FC }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0075, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00FC }};
+        std::array<char32_t, 1> const c2 = {{ 0x00FC }};
+        std::array<char32_t, 2> const c3 = {{ 0x0075, 0x0308 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00FC }};
+        std::array<char32_t, 2> const c5 = {{ 0x0075, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8946,11 +8946,11 @@ TEST(normalization, nfc_000_090)
     // 00FD;00FD;0079 0301;00FD;0079 0301; 
     // (ý; ý; y◌́; ý; y◌́; ) LATIN SMALL LETTER Y WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00FD }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00FD }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0079, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00FD }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0079, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00FD }};
+        std::array<char32_t, 1> const c2 = {{ 0x00FD }};
+        std::array<char32_t, 2> const c3 = {{ 0x0079, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00FD }};
+        std::array<char32_t, 2> const c5 = {{ 0x0079, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9045,11 +9045,11 @@ TEST(normalization, nfc_000_091)
     // 00FF;00FF;0079 0308;00FF;0079 0308; 
     // (ÿ; ÿ; y◌̈; ÿ; y◌̈; ) LATIN SMALL LETTER Y WITH DIAERESIS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x00FF }};
-        std::array<uint32_t, 1> const c2 = {{ 0x00FF }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0079, 0x0308 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x00FF }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0079, 0x0308 }};
+        std::array<char32_t, 1> const c1 = {{ 0x00FF }};
+        std::array<char32_t, 1> const c2 = {{ 0x00FF }};
+        std::array<char32_t, 2> const c3 = {{ 0x0079, 0x0308 }};
+        std::array<char32_t, 1> const c4 = {{ 0x00FF }};
+        std::array<char32_t, 2> const c5 = {{ 0x0079, 0x0308 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9144,11 +9144,11 @@ TEST(normalization, nfc_000_092)
     // 0100;0100;0041 0304;0100;0041 0304; 
     // (Ā; Ā; A◌̄; Ā; A◌̄; ) LATIN CAPITAL LETTER A WITH MACRON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0100 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0100 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x0304 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0100 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0304 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0100 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0100 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0041, 0x0304 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0100 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0041, 0x0304 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9243,11 +9243,11 @@ TEST(normalization, nfc_000_093)
     // 0101;0101;0061 0304;0101;0061 0304; 
     // (ā; ā; a◌̄; ā; a◌̄; ) LATIN SMALL LETTER A WITH MACRON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0101 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0101 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0304 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0101 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0304 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0101 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0101 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0061, 0x0304 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0101 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0061, 0x0304 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9342,11 +9342,11 @@ TEST(normalization, nfc_000_094)
     // 0102;0102;0041 0306;0102;0041 0306; 
     // (Ă; Ă; A◌̆; Ă; A◌̆; ) LATIN CAPITAL LETTER A WITH BREVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0102 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0102 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x0306 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0102 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0306 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0102 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0102 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0041, 0x0306 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0102 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0041, 0x0306 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9441,11 +9441,11 @@ TEST(normalization, nfc_000_095)
     // 0103;0103;0061 0306;0103;0061 0306; 
     // (ă; ă; a◌̆; ă; a◌̆; ) LATIN SMALL LETTER A WITH BREVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0103 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0103 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0306 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0103 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0306 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0103 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0103 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0061, 0x0306 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0103 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0061, 0x0306 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9540,11 +9540,11 @@ TEST(normalization, nfc_000_096)
     // 0104;0104;0041 0328;0104;0041 0328; 
     // (Ą; Ą; A◌̨; Ą; A◌̨; ) LATIN CAPITAL LETTER A WITH OGONEK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0104 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0104 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x0328 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0104 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0328 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0104 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0104 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0041, 0x0328 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0104 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0041, 0x0328 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9639,11 +9639,11 @@ TEST(normalization, nfc_000_097)
     // 0105;0105;0061 0328;0105;0061 0328; 
     // (ą; ą; a◌̨; ą; a◌̨; ) LATIN SMALL LETTER A WITH OGONEK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0105 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0105 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0328 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0105 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0328 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0105 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0105 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0061, 0x0328 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0105 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0061, 0x0328 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9738,11 +9738,11 @@ TEST(normalization, nfc_000_098)
     // 0106;0106;0043 0301;0106;0043 0301; 
     // (Ć; Ć; C◌́; Ć; C◌́; ) LATIN CAPITAL LETTER C WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0106 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0106 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0043, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0106 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0043, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0106 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0106 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0043, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0106 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0043, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9837,11 +9837,11 @@ TEST(normalization, nfc_000_099)
     // 0107;0107;0063 0301;0107;0063 0301; 
     // (ć; ć; c◌́; ć; c◌́; ) LATIN SMALL LETTER C WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0107 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0107 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0063, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0107 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0063, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0107 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0107 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0063, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0107 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0063, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9936,11 +9936,11 @@ TEST(normalization, nfc_000_100)
     // 0108;0108;0043 0302;0108;0043 0302; 
     // (Ĉ; Ĉ; C◌̂; Ĉ; C◌̂; ) LATIN CAPITAL LETTER C WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0108 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0108 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0043, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0108 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0043, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0108 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0108 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0043, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0108 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0043, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10035,11 +10035,11 @@ TEST(normalization, nfc_000_101)
     // 0109;0109;0063 0302;0109;0063 0302; 
     // (ĉ; ĉ; c◌̂; ĉ; c◌̂; ) LATIN SMALL LETTER C WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0109 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0109 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0063, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0109 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0063, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0109 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0109 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0063, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0109 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0063, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10134,11 +10134,11 @@ TEST(normalization, nfc_000_102)
     // 010A;010A;0043 0307;010A;0043 0307; 
     // (Ċ; Ċ; C◌̇; Ċ; C◌̇; ) LATIN CAPITAL LETTER C WITH DOT ABOVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x010A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x010A }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0043, 0x0307 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x010A }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0043, 0x0307 }};
+        std::array<char32_t, 1> const c1 = {{ 0x010A }};
+        std::array<char32_t, 1> const c2 = {{ 0x010A }};
+        std::array<char32_t, 2> const c3 = {{ 0x0043, 0x0307 }};
+        std::array<char32_t, 1> const c4 = {{ 0x010A }};
+        std::array<char32_t, 2> const c5 = {{ 0x0043, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10233,11 +10233,11 @@ TEST(normalization, nfc_000_103)
     // 010B;010B;0063 0307;010B;0063 0307; 
     // (ċ; ċ; c◌̇; ċ; c◌̇; ) LATIN SMALL LETTER C WITH DOT ABOVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x010B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x010B }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0063, 0x0307 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x010B }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0063, 0x0307 }};
+        std::array<char32_t, 1> const c1 = {{ 0x010B }};
+        std::array<char32_t, 1> const c2 = {{ 0x010B }};
+        std::array<char32_t, 2> const c3 = {{ 0x0063, 0x0307 }};
+        std::array<char32_t, 1> const c4 = {{ 0x010B }};
+        std::array<char32_t, 2> const c5 = {{ 0x0063, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10332,11 +10332,11 @@ TEST(normalization, nfc_000_104)
     // 010C;010C;0043 030C;010C;0043 030C; 
     // (Č; Č; C◌̌; Č; C◌̌; ) LATIN CAPITAL LETTER C WITH CARON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x010C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x010C }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0043, 0x030C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x010C }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0043, 0x030C }};
+        std::array<char32_t, 1> const c1 = {{ 0x010C }};
+        std::array<char32_t, 1> const c2 = {{ 0x010C }};
+        std::array<char32_t, 2> const c3 = {{ 0x0043, 0x030C }};
+        std::array<char32_t, 1> const c4 = {{ 0x010C }};
+        std::array<char32_t, 2> const c5 = {{ 0x0043, 0x030C }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10431,11 +10431,11 @@ TEST(normalization, nfc_000_105)
     // 010D;010D;0063 030C;010D;0063 030C; 
     // (č; č; c◌̌; č; c◌̌; ) LATIN SMALL LETTER C WITH CARON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x010D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x010D }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0063, 0x030C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x010D }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0063, 0x030C }};
+        std::array<char32_t, 1> const c1 = {{ 0x010D }};
+        std::array<char32_t, 1> const c2 = {{ 0x010D }};
+        std::array<char32_t, 2> const c3 = {{ 0x0063, 0x030C }};
+        std::array<char32_t, 1> const c4 = {{ 0x010D }};
+        std::array<char32_t, 2> const c5 = {{ 0x0063, 0x030C }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10530,11 +10530,11 @@ TEST(normalization, nfc_000_106)
     // 010E;010E;0044 030C;010E;0044 030C; 
     // (Ď; Ď; D◌̌; Ď; D◌̌; ) LATIN CAPITAL LETTER D WITH CARON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x010E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x010E }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0044, 0x030C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x010E }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0044, 0x030C }};
+        std::array<char32_t, 1> const c1 = {{ 0x010E }};
+        std::array<char32_t, 1> const c2 = {{ 0x010E }};
+        std::array<char32_t, 2> const c3 = {{ 0x0044, 0x030C }};
+        std::array<char32_t, 1> const c4 = {{ 0x010E }};
+        std::array<char32_t, 2> const c5 = {{ 0x0044, 0x030C }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10629,11 +10629,11 @@ TEST(normalization, nfc_000_107)
     // 010F;010F;0064 030C;010F;0064 030C; 
     // (ď; ď; d◌̌; ď; d◌̌; ) LATIN SMALL LETTER D WITH CARON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x010F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x010F }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0064, 0x030C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x010F }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0064, 0x030C }};
+        std::array<char32_t, 1> const c1 = {{ 0x010F }};
+        std::array<char32_t, 1> const c2 = {{ 0x010F }};
+        std::array<char32_t, 2> const c3 = {{ 0x0064, 0x030C }};
+        std::array<char32_t, 1> const c4 = {{ 0x010F }};
+        std::array<char32_t, 2> const c5 = {{ 0x0064, 0x030C }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10728,11 +10728,11 @@ TEST(normalization, nfc_000_108)
     // 0112;0112;0045 0304;0112;0045 0304; 
     // (Ē; Ē; E◌̄; Ē; E◌̄; ) LATIN CAPITAL LETTER E WITH MACRON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0112 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0112 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0304 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0112 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0304 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0112 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0112 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0304 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0112 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0304 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10827,11 +10827,11 @@ TEST(normalization, nfc_000_109)
     // 0113;0113;0065 0304;0113;0065 0304; 
     // (ē; ē; e◌̄; ē; e◌̄; ) LATIN SMALL LETTER E WITH MACRON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0113 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0113 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0304 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0113 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0304 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0113 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0113 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0065, 0x0304 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0113 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0065, 0x0304 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10926,11 +10926,11 @@ TEST(normalization, nfc_000_110)
     // 0114;0114;0045 0306;0114;0045 0306; 
     // (Ĕ; Ĕ; E◌̆; Ĕ; E◌̆; ) LATIN CAPITAL LETTER E WITH BREVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0114 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0114 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0306 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0114 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0306 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0114 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0114 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0306 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0114 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0306 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11025,11 +11025,11 @@ TEST(normalization, nfc_000_111)
     // 0115;0115;0065 0306;0115;0065 0306; 
     // (ĕ; ĕ; e◌̆; ĕ; e◌̆; ) LATIN SMALL LETTER E WITH BREVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0115 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0115 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0306 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0115 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0306 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0115 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0115 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0065, 0x0306 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0115 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0065, 0x0306 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11124,11 +11124,11 @@ TEST(normalization, nfc_000_112)
     // 0116;0116;0045 0307;0116;0045 0307; 
     // (Ė; Ė; E◌̇; Ė; E◌̇; ) LATIN CAPITAL LETTER E WITH DOT ABOVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0116 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0116 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0307 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0116 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0307 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0116 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0116 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0307 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0116 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11223,11 +11223,11 @@ TEST(normalization, nfc_000_113)
     // 0117;0117;0065 0307;0117;0065 0307; 
     // (ė; ė; e◌̇; ė; e◌̇; ) LATIN SMALL LETTER E WITH DOT ABOVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0117 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0117 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0307 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0117 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0307 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0117 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0117 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0065, 0x0307 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0117 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0065, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11322,11 +11322,11 @@ TEST(normalization, nfc_000_114)
     // 0118;0118;0045 0328;0118;0045 0328; 
     // (Ę; Ę; E◌̨; Ę; E◌̨; ) LATIN CAPITAL LETTER E WITH OGONEK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0118 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0118 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0328 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0118 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0328 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0118 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0118 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x0328 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0118 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x0328 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11421,11 +11421,11 @@ TEST(normalization, nfc_000_115)
     // 0119;0119;0065 0328;0119;0065 0328; 
     // (ę; ę; e◌̨; ę; e◌̨; ) LATIN SMALL LETTER E WITH OGONEK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0119 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0119 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0328 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0119 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0328 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0119 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0119 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0065, 0x0328 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0119 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0065, 0x0328 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11520,11 +11520,11 @@ TEST(normalization, nfc_000_116)
     // 011A;011A;0045 030C;011A;0045 030C; 
     // (Ě; Ě; E◌̌; Ě; E◌̌; ) LATIN CAPITAL LETTER E WITH CARON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x011A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x011A }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x030C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x011A }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x030C }};
+        std::array<char32_t, 1> const c1 = {{ 0x011A }};
+        std::array<char32_t, 1> const c2 = {{ 0x011A }};
+        std::array<char32_t, 2> const c3 = {{ 0x0045, 0x030C }};
+        std::array<char32_t, 1> const c4 = {{ 0x011A }};
+        std::array<char32_t, 2> const c5 = {{ 0x0045, 0x030C }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11619,11 +11619,11 @@ TEST(normalization, nfc_000_117)
     // 011B;011B;0065 030C;011B;0065 030C; 
     // (ě; ě; e◌̌; ě; e◌̌; ) LATIN SMALL LETTER E WITH CARON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x011B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x011B }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x030C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x011B }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x030C }};
+        std::array<char32_t, 1> const c1 = {{ 0x011B }};
+        std::array<char32_t, 1> const c2 = {{ 0x011B }};
+        std::array<char32_t, 2> const c3 = {{ 0x0065, 0x030C }};
+        std::array<char32_t, 1> const c4 = {{ 0x011B }};
+        std::array<char32_t, 2> const c5 = {{ 0x0065, 0x030C }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11718,11 +11718,11 @@ TEST(normalization, nfc_000_118)
     // 011C;011C;0047 0302;011C;0047 0302; 
     // (Ĝ; Ĝ; G◌̂; Ĝ; G◌̂; ) LATIN CAPITAL LETTER G WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x011C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x011C }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0047, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x011C }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0047, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x011C }};
+        std::array<char32_t, 1> const c2 = {{ 0x011C }};
+        std::array<char32_t, 2> const c3 = {{ 0x0047, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x011C }};
+        std::array<char32_t, 2> const c5 = {{ 0x0047, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11817,11 +11817,11 @@ TEST(normalization, nfc_000_119)
     // 011D;011D;0067 0302;011D;0067 0302; 
     // (ĝ; ĝ; g◌̂; ĝ; g◌̂; ) LATIN SMALL LETTER G WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x011D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x011D }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0067, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x011D }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0067, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x011D }};
+        std::array<char32_t, 1> const c2 = {{ 0x011D }};
+        std::array<char32_t, 2> const c3 = {{ 0x0067, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x011D }};
+        std::array<char32_t, 2> const c5 = {{ 0x0067, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11916,11 +11916,11 @@ TEST(normalization, nfc_000_120)
     // 011E;011E;0047 0306;011E;0047 0306; 
     // (Ğ; Ğ; G◌̆; Ğ; G◌̆; ) LATIN CAPITAL LETTER G WITH BREVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x011E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x011E }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0047, 0x0306 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x011E }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0047, 0x0306 }};
+        std::array<char32_t, 1> const c1 = {{ 0x011E }};
+        std::array<char32_t, 1> const c2 = {{ 0x011E }};
+        std::array<char32_t, 2> const c3 = {{ 0x0047, 0x0306 }};
+        std::array<char32_t, 1> const c4 = {{ 0x011E }};
+        std::array<char32_t, 2> const c5 = {{ 0x0047, 0x0306 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12015,11 +12015,11 @@ TEST(normalization, nfc_000_121)
     // 011F;011F;0067 0306;011F;0067 0306; 
     // (ğ; ğ; g◌̆; ğ; g◌̆; ) LATIN SMALL LETTER G WITH BREVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x011F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x011F }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0067, 0x0306 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x011F }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0067, 0x0306 }};
+        std::array<char32_t, 1> const c1 = {{ 0x011F }};
+        std::array<char32_t, 1> const c2 = {{ 0x011F }};
+        std::array<char32_t, 2> const c3 = {{ 0x0067, 0x0306 }};
+        std::array<char32_t, 1> const c4 = {{ 0x011F }};
+        std::array<char32_t, 2> const c5 = {{ 0x0067, 0x0306 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12114,11 +12114,11 @@ TEST(normalization, nfc_000_122)
     // 0120;0120;0047 0307;0120;0047 0307; 
     // (Ġ; Ġ; G◌̇; Ġ; G◌̇; ) LATIN CAPITAL LETTER G WITH DOT ABOVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0120 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0120 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0047, 0x0307 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0120 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0047, 0x0307 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0120 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0120 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0047, 0x0307 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0120 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0047, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12213,11 +12213,11 @@ TEST(normalization, nfc_000_123)
     // 0121;0121;0067 0307;0121;0067 0307; 
     // (ġ; ġ; g◌̇; ġ; g◌̇; ) LATIN SMALL LETTER G WITH DOT ABOVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0121 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0121 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0067, 0x0307 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0121 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0067, 0x0307 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0121 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0121 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0067, 0x0307 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0121 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0067, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12312,11 +12312,11 @@ TEST(normalization, nfc_000_124)
     // 0122;0122;0047 0327;0122;0047 0327; 
     // (Ģ; Ģ; G◌̧; Ģ; G◌̧; ) LATIN CAPITAL LETTER G WITH CEDILLA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0122 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0122 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0047, 0x0327 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0122 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0047, 0x0327 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0122 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0122 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0047, 0x0327 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0122 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0047, 0x0327 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12411,11 +12411,11 @@ TEST(normalization, nfc_000_125)
     // 0123;0123;0067 0327;0123;0067 0327; 
     // (ģ; ģ; g◌̧; ģ; g◌̧; ) LATIN SMALL LETTER G WITH CEDILLA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0123 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0123 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0067, 0x0327 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0123 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0067, 0x0327 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0123 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0123 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0067, 0x0327 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0123 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0067, 0x0327 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12510,11 +12510,11 @@ TEST(normalization, nfc_000_126)
     // 0124;0124;0048 0302;0124;0048 0302; 
     // (Ĥ; Ĥ; H◌̂; Ĥ; H◌̂; ) LATIN CAPITAL LETTER H WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0124 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0124 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0048, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0124 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0048, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0124 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0124 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0048, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0124 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0048, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12609,11 +12609,11 @@ TEST(normalization, nfc_000_127)
     // 0125;0125;0068 0302;0125;0068 0302; 
     // (ĥ; ĥ; h◌̂; ĥ; h◌̂; ) LATIN SMALL LETTER H WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0125 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0125 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0068, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0125 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0068, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0125 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0125 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0068, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0125 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0068, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12708,11 +12708,11 @@ TEST(normalization, nfc_000_128)
     // 0128;0128;0049 0303;0128;0049 0303; 
     // (Ĩ; Ĩ; I◌̃; Ĩ; I◌̃; ) LATIN CAPITAL LETTER I WITH TILDE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0128 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0128 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0049, 0x0303 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0128 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0303 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0128 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0128 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0049, 0x0303 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0128 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0049, 0x0303 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12807,11 +12807,11 @@ TEST(normalization, nfc_000_129)
     // 0129;0129;0069 0303;0129;0069 0303; 
     // (ĩ; ĩ; i◌̃; ĩ; i◌̃; ) LATIN SMALL LETTER I WITH TILDE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0129 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0129 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0303 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0129 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0303 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0129 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0129 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0069, 0x0303 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0129 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0069, 0x0303 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12906,11 +12906,11 @@ TEST(normalization, nfc_000_130)
     // 012A;012A;0049 0304;012A;0049 0304; 
     // (Ī; Ī; I◌̄; Ī; I◌̄; ) LATIN CAPITAL LETTER I WITH MACRON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x012A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x012A }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0049, 0x0304 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x012A }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0304 }};
+        std::array<char32_t, 1> const c1 = {{ 0x012A }};
+        std::array<char32_t, 1> const c2 = {{ 0x012A }};
+        std::array<char32_t, 2> const c3 = {{ 0x0049, 0x0304 }};
+        std::array<char32_t, 1> const c4 = {{ 0x012A }};
+        std::array<char32_t, 2> const c5 = {{ 0x0049, 0x0304 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13005,11 +13005,11 @@ TEST(normalization, nfc_000_131)
     // 012B;012B;0069 0304;012B;0069 0304; 
     // (ī; ī; i◌̄; ī; i◌̄; ) LATIN SMALL LETTER I WITH MACRON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x012B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x012B }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0304 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x012B }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0304 }};
+        std::array<char32_t, 1> const c1 = {{ 0x012B }};
+        std::array<char32_t, 1> const c2 = {{ 0x012B }};
+        std::array<char32_t, 2> const c3 = {{ 0x0069, 0x0304 }};
+        std::array<char32_t, 1> const c4 = {{ 0x012B }};
+        std::array<char32_t, 2> const c5 = {{ 0x0069, 0x0304 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13104,11 +13104,11 @@ TEST(normalization, nfc_000_132)
     // 012C;012C;0049 0306;012C;0049 0306; 
     // (Ĭ; Ĭ; I◌̆; Ĭ; I◌̆; ) LATIN CAPITAL LETTER I WITH BREVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x012C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x012C }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0049, 0x0306 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x012C }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0306 }};
+        std::array<char32_t, 1> const c1 = {{ 0x012C }};
+        std::array<char32_t, 1> const c2 = {{ 0x012C }};
+        std::array<char32_t, 2> const c3 = {{ 0x0049, 0x0306 }};
+        std::array<char32_t, 1> const c4 = {{ 0x012C }};
+        std::array<char32_t, 2> const c5 = {{ 0x0049, 0x0306 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13203,11 +13203,11 @@ TEST(normalization, nfc_000_133)
     // 012D;012D;0069 0306;012D;0069 0306; 
     // (ĭ; ĭ; i◌̆; ĭ; i◌̆; ) LATIN SMALL LETTER I WITH BREVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x012D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x012D }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0306 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x012D }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0306 }};
+        std::array<char32_t, 1> const c1 = {{ 0x012D }};
+        std::array<char32_t, 1> const c2 = {{ 0x012D }};
+        std::array<char32_t, 2> const c3 = {{ 0x0069, 0x0306 }};
+        std::array<char32_t, 1> const c4 = {{ 0x012D }};
+        std::array<char32_t, 2> const c5 = {{ 0x0069, 0x0306 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13302,11 +13302,11 @@ TEST(normalization, nfc_000_134)
     // 012E;012E;0049 0328;012E;0049 0328; 
     // (Į; Į; I◌̨; Į; I◌̨; ) LATIN CAPITAL LETTER I WITH OGONEK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x012E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x012E }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0049, 0x0328 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x012E }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0328 }};
+        std::array<char32_t, 1> const c1 = {{ 0x012E }};
+        std::array<char32_t, 1> const c2 = {{ 0x012E }};
+        std::array<char32_t, 2> const c3 = {{ 0x0049, 0x0328 }};
+        std::array<char32_t, 1> const c4 = {{ 0x012E }};
+        std::array<char32_t, 2> const c5 = {{ 0x0049, 0x0328 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13401,11 +13401,11 @@ TEST(normalization, nfc_000_135)
     // 012F;012F;0069 0328;012F;0069 0328; 
     // (į; į; i◌̨; į; i◌̨; ) LATIN SMALL LETTER I WITH OGONEK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x012F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x012F }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0328 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x012F }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0328 }};
+        std::array<char32_t, 1> const c1 = {{ 0x012F }};
+        std::array<char32_t, 1> const c2 = {{ 0x012F }};
+        std::array<char32_t, 2> const c3 = {{ 0x0069, 0x0328 }};
+        std::array<char32_t, 1> const c4 = {{ 0x012F }};
+        std::array<char32_t, 2> const c5 = {{ 0x0069, 0x0328 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13500,11 +13500,11 @@ TEST(normalization, nfc_000_136)
     // 0130;0130;0049 0307;0130;0049 0307; 
     // (İ; İ; I◌̇; İ; I◌̇; ) LATIN CAPITAL LETTER I WITH DOT ABOVE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0130 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0130 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x0049, 0x0307 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0130 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0307 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0130 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0130 }};
+        std::array<char32_t, 2> const c3 = {{ 0x0049, 0x0307 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0130 }};
+        std::array<char32_t, 2> const c5 = {{ 0x0049, 0x0307 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13599,11 +13599,11 @@ TEST(normalization, nfc_000_137)
     // 0132;0132;0132;0049 004A;0049 004A; 
     // (Ĳ; Ĳ; Ĳ; IJ; IJ; ) LATIN CAPITAL LIGATURE IJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0132 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0132 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x0132 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x0049, 0x004A }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x004A }};
+        std::array<char32_t, 1> const c1 = {{ 0x0132 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0132 }};
+        std::array<char32_t, 1> const c3 = {{ 0x0132 }};
+        std::array<char32_t, 2> const c4 = {{ 0x0049, 0x004A }};
+        std::array<char32_t, 2> const c5 = {{ 0x0049, 0x004A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -13698,11 +13698,11 @@ TEST(normalization, nfc_000_138)
     // 0133;0133;0133;0069 006A;0069 006A; 
     // (ĳ; ĳ; ĳ; ij; ij; ) LATIN SMALL LIGATURE IJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0133 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0133 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x0133 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x0069, 0x006A }};
-        std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x006A }};
+        std::array<char32_t, 1> const c1 = {{ 0x0133 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0133 }};
+        std::array<char32_t, 1> const c3 = {{ 0x0133 }};
+        std::array<char32_t, 2> const c4 = {{ 0x0069, 0x006A }};
+        std::array<char32_t, 2> const c5 = {{ 0x0069, 0x006A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -13797,11 +13797,11 @@ TEST(normalization, nfc_000_139)
     // 0134;0134;004A 0302;0134;004A 0302; 
     // (Ĵ; Ĵ; J◌̂; Ĵ; J◌̂; ) LATIN CAPITAL LETTER J WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0134 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0134 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004A, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0134 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004A, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0134 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0134 }};
+        std::array<char32_t, 2> const c3 = {{ 0x004A, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0134 }};
+        std::array<char32_t, 2> const c5 = {{ 0x004A, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13896,11 +13896,11 @@ TEST(normalization, nfc_000_140)
     // 0135;0135;006A 0302;0135;006A 0302; 
     // (ĵ; ĵ; j◌̂; ĵ; j◌̂; ) LATIN SMALL LETTER J WITH CIRCUMFLEX
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0135 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0135 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006A, 0x0302 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0135 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006A, 0x0302 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0135 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0135 }};
+        std::array<char32_t, 2> const c3 = {{ 0x006A, 0x0302 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0135 }};
+        std::array<char32_t, 2> const c5 = {{ 0x006A, 0x0302 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13995,11 +13995,11 @@ TEST(normalization, nfc_000_141)
     // 0136;0136;004B 0327;0136;004B 0327; 
     // (Ķ; Ķ; K◌̧; Ķ; K◌̧; ) LATIN CAPITAL LETTER K WITH CEDILLA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0136 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0136 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004B, 0x0327 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0136 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004B, 0x0327 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0136 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0136 }};
+        std::array<char32_t, 2> const c3 = {{ 0x004B, 0x0327 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0136 }};
+        std::array<char32_t, 2> const c5 = {{ 0x004B, 0x0327 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14094,11 +14094,11 @@ TEST(normalization, nfc_000_142)
     // 0137;0137;006B 0327;0137;006B 0327; 
     // (ķ; ķ; k◌̧; ķ; k◌̧; ) LATIN SMALL LETTER K WITH CEDILLA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0137 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0137 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006B, 0x0327 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0137 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006B, 0x0327 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0137 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0137 }};
+        std::array<char32_t, 2> const c3 = {{ 0x006B, 0x0327 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0137 }};
+        std::array<char32_t, 2> const c5 = {{ 0x006B, 0x0327 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14193,11 +14193,11 @@ TEST(normalization, nfc_000_143)
     // 0139;0139;004C 0301;0139;004C 0301; 
     // (Ĺ; Ĺ; L◌́; Ĺ; L◌́; ) LATIN CAPITAL LETTER L WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0139 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0139 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004C, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0139 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004C, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0139 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0139 }};
+        std::array<char32_t, 2> const c3 = {{ 0x004C, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0139 }};
+        std::array<char32_t, 2> const c5 = {{ 0x004C, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14292,11 +14292,11 @@ TEST(normalization, nfc_000_144)
     // 013A;013A;006C 0301;013A;006C 0301; 
     // (ĺ; ĺ; l◌́; ĺ; l◌́; ) LATIN SMALL LETTER L WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x013A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x013A }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006C, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x013A }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006C, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x013A }};
+        std::array<char32_t, 1> const c2 = {{ 0x013A }};
+        std::array<char32_t, 2> const c3 = {{ 0x006C, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x013A }};
+        std::array<char32_t, 2> const c5 = {{ 0x006C, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14391,11 +14391,11 @@ TEST(normalization, nfc_000_145)
     // 013B;013B;004C 0327;013B;004C 0327; 
     // (Ļ; Ļ; L◌̧; Ļ; L◌̧; ) LATIN CAPITAL LETTER L WITH CEDILLA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x013B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x013B }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004C, 0x0327 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x013B }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004C, 0x0327 }};
+        std::array<char32_t, 1> const c1 = {{ 0x013B }};
+        std::array<char32_t, 1> const c2 = {{ 0x013B }};
+        std::array<char32_t, 2> const c3 = {{ 0x004C, 0x0327 }};
+        std::array<char32_t, 1> const c4 = {{ 0x013B }};
+        std::array<char32_t, 2> const c5 = {{ 0x004C, 0x0327 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14490,11 +14490,11 @@ TEST(normalization, nfc_000_146)
     // 013C;013C;006C 0327;013C;006C 0327; 
     // (ļ; ļ; l◌̧; ļ; l◌̧; ) LATIN SMALL LETTER L WITH CEDILLA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x013C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x013C }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006C, 0x0327 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x013C }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006C, 0x0327 }};
+        std::array<char32_t, 1> const c1 = {{ 0x013C }};
+        std::array<char32_t, 1> const c2 = {{ 0x013C }};
+        std::array<char32_t, 2> const c3 = {{ 0x006C, 0x0327 }};
+        std::array<char32_t, 1> const c4 = {{ 0x013C }};
+        std::array<char32_t, 2> const c5 = {{ 0x006C, 0x0327 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14589,11 +14589,11 @@ TEST(normalization, nfc_000_147)
     // 013D;013D;004C 030C;013D;004C 030C; 
     // (Ľ; Ľ; L◌̌; Ľ; L◌̌; ) LATIN CAPITAL LETTER L WITH CARON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x013D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x013D }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004C, 0x030C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x013D }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004C, 0x030C }};
+        std::array<char32_t, 1> const c1 = {{ 0x013D }};
+        std::array<char32_t, 1> const c2 = {{ 0x013D }};
+        std::array<char32_t, 2> const c3 = {{ 0x004C, 0x030C }};
+        std::array<char32_t, 1> const c4 = {{ 0x013D }};
+        std::array<char32_t, 2> const c5 = {{ 0x004C, 0x030C }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14688,11 +14688,11 @@ TEST(normalization, nfc_000_148)
     // 013E;013E;006C 030C;013E;006C 030C; 
     // (ľ; ľ; l◌̌; ľ; l◌̌; ) LATIN SMALL LETTER L WITH CARON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x013E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x013E }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006C, 0x030C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x013E }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006C, 0x030C }};
+        std::array<char32_t, 1> const c1 = {{ 0x013E }};
+        std::array<char32_t, 1> const c2 = {{ 0x013E }};
+        std::array<char32_t, 2> const c3 = {{ 0x006C, 0x030C }};
+        std::array<char32_t, 1> const c4 = {{ 0x013E }};
+        std::array<char32_t, 2> const c5 = {{ 0x006C, 0x030C }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14787,11 +14787,11 @@ TEST(normalization, nfc_000_149)
     // 013F;013F;013F;004C 00B7;004C 00B7; 
     // (Ŀ; Ŀ; Ŀ; L·; L·; ) LATIN CAPITAL LETTER L WITH MIDDLE DOT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x013F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x013F }};
-        std::array<uint32_t, 1> const c3 = {{ 0x013F }};
-        std::array<uint32_t, 2> const c4 = {{ 0x004C, 0x00B7 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004C, 0x00B7 }};
+        std::array<char32_t, 1> const c1 = {{ 0x013F }};
+        std::array<char32_t, 1> const c2 = {{ 0x013F }};
+        std::array<char32_t, 1> const c3 = {{ 0x013F }};
+        std::array<char32_t, 2> const c4 = {{ 0x004C, 0x00B7 }};
+        std::array<char32_t, 2> const c5 = {{ 0x004C, 0x00B7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -14886,11 +14886,11 @@ TEST(normalization, nfc_000_150)
     // 0140;0140;0140;006C 00B7;006C 00B7; 
     // (ŀ; ŀ; ŀ; l·; l·; ) LATIN SMALL LETTER L WITH MIDDLE DOT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0140 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0140 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x0140 }};
-        std::array<uint32_t, 2> const c4 = {{ 0x006C, 0x00B7 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006C, 0x00B7 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0140 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0140 }};
+        std::array<char32_t, 1> const c3 = {{ 0x0140 }};
+        std::array<char32_t, 2> const c4 = {{ 0x006C, 0x00B7 }};
+        std::array<char32_t, 2> const c5 = {{ 0x006C, 0x00B7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -14985,11 +14985,11 @@ TEST(normalization, nfc_000_151)
     // 0143;0143;004E 0301;0143;004E 0301; 
     // (Ń; Ń; N◌́; Ń; N◌́; ) LATIN CAPITAL LETTER N WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0143 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0143 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x004E, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0143 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x004E, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0143 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0143 }};
+        std::array<char32_t, 2> const c3 = {{ 0x004E, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0143 }};
+        std::array<char32_t, 2> const c5 = {{ 0x004E, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -15084,11 +15084,11 @@ TEST(normalization, nfc_000_152)
     // 0144;0144;006E 0301;0144;006E 0301; 
     // (ń; ń; n◌́; ń; n◌́; ) LATIN SMALL LETTER N WITH ACUTE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0x0144 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x0144 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x006E, 0x0301 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x0144 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x006E, 0x0301 }};
+        std::array<char32_t, 1> const c1 = {{ 0x0144 }};
+        std::array<char32_t, 1> const c2 = {{ 0x0144 }};
+        std::array<char32_t, 2> const c3 = {{ 0x006E, 0x0301 }};
+        std::array<char32_t, 1> const c4 = {{ 0x0144 }};
+        std::array<char32_t, 2> const c5 = {{ 0x006E, 0x0301 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
