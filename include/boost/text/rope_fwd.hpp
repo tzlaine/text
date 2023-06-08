@@ -19,7 +19,7 @@ namespace boost { namespace text {
         unused. */
     template<
         nf Normalization,
-        typename Char = char,
+        typename Char = char8_t,
         typename String = std::basic_string<Char>>
 #if BOOST_TEXT_USE_CONCEPTS
         // clang-format off
@@ -34,7 +34,7 @@ namespace boost { namespace text {
         in normalization form `Normalization`. */
     template<
         nf Normalization,
-        typename Char = char,
+        typename Char = char8_t,
         typename String = std::basic_string<Char>>
 #if BOOST_TEXT_USE_CONCEPTS
         // clang-format off
@@ -46,11 +46,11 @@ namespace boost { namespace text {
 
     /** The specialization of `basic_rope` that should be used in most
         situations. */
-    using rope = basic_rope<nf::c, char>;
+    using rope = basic_rope<nf::c, char8_t>;
 
     /** The specialization of `basic_rope_view` that should be used in most
         situations. */
-    using rope_view = basic_rope_view<nf::c, char>;
+    using rope_view = basic_rope_view<nf::c, char8_t>;
 
     namespace detail {
         template<typename T, typename Iter, int Size = sizeof(T)>

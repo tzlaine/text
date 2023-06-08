@@ -92,6 +92,7 @@ TEST(transcode_non_bidi, forward_and_input)
         static_assert(ill_formed<has_prefix_decrement, decltype(it)>::value);
         static_assert(ill_formed<has_postfix_decrement, decltype(it)>::value);
     }
+#if BOOST_TEXT_CODE_UNIT_CONCEPT_OPTION_2
     {
         std::string str(std::begin(utf8), std::end(utf8));
         std::istringstream iss(str);
@@ -116,6 +117,7 @@ TEST(transcode_non_bidi, forward_and_input)
         static_assert(ill_formed<has_prefix_decrement, decltype(it)>::value);
         static_assert(ill_formed<has_postfix_decrement, decltype(it)>::value);
     }
+#endif
 
     // UTF-32 -> UTF-8
     {

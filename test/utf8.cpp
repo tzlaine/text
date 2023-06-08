@@ -563,20 +563,20 @@ TEST(utf_8, test_back_and_forth)
 template<int EncodingLength>
 struct coverage_test_case
 {
-    char str_[EncodingLength + 4];
+    char8_t str_[EncodingLength + 4];
     char32_t utf32_;
 };
 
 TEST(utf_8, test_utf8_coverage_length_1)
 {
     coverage_test_case<1> const cases[] = {
-        {{char(0x0)}, 0x0},
-        {{char(0x7f)}, 0x7f},
-        {{char(0x80)}, 0xfffd},
+        {{0x0}, 0x0},
+        {{0x7f}, 0x7f},
+        {{0x80}, 0xfffd},
     };
 
     for (auto c : cases) {
-        text::utf_8_to_32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char8_t const *, char8_t const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -585,18 +585,18 @@ TEST(utf_8, test_utf8_coverage_length_1)
 TEST(utf_8, test_utf8_coverage_length_2)
 {
     coverage_test_case<2> const cases[] = {
-        {{char(0xc1), char(0xbf)}, 0xfffd},
-        {{char(0xc1), char(0xc0)}, 0xfffd},
+        {{0xc1, 0xbf}, 0xfffd},
+        {{0xc1, 0xc0}, 0xfffd},
 
-        {{char(0xc2), char(0xbf)}, 0xbf},
-        {{char(0xc2), char(0xc0)}, 0xfffd},
+        {{0xc2, 0xbf}, 0xbf},
+        {{0xc2, 0xc0}, 0xfffd},
 
-        {{char(0xdf), char(0xbf)}, 0x7ff},
-        {{char(0xdf), char(0xc0)}, 0xfffd},
+        {{0xdf, 0xbf}, 0x7ff},
+        {{0xdf, 0xc0}, 0xfffd},
     };
 
     for (auto c : cases) {
-        text::utf_8_to_32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char8_t const *, char8_t const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -605,14 +605,14 @@ TEST(utf_8, test_utf8_coverage_length_2)
 TEST(utf_8, test_utf8_coverage_length_3_a)
 {
     coverage_test_case<3> const cases[] = {
-        {{char(0xe0), char(0x9f), char(0xc0)}, 0xfffd},
-        {{char(0xe0), char(0x9f), char(0xbf)}, 0xfffd},
-        {{char(0xe0), char(0xa0), char(0xc0)}, 0xfffd},
-        {{char(0xe0), char(0xa0), char(0xbf)}, 0x83f},
+        {{0xe0, 0x9f, 0xc0}, 0xfffd},
+        {{0xe0, 0x9f, 0xbf}, 0xfffd},
+        {{0xe0, 0xa0, 0xc0}, 0xfffd},
+        {{0xe0, 0xa0, 0xbf}, 0x83f},
     };
 
     for (auto c : cases) {
-        text::utf_8_to_32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char8_t const *, char8_t const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -621,19 +621,19 @@ TEST(utf_8, test_utf8_coverage_length_3_a)
 TEST(utf_8, test_utf8_coverage_length_3_b)
 {
     coverage_test_case<3> const cases[] = {
-        {{char(0xe1), char(0xc0), char(0xc0)}, 0xfffd},
-        {{char(0xe1), char(0xc0), char(0xbf)}, 0xfffd},
-        {{char(0xe1), char(0xbf), char(0xc0)}, 0xfffd},
-        {{char(0xe1), char(0xbf), char(0xbf)}, 0x1fff},
+        {{0xe1, 0xc0, 0xc0}, 0xfffd},
+        {{0xe1, 0xc0, 0xbf}, 0xfffd},
+        {{0xe1, 0xbf, 0xc0}, 0xfffd},
+        {{0xe1, 0xbf, 0xbf}, 0x1fff},
 
-        {{char(0xec), char(0xc0), char(0xc0)}, 0xfffd},
-        {{char(0xec), char(0xc0), char(0xbf)}, 0xfffd},
-        {{char(0xec), char(0xbf), char(0xc0)}, 0xfffd},
-        {{char(0xec), char(0xbf), char(0xbf)}, 0xcfff},
+        {{0xec, 0xc0, 0xc0}, 0xfffd},
+        {{0xec, 0xc0, 0xbf}, 0xfffd},
+        {{0xec, 0xbf, 0xc0}, 0xfffd},
+        {{0xec, 0xbf, 0xbf}, 0xcfff},
     };
 
     for (auto c : cases) {
-        text::utf_8_to_32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char8_t const *, char8_t const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -642,14 +642,14 @@ TEST(utf_8, test_utf8_coverage_length_3_b)
 TEST(utf_8, test_utf8_coverage_length_3_c)
 {
     coverage_test_case<3> const cases[] = {
-        {{char(0xed), char(0xa0), char(0xc0)}, 0xfffd},
-        {{char(0xed), char(0xa0), char(0xbf)}, 0xfffd},
-        {{char(0xed), char(0x9f), char(0xc0)}, 0xfffd},
-        {{char(0xed), char(0x9f), char(0xbf)}, 0xd7ff},
+        {{0xed, 0xa0, 0xc0}, 0xfffd},
+        {{0xed, 0xa0, 0xbf}, 0xfffd},
+        {{0xed, 0x9f, 0xc0}, 0xfffd},
+        {{0xed, 0x9f, 0xbf}, 0xd7ff},
     };
 
     for (auto c : cases) {
-        text::utf_8_to_32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char8_t const *, char8_t const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -658,19 +658,19 @@ TEST(utf_8, test_utf8_coverage_length_3_c)
 TEST(utf_8, test_utf8_coverage_length_3_d)
 {
     coverage_test_case<3> const cases[] = {
-        {{char(0xee), char(0xc0), char(0xc0)}, 0xfffd},
-        {{char(0xee), char(0xc0), char(0xbf)}, 0xfffd},
-        {{char(0xee), char(0xbf), char(0xc0)}, 0xfffd},
-        {{char(0xee), char(0xbf), char(0xbf)}, 0xefff},
+        {{0xee, 0xc0, 0xc0}, 0xfffd},
+        {{0xee, 0xc0, 0xbf}, 0xfffd},
+        {{0xee, 0xbf, 0xc0}, 0xfffd},
+        {{0xee, 0xbf, 0xbf}, 0xefff},
 
-        {{char(0xef), char(0xc0), char(0xc0)}, 0xfffd},
-        {{char(0xef), char(0xc0), char(0xbf)}, 0xfffd},
-        {{char(0xef), char(0xbf), char(0xc0)}, 0xfffd},
-        {{char(0xef), char(0xbf), char(0xbf)}, 0xffff},
+        {{0xef, 0xc0, 0xc0}, 0xfffd},
+        {{0xef, 0xc0, 0xbf}, 0xfffd},
+        {{0xef, 0xbf, 0xc0}, 0xfffd},
+        {{0xef, 0xbf, 0xbf}, 0xffff},
     };
 
     for (auto c : cases) {
-        text::utf_8_to_32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char8_t const *, char8_t const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -679,19 +679,19 @@ TEST(utf_8, test_utf8_coverage_length_3_d)
 TEST(utf_8, test_utf8_coverage_length_4_a)
 {
     coverage_test_case<3> const cases[] = {
-        {{char(0xf0), char(0x8f), char(0xc0), char(0xc0)}, 0xfffd},
-        {{char(0xf0), char(0x8f), char(0xc0), char(0xbf)}, 0xfffd},
-        {{char(0xf0), char(0x8f), char(0xbf), char(0xc0)}, 0xfffd},
-        {{char(0xf0), char(0x8f), char(0xbf), char(0xbf)}, 0xfffd},
+        {{0xf0, 0x8f, 0xc0, 0xc0}, 0xfffd},
+        {{0xf0, 0x8f, 0xc0, 0xbf}, 0xfffd},
+        {{0xf0, 0x8f, 0xbf, 0xc0}, 0xfffd},
+        {{0xf0, 0x8f, 0xbf, 0xbf}, 0xfffd},
 
-        {{char(0xf0), char(0x90), char(0xc0), char(0xc0)}, 0xfffd},
-        {{char(0xf0), char(0x90), char(0xc0), char(0xbf)}, 0xfffd},
-        {{char(0xf0), char(0x90), char(0xbf), char(0xc0)}, 0xfffd},
-        {{char(0xf0), char(0x90), char(0xbf), char(0xbf)}, 0x10fff},
+        {{0xf0, 0x90, 0xc0, 0xc0}, 0xfffd},
+        {{0xf0, 0x90, 0xc0, 0xbf}, 0xfffd},
+        {{0xf0, 0x90, 0xbf, 0xc0}, 0xfffd},
+        {{0xf0, 0x90, 0xbf, 0xbf}, 0x10fff},
     };
 
     for (auto c : cases) {
-        text::utf_8_to_32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char8_t const *, char8_t const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -704,29 +704,29 @@ TEST(utf_8, test_utf8_coverage_length_4_a)
 TEST(utf_8, test_utf8_coverage_length_4_b)
 {
     coverage_test_case<3> const cases[] = {
-        {{char(0xf1), char(0x7f), char(0x7f), char(0x7f)}, 0xfffd},
-        {{char(0xf1), char(0x7f), char(0x7f), char(0x80)}, 0xfffd},
-        {{char(0xf1), char(0x7f), char(0x80), char(0x7f)}, 0xfffd},
-        {{char(0xf1), char(0x7f), char(0x80), char(0x80)}, 0xfffd},
+        {{0xf1, 0x7f, 0x7f, 0x7f}, 0xfffd},
+        {{0xf1, 0x7f, 0x7f, 0x80}, 0xfffd},
+        {{0xf1, 0x7f, 0x80, 0x7f}, 0xfffd},
+        {{0xf1, 0x7f, 0x80, 0x80}, 0xfffd},
 
-        {{char(0xf1), char(0x80), char(0x7f), char(0x7f)}, 0xfffd},
-        {{char(0xf1), char(0x80), char(0x7f), char(0x80)}, 0xfffd},
-        {{char(0xf1), char(0x80), char(0x80), char(0x7f)}, 0xfffd},
-        {{char(0xf1), char(0x80), char(0x80), char(0x80)}, 0x40000},
+        {{0xf1, 0x80, 0x7f, 0x7f}, 0xfffd},
+        {{0xf1, 0x80, 0x7f, 0x80}, 0xfffd},
+        {{0xf1, 0x80, 0x80, 0x7f}, 0xfffd},
+        {{0xf1, 0x80, 0x80, 0x80}, 0x40000},
 
-        {{char(0xf3), char(0x7f), char(0x7f), char(0x7f)}, 0xfffd},
-        {{char(0xf3), char(0x7f), char(0x7f), char(0x80)}, 0xfffd},
-        {{char(0xf3), char(0x7f), char(0x80), char(0x7f)}, 0xfffd},
-        {{char(0xf3), char(0x7f), char(0x80), char(0x80)}, 0xfffd},
+        {{0xf3, 0x7f, 0x7f, 0x7f}, 0xfffd},
+        {{0xf3, 0x7f, 0x7f, 0x80}, 0xfffd},
+        {{0xf3, 0x7f, 0x80, 0x7f}, 0xfffd},
+        {{0xf3, 0x7f, 0x80, 0x80}, 0xfffd},
 
-        {{char(0xf3), char(0x80), char(0x7f), char(0x7f)}, 0xfffd},
-        {{char(0xf3), char(0x80), char(0x7f), char(0x80)}, 0xfffd},
-        {{char(0xf3), char(0x80), char(0x80), char(0x7f)}, 0xfffd},
-        {{char(0xf3), char(0x80), char(0x80), char(0x80)}, 0xc0000},
+        {{0xf3, 0x80, 0x7f, 0x7f}, 0xfffd},
+        {{0xf3, 0x80, 0x7f, 0x80}, 0xfffd},
+        {{0xf3, 0x80, 0x80, 0x7f}, 0xfffd},
+        {{0xf3, 0x80, 0x80, 0x80}, 0xc0000},
     };
 
     for (auto c : cases) {
-        text::utf_8_to_32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char8_t const *, char8_t const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -735,29 +735,29 @@ TEST(utf_8, test_utf8_coverage_length_4_b)
 TEST(utf_8, test_utf8_coverage_length_4_c)
 {
     coverage_test_case<3> const cases[] = {
-        {{char(0xf4), char(0x90), char(0x7f), char(0x7f)}, 0xfffd},
-        {{char(0xf4), char(0x90), char(0x7f), char(0x80)}, 0xfffd},
-        {{char(0xf4), char(0x90), char(0x80), char(0x7f)}, 0xfffd},
-        {{char(0xf4), char(0x90), char(0x80), char(0x80)}, 0xfffd},
+        {{0xf4, 0x90, 0x7f, 0x7f}, 0xfffd},
+        {{0xf4, 0x90, 0x7f, 0x80}, 0xfffd},
+        {{0xf4, 0x90, 0x80, 0x7f}, 0xfffd},
+        {{0xf4, 0x90, 0x80, 0x80}, 0xfffd},
 
-        {{char(0xf4), char(0x8f), char(0x7f), char(0x7f)}, 0xfffd},
-        {{char(0xf4), char(0x8f), char(0x7f), char(0x80)}, 0xfffd},
-        {{char(0xf4), char(0x8f), char(0x80), char(0x7f)}, 0xfffd},
-        {{char(0xf4), char(0x8f), char(0x80), char(0x80)}, 0x10f000},
+        {{0xf4, 0x8f, 0x7f, 0x7f}, 0xfffd},
+        {{0xf4, 0x8f, 0x7f, 0x80}, 0xfffd},
+        {{0xf4, 0x8f, 0x80, 0x7f}, 0xfffd},
+        {{0xf4, 0x8f, 0x80, 0x80}, 0x10f000},
 
-        {{char(0xf5), char(0x90), char(0x7f), char(0x7f)}, 0xfffd},
-        {{char(0xf5), char(0x90), char(0x7f), char(0x80)}, 0xfffd},
-        {{char(0xf5), char(0x90), char(0x80), char(0x7f)}, 0xfffd},
-        {{char(0xf5), char(0x90), char(0x80), char(0x80)}, 0xfffd},
+        {{0xf5, 0x90, 0x7f, 0x7f}, 0xfffd},
+        {{0xf5, 0x90, 0x7f, 0x80}, 0xfffd},
+        {{0xf5, 0x90, 0x80, 0x7f}, 0xfffd},
+        {{0xf5, 0x90, 0x80, 0x80}, 0xfffd},
 
-        {{char(0xf5), char(0x8f), char(0x7f), char(0x7f)}, 0xfffd},
-        {{char(0xf5), char(0x8f), char(0x7f), char(0x80)}, 0xfffd},
-        {{char(0xf5), char(0x8f), char(0x80), char(0x7f)}, 0xfffd},
-        {{char(0xf5), char(0x8f), char(0x80), char(0x80)}, 0xfffd},
+        {{0xf5, 0x8f, 0x7f, 0x7f}, 0xfffd},
+        {{0xf5, 0x8f, 0x7f, 0x80}, 0xfffd},
+        {{0xf5, 0x8f, 0x80, 0x7f}, 0xfffd},
+        {{0xf5, 0x8f, 0x80, 0x80}, 0xfffd},
     };
 
     for (auto c : cases) {
-        text::utf_8_to_32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char8_t const *, char8_t const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -768,19 +768,19 @@ TEST(utf_8, test_utf8_coverage_length_4_c)
 // Table 3-8. Use of U+FFFD in UTF-8 Conversion
 TEST(utf_8, test_0xfffd)
 {
-    char const bad_utf8[] = {
+    char8_t const bad_utf8[] = {
         0x61,
-        char(0xf1),
-        char(0x80),
-        char(0x80),
-        char(0xe1),
-        char(0x80),
-        char(0xc2),
+        0xf1,
+        0x80,
+        0x80,
+        0xe1,
+        0x80,
+        0xc2,
         0x62,
-        char(0x80),
+        0x80,
         0x63,
-        char(0x80),
-        char(0xbf),
+        0x80,
+        0xbf,
         0x64,
         0};
     char32_t const expected[] = {
@@ -795,7 +795,7 @@ TEST(utf_8, test_0xfffd)
         0xfffd,
         0x0064};
 
-    auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel_t>(
+    auto it = text::utf_8_to_32_iterator<char8_t const *, text::null_sentinel_t>(
         bad_utf8, bad_utf8, text::null_sentinel);
 
     EXPECT_EQ(*it++, expected[0]);
@@ -809,7 +809,7 @@ TEST(utf_8, test_0xfffd)
     EXPECT_EQ(*it++, expected[8]);
     EXPECT_EQ(*it++, expected[9]);
 
-    it = text::utf_8_to_32_iterator<char const *, text::null_sentinel_t>(
+    it = text::utf_8_to_32_iterator<char8_t const *, text::null_sentinel_t>(
         bad_utf8, bad_utf8 + 13, text::null_sentinel);
 
     EXPECT_EQ(*--it, expected[9]);
@@ -826,22 +826,22 @@ TEST(utf_8, test_0xfffd)
 
 TEST(utf_8, test_end_of_invalid_utf8)
 {
-    auto const none = text::detail::optional_iter<char const *>{};
+    auto const none = text::detail::optional_iter<char8_t const *>{};
 
     {
-        char const bad_utf8[] = {
+        char8_t const bad_utf8[] = {
             0x61,
-            char(0xf1),
-            char(0x80),
-            char(0x80),
-            char(0xe1),
-            char(0x80),
-            char(0xc2),
+            0xf1,
+            0x80,
+            0x80,
+            0xe1,
+            0x80,
+            0xc2,
             0x62,
-            char(0x80),
+            0x80,
             0x63,
-            char(0x80),
-            char(0xbf),
+            0x80,
+            0xbf,
             0x64};
         // char32_t const expected[] = {0x0061, 0xfffd, 0xfffd, 0xfffd, 0x0062,
         // 0xfffd, 0x0063, 0xfffd, 0xfffd, 0x0064};
@@ -860,17 +860,8 @@ TEST(utf_8, test_end_of_invalid_utf8)
     {
         // Unicode 9, 3.9/D90-D92
         // char32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-        char const utf8[] = {
-            0x4d,
-            char(0xd0),
-            char(0xb0),
-            char(0xe4),
-            char(0xba),
-            char(0x8c),
-            char(0xf0),
-            char(0x90),
-            char(0x8c),
-            char(0x82)};
+        char8_t const utf8[] = {
+            0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82};
 
         EXPECT_EQ(text::detail::end_of_invalid_utf8(utf8 + 0), none);
         EXPECT_EQ(text::detail::end_of_invalid_utf8(utf8 + 1), none);
@@ -883,25 +874,15 @@ TEST(utf_8, iterator_conversions)
 {
     char32_t utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
     char16_t utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
-    char utf8[] = {
-        0x4d,
-        char(0xd0),
-        char(0xb0),
-        char(0xe4),
-        char(0xba),
-        char(0x8c),
-        char(0xf0),
-        char(0x90),
-        char(0x8c),
-        char(0x82),
-        0};
+    char8_t utf8[] = {
+        0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82, 0};
 
     {
-        text::utf_8_to_32_iterator<char *, text::null_sentinel_t> const it =
-            text::utf_8_to_32_iterator<char *, text::null_sentinel_t>(
+        text::utf_8_to_32_iterator<char8_t *, text::null_sentinel_t> const it =
+            text::utf_8_to_32_iterator<char8_t *, text::null_sentinel_t>(
                 utf8, utf8, text::null_sentinel);
 
-        text::utf_8_to_32_iterator<char const *, text::null_sentinel_t> const
+        text::utf_8_to_32_iterator<char8_t const *, text::null_sentinel_t> const
             it_const = it;
 
         EXPECT_EQ(it_const, it);
@@ -917,10 +898,10 @@ TEST(utf_8, iterator_conversions)
     }
 
     {
-        text::utf_8_to_16_iterator<char *> it =
-            text::utf_8_to_16_iterator<char *>(utf8, utf8, utf8 + sizeof(utf8));
+        text::utf_8_to_16_iterator<char8_t *> it =
+            text::utf_8_to_16_iterator<char8_t *>(utf8, utf8, utf8 + sizeof(utf8));
 
-        text::utf_8_to_16_iterator<char const *> it_const = it;
+        text::utf_8_to_16_iterator<char8_t const *> it_const = it;
 
         EXPECT_EQ(it_const, it);
     }
@@ -939,17 +920,8 @@ TEST(utf_8, make_utfN_iterator)
     // Unicode 9, 3.9/D90-D92
     char32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
     char16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
-    char const utf8[] = {
-        0x4d,
-        char(0xd0),
-        char(0xb0),
-        char(0xe4),
-        char(0xba),
-        char(0x8c),
-        char(0xf0),
-        char(0x90),
-        char(0x8c),
-        char(0x82)};
+    char8_t const utf8[] = {
+        0x4d, 0xd0, 0xb0, 0xe4, 0xba, 0x8c, 0xf0, 0x90, 0x8c, 0x82};
 
     // -> UTF-8
     {

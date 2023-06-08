@@ -61,6 +61,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             std::ranges::begin(r), std::ranges::end(r));
     }
 
+    template<code_point_iter I, std::sentinel_for<I> S>
+    std::u8string to_u8string(I first, S last)
+    {
+        auto const r = std::ranges::subrange(first, last) | as_utf8;
+        return std::u8string(r.begin(), r.end());
+    }
+
+    template<code_point_range R>
+    std::u8string to_u8string(R const & r)
+    {
+        return boost::text::to_string(
+            std::ranges::begin(r), std::ranges::end(r));
+    }
+
 }}}
 
 #endif

@@ -19,9 +19,11 @@ using erase_from = decltype(boost::text::normalize_erase<boost::text::nf::c>(
     std::declval<T &>().begin(),
     std::declval<T &>().end()));
 
+#if BOOST_TEXT_CODE_UNIT_CONCEPT_OPTION_2
 static_assert(well_formed<erase_from, std::string>::value, "");
 #if defined(_MSC_VER)
 static_assert(well_formed<erase_from, std::wstring>::value, "");
+#endif
 #endif
 static_assert(well_formed<erase_from, std::vector<char8_t>>::value, "");
 static_assert(well_formed<erase_from, std::vector<char16_t>>::value, "");
@@ -34,8 +36,8 @@ TEST(normalization_algorithm, detail_cons_view)
 {
     std::string const str1 = "foo";
     std::string str2 = "bar";
-    auto r1 = str1 | boost::text::as_utf32;
-    auto r2 = str2 | boost::text::as_utf32;
+    auto r1 = str1 | boost::text::as_char8_t | boost::text::as_utf32;
+    auto r2 = str2 | boost::text::as_char8_t | boost::text::as_utf32;
     auto v =
         boost::text::detail::cons_view<char32_t>(r1, r2, r1.begin(), r2.end());
 

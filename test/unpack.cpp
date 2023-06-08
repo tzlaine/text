@@ -110,32 +110,32 @@ static_assert(ill_formed<bad_unpack_t, uint64_t *>::value, "");
 
 TEST(unpack, _8_N)
 {
-    char const * str = "foo";
+    char8_t const * str = u8"foo";
 
     // N = 32
     {
-        boost::text::utf_8_to_32_iterator<char const *> it1(str, str, str + 3);
-        boost::text::utf_8_to_32_iterator<char const *> it2(
+        boost::text::utf_8_to_32_iterator<char8_t const *> it1(str, str, str + 3);
+        boost::text::utf_8_to_32_iterator<char8_t const *> it2(
             str, str + 3, str + 3);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(it1, it2);
         static_assert(unpacked.format_tag == boost::text::format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), char const *>::value, "");
+            std::is_same<decltype(unpacked.first), char8_t const *>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.last), char const *>::value, "");
+            std::is_same<decltype(unpacked.last), char8_t const *>::value, "");
         EXPECT_EQ(unpacked.first, str);
         EXPECT_EQ(unpacked.last, str + 3);
         EXPECT_EQ(unpacked.repack(unpacked.first), it1);
     }
     {
         boost::text::
-            utf_8_to_32_iterator<char const *, boost::text::null_sentinel_t>
+            utf_8_to_32_iterator<char8_t const *, boost::text::null_sentinel_t>
                 it(str, str, boost::text::null_sentinel);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(
             it, boost::text::null_sentinel);
         static_assert(unpacked.format_tag == boost::text::format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), char const *>::value, "");
+            std::is_same<decltype(unpacked.first), char8_t const *>::value, "");
         static_assert(
             std::is_same<
                 decltype(unpacked.last),
@@ -147,28 +147,28 @@ TEST(unpack, _8_N)
 
     // N = 16
     {
-        boost::text::utf_8_to_16_iterator<char const *> it1(str, str, str + 3);
-        boost::text::utf_8_to_16_iterator<char const *> it2(
+        boost::text::utf_8_to_16_iterator<char8_t const *> it1(str, str, str + 3);
+        boost::text::utf_8_to_16_iterator<char8_t const *> it2(
             str, str + 3, str + 3);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(it1, it2);
         static_assert(unpacked.format_tag == boost::text::format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), char const *>::value, "");
+            std::is_same<decltype(unpacked.first), char8_t const *>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.last), char const *>::value, "");
+            std::is_same<decltype(unpacked.last), char8_t const *>::value, "");
         EXPECT_EQ(unpacked.first, str);
         EXPECT_EQ(unpacked.last, str + 3);
         EXPECT_EQ(unpacked.repack(unpacked.first), it1);
     }
     {
         boost::text::
-            utf_8_to_16_iterator<char const *, boost::text::null_sentinel_t>
+            utf_8_to_16_iterator<char8_t const *, boost::text::null_sentinel_t>
                 it(str, str, boost::text::null_sentinel);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(
             it, boost::text::null_sentinel);
         static_assert(unpacked.format_tag == boost::text::format::utf8, "");
         static_assert(
-            std::is_same<decltype(unpacked.first), char const *>::value, "");
+            std::is_same<decltype(unpacked.first), char8_t const *>::value, "");
         static_assert(
             std::is_same<
                 decltype(unpacked.last),

@@ -5,6 +5,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_iterator.hpp>
+#include <boost/text/transcode_view.hpp>
 
 #include <gtest/gtest.h>
 
@@ -158,13 +159,14 @@ TEST(transcode_algorithm, from_utf8_non_error)
     {
         std::vector<char32_t> result(10);
         std::list<char> utf8_(std::begin(utf8), std::end(utf8) - 1);
+        auto utf8 = utf8_ | text::as_char8_t;
         auto const out_first = &result[0];
         auto const in_out =
-            text::transcode_to_utf32(utf8_.begin(), utf8_.end(), &result[0]);
+            text::transcode_to_utf32(utf8.begin(), utf8.end(), &result[0]);
         result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result, std::vector<char32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
-        EXPECT_EQ(in_out.in, utf8_.end());
+        EXPECT_EQ(std::distance(utf8.begin(), in_out.in), utf8_.size());
     }
     // UTF-8 pointer -> UTF-32 non-pointer
     {
@@ -190,11 +192,12 @@ TEST(transcode_algorithm, from_utf8_non_error)
     {
         std::vector<char32_t> result;
         std::list<char> utf8_(std::begin(utf8), std::end(utf8) - 1);
+        auto utf8 = utf8_ | text::as_char8_t;
         auto const in_out = text::transcode_to_utf32(
-            utf8_.begin(), utf8_.end(), std::back_inserter(result));
+            utf8.begin(), utf8.end(), std::back_inserter(result));
         EXPECT_EQ(
             result, std::vector<char32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
-        EXPECT_EQ(in_out.in, utf8_.end());
+        EXPECT_EQ(std::distance(utf8.begin(), in_out.in), utf8_.size());
     }
 
     // UTF-8 pointer -> UTF-16 pointer
@@ -246,14 +249,15 @@ TEST(transcode_algorithm, from_utf8_non_error)
     {
         std::vector<char16_t> result(10);
         std::list<char> utf8_(std::begin(utf8), std::end(utf8) - 1);
+        auto utf8 = utf8_ | text::as_char8_t;
         auto const out_first = &result[0];
         auto const in_out =
-            text::transcode_to_utf16(utf8_.begin(), utf8_.end(), &result[0]);
+            text::transcode_to_utf16(utf8.begin(), utf8.end(), &result[0]);
         result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
             std::vector<char16_t>({0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02}));
-        EXPECT_EQ(in_out.in, utf8_.end());
+        EXPECT_EQ(std::distance(utf8.begin(), in_out.in), utf8_.size());
     }
     // UTF-8 pointer -> UTF-16 non-pointer
     {
@@ -281,12 +285,13 @@ TEST(transcode_algorithm, from_utf8_non_error)
     {
         std::vector<char16_t> result;
         std::list<char> utf8_(std::begin(utf8), std::end(utf8) - 1);
+        auto utf8 = utf8_ | text::as_char8_t;
         auto const in_out = text::transcode_to_utf16(
-            utf8_.begin(), utf8_.end(), std::back_inserter(result));
+            utf8.begin(), utf8.end(), std::back_inserter(result));
         EXPECT_EQ(
             result,
             std::vector<char16_t>({0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02}));
-        EXPECT_EQ(in_out.in, utf8_.end());
+        EXPECT_EQ(std::distance(utf8.begin(), in_out.in), utf8_.size());
     }
 }
 
@@ -355,9 +360,10 @@ TEST(transcode_algorithm, from_utf8_errors_0)
     {
         std::vector<char32_t> result(10);
         std::list<char> bad_utf8_(std::begin(bad_utf8), std::end(bad_utf8) - 1);
+        auto bad_utf8 = bad_utf8_ | text::as_char8_t;
         auto const out_first = &result[0];
         auto const in_out = text::transcode_to_utf32(
-            bad_utf8_.begin(), bad_utf8_.end(), &result[0]);
+            bad_utf8.begin(), bad_utf8.end(), &result[0]);
         result.resize(in_out.out - out_first);
         EXPECT_EQ(
             result,
@@ -419,8 +425,9 @@ TEST(transcode_algorithm, from_utf8_errors_0)
     {
         std::vector<char32_t> result;
         std::list<char> bad_utf8_(std::begin(bad_utf8), std::end(bad_utf8) - 1);
+        auto bad_utf8 = bad_utf8_ | text::as_char8_t;
         text::transcode_to_utf32(
-            bad_utf8_.begin(), bad_utf8_.end(), std::back_inserter(result));
+            bad_utf8.begin(), bad_utf8.end(), std::back_inserter(result));
         EXPECT_EQ(
             result,
             std::vector<char32_t>(
@@ -471,7 +478,8 @@ TEST(transcode_algorithm, from_utf8_errors_1)
         int i = 0;
         for (auto c : cases) {
             std::list<char> utf8_(std::begin(c.str_), std::end(c.str_));
-            text::transcode_to_utf32(utf8_.begin(), utf8_.end(), &result[0]);
+            auto utf8 = utf8_ | text::as_char8_t;
+            text::transcode_to_utf32(utf8.begin(), utf8.end(), &result[0]);
             EXPECT_EQ(result[0], c.utf32_) << "i=" << i;
             ++i;
         }
@@ -497,8 +505,9 @@ TEST(transcode_algorithm, from_utf8_errors_1)
         for (auto c : cases) {
             result.clear();
             std::list<char> utf8_(std::begin(c.str_), std::end(c.str_));
+            auto utf8 = utf8_ | text::as_char8_t;
             text::transcode_to_utf32(
-                utf8_.begin(), utf8_.end(), std::back_inserter(result));
+                utf8.begin(), utf8.end(), std::back_inserter(result));
             EXPECT_EQ(result[0], c.utf32_) << "i=" << i;
             ++i;
         }
@@ -535,7 +544,8 @@ TEST(transcode_algorithm, from_utf8_errors_2)
         int i = 0;
         for (auto c : cases) {
             std::list<char> utf8_(std::begin(c.str_), std::end(c.str_));
-            text::transcode_to_utf32(utf8_.begin(), utf8_.end(), &result[0]);
+            auto utf8 = utf8_ | text::as_char8_t;
+            text::transcode_to_utf32(utf8.begin(), utf8.end(), &result[0]);
             EXPECT_EQ(result[0], c.utf32_) << "i=" << i;
             ++i;
         }
@@ -561,8 +571,9 @@ TEST(transcode_algorithm, from_utf8_errors_2)
         for (auto c : cases) {
             result.clear();
             std::list<char> utf8_(std::begin(c.str_), std::end(c.str_));
+            auto utf8 = utf8_ | text::as_char8_t;
             text::transcode_to_utf32(
-                utf8_.begin(), utf8_.end(), std::back_inserter(result));
+                utf8.begin(), utf8.end(), std::back_inserter(result));
             EXPECT_EQ(result[0], c.utf32_) << "i=" << i;
             ++i;
         }
@@ -620,7 +631,8 @@ TEST(transcode_algorithm, from_utf8_errors_3)
         int i = 0;
         for (auto c : cases) {
             std::list<char> utf8_(std::begin(c.str_), std::end(c.str_));
-            text::transcode_to_utf32(utf8_.begin(), utf8_.end(), &result[0]);
+            auto utf8 = utf8_ | text::as_char8_t;
+            text::transcode_to_utf32(utf8.begin(), utf8.end(), &result[0]);
             EXPECT_EQ(result[0], c.utf32_) << "i=" << i;
             ++i;
         }
@@ -646,8 +658,9 @@ TEST(transcode_algorithm, from_utf8_errors_3)
         for (auto c : cases) {
             result.clear();
             std::list<char> utf8_(std::begin(c.str_), std::end(c.str_));
+            auto utf8 = utf8_ | text::as_char8_t;
             text::transcode_to_utf32(
-                utf8_.begin(), utf8_.end(), std::back_inserter(result));
+                utf8.begin(), utf8.end(), std::back_inserter(result));
             EXPECT_EQ(result[0], c.utf32_) << "i=" << i;
             ++i;
         }
@@ -725,7 +738,8 @@ TEST(transcode_algorithm, from_utf8_errors_4)
         int i = 0;
         for (auto c : cases) {
             std::list<char> utf8_(std::begin(c.str_), std::end(c.str_));
-            text::transcode_to_utf32(utf8_.begin(), utf8_.end(), &result[0]);
+            auto utf8 = utf8_ | text::as_char8_t;
+            text::transcode_to_utf32(utf8.begin(), utf8.end(), &result[0]);
             EXPECT_EQ(result[0], c.utf32_) << "i=" << i;
             ++i;
         }
@@ -751,8 +765,9 @@ TEST(transcode_algorithm, from_utf8_errors_4)
         for (auto c : cases) {
             result.clear();
             std::list<char> utf8_(std::begin(c.str_), std::end(c.str_));
+            auto utf8 = utf8_ | text::as_char8_t;
             text::transcode_to_utf32(
-                utf8_.begin(), utf8_.end(), std::back_inserter(result));
+                utf8.begin(), utf8.end(), std::back_inserter(result));
             EXPECT_EQ(result[0], c.utf32_) << "i=" << i;
             ++i;
         }
