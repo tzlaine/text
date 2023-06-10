@@ -61,9 +61,7 @@ namespace boost { namespace text {
         template<class I>
         constexpr auto iterator_to_tag()
         {
-            if constexpr (std::contiguous_iterator<I>) {
-                return std::contiguous_iterator_tag{};
-            } else if constexpr (std::random_access_iterator<I>) {
+            if constexpr (std::random_access_iterator<I>) {
                 return std::random_access_iterator_tag{};
             } else if constexpr (std::bidirectional_iterator<I>) {
                 return std::bidirectional_iterator_tag{};
@@ -95,21 +93,21 @@ namespace boost { namespace text {
         private:
             friend boost::stl_interfaces::access;
             I & base_reference() noexcept { return it_; }
-            I base_reference() const noexcept { return it_; }
+            I base_reference() const { return it_; }
 
             I it_;
         };
     }
 
     template<std::ranges::view V>
-        requires std::convertible_to<std::ranges::range_value_t<V>, char8_t>
+        requires std::ranges::input_range<V> && std::convertible_to<std::ranges::range_reference_t<V>, char8_t>
     class char8_view : public std::ranges::view_interface<char8_view<V>>
     {
         V base_ = V();
 
     public:
-        using iterator =
-            detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char8_t>;
+        using iterator = detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char8_t>;
+        using sentinel = std::conditional_t<std::ranges::common_range<V>, iterator, std::ranges::sentinel_t<V>>;
 
         constexpr char8_view() requires std::default_initializable<V> = default;
         constexpr char8_view(V base) : base_{std::move(base)} {}
@@ -118,8 +116,19 @@ namespace boost { namespace text {
         constexpr const V & base() const & { return base_; }
         constexpr V base() && { return std::move(base_); }
 
-        constexpr auto begin() const { return iterator{std::ranges::begin(base_)}; }
-        constexpr auto end() const
+        constexpr iterator begin() { return iterator{std::ranges::begin(base_)}; }
+        constexpr sentinel end()
+        {
+            if constexpr (std::ranges::common_range<V>) {
+                return iterator{std::ranges::end(base_)};
+            } else {
+                return std::ranges::end(base_);
+            }
+        }
+
+        constexpr auto begin() const requires std::ranges::view<const V>
+            { return iterator{std::ranges::begin(base_)}; }
+        constexpr auto end() const requires std::ranges::view<const V>
         {
             if constexpr (std::ranges::common_range<const V>) {
                 return iterator{std::ranges::end(base_)};
@@ -127,17 +136,22 @@ namespace boost { namespace text {
                 return std::ranges::end(base_);
             }
         }
+
+        constexpr auto size() requires std::ranges::sized_range<V>
+            { return std::ranges::size(base_); }
+        constexpr auto size() const requires std::ranges::sized_range<const V>
+            { return std::ranges::size(base_); }
     };
 
     template<std::ranges::view V>
-        requires std::convertible_to<std::ranges::range_value_t<V>, char16_t>
+        requires std::ranges::input_range<V> && std::convertible_to<std::ranges::range_reference_t<V>, char16_t>
     class char16_view : public std::ranges::view_interface<char16_view<V>>
     {
         V base_ = V();
 
     public:
-        using iterator =
-            detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char16_t>;
+        using iterator = detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char16_t>;
+        using sentinel = std::conditional_t<std::ranges::common_range<V>, iterator, std::ranges::sentinel_t<V>>;
 
         constexpr char16_view() requires std::default_initializable<V> = default;
         constexpr char16_view(V base) : base_{std::move(base)} {}
@@ -146,8 +160,19 @@ namespace boost { namespace text {
         constexpr const V & base() const & { return base_; }
         constexpr V base() && { return std::move(base_); }
 
-        constexpr auto begin() const { return iterator{std::ranges::begin(base_)}; }
-        constexpr auto end() const
+        constexpr iterator begin() { return iterator{std::ranges::begin(base_)}; }
+        constexpr sentinel end()
+        {
+            if constexpr (std::ranges::common_range<V>) {
+                return iterator{std::ranges::end(base_)};
+            } else {
+                return std::ranges::end(base_);
+            }
+        }
+
+        constexpr auto begin() const requires std::ranges::view<const V>
+            { return iterator{std::ranges::begin(base_)}; }
+        constexpr auto end() const requires std::ranges::view<const V>
         {
             if constexpr (std::ranges::common_range<const V>) {
                 return iterator{std::ranges::end(base_)};
@@ -155,17 +180,22 @@ namespace boost { namespace text {
                 return std::ranges::end(base_);
             }
         }
+
+        constexpr auto size() requires std::ranges::sized_range<V>
+            { return std::ranges::size(base_); }
+        constexpr auto size() const requires std::ranges::sized_range<const V>
+            { return std::ranges::size(base_); }
     };
 
     template<std::ranges::view V>
-        requires std::convertible_to<std::ranges::range_value_t<V>, char32_t>
+        requires std::ranges::input_range<V> && std::convertible_to<std::ranges::range_reference_t<V>, char32_t>
     class char32_view : public std::ranges::view_interface<char32_view<V>>
     {
         V base_ = V();
 
     public:
-        using iterator =
-            detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char32_t>;
+        using iterator = detail::charn_projection_iterator<std::ranges::iterator_t<const V>, char32_t>;
+        using sentinel = std::conditional_t<std::ranges::common_range<V>, iterator, std::ranges::sentinel_t<V>>;
 
         constexpr char32_view() requires std::default_initializable<V> = default;
         constexpr char32_view(V base) : base_{std::move(base)} {}
@@ -174,8 +204,19 @@ namespace boost { namespace text {
         constexpr const V & base() const & { return base_; }
         constexpr V base() && { return std::move(base_); }
 
-        constexpr auto begin() const { return iterator{std::ranges::begin(base_)}; }
-        constexpr auto end() const
+        constexpr iterator begin() { return iterator{std::ranges::begin(base_)}; }
+        constexpr sentinel end()
+        {
+            if constexpr (std::ranges::common_range<V>) {
+                return iterator{std::ranges::end(base_)};
+            } else {
+                return std::ranges::end(base_);
+            }
+        }
+
+        constexpr auto begin() const requires std::ranges::view<const V>
+            { return iterator{std::ranges::begin(base_)}; }
+        constexpr auto end() const requires std::ranges::view<const V>
         {
             if constexpr (std::ranges::common_range<const V>) {
                 return iterator{std::ranges::end(base_)};
@@ -183,6 +224,11 @@ namespace boost { namespace text {
                 return std::ranges::end(base_);
             }
         }
+
+        constexpr auto size() requires std::ranges::sized_range<V>
+            { return std::ranges::size(base_); }
+        constexpr auto size() const requires std::ranges::sized_range<const V>
+            { return std::ranges::size(base_); }
     };
 
     template<class R>
@@ -198,7 +244,8 @@ namespace boost { namespace text {
         {
             template<class R>
             requires (std::ranges::viewable_range<R> &&
-                      std::convertible_to<std::ranges::range_value_t<R>, dtl::format_to_type_t<Format>>) ||
+                      std::ranges::input_range<R> &&
+                      std::convertible_to<std::ranges::range_reference_t<R>, dtl::format_to_type_t<Format>>) ||
                      utf_pointer<std::remove_cvref_t<R>>
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
