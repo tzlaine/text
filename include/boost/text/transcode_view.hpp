@@ -275,36 +275,30 @@ namespace boost { namespace text {
     inline constexpr detail::as_charn_impl<char32_view, format::utf32> as_char32_t;
 
     // clang-format off
-    template<std::ranges::range R>
-      requires std::movable<R> // TODO && (!is-initializer-list<R>)
-    class unpacking_owning_view : public std::ranges::view_interface<unpacking_owning_view<R>> {
-      R r_ = R();
+    template<utf_range V>
+        requires std::ranges::view<V>
+    class unpacking_view : public std::ranges::view_interface<unpacking_view<V>> {
+      V base_ = V();
 
     public:
-      constexpr unpacking_owning_view() requires std::default_initializable<R> = default;
-      constexpr unpacking_owning_view(R&& r) : r_(std::move(r)) {}
+      constexpr unpacking_view() requires std::default_initializable<V> = default;
+      constexpr unpacking_view(V base) : base_(std::move(base)) {}
 
-      constexpr R& base() & noexcept { return r_; }
-      constexpr const R& base() const & noexcept { return r_; }
-      constexpr R&& base() && noexcept { return std::move(r_); }
-      constexpr const R&& base() const && noexcept { return std::move(r_); }
+      constexpr V base() const & requires std::copy_constructible<V> { return base_; }
+      constexpr V base() && { return std::move(base_); }
 
       constexpr auto code_units() const noexcept {
-        auto unpacked = boost::text::unpack_iterator_and_sentinel(std::ranges::begin(r_), std::ranges::end(r_));
+        auto unpacked = boost::text::unpack_iterator_and_sentinel(std::ranges::begin(base_), std::ranges::end(base_));
         return std::ranges::subrange(unpacked.first, unpacked.last);
       }
 
-      constexpr auto begin() const { return std::ranges::begin(r_); }
-      constexpr auto end() const { return std::ranges::end(r_); }
+      constexpr auto begin() const { return std::ranges::begin(code_units()); }
+      constexpr auto end() const { return std::ranges::end(code_units()); }
     };
-    // clang-format on
 
-    namespace detail {
-        template<class T>
-        constexpr bool is_unpacking_owning_view = false;
-        template<class R>
-        constexpr bool is_unpacking_owning_view<unpacking_owning_view<R>> = true;
-    }
+    template<class R>
+    unpacking_view(R &&) -> unpacking_view<std::views::all_t<R>>;
+    // clang-format on
 
     template<format Format, utf_range V>
         requires std::ranges::view<V>
@@ -342,48 +336,22 @@ namespace boost { namespace text {
         constexpr V base() const & requires std::copy_constructible<V> { return base_; }
         constexpr V base() && { return std::move(base_); }
 
-        constexpr auto code_units() const noexcept
-            requires std::copy_constructible<V> || detail::is_unpacking_owning_view<V>
-        {
-            if constexpr (detail::is_unpacking_owning_view<V>) {
-                return base_.code_units();
-            } else {
-                return base_;
-            }
-        }
-
         constexpr auto begin() const
         {
-            constexpr format from_format =
-                detail::format_of<std::ranges::range_value_t<V>>();
+            constexpr format from_format = detail::format_of<std::ranges::range_value_t<V>>();
             if constexpr(detail::is_charn_view<V>) {
-                return make_begin<from_format>(
-                    std::ranges::begin(base_.base()),
-                    std::ranges::end(base_.base()));
-            } else if constexpr (detail::is_unpacking_owning_view<V>) {
-                return make_begin<from_format>(
-                    std::ranges::begin(base_.code_units()),
-                    std::ranges::end(base_.code_units()));
+                return make_begin<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
-                return make_begin<from_format>(
-                    std::ranges::begin(base_), std::ranges::end(base_));
+                return make_begin<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
         }
         constexpr auto end() const
         {
-            constexpr format from_format =
-                detail::format_of<std::ranges::range_value_t<V>>();
+            constexpr format from_format = detail::format_of<std::ranges::range_value_t<V>>();
             if constexpr(detail::is_charn_view<V>) {
-                return make_end<from_format>(
-                    std::ranges::begin(base_.base()),
-                    std::ranges::end(base_.base()));
-            } else if constexpr (detail::is_unpacking_owning_view<V>) {
-                return make_end<from_format>(
-                    std::ranges::begin(base_.code_units()),
-                    std::ranges::end(base_.code_units()));
+                return make_end<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
-                return make_end<from_format>(
-                    std::ranges::begin(base_), std::ranges::end(base_));
+                return make_end<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
         }
 
@@ -499,19 +467,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         {
             using T = std::remove_cvref_t<R>;
             if constexpr (std::ranges::forward_range<T>) {
-                auto unpacked = boost::text::unpack_iterator_and_sentinel(
-                    std::ranges::begin(r), std::ranges::end(r));
+                auto unpacked =
+                    boost::text::unpack_iterator_and_sentinel(std::ranges::begin(r), std::ranges::end(r));
                 if constexpr (std::is_bounded_array_v<T>) {
                     constexpr auto n = std::extent_v<T>;
                     if (n && !r[n - 1])
                         --unpacked.last;
-                }
-                if constexpr (std::ranges::borrowed_range<T> || std::is_lvalue_reference_v<R>) {
                     return std::ranges::subrange(unpacked.first, unpacked.last);
                 } else if constexpr (
-                    !std::same_as<decltype(unpacked.first), std::ranges::iterator_t<T>> ||
-                    !std::same_as<decltype(unpacked.last), std::ranges::sentinel_t<T>>) {
-                    return unpacking_owning_view(std::move(r));
+                    !std::same_as<decltype(unpacked.first), std::ranges::iterator_t<R>> ||
+                    !std::same_as<decltype(unpacked.last), std::ranges::sentinel_t<R>>) {
+                    return unpacking_view(std::forward<R>(r));
                 } else {
                     return std::forward<R>(r);
                 }
