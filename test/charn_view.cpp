@@ -191,7 +191,7 @@ TEST(charn_view, char8_t_)
                       boost::text::utf_iterator<
                           boost::text::format::utf8,
                           boost::text::format::utf32,
-                          std::string::const_iterator>>);
+                          std::string::iterator>>);
         EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 
@@ -223,7 +223,7 @@ TEST(charn_view, char8_t_)
                       boost::text::utf_iterator<
                           boost::text::format::utf8,
                           boost::text::format::utf32,
-                          std::u8string::const_iterator>>);
+                          std::u8string::iterator>>);
         EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 
@@ -256,7 +256,7 @@ TEST(charn_view, char8_t_)
                       boost::text::utf_iterator<
                           boost::text::format::utf8,
                           boost::text::format::utf32,
-                          std::vector<int>::const_iterator>>);
+                          std::vector<int>::iterator>>);
         EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 }
@@ -430,7 +430,7 @@ TEST(charn_view, char16_t_)
                       boost::text::utf_iterator<
                           boost::text::format::utf16,
                           boost::text::format::utf8,
-                          std::u16string::const_iterator>>);
+                          std::u16string::iterator>>);
         EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 
@@ -463,7 +463,7 @@ TEST(charn_view, char16_t_)
                       boost::text::utf_iterator<
                           boost::text::format::utf16,
                           boost::text::format::utf8,
-                          std::vector<int>::const_iterator>>);
+                          std::vector<int>::iterator>>);
         EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 }
@@ -604,7 +604,7 @@ TEST(charn_view, char32_t_)
                       boost::text::utf_iterator<
                           boost::text::format::utf32,
                           boost::text::format::utf16,
-                          std::wstring::const_iterator>>);
+                          std::wstring::iterator>>);
         EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 #endif
@@ -637,7 +637,7 @@ TEST(charn_view, char32_t_)
                       boost::text::utf_iterator<
                           boost::text::format::utf32,
                           boost::text::format::utf16,
-                          std::u32string::const_iterator>>);
+                          std::u32string::iterator>>);
         EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 
@@ -670,7 +670,7 @@ TEST(charn_view, char32_t_)
                       boost::text::utf_iterator<
                           boost::text::format::utf32,
                           boost::text::format::utf16,
-                          std::vector<int>::const_iterator>>);
+                          std::vector<int>::iterator>>);
         EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 

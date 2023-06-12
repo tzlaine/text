@@ -292,6 +292,9 @@ namespace boost { namespace text {
         return std::ranges::subrange(unpacked.first, unpacked.last);
       }
 
+      constexpr auto begin() { return std::ranges::begin(code_units()); }
+      constexpr auto end() { return std::ranges::end(code_units()); }
+
       constexpr auto begin() const { return std::ranges::begin(code_units()); }
       constexpr auto end() const { return std::ranges::end(code_units()); }
     };
@@ -336,7 +339,7 @@ namespace boost { namespace text {
         constexpr V base() const & requires std::copy_constructible<V> { return base_; }
         constexpr V base() && { return std::move(base_); }
 
-        constexpr auto begin() const
+        constexpr auto begin()
         {
             constexpr format from_format = detail::format_of<std::ranges::range_value_t<V>>();
             if constexpr(detail::is_charn_view<V>) {
@@ -345,9 +348,28 @@ namespace boost { namespace text {
                 return make_begin<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
         }
-        constexpr auto end() const
+        constexpr auto end()
         {
             constexpr format from_format = detail::format_of<std::ranges::range_value_t<V>>();
+            if constexpr(detail::is_charn_view<V>) {
+                return make_end<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
+            } else {
+                return make_end<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
+            }
+        }
+
+        constexpr auto begin() const
+        {
+            constexpr format from_format = detail::format_of<std::ranges::range_value_t<const V>>();
+            if constexpr(detail::is_charn_view<V>) {
+                return make_begin<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
+            } else {
+                return make_begin<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
+            }
+        }
+        constexpr auto end() const
+        {
+            constexpr format from_format = detail::format_of<std::ranges::range_value_t<const V>>();
             if constexpr(detail::is_charn_view<V>) {
                 return make_end<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
