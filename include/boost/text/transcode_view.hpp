@@ -74,35 +74,10 @@ namespace boost { namespace text {
         template<class I>
         using iterator_to_tag_t = decltype(iterator_to_tag<I>());
 
-        template<class I, class T>
-        struct charn_projection_iterator
-            : boost::stl_interfaces::proxy_iterator_interface<
-                  charn_projection_iterator<I, T>, // TODO
-                  iterator_to_tag_t<I>,
-                  T>
-        {
-            constexpr charn_projection_iterator() = default;
-            constexpr charn_projection_iterator(I it) : it_(std::move(it)) {}
-
-            constexpr T operator*() const { return T(*it_); }
-
-            friend constexpr bool operator==(charn_projection_iterator lhs, null_sentinel_t rhs)
-                requires std::sentinel_for<null_sentinel_t, I>
-            { return lhs.it_ == rhs; }
-
-        private:
-            friend boost::stl_interfaces::access;
-            I & base_reference() noexcept { return it_; }
-            I base_reference() const { return it_; }
-
-            I it_;
-        };
-
         template<class Char>
         struct to_char {
             template<class T>
-            constexpr auto operator()(T && x) const -> decltype(static_cast<Char>(x))
-                { return static_cast<Char>(x); }
+            constexpr Char operator()(T && x) const { return static_cast<Char>(x); }
         };
     }
 
