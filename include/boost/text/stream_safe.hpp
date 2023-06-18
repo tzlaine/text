@@ -199,6 +199,12 @@ namespace boost { namespace text {
             return lhs.base() == rhs.base();
         }
 
+        friend bool operator==(stream_safe_iterator lhs, S rhs)
+            requires(!std::same_as<I, S>)
+        {
+            return lhs.base() == rhs;
+        }
+
         using base_type = stl_interfaces::iterator_interface<
             stream_safe_iterator<I, S>,
             std::bidirectional_iterator_tag,

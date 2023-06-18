@@ -935,15 +935,16 @@ namespace boost { namespace text {
         }
     };
 
-
     /** A sentinel type that compares equal to a pointer to a 1-, 2-, or
         4-byte integral value, iff the pointer is null. */
     struct null_sentinel_t
     {
-        template<typename T>
-        friend constexpr auto operator==(T const * p, null_sentinel_t)
+        // std::__detail::__iter_concept<I> == ITER_CONCEPT(I)
+        template<class I>
+        requires requires { typename std::__detail::__iter_concept<I>; } && std::derived_from<std::__detail::__iter_concept<I>, std::forward_iterator_tag> && std::default_initializable<std::iter_value_t<I>> && std::equality_comparable<std::iter_value_t<I>>
+        friend constexpr auto operator==(I it, null_sentinel_t)
         {
-            return *p == T{};
+            return *it == std::iter_value_t<I>{};
         }
     };
 
