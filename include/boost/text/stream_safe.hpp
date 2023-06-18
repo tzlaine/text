@@ -230,7 +230,7 @@ namespace boost { namespace text {
     constexpr auto operator!=(stream_safe_iterator<I, S> const & lhs, S rhs)
         -> decltype(lhs.base() != rhs)
     {
-        return lhs.base() != rhs.base();
+        return lhs.base() != rhs;
     }
     template<typename I, typename S>
     auto operator!=(S lhs, stream_safe_iterator<I, S> const & rhs)

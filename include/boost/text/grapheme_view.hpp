@@ -63,10 +63,11 @@ namespace boost { namespace text {
             encoding. */
         friend std::ostream & operator<<(std::ostream & os, grapheme_view v)
         {
-            boost::text::transcode_to_utf8(
-                v.begin().base(),
-                v.end().base(),
-                std::ostreambuf_iterator<char>(os));
+            std::ostreambuf_iterator<char> it(os);
+            for (auto c : v.base_ | as_utf8) {
+                *it = c;
+                ++it;
+            }
             return os;
         }
 #if defined(BOOST_TEXT_DOXYGEN) || defined(_MSC_VER)
@@ -74,8 +75,11 @@ namespace boost { namespace text {
             Defined on Windows only. */
         friend std::wostream & operator<<(std::wostream & os, grapheme_view v)
         {
-            boost::text::transcode_to_utf16(
-                v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
+            std::ostreambuf_iterator<char> it(os);
+            for (auto c : v.base_ | as_utf16) {
+                *it = c;
+                ++it;
+            }
             return os;
         }
 #endif

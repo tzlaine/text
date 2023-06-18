@@ -940,8 +940,6 @@ namespace boost { namespace text {
         4-byte integral value, iff the pointer is null. */
     struct null_sentinel_t
     {
-        constexpr null_sentinel_t base() const { return {}; }
-
         template<typename T>
         friend constexpr auto operator==(T const * p, null_sentinel_t)
         {

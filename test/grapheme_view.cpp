@@ -105,7 +105,7 @@ TEST(grapheme_view, as_graphemes_)
         
         int i = 0;
         auto str_it = str.begin();
-        for (auto it = r.begin().base().base(); it != r.end().base().base();
+        for (auto it = r.begin().base().base(); it != null_sentinel;
              ++it, ++i, ++str_it) {
             EXPECT_EQ(*it, *str_it) << "iteration " << i;
         }
