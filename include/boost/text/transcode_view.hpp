@@ -102,16 +102,14 @@ namespace boost { namespace text {
         constexpr V base() const & requires std::copy_constructible<V> { return impl_.base(); }
         constexpr V base() && { return std::move(impl_).base(); }
 
-        constexpr auto begin() { return impl_.begin(); }
-        constexpr auto end() { return impl_.end(); }
+        constexpr auto begin() requires requires { impl_.begin(); } { return impl_.begin(); }
+        constexpr auto end() requires requires { impl_.end(); } { return impl_.end(); }
 
-        constexpr auto begin() const { return impl_.begin(); }
-        constexpr auto end() const { return impl_.begin(); }
+        constexpr auto begin() const requires requires { impl_.begin(); } { return impl_.begin(); }
+        constexpr auto end() const requires requires { impl_.end(); } { return impl_.begin(); }
 
-        constexpr auto size() requires std::ranges::sized_range<V>
-            { return impl_.size(); }
-        constexpr auto size() const requires std::ranges::sized_range<const V>
-            { return impl_.size(); }
+        constexpr auto size() requires requires { impl_.size(); } { return impl_.size(); }
+        constexpr auto size() const requires requires { impl_.size(); } { return impl_.size(); }
     };
 
     template<std::ranges::view V>
@@ -131,16 +129,14 @@ namespace boost { namespace text {
         constexpr V base() const & requires std::copy_constructible<V> { return impl_.base(); }
         constexpr V base() && { return std::move(impl_).base(); }
 
-        constexpr auto begin() { return impl_.begin(); }
-        constexpr auto end() { return impl_.end(); }
+        constexpr auto begin() requires requires { impl_.begin(); } { return impl_.begin(); }
+        constexpr auto end() requires requires { impl_.end(); } { return impl_.end(); }
 
-        constexpr auto begin() const { return impl_.begin(); }
-        constexpr auto end() const { return impl_.begin(); }
+        constexpr auto begin() const requires requires { impl_.begin(); } { return impl_.begin(); }
+        constexpr auto end() const requires requires { impl_.end(); } { return impl_.begin(); }
 
-        constexpr auto size() requires std::ranges::sized_range<V>
-            { return impl_.size(); }
-        constexpr auto size() const requires std::ranges::sized_range<const V>
-            { return impl_.size(); }
+        constexpr auto size() requires requires { impl_.size(); } { return impl_.size(); }
+        constexpr auto size() const requires requires { impl_.size(); } { return impl_.size(); }
     };
 
     template<std::ranges::view V>
@@ -160,16 +156,14 @@ namespace boost { namespace text {
         constexpr V base() const & requires std::copy_constructible<V> { return impl_.base(); }
         constexpr V base() && { return std::move(impl_).base(); }
 
-        constexpr auto begin() { return impl_.begin(); }
-        constexpr auto end() { return impl_.end(); }
+        constexpr auto begin() requires requires { impl_.begin(); } { return impl_.begin(); }
+        constexpr auto end() requires requires { impl_.end(); } { return impl_.end(); }
 
-        constexpr auto begin() const { return impl_.begin(); }
-        constexpr auto end() const { return impl_.begin(); }
+        constexpr auto begin() const requires requires { impl_.begin(); } { return impl_.begin(); }
+        constexpr auto end() const requires requires { impl_.end(); } { return impl_.begin(); }
 
-        constexpr auto size() requires std::ranges::sized_range<V>
-            { return impl_.size(); }
-        constexpr auto size() const requires std::ranges::sized_range<const V>
-            { return impl_.size(); }
+        constexpr auto size() requires requires { impl_.size(); } { return impl_.size(); }
+        constexpr auto size() const requires requires { impl_.size(); } { return impl_.size(); }
     };
 
     template<class R>
