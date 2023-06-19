@@ -103,10 +103,10 @@ namespace boost { namespace text {
         constexpr V base() && { return std::move(impl_).base(); }
 
         constexpr auto begin() requires requires { impl_.begin(); } { return impl_.begin(); }
-        constexpr auto end() requires requires { impl_.end(); } { return impl_.end(); }
-
         constexpr auto begin() const requires requires { impl_.begin(); } { return impl_.begin(); }
+
         constexpr auto end() const requires requires { impl_.end(); } { return impl_.begin(); }
+        constexpr auto end() requires requires { impl_.end(); } { return impl_.end(); }
 
         constexpr auto size() requires requires { impl_.size(); } { return impl_.size(); }
         constexpr auto size() const requires requires { impl_.size(); } { return impl_.size(); }
@@ -130,10 +130,10 @@ namespace boost { namespace text {
         constexpr V base() && { return std::move(impl_).base(); }
 
         constexpr auto begin() requires requires { impl_.begin(); } { return impl_.begin(); }
-        constexpr auto end() requires requires { impl_.end(); } { return impl_.end(); }
-
         constexpr auto begin() const requires requires { impl_.begin(); } { return impl_.begin(); }
+
         constexpr auto end() const requires requires { impl_.end(); } { return impl_.begin(); }
+        constexpr auto end() requires requires { impl_.end(); } { return impl_.end(); }
 
         constexpr auto size() requires requires { impl_.size(); } { return impl_.size(); }
         constexpr auto size() const requires requires { impl_.size(); } { return impl_.size(); }
@@ -157,10 +157,10 @@ namespace boost { namespace text {
         constexpr V base() && { return std::move(impl_).base(); }
 
         constexpr auto begin() requires requires { impl_.begin(); } { return impl_.begin(); }
-        constexpr auto end() requires requires { impl_.end(); } { return impl_.end(); }
-
         constexpr auto begin() const requires requires { impl_.begin(); } { return impl_.begin(); }
+
         constexpr auto end() const requires requires { impl_.end(); } { return impl_.begin(); }
+        constexpr auto end() requires requires { impl_.end(); } { return impl_.end(); }
 
         constexpr auto size() requires requires { impl_.size(); } { return impl_.size(); }
         constexpr auto size() const requires requires { impl_.size(); } { return impl_.size(); }
@@ -228,9 +228,9 @@ namespace boost { namespace text {
       }
 
       constexpr auto begin() { return std::ranges::begin(code_units()); }
-      constexpr auto end() { return std::ranges::end(code_units()); }
-
       constexpr auto begin() const { return std::ranges::begin(code_units()); }
+
+      constexpr auto end() { return std::ranges::end(code_units()); }
       constexpr auto end() const { return std::ranges::end(code_units()); }
     };
 
@@ -283,16 +283,6 @@ namespace boost { namespace text {
                 return make_begin<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
         }
-        constexpr auto end()
-        {
-            constexpr format from_format = detail::format_of<std::ranges::range_value_t<V>>();
-            if constexpr(detail::is_charn_view<V>) {
-                return make_end<from_format>(base_.impl_.begin().base(), base_.impl_.end().base());
-            } else {
-                return make_end<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
-            }
-        }
-
         constexpr auto begin() const
         {
             constexpr format from_format = detail::format_of<std::ranges::range_value_t<const V>>();
@@ -300,6 +290,16 @@ namespace boost { namespace text {
                 return make_begin<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
                 return make_begin<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
+            }
+        }
+
+        constexpr auto end()
+        {
+            constexpr format from_format = detail::format_of<std::ranges::range_value_t<V>>();
+            if constexpr(detail::is_charn_view<V>) {
+                return make_end<from_format>(base_.impl_.begin().base(), base_.impl_.end().base());
+            } else {
+                return make_end<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
         }
         constexpr auto end() const
