@@ -941,7 +941,10 @@ namespace boost { namespace text {
     {
         // std::__detail::__iter_concept<I> == ITER_CONCEPT(I)
         template<class I>
-        requires requires { typename std::__detail::__iter_concept<I>; } && std::derived_from<std::__detail::__iter_concept<I>, std::forward_iterator_tag> && std::default_initializable<std::iter_value_t<I>> && std::equality_comparable<std::iter_value_t<I>>
+        requires requires { typename std::__detail::__iter_concept<I>; } &&
+                 std::derived_from<std::__detail::__iter_concept<I>, std::forward_iterator_tag> &&
+                 std::default_initializable<std::iter_value_t<I>> &&
+                 std::equality_comparable<std::iter_value_t<I>>
         friend constexpr auto operator==(I it, null_sentinel_t)
         {
             return *it == std::iter_value_t<I>{};
