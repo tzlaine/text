@@ -322,24 +322,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
 namespace boost { namespace text { namespace detail {
 
-    template<nf Normalization, typename CPIter>
-    CPIter last_stable_cp(CPIter first, CPIter last)
-    {
-        auto const it = find_if_backward(
-            first, last, detail::stable_code_point<Normalization>);
-        if (it == last)
-            return first;
-        return it;
-    }
-
-    template<nf Normalization, typename CPIter>
-    CPIter first_stable_cp(CPIter first, CPIter last)
-    {
-        auto const it =
-            find_if(first, last, detail::stable_code_point<Normalization>);
-        return it;
-    }
-
     template<typename CPIter>
     struct stable_cps_result_t : subrange<CPIter>
     {

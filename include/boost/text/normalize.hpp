@@ -328,18 +328,249 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    template<nf Normalization, utf_range_like R>
+    template<nf N, utf_range_like R>
     bool normalized(R && r)
     {
         if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
-            return boost::text::normalized<Normalization>(r, null_sentinel);
+            return boost::text::normalized<N>(r, null_sentinel);
         } else {
-            return boost::text::normalized<Normalization>(
+            return boost::text::normalized<N>(
                 std::ranges::begin(r), std::ranges::end(r));
         }
     }
 
+    template<nf N, utf32_range V>
+        requires std::ranges::view<V>
+    class normalize_view : public std::ranges::view_interface<normalize_view<N, V>>
+    {
+        template<bool Const, bool StoreLast = !detail::is_utf_iter<std::ranges::iterator_t<V>>>
+        class iterator;
+        class sentinel;
+
+        V base_ = V();
+
+        static_assert(nf::c <= N && N <= nf::fcc);
+
+    public:
+        constexpr normalize_view() requires std::default_initializable<V> = default;
+        constexpr normalize_view(V base) : base_{std::move(base)} {}
+
+        constexpr V base() const & requires std::copy_constructible<V> { return base_; }
+        constexpr V base() && { return std::move(base_); }
+
+        constexpr iterator<false> begin() { return iterator<false>{base_}; }
+        constexpr iterator<true> begin() const requires utf32_range<const V> { return iterator<true>{base_}; }
+
+        constexpr sentinel end() { return {}; }
+        constexpr sentinel end() const requires utf32_range<const V> { return {}; }
+    };
+
+    template<nf N, utf32_range V>
+        requires std::ranges::view<V>
+    template<bool Const, bool StoreLast>
+    class normalize_view<N, V>::iterator
+        : public detail::sentinel_storage<std::ranges::sentinel_t<V>, StoreLast>,
+          public boost::stl_interfaces::iterator_interface<
+              iterator<Const, StoreLast>,
+              std::forward_iterator_tag,
+              char32_t,
+              char32_t>
+    {
+        using Base = detail::maybe_const<Const, V>;
+        using storage_base = detail::sentinel_storage<std::ranges::sentinel_t<V>, StoreLast>;
+
+        std::ranges::iterator_t<Base> it_;
+        // exposition-only, and only defined when std::ranges::iterator_t<Base>
+        // is not a specialization of utf_iterator.
+        // std::ranges::sentinel_t<Base> last_;
+
+        boost::container::static_vector<char32_t, 32> buf_;
+        int index_ = 0;
+
+        constexpr auto end() const {
+            if constexpr (StoreLast) {
+                return storage_base::last_;
+            } else {
+                return it_.end();
+            }
+        }
+
+        constexpr void read_chunk_and_normalize() {
+            boost::container::static_vector<char32_t, 32> temp_buf_;
+            auto last = detail::first_stable_cp<N>(it_, end());
+            if (last != end() && it_ == last)
+                ++last;
+            it_.in = std::ranges::copy(it_, last, std::back_inserter(temp_buf_));
+            buf_.clear();
+            index_ = 0;
+            text::normalize<N>(temp_buf_, std::back_inserter(buf_));
+        }
+
+        friend class sentinel;
+
+    public:
+        constexpr iterator() requires std::default_initializable<std::ranges::iterator_t<Base>> = default;
+        constexpr iterator(Base & base) : storage_base(base), it_(std::ranges::begin(base)) {
+            read_chunk_and_normalize();
+        }
+        constexpr iterator(iterator<!Const, StoreLast> i)
+            requires Const && std::convertible_to<std::ranges::iterator_t<V>, std::ranges::iterator_t<Base>>
+            : storage_base(i), it_(i.it_) {}
+
+        constexpr const std::ranges::iterator_t<Base> & base() const & noexcept { return it_; }
+        constexpr std::ranges::iterator_t<Base> base() && { return std::move(it_); }
+
+        constexpr char32_t operator*() const { return buf_[index_]; }
+
+        constexpr iterator & operator++() {
+            if (buf_.size() <= ++index_)
+                read_chunk_and_normalize();
+        }
+
+        using base_type = boost::stl_interfaces::iterator_interface<
+            iterator<Const, StoreLast>,
+            std::forward_iterator_tag,
+            char32_t,
+            char32_t>;
+        using base_type::operator++;
+    };
+
+    template<nf N, utf32_range V>
+        requires std::ranges::view<V>
+    class normalize_view<N, V>::sentinel
+    {
+    public:
+        template<bool Const, bool StoreLast>
+        friend constexpr bool operator==(iterator<Const, StoreLast> it, sentinel) {
+            if constexpr (StoreLast) {
+                return it.it_ == it.last_;
+            } else {
+                return it.base() == it.end();
+            }
+        }
+    };
+
+
+    template<utf32_range V>
+        requires std::ranges::view<V>
+    class nfc_view : public normalize_view<nf::c, V>
+    {
+    public:
+        constexpr nfc_view() requires std::default_initializable<V> = default;
+        constexpr nfc_view(V base) :
+            normalize_view<nf::c, V>{std::move(base)}
+        {}
+    };
+    template<utf32_range V>
+        requires std::ranges::view<V>
+    class nfkc_view : public normalize_view<nf::kc, V>
+    {
+    public:
+        constexpr nfkc_view() requires std::default_initializable<V> = default;
+        constexpr nfkc_view(V base) :
+            normalize_view<nf::kc, V>{std::move(base)}
+        {}
+    };
+    template<utf32_range V>
+        requires std::ranges::view<V>
+    class nfd_view : public normalize_view<nf::d, V>
+    {
+    public:
+        constexpr nfd_view() requires std::default_initializable<V> = default;
+        constexpr nfd_view(V base) :
+            normalize_view<nf::d, V>{std::move(base)}
+        {}
+    };
+    template<utf32_range V>
+        requires std::ranges::view<V>
+    class nfkd_view : public normalize_view<nf::kd, V>
+    {
+    public:
+        constexpr nfkd_view() requires std::default_initializable<V> = default;
+        constexpr nfkd_view(V base) :
+            normalize_view<nf::kd, V>{std::move(base)}
+        {}
+    };
+    template<utf32_range V>
+        requires std::ranges::view<V>
+    class fcc_view : public normalize_view<nf::fcc, V>
+    {
+    public:
+        constexpr fcc_view() requires std::default_initializable<V> = default;
+        constexpr fcc_view(V base) :
+            normalize_view<nf::fcc, V>{std::move(base)}
+        {}
+    };
+
+    template<class R>
+    nfc_view(R &&) -> nfc_view<std::views::all_t<R>>;
+    template<class R>
+    nfkc_view(R &&) -> nfkc_view<std::views::all_t<R>>;
+    template<class R>
+    nfd_view(R &&) -> nfd_view<std::views::all_t<R>>;
+    template<class R>
+    nfkd_view(R &&) -> nfkd_view<std::views::all_t<R>>;
+    template<class R>
+    fcc_view(R &&) -> fcc_view<std::views::all_t<R>>;
+
+
+    namespace dtl {
+        template<class R>
+        concept can_utf32_view = requires { as_utf32(std::declval<R>()); };
+
+        template<class T>
+        constexpr bool is_utf32_view = false;
+        template<class V>
+        constexpr bool is_utf32_view<utf32_view<V>> = true;
+        template<class V>
+        constexpr bool is_utf32_view<utf_view<format::utf32, V>> = true;
+
+        template<template<class> class View, nf N>
+        struct normalize_impl : range_adaptor_closure<normalize_impl<View, N>>
+        {
+            template<can_utf32_view R>
+            [[nodiscard]] constexpr auto operator()(R && r) const
+            {
+                using T = std::remove_cvref_t<R>;
+                if constexpr (detail::is_empty_view<T>) {
+                    return std::ranges::empty_view<T>{};
+                } else if constexpr (is_utf32_view<T>) {
+                    return View(std::forward<R>(r));
+                } else {
+                    return View(std::forward<R>(r) | as_utf32);
+                }
+            }
+        };
+    }
+
+    inline constexpr dtl::normalize_impl<nfc_view, nf::c> as_nfc;
+    inline constexpr dtl::normalize_impl<nfkc_view, nf::kc> as_nfkc;
+    inline constexpr dtl::normalize_impl<nfd_view, nf::d> as_nfd;
+    inline constexpr dtl::normalize_impl<nfkd_view, nf::kd> as_nfkd;
+    inline constexpr dtl::normalize_impl<fcc_view, nf::fcc> as_fcc;
+
 }}}
+
+namespace std::ranges {
+    template<boost::text::nf N, class V>
+    inline constexpr bool enable_borrowed_range<boost::text::normalize_view<N, V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::nfc_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::nfkc_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::nfd_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::nfkd_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::fcc_view<V>> =
+        enable_borrowed_range<V>;
+}
 
 #endif
 

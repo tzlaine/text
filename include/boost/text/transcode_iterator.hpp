@@ -3017,6 +3017,47 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
 }}}
 
+namespace boost { namespace text { namespace detail {
+
+    template<class T>
+    constexpr bool is_utf_iter = false;
+    template<
+        format FromFormat,
+        format ToFormat,
+        class I,
+        class S,
+        class ErrorHandler>
+    constexpr bool
+        is_utf_iter<utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>> =
+            true;
+
+    // These are here because so many downstream views that use
+    // utf_iterator use them.
+
+    template<class V, bool Store = !is_utf_iter<std::ranges::iterator_t<V>>>
+    struct sentinel_storage
+    {
+        sentinel_storage(V & base) : last_{std::ranges::end(base)} {}
+
+        std::ranges::sentinel_t<V> last_;
+    };
+
+    template<class V>
+    struct sentinel_storage<V, false>
+    {
+        sentinel_storage(V & base) {}
+    };
+
+    template<bool Const, class T>
+    using maybe_const = std::conditional_t<Const, const T, T>;
+
+    template<class T>
+    constexpr bool is_empty_view = false;
+    template<class T>
+    constexpr bool is_empty_view<std::ranges::empty_view<T>> = true;
+
+}}}
+
 #endif
 
 #endif

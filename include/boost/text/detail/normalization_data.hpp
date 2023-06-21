@@ -6,6 +6,7 @@
 #ifndef BOOST_TEXT_DETAIL_NORMALIZATION_DATA_HPP
 #define BOOST_TEXT_DETAIL_NORMALIZATION_DATA_HPP
 
+#include <boost/text/algorithm.hpp>
 #include <boost/text/normalize_fwd.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/detail/lzw.hpp>
@@ -364,6 +365,24 @@ namespace boost { namespace text { namespace detail {
         constexpr nf form = Normalization == nf::fcc ? nf::c : Normalization;
         return detail::ccc(cp) == 0 &&
                quick_check_code_point<form>(cp) == quick_check::yes;
+    }
+
+    template<nf Normalization, typename CPIter>
+    CPIter last_stable_cp(CPIter first, CPIter last)
+    {
+        auto const it = find_if_backward(
+            first, last, detail::stable_code_point<Normalization>);
+        if (it == last)
+            return first;
+        return it;
+    }
+
+    template<nf Normalization, typename CPIter>
+    CPIter first_stable_cp(CPIter first, CPIter last)
+    {
+        auto const it =
+            find_if(first, last, detail::stable_code_point<Normalization>);
+        return it;
     }
 
     struct lzw_to_cp_props_iter

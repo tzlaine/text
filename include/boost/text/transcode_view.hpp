@@ -53,11 +53,6 @@ namespace boost { namespace text {
 #endif
 
     namespace detail {
-        template<class T>
-        constexpr bool is_empty_view = false;
-        template<class T>
-        constexpr bool is_empty_view<std::ranges::empty_view<T>> = true;
-
         template<class I>
         constexpr auto iterator_to_tag()
         {
