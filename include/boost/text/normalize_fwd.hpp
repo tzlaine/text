@@ -36,9 +36,13 @@ namespace boost { namespace text {
         enumerator from `nf`. */
 #define BOOST_TEXT_STATIC_ASSERT_NORMALIZATION()                               \
     static_assert(                                                             \
-        (int)nf::c <= (int)Normalization &&                                    \
-            (int)Normalization <= (int)nf::fcc,                                \
+        nf::c <= Normalization && Normalization <= nf::fcc,                    \
         "Invalid normalization form.")
+
+    /** Expands to a `static_assert` that `Normalization` is a valid
+        enumerator from `nf`. */
+#define BOOST_TEXT_STATIC_ASSERT_N()                                           \
+    static_assert(nf::c <= N && N <= nf::fcc, "Invalid normalization form.")
 
 }}
 

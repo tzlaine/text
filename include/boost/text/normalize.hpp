@@ -311,19 +311,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    template<nf Normalization, utf_iter I, std::sentinel_for<I> S>
+    template<nf N, utf_iter I, std::sentinel_for<I> S>
     bool normalized(I first, S last)
     {
         if constexpr (utf32_iter<I>) {
-            BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+            BOOST_TEXT_STATIC_ASSERT_N();
             detail::null_appender appender;
-            return detail::norm_impl<Normalization, bool, I, S>::call(
-                       first, last, appender)
+            return detail::norm_impl<N, bool, I, S>::call(first, last, appender)
                 .normalized_;
         } else {
             auto const code_points =
                 std::ranges::subrange(first, last) | as_utf32;
-            return boost::text::normalized(
+            return boost::text::normalized<N>(
                 code_points.begin(), code_points.end());
         }
     }
