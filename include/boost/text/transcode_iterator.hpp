@@ -2612,8 +2612,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
         }
 
-        friend constexpr bool
-        operator==(utf_iterator lhs, S rhs) requires(!std::same_as<I, S>)
+        friend constexpr bool operator==(utf_iterator lhs, S rhs)
         {
             if constexpr (std::forward_iterator<I>) {
                 return lhs.curr() == rhs;
