@@ -75,7 +75,7 @@ namespace boost { namespace text {
         using iterator_to_tag_t = decltype(iterator_to_tag<I>());
 
         template<class Char>
-        struct to_char {
+        struct cast_to_charn {
             template<class T>
             constexpr Char operator()(T && x) const { return static_cast<Char>(x); }
         };
@@ -89,7 +89,7 @@ namespace boost { namespace text {
         requires std::ranges::input_range<V> && std::convertible_to<std::ranges::range_reference_t<V>, char8_t>
     class char8_view : public std::ranges::view_interface<char8_view<V>>
     {
-        std::ranges::transform_view<V, detail::to_char<char8_t>> impl_;
+        std::ranges::transform_view<V, detail::cast_to_charn<char8_t>> impl_;
 
         template<format Format2, utf_range V2>
             requires std::ranges::view<V2>
@@ -97,7 +97,7 @@ namespace boost { namespace text {
 
     public:
         constexpr char8_view() requires std::default_initializable<V> = default;
-        constexpr char8_view(V base) : impl_{std::move(base), detail::to_char<char8_t>{}} {}
+        constexpr char8_view(V base) : impl_{std::move(base), detail::cast_to_charn<char8_t>{}} {}
 
         constexpr V base() const & requires std::copy_constructible<V> { return impl_.base(); }
         constexpr V base() && { return std::move(impl_).base(); }
@@ -116,7 +116,7 @@ namespace boost { namespace text {
         requires std::ranges::input_range<V> && std::convertible_to<std::ranges::range_reference_t<V>, char16_t>
     class char16_view : public std::ranges::view_interface<char16_view<V>>
     {
-        std::ranges::transform_view<V, detail::to_char<char16_t>> impl_;
+        std::ranges::transform_view<V, detail::cast_to_charn<char16_t>> impl_;
 
         template<format Format2, utf_range V2>
             requires std::ranges::view<V2>
@@ -124,7 +124,7 @@ namespace boost { namespace text {
 
     public:
         constexpr char16_view() requires std::default_initializable<V> = default;
-        constexpr char16_view(V base) : impl_{std::move(base), detail::to_char<char16_t>{}} {}
+        constexpr char16_view(V base) : impl_{std::move(base), detail::cast_to_charn<char16_t>{}} {}
 
         constexpr V base() const & requires std::copy_constructible<V> { return impl_.base(); }
         constexpr V base() && { return std::move(impl_).base(); }
@@ -143,7 +143,7 @@ namespace boost { namespace text {
         requires std::ranges::input_range<V> && std::convertible_to<std::ranges::range_reference_t<V>, char32_t>
     class char32_view : public std::ranges::view_interface<char32_view<V>>
     {
-        std::ranges::transform_view<V, detail::to_char<char32_t>> impl_;
+        std::ranges::transform_view<V, detail::cast_to_charn<char32_t>> impl_;
 
         template<format Format2, utf_range V2>
             requires std::ranges::view<V2>
@@ -151,7 +151,7 @@ namespace boost { namespace text {
 
     public:
         constexpr char32_view() requires std::default_initializable<V> = default;
-        constexpr char32_view(V base) : impl_{std::move(base), detail::to_char<char32_t>{}} {}
+        constexpr char32_view(V base) : impl_{std::move(base), detail::cast_to_charn<char32_t>{}} {}
 
         constexpr V base() const & requires std::copy_constructible<V> { return impl_.base(); }
         constexpr V base() && { return std::move(impl_).base(); }
