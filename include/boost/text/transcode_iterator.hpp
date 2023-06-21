@@ -3036,7 +3036,8 @@ namespace boost { namespace text { namespace detail {
     template<class V, bool Store = !is_utf_iter<std::ranges::iterator_t<V>>>
     struct sentinel_storage
     {
-        sentinel_storage(V & base) : last_{std::ranges::end(base)} {}
+        constexpr sentinel_storage() requires std::default_initializable<std::ranges::sentinel_t<V>> = default;
+        constexpr sentinel_storage(V & base) : last_{std::ranges::end(base)} {}
 
         std::ranges::sentinel_t<V> last_;
     };
@@ -3044,7 +3045,8 @@ namespace boost { namespace text { namespace detail {
     template<class V>
     struct sentinel_storage<V, false>
     {
-        sentinel_storage(V & base) {}
+        constexpr sentinel_storage() = default;
+        constexpr sentinel_storage(V & base) {}
     };
 
     template<bool Const, class T>

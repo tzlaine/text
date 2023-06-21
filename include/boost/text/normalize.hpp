@@ -369,7 +369,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         requires std::ranges::view<V>
     template<bool Const, bool StoreLast>
     class normalize_view<N, V>::iterator
-        : public detail::sentinel_storage<std::ranges::sentinel_t<V>, StoreLast>,
+        : public detail::sentinel_storage<detail::maybe_const<Const, V>, StoreLast>,
           public boost::stl_interfaces::iterator_interface<
               iterator<Const, StoreLast>,
               std::forward_iterator_tag,
@@ -377,7 +377,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
               char32_t>
     {
         using Base = detail::maybe_const<Const, V>;
-        using storage_base = detail::sentinel_storage<std::ranges::sentinel_t<V>, StoreLast>;
+        using storage_base = detail::sentinel_storage<Base, StoreLast>;
 
         std::ranges::iterator_t<Base> it_;
         // exposition-only, and only defined when std::ranges::iterator_t<Base>
@@ -400,7 +400,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             auto last = detail::first_stable_cp<N>(it_, end());
             if (last != end() && it_ == last)
                 ++last;
-            it_.in = std::ranges::copy(it_, last, std::back_inserter(temp_buf_));
+            it_ = std::ranges::copy(it_, last, std::back_inserter(temp_buf_)).in;
             buf_.clear();
             index_ = 0;
             text::normalize<N>(temp_buf_, std::back_inserter(buf_));
@@ -423,8 +423,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         constexpr char32_t operator*() const { return buf_[index_]; }
 
         constexpr iterator & operator++() {
-            if (buf_.size() <= ++index_)
+            if ((int)buf_.size() <= ++index_)
                 read_chunk_and_normalize();
+            return *this;
         }
 
         using base_type = boost::stl_interfaces::iterator_interface<
@@ -441,11 +442,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
     public:
         template<bool Const, bool StoreLast>
-        friend constexpr bool operator==(iterator<Const, StoreLast> it, sentinel) {
+        friend constexpr bool operator==(const iterator<Const, StoreLast> & it, sentinel) {
+            if (it.index_ < (int)it.buf_.size())
+                return false;
             if constexpr (StoreLast) {
                 return it.it_ == it.last_;
             } else {
-                return it.base() == it.end();
+                return it.base().base() == it.base().end();
             }
         }
     };

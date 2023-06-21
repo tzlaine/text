@@ -367,22 +367,20 @@ namespace boost { namespace text { namespace detail {
                quick_check_code_point<form>(cp) == quick_check::yes;
     }
 
-    template<nf Normalization, typename CPIter>
-    CPIter last_stable_cp(CPIter first, CPIter last)
+    template<nf N, typename I, std::sentinel_for<I> S>
+    I last_stable_cp(I first, S last)
     {
-        auto const it = find_if_backward(
-            first, last, detail::stable_code_point<Normalization>);
+        auto const it =
+            find_if_backward(first, last, detail::stable_code_point<N>);
         if (it == last)
             return first;
         return it;
     }
 
-    template<nf Normalization, typename CPIter>
-    CPIter first_stable_cp(CPIter first, CPIter last)
+    template<nf N, typename I, std::sentinel_for<I> S>
+    I first_stable_cp(I first, S last)
     {
-        auto const it =
-            find_if(first, last, detail::stable_code_point<Normalization>);
-        return it;
+        return find_if(first, last, detail::stable_code_point<N>);
     }
 
     struct lzw_to_cp_props_iter

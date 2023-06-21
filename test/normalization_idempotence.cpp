@@ -42,5 +42,17 @@ TEST(normalization, idempotence)
 
         boost::text::normalize<boost::text::nf::kc>(str);
         EXPECT_TRUE(str == initial_str);
+
+        EXPECT_TRUE(std::ranges::equal(
+            str | boost::text::as_nfc | boost::text::as_utf8, initial_str));
+
+        EXPECT_TRUE(std::ranges::equal(
+            str | boost::text::as_nfd | boost::text::as_utf8, initial_str));
+
+        EXPECT_TRUE(std::ranges::equal(
+            str | boost::text::as_nfkd | boost::text::as_utf8, initial_str));
+
+        EXPECT_TRUE(std::ranges::equal(
+            str | boost::text::as_nfkc | boost::text::as_utf8, initial_str));
     }
 }
