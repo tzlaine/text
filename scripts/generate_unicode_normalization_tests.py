@@ -208,16 +208,22 @@ TEST(normalization, {0}_{1:03}_{2:03})
 def generate_norm_check(normalization, from_, to_):
     return '''
         {{
-            std::u8string str = boost::text::to_u8string({1}.begin(), {1}.end());
-            boost::text::normalize<boost::text::nf::{0}>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t){2}.size());
-            auto {2}_it = {2}.begin();
-            int i = 0;
-            for (auto x : r) {{
-                EXPECT_EQ(x, *{2}_it) << "iteration " << i;
-                ++{2}_it;
-                ++i;
+            std::u8string strs[2] = {{boost::text::to_u8string({1}.begin(), {1}.end())}};
+            auto v = strs[0] | boost::text::as_nf{0} | boost::text::as_utf8;
+            for (auto c : v) {{
+                strs[1] += c;
+            }}
+            boost::text::normalize<boost::text::nf::{0}>(strs[0]);
+            for (auto str : strs) {{
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t){2}.size());
+                auto {2}_it = {2}.begin();
+                int i = 0;
+                for (auto x : r) {{
+                    EXPECT_EQ(x, *{2}_it) << "iteration " << i;
+                    ++{2}_it;
+                    ++i;
+                }}
             }}
         }}
 '''.format(normalization[2:], from_, to_)

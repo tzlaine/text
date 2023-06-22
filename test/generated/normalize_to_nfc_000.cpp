@@ -41,72 +41,102 @@ TEST(normalization, nfc_000_000)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -140,72 +170,102 @@ TEST(normalization, nfc_000_001)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -239,72 +299,102 @@ TEST(normalization, nfc_000_002)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -338,72 +428,102 @@ TEST(normalization, nfc_000_003)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -437,72 +557,102 @@ TEST(normalization, nfc_000_004)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -536,72 +686,102 @@ TEST(normalization, nfc_000_005)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -635,72 +815,102 @@ TEST(normalization, nfc_000_006)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -734,72 +944,102 @@ TEST(normalization, nfc_000_007)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -833,72 +1073,102 @@ TEST(normalization, nfc_000_008)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -932,72 +1202,102 @@ TEST(normalization, nfc_000_009)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -1031,72 +1331,102 @@ TEST(normalization, nfc_000_010)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -1130,72 +1460,102 @@ TEST(normalization, nfc_000_011)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -1229,72 +1589,102 @@ TEST(normalization, nfc_000_012)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -1328,72 +1718,102 @@ TEST(normalization, nfc_000_013)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -1427,72 +1847,102 @@ TEST(normalization, nfc_000_014)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -1526,72 +1976,102 @@ TEST(normalization, nfc_000_015)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -1625,72 +2105,102 @@ TEST(normalization, nfc_000_016)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -1724,72 +2234,102 @@ TEST(normalization, nfc_000_017)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -1823,72 +2363,102 @@ TEST(normalization, nfc_000_018)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -1922,72 +2492,102 @@ TEST(normalization, nfc_000_019)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -2021,72 +2621,102 @@ TEST(normalization, nfc_000_020)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -2128,72 +2758,102 @@ TEST(normalization, nfc_000_021)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -2235,72 +2895,102 @@ TEST(normalization, nfc_000_022)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -2334,72 +3024,102 @@ TEST(normalization, nfc_000_023)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -2433,72 +3153,102 @@ TEST(normalization, nfc_000_024)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -2532,72 +3282,102 @@ TEST(normalization, nfc_000_025)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -2631,72 +3411,102 @@ TEST(normalization, nfc_000_026)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -2730,72 +3540,102 @@ TEST(normalization, nfc_000_027)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -2829,72 +3669,102 @@ TEST(normalization, nfc_000_028)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -2928,72 +3798,102 @@ TEST(normalization, nfc_000_029)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -3027,72 +3927,102 @@ TEST(normalization, nfc_000_030)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -3126,72 +4056,102 @@ TEST(normalization, nfc_000_031)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -3225,72 +4185,102 @@ TEST(normalization, nfc_000_032)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -3324,72 +4314,102 @@ TEST(normalization, nfc_000_033)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -3423,72 +4443,102 @@ TEST(normalization, nfc_000_034)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -3522,72 +4572,102 @@ TEST(normalization, nfc_000_035)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -3621,72 +4701,102 @@ TEST(normalization, nfc_000_036)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -3720,72 +4830,102 @@ TEST(normalization, nfc_000_037)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -3819,72 +4959,102 @@ TEST(normalization, nfc_000_038)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -3918,72 +5088,102 @@ TEST(normalization, nfc_000_039)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -4017,72 +5217,102 @@ TEST(normalization, nfc_000_040)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -4116,72 +5346,102 @@ TEST(normalization, nfc_000_041)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -4215,72 +5475,102 @@ TEST(normalization, nfc_000_042)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -4314,72 +5604,102 @@ TEST(normalization, nfc_000_043)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -4413,72 +5733,102 @@ TEST(normalization, nfc_000_044)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -4512,72 +5862,102 @@ TEST(normalization, nfc_000_045)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -4611,72 +5991,102 @@ TEST(normalization, nfc_000_046)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -4710,72 +6120,102 @@ TEST(normalization, nfc_000_047)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -4809,72 +6249,102 @@ TEST(normalization, nfc_000_048)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -4908,72 +6378,102 @@ TEST(normalization, nfc_000_049)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -5007,72 +6507,102 @@ TEST(normalization, nfc_000_050)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -5106,72 +6636,102 @@ TEST(normalization, nfc_000_051)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -5205,72 +6765,102 @@ TEST(normalization, nfc_000_052)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -5304,72 +6894,102 @@ TEST(normalization, nfc_000_053)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -5403,72 +7023,102 @@ TEST(normalization, nfc_000_054)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -5502,72 +7152,102 @@ TEST(normalization, nfc_000_055)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -5601,72 +7281,102 @@ TEST(normalization, nfc_000_056)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -5700,72 +7410,102 @@ TEST(normalization, nfc_000_057)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -5799,72 +7539,102 @@ TEST(normalization, nfc_000_058)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -5898,72 +7668,102 @@ TEST(normalization, nfc_000_059)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -5997,72 +7797,102 @@ TEST(normalization, nfc_000_060)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -6096,72 +7926,102 @@ TEST(normalization, nfc_000_061)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -6195,72 +8055,102 @@ TEST(normalization, nfc_000_062)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -6294,72 +8184,102 @@ TEST(normalization, nfc_000_063)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -6393,72 +8313,102 @@ TEST(normalization, nfc_000_064)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -6492,72 +8442,102 @@ TEST(normalization, nfc_000_065)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -6591,72 +8571,102 @@ TEST(normalization, nfc_000_066)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -6690,72 +8700,102 @@ TEST(normalization, nfc_000_067)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -6789,72 +8829,102 @@ TEST(normalization, nfc_000_068)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -6888,72 +8958,102 @@ TEST(normalization, nfc_000_069)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -6987,72 +9087,102 @@ TEST(normalization, nfc_000_070)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -7086,72 +9216,102 @@ TEST(normalization, nfc_000_071)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -7185,72 +9345,102 @@ TEST(normalization, nfc_000_072)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -7284,72 +9474,102 @@ TEST(normalization, nfc_000_073)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -7383,72 +9603,102 @@ TEST(normalization, nfc_000_074)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -7482,72 +9732,102 @@ TEST(normalization, nfc_000_075)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -7581,72 +9861,102 @@ TEST(normalization, nfc_000_076)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -7680,72 +9990,102 @@ TEST(normalization, nfc_000_077)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -7779,72 +10119,102 @@ TEST(normalization, nfc_000_078)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -7878,72 +10248,102 @@ TEST(normalization, nfc_000_079)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -7977,72 +10377,102 @@ TEST(normalization, nfc_000_080)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -8076,72 +10506,102 @@ TEST(normalization, nfc_000_081)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -8175,72 +10635,102 @@ TEST(normalization, nfc_000_082)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -8274,72 +10764,102 @@ TEST(normalization, nfc_000_083)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -8373,72 +10893,102 @@ TEST(normalization, nfc_000_084)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -8472,72 +11022,102 @@ TEST(normalization, nfc_000_085)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -8571,72 +11151,102 @@ TEST(normalization, nfc_000_086)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -8670,72 +11280,102 @@ TEST(normalization, nfc_000_087)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -8769,72 +11409,102 @@ TEST(normalization, nfc_000_088)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -8868,72 +11538,102 @@ TEST(normalization, nfc_000_089)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -8967,72 +11667,102 @@ TEST(normalization, nfc_000_090)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -9066,72 +11796,102 @@ TEST(normalization, nfc_000_091)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -9165,72 +11925,102 @@ TEST(normalization, nfc_000_092)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -9264,72 +12054,102 @@ TEST(normalization, nfc_000_093)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -9363,72 +12183,102 @@ TEST(normalization, nfc_000_094)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -9462,72 +12312,102 @@ TEST(normalization, nfc_000_095)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -9561,72 +12441,102 @@ TEST(normalization, nfc_000_096)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -9660,72 +12570,102 @@ TEST(normalization, nfc_000_097)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -9759,72 +12699,102 @@ TEST(normalization, nfc_000_098)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -9858,72 +12828,102 @@ TEST(normalization, nfc_000_099)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -9957,72 +12957,102 @@ TEST(normalization, nfc_000_100)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -10056,72 +13086,102 @@ TEST(normalization, nfc_000_101)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -10155,72 +13215,102 @@ TEST(normalization, nfc_000_102)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -10254,72 +13344,102 @@ TEST(normalization, nfc_000_103)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -10353,72 +13473,102 @@ TEST(normalization, nfc_000_104)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -10452,72 +13602,102 @@ TEST(normalization, nfc_000_105)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -10551,72 +13731,102 @@ TEST(normalization, nfc_000_106)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -10650,72 +13860,102 @@ TEST(normalization, nfc_000_107)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -10749,72 +13989,102 @@ TEST(normalization, nfc_000_108)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -10848,72 +14118,102 @@ TEST(normalization, nfc_000_109)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -10947,72 +14247,102 @@ TEST(normalization, nfc_000_110)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -11046,72 +14376,102 @@ TEST(normalization, nfc_000_111)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -11145,72 +14505,102 @@ TEST(normalization, nfc_000_112)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -11244,72 +14634,102 @@ TEST(normalization, nfc_000_113)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -11343,72 +14763,102 @@ TEST(normalization, nfc_000_114)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -11442,72 +14892,102 @@ TEST(normalization, nfc_000_115)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -11541,72 +15021,102 @@ TEST(normalization, nfc_000_116)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -11640,72 +15150,102 @@ TEST(normalization, nfc_000_117)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -11739,72 +15279,102 @@ TEST(normalization, nfc_000_118)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -11838,72 +15408,102 @@ TEST(normalization, nfc_000_119)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -11937,72 +15537,102 @@ TEST(normalization, nfc_000_120)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -12036,72 +15666,102 @@ TEST(normalization, nfc_000_121)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -12135,72 +15795,102 @@ TEST(normalization, nfc_000_122)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -12234,72 +15924,102 @@ TEST(normalization, nfc_000_123)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -12333,72 +16053,102 @@ TEST(normalization, nfc_000_124)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -12432,72 +16182,102 @@ TEST(normalization, nfc_000_125)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -12531,72 +16311,102 @@ TEST(normalization, nfc_000_126)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -12630,72 +16440,102 @@ TEST(normalization, nfc_000_127)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -12729,72 +16569,102 @@ TEST(normalization, nfc_000_128)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -12828,72 +16698,102 @@ TEST(normalization, nfc_000_129)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -12927,72 +16827,102 @@ TEST(normalization, nfc_000_130)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -13026,72 +16956,102 @@ TEST(normalization, nfc_000_131)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -13125,72 +17085,102 @@ TEST(normalization, nfc_000_132)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -13224,72 +17214,102 @@ TEST(normalization, nfc_000_133)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -13323,72 +17343,102 @@ TEST(normalization, nfc_000_134)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -13422,72 +17472,102 @@ TEST(normalization, nfc_000_135)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -13521,72 +17601,102 @@ TEST(normalization, nfc_000_136)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -13620,72 +17730,102 @@ TEST(normalization, nfc_000_137)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -13719,72 +17859,102 @@ TEST(normalization, nfc_000_138)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -13818,72 +17988,102 @@ TEST(normalization, nfc_000_139)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -13917,72 +18117,102 @@ TEST(normalization, nfc_000_140)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -14016,72 +18246,102 @@ TEST(normalization, nfc_000_141)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -14115,72 +18375,102 @@ TEST(normalization, nfc_000_142)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -14214,72 +18504,102 @@ TEST(normalization, nfc_000_143)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -14313,72 +18633,102 @@ TEST(normalization, nfc_000_144)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -14412,72 +18762,102 @@ TEST(normalization, nfc_000_145)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -14511,72 +18891,102 @@ TEST(normalization, nfc_000_146)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -14610,72 +19020,102 @@ TEST(normalization, nfc_000_147)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -14709,72 +19149,102 @@ TEST(normalization, nfc_000_148)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -14808,72 +19278,102 @@ TEST(normalization, nfc_000_149)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -14907,72 +19407,102 @@ TEST(normalization, nfc_000_150)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -15006,72 +19536,102 @@ TEST(normalization, nfc_000_151)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
@@ -15105,72 +19665,102 @@ TEST(normalization, nfc_000_152)
 
 
         {
-            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
-            auto c2_it = c2.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c2_it) << "iteration " << i;
-                ++c2_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
+                auto c2_it = c2.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c2_it) << "iteration " << i;
+                    ++c2_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 
         {
-            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
-            boost::text::normalize<boost::text::nf::c>(str);
-            auto const r = boost::text::as_utf32(str);
-            EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : r) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
+            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            auto v = strs[0] | boost::text::as_nfc | boost::text::as_utf8;
+            for (auto c : v) {
+                strs[1] += c;
+            }
+            boost::text::normalize<boost::text::nf::c>(strs[0]);
+            for (auto str : strs) {
+                auto const r = boost::text::as_utf32(str);
+                EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
+                auto c4_it = c4.begin();
+                int i = 0;
+                for (auto x : r) {
+                    EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                    ++c4_it;
+                    ++i;
+                }
             }
         }
 

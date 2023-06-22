@@ -396,9 +396,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         constexpr void read_chunk_and_normalize() {
             boost::container::static_vector<char32_t, 32> temp_buf_;
-            auto last = detail::first_stable_cp<N>(it_, end());
-            if (last != end() && it_ == last)
-                ++last;
+            auto search_it = it_;
+            if (search_it != end())
+                ++search_it;
+            auto last = detail::first_stable_cp<N>(search_it, end());
             it_ = std::ranges::copy(it_, last, std::back_inserter(temp_buf_)).in;
             buf_.clear();
             index_ = 0;
