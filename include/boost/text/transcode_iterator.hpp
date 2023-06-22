@@ -3033,20 +3033,72 @@ namespace boost { namespace text { namespace detail {
     // These are here because so many downstream views that use
     // utf_iterator use them.
 
-    template<class V, bool Store = !is_utf_iter<std::ranges::iterator_t<V>>>
-    struct sentinel_storage
+    template<
+        class V,
+        bool StoreFirst = !is_utf_iter<std::ranges::iterator_t<V>> &&
+                          std::ranges::bidirectional_range<V>,
+        bool StoreLast = !is_utf_iter<std::ranges::iterator_t<V>>>
+    struct first_last_storage
     {
-        constexpr sentinel_storage() requires std::default_initializable<std::ranges::sentinel_t<V>> = default;
-        constexpr sentinel_storage(V & base) : last_{std::ranges::end(base)} {}
+        constexpr first_last_storage() requires
+            std::default_initializable<std::ranges::iterator_t<V>> &&
+            std::default_initializable<std::ranges::sentinel_t<V>>
+        = default;
+        constexpr first_last_storage(V & base) :
+            first_{std::ranges::begin(base)}, last_{std::ranges::end(base)}
+        {}
+
+        constexpr auto begin(std::ranges::iterator_t<V> & it) const { return first_; }
+        constexpr auto end(std::ranges::iterator_t<V> & it) const { return last_; }
+
+        std::ranges::iterator_t<V> first_;
+        std::ranges::sentinel_t<V> last_;
+    };
+
+    template<class V>
+    struct first_last_storage<V, true, false>
+    {
+        constexpr first_last_storage() requires std::default_initializable<std::ranges::iterator_t<V>> = default;
+        constexpr first_last_storage(V & base) : first_{std::ranges::begin(base)} {}
+
+        constexpr auto begin(std::ranges::iterator_t<V> & it) const { return first_; }
+        constexpr auto end(std::ranges::iterator_t<V> & it) const { return it.end(); }
+
+        std::ranges::iterator_t<V> first_;
+    };
+
+    template<class V>
+    struct first_last_storage<V, false, true>
+    {
+        constexpr first_last_storage() requires std::default_initializable<std::ranges::sentinel_t<V>> = default;
+        constexpr first_last_storage(V & base) : last_{std::ranges::end(base)} {}
+
+        constexpr auto begin(std::ranges::iterator_t<V> & it) const {
+            if constexpr (is_utf_iter<std::ranges::iterator_t<V>>) {
+                return it.begin();
+            } else {
+                return;
+            }
+        }
+        constexpr auto end(std::ranges::iterator_t<V> & it) const { return last_; }
 
         std::ranges::sentinel_t<V> last_;
     };
 
     template<class V>
-    struct sentinel_storage<V, false>
+    struct first_last_storage<V, false, false>
     {
-        constexpr sentinel_storage() = default;
-        constexpr sentinel_storage(V & base) {}
+        constexpr first_last_storage() = default;
+        constexpr first_last_storage(V & base) {}
+
+        constexpr auto begin(std::ranges::iterator_t<V> & it) const {
+            if constexpr (is_utf_iter<std::ranges::iterator_t<V>>) {
+                return it.begin();
+            } else {
+                return;
+            }
+        }
+        constexpr auto end(std::ranges::iterator_t<V> & it) const { return it.end(); }
     };
 
     template<bool Const, class T>

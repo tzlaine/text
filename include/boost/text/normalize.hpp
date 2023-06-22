@@ -368,7 +368,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         requires std::ranges::view<V>
     template<bool Const, bool StoreLast>
     class normalize_view<N, V>::iterator
-        : public detail::sentinel_storage<detail::maybe_const<Const, V>, StoreLast>,
+        : public detail::first_last_storage<detail::maybe_const<Const, V>, false>,
           public boost::stl_interfaces::iterator_interface<
               iterator<Const, StoreLast>,
               std::forward_iterator_tag,
@@ -376,7 +376,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
               char32_t>
     {
         using Base = detail::maybe_const<Const, V>;
-        using storage_base = detail::sentinel_storage<Base, StoreLast>;
+        using storage_base = detail::first_last_storage<Base, false>;
 
         std::ranges::iterator_t<Base> it_;
         // exposition-only, and only defined when std::ranges::iterator_t<Base>
@@ -386,20 +386,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         boost::container::static_vector<char32_t, 32> buf_;
         int index_ = 0;
 
-        constexpr auto end() const {
-            if constexpr (StoreLast) {
-                return storage_base::last_;
-            } else {
-                return it_.end();
-            }
-        }
-
         constexpr void read_chunk_and_normalize() {
             boost::container::static_vector<char32_t, 32> temp_buf_;
             auto search_it = it_;
-            if (search_it != end())
+            if (search_it != storage_base::end(it_))
                 ++search_it;
-            auto last = detail::first_stable_cp<N>(search_it, end());
+            auto last = detail::first_stable_cp<N>(search_it, storage_base::end(it_));
             it_ = std::ranges::copy(it_, last, std::back_inserter(temp_buf_)).in;
             buf_.clear();
             index_ = 0;
