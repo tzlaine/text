@@ -20,11 +20,11 @@ TEST(normalization, nfd_069_000)
     // F9D4;502B;502B;502B;502B; 
     // (倫; 倫; 倫; 倫; 倫; ) CJK COMPATIBILITY IDEOGRAPH-F9D4
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9D4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x502B }};
-        std::array<uint32_t, 1> const c3 = {{ 0x502B }};
-        std::array<uint32_t, 1> const c4 = {{ 0x502B }};
-        std::array<uint32_t, 1> const c5 = {{ 0x502B }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9D4 }};
+        std::array<char32_t, 1> const c2 = {{ 0x502B }};
+        std::array<char32_t, 1> const c3 = {{ 0x502B }};
+        std::array<char32_t, 1> const c4 = {{ 0x502B }};
+        std::array<char32_t, 1> const c5 = {{ 0x502B }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -49,7 +49,7 @@ TEST(normalization, nfd_069_000)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -63,7 +63,7 @@ TEST(normalization, nfd_069_000)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -77,7 +77,7 @@ TEST(normalization, nfd_069_000)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -91,7 +91,7 @@ TEST(normalization, nfd_069_000)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -105,7 +105,7 @@ TEST(normalization, nfd_069_000)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -127,11 +127,11 @@ TEST(normalization, nfd_069_001)
     // F9D5;5D19;5D19;5D19;5D19; 
     // (崙; 崙; 崙; 崙; 崙; ) CJK COMPATIBILITY IDEOGRAPH-F9D5
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9D5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5D19 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5D19 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5D19 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5D19 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9D5 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5D19 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5D19 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5D19 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5D19 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -156,7 +156,7 @@ TEST(normalization, nfd_069_001)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -170,7 +170,7 @@ TEST(normalization, nfd_069_001)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -184,7 +184,7 @@ TEST(normalization, nfd_069_001)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -198,7 +198,7 @@ TEST(normalization, nfd_069_001)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -212,7 +212,7 @@ TEST(normalization, nfd_069_001)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -234,11 +234,11 @@ TEST(normalization, nfd_069_002)
     // F9D6;6DEA;6DEA;6DEA;6DEA; 
     // (淪; 淪; 淪; 淪; 淪; ) CJK COMPATIBILITY IDEOGRAPH-F9D6
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9D6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6DEA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6DEA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6DEA }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6DEA }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9D6 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6DEA }};
+        std::array<char32_t, 1> const c3 = {{ 0x6DEA }};
+        std::array<char32_t, 1> const c4 = {{ 0x6DEA }};
+        std::array<char32_t, 1> const c5 = {{ 0x6DEA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -263,7 +263,7 @@ TEST(normalization, nfd_069_002)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -277,7 +277,7 @@ TEST(normalization, nfd_069_002)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -291,7 +291,7 @@ TEST(normalization, nfd_069_002)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -305,7 +305,7 @@ TEST(normalization, nfd_069_002)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -319,7 +319,7 @@ TEST(normalization, nfd_069_002)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -341,11 +341,11 @@ TEST(normalization, nfd_069_003)
     // F9D7;8F2A;8F2A;8F2A;8F2A; 
     // (輪; 輪; 輪; 輪; 輪; ) CJK COMPATIBILITY IDEOGRAPH-F9D7
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9D7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8F2A }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8F2A }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8F2A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8F2A }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9D7 }};
+        std::array<char32_t, 1> const c2 = {{ 0x8F2A }};
+        std::array<char32_t, 1> const c3 = {{ 0x8F2A }};
+        std::array<char32_t, 1> const c4 = {{ 0x8F2A }};
+        std::array<char32_t, 1> const c5 = {{ 0x8F2A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -370,7 +370,7 @@ TEST(normalization, nfd_069_003)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -384,7 +384,7 @@ TEST(normalization, nfd_069_003)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -398,7 +398,7 @@ TEST(normalization, nfd_069_003)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -412,7 +412,7 @@ TEST(normalization, nfd_069_003)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -426,7 +426,7 @@ TEST(normalization, nfd_069_003)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -448,11 +448,11 @@ TEST(normalization, nfd_069_004)
     // F9D8;5F8B;5F8B;5F8B;5F8B; 
     // (律; 律; 律; 律; 律; ) CJK COMPATIBILITY IDEOGRAPH-F9D8
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9D8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5F8B }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5F8B }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5F8B }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5F8B }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9D8 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5F8B }};
+        std::array<char32_t, 1> const c3 = {{ 0x5F8B }};
+        std::array<char32_t, 1> const c4 = {{ 0x5F8B }};
+        std::array<char32_t, 1> const c5 = {{ 0x5F8B }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -477,7 +477,7 @@ TEST(normalization, nfd_069_004)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -491,7 +491,7 @@ TEST(normalization, nfd_069_004)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -505,7 +505,7 @@ TEST(normalization, nfd_069_004)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -519,7 +519,7 @@ TEST(normalization, nfd_069_004)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -533,7 +533,7 @@ TEST(normalization, nfd_069_004)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -555,11 +555,11 @@ TEST(normalization, nfd_069_005)
     // F9D9;6144;6144;6144;6144; 
     // (慄; 慄; 慄; 慄; 慄; ) CJK COMPATIBILITY IDEOGRAPH-F9D9
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9D9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6144 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6144 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6144 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6144 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9D9 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6144 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6144 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6144 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6144 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -584,7 +584,7 @@ TEST(normalization, nfd_069_005)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -598,7 +598,7 @@ TEST(normalization, nfd_069_005)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -612,7 +612,7 @@ TEST(normalization, nfd_069_005)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -626,7 +626,7 @@ TEST(normalization, nfd_069_005)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -640,7 +640,7 @@ TEST(normalization, nfd_069_005)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -662,11 +662,11 @@ TEST(normalization, nfd_069_006)
     // F9DA;6817;6817;6817;6817; 
     // (栗; 栗; 栗; 栗; 栗; ) CJK COMPATIBILITY IDEOGRAPH-F9DA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9DA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6817 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6817 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6817 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6817 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9DA }};
+        std::array<char32_t, 1> const c2 = {{ 0x6817 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6817 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6817 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6817 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -691,7 +691,7 @@ TEST(normalization, nfd_069_006)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -705,7 +705,7 @@ TEST(normalization, nfd_069_006)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -719,7 +719,7 @@ TEST(normalization, nfd_069_006)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -733,7 +733,7 @@ TEST(normalization, nfd_069_006)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -747,7 +747,7 @@ TEST(normalization, nfd_069_006)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -769,11 +769,11 @@ TEST(normalization, nfd_069_007)
     // F9DB;7387;7387;7387;7387; 
     // (率; 率; 率; 率; 率; ) CJK COMPATIBILITY IDEOGRAPH-F9DB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9DB }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7387 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7387 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7387 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7387 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9DB }};
+        std::array<char32_t, 1> const c2 = {{ 0x7387 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7387 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7387 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7387 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -798,7 +798,7 @@ TEST(normalization, nfd_069_007)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -812,7 +812,7 @@ TEST(normalization, nfd_069_007)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -826,7 +826,7 @@ TEST(normalization, nfd_069_007)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -840,7 +840,7 @@ TEST(normalization, nfd_069_007)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -854,7 +854,7 @@ TEST(normalization, nfd_069_007)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -876,11 +876,11 @@ TEST(normalization, nfd_069_008)
     // F9DC;9686;9686;9686;9686; 
     // (隆; 隆; 隆; 隆; 隆; ) CJK COMPATIBILITY IDEOGRAPH-F9DC
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9DC }};
-        std::array<uint32_t, 1> const c2 = {{ 0x9686 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x9686 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x9686 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x9686 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9DC }};
+        std::array<char32_t, 1> const c2 = {{ 0x9686 }};
+        std::array<char32_t, 1> const c3 = {{ 0x9686 }};
+        std::array<char32_t, 1> const c4 = {{ 0x9686 }};
+        std::array<char32_t, 1> const c5 = {{ 0x9686 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -905,7 +905,7 @@ TEST(normalization, nfd_069_008)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -919,7 +919,7 @@ TEST(normalization, nfd_069_008)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -933,7 +933,7 @@ TEST(normalization, nfd_069_008)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -947,7 +947,7 @@ TEST(normalization, nfd_069_008)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -961,7 +961,7 @@ TEST(normalization, nfd_069_008)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -983,11 +983,11 @@ TEST(normalization, nfd_069_009)
     // F9DD;5229;5229;5229;5229; 
     // (利; 利; 利; 利; 利; ) CJK COMPATIBILITY IDEOGRAPH-F9DD
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9DD }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5229 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5229 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5229 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5229 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9DD }};
+        std::array<char32_t, 1> const c2 = {{ 0x5229 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5229 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5229 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5229 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -1012,7 +1012,7 @@ TEST(normalization, nfd_069_009)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1026,7 +1026,7 @@ TEST(normalization, nfd_069_009)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1040,7 +1040,7 @@ TEST(normalization, nfd_069_009)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1054,7 +1054,7 @@ TEST(normalization, nfd_069_009)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1068,7 +1068,7 @@ TEST(normalization, nfd_069_009)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1090,11 +1090,11 @@ TEST(normalization, nfd_069_010)
     // F9DE;540F;540F;540F;540F; 
     // (吏; 吏; 吏; 吏; 吏; ) CJK COMPATIBILITY IDEOGRAPH-F9DE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9DE }};
-        std::array<uint32_t, 1> const c2 = {{ 0x540F }};
-        std::array<uint32_t, 1> const c3 = {{ 0x540F }};
-        std::array<uint32_t, 1> const c4 = {{ 0x540F }};
-        std::array<uint32_t, 1> const c5 = {{ 0x540F }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9DE }};
+        std::array<char32_t, 1> const c2 = {{ 0x540F }};
+        std::array<char32_t, 1> const c3 = {{ 0x540F }};
+        std::array<char32_t, 1> const c4 = {{ 0x540F }};
+        std::array<char32_t, 1> const c5 = {{ 0x540F }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -1119,7 +1119,7 @@ TEST(normalization, nfd_069_010)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1133,7 +1133,7 @@ TEST(normalization, nfd_069_010)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1147,7 +1147,7 @@ TEST(normalization, nfd_069_010)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1161,7 +1161,7 @@ TEST(normalization, nfd_069_010)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1175,7 +1175,7 @@ TEST(normalization, nfd_069_010)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1197,11 +1197,11 @@ TEST(normalization, nfd_069_011)
     // F9DF;5C65;5C65;5C65;5C65; 
     // (履; 履; 履; 履; 履; ) CJK COMPATIBILITY IDEOGRAPH-F9DF
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9DF }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5C65 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5C65 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5C65 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5C65 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9DF }};
+        std::array<char32_t, 1> const c2 = {{ 0x5C65 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5C65 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5C65 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5C65 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -1226,7 +1226,7 @@ TEST(normalization, nfd_069_011)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1240,7 +1240,7 @@ TEST(normalization, nfd_069_011)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1254,7 +1254,7 @@ TEST(normalization, nfd_069_011)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1268,7 +1268,7 @@ TEST(normalization, nfd_069_011)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1282,7 +1282,7 @@ TEST(normalization, nfd_069_011)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1304,11 +1304,11 @@ TEST(normalization, nfd_069_012)
     // F9E0;6613;6613;6613;6613; 
     // (易; 易; 易; 易; 易; ) CJK COMPATIBILITY IDEOGRAPH-F9E0
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9E0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6613 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6613 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6613 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6613 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9E0 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6613 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6613 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6613 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6613 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -1333,7 +1333,7 @@ TEST(normalization, nfd_069_012)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1347,7 +1347,7 @@ TEST(normalization, nfd_069_012)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1361,7 +1361,7 @@ TEST(normalization, nfd_069_012)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1375,7 +1375,7 @@ TEST(normalization, nfd_069_012)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1389,7 +1389,7 @@ TEST(normalization, nfd_069_012)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1411,11 +1411,11 @@ TEST(normalization, nfd_069_013)
     // F9E1;674E;674E;674E;674E; 
     // (李; 李; 李; 李; 李; ) CJK COMPATIBILITY IDEOGRAPH-F9E1
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9E1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x674E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x674E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x674E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x674E }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9E1 }};
+        std::array<char32_t, 1> const c2 = {{ 0x674E }};
+        std::array<char32_t, 1> const c3 = {{ 0x674E }};
+        std::array<char32_t, 1> const c4 = {{ 0x674E }};
+        std::array<char32_t, 1> const c5 = {{ 0x674E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -1440,7 +1440,7 @@ TEST(normalization, nfd_069_013)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1454,7 +1454,7 @@ TEST(normalization, nfd_069_013)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1468,7 +1468,7 @@ TEST(normalization, nfd_069_013)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1482,7 +1482,7 @@ TEST(normalization, nfd_069_013)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1496,7 +1496,7 @@ TEST(normalization, nfd_069_013)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1518,11 +1518,11 @@ TEST(normalization, nfd_069_014)
     // F9E2;68A8;68A8;68A8;68A8; 
     // (梨; 梨; 梨; 梨; 梨; ) CJK COMPATIBILITY IDEOGRAPH-F9E2
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9E2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x68A8 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x68A8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x68A8 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x68A8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9E2 }};
+        std::array<char32_t, 1> const c2 = {{ 0x68A8 }};
+        std::array<char32_t, 1> const c3 = {{ 0x68A8 }};
+        std::array<char32_t, 1> const c4 = {{ 0x68A8 }};
+        std::array<char32_t, 1> const c5 = {{ 0x68A8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -1547,7 +1547,7 @@ TEST(normalization, nfd_069_014)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1561,7 +1561,7 @@ TEST(normalization, nfd_069_014)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1575,7 +1575,7 @@ TEST(normalization, nfd_069_014)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1589,7 +1589,7 @@ TEST(normalization, nfd_069_014)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1603,7 +1603,7 @@ TEST(normalization, nfd_069_014)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1625,11 +1625,11 @@ TEST(normalization, nfd_069_015)
     // F9E3;6CE5;6CE5;6CE5;6CE5; 
     // (泥; 泥; 泥; 泥; 泥; ) CJK COMPATIBILITY IDEOGRAPH-F9E3
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9E3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6CE5 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6CE5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6CE5 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6CE5 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9E3 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6CE5 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6CE5 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6CE5 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6CE5 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -1654,7 +1654,7 @@ TEST(normalization, nfd_069_015)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1668,7 +1668,7 @@ TEST(normalization, nfd_069_015)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1682,7 +1682,7 @@ TEST(normalization, nfd_069_015)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1696,7 +1696,7 @@ TEST(normalization, nfd_069_015)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1710,7 +1710,7 @@ TEST(normalization, nfd_069_015)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1732,11 +1732,11 @@ TEST(normalization, nfd_069_016)
     // F9E4;7406;7406;7406;7406; 
     // (理; 理; 理; 理; 理; ) CJK COMPATIBILITY IDEOGRAPH-F9E4
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9E4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7406 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7406 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7406 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7406 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9E4 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7406 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7406 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7406 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7406 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -1761,7 +1761,7 @@ TEST(normalization, nfd_069_016)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1775,7 +1775,7 @@ TEST(normalization, nfd_069_016)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1789,7 +1789,7 @@ TEST(normalization, nfd_069_016)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1803,7 +1803,7 @@ TEST(normalization, nfd_069_016)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1817,7 +1817,7 @@ TEST(normalization, nfd_069_016)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1839,11 +1839,11 @@ TEST(normalization, nfd_069_017)
     // F9E5;75E2;75E2;75E2;75E2; 
     // (痢; 痢; 痢; 痢; 痢; ) CJK COMPATIBILITY IDEOGRAPH-F9E5
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9E5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x75E2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x75E2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x75E2 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x75E2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9E5 }};
+        std::array<char32_t, 1> const c2 = {{ 0x75E2 }};
+        std::array<char32_t, 1> const c3 = {{ 0x75E2 }};
+        std::array<char32_t, 1> const c4 = {{ 0x75E2 }};
+        std::array<char32_t, 1> const c5 = {{ 0x75E2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -1868,7 +1868,7 @@ TEST(normalization, nfd_069_017)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1882,7 +1882,7 @@ TEST(normalization, nfd_069_017)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1896,7 +1896,7 @@ TEST(normalization, nfd_069_017)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1910,7 +1910,7 @@ TEST(normalization, nfd_069_017)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1924,7 +1924,7 @@ TEST(normalization, nfd_069_017)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1946,11 +1946,11 @@ TEST(normalization, nfd_069_018)
     // F9E6;7F79;7F79;7F79;7F79; 
     // (罹; 罹; 罹; 罹; 罹; ) CJK COMPATIBILITY IDEOGRAPH-F9E6
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9E6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7F79 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7F79 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7F79 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7F79 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9E6 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7F79 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7F79 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7F79 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7F79 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -1975,7 +1975,7 @@ TEST(normalization, nfd_069_018)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1989,7 +1989,7 @@ TEST(normalization, nfd_069_018)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2003,7 +2003,7 @@ TEST(normalization, nfd_069_018)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2017,7 +2017,7 @@ TEST(normalization, nfd_069_018)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2031,7 +2031,7 @@ TEST(normalization, nfd_069_018)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2053,11 +2053,11 @@ TEST(normalization, nfd_069_019)
     // F9E7;88CF;88CF;88CF;88CF; 
     // (裏; 裏; 裏; 裏; 裏; ) CJK COMPATIBILITY IDEOGRAPH-F9E7
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9E7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x88CF }};
-        std::array<uint32_t, 1> const c3 = {{ 0x88CF }};
-        std::array<uint32_t, 1> const c4 = {{ 0x88CF }};
-        std::array<uint32_t, 1> const c5 = {{ 0x88CF }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9E7 }};
+        std::array<char32_t, 1> const c2 = {{ 0x88CF }};
+        std::array<char32_t, 1> const c3 = {{ 0x88CF }};
+        std::array<char32_t, 1> const c4 = {{ 0x88CF }};
+        std::array<char32_t, 1> const c5 = {{ 0x88CF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2082,7 +2082,7 @@ TEST(normalization, nfd_069_019)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2096,7 +2096,7 @@ TEST(normalization, nfd_069_019)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2110,7 +2110,7 @@ TEST(normalization, nfd_069_019)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2124,7 +2124,7 @@ TEST(normalization, nfd_069_019)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2138,7 +2138,7 @@ TEST(normalization, nfd_069_019)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2160,11 +2160,11 @@ TEST(normalization, nfd_069_020)
     // F9E8;88E1;88E1;88E1;88E1; 
     // (裡; 裡; 裡; 裡; 裡; ) CJK COMPATIBILITY IDEOGRAPH-F9E8
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9E8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x88E1 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x88E1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x88E1 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x88E1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9E8 }};
+        std::array<char32_t, 1> const c2 = {{ 0x88E1 }};
+        std::array<char32_t, 1> const c3 = {{ 0x88E1 }};
+        std::array<char32_t, 1> const c4 = {{ 0x88E1 }};
+        std::array<char32_t, 1> const c5 = {{ 0x88E1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2189,7 +2189,7 @@ TEST(normalization, nfd_069_020)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2203,7 +2203,7 @@ TEST(normalization, nfd_069_020)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2217,7 +2217,7 @@ TEST(normalization, nfd_069_020)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2231,7 +2231,7 @@ TEST(normalization, nfd_069_020)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2245,7 +2245,7 @@ TEST(normalization, nfd_069_020)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2267,11 +2267,11 @@ TEST(normalization, nfd_069_021)
     // F9E9;91CC;91CC;91CC;91CC; 
     // (里; 里; 里; 里; 里; ) CJK COMPATIBILITY IDEOGRAPH-F9E9
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9E9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x91CC }};
-        std::array<uint32_t, 1> const c3 = {{ 0x91CC }};
-        std::array<uint32_t, 1> const c4 = {{ 0x91CC }};
-        std::array<uint32_t, 1> const c5 = {{ 0x91CC }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9E9 }};
+        std::array<char32_t, 1> const c2 = {{ 0x91CC }};
+        std::array<char32_t, 1> const c3 = {{ 0x91CC }};
+        std::array<char32_t, 1> const c4 = {{ 0x91CC }};
+        std::array<char32_t, 1> const c5 = {{ 0x91CC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2296,7 +2296,7 @@ TEST(normalization, nfd_069_021)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2310,7 +2310,7 @@ TEST(normalization, nfd_069_021)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2324,7 +2324,7 @@ TEST(normalization, nfd_069_021)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2338,7 +2338,7 @@ TEST(normalization, nfd_069_021)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2352,7 +2352,7 @@ TEST(normalization, nfd_069_021)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2374,11 +2374,11 @@ TEST(normalization, nfd_069_022)
     // F9EA;96E2;96E2;96E2;96E2; 
     // (離; 離; 離; 離; 離; ) CJK COMPATIBILITY IDEOGRAPH-F9EA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9EA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x96E2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x96E2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x96E2 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x96E2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9EA }};
+        std::array<char32_t, 1> const c2 = {{ 0x96E2 }};
+        std::array<char32_t, 1> const c3 = {{ 0x96E2 }};
+        std::array<char32_t, 1> const c4 = {{ 0x96E2 }};
+        std::array<char32_t, 1> const c5 = {{ 0x96E2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2403,7 +2403,7 @@ TEST(normalization, nfd_069_022)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2417,7 +2417,7 @@ TEST(normalization, nfd_069_022)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2431,7 +2431,7 @@ TEST(normalization, nfd_069_022)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2445,7 +2445,7 @@ TEST(normalization, nfd_069_022)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2459,7 +2459,7 @@ TEST(normalization, nfd_069_022)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2481,11 +2481,11 @@ TEST(normalization, nfd_069_023)
     // F9EB;533F;533F;533F;533F; 
     // (匿; 匿; 匿; 匿; 匿; ) CJK COMPATIBILITY IDEOGRAPH-F9EB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9EB }};
-        std::array<uint32_t, 1> const c2 = {{ 0x533F }};
-        std::array<uint32_t, 1> const c3 = {{ 0x533F }};
-        std::array<uint32_t, 1> const c4 = {{ 0x533F }};
-        std::array<uint32_t, 1> const c5 = {{ 0x533F }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9EB }};
+        std::array<char32_t, 1> const c2 = {{ 0x533F }};
+        std::array<char32_t, 1> const c3 = {{ 0x533F }};
+        std::array<char32_t, 1> const c4 = {{ 0x533F }};
+        std::array<char32_t, 1> const c5 = {{ 0x533F }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2510,7 +2510,7 @@ TEST(normalization, nfd_069_023)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2524,7 +2524,7 @@ TEST(normalization, nfd_069_023)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2538,7 +2538,7 @@ TEST(normalization, nfd_069_023)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2552,7 +2552,7 @@ TEST(normalization, nfd_069_023)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2566,7 +2566,7 @@ TEST(normalization, nfd_069_023)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2588,11 +2588,11 @@ TEST(normalization, nfd_069_024)
     // F9EC;6EBA;6EBA;6EBA;6EBA; 
     // (溺; 溺; 溺; 溺; 溺; ) CJK COMPATIBILITY IDEOGRAPH-F9EC
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9EC }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6EBA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6EBA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6EBA }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6EBA }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9EC }};
+        std::array<char32_t, 1> const c2 = {{ 0x6EBA }};
+        std::array<char32_t, 1> const c3 = {{ 0x6EBA }};
+        std::array<char32_t, 1> const c4 = {{ 0x6EBA }};
+        std::array<char32_t, 1> const c5 = {{ 0x6EBA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2617,7 +2617,7 @@ TEST(normalization, nfd_069_024)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2631,7 +2631,7 @@ TEST(normalization, nfd_069_024)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2645,7 +2645,7 @@ TEST(normalization, nfd_069_024)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2659,7 +2659,7 @@ TEST(normalization, nfd_069_024)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2673,7 +2673,7 @@ TEST(normalization, nfd_069_024)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2695,11 +2695,11 @@ TEST(normalization, nfd_069_025)
     // F9ED;541D;541D;541D;541D; 
     // (吝; 吝; 吝; 吝; 吝; ) CJK COMPATIBILITY IDEOGRAPH-F9ED
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9ED }};
-        std::array<uint32_t, 1> const c2 = {{ 0x541D }};
-        std::array<uint32_t, 1> const c3 = {{ 0x541D }};
-        std::array<uint32_t, 1> const c4 = {{ 0x541D }};
-        std::array<uint32_t, 1> const c5 = {{ 0x541D }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9ED }};
+        std::array<char32_t, 1> const c2 = {{ 0x541D }};
+        std::array<char32_t, 1> const c3 = {{ 0x541D }};
+        std::array<char32_t, 1> const c4 = {{ 0x541D }};
+        std::array<char32_t, 1> const c5 = {{ 0x541D }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2724,7 +2724,7 @@ TEST(normalization, nfd_069_025)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2738,7 +2738,7 @@ TEST(normalization, nfd_069_025)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2752,7 +2752,7 @@ TEST(normalization, nfd_069_025)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2766,7 +2766,7 @@ TEST(normalization, nfd_069_025)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2780,7 +2780,7 @@ TEST(normalization, nfd_069_025)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2802,11 +2802,11 @@ TEST(normalization, nfd_069_026)
     // F9EE;71D0;71D0;71D0;71D0; 
     // (燐; 燐; 燐; 燐; 燐; ) CJK COMPATIBILITY IDEOGRAPH-F9EE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9EE }};
-        std::array<uint32_t, 1> const c2 = {{ 0x71D0 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x71D0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x71D0 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x71D0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9EE }};
+        std::array<char32_t, 1> const c2 = {{ 0x71D0 }};
+        std::array<char32_t, 1> const c3 = {{ 0x71D0 }};
+        std::array<char32_t, 1> const c4 = {{ 0x71D0 }};
+        std::array<char32_t, 1> const c5 = {{ 0x71D0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2831,7 +2831,7 @@ TEST(normalization, nfd_069_026)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2845,7 +2845,7 @@ TEST(normalization, nfd_069_026)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2859,7 +2859,7 @@ TEST(normalization, nfd_069_026)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2873,7 +2873,7 @@ TEST(normalization, nfd_069_026)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2887,7 +2887,7 @@ TEST(normalization, nfd_069_026)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2909,11 +2909,11 @@ TEST(normalization, nfd_069_027)
     // F9EF;7498;7498;7498;7498; 
     // (璘; 璘; 璘; 璘; 璘; ) CJK COMPATIBILITY IDEOGRAPH-F9EF
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9EF }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7498 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7498 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7498 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7498 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9EF }};
+        std::array<char32_t, 1> const c2 = {{ 0x7498 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7498 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7498 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7498 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -2938,7 +2938,7 @@ TEST(normalization, nfd_069_027)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2952,7 +2952,7 @@ TEST(normalization, nfd_069_027)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2966,7 +2966,7 @@ TEST(normalization, nfd_069_027)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2980,7 +2980,7 @@ TEST(normalization, nfd_069_027)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2994,7 +2994,7 @@ TEST(normalization, nfd_069_027)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3016,11 +3016,11 @@ TEST(normalization, nfd_069_028)
     // F9F0;85FA;85FA;85FA;85FA; 
     // (藺; 藺; 藺; 藺; 藺; ) CJK COMPATIBILITY IDEOGRAPH-F9F0
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9F0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x85FA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x85FA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x85FA }};
-        std::array<uint32_t, 1> const c5 = {{ 0x85FA }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9F0 }};
+        std::array<char32_t, 1> const c2 = {{ 0x85FA }};
+        std::array<char32_t, 1> const c3 = {{ 0x85FA }};
+        std::array<char32_t, 1> const c4 = {{ 0x85FA }};
+        std::array<char32_t, 1> const c5 = {{ 0x85FA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3045,7 +3045,7 @@ TEST(normalization, nfd_069_028)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3059,7 +3059,7 @@ TEST(normalization, nfd_069_028)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3073,7 +3073,7 @@ TEST(normalization, nfd_069_028)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3087,7 +3087,7 @@ TEST(normalization, nfd_069_028)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3101,7 +3101,7 @@ TEST(normalization, nfd_069_028)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3123,11 +3123,11 @@ TEST(normalization, nfd_069_029)
     // F9F1;96A3;96A3;96A3;96A3; 
     // (隣; 隣; 隣; 隣; 隣; ) CJK COMPATIBILITY IDEOGRAPH-F9F1
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9F1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x96A3 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x96A3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x96A3 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x96A3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9F1 }};
+        std::array<char32_t, 1> const c2 = {{ 0x96A3 }};
+        std::array<char32_t, 1> const c3 = {{ 0x96A3 }};
+        std::array<char32_t, 1> const c4 = {{ 0x96A3 }};
+        std::array<char32_t, 1> const c5 = {{ 0x96A3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3152,7 +3152,7 @@ TEST(normalization, nfd_069_029)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3166,7 +3166,7 @@ TEST(normalization, nfd_069_029)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3180,7 +3180,7 @@ TEST(normalization, nfd_069_029)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3194,7 +3194,7 @@ TEST(normalization, nfd_069_029)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3208,7 +3208,7 @@ TEST(normalization, nfd_069_029)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3230,11 +3230,11 @@ TEST(normalization, nfd_069_030)
     // F9F2;9C57;9C57;9C57;9C57; 
     // (鱗; 鱗; 鱗; 鱗; 鱗; ) CJK COMPATIBILITY IDEOGRAPH-F9F2
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9F2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x9C57 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x9C57 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x9C57 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x9C57 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9F2 }};
+        std::array<char32_t, 1> const c2 = {{ 0x9C57 }};
+        std::array<char32_t, 1> const c3 = {{ 0x9C57 }};
+        std::array<char32_t, 1> const c4 = {{ 0x9C57 }};
+        std::array<char32_t, 1> const c5 = {{ 0x9C57 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3259,7 +3259,7 @@ TEST(normalization, nfd_069_030)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3273,7 +3273,7 @@ TEST(normalization, nfd_069_030)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3287,7 +3287,7 @@ TEST(normalization, nfd_069_030)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3301,7 +3301,7 @@ TEST(normalization, nfd_069_030)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3315,7 +3315,7 @@ TEST(normalization, nfd_069_030)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3337,11 +3337,11 @@ TEST(normalization, nfd_069_031)
     // F9F3;9E9F;9E9F;9E9F;9E9F; 
     // (麟; 麟; 麟; 麟; 麟; ) CJK COMPATIBILITY IDEOGRAPH-F9F3
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9F3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x9E9F }};
-        std::array<uint32_t, 1> const c3 = {{ 0x9E9F }};
-        std::array<uint32_t, 1> const c4 = {{ 0x9E9F }};
-        std::array<uint32_t, 1> const c5 = {{ 0x9E9F }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9F3 }};
+        std::array<char32_t, 1> const c2 = {{ 0x9E9F }};
+        std::array<char32_t, 1> const c3 = {{ 0x9E9F }};
+        std::array<char32_t, 1> const c4 = {{ 0x9E9F }};
+        std::array<char32_t, 1> const c5 = {{ 0x9E9F }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3366,7 +3366,7 @@ TEST(normalization, nfd_069_031)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3380,7 +3380,7 @@ TEST(normalization, nfd_069_031)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3394,7 +3394,7 @@ TEST(normalization, nfd_069_031)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3408,7 +3408,7 @@ TEST(normalization, nfd_069_031)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3422,7 +3422,7 @@ TEST(normalization, nfd_069_031)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3444,11 +3444,11 @@ TEST(normalization, nfd_069_032)
     // F9F4;6797;6797;6797;6797; 
     // (林; 林; 林; 林; 林; ) CJK COMPATIBILITY IDEOGRAPH-F9F4
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9F4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6797 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6797 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6797 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6797 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9F4 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6797 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6797 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6797 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6797 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3473,7 +3473,7 @@ TEST(normalization, nfd_069_032)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3487,7 +3487,7 @@ TEST(normalization, nfd_069_032)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3501,7 +3501,7 @@ TEST(normalization, nfd_069_032)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3515,7 +3515,7 @@ TEST(normalization, nfd_069_032)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3529,7 +3529,7 @@ TEST(normalization, nfd_069_032)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3551,11 +3551,11 @@ TEST(normalization, nfd_069_033)
     // F9F5;6DCB;6DCB;6DCB;6DCB; 
     // (淋; 淋; 淋; 淋; 淋; ) CJK COMPATIBILITY IDEOGRAPH-F9F5
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9F5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6DCB }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6DCB }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6DCB }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6DCB }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9F5 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6DCB }};
+        std::array<char32_t, 1> const c3 = {{ 0x6DCB }};
+        std::array<char32_t, 1> const c4 = {{ 0x6DCB }};
+        std::array<char32_t, 1> const c5 = {{ 0x6DCB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3580,7 +3580,7 @@ TEST(normalization, nfd_069_033)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3594,7 +3594,7 @@ TEST(normalization, nfd_069_033)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3608,7 +3608,7 @@ TEST(normalization, nfd_069_033)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3622,7 +3622,7 @@ TEST(normalization, nfd_069_033)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3636,7 +3636,7 @@ TEST(normalization, nfd_069_033)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3658,11 +3658,11 @@ TEST(normalization, nfd_069_034)
     // F9F6;81E8;81E8;81E8;81E8; 
     // (臨; 臨; 臨; 臨; 臨; ) CJK COMPATIBILITY IDEOGRAPH-F9F6
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9F6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x81E8 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x81E8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x81E8 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x81E8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9F6 }};
+        std::array<char32_t, 1> const c2 = {{ 0x81E8 }};
+        std::array<char32_t, 1> const c3 = {{ 0x81E8 }};
+        std::array<char32_t, 1> const c4 = {{ 0x81E8 }};
+        std::array<char32_t, 1> const c5 = {{ 0x81E8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3687,7 +3687,7 @@ TEST(normalization, nfd_069_034)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3701,7 +3701,7 @@ TEST(normalization, nfd_069_034)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3715,7 +3715,7 @@ TEST(normalization, nfd_069_034)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3729,7 +3729,7 @@ TEST(normalization, nfd_069_034)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3743,7 +3743,7 @@ TEST(normalization, nfd_069_034)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3765,11 +3765,11 @@ TEST(normalization, nfd_069_035)
     // F9F7;7ACB;7ACB;7ACB;7ACB; 
     // (立; 立; 立; 立; 立; ) CJK COMPATIBILITY IDEOGRAPH-F9F7
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9F7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7ACB }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7ACB }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7ACB }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7ACB }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9F7 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7ACB }};
+        std::array<char32_t, 1> const c3 = {{ 0x7ACB }};
+        std::array<char32_t, 1> const c4 = {{ 0x7ACB }};
+        std::array<char32_t, 1> const c5 = {{ 0x7ACB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3794,7 +3794,7 @@ TEST(normalization, nfd_069_035)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3808,7 +3808,7 @@ TEST(normalization, nfd_069_035)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3822,7 +3822,7 @@ TEST(normalization, nfd_069_035)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3836,7 +3836,7 @@ TEST(normalization, nfd_069_035)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3850,7 +3850,7 @@ TEST(normalization, nfd_069_035)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3872,11 +3872,11 @@ TEST(normalization, nfd_069_036)
     // F9F8;7B20;7B20;7B20;7B20; 
     // (笠; 笠; 笠; 笠; 笠; ) CJK COMPATIBILITY IDEOGRAPH-F9F8
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9F8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7B20 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7B20 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7B20 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7B20 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9F8 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7B20 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7B20 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7B20 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7B20 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -3901,7 +3901,7 @@ TEST(normalization, nfd_069_036)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3915,7 +3915,7 @@ TEST(normalization, nfd_069_036)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3929,7 +3929,7 @@ TEST(normalization, nfd_069_036)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3943,7 +3943,7 @@ TEST(normalization, nfd_069_036)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3957,7 +3957,7 @@ TEST(normalization, nfd_069_036)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3979,11 +3979,11 @@ TEST(normalization, nfd_069_037)
     // F9F9;7C92;7C92;7C92;7C92; 
     // (粒; 粒; 粒; 粒; 粒; ) CJK COMPATIBILITY IDEOGRAPH-F9F9
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9F9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7C92 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7C92 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7C92 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7C92 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9F9 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7C92 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7C92 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7C92 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7C92 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -4008,7 +4008,7 @@ TEST(normalization, nfd_069_037)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4022,7 +4022,7 @@ TEST(normalization, nfd_069_037)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4036,7 +4036,7 @@ TEST(normalization, nfd_069_037)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4050,7 +4050,7 @@ TEST(normalization, nfd_069_037)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4064,7 +4064,7 @@ TEST(normalization, nfd_069_037)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4086,11 +4086,11 @@ TEST(normalization, nfd_069_038)
     // F9FA;72C0;72C0;72C0;72C0; 
     // (狀; 狀; 狀; 狀; 狀; ) CJK COMPATIBILITY IDEOGRAPH-F9FA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9FA }};
-        std::array<uint32_t, 1> const c2 = {{ 0x72C0 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x72C0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x72C0 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x72C0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9FA }};
+        std::array<char32_t, 1> const c2 = {{ 0x72C0 }};
+        std::array<char32_t, 1> const c3 = {{ 0x72C0 }};
+        std::array<char32_t, 1> const c4 = {{ 0x72C0 }};
+        std::array<char32_t, 1> const c5 = {{ 0x72C0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -4115,7 +4115,7 @@ TEST(normalization, nfd_069_038)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4129,7 +4129,7 @@ TEST(normalization, nfd_069_038)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4143,7 +4143,7 @@ TEST(normalization, nfd_069_038)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4157,7 +4157,7 @@ TEST(normalization, nfd_069_038)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4171,7 +4171,7 @@ TEST(normalization, nfd_069_038)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4193,11 +4193,11 @@ TEST(normalization, nfd_069_039)
     // F9FB;7099;7099;7099;7099; 
     // (炙; 炙; 炙; 炙; 炙; ) CJK COMPATIBILITY IDEOGRAPH-F9FB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9FB }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7099 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7099 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7099 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7099 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9FB }};
+        std::array<char32_t, 1> const c2 = {{ 0x7099 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7099 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7099 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7099 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -4222,7 +4222,7 @@ TEST(normalization, nfd_069_039)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4236,7 +4236,7 @@ TEST(normalization, nfd_069_039)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4250,7 +4250,7 @@ TEST(normalization, nfd_069_039)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4264,7 +4264,7 @@ TEST(normalization, nfd_069_039)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4278,7 +4278,7 @@ TEST(normalization, nfd_069_039)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4300,11 +4300,11 @@ TEST(normalization, nfd_069_040)
     // F9FC;8B58;8B58;8B58;8B58; 
     // (識; 識; 識; 識; 識; ) CJK COMPATIBILITY IDEOGRAPH-F9FC
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9FC }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8B58 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8B58 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8B58 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8B58 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9FC }};
+        std::array<char32_t, 1> const c2 = {{ 0x8B58 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8B58 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8B58 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8B58 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -4329,7 +4329,7 @@ TEST(normalization, nfd_069_040)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4343,7 +4343,7 @@ TEST(normalization, nfd_069_040)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4357,7 +4357,7 @@ TEST(normalization, nfd_069_040)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4371,7 +4371,7 @@ TEST(normalization, nfd_069_040)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4385,7 +4385,7 @@ TEST(normalization, nfd_069_040)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4407,11 +4407,11 @@ TEST(normalization, nfd_069_041)
     // F9FD;4EC0;4EC0;4EC0;4EC0; 
     // (什; 什; 什; 什; 什; ) CJK COMPATIBILITY IDEOGRAPH-F9FD
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9FD }};
-        std::array<uint32_t, 1> const c2 = {{ 0x4EC0 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x4EC0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x4EC0 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x4EC0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9FD }};
+        std::array<char32_t, 1> const c2 = {{ 0x4EC0 }};
+        std::array<char32_t, 1> const c3 = {{ 0x4EC0 }};
+        std::array<char32_t, 1> const c4 = {{ 0x4EC0 }};
+        std::array<char32_t, 1> const c5 = {{ 0x4EC0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -4436,7 +4436,7 @@ TEST(normalization, nfd_069_041)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4450,7 +4450,7 @@ TEST(normalization, nfd_069_041)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4464,7 +4464,7 @@ TEST(normalization, nfd_069_041)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4478,7 +4478,7 @@ TEST(normalization, nfd_069_041)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4492,7 +4492,7 @@ TEST(normalization, nfd_069_041)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4514,11 +4514,11 @@ TEST(normalization, nfd_069_042)
     // F9FE;8336;8336;8336;8336; 
     // (茶; 茶; 茶; 茶; 茶; ) CJK COMPATIBILITY IDEOGRAPH-F9FE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9FE }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8336 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8336 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8336 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8336 }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9FE }};
+        std::array<char32_t, 1> const c2 = {{ 0x8336 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8336 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8336 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8336 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -4543,7 +4543,7 @@ TEST(normalization, nfd_069_042)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4557,7 +4557,7 @@ TEST(normalization, nfd_069_042)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4571,7 +4571,7 @@ TEST(normalization, nfd_069_042)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4585,7 +4585,7 @@ TEST(normalization, nfd_069_042)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4599,7 +4599,7 @@ TEST(normalization, nfd_069_042)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4621,11 +4621,11 @@ TEST(normalization, nfd_069_043)
     // F9FF;523A;523A;523A;523A; 
     // (刺; 刺; 刺; 刺; 刺; ) CJK COMPATIBILITY IDEOGRAPH-F9FF
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xF9FF }};
-        std::array<uint32_t, 1> const c2 = {{ 0x523A }};
-        std::array<uint32_t, 1> const c3 = {{ 0x523A }};
-        std::array<uint32_t, 1> const c4 = {{ 0x523A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x523A }};
+        std::array<char32_t, 1> const c1 = {{ 0xF9FF }};
+        std::array<char32_t, 1> const c2 = {{ 0x523A }};
+        std::array<char32_t, 1> const c3 = {{ 0x523A }};
+        std::array<char32_t, 1> const c4 = {{ 0x523A }};
+        std::array<char32_t, 1> const c5 = {{ 0x523A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -4650,7 +4650,7 @@ TEST(normalization, nfd_069_043)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4664,7 +4664,7 @@ TEST(normalization, nfd_069_043)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4678,7 +4678,7 @@ TEST(normalization, nfd_069_043)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4692,7 +4692,7 @@ TEST(normalization, nfd_069_043)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4706,7 +4706,7 @@ TEST(normalization, nfd_069_043)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4728,11 +4728,11 @@ TEST(normalization, nfd_069_044)
     // FA00;5207;5207;5207;5207; 
     // (切; 切; 切; 切; 切; ) CJK COMPATIBILITY IDEOGRAPH-FA00
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA00 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5207 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5207 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5207 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5207 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA00 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5207 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5207 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5207 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5207 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -4757,7 +4757,7 @@ TEST(normalization, nfd_069_044)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4771,7 +4771,7 @@ TEST(normalization, nfd_069_044)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4785,7 +4785,7 @@ TEST(normalization, nfd_069_044)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4799,7 +4799,7 @@ TEST(normalization, nfd_069_044)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4813,7 +4813,7 @@ TEST(normalization, nfd_069_044)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4835,11 +4835,11 @@ TEST(normalization, nfd_069_045)
     // FA01;5EA6;5EA6;5EA6;5EA6; 
     // (度; 度; 度; 度; 度; ) CJK COMPATIBILITY IDEOGRAPH-FA01
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA01 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5EA6 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5EA6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5EA6 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5EA6 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA01 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5EA6 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5EA6 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5EA6 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5EA6 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -4864,7 +4864,7 @@ TEST(normalization, nfd_069_045)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4878,7 +4878,7 @@ TEST(normalization, nfd_069_045)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4892,7 +4892,7 @@ TEST(normalization, nfd_069_045)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4906,7 +4906,7 @@ TEST(normalization, nfd_069_045)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4920,7 +4920,7 @@ TEST(normalization, nfd_069_045)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4942,11 +4942,11 @@ TEST(normalization, nfd_069_046)
     // FA02;62D3;62D3;62D3;62D3; 
     // (拓; 拓; 拓; 拓; 拓; ) CJK COMPATIBILITY IDEOGRAPH-FA02
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA02 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x62D3 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x62D3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x62D3 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x62D3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA02 }};
+        std::array<char32_t, 1> const c2 = {{ 0x62D3 }};
+        std::array<char32_t, 1> const c3 = {{ 0x62D3 }};
+        std::array<char32_t, 1> const c4 = {{ 0x62D3 }};
+        std::array<char32_t, 1> const c5 = {{ 0x62D3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -4971,7 +4971,7 @@ TEST(normalization, nfd_069_046)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4985,7 +4985,7 @@ TEST(normalization, nfd_069_046)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4999,7 +4999,7 @@ TEST(normalization, nfd_069_046)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5013,7 +5013,7 @@ TEST(normalization, nfd_069_046)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5027,7 +5027,7 @@ TEST(normalization, nfd_069_046)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5049,11 +5049,11 @@ TEST(normalization, nfd_069_047)
     // FA03;7CD6;7CD6;7CD6;7CD6; 
     // (糖; 糖; 糖; 糖; 糖; ) CJK COMPATIBILITY IDEOGRAPH-FA03
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA03 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7CD6 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7CD6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7CD6 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7CD6 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA03 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7CD6 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7CD6 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7CD6 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7CD6 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -5078,7 +5078,7 @@ TEST(normalization, nfd_069_047)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5092,7 +5092,7 @@ TEST(normalization, nfd_069_047)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5106,7 +5106,7 @@ TEST(normalization, nfd_069_047)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5120,7 +5120,7 @@ TEST(normalization, nfd_069_047)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5134,7 +5134,7 @@ TEST(normalization, nfd_069_047)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5156,11 +5156,11 @@ TEST(normalization, nfd_069_048)
     // FA04;5B85;5B85;5B85;5B85; 
     // (宅; 宅; 宅; 宅; 宅; ) CJK COMPATIBILITY IDEOGRAPH-FA04
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA04 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5B85 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5B85 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5B85 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5B85 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA04 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5B85 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5B85 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5B85 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5B85 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -5185,7 +5185,7 @@ TEST(normalization, nfd_069_048)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5199,7 +5199,7 @@ TEST(normalization, nfd_069_048)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5213,7 +5213,7 @@ TEST(normalization, nfd_069_048)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5227,7 +5227,7 @@ TEST(normalization, nfd_069_048)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5241,7 +5241,7 @@ TEST(normalization, nfd_069_048)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5263,11 +5263,11 @@ TEST(normalization, nfd_069_049)
     // FA05;6D1E;6D1E;6D1E;6D1E; 
     // (洞; 洞; 洞; 洞; 洞; ) CJK COMPATIBILITY IDEOGRAPH-FA05
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA05 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6D1E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6D1E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6D1E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6D1E }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA05 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6D1E }};
+        std::array<char32_t, 1> const c3 = {{ 0x6D1E }};
+        std::array<char32_t, 1> const c4 = {{ 0x6D1E }};
+        std::array<char32_t, 1> const c5 = {{ 0x6D1E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -5292,7 +5292,7 @@ TEST(normalization, nfd_069_049)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5306,7 +5306,7 @@ TEST(normalization, nfd_069_049)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5320,7 +5320,7 @@ TEST(normalization, nfd_069_049)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5334,7 +5334,7 @@ TEST(normalization, nfd_069_049)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5348,7 +5348,7 @@ TEST(normalization, nfd_069_049)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5370,11 +5370,11 @@ TEST(normalization, nfd_069_050)
     // FA06;66B4;66B4;66B4;66B4; 
     // (暴; 暴; 暴; 暴; 暴; ) CJK COMPATIBILITY IDEOGRAPH-FA06
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA06 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x66B4 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x66B4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x66B4 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x66B4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA06 }};
+        std::array<char32_t, 1> const c2 = {{ 0x66B4 }};
+        std::array<char32_t, 1> const c3 = {{ 0x66B4 }};
+        std::array<char32_t, 1> const c4 = {{ 0x66B4 }};
+        std::array<char32_t, 1> const c5 = {{ 0x66B4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -5399,7 +5399,7 @@ TEST(normalization, nfd_069_050)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5413,7 +5413,7 @@ TEST(normalization, nfd_069_050)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5427,7 +5427,7 @@ TEST(normalization, nfd_069_050)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5441,7 +5441,7 @@ TEST(normalization, nfd_069_050)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5455,7 +5455,7 @@ TEST(normalization, nfd_069_050)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5477,11 +5477,11 @@ TEST(normalization, nfd_069_051)
     // FA07;8F3B;8F3B;8F3B;8F3B; 
     // (輻; 輻; 輻; 輻; 輻; ) CJK COMPATIBILITY IDEOGRAPH-FA07
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA07 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8F3B }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8F3B }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8F3B }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8F3B }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA07 }};
+        std::array<char32_t, 1> const c2 = {{ 0x8F3B }};
+        std::array<char32_t, 1> const c3 = {{ 0x8F3B }};
+        std::array<char32_t, 1> const c4 = {{ 0x8F3B }};
+        std::array<char32_t, 1> const c5 = {{ 0x8F3B }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -5506,7 +5506,7 @@ TEST(normalization, nfd_069_051)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5520,7 +5520,7 @@ TEST(normalization, nfd_069_051)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5534,7 +5534,7 @@ TEST(normalization, nfd_069_051)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5548,7 +5548,7 @@ TEST(normalization, nfd_069_051)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5562,7 +5562,7 @@ TEST(normalization, nfd_069_051)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5584,11 +5584,11 @@ TEST(normalization, nfd_069_052)
     // FA08;884C;884C;884C;884C; 
     // (行; 行; 行; 行; 行; ) CJK COMPATIBILITY IDEOGRAPH-FA08
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA08 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x884C }};
-        std::array<uint32_t, 1> const c3 = {{ 0x884C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x884C }};
-        std::array<uint32_t, 1> const c5 = {{ 0x884C }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA08 }};
+        std::array<char32_t, 1> const c2 = {{ 0x884C }};
+        std::array<char32_t, 1> const c3 = {{ 0x884C }};
+        std::array<char32_t, 1> const c4 = {{ 0x884C }};
+        std::array<char32_t, 1> const c5 = {{ 0x884C }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -5613,7 +5613,7 @@ TEST(normalization, nfd_069_052)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5627,7 +5627,7 @@ TEST(normalization, nfd_069_052)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5641,7 +5641,7 @@ TEST(normalization, nfd_069_052)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5655,7 +5655,7 @@ TEST(normalization, nfd_069_052)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5669,7 +5669,7 @@ TEST(normalization, nfd_069_052)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5691,11 +5691,11 @@ TEST(normalization, nfd_069_053)
     // FA09;964D;964D;964D;964D; 
     // (降; 降; 降; 降; 降; ) CJK COMPATIBILITY IDEOGRAPH-FA09
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA09 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x964D }};
-        std::array<uint32_t, 1> const c3 = {{ 0x964D }};
-        std::array<uint32_t, 1> const c4 = {{ 0x964D }};
-        std::array<uint32_t, 1> const c5 = {{ 0x964D }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA09 }};
+        std::array<char32_t, 1> const c2 = {{ 0x964D }};
+        std::array<char32_t, 1> const c3 = {{ 0x964D }};
+        std::array<char32_t, 1> const c4 = {{ 0x964D }};
+        std::array<char32_t, 1> const c5 = {{ 0x964D }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -5720,7 +5720,7 @@ TEST(normalization, nfd_069_053)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5734,7 +5734,7 @@ TEST(normalization, nfd_069_053)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5748,7 +5748,7 @@ TEST(normalization, nfd_069_053)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5762,7 +5762,7 @@ TEST(normalization, nfd_069_053)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5776,7 +5776,7 @@ TEST(normalization, nfd_069_053)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5798,11 +5798,11 @@ TEST(normalization, nfd_069_054)
     // FA0A;898B;898B;898B;898B; 
     // (見; 見; 見; 見; 見; ) CJK COMPATIBILITY IDEOGRAPH-FA0A
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA0A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x898B }};
-        std::array<uint32_t, 1> const c3 = {{ 0x898B }};
-        std::array<uint32_t, 1> const c4 = {{ 0x898B }};
-        std::array<uint32_t, 1> const c5 = {{ 0x898B }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA0A }};
+        std::array<char32_t, 1> const c2 = {{ 0x898B }};
+        std::array<char32_t, 1> const c3 = {{ 0x898B }};
+        std::array<char32_t, 1> const c4 = {{ 0x898B }};
+        std::array<char32_t, 1> const c5 = {{ 0x898B }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -5827,7 +5827,7 @@ TEST(normalization, nfd_069_054)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5841,7 +5841,7 @@ TEST(normalization, nfd_069_054)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5855,7 +5855,7 @@ TEST(normalization, nfd_069_054)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5869,7 +5869,7 @@ TEST(normalization, nfd_069_054)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5883,7 +5883,7 @@ TEST(normalization, nfd_069_054)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5905,11 +5905,11 @@ TEST(normalization, nfd_069_055)
     // FA0B;5ED3;5ED3;5ED3;5ED3; 
     // (廓; 廓; 廓; 廓; 廓; ) CJK COMPATIBILITY IDEOGRAPH-FA0B
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA0B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5ED3 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5ED3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5ED3 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5ED3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA0B }};
+        std::array<char32_t, 1> const c2 = {{ 0x5ED3 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5ED3 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5ED3 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5ED3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -5934,7 +5934,7 @@ TEST(normalization, nfd_069_055)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5948,7 +5948,7 @@ TEST(normalization, nfd_069_055)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5962,7 +5962,7 @@ TEST(normalization, nfd_069_055)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5976,7 +5976,7 @@ TEST(normalization, nfd_069_055)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5990,7 +5990,7 @@ TEST(normalization, nfd_069_055)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6012,11 +6012,11 @@ TEST(normalization, nfd_069_056)
     // FA0C;5140;5140;5140;5140; 
     // (兀; 兀; 兀; 兀; 兀; ) CJK COMPATIBILITY IDEOGRAPH-FA0C
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA0C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5140 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5140 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5140 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5140 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA0C }};
+        std::array<char32_t, 1> const c2 = {{ 0x5140 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5140 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5140 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5140 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -6041,7 +6041,7 @@ TEST(normalization, nfd_069_056)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6055,7 +6055,7 @@ TEST(normalization, nfd_069_056)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6069,7 +6069,7 @@ TEST(normalization, nfd_069_056)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6083,7 +6083,7 @@ TEST(normalization, nfd_069_056)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6097,7 +6097,7 @@ TEST(normalization, nfd_069_056)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6119,11 +6119,11 @@ TEST(normalization, nfd_069_057)
     // FA0D;55C0;55C0;55C0;55C0; 
     // (嗀; 嗀; 嗀; 嗀; 嗀; ) CJK COMPATIBILITY IDEOGRAPH-FA0D
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA0D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x55C0 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x55C0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x55C0 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x55C0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA0D }};
+        std::array<char32_t, 1> const c2 = {{ 0x55C0 }};
+        std::array<char32_t, 1> const c3 = {{ 0x55C0 }};
+        std::array<char32_t, 1> const c4 = {{ 0x55C0 }};
+        std::array<char32_t, 1> const c5 = {{ 0x55C0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -6148,7 +6148,7 @@ TEST(normalization, nfd_069_057)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6162,7 +6162,7 @@ TEST(normalization, nfd_069_057)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6176,7 +6176,7 @@ TEST(normalization, nfd_069_057)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6190,7 +6190,7 @@ TEST(normalization, nfd_069_057)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6204,7 +6204,7 @@ TEST(normalization, nfd_069_057)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6226,11 +6226,11 @@ TEST(normalization, nfd_069_058)
     // FA10;585A;585A;585A;585A; 
     // (塚; 塚; 塚; 塚; 塚; ) CJK COMPATIBILITY IDEOGRAPH-FA10
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA10 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x585A }};
-        std::array<uint32_t, 1> const c3 = {{ 0x585A }};
-        std::array<uint32_t, 1> const c4 = {{ 0x585A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x585A }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA10 }};
+        std::array<char32_t, 1> const c2 = {{ 0x585A }};
+        std::array<char32_t, 1> const c3 = {{ 0x585A }};
+        std::array<char32_t, 1> const c4 = {{ 0x585A }};
+        std::array<char32_t, 1> const c5 = {{ 0x585A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -6255,7 +6255,7 @@ TEST(normalization, nfd_069_058)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6269,7 +6269,7 @@ TEST(normalization, nfd_069_058)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6283,7 +6283,7 @@ TEST(normalization, nfd_069_058)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6297,7 +6297,7 @@ TEST(normalization, nfd_069_058)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6311,7 +6311,7 @@ TEST(normalization, nfd_069_058)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6333,11 +6333,11 @@ TEST(normalization, nfd_069_059)
     // FA12;6674;6674;6674;6674; 
     // (晴; 晴; 晴; 晴; 晴; ) CJK COMPATIBILITY IDEOGRAPH-FA12
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA12 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6674 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6674 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6674 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6674 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA12 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6674 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6674 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6674 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6674 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -6362,7 +6362,7 @@ TEST(normalization, nfd_069_059)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6376,7 +6376,7 @@ TEST(normalization, nfd_069_059)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6390,7 +6390,7 @@ TEST(normalization, nfd_069_059)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6404,7 +6404,7 @@ TEST(normalization, nfd_069_059)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6418,7 +6418,7 @@ TEST(normalization, nfd_069_059)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6440,11 +6440,11 @@ TEST(normalization, nfd_069_060)
     // FA15;51DE;51DE;51DE;51DE; 
     // (凞; 凞; 凞; 凞; 凞; ) CJK COMPATIBILITY IDEOGRAPH-FA15
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA15 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x51DE }};
-        std::array<uint32_t, 1> const c3 = {{ 0x51DE }};
-        std::array<uint32_t, 1> const c4 = {{ 0x51DE }};
-        std::array<uint32_t, 1> const c5 = {{ 0x51DE }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA15 }};
+        std::array<char32_t, 1> const c2 = {{ 0x51DE }};
+        std::array<char32_t, 1> const c3 = {{ 0x51DE }};
+        std::array<char32_t, 1> const c4 = {{ 0x51DE }};
+        std::array<char32_t, 1> const c5 = {{ 0x51DE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -6469,7 +6469,7 @@ TEST(normalization, nfd_069_060)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6483,7 +6483,7 @@ TEST(normalization, nfd_069_060)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6497,7 +6497,7 @@ TEST(normalization, nfd_069_060)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6511,7 +6511,7 @@ TEST(normalization, nfd_069_060)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6525,7 +6525,7 @@ TEST(normalization, nfd_069_060)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6547,11 +6547,11 @@ TEST(normalization, nfd_069_061)
     // FA16;732A;732A;732A;732A; 
     // (猪; 猪; 猪; 猪; 猪; ) CJK COMPATIBILITY IDEOGRAPH-FA16
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA16 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x732A }};
-        std::array<uint32_t, 1> const c3 = {{ 0x732A }};
-        std::array<uint32_t, 1> const c4 = {{ 0x732A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x732A }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA16 }};
+        std::array<char32_t, 1> const c2 = {{ 0x732A }};
+        std::array<char32_t, 1> const c3 = {{ 0x732A }};
+        std::array<char32_t, 1> const c4 = {{ 0x732A }};
+        std::array<char32_t, 1> const c5 = {{ 0x732A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -6576,7 +6576,7 @@ TEST(normalization, nfd_069_061)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6590,7 +6590,7 @@ TEST(normalization, nfd_069_061)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6604,7 +6604,7 @@ TEST(normalization, nfd_069_061)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6618,7 +6618,7 @@ TEST(normalization, nfd_069_061)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6632,7 +6632,7 @@ TEST(normalization, nfd_069_061)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6654,11 +6654,11 @@ TEST(normalization, nfd_069_062)
     // FA17;76CA;76CA;76CA;76CA; 
     // (益; 益; 益; 益; 益; ) CJK COMPATIBILITY IDEOGRAPH-FA17
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA17 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x76CA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x76CA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x76CA }};
-        std::array<uint32_t, 1> const c5 = {{ 0x76CA }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA17 }};
+        std::array<char32_t, 1> const c2 = {{ 0x76CA }};
+        std::array<char32_t, 1> const c3 = {{ 0x76CA }};
+        std::array<char32_t, 1> const c4 = {{ 0x76CA }};
+        std::array<char32_t, 1> const c5 = {{ 0x76CA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -6683,7 +6683,7 @@ TEST(normalization, nfd_069_062)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6697,7 +6697,7 @@ TEST(normalization, nfd_069_062)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6711,7 +6711,7 @@ TEST(normalization, nfd_069_062)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6725,7 +6725,7 @@ TEST(normalization, nfd_069_062)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6739,7 +6739,7 @@ TEST(normalization, nfd_069_062)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6761,11 +6761,11 @@ TEST(normalization, nfd_069_063)
     // FA18;793C;793C;793C;793C; 
     // (礼; 礼; 礼; 礼; 礼; ) CJK COMPATIBILITY IDEOGRAPH-FA18
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA18 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x793C }};
-        std::array<uint32_t, 1> const c3 = {{ 0x793C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x793C }};
-        std::array<uint32_t, 1> const c5 = {{ 0x793C }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA18 }};
+        std::array<char32_t, 1> const c2 = {{ 0x793C }};
+        std::array<char32_t, 1> const c3 = {{ 0x793C }};
+        std::array<char32_t, 1> const c4 = {{ 0x793C }};
+        std::array<char32_t, 1> const c5 = {{ 0x793C }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -6790,7 +6790,7 @@ TEST(normalization, nfd_069_063)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6804,7 +6804,7 @@ TEST(normalization, nfd_069_063)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6818,7 +6818,7 @@ TEST(normalization, nfd_069_063)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6832,7 +6832,7 @@ TEST(normalization, nfd_069_063)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6846,7 +6846,7 @@ TEST(normalization, nfd_069_063)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6868,11 +6868,11 @@ TEST(normalization, nfd_069_064)
     // FA19;795E;795E;795E;795E; 
     // (神; 神; 神; 神; 神; ) CJK COMPATIBILITY IDEOGRAPH-FA19
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA19 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x795E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x795E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x795E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x795E }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA19 }};
+        std::array<char32_t, 1> const c2 = {{ 0x795E }};
+        std::array<char32_t, 1> const c3 = {{ 0x795E }};
+        std::array<char32_t, 1> const c4 = {{ 0x795E }};
+        std::array<char32_t, 1> const c5 = {{ 0x795E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -6897,7 +6897,7 @@ TEST(normalization, nfd_069_064)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6911,7 +6911,7 @@ TEST(normalization, nfd_069_064)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6925,7 +6925,7 @@ TEST(normalization, nfd_069_064)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6939,7 +6939,7 @@ TEST(normalization, nfd_069_064)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6953,7 +6953,7 @@ TEST(normalization, nfd_069_064)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6975,11 +6975,11 @@ TEST(normalization, nfd_069_065)
     // FA1A;7965;7965;7965;7965; 
     // (祥; 祥; 祥; 祥; 祥; ) CJK COMPATIBILITY IDEOGRAPH-FA1A
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA1A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7965 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7965 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7965 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7965 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA1A }};
+        std::array<char32_t, 1> const c2 = {{ 0x7965 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7965 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7965 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7965 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -7004,7 +7004,7 @@ TEST(normalization, nfd_069_065)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7018,7 +7018,7 @@ TEST(normalization, nfd_069_065)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7032,7 +7032,7 @@ TEST(normalization, nfd_069_065)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7046,7 +7046,7 @@ TEST(normalization, nfd_069_065)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7060,7 +7060,7 @@ TEST(normalization, nfd_069_065)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7082,11 +7082,11 @@ TEST(normalization, nfd_069_066)
     // FA1B;798F;798F;798F;798F; 
     // (福; 福; 福; 福; 福; ) CJK COMPATIBILITY IDEOGRAPH-FA1B
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA1B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x798F }};
-        std::array<uint32_t, 1> const c3 = {{ 0x798F }};
-        std::array<uint32_t, 1> const c4 = {{ 0x798F }};
-        std::array<uint32_t, 1> const c5 = {{ 0x798F }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA1B }};
+        std::array<char32_t, 1> const c2 = {{ 0x798F }};
+        std::array<char32_t, 1> const c3 = {{ 0x798F }};
+        std::array<char32_t, 1> const c4 = {{ 0x798F }};
+        std::array<char32_t, 1> const c5 = {{ 0x798F }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -7111,7 +7111,7 @@ TEST(normalization, nfd_069_066)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7125,7 +7125,7 @@ TEST(normalization, nfd_069_066)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7139,7 +7139,7 @@ TEST(normalization, nfd_069_066)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7153,7 +7153,7 @@ TEST(normalization, nfd_069_066)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7167,7 +7167,7 @@ TEST(normalization, nfd_069_066)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7189,11 +7189,11 @@ TEST(normalization, nfd_069_067)
     // FA1C;9756;9756;9756;9756; 
     // (靖; 靖; 靖; 靖; 靖; ) CJK COMPATIBILITY IDEOGRAPH-FA1C
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA1C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x9756 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x9756 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x9756 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x9756 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA1C }};
+        std::array<char32_t, 1> const c2 = {{ 0x9756 }};
+        std::array<char32_t, 1> const c3 = {{ 0x9756 }};
+        std::array<char32_t, 1> const c4 = {{ 0x9756 }};
+        std::array<char32_t, 1> const c5 = {{ 0x9756 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -7218,7 +7218,7 @@ TEST(normalization, nfd_069_067)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7232,7 +7232,7 @@ TEST(normalization, nfd_069_067)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7246,7 +7246,7 @@ TEST(normalization, nfd_069_067)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7260,7 +7260,7 @@ TEST(normalization, nfd_069_067)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7274,7 +7274,7 @@ TEST(normalization, nfd_069_067)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7296,11 +7296,11 @@ TEST(normalization, nfd_069_068)
     // FA1D;7CBE;7CBE;7CBE;7CBE; 
     // (精; 精; 精; 精; 精; ) CJK COMPATIBILITY IDEOGRAPH-FA1D
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA1D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7CBE }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7CBE }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7CBE }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7CBE }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA1D }};
+        std::array<char32_t, 1> const c2 = {{ 0x7CBE }};
+        std::array<char32_t, 1> const c3 = {{ 0x7CBE }};
+        std::array<char32_t, 1> const c4 = {{ 0x7CBE }};
+        std::array<char32_t, 1> const c5 = {{ 0x7CBE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -7325,7 +7325,7 @@ TEST(normalization, nfd_069_068)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7339,7 +7339,7 @@ TEST(normalization, nfd_069_068)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7353,7 +7353,7 @@ TEST(normalization, nfd_069_068)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7367,7 +7367,7 @@ TEST(normalization, nfd_069_068)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7381,7 +7381,7 @@ TEST(normalization, nfd_069_068)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7403,11 +7403,11 @@ TEST(normalization, nfd_069_069)
     // FA1E;7FBD;7FBD;7FBD;7FBD; 
     // (羽; 羽; 羽; 羽; 羽; ) CJK COMPATIBILITY IDEOGRAPH-FA1E
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA1E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7FBD }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7FBD }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7FBD }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7FBD }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA1E }};
+        std::array<char32_t, 1> const c2 = {{ 0x7FBD }};
+        std::array<char32_t, 1> const c3 = {{ 0x7FBD }};
+        std::array<char32_t, 1> const c4 = {{ 0x7FBD }};
+        std::array<char32_t, 1> const c5 = {{ 0x7FBD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -7432,7 +7432,7 @@ TEST(normalization, nfd_069_069)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7446,7 +7446,7 @@ TEST(normalization, nfd_069_069)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7460,7 +7460,7 @@ TEST(normalization, nfd_069_069)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7474,7 +7474,7 @@ TEST(normalization, nfd_069_069)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7488,7 +7488,7 @@ TEST(normalization, nfd_069_069)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7510,11 +7510,11 @@ TEST(normalization, nfd_069_070)
     // FA20;8612;8612;8612;8612; 
     // (蘒; 蘒; 蘒; 蘒; 蘒; ) CJK COMPATIBILITY IDEOGRAPH-FA20
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA20 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8612 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8612 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8612 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8612 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA20 }};
+        std::array<char32_t, 1> const c2 = {{ 0x8612 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8612 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8612 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8612 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -7539,7 +7539,7 @@ TEST(normalization, nfd_069_070)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7553,7 +7553,7 @@ TEST(normalization, nfd_069_070)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7567,7 +7567,7 @@ TEST(normalization, nfd_069_070)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7581,7 +7581,7 @@ TEST(normalization, nfd_069_070)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7595,7 +7595,7 @@ TEST(normalization, nfd_069_070)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7617,11 +7617,11 @@ TEST(normalization, nfd_069_071)
     // FA22;8AF8;8AF8;8AF8;8AF8; 
     // (諸; 諸; 諸; 諸; 諸; ) CJK COMPATIBILITY IDEOGRAPH-FA22
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA22 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8AF8 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8AF8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8AF8 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8AF8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA22 }};
+        std::array<char32_t, 1> const c2 = {{ 0x8AF8 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8AF8 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8AF8 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8AF8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -7646,7 +7646,7 @@ TEST(normalization, nfd_069_071)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7660,7 +7660,7 @@ TEST(normalization, nfd_069_071)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7674,7 +7674,7 @@ TEST(normalization, nfd_069_071)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7688,7 +7688,7 @@ TEST(normalization, nfd_069_071)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7702,7 +7702,7 @@ TEST(normalization, nfd_069_071)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7724,11 +7724,11 @@ TEST(normalization, nfd_069_072)
     // FA25;9038;9038;9038;9038; 
     // (逸; 逸; 逸; 逸; 逸; ) CJK COMPATIBILITY IDEOGRAPH-FA25
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA25 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x9038 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x9038 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x9038 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x9038 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA25 }};
+        std::array<char32_t, 1> const c2 = {{ 0x9038 }};
+        std::array<char32_t, 1> const c3 = {{ 0x9038 }};
+        std::array<char32_t, 1> const c4 = {{ 0x9038 }};
+        std::array<char32_t, 1> const c5 = {{ 0x9038 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -7753,7 +7753,7 @@ TEST(normalization, nfd_069_072)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7767,7 +7767,7 @@ TEST(normalization, nfd_069_072)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7781,7 +7781,7 @@ TEST(normalization, nfd_069_072)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7795,7 +7795,7 @@ TEST(normalization, nfd_069_072)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7809,7 +7809,7 @@ TEST(normalization, nfd_069_072)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7831,11 +7831,11 @@ TEST(normalization, nfd_069_073)
     // FA26;90FD;90FD;90FD;90FD; 
     // (都; 都; 都; 都; 都; ) CJK COMPATIBILITY IDEOGRAPH-FA26
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA26 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x90FD }};
-        std::array<uint32_t, 1> const c3 = {{ 0x90FD }};
-        std::array<uint32_t, 1> const c4 = {{ 0x90FD }};
-        std::array<uint32_t, 1> const c5 = {{ 0x90FD }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA26 }};
+        std::array<char32_t, 1> const c2 = {{ 0x90FD }};
+        std::array<char32_t, 1> const c3 = {{ 0x90FD }};
+        std::array<char32_t, 1> const c4 = {{ 0x90FD }};
+        std::array<char32_t, 1> const c5 = {{ 0x90FD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -7860,7 +7860,7 @@ TEST(normalization, nfd_069_073)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7874,7 +7874,7 @@ TEST(normalization, nfd_069_073)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7888,7 +7888,7 @@ TEST(normalization, nfd_069_073)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7902,7 +7902,7 @@ TEST(normalization, nfd_069_073)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7916,7 +7916,7 @@ TEST(normalization, nfd_069_073)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7938,11 +7938,11 @@ TEST(normalization, nfd_069_074)
     // FA2A;98EF;98EF;98EF;98EF; 
     // (飯; 飯; 飯; 飯; 飯; ) CJK COMPATIBILITY IDEOGRAPH-FA2A
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA2A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x98EF }};
-        std::array<uint32_t, 1> const c3 = {{ 0x98EF }};
-        std::array<uint32_t, 1> const c4 = {{ 0x98EF }};
-        std::array<uint32_t, 1> const c5 = {{ 0x98EF }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA2A }};
+        std::array<char32_t, 1> const c2 = {{ 0x98EF }};
+        std::array<char32_t, 1> const c3 = {{ 0x98EF }};
+        std::array<char32_t, 1> const c4 = {{ 0x98EF }};
+        std::array<char32_t, 1> const c5 = {{ 0x98EF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -7967,7 +7967,7 @@ TEST(normalization, nfd_069_074)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7981,7 +7981,7 @@ TEST(normalization, nfd_069_074)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7995,7 +7995,7 @@ TEST(normalization, nfd_069_074)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8009,7 +8009,7 @@ TEST(normalization, nfd_069_074)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8023,7 +8023,7 @@ TEST(normalization, nfd_069_074)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8045,11 +8045,11 @@ TEST(normalization, nfd_069_075)
     // FA2B;98FC;98FC;98FC;98FC; 
     // (飼; 飼; 飼; 飼; 飼; ) CJK COMPATIBILITY IDEOGRAPH-FA2B
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA2B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x98FC }};
-        std::array<uint32_t, 1> const c3 = {{ 0x98FC }};
-        std::array<uint32_t, 1> const c4 = {{ 0x98FC }};
-        std::array<uint32_t, 1> const c5 = {{ 0x98FC }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA2B }};
+        std::array<char32_t, 1> const c2 = {{ 0x98FC }};
+        std::array<char32_t, 1> const c3 = {{ 0x98FC }};
+        std::array<char32_t, 1> const c4 = {{ 0x98FC }};
+        std::array<char32_t, 1> const c5 = {{ 0x98FC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -8074,7 +8074,7 @@ TEST(normalization, nfd_069_075)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8088,7 +8088,7 @@ TEST(normalization, nfd_069_075)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8102,7 +8102,7 @@ TEST(normalization, nfd_069_075)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8116,7 +8116,7 @@ TEST(normalization, nfd_069_075)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8130,7 +8130,7 @@ TEST(normalization, nfd_069_075)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8152,11 +8152,11 @@ TEST(normalization, nfd_069_076)
     // FA2C;9928;9928;9928;9928; 
     // (館; 館; 館; 館; 館; ) CJK COMPATIBILITY IDEOGRAPH-FA2C
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA2C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x9928 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x9928 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x9928 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x9928 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA2C }};
+        std::array<char32_t, 1> const c2 = {{ 0x9928 }};
+        std::array<char32_t, 1> const c3 = {{ 0x9928 }};
+        std::array<char32_t, 1> const c4 = {{ 0x9928 }};
+        std::array<char32_t, 1> const c5 = {{ 0x9928 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -8181,7 +8181,7 @@ TEST(normalization, nfd_069_076)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8195,7 +8195,7 @@ TEST(normalization, nfd_069_076)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8209,7 +8209,7 @@ TEST(normalization, nfd_069_076)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8223,7 +8223,7 @@ TEST(normalization, nfd_069_076)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8237,7 +8237,7 @@ TEST(normalization, nfd_069_076)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8259,11 +8259,11 @@ TEST(normalization, nfd_069_077)
     // FA2D;9DB4;9DB4;9DB4;9DB4; 
     // (鶴; 鶴; 鶴; 鶴; 鶴; ) CJK COMPATIBILITY IDEOGRAPH-FA2D
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA2D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x9DB4 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x9DB4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x9DB4 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x9DB4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA2D }};
+        std::array<char32_t, 1> const c2 = {{ 0x9DB4 }};
+        std::array<char32_t, 1> const c3 = {{ 0x9DB4 }};
+        std::array<char32_t, 1> const c4 = {{ 0x9DB4 }};
+        std::array<char32_t, 1> const c5 = {{ 0x9DB4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -8288,7 +8288,7 @@ TEST(normalization, nfd_069_077)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8302,7 +8302,7 @@ TEST(normalization, nfd_069_077)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8316,7 +8316,7 @@ TEST(normalization, nfd_069_077)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8330,7 +8330,7 @@ TEST(normalization, nfd_069_077)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8344,7 +8344,7 @@ TEST(normalization, nfd_069_077)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8366,11 +8366,11 @@ TEST(normalization, nfd_069_078)
     // FA2E;90DE;90DE;90DE;90DE; 
     // (郞; 郞; 郞; 郞; 郞; ) CJK COMPATIBILITY IDEOGRAPH-FA2E
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA2E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x90DE }};
-        std::array<uint32_t, 1> const c3 = {{ 0x90DE }};
-        std::array<uint32_t, 1> const c4 = {{ 0x90DE }};
-        std::array<uint32_t, 1> const c5 = {{ 0x90DE }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA2E }};
+        std::array<char32_t, 1> const c2 = {{ 0x90DE }};
+        std::array<char32_t, 1> const c3 = {{ 0x90DE }};
+        std::array<char32_t, 1> const c4 = {{ 0x90DE }};
+        std::array<char32_t, 1> const c5 = {{ 0x90DE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -8395,7 +8395,7 @@ TEST(normalization, nfd_069_078)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8409,7 +8409,7 @@ TEST(normalization, nfd_069_078)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8423,7 +8423,7 @@ TEST(normalization, nfd_069_078)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8437,7 +8437,7 @@ TEST(normalization, nfd_069_078)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8451,7 +8451,7 @@ TEST(normalization, nfd_069_078)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8473,11 +8473,11 @@ TEST(normalization, nfd_069_079)
     // FA2F;96B7;96B7;96B7;96B7; 
     // (隷; 隷; 隷; 隷; 隷; ) CJK COMPATIBILITY IDEOGRAPH-FA2F
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA2F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x96B7 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x96B7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x96B7 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x96B7 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA2F }};
+        std::array<char32_t, 1> const c2 = {{ 0x96B7 }};
+        std::array<char32_t, 1> const c3 = {{ 0x96B7 }};
+        std::array<char32_t, 1> const c4 = {{ 0x96B7 }};
+        std::array<char32_t, 1> const c5 = {{ 0x96B7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -8502,7 +8502,7 @@ TEST(normalization, nfd_069_079)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8516,7 +8516,7 @@ TEST(normalization, nfd_069_079)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8530,7 +8530,7 @@ TEST(normalization, nfd_069_079)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8544,7 +8544,7 @@ TEST(normalization, nfd_069_079)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8558,7 +8558,7 @@ TEST(normalization, nfd_069_079)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8580,11 +8580,11 @@ TEST(normalization, nfd_069_080)
     // FA30;4FAE;4FAE;4FAE;4FAE; 
     // (侮; 侮; 侮; 侮; 侮; ) CJK COMPATIBILITY IDEOGRAPH-FA30
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA30 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x4FAE }};
-        std::array<uint32_t, 1> const c3 = {{ 0x4FAE }};
-        std::array<uint32_t, 1> const c4 = {{ 0x4FAE }};
-        std::array<uint32_t, 1> const c5 = {{ 0x4FAE }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA30 }};
+        std::array<char32_t, 1> const c2 = {{ 0x4FAE }};
+        std::array<char32_t, 1> const c3 = {{ 0x4FAE }};
+        std::array<char32_t, 1> const c4 = {{ 0x4FAE }};
+        std::array<char32_t, 1> const c5 = {{ 0x4FAE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -8609,7 +8609,7 @@ TEST(normalization, nfd_069_080)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8623,7 +8623,7 @@ TEST(normalization, nfd_069_080)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8637,7 +8637,7 @@ TEST(normalization, nfd_069_080)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8651,7 +8651,7 @@ TEST(normalization, nfd_069_080)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8665,7 +8665,7 @@ TEST(normalization, nfd_069_080)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8687,11 +8687,11 @@ TEST(normalization, nfd_069_081)
     // FA31;50E7;50E7;50E7;50E7; 
     // (僧; 僧; 僧; 僧; 僧; ) CJK COMPATIBILITY IDEOGRAPH-FA31
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA31 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x50E7 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x50E7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x50E7 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x50E7 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA31 }};
+        std::array<char32_t, 1> const c2 = {{ 0x50E7 }};
+        std::array<char32_t, 1> const c3 = {{ 0x50E7 }};
+        std::array<char32_t, 1> const c4 = {{ 0x50E7 }};
+        std::array<char32_t, 1> const c5 = {{ 0x50E7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -8716,7 +8716,7 @@ TEST(normalization, nfd_069_081)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8730,7 +8730,7 @@ TEST(normalization, nfd_069_081)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8744,7 +8744,7 @@ TEST(normalization, nfd_069_081)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8758,7 +8758,7 @@ TEST(normalization, nfd_069_081)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8772,7 +8772,7 @@ TEST(normalization, nfd_069_081)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8794,11 +8794,11 @@ TEST(normalization, nfd_069_082)
     // FA32;514D;514D;514D;514D; 
     // (免; 免; 免; 免; 免; ) CJK COMPATIBILITY IDEOGRAPH-FA32
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA32 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x514D }};
-        std::array<uint32_t, 1> const c3 = {{ 0x514D }};
-        std::array<uint32_t, 1> const c4 = {{ 0x514D }};
-        std::array<uint32_t, 1> const c5 = {{ 0x514D }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA32 }};
+        std::array<char32_t, 1> const c2 = {{ 0x514D }};
+        std::array<char32_t, 1> const c3 = {{ 0x514D }};
+        std::array<char32_t, 1> const c4 = {{ 0x514D }};
+        std::array<char32_t, 1> const c5 = {{ 0x514D }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -8823,7 +8823,7 @@ TEST(normalization, nfd_069_082)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8837,7 +8837,7 @@ TEST(normalization, nfd_069_082)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8851,7 +8851,7 @@ TEST(normalization, nfd_069_082)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8865,7 +8865,7 @@ TEST(normalization, nfd_069_082)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8879,7 +8879,7 @@ TEST(normalization, nfd_069_082)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8901,11 +8901,11 @@ TEST(normalization, nfd_069_083)
     // FA33;52C9;52C9;52C9;52C9; 
     // (勉; 勉; 勉; 勉; 勉; ) CJK COMPATIBILITY IDEOGRAPH-FA33
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA33 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x52C9 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x52C9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x52C9 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x52C9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA33 }};
+        std::array<char32_t, 1> const c2 = {{ 0x52C9 }};
+        std::array<char32_t, 1> const c3 = {{ 0x52C9 }};
+        std::array<char32_t, 1> const c4 = {{ 0x52C9 }};
+        std::array<char32_t, 1> const c5 = {{ 0x52C9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -8930,7 +8930,7 @@ TEST(normalization, nfd_069_083)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8944,7 +8944,7 @@ TEST(normalization, nfd_069_083)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8958,7 +8958,7 @@ TEST(normalization, nfd_069_083)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8972,7 +8972,7 @@ TEST(normalization, nfd_069_083)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8986,7 +8986,7 @@ TEST(normalization, nfd_069_083)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9008,11 +9008,11 @@ TEST(normalization, nfd_069_084)
     // FA34;52E4;52E4;52E4;52E4; 
     // (勤; 勤; 勤; 勤; 勤; ) CJK COMPATIBILITY IDEOGRAPH-FA34
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA34 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x52E4 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x52E4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x52E4 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x52E4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA34 }};
+        std::array<char32_t, 1> const c2 = {{ 0x52E4 }};
+        std::array<char32_t, 1> const c3 = {{ 0x52E4 }};
+        std::array<char32_t, 1> const c4 = {{ 0x52E4 }};
+        std::array<char32_t, 1> const c5 = {{ 0x52E4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -9037,7 +9037,7 @@ TEST(normalization, nfd_069_084)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9051,7 +9051,7 @@ TEST(normalization, nfd_069_084)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9065,7 +9065,7 @@ TEST(normalization, nfd_069_084)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9079,7 +9079,7 @@ TEST(normalization, nfd_069_084)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9093,7 +9093,7 @@ TEST(normalization, nfd_069_084)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9115,11 +9115,11 @@ TEST(normalization, nfd_069_085)
     // FA35;5351;5351;5351;5351; 
     // (卑; 卑; 卑; 卑; 卑; ) CJK COMPATIBILITY IDEOGRAPH-FA35
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA35 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5351 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5351 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5351 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5351 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA35 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5351 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5351 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5351 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5351 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -9144,7 +9144,7 @@ TEST(normalization, nfd_069_085)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9158,7 +9158,7 @@ TEST(normalization, nfd_069_085)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9172,7 +9172,7 @@ TEST(normalization, nfd_069_085)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9186,7 +9186,7 @@ TEST(normalization, nfd_069_085)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9200,7 +9200,7 @@ TEST(normalization, nfd_069_085)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9222,11 +9222,11 @@ TEST(normalization, nfd_069_086)
     // FA36;559D;559D;559D;559D; 
     // (喝; 喝; 喝; 喝; 喝; ) CJK COMPATIBILITY IDEOGRAPH-FA36
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA36 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x559D }};
-        std::array<uint32_t, 1> const c3 = {{ 0x559D }};
-        std::array<uint32_t, 1> const c4 = {{ 0x559D }};
-        std::array<uint32_t, 1> const c5 = {{ 0x559D }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA36 }};
+        std::array<char32_t, 1> const c2 = {{ 0x559D }};
+        std::array<char32_t, 1> const c3 = {{ 0x559D }};
+        std::array<char32_t, 1> const c4 = {{ 0x559D }};
+        std::array<char32_t, 1> const c5 = {{ 0x559D }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -9251,7 +9251,7 @@ TEST(normalization, nfd_069_086)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9265,7 +9265,7 @@ TEST(normalization, nfd_069_086)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9279,7 +9279,7 @@ TEST(normalization, nfd_069_086)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9293,7 +9293,7 @@ TEST(normalization, nfd_069_086)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9307,7 +9307,7 @@ TEST(normalization, nfd_069_086)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9329,11 +9329,11 @@ TEST(normalization, nfd_069_087)
     // FA37;5606;5606;5606;5606; 
     // (嘆; 嘆; 嘆; 嘆; 嘆; ) CJK COMPATIBILITY IDEOGRAPH-FA37
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA37 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5606 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5606 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5606 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5606 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA37 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5606 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5606 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5606 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5606 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -9358,7 +9358,7 @@ TEST(normalization, nfd_069_087)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9372,7 +9372,7 @@ TEST(normalization, nfd_069_087)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9386,7 +9386,7 @@ TEST(normalization, nfd_069_087)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9400,7 +9400,7 @@ TEST(normalization, nfd_069_087)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9414,7 +9414,7 @@ TEST(normalization, nfd_069_087)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9436,11 +9436,11 @@ TEST(normalization, nfd_069_088)
     // FA38;5668;5668;5668;5668; 
     // (器; 器; 器; 器; 器; ) CJK COMPATIBILITY IDEOGRAPH-FA38
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA38 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5668 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5668 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5668 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5668 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA38 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5668 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5668 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5668 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5668 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -9465,7 +9465,7 @@ TEST(normalization, nfd_069_088)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9479,7 +9479,7 @@ TEST(normalization, nfd_069_088)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9493,7 +9493,7 @@ TEST(normalization, nfd_069_088)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9507,7 +9507,7 @@ TEST(normalization, nfd_069_088)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9521,7 +9521,7 @@ TEST(normalization, nfd_069_088)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9543,11 +9543,11 @@ TEST(normalization, nfd_069_089)
     // FA39;5840;5840;5840;5840; 
     // (塀; 塀; 塀; 塀; 塀; ) CJK COMPATIBILITY IDEOGRAPH-FA39
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA39 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5840 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5840 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5840 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5840 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA39 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5840 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5840 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5840 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5840 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -9572,7 +9572,7 @@ TEST(normalization, nfd_069_089)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9586,7 +9586,7 @@ TEST(normalization, nfd_069_089)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9600,7 +9600,7 @@ TEST(normalization, nfd_069_089)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9614,7 +9614,7 @@ TEST(normalization, nfd_069_089)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9628,7 +9628,7 @@ TEST(normalization, nfd_069_089)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9650,11 +9650,11 @@ TEST(normalization, nfd_069_090)
     // FA3A;58A8;58A8;58A8;58A8; 
     // (墨; 墨; 墨; 墨; 墨; ) CJK COMPATIBILITY IDEOGRAPH-FA3A
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA3A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x58A8 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x58A8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x58A8 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x58A8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA3A }};
+        std::array<char32_t, 1> const c2 = {{ 0x58A8 }};
+        std::array<char32_t, 1> const c3 = {{ 0x58A8 }};
+        std::array<char32_t, 1> const c4 = {{ 0x58A8 }};
+        std::array<char32_t, 1> const c5 = {{ 0x58A8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -9679,7 +9679,7 @@ TEST(normalization, nfd_069_090)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9693,7 +9693,7 @@ TEST(normalization, nfd_069_090)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9707,7 +9707,7 @@ TEST(normalization, nfd_069_090)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9721,7 +9721,7 @@ TEST(normalization, nfd_069_090)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9735,7 +9735,7 @@ TEST(normalization, nfd_069_090)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9757,11 +9757,11 @@ TEST(normalization, nfd_069_091)
     // FA3B;5C64;5C64;5C64;5C64; 
     // (層; 層; 層; 層; 層; ) CJK COMPATIBILITY IDEOGRAPH-FA3B
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA3B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5C64 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5C64 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5C64 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5C64 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA3B }};
+        std::array<char32_t, 1> const c2 = {{ 0x5C64 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5C64 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5C64 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5C64 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -9786,7 +9786,7 @@ TEST(normalization, nfd_069_091)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9800,7 +9800,7 @@ TEST(normalization, nfd_069_091)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9814,7 +9814,7 @@ TEST(normalization, nfd_069_091)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9828,7 +9828,7 @@ TEST(normalization, nfd_069_091)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9842,7 +9842,7 @@ TEST(normalization, nfd_069_091)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9864,11 +9864,11 @@ TEST(normalization, nfd_069_092)
     // FA3C;5C6E;5C6E;5C6E;5C6E; 
     // (屮; 屮; 屮; 屮; 屮; ) CJK COMPATIBILITY IDEOGRAPH-FA3C
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA3C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5C6E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5C6E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5C6E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5C6E }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA3C }};
+        std::array<char32_t, 1> const c2 = {{ 0x5C6E }};
+        std::array<char32_t, 1> const c3 = {{ 0x5C6E }};
+        std::array<char32_t, 1> const c4 = {{ 0x5C6E }};
+        std::array<char32_t, 1> const c5 = {{ 0x5C6E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -9893,7 +9893,7 @@ TEST(normalization, nfd_069_092)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9907,7 +9907,7 @@ TEST(normalization, nfd_069_092)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9921,7 +9921,7 @@ TEST(normalization, nfd_069_092)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9935,7 +9935,7 @@ TEST(normalization, nfd_069_092)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9949,7 +9949,7 @@ TEST(normalization, nfd_069_092)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9971,11 +9971,11 @@ TEST(normalization, nfd_069_093)
     // FA3D;6094;6094;6094;6094; 
     // (悔; 悔; 悔; 悔; 悔; ) CJK COMPATIBILITY IDEOGRAPH-FA3D
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA3D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6094 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6094 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6094 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6094 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA3D }};
+        std::array<char32_t, 1> const c2 = {{ 0x6094 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6094 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6094 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6094 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -10000,7 +10000,7 @@ TEST(normalization, nfd_069_093)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10014,7 +10014,7 @@ TEST(normalization, nfd_069_093)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10028,7 +10028,7 @@ TEST(normalization, nfd_069_093)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10042,7 +10042,7 @@ TEST(normalization, nfd_069_093)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10056,7 +10056,7 @@ TEST(normalization, nfd_069_093)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10078,11 +10078,11 @@ TEST(normalization, nfd_069_094)
     // FA3E;6168;6168;6168;6168; 
     // (慨; 慨; 慨; 慨; 慨; ) CJK COMPATIBILITY IDEOGRAPH-FA3E
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA3E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6168 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6168 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6168 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6168 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA3E }};
+        std::array<char32_t, 1> const c2 = {{ 0x6168 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6168 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6168 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6168 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -10107,7 +10107,7 @@ TEST(normalization, nfd_069_094)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10121,7 +10121,7 @@ TEST(normalization, nfd_069_094)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10135,7 +10135,7 @@ TEST(normalization, nfd_069_094)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10149,7 +10149,7 @@ TEST(normalization, nfd_069_094)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10163,7 +10163,7 @@ TEST(normalization, nfd_069_094)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10185,11 +10185,11 @@ TEST(normalization, nfd_069_095)
     // FA3F;618E;618E;618E;618E; 
     // (憎; 憎; 憎; 憎; 憎; ) CJK COMPATIBILITY IDEOGRAPH-FA3F
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA3F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x618E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x618E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x618E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x618E }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA3F }};
+        std::array<char32_t, 1> const c2 = {{ 0x618E }};
+        std::array<char32_t, 1> const c3 = {{ 0x618E }};
+        std::array<char32_t, 1> const c4 = {{ 0x618E }};
+        std::array<char32_t, 1> const c5 = {{ 0x618E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -10214,7 +10214,7 @@ TEST(normalization, nfd_069_095)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10228,7 +10228,7 @@ TEST(normalization, nfd_069_095)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10242,7 +10242,7 @@ TEST(normalization, nfd_069_095)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10256,7 +10256,7 @@ TEST(normalization, nfd_069_095)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10270,7 +10270,7 @@ TEST(normalization, nfd_069_095)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10292,11 +10292,11 @@ TEST(normalization, nfd_069_096)
     // FA40;61F2;61F2;61F2;61F2; 
     // (懲; 懲; 懲; 懲; 懲; ) CJK COMPATIBILITY IDEOGRAPH-FA40
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA40 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x61F2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x61F2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x61F2 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x61F2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA40 }};
+        std::array<char32_t, 1> const c2 = {{ 0x61F2 }};
+        std::array<char32_t, 1> const c3 = {{ 0x61F2 }};
+        std::array<char32_t, 1> const c4 = {{ 0x61F2 }};
+        std::array<char32_t, 1> const c5 = {{ 0x61F2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -10321,7 +10321,7 @@ TEST(normalization, nfd_069_096)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10335,7 +10335,7 @@ TEST(normalization, nfd_069_096)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10349,7 +10349,7 @@ TEST(normalization, nfd_069_096)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10363,7 +10363,7 @@ TEST(normalization, nfd_069_096)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10377,7 +10377,7 @@ TEST(normalization, nfd_069_096)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10399,11 +10399,11 @@ TEST(normalization, nfd_069_097)
     // FA41;654F;654F;654F;654F; 
     // (敏; 敏; 敏; 敏; 敏; ) CJK COMPATIBILITY IDEOGRAPH-FA41
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA41 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x654F }};
-        std::array<uint32_t, 1> const c3 = {{ 0x654F }};
-        std::array<uint32_t, 1> const c4 = {{ 0x654F }};
-        std::array<uint32_t, 1> const c5 = {{ 0x654F }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA41 }};
+        std::array<char32_t, 1> const c2 = {{ 0x654F }};
+        std::array<char32_t, 1> const c3 = {{ 0x654F }};
+        std::array<char32_t, 1> const c4 = {{ 0x654F }};
+        std::array<char32_t, 1> const c5 = {{ 0x654F }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -10428,7 +10428,7 @@ TEST(normalization, nfd_069_097)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10442,7 +10442,7 @@ TEST(normalization, nfd_069_097)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10456,7 +10456,7 @@ TEST(normalization, nfd_069_097)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10470,7 +10470,7 @@ TEST(normalization, nfd_069_097)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10484,7 +10484,7 @@ TEST(normalization, nfd_069_097)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10506,11 +10506,11 @@ TEST(normalization, nfd_069_098)
     // FA42;65E2;65E2;65E2;65E2; 
     // (既; 既; 既; 既; 既; ) CJK COMPATIBILITY IDEOGRAPH-FA42
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA42 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x65E2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x65E2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x65E2 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x65E2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA42 }};
+        std::array<char32_t, 1> const c2 = {{ 0x65E2 }};
+        std::array<char32_t, 1> const c3 = {{ 0x65E2 }};
+        std::array<char32_t, 1> const c4 = {{ 0x65E2 }};
+        std::array<char32_t, 1> const c5 = {{ 0x65E2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -10535,7 +10535,7 @@ TEST(normalization, nfd_069_098)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10549,7 +10549,7 @@ TEST(normalization, nfd_069_098)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10563,7 +10563,7 @@ TEST(normalization, nfd_069_098)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10577,7 +10577,7 @@ TEST(normalization, nfd_069_098)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10591,7 +10591,7 @@ TEST(normalization, nfd_069_098)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10613,11 +10613,11 @@ TEST(normalization, nfd_069_099)
     // FA43;6691;6691;6691;6691; 
     // (暑; 暑; 暑; 暑; 暑; ) CJK COMPATIBILITY IDEOGRAPH-FA43
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA43 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6691 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6691 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6691 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6691 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA43 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6691 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6691 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6691 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6691 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -10642,7 +10642,7 @@ TEST(normalization, nfd_069_099)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10656,7 +10656,7 @@ TEST(normalization, nfd_069_099)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10670,7 +10670,7 @@ TEST(normalization, nfd_069_099)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10684,7 +10684,7 @@ TEST(normalization, nfd_069_099)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10698,7 +10698,7 @@ TEST(normalization, nfd_069_099)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10720,11 +10720,11 @@ TEST(normalization, nfd_069_100)
     // FA44;6885;6885;6885;6885; 
     // (梅; 梅; 梅; 梅; 梅; ) CJK COMPATIBILITY IDEOGRAPH-FA44
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA44 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6885 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6885 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6885 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6885 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA44 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6885 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6885 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6885 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6885 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -10749,7 +10749,7 @@ TEST(normalization, nfd_069_100)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10763,7 +10763,7 @@ TEST(normalization, nfd_069_100)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10777,7 +10777,7 @@ TEST(normalization, nfd_069_100)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10791,7 +10791,7 @@ TEST(normalization, nfd_069_100)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10805,7 +10805,7 @@ TEST(normalization, nfd_069_100)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10827,11 +10827,11 @@ TEST(normalization, nfd_069_101)
     // FA45;6D77;6D77;6D77;6D77; 
     // (海; 海; 海; 海; 海; ) CJK COMPATIBILITY IDEOGRAPH-FA45
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA45 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6D77 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6D77 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6D77 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6D77 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA45 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6D77 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6D77 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6D77 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6D77 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -10856,7 +10856,7 @@ TEST(normalization, nfd_069_101)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10870,7 +10870,7 @@ TEST(normalization, nfd_069_101)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10884,7 +10884,7 @@ TEST(normalization, nfd_069_101)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10898,7 +10898,7 @@ TEST(normalization, nfd_069_101)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10912,7 +10912,7 @@ TEST(normalization, nfd_069_101)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10934,11 +10934,11 @@ TEST(normalization, nfd_069_102)
     // FA46;6E1A;6E1A;6E1A;6E1A; 
     // (渚; 渚; 渚; 渚; 渚; ) CJK COMPATIBILITY IDEOGRAPH-FA46
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA46 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6E1A }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6E1A }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6E1A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6E1A }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA46 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6E1A }};
+        std::array<char32_t, 1> const c3 = {{ 0x6E1A }};
+        std::array<char32_t, 1> const c4 = {{ 0x6E1A }};
+        std::array<char32_t, 1> const c5 = {{ 0x6E1A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -10963,7 +10963,7 @@ TEST(normalization, nfd_069_102)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10977,7 +10977,7 @@ TEST(normalization, nfd_069_102)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10991,7 +10991,7 @@ TEST(normalization, nfd_069_102)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11005,7 +11005,7 @@ TEST(normalization, nfd_069_102)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11019,7 +11019,7 @@ TEST(normalization, nfd_069_102)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11041,11 +11041,11 @@ TEST(normalization, nfd_069_103)
     // FA47;6F22;6F22;6F22;6F22; 
     // (漢; 漢; 漢; 漢; 漢; ) CJK COMPATIBILITY IDEOGRAPH-FA47
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA47 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6F22 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6F22 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6F22 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6F22 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA47 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6F22 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6F22 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6F22 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6F22 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -11070,7 +11070,7 @@ TEST(normalization, nfd_069_103)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11084,7 +11084,7 @@ TEST(normalization, nfd_069_103)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11098,7 +11098,7 @@ TEST(normalization, nfd_069_103)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11112,7 +11112,7 @@ TEST(normalization, nfd_069_103)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11126,7 +11126,7 @@ TEST(normalization, nfd_069_103)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11148,11 +11148,11 @@ TEST(normalization, nfd_069_104)
     // FA48;716E;716E;716E;716E; 
     // (煮; 煮; 煮; 煮; 煮; ) CJK COMPATIBILITY IDEOGRAPH-FA48
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA48 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x716E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x716E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x716E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x716E }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA48 }};
+        std::array<char32_t, 1> const c2 = {{ 0x716E }};
+        std::array<char32_t, 1> const c3 = {{ 0x716E }};
+        std::array<char32_t, 1> const c4 = {{ 0x716E }};
+        std::array<char32_t, 1> const c5 = {{ 0x716E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -11177,7 +11177,7 @@ TEST(normalization, nfd_069_104)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11191,7 +11191,7 @@ TEST(normalization, nfd_069_104)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11205,7 +11205,7 @@ TEST(normalization, nfd_069_104)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11219,7 +11219,7 @@ TEST(normalization, nfd_069_104)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11233,7 +11233,7 @@ TEST(normalization, nfd_069_104)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11255,11 +11255,11 @@ TEST(normalization, nfd_069_105)
     // FA49;722B;722B;722B;722B; 
     // (爫; 爫; 爫; 爫; 爫; ) CJK COMPATIBILITY IDEOGRAPH-FA49
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA49 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x722B }};
-        std::array<uint32_t, 1> const c3 = {{ 0x722B }};
-        std::array<uint32_t, 1> const c4 = {{ 0x722B }};
-        std::array<uint32_t, 1> const c5 = {{ 0x722B }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA49 }};
+        std::array<char32_t, 1> const c2 = {{ 0x722B }};
+        std::array<char32_t, 1> const c3 = {{ 0x722B }};
+        std::array<char32_t, 1> const c4 = {{ 0x722B }};
+        std::array<char32_t, 1> const c5 = {{ 0x722B }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -11284,7 +11284,7 @@ TEST(normalization, nfd_069_105)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11298,7 +11298,7 @@ TEST(normalization, nfd_069_105)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11312,7 +11312,7 @@ TEST(normalization, nfd_069_105)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11326,7 +11326,7 @@ TEST(normalization, nfd_069_105)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11340,7 +11340,7 @@ TEST(normalization, nfd_069_105)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11362,11 +11362,11 @@ TEST(normalization, nfd_069_106)
     // FA4A;7422;7422;7422;7422; 
     // (琢; 琢; 琢; 琢; 琢; ) CJK COMPATIBILITY IDEOGRAPH-FA4A
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA4A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7422 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7422 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7422 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7422 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA4A }};
+        std::array<char32_t, 1> const c2 = {{ 0x7422 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7422 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7422 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7422 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -11391,7 +11391,7 @@ TEST(normalization, nfd_069_106)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11405,7 +11405,7 @@ TEST(normalization, nfd_069_106)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11419,7 +11419,7 @@ TEST(normalization, nfd_069_106)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11433,7 +11433,7 @@ TEST(normalization, nfd_069_106)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11447,7 +11447,7 @@ TEST(normalization, nfd_069_106)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11469,11 +11469,11 @@ TEST(normalization, nfd_069_107)
     // FA4B;7891;7891;7891;7891; 
     // (碑; 碑; 碑; 碑; 碑; ) CJK COMPATIBILITY IDEOGRAPH-FA4B
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA4B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7891 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7891 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7891 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7891 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA4B }};
+        std::array<char32_t, 1> const c2 = {{ 0x7891 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7891 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7891 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7891 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -11498,7 +11498,7 @@ TEST(normalization, nfd_069_107)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11512,7 +11512,7 @@ TEST(normalization, nfd_069_107)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11526,7 +11526,7 @@ TEST(normalization, nfd_069_107)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11540,7 +11540,7 @@ TEST(normalization, nfd_069_107)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11554,7 +11554,7 @@ TEST(normalization, nfd_069_107)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11576,11 +11576,11 @@ TEST(normalization, nfd_069_108)
     // FA4C;793E;793E;793E;793E; 
     // (社; 社; 社; 社; 社; ) CJK COMPATIBILITY IDEOGRAPH-FA4C
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA4C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x793E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x793E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x793E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x793E }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA4C }};
+        std::array<char32_t, 1> const c2 = {{ 0x793E }};
+        std::array<char32_t, 1> const c3 = {{ 0x793E }};
+        std::array<char32_t, 1> const c4 = {{ 0x793E }};
+        std::array<char32_t, 1> const c5 = {{ 0x793E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -11605,7 +11605,7 @@ TEST(normalization, nfd_069_108)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11619,7 +11619,7 @@ TEST(normalization, nfd_069_108)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11633,7 +11633,7 @@ TEST(normalization, nfd_069_108)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11647,7 +11647,7 @@ TEST(normalization, nfd_069_108)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11661,7 +11661,7 @@ TEST(normalization, nfd_069_108)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11683,11 +11683,11 @@ TEST(normalization, nfd_069_109)
     // FA4D;7949;7949;7949;7949; 
     // (祉; 祉; 祉; 祉; 祉; ) CJK COMPATIBILITY IDEOGRAPH-FA4D
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA4D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7949 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7949 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7949 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7949 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA4D }};
+        std::array<char32_t, 1> const c2 = {{ 0x7949 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7949 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7949 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7949 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -11712,7 +11712,7 @@ TEST(normalization, nfd_069_109)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11726,7 +11726,7 @@ TEST(normalization, nfd_069_109)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11740,7 +11740,7 @@ TEST(normalization, nfd_069_109)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11754,7 +11754,7 @@ TEST(normalization, nfd_069_109)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11768,7 +11768,7 @@ TEST(normalization, nfd_069_109)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11790,11 +11790,11 @@ TEST(normalization, nfd_069_110)
     // FA4E;7948;7948;7948;7948; 
     // (祈; 祈; 祈; 祈; 祈; ) CJK COMPATIBILITY IDEOGRAPH-FA4E
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA4E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7948 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7948 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7948 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7948 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA4E }};
+        std::array<char32_t, 1> const c2 = {{ 0x7948 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7948 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7948 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7948 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -11819,7 +11819,7 @@ TEST(normalization, nfd_069_110)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11833,7 +11833,7 @@ TEST(normalization, nfd_069_110)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11847,7 +11847,7 @@ TEST(normalization, nfd_069_110)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11861,7 +11861,7 @@ TEST(normalization, nfd_069_110)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11875,7 +11875,7 @@ TEST(normalization, nfd_069_110)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11897,11 +11897,11 @@ TEST(normalization, nfd_069_111)
     // FA4F;7950;7950;7950;7950; 
     // (祐; 祐; 祐; 祐; 祐; ) CJK COMPATIBILITY IDEOGRAPH-FA4F
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA4F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7950 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7950 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7950 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7950 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA4F }};
+        std::array<char32_t, 1> const c2 = {{ 0x7950 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7950 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7950 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7950 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -11926,7 +11926,7 @@ TEST(normalization, nfd_069_111)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11940,7 +11940,7 @@ TEST(normalization, nfd_069_111)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11954,7 +11954,7 @@ TEST(normalization, nfd_069_111)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11968,7 +11968,7 @@ TEST(normalization, nfd_069_111)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11982,7 +11982,7 @@ TEST(normalization, nfd_069_111)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12004,11 +12004,11 @@ TEST(normalization, nfd_069_112)
     // FA50;7956;7956;7956;7956; 
     // (祖; 祖; 祖; 祖; 祖; ) CJK COMPATIBILITY IDEOGRAPH-FA50
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA50 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7956 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7956 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7956 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7956 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA50 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7956 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7956 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7956 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7956 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -12033,7 +12033,7 @@ TEST(normalization, nfd_069_112)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12047,7 +12047,7 @@ TEST(normalization, nfd_069_112)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12061,7 +12061,7 @@ TEST(normalization, nfd_069_112)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12075,7 +12075,7 @@ TEST(normalization, nfd_069_112)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12089,7 +12089,7 @@ TEST(normalization, nfd_069_112)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12111,11 +12111,11 @@ TEST(normalization, nfd_069_113)
     // FA51;795D;795D;795D;795D; 
     // (祝; 祝; 祝; 祝; 祝; ) CJK COMPATIBILITY IDEOGRAPH-FA51
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA51 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x795D }};
-        std::array<uint32_t, 1> const c3 = {{ 0x795D }};
-        std::array<uint32_t, 1> const c4 = {{ 0x795D }};
-        std::array<uint32_t, 1> const c5 = {{ 0x795D }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA51 }};
+        std::array<char32_t, 1> const c2 = {{ 0x795D }};
+        std::array<char32_t, 1> const c3 = {{ 0x795D }};
+        std::array<char32_t, 1> const c4 = {{ 0x795D }};
+        std::array<char32_t, 1> const c5 = {{ 0x795D }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -12140,7 +12140,7 @@ TEST(normalization, nfd_069_113)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12154,7 +12154,7 @@ TEST(normalization, nfd_069_113)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12168,7 +12168,7 @@ TEST(normalization, nfd_069_113)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12182,7 +12182,7 @@ TEST(normalization, nfd_069_113)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12196,7 +12196,7 @@ TEST(normalization, nfd_069_113)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12218,11 +12218,11 @@ TEST(normalization, nfd_069_114)
     // FA52;798D;798D;798D;798D; 
     // (禍; 禍; 禍; 禍; 禍; ) CJK COMPATIBILITY IDEOGRAPH-FA52
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA52 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x798D }};
-        std::array<uint32_t, 1> const c3 = {{ 0x798D }};
-        std::array<uint32_t, 1> const c4 = {{ 0x798D }};
-        std::array<uint32_t, 1> const c5 = {{ 0x798D }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA52 }};
+        std::array<char32_t, 1> const c2 = {{ 0x798D }};
+        std::array<char32_t, 1> const c3 = {{ 0x798D }};
+        std::array<char32_t, 1> const c4 = {{ 0x798D }};
+        std::array<char32_t, 1> const c5 = {{ 0x798D }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -12247,7 +12247,7 @@ TEST(normalization, nfd_069_114)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12261,7 +12261,7 @@ TEST(normalization, nfd_069_114)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12275,7 +12275,7 @@ TEST(normalization, nfd_069_114)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12289,7 +12289,7 @@ TEST(normalization, nfd_069_114)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12303,7 +12303,7 @@ TEST(normalization, nfd_069_114)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12325,11 +12325,11 @@ TEST(normalization, nfd_069_115)
     // FA53;798E;798E;798E;798E; 
     // (禎; 禎; 禎; 禎; 禎; ) CJK COMPATIBILITY IDEOGRAPH-FA53
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA53 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x798E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x798E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x798E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x798E }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA53 }};
+        std::array<char32_t, 1> const c2 = {{ 0x798E }};
+        std::array<char32_t, 1> const c3 = {{ 0x798E }};
+        std::array<char32_t, 1> const c4 = {{ 0x798E }};
+        std::array<char32_t, 1> const c5 = {{ 0x798E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -12354,7 +12354,7 @@ TEST(normalization, nfd_069_115)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12368,7 +12368,7 @@ TEST(normalization, nfd_069_115)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12382,7 +12382,7 @@ TEST(normalization, nfd_069_115)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12396,7 +12396,7 @@ TEST(normalization, nfd_069_115)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12410,7 +12410,7 @@ TEST(normalization, nfd_069_115)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12432,11 +12432,11 @@ TEST(normalization, nfd_069_116)
     // FA54;7A40;7A40;7A40;7A40; 
     // (穀; 穀; 穀; 穀; 穀; ) CJK COMPATIBILITY IDEOGRAPH-FA54
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA54 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7A40 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7A40 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7A40 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7A40 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA54 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7A40 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7A40 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7A40 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7A40 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -12461,7 +12461,7 @@ TEST(normalization, nfd_069_116)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12475,7 +12475,7 @@ TEST(normalization, nfd_069_116)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12489,7 +12489,7 @@ TEST(normalization, nfd_069_116)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12503,7 +12503,7 @@ TEST(normalization, nfd_069_116)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12517,7 +12517,7 @@ TEST(normalization, nfd_069_116)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12539,11 +12539,11 @@ TEST(normalization, nfd_069_117)
     // FA55;7A81;7A81;7A81;7A81; 
     // (突; 突; 突; 突; 突; ) CJK COMPATIBILITY IDEOGRAPH-FA55
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA55 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7A81 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7A81 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7A81 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7A81 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA55 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7A81 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7A81 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7A81 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7A81 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -12568,7 +12568,7 @@ TEST(normalization, nfd_069_117)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12582,7 +12582,7 @@ TEST(normalization, nfd_069_117)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12596,7 +12596,7 @@ TEST(normalization, nfd_069_117)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12610,7 +12610,7 @@ TEST(normalization, nfd_069_117)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12624,7 +12624,7 @@ TEST(normalization, nfd_069_117)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12646,11 +12646,11 @@ TEST(normalization, nfd_069_118)
     // FA56;7BC0;7BC0;7BC0;7BC0; 
     // (節; 節; 節; 節; 節; ) CJK COMPATIBILITY IDEOGRAPH-FA56
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA56 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7BC0 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7BC0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7BC0 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7BC0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA56 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7BC0 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7BC0 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7BC0 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7BC0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -12675,7 +12675,7 @@ TEST(normalization, nfd_069_118)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12689,7 +12689,7 @@ TEST(normalization, nfd_069_118)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12703,7 +12703,7 @@ TEST(normalization, nfd_069_118)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12717,7 +12717,7 @@ TEST(normalization, nfd_069_118)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12731,7 +12731,7 @@ TEST(normalization, nfd_069_118)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12753,11 +12753,11 @@ TEST(normalization, nfd_069_119)
     // FA57;7DF4;7DF4;7DF4;7DF4; 
     // (練; 練; 練; 練; 練; ) CJK COMPATIBILITY IDEOGRAPH-FA57
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA57 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7DF4 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7DF4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7DF4 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7DF4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA57 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7DF4 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7DF4 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7DF4 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7DF4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -12782,7 +12782,7 @@ TEST(normalization, nfd_069_119)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12796,7 +12796,7 @@ TEST(normalization, nfd_069_119)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12810,7 +12810,7 @@ TEST(normalization, nfd_069_119)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12824,7 +12824,7 @@ TEST(normalization, nfd_069_119)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12838,7 +12838,7 @@ TEST(normalization, nfd_069_119)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12860,11 +12860,11 @@ TEST(normalization, nfd_069_120)
     // FA58;7E09;7E09;7E09;7E09; 
     // (縉; 縉; 縉; 縉; 縉; ) CJK COMPATIBILITY IDEOGRAPH-FA58
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA58 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7E09 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7E09 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7E09 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7E09 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA58 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7E09 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7E09 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7E09 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7E09 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -12889,7 +12889,7 @@ TEST(normalization, nfd_069_120)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12903,7 +12903,7 @@ TEST(normalization, nfd_069_120)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12917,7 +12917,7 @@ TEST(normalization, nfd_069_120)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12931,7 +12931,7 @@ TEST(normalization, nfd_069_120)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12945,7 +12945,7 @@ TEST(normalization, nfd_069_120)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12967,11 +12967,11 @@ TEST(normalization, nfd_069_121)
     // FA59;7E41;7E41;7E41;7E41; 
     // (繁; 繁; 繁; 繁; 繁; ) CJK COMPATIBILITY IDEOGRAPH-FA59
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA59 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7E41 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7E41 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7E41 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7E41 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA59 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7E41 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7E41 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7E41 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7E41 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -12996,7 +12996,7 @@ TEST(normalization, nfd_069_121)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13010,7 +13010,7 @@ TEST(normalization, nfd_069_121)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13024,7 +13024,7 @@ TEST(normalization, nfd_069_121)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13038,7 +13038,7 @@ TEST(normalization, nfd_069_121)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13052,7 +13052,7 @@ TEST(normalization, nfd_069_121)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13074,11 +13074,11 @@ TEST(normalization, nfd_069_122)
     // FA5A;7F72;7F72;7F72;7F72; 
     // (署; 署; 署; 署; 署; ) CJK COMPATIBILITY IDEOGRAPH-FA5A
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA5A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7F72 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7F72 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7F72 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7F72 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA5A }};
+        std::array<char32_t, 1> const c2 = {{ 0x7F72 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7F72 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7F72 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7F72 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -13103,7 +13103,7 @@ TEST(normalization, nfd_069_122)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13117,7 +13117,7 @@ TEST(normalization, nfd_069_122)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13131,7 +13131,7 @@ TEST(normalization, nfd_069_122)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13145,7 +13145,7 @@ TEST(normalization, nfd_069_122)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13159,7 +13159,7 @@ TEST(normalization, nfd_069_122)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13181,11 +13181,11 @@ TEST(normalization, nfd_069_123)
     // FA5B;8005;8005;8005;8005; 
     // (者; 者; 者; 者; 者; ) CJK COMPATIBILITY IDEOGRAPH-FA5B
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA5B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8005 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8005 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8005 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8005 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA5B }};
+        std::array<char32_t, 1> const c2 = {{ 0x8005 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8005 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8005 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8005 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -13210,7 +13210,7 @@ TEST(normalization, nfd_069_123)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13224,7 +13224,7 @@ TEST(normalization, nfd_069_123)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13238,7 +13238,7 @@ TEST(normalization, nfd_069_123)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13252,7 +13252,7 @@ TEST(normalization, nfd_069_123)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13266,7 +13266,7 @@ TEST(normalization, nfd_069_123)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13288,11 +13288,11 @@ TEST(normalization, nfd_069_124)
     // FA5C;81ED;81ED;81ED;81ED; 
     // (臭; 臭; 臭; 臭; 臭; ) CJK COMPATIBILITY IDEOGRAPH-FA5C
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA5C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x81ED }};
-        std::array<uint32_t, 1> const c3 = {{ 0x81ED }};
-        std::array<uint32_t, 1> const c4 = {{ 0x81ED }};
-        std::array<uint32_t, 1> const c5 = {{ 0x81ED }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA5C }};
+        std::array<char32_t, 1> const c2 = {{ 0x81ED }};
+        std::array<char32_t, 1> const c3 = {{ 0x81ED }};
+        std::array<char32_t, 1> const c4 = {{ 0x81ED }};
+        std::array<char32_t, 1> const c5 = {{ 0x81ED }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -13317,7 +13317,7 @@ TEST(normalization, nfd_069_124)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13331,7 +13331,7 @@ TEST(normalization, nfd_069_124)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13345,7 +13345,7 @@ TEST(normalization, nfd_069_124)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13359,7 +13359,7 @@ TEST(normalization, nfd_069_124)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13373,7 +13373,7 @@ TEST(normalization, nfd_069_124)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13395,11 +13395,11 @@ TEST(normalization, nfd_069_125)
     // FA5D;8279;8279;8279;8279; 
     // (艹; 艹; 艹; 艹; 艹; ) CJK COMPATIBILITY IDEOGRAPH-FA5D
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA5D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8279 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8279 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8279 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8279 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA5D }};
+        std::array<char32_t, 1> const c2 = {{ 0x8279 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8279 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8279 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8279 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -13424,7 +13424,7 @@ TEST(normalization, nfd_069_125)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13438,7 +13438,7 @@ TEST(normalization, nfd_069_125)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13452,7 +13452,7 @@ TEST(normalization, nfd_069_125)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13466,7 +13466,7 @@ TEST(normalization, nfd_069_125)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13480,7 +13480,7 @@ TEST(normalization, nfd_069_125)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13502,11 +13502,11 @@ TEST(normalization, nfd_069_126)
     // FA5E;8279;8279;8279;8279; 
     // (艹; 艹; 艹; 艹; 艹; ) CJK COMPATIBILITY IDEOGRAPH-FA5E
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA5E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8279 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8279 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8279 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8279 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA5E }};
+        std::array<char32_t, 1> const c2 = {{ 0x8279 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8279 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8279 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8279 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -13531,7 +13531,7 @@ TEST(normalization, nfd_069_126)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13545,7 +13545,7 @@ TEST(normalization, nfd_069_126)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13559,7 +13559,7 @@ TEST(normalization, nfd_069_126)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13573,7 +13573,7 @@ TEST(normalization, nfd_069_126)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13587,7 +13587,7 @@ TEST(normalization, nfd_069_126)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13609,11 +13609,11 @@ TEST(normalization, nfd_069_127)
     // FA5F;8457;8457;8457;8457; 
     // (著; 著; 著; 著; 著; ) CJK COMPATIBILITY IDEOGRAPH-FA5F
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA5F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8457 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8457 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8457 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8457 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA5F }};
+        std::array<char32_t, 1> const c2 = {{ 0x8457 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8457 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8457 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8457 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -13638,7 +13638,7 @@ TEST(normalization, nfd_069_127)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13652,7 +13652,7 @@ TEST(normalization, nfd_069_127)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13666,7 +13666,7 @@ TEST(normalization, nfd_069_127)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13680,7 +13680,7 @@ TEST(normalization, nfd_069_127)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13694,7 +13694,7 @@ TEST(normalization, nfd_069_127)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13716,11 +13716,11 @@ TEST(normalization, nfd_069_128)
     // FA60;8910;8910;8910;8910; 
     // (褐; 褐; 褐; 褐; 褐; ) CJK COMPATIBILITY IDEOGRAPH-FA60
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA60 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8910 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8910 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8910 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8910 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA60 }};
+        std::array<char32_t, 1> const c2 = {{ 0x8910 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8910 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8910 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8910 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -13745,7 +13745,7 @@ TEST(normalization, nfd_069_128)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13759,7 +13759,7 @@ TEST(normalization, nfd_069_128)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13773,7 +13773,7 @@ TEST(normalization, nfd_069_128)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13787,7 +13787,7 @@ TEST(normalization, nfd_069_128)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13801,7 +13801,7 @@ TEST(normalization, nfd_069_128)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13823,11 +13823,11 @@ TEST(normalization, nfd_069_129)
     // FA61;8996;8996;8996;8996; 
     // (視; 視; 視; 視; 視; ) CJK COMPATIBILITY IDEOGRAPH-FA61
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA61 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8996 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8996 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8996 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8996 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA61 }};
+        std::array<char32_t, 1> const c2 = {{ 0x8996 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8996 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8996 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8996 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -13852,7 +13852,7 @@ TEST(normalization, nfd_069_129)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13866,7 +13866,7 @@ TEST(normalization, nfd_069_129)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13880,7 +13880,7 @@ TEST(normalization, nfd_069_129)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13894,7 +13894,7 @@ TEST(normalization, nfd_069_129)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13908,7 +13908,7 @@ TEST(normalization, nfd_069_129)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13930,11 +13930,11 @@ TEST(normalization, nfd_069_130)
     // FA62;8B01;8B01;8B01;8B01; 
     // (謁; 謁; 謁; 謁; 謁; ) CJK COMPATIBILITY IDEOGRAPH-FA62
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA62 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8B01 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8B01 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8B01 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8B01 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA62 }};
+        std::array<char32_t, 1> const c2 = {{ 0x8B01 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8B01 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8B01 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8B01 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -13959,7 +13959,7 @@ TEST(normalization, nfd_069_130)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13973,7 +13973,7 @@ TEST(normalization, nfd_069_130)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13987,7 +13987,7 @@ TEST(normalization, nfd_069_130)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14001,7 +14001,7 @@ TEST(normalization, nfd_069_130)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14015,7 +14015,7 @@ TEST(normalization, nfd_069_130)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14037,11 +14037,11 @@ TEST(normalization, nfd_069_131)
     // FA63;8B39;8B39;8B39;8B39; 
     // (謹; 謹; 謹; 謹; 謹; ) CJK COMPATIBILITY IDEOGRAPH-FA63
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA63 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8B39 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8B39 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8B39 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8B39 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA63 }};
+        std::array<char32_t, 1> const c2 = {{ 0x8B39 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8B39 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8B39 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8B39 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -14066,7 +14066,7 @@ TEST(normalization, nfd_069_131)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14080,7 +14080,7 @@ TEST(normalization, nfd_069_131)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14094,7 +14094,7 @@ TEST(normalization, nfd_069_131)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14108,7 +14108,7 @@ TEST(normalization, nfd_069_131)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14122,7 +14122,7 @@ TEST(normalization, nfd_069_131)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14144,11 +14144,11 @@ TEST(normalization, nfd_069_132)
     // FA64;8CD3;8CD3;8CD3;8CD3; 
     // (賓; 賓; 賓; 賓; 賓; ) CJK COMPATIBILITY IDEOGRAPH-FA64
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA64 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8CD3 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8CD3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8CD3 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8CD3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA64 }};
+        std::array<char32_t, 1> const c2 = {{ 0x8CD3 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8CD3 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8CD3 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8CD3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -14173,7 +14173,7 @@ TEST(normalization, nfd_069_132)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14187,7 +14187,7 @@ TEST(normalization, nfd_069_132)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14201,7 +14201,7 @@ TEST(normalization, nfd_069_132)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14215,7 +14215,7 @@ TEST(normalization, nfd_069_132)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14229,7 +14229,7 @@ TEST(normalization, nfd_069_132)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14251,11 +14251,11 @@ TEST(normalization, nfd_069_133)
     // FA65;8D08;8D08;8D08;8D08; 
     // (贈; 贈; 贈; 贈; 贈; ) CJK COMPATIBILITY IDEOGRAPH-FA65
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA65 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8D08 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8D08 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8D08 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8D08 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA65 }};
+        std::array<char32_t, 1> const c2 = {{ 0x8D08 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8D08 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8D08 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8D08 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -14280,7 +14280,7 @@ TEST(normalization, nfd_069_133)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14294,7 +14294,7 @@ TEST(normalization, nfd_069_133)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14308,7 +14308,7 @@ TEST(normalization, nfd_069_133)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14322,7 +14322,7 @@ TEST(normalization, nfd_069_133)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14336,7 +14336,7 @@ TEST(normalization, nfd_069_133)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14358,11 +14358,11 @@ TEST(normalization, nfd_069_134)
     // FA66;8FB6;8FB6;8FB6;8FB6; 
     // (辶; 辶; 辶; 辶; 辶; ) CJK COMPATIBILITY IDEOGRAPH-FA66
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA66 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8FB6 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8FB6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8FB6 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8FB6 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA66 }};
+        std::array<char32_t, 1> const c2 = {{ 0x8FB6 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8FB6 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8FB6 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8FB6 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -14387,7 +14387,7 @@ TEST(normalization, nfd_069_134)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14401,7 +14401,7 @@ TEST(normalization, nfd_069_134)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14415,7 +14415,7 @@ TEST(normalization, nfd_069_134)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14429,7 +14429,7 @@ TEST(normalization, nfd_069_134)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14443,7 +14443,7 @@ TEST(normalization, nfd_069_134)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14465,11 +14465,11 @@ TEST(normalization, nfd_069_135)
     // FA67;9038;9038;9038;9038; 
     // (逸; 逸; 逸; 逸; 逸; ) CJK COMPATIBILITY IDEOGRAPH-FA67
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA67 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x9038 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x9038 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x9038 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x9038 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA67 }};
+        std::array<char32_t, 1> const c2 = {{ 0x9038 }};
+        std::array<char32_t, 1> const c3 = {{ 0x9038 }};
+        std::array<char32_t, 1> const c4 = {{ 0x9038 }};
+        std::array<char32_t, 1> const c5 = {{ 0x9038 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -14494,7 +14494,7 @@ TEST(normalization, nfd_069_135)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14508,7 +14508,7 @@ TEST(normalization, nfd_069_135)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14522,7 +14522,7 @@ TEST(normalization, nfd_069_135)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14536,7 +14536,7 @@ TEST(normalization, nfd_069_135)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14550,7 +14550,7 @@ TEST(normalization, nfd_069_135)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14572,11 +14572,11 @@ TEST(normalization, nfd_069_136)
     // FA68;96E3;96E3;96E3;96E3; 
     // (難; 難; 難; 難; 難; ) CJK COMPATIBILITY IDEOGRAPH-FA68
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA68 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x96E3 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x96E3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x96E3 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x96E3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA68 }};
+        std::array<char32_t, 1> const c2 = {{ 0x96E3 }};
+        std::array<char32_t, 1> const c3 = {{ 0x96E3 }};
+        std::array<char32_t, 1> const c4 = {{ 0x96E3 }};
+        std::array<char32_t, 1> const c5 = {{ 0x96E3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -14601,7 +14601,7 @@ TEST(normalization, nfd_069_136)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14615,7 +14615,7 @@ TEST(normalization, nfd_069_136)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14629,7 +14629,7 @@ TEST(normalization, nfd_069_136)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14643,7 +14643,7 @@ TEST(normalization, nfd_069_136)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14657,7 +14657,7 @@ TEST(normalization, nfd_069_136)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14679,11 +14679,11 @@ TEST(normalization, nfd_069_137)
     // FA69;97FF;97FF;97FF;97FF; 
     // (響; 響; 響; 響; 響; ) CJK COMPATIBILITY IDEOGRAPH-FA69
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA69 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x97FF }};
-        std::array<uint32_t, 1> const c3 = {{ 0x97FF }};
-        std::array<uint32_t, 1> const c4 = {{ 0x97FF }};
-        std::array<uint32_t, 1> const c5 = {{ 0x97FF }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA69 }};
+        std::array<char32_t, 1> const c2 = {{ 0x97FF }};
+        std::array<char32_t, 1> const c3 = {{ 0x97FF }};
+        std::array<char32_t, 1> const c4 = {{ 0x97FF }};
+        std::array<char32_t, 1> const c5 = {{ 0x97FF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -14708,7 +14708,7 @@ TEST(normalization, nfd_069_137)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14722,7 +14722,7 @@ TEST(normalization, nfd_069_137)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14736,7 +14736,7 @@ TEST(normalization, nfd_069_137)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14750,7 +14750,7 @@ TEST(normalization, nfd_069_137)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14764,7 +14764,7 @@ TEST(normalization, nfd_069_137)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14786,11 +14786,11 @@ TEST(normalization, nfd_069_138)
     // FA6A;983B;983B;983B;983B; 
     // (頻; 頻; 頻; 頻; 頻; ) CJK COMPATIBILITY IDEOGRAPH-FA6A
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA6A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x983B }};
-        std::array<uint32_t, 1> const c3 = {{ 0x983B }};
-        std::array<uint32_t, 1> const c4 = {{ 0x983B }};
-        std::array<uint32_t, 1> const c5 = {{ 0x983B }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA6A }};
+        std::array<char32_t, 1> const c2 = {{ 0x983B }};
+        std::array<char32_t, 1> const c3 = {{ 0x983B }};
+        std::array<char32_t, 1> const c4 = {{ 0x983B }};
+        std::array<char32_t, 1> const c5 = {{ 0x983B }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -14815,7 +14815,7 @@ TEST(normalization, nfd_069_138)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14829,7 +14829,7 @@ TEST(normalization, nfd_069_138)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14843,7 +14843,7 @@ TEST(normalization, nfd_069_138)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14857,7 +14857,7 @@ TEST(normalization, nfd_069_138)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14871,7 +14871,7 @@ TEST(normalization, nfd_069_138)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14893,11 +14893,11 @@ TEST(normalization, nfd_069_139)
     // FA6B;6075;6075;6075;6075; 
     // (恵; 恵; 恵; 恵; 恵; ) CJK COMPATIBILITY IDEOGRAPH-FA6B
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA6B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6075 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6075 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6075 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6075 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA6B }};
+        std::array<char32_t, 1> const c2 = {{ 0x6075 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6075 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6075 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6075 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -14922,7 +14922,7 @@ TEST(normalization, nfd_069_139)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14936,7 +14936,7 @@ TEST(normalization, nfd_069_139)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14950,7 +14950,7 @@ TEST(normalization, nfd_069_139)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14964,7 +14964,7 @@ TEST(normalization, nfd_069_139)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14978,7 +14978,7 @@ TEST(normalization, nfd_069_139)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15000,11 +15000,11 @@ TEST(normalization, nfd_069_140)
     // FA6C;242EE;242EE;242EE;242EE; 
     // (𤋮; 𤋮; 𤋮; 𤋮; 𤋮; ) CJK COMPATIBILITY IDEOGRAPH-FA6C
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA6C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x242EE }};
-        std::array<uint32_t, 1> const c3 = {{ 0x242EE }};
-        std::array<uint32_t, 1> const c4 = {{ 0x242EE }};
-        std::array<uint32_t, 1> const c5 = {{ 0x242EE }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA6C }};
+        std::array<char32_t, 1> const c2 = {{ 0x242EE }};
+        std::array<char32_t, 1> const c3 = {{ 0x242EE }};
+        std::array<char32_t, 1> const c4 = {{ 0x242EE }};
+        std::array<char32_t, 1> const c5 = {{ 0x242EE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -15029,7 +15029,7 @@ TEST(normalization, nfd_069_140)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15043,7 +15043,7 @@ TEST(normalization, nfd_069_140)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15057,7 +15057,7 @@ TEST(normalization, nfd_069_140)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15071,7 +15071,7 @@ TEST(normalization, nfd_069_140)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15085,7 +15085,7 @@ TEST(normalization, nfd_069_140)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15107,11 +15107,11 @@ TEST(normalization, nfd_069_141)
     // FA6D;8218;8218;8218;8218; 
     // (舘; 舘; 舘; 舘; 舘; ) CJK COMPATIBILITY IDEOGRAPH-FA6D
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA6D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x8218 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x8218 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x8218 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x8218 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA6D }};
+        std::array<char32_t, 1> const c2 = {{ 0x8218 }};
+        std::array<char32_t, 1> const c3 = {{ 0x8218 }};
+        std::array<char32_t, 1> const c4 = {{ 0x8218 }};
+        std::array<char32_t, 1> const c5 = {{ 0x8218 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -15136,7 +15136,7 @@ TEST(normalization, nfd_069_141)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15150,7 +15150,7 @@ TEST(normalization, nfd_069_141)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15164,7 +15164,7 @@ TEST(normalization, nfd_069_141)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15178,7 +15178,7 @@ TEST(normalization, nfd_069_141)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15192,7 +15192,7 @@ TEST(normalization, nfd_069_141)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15214,11 +15214,11 @@ TEST(normalization, nfd_069_142)
     // FA70;4E26;4E26;4E26;4E26; 
     // (並; 並; 並; 並; 並; ) CJK COMPATIBILITY IDEOGRAPH-FA70
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA70 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x4E26 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x4E26 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x4E26 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x4E26 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA70 }};
+        std::array<char32_t, 1> const c2 = {{ 0x4E26 }};
+        std::array<char32_t, 1> const c3 = {{ 0x4E26 }};
+        std::array<char32_t, 1> const c4 = {{ 0x4E26 }};
+        std::array<char32_t, 1> const c5 = {{ 0x4E26 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -15243,7 +15243,7 @@ TEST(normalization, nfd_069_142)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15257,7 +15257,7 @@ TEST(normalization, nfd_069_142)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15271,7 +15271,7 @@ TEST(normalization, nfd_069_142)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15285,7 +15285,7 @@ TEST(normalization, nfd_069_142)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15299,7 +15299,7 @@ TEST(normalization, nfd_069_142)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15321,11 +15321,11 @@ TEST(normalization, nfd_069_143)
     // FA71;51B5;51B5;51B5;51B5; 
     // (况; 况; 况; 况; 况; ) CJK COMPATIBILITY IDEOGRAPH-FA71
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA71 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x51B5 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x51B5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x51B5 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x51B5 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA71 }};
+        std::array<char32_t, 1> const c2 = {{ 0x51B5 }};
+        std::array<char32_t, 1> const c3 = {{ 0x51B5 }};
+        std::array<char32_t, 1> const c4 = {{ 0x51B5 }};
+        std::array<char32_t, 1> const c5 = {{ 0x51B5 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -15350,7 +15350,7 @@ TEST(normalization, nfd_069_143)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15364,7 +15364,7 @@ TEST(normalization, nfd_069_143)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15378,7 +15378,7 @@ TEST(normalization, nfd_069_143)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15392,7 +15392,7 @@ TEST(normalization, nfd_069_143)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15406,7 +15406,7 @@ TEST(normalization, nfd_069_143)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15428,11 +15428,11 @@ TEST(normalization, nfd_069_144)
     // FA72;5168;5168;5168;5168; 
     // (全; 全; 全; 全; 全; ) CJK COMPATIBILITY IDEOGRAPH-FA72
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA72 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5168 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5168 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5168 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5168 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA72 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5168 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5168 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5168 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5168 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -15457,7 +15457,7 @@ TEST(normalization, nfd_069_144)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15471,7 +15471,7 @@ TEST(normalization, nfd_069_144)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15485,7 +15485,7 @@ TEST(normalization, nfd_069_144)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15499,7 +15499,7 @@ TEST(normalization, nfd_069_144)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15513,7 +15513,7 @@ TEST(normalization, nfd_069_144)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15535,11 +15535,11 @@ TEST(normalization, nfd_069_145)
     // FA73;4F80;4F80;4F80;4F80; 
     // (侀; 侀; 侀; 侀; 侀; ) CJK COMPATIBILITY IDEOGRAPH-FA73
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA73 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x4F80 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x4F80 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x4F80 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x4F80 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA73 }};
+        std::array<char32_t, 1> const c2 = {{ 0x4F80 }};
+        std::array<char32_t, 1> const c3 = {{ 0x4F80 }};
+        std::array<char32_t, 1> const c4 = {{ 0x4F80 }};
+        std::array<char32_t, 1> const c5 = {{ 0x4F80 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -15564,7 +15564,7 @@ TEST(normalization, nfd_069_145)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15578,7 +15578,7 @@ TEST(normalization, nfd_069_145)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15592,7 +15592,7 @@ TEST(normalization, nfd_069_145)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15606,7 +15606,7 @@ TEST(normalization, nfd_069_145)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15620,7 +15620,7 @@ TEST(normalization, nfd_069_145)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15642,11 +15642,11 @@ TEST(normalization, nfd_069_146)
     // FA74;5145;5145;5145;5145; 
     // (充; 充; 充; 充; 充; ) CJK COMPATIBILITY IDEOGRAPH-FA74
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA74 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5145 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5145 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5145 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5145 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA74 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5145 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5145 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5145 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5145 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -15671,7 +15671,7 @@ TEST(normalization, nfd_069_146)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15685,7 +15685,7 @@ TEST(normalization, nfd_069_146)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15699,7 +15699,7 @@ TEST(normalization, nfd_069_146)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15713,7 +15713,7 @@ TEST(normalization, nfd_069_146)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15727,7 +15727,7 @@ TEST(normalization, nfd_069_146)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15749,11 +15749,11 @@ TEST(normalization, nfd_069_147)
     // FA75;5180;5180;5180;5180; 
     // (冀; 冀; 冀; 冀; 冀; ) CJK COMPATIBILITY IDEOGRAPH-FA75
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA75 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5180 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5180 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5180 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5180 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA75 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5180 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5180 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5180 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5180 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -15778,7 +15778,7 @@ TEST(normalization, nfd_069_147)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15792,7 +15792,7 @@ TEST(normalization, nfd_069_147)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15806,7 +15806,7 @@ TEST(normalization, nfd_069_147)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15820,7 +15820,7 @@ TEST(normalization, nfd_069_147)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15834,7 +15834,7 @@ TEST(normalization, nfd_069_147)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15856,11 +15856,11 @@ TEST(normalization, nfd_069_148)
     // FA76;52C7;52C7;52C7;52C7; 
     // (勇; 勇; 勇; 勇; 勇; ) CJK COMPATIBILITY IDEOGRAPH-FA76
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA76 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x52C7 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x52C7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x52C7 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x52C7 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA76 }};
+        std::array<char32_t, 1> const c2 = {{ 0x52C7 }};
+        std::array<char32_t, 1> const c3 = {{ 0x52C7 }};
+        std::array<char32_t, 1> const c4 = {{ 0x52C7 }};
+        std::array<char32_t, 1> const c5 = {{ 0x52C7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -15885,7 +15885,7 @@ TEST(normalization, nfd_069_148)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15899,7 +15899,7 @@ TEST(normalization, nfd_069_148)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15913,7 +15913,7 @@ TEST(normalization, nfd_069_148)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15927,7 +15927,7 @@ TEST(normalization, nfd_069_148)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15941,7 +15941,7 @@ TEST(normalization, nfd_069_148)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15963,11 +15963,11 @@ TEST(normalization, nfd_069_149)
     // FA77;52FA;52FA;52FA;52FA; 
     // (勺; 勺; 勺; 勺; 勺; ) CJK COMPATIBILITY IDEOGRAPH-FA77
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA77 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x52FA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x52FA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x52FA }};
-        std::array<uint32_t, 1> const c5 = {{ 0x52FA }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA77 }};
+        std::array<char32_t, 1> const c2 = {{ 0x52FA }};
+        std::array<char32_t, 1> const c3 = {{ 0x52FA }};
+        std::array<char32_t, 1> const c4 = {{ 0x52FA }};
+        std::array<char32_t, 1> const c5 = {{ 0x52FA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -15992,7 +15992,7 @@ TEST(normalization, nfd_069_149)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16006,7 +16006,7 @@ TEST(normalization, nfd_069_149)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16020,7 +16020,7 @@ TEST(normalization, nfd_069_149)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16034,7 +16034,7 @@ TEST(normalization, nfd_069_149)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16048,7 +16048,7 @@ TEST(normalization, nfd_069_149)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16070,11 +16070,11 @@ TEST(normalization, nfd_069_150)
     // FA78;559D;559D;559D;559D; 
     // (喝; 喝; 喝; 喝; 喝; ) CJK COMPATIBILITY IDEOGRAPH-FA78
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA78 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x559D }};
-        std::array<uint32_t, 1> const c3 = {{ 0x559D }};
-        std::array<uint32_t, 1> const c4 = {{ 0x559D }};
-        std::array<uint32_t, 1> const c5 = {{ 0x559D }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA78 }};
+        std::array<char32_t, 1> const c2 = {{ 0x559D }};
+        std::array<char32_t, 1> const c3 = {{ 0x559D }};
+        std::array<char32_t, 1> const c4 = {{ 0x559D }};
+        std::array<char32_t, 1> const c5 = {{ 0x559D }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -16099,7 +16099,7 @@ TEST(normalization, nfd_069_150)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16113,7 +16113,7 @@ TEST(normalization, nfd_069_150)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16127,7 +16127,7 @@ TEST(normalization, nfd_069_150)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16141,7 +16141,7 @@ TEST(normalization, nfd_069_150)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16155,7 +16155,7 @@ TEST(normalization, nfd_069_150)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16177,11 +16177,11 @@ TEST(normalization, nfd_069_151)
     // FA79;5555;5555;5555;5555; 
     // (啕; 啕; 啕; 啕; 啕; ) CJK COMPATIBILITY IDEOGRAPH-FA79
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA79 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5555 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5555 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5555 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5555 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA79 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5555 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5555 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5555 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5555 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -16206,7 +16206,7 @@ TEST(normalization, nfd_069_151)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16220,7 +16220,7 @@ TEST(normalization, nfd_069_151)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16234,7 +16234,7 @@ TEST(normalization, nfd_069_151)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16248,7 +16248,7 @@ TEST(normalization, nfd_069_151)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16262,7 +16262,7 @@ TEST(normalization, nfd_069_151)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16284,11 +16284,11 @@ TEST(normalization, nfd_069_152)
     // FA7A;5599;5599;5599;5599; 
     // (喙; 喙; 喙; 喙; 喙; ) CJK COMPATIBILITY IDEOGRAPH-FA7A
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA7A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5599 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5599 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5599 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5599 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA7A }};
+        std::array<char32_t, 1> const c2 = {{ 0x5599 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5599 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5599 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5599 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -16313,7 +16313,7 @@ TEST(normalization, nfd_069_152)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16327,7 +16327,7 @@ TEST(normalization, nfd_069_152)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16341,7 +16341,7 @@ TEST(normalization, nfd_069_152)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16355,7 +16355,7 @@ TEST(normalization, nfd_069_152)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16369,7 +16369,7 @@ TEST(normalization, nfd_069_152)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16391,11 +16391,11 @@ TEST(normalization, nfd_069_153)
     // FA7B;55E2;55E2;55E2;55E2; 
     // (嗢; 嗢; 嗢; 嗢; 嗢; ) CJK COMPATIBILITY IDEOGRAPH-FA7B
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA7B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x55E2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x55E2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x55E2 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x55E2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA7B }};
+        std::array<char32_t, 1> const c2 = {{ 0x55E2 }};
+        std::array<char32_t, 1> const c3 = {{ 0x55E2 }};
+        std::array<char32_t, 1> const c4 = {{ 0x55E2 }};
+        std::array<char32_t, 1> const c5 = {{ 0x55E2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -16420,7 +16420,7 @@ TEST(normalization, nfd_069_153)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16434,7 +16434,7 @@ TEST(normalization, nfd_069_153)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16448,7 +16448,7 @@ TEST(normalization, nfd_069_153)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16462,7 +16462,7 @@ TEST(normalization, nfd_069_153)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16476,7 +16476,7 @@ TEST(normalization, nfd_069_153)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16498,11 +16498,11 @@ TEST(normalization, nfd_069_154)
     // FA7C;585A;585A;585A;585A; 
     // (塚; 塚; 塚; 塚; 塚; ) CJK COMPATIBILITY IDEOGRAPH-FA7C
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA7C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x585A }};
-        std::array<uint32_t, 1> const c3 = {{ 0x585A }};
-        std::array<uint32_t, 1> const c4 = {{ 0x585A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x585A }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA7C }};
+        std::array<char32_t, 1> const c2 = {{ 0x585A }};
+        std::array<char32_t, 1> const c3 = {{ 0x585A }};
+        std::array<char32_t, 1> const c4 = {{ 0x585A }};
+        std::array<char32_t, 1> const c5 = {{ 0x585A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -16527,7 +16527,7 @@ TEST(normalization, nfd_069_154)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16541,7 +16541,7 @@ TEST(normalization, nfd_069_154)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16555,7 +16555,7 @@ TEST(normalization, nfd_069_154)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16569,7 +16569,7 @@ TEST(normalization, nfd_069_154)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16583,7 +16583,7 @@ TEST(normalization, nfd_069_154)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16605,11 +16605,11 @@ TEST(normalization, nfd_069_155)
     // FA7D;58B3;58B3;58B3;58B3; 
     // (墳; 墳; 墳; 墳; 墳; ) CJK COMPATIBILITY IDEOGRAPH-FA7D
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA7D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x58B3 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x58B3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x58B3 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x58B3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA7D }};
+        std::array<char32_t, 1> const c2 = {{ 0x58B3 }};
+        std::array<char32_t, 1> const c3 = {{ 0x58B3 }};
+        std::array<char32_t, 1> const c4 = {{ 0x58B3 }};
+        std::array<char32_t, 1> const c5 = {{ 0x58B3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -16634,7 +16634,7 @@ TEST(normalization, nfd_069_155)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16648,7 +16648,7 @@ TEST(normalization, nfd_069_155)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16662,7 +16662,7 @@ TEST(normalization, nfd_069_155)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16676,7 +16676,7 @@ TEST(normalization, nfd_069_155)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16690,7 +16690,7 @@ TEST(normalization, nfd_069_155)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16712,11 +16712,11 @@ TEST(normalization, nfd_069_156)
     // FA7E;5944;5944;5944;5944; 
     // (奄; 奄; 奄; 奄; 奄; ) CJK COMPATIBILITY IDEOGRAPH-FA7E
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA7E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5944 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5944 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5944 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5944 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA7E }};
+        std::array<char32_t, 1> const c2 = {{ 0x5944 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5944 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5944 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5944 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -16741,7 +16741,7 @@ TEST(normalization, nfd_069_156)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16755,7 +16755,7 @@ TEST(normalization, nfd_069_156)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16769,7 +16769,7 @@ TEST(normalization, nfd_069_156)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16783,7 +16783,7 @@ TEST(normalization, nfd_069_156)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16797,7 +16797,7 @@ TEST(normalization, nfd_069_156)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16819,11 +16819,11 @@ TEST(normalization, nfd_069_157)
     // FA7F;5954;5954;5954;5954; 
     // (奔; 奔; 奔; 奔; 奔; ) CJK COMPATIBILITY IDEOGRAPH-FA7F
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA7F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5954 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5954 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5954 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5954 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA7F }};
+        std::array<char32_t, 1> const c2 = {{ 0x5954 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5954 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5954 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5954 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -16848,7 +16848,7 @@ TEST(normalization, nfd_069_157)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16862,7 +16862,7 @@ TEST(normalization, nfd_069_157)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16876,7 +16876,7 @@ TEST(normalization, nfd_069_157)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16890,7 +16890,7 @@ TEST(normalization, nfd_069_157)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16904,7 +16904,7 @@ TEST(normalization, nfd_069_157)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16926,11 +16926,11 @@ TEST(normalization, nfd_069_158)
     // FA80;5A62;5A62;5A62;5A62; 
     // (婢; 婢; 婢; 婢; 婢; ) CJK COMPATIBILITY IDEOGRAPH-FA80
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA80 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5A62 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5A62 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5A62 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5A62 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA80 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5A62 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5A62 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5A62 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5A62 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -16955,7 +16955,7 @@ TEST(normalization, nfd_069_158)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16969,7 +16969,7 @@ TEST(normalization, nfd_069_158)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16983,7 +16983,7 @@ TEST(normalization, nfd_069_158)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16997,7 +16997,7 @@ TEST(normalization, nfd_069_158)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17011,7 +17011,7 @@ TEST(normalization, nfd_069_158)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17033,11 +17033,11 @@ TEST(normalization, nfd_069_159)
     // FA81;5B28;5B28;5B28;5B28; 
     // (嬨; 嬨; 嬨; 嬨; 嬨; ) CJK COMPATIBILITY IDEOGRAPH-FA81
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA81 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5B28 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5B28 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5B28 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5B28 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA81 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5B28 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5B28 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5B28 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5B28 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -17062,7 +17062,7 @@ TEST(normalization, nfd_069_159)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17076,7 +17076,7 @@ TEST(normalization, nfd_069_159)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17090,7 +17090,7 @@ TEST(normalization, nfd_069_159)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17104,7 +17104,7 @@ TEST(normalization, nfd_069_159)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17118,7 +17118,7 @@ TEST(normalization, nfd_069_159)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17140,11 +17140,11 @@ TEST(normalization, nfd_069_160)
     // FA82;5ED2;5ED2;5ED2;5ED2; 
     // (廒; 廒; 廒; 廒; 廒; ) CJK COMPATIBILITY IDEOGRAPH-FA82
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA82 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5ED2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5ED2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5ED2 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5ED2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA82 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5ED2 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5ED2 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5ED2 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5ED2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -17169,7 +17169,7 @@ TEST(normalization, nfd_069_160)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17183,7 +17183,7 @@ TEST(normalization, nfd_069_160)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17197,7 +17197,7 @@ TEST(normalization, nfd_069_160)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17211,7 +17211,7 @@ TEST(normalization, nfd_069_160)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17225,7 +17225,7 @@ TEST(normalization, nfd_069_160)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17247,11 +17247,11 @@ TEST(normalization, nfd_069_161)
     // FA83;5ED9;5ED9;5ED9;5ED9; 
     // (廙; 廙; 廙; 廙; 廙; ) CJK COMPATIBILITY IDEOGRAPH-FA83
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA83 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5ED9 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5ED9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5ED9 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5ED9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA83 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5ED9 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5ED9 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5ED9 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5ED9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -17276,7 +17276,7 @@ TEST(normalization, nfd_069_161)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17290,7 +17290,7 @@ TEST(normalization, nfd_069_161)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17304,7 +17304,7 @@ TEST(normalization, nfd_069_161)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17318,7 +17318,7 @@ TEST(normalization, nfd_069_161)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17332,7 +17332,7 @@ TEST(normalization, nfd_069_161)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17354,11 +17354,11 @@ TEST(normalization, nfd_069_162)
     // FA84;5F69;5F69;5F69;5F69; 
     // (彩; 彩; 彩; 彩; 彩; ) CJK COMPATIBILITY IDEOGRAPH-FA84
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA84 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5F69 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5F69 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5F69 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5F69 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA84 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5F69 }};
+        std::array<char32_t, 1> const c3 = {{ 0x5F69 }};
+        std::array<char32_t, 1> const c4 = {{ 0x5F69 }};
+        std::array<char32_t, 1> const c5 = {{ 0x5F69 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -17383,7 +17383,7 @@ TEST(normalization, nfd_069_162)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17397,7 +17397,7 @@ TEST(normalization, nfd_069_162)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17411,7 +17411,7 @@ TEST(normalization, nfd_069_162)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17425,7 +17425,7 @@ TEST(normalization, nfd_069_162)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17439,7 +17439,7 @@ TEST(normalization, nfd_069_162)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17461,11 +17461,11 @@ TEST(normalization, nfd_069_163)
     // FA85;5FAD;5FAD;5FAD;5FAD; 
     // (徭; 徭; 徭; 徭; 徭; ) CJK COMPATIBILITY IDEOGRAPH-FA85
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA85 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x5FAD }};
-        std::array<uint32_t, 1> const c3 = {{ 0x5FAD }};
-        std::array<uint32_t, 1> const c4 = {{ 0x5FAD }};
-        std::array<uint32_t, 1> const c5 = {{ 0x5FAD }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA85 }};
+        std::array<char32_t, 1> const c2 = {{ 0x5FAD }};
+        std::array<char32_t, 1> const c3 = {{ 0x5FAD }};
+        std::array<char32_t, 1> const c4 = {{ 0x5FAD }};
+        std::array<char32_t, 1> const c5 = {{ 0x5FAD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -17490,7 +17490,7 @@ TEST(normalization, nfd_069_163)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17504,7 +17504,7 @@ TEST(normalization, nfd_069_163)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17518,7 +17518,7 @@ TEST(normalization, nfd_069_163)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17532,7 +17532,7 @@ TEST(normalization, nfd_069_163)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17546,7 +17546,7 @@ TEST(normalization, nfd_069_163)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17568,11 +17568,11 @@ TEST(normalization, nfd_069_164)
     // FA86;60D8;60D8;60D8;60D8; 
     // (惘; 惘; 惘; 惘; 惘; ) CJK COMPATIBILITY IDEOGRAPH-FA86
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA86 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x60D8 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x60D8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x60D8 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x60D8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA86 }};
+        std::array<char32_t, 1> const c2 = {{ 0x60D8 }};
+        std::array<char32_t, 1> const c3 = {{ 0x60D8 }};
+        std::array<char32_t, 1> const c4 = {{ 0x60D8 }};
+        std::array<char32_t, 1> const c5 = {{ 0x60D8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -17597,7 +17597,7 @@ TEST(normalization, nfd_069_164)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17611,7 +17611,7 @@ TEST(normalization, nfd_069_164)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17625,7 +17625,7 @@ TEST(normalization, nfd_069_164)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17639,7 +17639,7 @@ TEST(normalization, nfd_069_164)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17653,7 +17653,7 @@ TEST(normalization, nfd_069_164)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17675,11 +17675,11 @@ TEST(normalization, nfd_069_165)
     // FA87;614E;614E;614E;614E; 
     // (慎; 慎; 慎; 慎; 慎; ) CJK COMPATIBILITY IDEOGRAPH-FA87
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA87 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x614E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x614E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x614E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x614E }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA87 }};
+        std::array<char32_t, 1> const c2 = {{ 0x614E }};
+        std::array<char32_t, 1> const c3 = {{ 0x614E }};
+        std::array<char32_t, 1> const c4 = {{ 0x614E }};
+        std::array<char32_t, 1> const c5 = {{ 0x614E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -17704,7 +17704,7 @@ TEST(normalization, nfd_069_165)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17718,7 +17718,7 @@ TEST(normalization, nfd_069_165)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17732,7 +17732,7 @@ TEST(normalization, nfd_069_165)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17746,7 +17746,7 @@ TEST(normalization, nfd_069_165)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17760,7 +17760,7 @@ TEST(normalization, nfd_069_165)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17782,11 +17782,11 @@ TEST(normalization, nfd_069_166)
     // FA88;6108;6108;6108;6108; 
     // (愈; 愈; 愈; 愈; 愈; ) CJK COMPATIBILITY IDEOGRAPH-FA88
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA88 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6108 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6108 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6108 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6108 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA88 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6108 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6108 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6108 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6108 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -17811,7 +17811,7 @@ TEST(normalization, nfd_069_166)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17825,7 +17825,7 @@ TEST(normalization, nfd_069_166)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17839,7 +17839,7 @@ TEST(normalization, nfd_069_166)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17853,7 +17853,7 @@ TEST(normalization, nfd_069_166)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17867,7 +17867,7 @@ TEST(normalization, nfd_069_166)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17889,11 +17889,11 @@ TEST(normalization, nfd_069_167)
     // FA89;618E;618E;618E;618E; 
     // (憎; 憎; 憎; 憎; 憎; ) CJK COMPATIBILITY IDEOGRAPH-FA89
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA89 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x618E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x618E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x618E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x618E }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA89 }};
+        std::array<char32_t, 1> const c2 = {{ 0x618E }};
+        std::array<char32_t, 1> const c3 = {{ 0x618E }};
+        std::array<char32_t, 1> const c4 = {{ 0x618E }};
+        std::array<char32_t, 1> const c5 = {{ 0x618E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -17918,7 +17918,7 @@ TEST(normalization, nfd_069_167)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17932,7 +17932,7 @@ TEST(normalization, nfd_069_167)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17946,7 +17946,7 @@ TEST(normalization, nfd_069_167)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17960,7 +17960,7 @@ TEST(normalization, nfd_069_167)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17974,7 +17974,7 @@ TEST(normalization, nfd_069_167)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17996,11 +17996,11 @@ TEST(normalization, nfd_069_168)
     // FA8A;6160;6160;6160;6160; 
     // (慠; 慠; 慠; 慠; 慠; ) CJK COMPATIBILITY IDEOGRAPH-FA8A
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA8A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6160 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6160 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6160 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6160 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA8A }};
+        std::array<char32_t, 1> const c2 = {{ 0x6160 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6160 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6160 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6160 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -18025,7 +18025,7 @@ TEST(normalization, nfd_069_168)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18039,7 +18039,7 @@ TEST(normalization, nfd_069_168)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18053,7 +18053,7 @@ TEST(normalization, nfd_069_168)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18067,7 +18067,7 @@ TEST(normalization, nfd_069_168)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18081,7 +18081,7 @@ TEST(normalization, nfd_069_168)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18103,11 +18103,11 @@ TEST(normalization, nfd_069_169)
     // FA8B;61F2;61F2;61F2;61F2; 
     // (懲; 懲; 懲; 懲; 懲; ) CJK COMPATIBILITY IDEOGRAPH-FA8B
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA8B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x61F2 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x61F2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x61F2 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x61F2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA8B }};
+        std::array<char32_t, 1> const c2 = {{ 0x61F2 }};
+        std::array<char32_t, 1> const c3 = {{ 0x61F2 }};
+        std::array<char32_t, 1> const c4 = {{ 0x61F2 }};
+        std::array<char32_t, 1> const c5 = {{ 0x61F2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -18132,7 +18132,7 @@ TEST(normalization, nfd_069_169)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18146,7 +18146,7 @@ TEST(normalization, nfd_069_169)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18160,7 +18160,7 @@ TEST(normalization, nfd_069_169)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18174,7 +18174,7 @@ TEST(normalization, nfd_069_169)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18188,7 +18188,7 @@ TEST(normalization, nfd_069_169)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18210,11 +18210,11 @@ TEST(normalization, nfd_069_170)
     // FA8C;6234;6234;6234;6234; 
     // (戴; 戴; 戴; 戴; 戴; ) CJK COMPATIBILITY IDEOGRAPH-FA8C
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA8C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6234 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6234 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6234 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6234 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA8C }};
+        std::array<char32_t, 1> const c2 = {{ 0x6234 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6234 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6234 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6234 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -18239,7 +18239,7 @@ TEST(normalization, nfd_069_170)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18253,7 +18253,7 @@ TEST(normalization, nfd_069_170)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18267,7 +18267,7 @@ TEST(normalization, nfd_069_170)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18281,7 +18281,7 @@ TEST(normalization, nfd_069_170)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18295,7 +18295,7 @@ TEST(normalization, nfd_069_170)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18317,11 +18317,11 @@ TEST(normalization, nfd_069_171)
     // FA8D;63C4;63C4;63C4;63C4; 
     // (揄; 揄; 揄; 揄; 揄; ) CJK COMPATIBILITY IDEOGRAPH-FA8D
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA8D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x63C4 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x63C4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x63C4 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x63C4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA8D }};
+        std::array<char32_t, 1> const c2 = {{ 0x63C4 }};
+        std::array<char32_t, 1> const c3 = {{ 0x63C4 }};
+        std::array<char32_t, 1> const c4 = {{ 0x63C4 }};
+        std::array<char32_t, 1> const c5 = {{ 0x63C4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -18346,7 +18346,7 @@ TEST(normalization, nfd_069_171)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18360,7 +18360,7 @@ TEST(normalization, nfd_069_171)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18374,7 +18374,7 @@ TEST(normalization, nfd_069_171)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18388,7 +18388,7 @@ TEST(normalization, nfd_069_171)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18402,7 +18402,7 @@ TEST(normalization, nfd_069_171)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18424,11 +18424,11 @@ TEST(normalization, nfd_069_172)
     // FA8E;641C;641C;641C;641C; 
     // (搜; 搜; 搜; 搜; 搜; ) CJK COMPATIBILITY IDEOGRAPH-FA8E
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA8E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x641C }};
-        std::array<uint32_t, 1> const c3 = {{ 0x641C }};
-        std::array<uint32_t, 1> const c4 = {{ 0x641C }};
-        std::array<uint32_t, 1> const c5 = {{ 0x641C }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA8E }};
+        std::array<char32_t, 1> const c2 = {{ 0x641C }};
+        std::array<char32_t, 1> const c3 = {{ 0x641C }};
+        std::array<char32_t, 1> const c4 = {{ 0x641C }};
+        std::array<char32_t, 1> const c5 = {{ 0x641C }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -18453,7 +18453,7 @@ TEST(normalization, nfd_069_172)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18467,7 +18467,7 @@ TEST(normalization, nfd_069_172)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18481,7 +18481,7 @@ TEST(normalization, nfd_069_172)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18495,7 +18495,7 @@ TEST(normalization, nfd_069_172)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18509,7 +18509,7 @@ TEST(normalization, nfd_069_172)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18531,11 +18531,11 @@ TEST(normalization, nfd_069_173)
     // FA8F;6452;6452;6452;6452; 
     // (摒; 摒; 摒; 摒; 摒; ) CJK COMPATIBILITY IDEOGRAPH-FA8F
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA8F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6452 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6452 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6452 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6452 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA8F }};
+        std::array<char32_t, 1> const c2 = {{ 0x6452 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6452 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6452 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6452 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -18560,7 +18560,7 @@ TEST(normalization, nfd_069_173)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18574,7 +18574,7 @@ TEST(normalization, nfd_069_173)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18588,7 +18588,7 @@ TEST(normalization, nfd_069_173)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18602,7 +18602,7 @@ TEST(normalization, nfd_069_173)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18616,7 +18616,7 @@ TEST(normalization, nfd_069_173)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18638,11 +18638,11 @@ TEST(normalization, nfd_069_174)
     // FA90;6556;6556;6556;6556; 
     // (敖; 敖; 敖; 敖; 敖; ) CJK COMPATIBILITY IDEOGRAPH-FA90
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA90 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6556 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6556 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6556 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6556 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA90 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6556 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6556 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6556 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6556 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -18667,7 +18667,7 @@ TEST(normalization, nfd_069_174)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18681,7 +18681,7 @@ TEST(normalization, nfd_069_174)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18695,7 +18695,7 @@ TEST(normalization, nfd_069_174)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18709,7 +18709,7 @@ TEST(normalization, nfd_069_174)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18723,7 +18723,7 @@ TEST(normalization, nfd_069_174)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18745,11 +18745,11 @@ TEST(normalization, nfd_069_175)
     // FA91;6674;6674;6674;6674; 
     // (晴; 晴; 晴; 晴; 晴; ) CJK COMPATIBILITY IDEOGRAPH-FA91
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA91 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6674 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6674 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6674 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6674 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA91 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6674 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6674 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6674 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6674 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -18774,7 +18774,7 @@ TEST(normalization, nfd_069_175)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18788,7 +18788,7 @@ TEST(normalization, nfd_069_175)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18802,7 +18802,7 @@ TEST(normalization, nfd_069_175)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18816,7 +18816,7 @@ TEST(normalization, nfd_069_175)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18830,7 +18830,7 @@ TEST(normalization, nfd_069_175)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18852,11 +18852,11 @@ TEST(normalization, nfd_069_176)
     // FA92;6717;6717;6717;6717; 
     // (朗; 朗; 朗; 朗; 朗; ) CJK COMPATIBILITY IDEOGRAPH-FA92
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA92 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6717 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6717 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6717 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6717 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA92 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6717 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6717 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6717 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6717 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -18881,7 +18881,7 @@ TEST(normalization, nfd_069_176)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18895,7 +18895,7 @@ TEST(normalization, nfd_069_176)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18909,7 +18909,7 @@ TEST(normalization, nfd_069_176)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18923,7 +18923,7 @@ TEST(normalization, nfd_069_176)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18937,7 +18937,7 @@ TEST(normalization, nfd_069_176)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18959,11 +18959,11 @@ TEST(normalization, nfd_069_177)
     // FA93;671B;671B;671B;671B; 
     // (望; 望; 望; 望; 望; ) CJK COMPATIBILITY IDEOGRAPH-FA93
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA93 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x671B }};
-        std::array<uint32_t, 1> const c3 = {{ 0x671B }};
-        std::array<uint32_t, 1> const c4 = {{ 0x671B }};
-        std::array<uint32_t, 1> const c5 = {{ 0x671B }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA93 }};
+        std::array<char32_t, 1> const c2 = {{ 0x671B }};
+        std::array<char32_t, 1> const c3 = {{ 0x671B }};
+        std::array<char32_t, 1> const c4 = {{ 0x671B }};
+        std::array<char32_t, 1> const c5 = {{ 0x671B }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -18988,7 +18988,7 @@ TEST(normalization, nfd_069_177)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19002,7 +19002,7 @@ TEST(normalization, nfd_069_177)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19016,7 +19016,7 @@ TEST(normalization, nfd_069_177)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19030,7 +19030,7 @@ TEST(normalization, nfd_069_177)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19044,7 +19044,7 @@ TEST(normalization, nfd_069_177)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19066,11 +19066,11 @@ TEST(normalization, nfd_069_178)
     // FA94;6756;6756;6756;6756; 
     // (杖; 杖; 杖; 杖; 杖; ) CJK COMPATIBILITY IDEOGRAPH-FA94
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA94 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6756 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6756 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6756 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6756 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA94 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6756 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6756 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6756 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6756 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -19095,7 +19095,7 @@ TEST(normalization, nfd_069_178)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19109,7 +19109,7 @@ TEST(normalization, nfd_069_178)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19123,7 +19123,7 @@ TEST(normalization, nfd_069_178)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19137,7 +19137,7 @@ TEST(normalization, nfd_069_178)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19151,7 +19151,7 @@ TEST(normalization, nfd_069_178)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19173,11 +19173,11 @@ TEST(normalization, nfd_069_179)
     // FA95;6B79;6B79;6B79;6B79; 
     // (歹; 歹; 歹; 歹; 歹; ) CJK COMPATIBILITY IDEOGRAPH-FA95
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA95 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6B79 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6B79 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6B79 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6B79 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA95 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6B79 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6B79 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6B79 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6B79 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -19202,7 +19202,7 @@ TEST(normalization, nfd_069_179)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19216,7 +19216,7 @@ TEST(normalization, nfd_069_179)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19230,7 +19230,7 @@ TEST(normalization, nfd_069_179)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19244,7 +19244,7 @@ TEST(normalization, nfd_069_179)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19258,7 +19258,7 @@ TEST(normalization, nfd_069_179)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19280,11 +19280,11 @@ TEST(normalization, nfd_069_180)
     // FA96;6BBA;6BBA;6BBA;6BBA; 
     // (殺; 殺; 殺; 殺; 殺; ) CJK COMPATIBILITY IDEOGRAPH-FA96
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA96 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6BBA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6BBA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6BBA }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6BBA }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA96 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6BBA }};
+        std::array<char32_t, 1> const c3 = {{ 0x6BBA }};
+        std::array<char32_t, 1> const c4 = {{ 0x6BBA }};
+        std::array<char32_t, 1> const c5 = {{ 0x6BBA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -19309,7 +19309,7 @@ TEST(normalization, nfd_069_180)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19323,7 +19323,7 @@ TEST(normalization, nfd_069_180)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19337,7 +19337,7 @@ TEST(normalization, nfd_069_180)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19351,7 +19351,7 @@ TEST(normalization, nfd_069_180)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19365,7 +19365,7 @@ TEST(normalization, nfd_069_180)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19387,11 +19387,11 @@ TEST(normalization, nfd_069_181)
     // FA97;6D41;6D41;6D41;6D41; 
     // (流; 流; 流; 流; 流; ) CJK COMPATIBILITY IDEOGRAPH-FA97
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA97 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6D41 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6D41 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6D41 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6D41 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA97 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6D41 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6D41 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6D41 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6D41 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -19416,7 +19416,7 @@ TEST(normalization, nfd_069_181)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19430,7 +19430,7 @@ TEST(normalization, nfd_069_181)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19444,7 +19444,7 @@ TEST(normalization, nfd_069_181)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19458,7 +19458,7 @@ TEST(normalization, nfd_069_181)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19472,7 +19472,7 @@ TEST(normalization, nfd_069_181)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19494,11 +19494,11 @@ TEST(normalization, nfd_069_182)
     // FA98;6EDB;6EDB;6EDB;6EDB; 
     // (滛; 滛; 滛; 滛; 滛; ) CJK COMPATIBILITY IDEOGRAPH-FA98
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA98 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6EDB }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6EDB }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6EDB }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6EDB }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA98 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6EDB }};
+        std::array<char32_t, 1> const c3 = {{ 0x6EDB }};
+        std::array<char32_t, 1> const c4 = {{ 0x6EDB }};
+        std::array<char32_t, 1> const c5 = {{ 0x6EDB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -19523,7 +19523,7 @@ TEST(normalization, nfd_069_182)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19537,7 +19537,7 @@ TEST(normalization, nfd_069_182)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19551,7 +19551,7 @@ TEST(normalization, nfd_069_182)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19565,7 +19565,7 @@ TEST(normalization, nfd_069_182)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19579,7 +19579,7 @@ TEST(normalization, nfd_069_182)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19601,11 +19601,11 @@ TEST(normalization, nfd_069_183)
     // FA99;6ECB;6ECB;6ECB;6ECB; 
     // (滋; 滋; 滋; 滋; 滋; ) CJK COMPATIBILITY IDEOGRAPH-FA99
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA99 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6ECB }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6ECB }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6ECB }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6ECB }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA99 }};
+        std::array<char32_t, 1> const c2 = {{ 0x6ECB }};
+        std::array<char32_t, 1> const c3 = {{ 0x6ECB }};
+        std::array<char32_t, 1> const c4 = {{ 0x6ECB }};
+        std::array<char32_t, 1> const c5 = {{ 0x6ECB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -19630,7 +19630,7 @@ TEST(normalization, nfd_069_183)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19644,7 +19644,7 @@ TEST(normalization, nfd_069_183)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19658,7 +19658,7 @@ TEST(normalization, nfd_069_183)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19672,7 +19672,7 @@ TEST(normalization, nfd_069_183)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19686,7 +19686,7 @@ TEST(normalization, nfd_069_183)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19708,11 +19708,11 @@ TEST(normalization, nfd_069_184)
     // FA9A;6F22;6F22;6F22;6F22; 
     // (漢; 漢; 漢; 漢; 漢; ) CJK COMPATIBILITY IDEOGRAPH-FA9A
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA9A }};
-        std::array<uint32_t, 1> const c2 = {{ 0x6F22 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x6F22 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x6F22 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x6F22 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA9A }};
+        std::array<char32_t, 1> const c2 = {{ 0x6F22 }};
+        std::array<char32_t, 1> const c3 = {{ 0x6F22 }};
+        std::array<char32_t, 1> const c4 = {{ 0x6F22 }};
+        std::array<char32_t, 1> const c5 = {{ 0x6F22 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -19737,7 +19737,7 @@ TEST(normalization, nfd_069_184)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19751,7 +19751,7 @@ TEST(normalization, nfd_069_184)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19765,7 +19765,7 @@ TEST(normalization, nfd_069_184)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19779,7 +19779,7 @@ TEST(normalization, nfd_069_184)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19793,7 +19793,7 @@ TEST(normalization, nfd_069_184)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19815,11 +19815,11 @@ TEST(normalization, nfd_069_185)
     // FA9B;701E;701E;701E;701E; 
     // (瀞; 瀞; 瀞; 瀞; 瀞; ) CJK COMPATIBILITY IDEOGRAPH-FA9B
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA9B }};
-        std::array<uint32_t, 1> const c2 = {{ 0x701E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x701E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x701E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x701E }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA9B }};
+        std::array<char32_t, 1> const c2 = {{ 0x701E }};
+        std::array<char32_t, 1> const c3 = {{ 0x701E }};
+        std::array<char32_t, 1> const c4 = {{ 0x701E }};
+        std::array<char32_t, 1> const c5 = {{ 0x701E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -19844,7 +19844,7 @@ TEST(normalization, nfd_069_185)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19858,7 +19858,7 @@ TEST(normalization, nfd_069_185)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19872,7 +19872,7 @@ TEST(normalization, nfd_069_185)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19886,7 +19886,7 @@ TEST(normalization, nfd_069_185)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19900,7 +19900,7 @@ TEST(normalization, nfd_069_185)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19922,11 +19922,11 @@ TEST(normalization, nfd_069_186)
     // FA9C;716E;716E;716E;716E; 
     // (煮; 煮; 煮; 煮; 煮; ) CJK COMPATIBILITY IDEOGRAPH-FA9C
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA9C }};
-        std::array<uint32_t, 1> const c2 = {{ 0x716E }};
-        std::array<uint32_t, 1> const c3 = {{ 0x716E }};
-        std::array<uint32_t, 1> const c4 = {{ 0x716E }};
-        std::array<uint32_t, 1> const c5 = {{ 0x716E }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA9C }};
+        std::array<char32_t, 1> const c2 = {{ 0x716E }};
+        std::array<char32_t, 1> const c3 = {{ 0x716E }};
+        std::array<char32_t, 1> const c4 = {{ 0x716E }};
+        std::array<char32_t, 1> const c5 = {{ 0x716E }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -19951,7 +19951,7 @@ TEST(normalization, nfd_069_186)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19965,7 +19965,7 @@ TEST(normalization, nfd_069_186)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19979,7 +19979,7 @@ TEST(normalization, nfd_069_186)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19993,7 +19993,7 @@ TEST(normalization, nfd_069_186)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20007,7 +20007,7 @@ TEST(normalization, nfd_069_186)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20029,11 +20029,11 @@ TEST(normalization, nfd_069_187)
     // FA9D;77A7;77A7;77A7;77A7; 
     // (瞧; 瞧; 瞧; 瞧; 瞧; ) CJK COMPATIBILITY IDEOGRAPH-FA9D
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA9D }};
-        std::array<uint32_t, 1> const c2 = {{ 0x77A7 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x77A7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x77A7 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x77A7 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA9D }};
+        std::array<char32_t, 1> const c2 = {{ 0x77A7 }};
+        std::array<char32_t, 1> const c3 = {{ 0x77A7 }};
+        std::array<char32_t, 1> const c4 = {{ 0x77A7 }};
+        std::array<char32_t, 1> const c5 = {{ 0x77A7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -20058,7 +20058,7 @@ TEST(normalization, nfd_069_187)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20072,7 +20072,7 @@ TEST(normalization, nfd_069_187)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20086,7 +20086,7 @@ TEST(normalization, nfd_069_187)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20100,7 +20100,7 @@ TEST(normalization, nfd_069_187)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20114,7 +20114,7 @@ TEST(normalization, nfd_069_187)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20136,11 +20136,11 @@ TEST(normalization, nfd_069_188)
     // FA9E;7235;7235;7235;7235; 
     // (爵; 爵; 爵; 爵; 爵; ) CJK COMPATIBILITY IDEOGRAPH-FA9E
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA9E }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7235 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7235 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7235 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7235 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA9E }};
+        std::array<char32_t, 1> const c2 = {{ 0x7235 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7235 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7235 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7235 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -20165,7 +20165,7 @@ TEST(normalization, nfd_069_188)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20179,7 +20179,7 @@ TEST(normalization, nfd_069_188)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20193,7 +20193,7 @@ TEST(normalization, nfd_069_188)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20207,7 +20207,7 @@ TEST(normalization, nfd_069_188)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20221,7 +20221,7 @@ TEST(normalization, nfd_069_188)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20243,11 +20243,11 @@ TEST(normalization, nfd_069_189)
     // FA9F;72AF;72AF;72AF;72AF; 
     // (犯; 犯; 犯; 犯; 犯; ) CJK COMPATIBILITY IDEOGRAPH-FA9F
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFA9F }};
-        std::array<uint32_t, 1> const c2 = {{ 0x72AF }};
-        std::array<uint32_t, 1> const c3 = {{ 0x72AF }};
-        std::array<uint32_t, 1> const c4 = {{ 0x72AF }};
-        std::array<uint32_t, 1> const c5 = {{ 0x72AF }};
+        std::array<char32_t, 1> const c1 = {{ 0xFA9F }};
+        std::array<char32_t, 1> const c2 = {{ 0x72AF }};
+        std::array<char32_t, 1> const c3 = {{ 0x72AF }};
+        std::array<char32_t, 1> const c4 = {{ 0x72AF }};
+        std::array<char32_t, 1> const c5 = {{ 0x72AF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -20272,7 +20272,7 @@ TEST(normalization, nfd_069_189)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20286,7 +20286,7 @@ TEST(normalization, nfd_069_189)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20300,7 +20300,7 @@ TEST(normalization, nfd_069_189)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20314,7 +20314,7 @@ TEST(normalization, nfd_069_189)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20328,7 +20328,7 @@ TEST(normalization, nfd_069_189)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20350,11 +20350,11 @@ TEST(normalization, nfd_069_190)
     // FAA0;732A;732A;732A;732A; 
     // (猪; 猪; 猪; 猪; 猪; ) CJK COMPATIBILITY IDEOGRAPH-FAA0
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFAA0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x732A }};
-        std::array<uint32_t, 1> const c3 = {{ 0x732A }};
-        std::array<uint32_t, 1> const c4 = {{ 0x732A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x732A }};
+        std::array<char32_t, 1> const c1 = {{ 0xFAA0 }};
+        std::array<char32_t, 1> const c2 = {{ 0x732A }};
+        std::array<char32_t, 1> const c3 = {{ 0x732A }};
+        std::array<char32_t, 1> const c4 = {{ 0x732A }};
+        std::array<char32_t, 1> const c5 = {{ 0x732A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -20379,7 +20379,7 @@ TEST(normalization, nfd_069_190)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20393,7 +20393,7 @@ TEST(normalization, nfd_069_190)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20407,7 +20407,7 @@ TEST(normalization, nfd_069_190)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20421,7 +20421,7 @@ TEST(normalization, nfd_069_190)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20435,7 +20435,7 @@ TEST(normalization, nfd_069_190)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20457,11 +20457,11 @@ TEST(normalization, nfd_069_191)
     // FAA1;7471;7471;7471;7471; 
     // (瑱; 瑱; 瑱; 瑱; 瑱; ) CJK COMPATIBILITY IDEOGRAPH-FAA1
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFAA1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7471 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7471 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7471 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7471 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFAA1 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7471 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7471 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7471 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7471 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -20486,7 +20486,7 @@ TEST(normalization, nfd_069_191)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20500,7 +20500,7 @@ TEST(normalization, nfd_069_191)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20514,7 +20514,7 @@ TEST(normalization, nfd_069_191)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20528,7 +20528,7 @@ TEST(normalization, nfd_069_191)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20542,7 +20542,7 @@ TEST(normalization, nfd_069_191)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20564,11 +20564,11 @@ TEST(normalization, nfd_069_192)
     // FAA2;7506;7506;7506;7506; 
     // (甆; 甆; 甆; 甆; 甆; ) CJK COMPATIBILITY IDEOGRAPH-FAA2
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFAA2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x7506 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x7506 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x7506 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x7506 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFAA2 }};
+        std::array<char32_t, 1> const c2 = {{ 0x7506 }};
+        std::array<char32_t, 1> const c3 = {{ 0x7506 }};
+        std::array<char32_t, 1> const c4 = {{ 0x7506 }};
+        std::array<char32_t, 1> const c5 = {{ 0x7506 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -20593,7 +20593,7 @@ TEST(normalization, nfd_069_192)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20607,7 +20607,7 @@ TEST(normalization, nfd_069_192)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20621,7 +20621,7 @@ TEST(normalization, nfd_069_192)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20635,7 +20635,7 @@ TEST(normalization, nfd_069_192)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20649,7 +20649,7 @@ TEST(normalization, nfd_069_192)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20671,11 +20671,11 @@ TEST(normalization, nfd_069_193)
     // FAA3;753B;753B;753B;753B; 
     // (画; 画; 画; 画; 画; ) CJK COMPATIBILITY IDEOGRAPH-FAA3
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFAA3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x753B }};
-        std::array<uint32_t, 1> const c3 = {{ 0x753B }};
-        std::array<uint32_t, 1> const c4 = {{ 0x753B }};
-        std::array<uint32_t, 1> const c5 = {{ 0x753B }};
+        std::array<char32_t, 1> const c1 = {{ 0xFAA3 }};
+        std::array<char32_t, 1> const c2 = {{ 0x753B }};
+        std::array<char32_t, 1> const c3 = {{ 0x753B }};
+        std::array<char32_t, 1> const c4 = {{ 0x753B }};
+        std::array<char32_t, 1> const c5 = {{ 0x753B }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -20700,7 +20700,7 @@ TEST(normalization, nfd_069_193)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20714,7 +20714,7 @@ TEST(normalization, nfd_069_193)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20728,7 +20728,7 @@ TEST(normalization, nfd_069_193)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20742,7 +20742,7 @@ TEST(normalization, nfd_069_193)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20756,7 +20756,7 @@ TEST(normalization, nfd_069_193)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20778,11 +20778,11 @@ TEST(normalization, nfd_069_194)
     // FAA4;761D;761D;761D;761D; 
     // (瘝; 瘝; 瘝; 瘝; 瘝; ) CJK COMPATIBILITY IDEOGRAPH-FAA4
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFAA4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x761D }};
-        std::array<uint32_t, 1> const c3 = {{ 0x761D }};
-        std::array<uint32_t, 1> const c4 = {{ 0x761D }};
-        std::array<uint32_t, 1> const c5 = {{ 0x761D }};
+        std::array<char32_t, 1> const c1 = {{ 0xFAA4 }};
+        std::array<char32_t, 1> const c2 = {{ 0x761D }};
+        std::array<char32_t, 1> const c3 = {{ 0x761D }};
+        std::array<char32_t, 1> const c4 = {{ 0x761D }};
+        std::array<char32_t, 1> const c5 = {{ 0x761D }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -20807,7 +20807,7 @@ TEST(normalization, nfd_069_194)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20821,7 +20821,7 @@ TEST(normalization, nfd_069_194)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20835,7 +20835,7 @@ TEST(normalization, nfd_069_194)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20849,7 +20849,7 @@ TEST(normalization, nfd_069_194)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20863,7 +20863,7 @@ TEST(normalization, nfd_069_194)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20885,11 +20885,11 @@ TEST(normalization, nfd_069_195)
     // FAA5;761F;761F;761F;761F; 
     // (瘟; 瘟; 瘟; 瘟; 瘟; ) CJK COMPATIBILITY IDEOGRAPH-FAA5
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFAA5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x761F }};
-        std::array<uint32_t, 1> const c3 = {{ 0x761F }};
-        std::array<uint32_t, 1> const c4 = {{ 0x761F }};
-        std::array<uint32_t, 1> const c5 = {{ 0x761F }};
+        std::array<char32_t, 1> const c1 = {{ 0xFAA5 }};
+        std::array<char32_t, 1> const c2 = {{ 0x761F }};
+        std::array<char32_t, 1> const c3 = {{ 0x761F }};
+        std::array<char32_t, 1> const c4 = {{ 0x761F }};
+        std::array<char32_t, 1> const c5 = {{ 0x761F }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -20914,7 +20914,7 @@ TEST(normalization, nfd_069_195)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20928,7 +20928,7 @@ TEST(normalization, nfd_069_195)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20942,7 +20942,7 @@ TEST(normalization, nfd_069_195)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -20956,7 +20956,7 @@ TEST(normalization, nfd_069_195)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20970,7 +20970,7 @@ TEST(normalization, nfd_069_195)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -20992,11 +20992,11 @@ TEST(normalization, nfd_069_196)
     // FAA6;76CA;76CA;76CA;76CA; 
     // (益; 益; 益; 益; 益; ) CJK COMPATIBILITY IDEOGRAPH-FAA6
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFAA6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x76CA }};
-        std::array<uint32_t, 1> const c3 = {{ 0x76CA }};
-        std::array<uint32_t, 1> const c4 = {{ 0x76CA }};
-        std::array<uint32_t, 1> const c5 = {{ 0x76CA }};
+        std::array<char32_t, 1> const c1 = {{ 0xFAA6 }};
+        std::array<char32_t, 1> const c2 = {{ 0x76CA }};
+        std::array<char32_t, 1> const c3 = {{ 0x76CA }};
+        std::array<char32_t, 1> const c4 = {{ 0x76CA }};
+        std::array<char32_t, 1> const c5 = {{ 0x76CA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -21021,7 +21021,7 @@ TEST(normalization, nfd_069_196)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21035,7 +21035,7 @@ TEST(normalization, nfd_069_196)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21049,7 +21049,7 @@ TEST(normalization, nfd_069_196)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21063,7 +21063,7 @@ TEST(normalization, nfd_069_196)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -21077,7 +21077,7 @@ TEST(normalization, nfd_069_196)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -21099,11 +21099,11 @@ TEST(normalization, nfd_069_197)
     // FAA7;76DB;76DB;76DB;76DB; 
     // (盛; 盛; 盛; 盛; 盛; ) CJK COMPATIBILITY IDEOGRAPH-FAA7
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFAA7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x76DB }};
-        std::array<uint32_t, 1> const c3 = {{ 0x76DB }};
-        std::array<uint32_t, 1> const c4 = {{ 0x76DB }};
-        std::array<uint32_t, 1> const c5 = {{ 0x76DB }};
+        std::array<char32_t, 1> const c1 = {{ 0xFAA7 }};
+        std::array<char32_t, 1> const c2 = {{ 0x76DB }};
+        std::array<char32_t, 1> const c3 = {{ 0x76DB }};
+        std::array<char32_t, 1> const c4 = {{ 0x76DB }};
+        std::array<char32_t, 1> const c5 = {{ 0x76DB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -21128,7 +21128,7 @@ TEST(normalization, nfd_069_197)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21142,7 +21142,7 @@ TEST(normalization, nfd_069_197)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21156,7 +21156,7 @@ TEST(normalization, nfd_069_197)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21170,7 +21170,7 @@ TEST(normalization, nfd_069_197)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -21184,7 +21184,7 @@ TEST(normalization, nfd_069_197)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -21206,11 +21206,11 @@ TEST(normalization, nfd_069_198)
     // FAA8;76F4;76F4;76F4;76F4; 
     // (直; 直; 直; 直; 直; ) CJK COMPATIBILITY IDEOGRAPH-FAA8
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFAA8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x76F4 }};
-        std::array<uint32_t, 1> const c3 = {{ 0x76F4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0x76F4 }};
-        std::array<uint32_t, 1> const c5 = {{ 0x76F4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xFAA8 }};
+        std::array<char32_t, 1> const c2 = {{ 0x76F4 }};
+        std::array<char32_t, 1> const c3 = {{ 0x76F4 }};
+        std::array<char32_t, 1> const c4 = {{ 0x76F4 }};
+        std::array<char32_t, 1> const c5 = {{ 0x76F4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -21235,7 +21235,7 @@ TEST(normalization, nfd_069_198)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21249,7 +21249,7 @@ TEST(normalization, nfd_069_198)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21263,7 +21263,7 @@ TEST(normalization, nfd_069_198)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21277,7 +21277,7 @@ TEST(normalization, nfd_069_198)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -21291,7 +21291,7 @@ TEST(normalization, nfd_069_198)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -21313,11 +21313,11 @@ TEST(normalization, nfd_069_199)
     // FAA9;774A;774A;774A;774A; 
     // (睊; 睊; 睊; 睊; 睊; ) CJK COMPATIBILITY IDEOGRAPH-FAA9
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xFAA9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0x774A }};
-        std::array<uint32_t, 1> const c3 = {{ 0x774A }};
-        std::array<uint32_t, 1> const c4 = {{ 0x774A }};
-        std::array<uint32_t, 1> const c5 = {{ 0x774A }};
+        std::array<char32_t, 1> const c1 = {{ 0xFAA9 }};
+        std::array<char32_t, 1> const c2 = {{ 0x774A }};
+        std::array<char32_t, 1> const c3 = {{ 0x774A }};
+        std::array<char32_t, 1> const c4 = {{ 0x774A }};
+        std::array<char32_t, 1> const c5 = {{ 0x774A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c2.begin(), c2.end()));
@@ -21342,7 +21342,7 @@ TEST(normalization, nfd_069_199)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21356,7 +21356,7 @@ TEST(normalization, nfd_069_199)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21370,7 +21370,7 @@ TEST(normalization, nfd_069_199)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -21384,7 +21384,7 @@ TEST(normalization, nfd_069_199)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -21398,7 +21398,7 @@ TEST(normalization, nfd_069_199)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());

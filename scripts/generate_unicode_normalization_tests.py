@@ -135,7 +135,7 @@ def extract_tests(filename):
     return (retval, handled_cps)
 
 def arrayify(cps, name):
-    return 'std::array<uint32_t, {0}> {1} = {{{{ {2} }}}};'.format(
+    return 'std::array<char32_t, {0}> {1} = {{{{ {2} }}}};'.format(
         len(cps), name, ', '.join(cps)
     )
 
@@ -208,7 +208,7 @@ TEST(normalization, {0}_{1:03}_{2:03})
 def generate_norm_check(normalization, from_, to_):
     return '''
         {{
-            std::string str = boost::text::to_string({1}.begin(), {1}.end());
+            std::u8string str = boost::text::to_u8string({1}.begin(), {1}.end());
             boost::text::normalize<boost::text::nf::{0}>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t){2}.size());

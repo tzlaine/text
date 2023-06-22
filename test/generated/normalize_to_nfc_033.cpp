@@ -20,11 +20,11 @@ TEST(normalization, nfc_033_000)
     // BC58;BC58;1107 1163 11B3;BC58;1107 1163 11B3; 
     // (뱘; 뱘; 뱘; 뱘; 뱘; ) HANGUL SYLLABLE BYALS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC58 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC58 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC58 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC58 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC58 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B3 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC58 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -41,7 +41,7 @@ TEST(normalization, nfc_033_000)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -55,7 +55,7 @@ TEST(normalization, nfc_033_000)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -69,7 +69,7 @@ TEST(normalization, nfc_033_000)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -83,7 +83,7 @@ TEST(normalization, nfc_033_000)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -97,7 +97,7 @@ TEST(normalization, nfc_033_000)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -119,11 +119,11 @@ TEST(normalization, nfc_033_001)
     // BC59;BC59;1107 1163 11B4;BC59;1107 1163 11B4; 
     // (뱙; 뱙; 뱙; 뱙; 뱙; ) HANGUL SYLLABLE BYALT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC59 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC59 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC59 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC59 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC59 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B4 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC59 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -140,7 +140,7 @@ TEST(normalization, nfc_033_001)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -154,7 +154,7 @@ TEST(normalization, nfc_033_001)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -168,7 +168,7 @@ TEST(normalization, nfc_033_001)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -182,7 +182,7 @@ TEST(normalization, nfc_033_001)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -196,7 +196,7 @@ TEST(normalization, nfc_033_001)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -218,11 +218,11 @@ TEST(normalization, nfc_033_002)
     // BC5A;BC5A;1107 1163 11B5;BC5A;1107 1163 11B5; 
     // (뱚; 뱚; 뱚; 뱚; 뱚; ) HANGUL SYLLABLE BYALP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC5A }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC5A }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC5A }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B5 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC5A }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC5A }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B5 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC5A }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B5 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -239,7 +239,7 @@ TEST(normalization, nfc_033_002)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -253,7 +253,7 @@ TEST(normalization, nfc_033_002)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -267,7 +267,7 @@ TEST(normalization, nfc_033_002)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -281,7 +281,7 @@ TEST(normalization, nfc_033_002)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -295,7 +295,7 @@ TEST(normalization, nfc_033_002)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -317,11 +317,11 @@ TEST(normalization, nfc_033_003)
     // BC5B;BC5B;1107 1163 11B6;BC5B;1107 1163 11B6; 
     // (뱛; 뱛; 뱛; 뱛; 뱛; ) HANGUL SYLLABLE BYALH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC5B }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC5B }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC5B }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B6 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC5B }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC5B }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B6 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC5B }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B6 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -338,7 +338,7 @@ TEST(normalization, nfc_033_003)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -352,7 +352,7 @@ TEST(normalization, nfc_033_003)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -366,7 +366,7 @@ TEST(normalization, nfc_033_003)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -380,7 +380,7 @@ TEST(normalization, nfc_033_003)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -394,7 +394,7 @@ TEST(normalization, nfc_033_003)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -416,11 +416,11 @@ TEST(normalization, nfc_033_004)
     // BC5C;BC5C;1107 1163 11B7;BC5C;1107 1163 11B7; 
     // (뱜; 뱜; 뱜; 뱜; 뱜; ) HANGUL SYLLABLE BYAM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC5C }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC5C }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC5C }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B7 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC5C }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC5C }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B7 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC5C }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -437,7 +437,7 @@ TEST(normalization, nfc_033_004)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -451,7 +451,7 @@ TEST(normalization, nfc_033_004)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -465,7 +465,7 @@ TEST(normalization, nfc_033_004)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -479,7 +479,7 @@ TEST(normalization, nfc_033_004)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -493,7 +493,7 @@ TEST(normalization, nfc_033_004)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -515,11 +515,11 @@ TEST(normalization, nfc_033_005)
     // BC5D;BC5D;1107 1163 11B8;BC5D;1107 1163 11B8; 
     // (뱝; 뱝; 뱝; 뱝; 뱝; ) HANGUL SYLLABLE BYAB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC5D }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC5D }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC5D }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC5D }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC5D }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC5D }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -536,7 +536,7 @@ TEST(normalization, nfc_033_005)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -550,7 +550,7 @@ TEST(normalization, nfc_033_005)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -564,7 +564,7 @@ TEST(normalization, nfc_033_005)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -578,7 +578,7 @@ TEST(normalization, nfc_033_005)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -592,7 +592,7 @@ TEST(normalization, nfc_033_005)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -614,11 +614,11 @@ TEST(normalization, nfc_033_006)
     // BC5E;BC5E;1107 1163 11B9;BC5E;1107 1163 11B9; 
     // (뱞; 뱞; 뱞; 뱞; 뱞; ) HANGUL SYLLABLE BYABS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC5E }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC5E }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC5E }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC5E }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC5E }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11B9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC5E }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11B9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -635,7 +635,7 @@ TEST(normalization, nfc_033_006)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -649,7 +649,7 @@ TEST(normalization, nfc_033_006)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -663,7 +663,7 @@ TEST(normalization, nfc_033_006)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -677,7 +677,7 @@ TEST(normalization, nfc_033_006)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -691,7 +691,7 @@ TEST(normalization, nfc_033_006)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -713,11 +713,11 @@ TEST(normalization, nfc_033_007)
     // BC5F;BC5F;1107 1163 11BA;BC5F;1107 1163 11BA; 
     // (뱟; 뱟; 뱟; 뱟; 뱟; ) HANGUL SYLLABLE BYAS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC5F }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC5F }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC5F }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC5F }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC5F }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC5F }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -734,7 +734,7 @@ TEST(normalization, nfc_033_007)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -748,7 +748,7 @@ TEST(normalization, nfc_033_007)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -762,7 +762,7 @@ TEST(normalization, nfc_033_007)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -776,7 +776,7 @@ TEST(normalization, nfc_033_007)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -790,7 +790,7 @@ TEST(normalization, nfc_033_007)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -812,11 +812,11 @@ TEST(normalization, nfc_033_008)
     // BC60;BC60;1107 1163 11BB;BC60;1107 1163 11BB; 
     // (뱠; 뱠; 뱠; 뱠; 뱠; ) HANGUL SYLLABLE BYASS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC60 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC60 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC60 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC60 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC60 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC60 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -833,7 +833,7 @@ TEST(normalization, nfc_033_008)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -847,7 +847,7 @@ TEST(normalization, nfc_033_008)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -861,7 +861,7 @@ TEST(normalization, nfc_033_008)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -875,7 +875,7 @@ TEST(normalization, nfc_033_008)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -889,7 +889,7 @@ TEST(normalization, nfc_033_008)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -911,11 +911,11 @@ TEST(normalization, nfc_033_009)
     // BC61;BC61;1107 1163 11BC;BC61;1107 1163 11BC; 
     // (뱡; 뱡; 뱡; 뱡; 뱡; ) HANGUL SYLLABLE BYANG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC61 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC61 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC61 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC61 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC61 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC61 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -932,7 +932,7 @@ TEST(normalization, nfc_033_009)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -946,7 +946,7 @@ TEST(normalization, nfc_033_009)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -960,7 +960,7 @@ TEST(normalization, nfc_033_009)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -974,7 +974,7 @@ TEST(normalization, nfc_033_009)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -988,7 +988,7 @@ TEST(normalization, nfc_033_009)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1010,11 +1010,11 @@ TEST(normalization, nfc_033_010)
     // BC62;BC62;1107 1163 11BD;BC62;1107 1163 11BD; 
     // (뱢; 뱢; 뱢; 뱢; 뱢; ) HANGUL SYLLABLE BYAJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC62 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC62 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC62 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC62 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC62 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC62 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1031,7 +1031,7 @@ TEST(normalization, nfc_033_010)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1045,7 +1045,7 @@ TEST(normalization, nfc_033_010)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1059,7 +1059,7 @@ TEST(normalization, nfc_033_010)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1073,7 +1073,7 @@ TEST(normalization, nfc_033_010)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1087,7 +1087,7 @@ TEST(normalization, nfc_033_010)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1109,11 +1109,11 @@ TEST(normalization, nfc_033_011)
     // BC63;BC63;1107 1163 11BE;BC63;1107 1163 11BE; 
     // (뱣; 뱣; 뱣; 뱣; 뱣; ) HANGUL SYLLABLE BYAC
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC63 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC63 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC63 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC63 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC63 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC63 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1130,7 +1130,7 @@ TEST(normalization, nfc_033_011)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1144,7 +1144,7 @@ TEST(normalization, nfc_033_011)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1158,7 +1158,7 @@ TEST(normalization, nfc_033_011)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1172,7 +1172,7 @@ TEST(normalization, nfc_033_011)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1186,7 +1186,7 @@ TEST(normalization, nfc_033_011)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1208,11 +1208,11 @@ TEST(normalization, nfc_033_012)
     // BC64;BC64;1107 1163 11BF;BC64;1107 1163 11BF; 
     // (뱤; 뱤; 뱤; 뱤; 뱤; ) HANGUL SYLLABLE BYAK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC64 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC64 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC64 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC64 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC64 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11BF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC64 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11BF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1229,7 +1229,7 @@ TEST(normalization, nfc_033_012)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1243,7 +1243,7 @@ TEST(normalization, nfc_033_012)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1257,7 +1257,7 @@ TEST(normalization, nfc_033_012)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1271,7 +1271,7 @@ TEST(normalization, nfc_033_012)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1285,7 +1285,7 @@ TEST(normalization, nfc_033_012)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1307,11 +1307,11 @@ TEST(normalization, nfc_033_013)
     // BC65;BC65;1107 1163 11C0;BC65;1107 1163 11C0; 
     // (뱥; 뱥; 뱥; 뱥; 뱥; ) HANGUL SYLLABLE BYAT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC65 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC65 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11C0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC65 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11C0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC65 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC65 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11C0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC65 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11C0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1328,7 +1328,7 @@ TEST(normalization, nfc_033_013)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1342,7 +1342,7 @@ TEST(normalization, nfc_033_013)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1356,7 +1356,7 @@ TEST(normalization, nfc_033_013)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1370,7 +1370,7 @@ TEST(normalization, nfc_033_013)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1384,7 +1384,7 @@ TEST(normalization, nfc_033_013)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1406,11 +1406,11 @@ TEST(normalization, nfc_033_014)
     // BC66;BC66;1107 1163 11C1;BC66;1107 1163 11C1; 
     // (뱦; 뱦; 뱦; 뱦; 뱦; ) HANGUL SYLLABLE BYAP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC66 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC66 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11C1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC66 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11C1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC66 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC66 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11C1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC66 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11C1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1427,7 +1427,7 @@ TEST(normalization, nfc_033_014)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1441,7 +1441,7 @@ TEST(normalization, nfc_033_014)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1455,7 +1455,7 @@ TEST(normalization, nfc_033_014)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1469,7 +1469,7 @@ TEST(normalization, nfc_033_014)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1483,7 +1483,7 @@ TEST(normalization, nfc_033_014)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1505,11 +1505,11 @@ TEST(normalization, nfc_033_015)
     // BC67;BC67;1107 1163 11C2;BC67;1107 1163 11C2; 
     // (뱧; 뱧; 뱧; 뱧; 뱧; ) HANGUL SYLLABLE BYAH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC67 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC67 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11C2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC67 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11C2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC67 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC67 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1163, 0x11C2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC67 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1163, 0x11C2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1526,7 +1526,7 @@ TEST(normalization, nfc_033_015)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1540,7 +1540,7 @@ TEST(normalization, nfc_033_015)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1554,7 +1554,7 @@ TEST(normalization, nfc_033_015)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1568,7 +1568,7 @@ TEST(normalization, nfc_033_015)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1582,7 +1582,7 @@ TEST(normalization, nfc_033_015)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1604,11 +1604,11 @@ TEST(normalization, nfc_033_016)
     // BC68;BC68;1107 1164;BC68;1107 1164; 
     // (뱨; 뱨; 뱨; 뱨; 뱨; ) HANGUL SYLLABLE BYAE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC68 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC68 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x1107, 0x1164 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC68 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x1107, 0x1164 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC68 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC68 }};
+        std::array<char32_t, 2> const c3 = {{ 0x1107, 0x1164 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC68 }};
+        std::array<char32_t, 2> const c5 = {{ 0x1107, 0x1164 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1625,7 +1625,7 @@ TEST(normalization, nfc_033_016)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1639,7 +1639,7 @@ TEST(normalization, nfc_033_016)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1653,7 +1653,7 @@ TEST(normalization, nfc_033_016)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1667,7 +1667,7 @@ TEST(normalization, nfc_033_016)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1681,7 +1681,7 @@ TEST(normalization, nfc_033_016)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1703,11 +1703,11 @@ TEST(normalization, nfc_033_017)
     // BC69;BC69;1107 1164 11A8;BC69;1107 1164 11A8; 
     // (뱩; 뱩; 뱩; 뱩; 뱩; ) HANGUL SYLLABLE BYAEG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC69 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC69 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11A8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC69 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11A8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC69 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC69 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11A8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC69 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11A8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1724,7 +1724,7 @@ TEST(normalization, nfc_033_017)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1738,7 +1738,7 @@ TEST(normalization, nfc_033_017)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1752,7 +1752,7 @@ TEST(normalization, nfc_033_017)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1766,7 +1766,7 @@ TEST(normalization, nfc_033_017)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1780,7 +1780,7 @@ TEST(normalization, nfc_033_017)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1802,11 +1802,11 @@ TEST(normalization, nfc_033_018)
     // BC6A;BC6A;1107 1164 11A9;BC6A;1107 1164 11A9; 
     // (뱪; 뱪; 뱪; 뱪; 뱪; ) HANGUL SYLLABLE BYAEGG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC6A }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC6A }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11A9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC6A }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11A9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC6A }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC6A }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11A9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC6A }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11A9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1823,7 +1823,7 @@ TEST(normalization, nfc_033_018)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1837,7 +1837,7 @@ TEST(normalization, nfc_033_018)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1851,7 +1851,7 @@ TEST(normalization, nfc_033_018)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1865,7 +1865,7 @@ TEST(normalization, nfc_033_018)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1879,7 +1879,7 @@ TEST(normalization, nfc_033_018)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1901,11 +1901,11 @@ TEST(normalization, nfc_033_019)
     // BC6B;BC6B;1107 1164 11AA;BC6B;1107 1164 11AA; 
     // (뱫; 뱫; 뱫; 뱫; 뱫; ) HANGUL SYLLABLE BYAEGS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC6B }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC6B }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC6B }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC6B }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC6B }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC6B }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -1922,7 +1922,7 @@ TEST(normalization, nfc_033_019)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1936,7 +1936,7 @@ TEST(normalization, nfc_033_019)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1950,7 +1950,7 @@ TEST(normalization, nfc_033_019)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -1964,7 +1964,7 @@ TEST(normalization, nfc_033_019)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -1978,7 +1978,7 @@ TEST(normalization, nfc_033_019)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2000,11 +2000,11 @@ TEST(normalization, nfc_033_020)
     // BC6C;BC6C;1107 1164 11AB;BC6C;1107 1164 11AB; 
     // (뱬; 뱬; 뱬; 뱬; 뱬; ) HANGUL SYLLABLE BYAEN
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC6C }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC6C }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC6C }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC6C }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC6C }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC6C }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2021,7 +2021,7 @@ TEST(normalization, nfc_033_020)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2035,7 +2035,7 @@ TEST(normalization, nfc_033_020)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2049,7 +2049,7 @@ TEST(normalization, nfc_033_020)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2063,7 +2063,7 @@ TEST(normalization, nfc_033_020)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2077,7 +2077,7 @@ TEST(normalization, nfc_033_020)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2099,11 +2099,11 @@ TEST(normalization, nfc_033_021)
     // BC6D;BC6D;1107 1164 11AC;BC6D;1107 1164 11AC; 
     // (뱭; 뱭; 뱭; 뱭; 뱭; ) HANGUL SYLLABLE BYAENJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC6D }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC6D }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC6D }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC6D }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC6D }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC6D }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2120,7 +2120,7 @@ TEST(normalization, nfc_033_021)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2134,7 +2134,7 @@ TEST(normalization, nfc_033_021)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2148,7 +2148,7 @@ TEST(normalization, nfc_033_021)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2162,7 +2162,7 @@ TEST(normalization, nfc_033_021)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2176,7 +2176,7 @@ TEST(normalization, nfc_033_021)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2198,11 +2198,11 @@ TEST(normalization, nfc_033_022)
     // BC6E;BC6E;1107 1164 11AD;BC6E;1107 1164 11AD; 
     // (뱮; 뱮; 뱮; 뱮; 뱮; ) HANGUL SYLLABLE BYAENH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC6E }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC6E }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC6E }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC6E }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC6E }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC6E }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2219,7 +2219,7 @@ TEST(normalization, nfc_033_022)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2233,7 +2233,7 @@ TEST(normalization, nfc_033_022)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2247,7 +2247,7 @@ TEST(normalization, nfc_033_022)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2261,7 +2261,7 @@ TEST(normalization, nfc_033_022)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2275,7 +2275,7 @@ TEST(normalization, nfc_033_022)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2297,11 +2297,11 @@ TEST(normalization, nfc_033_023)
     // BC6F;BC6F;1107 1164 11AE;BC6F;1107 1164 11AE; 
     // (뱯; 뱯; 뱯; 뱯; 뱯; ) HANGUL SYLLABLE BYAED
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC6F }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC6F }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC6F }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC6F }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC6F }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC6F }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2318,7 +2318,7 @@ TEST(normalization, nfc_033_023)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2332,7 +2332,7 @@ TEST(normalization, nfc_033_023)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2346,7 +2346,7 @@ TEST(normalization, nfc_033_023)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2360,7 +2360,7 @@ TEST(normalization, nfc_033_023)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2374,7 +2374,7 @@ TEST(normalization, nfc_033_023)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2396,11 +2396,11 @@ TEST(normalization, nfc_033_024)
     // BC70;BC70;1107 1164 11AF;BC70;1107 1164 11AF; 
     // (뱰; 뱰; 뱰; 뱰; 뱰; ) HANGUL SYLLABLE BYAEL
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC70 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC70 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC70 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC70 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC70 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11AF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC70 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11AF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2417,7 +2417,7 @@ TEST(normalization, nfc_033_024)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2431,7 +2431,7 @@ TEST(normalization, nfc_033_024)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2445,7 +2445,7 @@ TEST(normalization, nfc_033_024)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2459,7 +2459,7 @@ TEST(normalization, nfc_033_024)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2473,7 +2473,7 @@ TEST(normalization, nfc_033_024)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2495,11 +2495,11 @@ TEST(normalization, nfc_033_025)
     // BC71;BC71;1107 1164 11B0;BC71;1107 1164 11B0; 
     // (뱱; 뱱; 뱱; 뱱; 뱱; ) HANGUL SYLLABLE BYAELG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC71 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC71 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC71 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC71 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC71 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC71 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2516,7 +2516,7 @@ TEST(normalization, nfc_033_025)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2530,7 +2530,7 @@ TEST(normalization, nfc_033_025)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2544,7 +2544,7 @@ TEST(normalization, nfc_033_025)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2558,7 +2558,7 @@ TEST(normalization, nfc_033_025)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2572,7 +2572,7 @@ TEST(normalization, nfc_033_025)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2594,11 +2594,11 @@ TEST(normalization, nfc_033_026)
     // BC72;BC72;1107 1164 11B1;BC72;1107 1164 11B1; 
     // (뱲; 뱲; 뱲; 뱲; 뱲; ) HANGUL SYLLABLE BYAELM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC72 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC72 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC72 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC72 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC72 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC72 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2615,7 +2615,7 @@ TEST(normalization, nfc_033_026)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2629,7 +2629,7 @@ TEST(normalization, nfc_033_026)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2643,7 +2643,7 @@ TEST(normalization, nfc_033_026)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2657,7 +2657,7 @@ TEST(normalization, nfc_033_026)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2671,7 +2671,7 @@ TEST(normalization, nfc_033_026)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2693,11 +2693,11 @@ TEST(normalization, nfc_033_027)
     // BC73;BC73;1107 1164 11B2;BC73;1107 1164 11B2; 
     // (뱳; 뱳; 뱳; 뱳; 뱳; ) HANGUL SYLLABLE BYAELB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC73 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC73 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC73 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC73 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC73 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC73 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2714,7 +2714,7 @@ TEST(normalization, nfc_033_027)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2728,7 +2728,7 @@ TEST(normalization, nfc_033_027)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2742,7 +2742,7 @@ TEST(normalization, nfc_033_027)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2756,7 +2756,7 @@ TEST(normalization, nfc_033_027)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2770,7 +2770,7 @@ TEST(normalization, nfc_033_027)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2792,11 +2792,11 @@ TEST(normalization, nfc_033_028)
     // BC74;BC74;1107 1164 11B3;BC74;1107 1164 11B3; 
     // (뱴; 뱴; 뱴; 뱴; 뱴; ) HANGUL SYLLABLE BYAELS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC74 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC74 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC74 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC74 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC74 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B3 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC74 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2813,7 +2813,7 @@ TEST(normalization, nfc_033_028)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2827,7 +2827,7 @@ TEST(normalization, nfc_033_028)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2841,7 +2841,7 @@ TEST(normalization, nfc_033_028)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2855,7 +2855,7 @@ TEST(normalization, nfc_033_028)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2869,7 +2869,7 @@ TEST(normalization, nfc_033_028)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2891,11 +2891,11 @@ TEST(normalization, nfc_033_029)
     // BC75;BC75;1107 1164 11B4;BC75;1107 1164 11B4; 
     // (뱵; 뱵; 뱵; 뱵; 뱵; ) HANGUL SYLLABLE BYAELT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC75 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC75 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC75 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC75 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC75 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B4 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC75 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -2912,7 +2912,7 @@ TEST(normalization, nfc_033_029)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2926,7 +2926,7 @@ TEST(normalization, nfc_033_029)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2940,7 +2940,7 @@ TEST(normalization, nfc_033_029)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -2954,7 +2954,7 @@ TEST(normalization, nfc_033_029)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2968,7 +2968,7 @@ TEST(normalization, nfc_033_029)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -2990,11 +2990,11 @@ TEST(normalization, nfc_033_030)
     // BC76;BC76;1107 1164 11B5;BC76;1107 1164 11B5; 
     // (뱶; 뱶; 뱶; 뱶; 뱶; ) HANGUL SYLLABLE BYAELP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC76 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC76 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC76 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B5 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC76 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC76 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B5 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC76 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B5 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -3011,7 +3011,7 @@ TEST(normalization, nfc_033_030)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3025,7 +3025,7 @@ TEST(normalization, nfc_033_030)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3039,7 +3039,7 @@ TEST(normalization, nfc_033_030)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3053,7 +3053,7 @@ TEST(normalization, nfc_033_030)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3067,7 +3067,7 @@ TEST(normalization, nfc_033_030)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3089,11 +3089,11 @@ TEST(normalization, nfc_033_031)
     // BC77;BC77;1107 1164 11B6;BC77;1107 1164 11B6; 
     // (뱷; 뱷; 뱷; 뱷; 뱷; ) HANGUL SYLLABLE BYAELH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC77 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC77 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC77 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B6 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC77 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC77 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B6 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC77 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B6 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -3110,7 +3110,7 @@ TEST(normalization, nfc_033_031)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3124,7 +3124,7 @@ TEST(normalization, nfc_033_031)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3138,7 +3138,7 @@ TEST(normalization, nfc_033_031)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3152,7 +3152,7 @@ TEST(normalization, nfc_033_031)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3166,7 +3166,7 @@ TEST(normalization, nfc_033_031)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3188,11 +3188,11 @@ TEST(normalization, nfc_033_032)
     // BC78;BC78;1107 1164 11B7;BC78;1107 1164 11B7; 
     // (뱸; 뱸; 뱸; 뱸; 뱸; ) HANGUL SYLLABLE BYAEM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC78 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC78 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC78 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B7 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC78 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC78 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B7 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC78 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -3209,7 +3209,7 @@ TEST(normalization, nfc_033_032)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3223,7 +3223,7 @@ TEST(normalization, nfc_033_032)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3237,7 +3237,7 @@ TEST(normalization, nfc_033_032)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3251,7 +3251,7 @@ TEST(normalization, nfc_033_032)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3265,7 +3265,7 @@ TEST(normalization, nfc_033_032)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3287,11 +3287,11 @@ TEST(normalization, nfc_033_033)
     // BC79;BC79;1107 1164 11B8;BC79;1107 1164 11B8; 
     // (뱹; 뱹; 뱹; 뱹; 뱹; ) HANGUL SYLLABLE BYAEB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC79 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC79 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC79 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC79 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC79 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC79 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -3308,7 +3308,7 @@ TEST(normalization, nfc_033_033)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3322,7 +3322,7 @@ TEST(normalization, nfc_033_033)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3336,7 +3336,7 @@ TEST(normalization, nfc_033_033)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3350,7 +3350,7 @@ TEST(normalization, nfc_033_033)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3364,7 +3364,7 @@ TEST(normalization, nfc_033_033)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3386,11 +3386,11 @@ TEST(normalization, nfc_033_034)
     // BC7A;BC7A;1107 1164 11B9;BC7A;1107 1164 11B9; 
     // (뱺; 뱺; 뱺; 뱺; 뱺; ) HANGUL SYLLABLE BYAEBS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC7A }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC7A }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC7A }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC7A }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC7A }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11B9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC7A }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11B9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -3407,7 +3407,7 @@ TEST(normalization, nfc_033_034)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3421,7 +3421,7 @@ TEST(normalization, nfc_033_034)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3435,7 +3435,7 @@ TEST(normalization, nfc_033_034)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3449,7 +3449,7 @@ TEST(normalization, nfc_033_034)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3463,7 +3463,7 @@ TEST(normalization, nfc_033_034)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3485,11 +3485,11 @@ TEST(normalization, nfc_033_035)
     // BC7B;BC7B;1107 1164 11BA;BC7B;1107 1164 11BA; 
     // (뱻; 뱻; 뱻; 뱻; 뱻; ) HANGUL SYLLABLE BYAES
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC7B }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC7B }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC7B }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC7B }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC7B }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC7B }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -3506,7 +3506,7 @@ TEST(normalization, nfc_033_035)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3520,7 +3520,7 @@ TEST(normalization, nfc_033_035)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3534,7 +3534,7 @@ TEST(normalization, nfc_033_035)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3548,7 +3548,7 @@ TEST(normalization, nfc_033_035)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3562,7 +3562,7 @@ TEST(normalization, nfc_033_035)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3584,11 +3584,11 @@ TEST(normalization, nfc_033_036)
     // BC7C;BC7C;1107 1164 11BB;BC7C;1107 1164 11BB; 
     // (뱼; 뱼; 뱼; 뱼; 뱼; ) HANGUL SYLLABLE BYAESS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC7C }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC7C }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC7C }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC7C }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC7C }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC7C }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -3605,7 +3605,7 @@ TEST(normalization, nfc_033_036)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3619,7 +3619,7 @@ TEST(normalization, nfc_033_036)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3633,7 +3633,7 @@ TEST(normalization, nfc_033_036)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3647,7 +3647,7 @@ TEST(normalization, nfc_033_036)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3661,7 +3661,7 @@ TEST(normalization, nfc_033_036)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3683,11 +3683,11 @@ TEST(normalization, nfc_033_037)
     // BC7D;BC7D;1107 1164 11BC;BC7D;1107 1164 11BC; 
     // (뱽; 뱽; 뱽; 뱽; 뱽; ) HANGUL SYLLABLE BYAENG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC7D }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC7D }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC7D }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC7D }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC7D }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC7D }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -3704,7 +3704,7 @@ TEST(normalization, nfc_033_037)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3718,7 +3718,7 @@ TEST(normalization, nfc_033_037)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3732,7 +3732,7 @@ TEST(normalization, nfc_033_037)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3746,7 +3746,7 @@ TEST(normalization, nfc_033_037)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3760,7 +3760,7 @@ TEST(normalization, nfc_033_037)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3782,11 +3782,11 @@ TEST(normalization, nfc_033_038)
     // BC7E;BC7E;1107 1164 11BD;BC7E;1107 1164 11BD; 
     // (뱾; 뱾; 뱾; 뱾; 뱾; ) HANGUL SYLLABLE BYAEJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC7E }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC7E }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC7E }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC7E }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC7E }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC7E }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -3803,7 +3803,7 @@ TEST(normalization, nfc_033_038)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3817,7 +3817,7 @@ TEST(normalization, nfc_033_038)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3831,7 +3831,7 @@ TEST(normalization, nfc_033_038)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3845,7 +3845,7 @@ TEST(normalization, nfc_033_038)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3859,7 +3859,7 @@ TEST(normalization, nfc_033_038)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3881,11 +3881,11 @@ TEST(normalization, nfc_033_039)
     // BC7F;BC7F;1107 1164 11BE;BC7F;1107 1164 11BE; 
     // (뱿; 뱿; 뱿; 뱿; 뱿; ) HANGUL SYLLABLE BYAEC
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC7F }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC7F }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC7F }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC7F }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC7F }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC7F }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -3902,7 +3902,7 @@ TEST(normalization, nfc_033_039)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3916,7 +3916,7 @@ TEST(normalization, nfc_033_039)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3930,7 +3930,7 @@ TEST(normalization, nfc_033_039)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -3944,7 +3944,7 @@ TEST(normalization, nfc_033_039)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3958,7 +3958,7 @@ TEST(normalization, nfc_033_039)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -3980,11 +3980,11 @@ TEST(normalization, nfc_033_040)
     // BC80;BC80;1107 1164 11BF;BC80;1107 1164 11BF; 
     // (벀; 벀; 벀; 벀; 벀; ) HANGUL SYLLABLE BYAEK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC80 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC80 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC80 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC80 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC80 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11BF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC80 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11BF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4001,7 +4001,7 @@ TEST(normalization, nfc_033_040)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4015,7 +4015,7 @@ TEST(normalization, nfc_033_040)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4029,7 +4029,7 @@ TEST(normalization, nfc_033_040)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4043,7 +4043,7 @@ TEST(normalization, nfc_033_040)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4057,7 +4057,7 @@ TEST(normalization, nfc_033_040)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4079,11 +4079,11 @@ TEST(normalization, nfc_033_041)
     // BC81;BC81;1107 1164 11C0;BC81;1107 1164 11C0; 
     // (벁; 벁; 벁; 벁; 벁; ) HANGUL SYLLABLE BYAET
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC81 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC81 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11C0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC81 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11C0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC81 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC81 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11C0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC81 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11C0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4100,7 +4100,7 @@ TEST(normalization, nfc_033_041)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4114,7 +4114,7 @@ TEST(normalization, nfc_033_041)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4128,7 +4128,7 @@ TEST(normalization, nfc_033_041)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4142,7 +4142,7 @@ TEST(normalization, nfc_033_041)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4156,7 +4156,7 @@ TEST(normalization, nfc_033_041)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4178,11 +4178,11 @@ TEST(normalization, nfc_033_042)
     // BC82;BC82;1107 1164 11C1;BC82;1107 1164 11C1; 
     // (벂; 벂; 벂; 벂; 벂; ) HANGUL SYLLABLE BYAEP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC82 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC82 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11C1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC82 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11C1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC82 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC82 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11C1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC82 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11C1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4199,7 +4199,7 @@ TEST(normalization, nfc_033_042)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4213,7 +4213,7 @@ TEST(normalization, nfc_033_042)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4227,7 +4227,7 @@ TEST(normalization, nfc_033_042)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4241,7 +4241,7 @@ TEST(normalization, nfc_033_042)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4255,7 +4255,7 @@ TEST(normalization, nfc_033_042)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4277,11 +4277,11 @@ TEST(normalization, nfc_033_043)
     // BC83;BC83;1107 1164 11C2;BC83;1107 1164 11C2; 
     // (벃; 벃; 벃; 벃; 벃; ) HANGUL SYLLABLE BYAEH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC83 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC83 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11C2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC83 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11C2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC83 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC83 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1164, 0x11C2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC83 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1164, 0x11C2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4298,7 +4298,7 @@ TEST(normalization, nfc_033_043)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4312,7 +4312,7 @@ TEST(normalization, nfc_033_043)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4326,7 +4326,7 @@ TEST(normalization, nfc_033_043)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4340,7 +4340,7 @@ TEST(normalization, nfc_033_043)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4354,7 +4354,7 @@ TEST(normalization, nfc_033_043)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4376,11 +4376,11 @@ TEST(normalization, nfc_033_044)
     // BC84;BC84;1107 1165;BC84;1107 1165; 
     // (버; 버; 버; 버; 버; ) HANGUL SYLLABLE BEO
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC84 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC84 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x1107, 0x1165 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC84 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x1107, 0x1165 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC84 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC84 }};
+        std::array<char32_t, 2> const c3 = {{ 0x1107, 0x1165 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC84 }};
+        std::array<char32_t, 2> const c5 = {{ 0x1107, 0x1165 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4397,7 +4397,7 @@ TEST(normalization, nfc_033_044)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4411,7 +4411,7 @@ TEST(normalization, nfc_033_044)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4425,7 +4425,7 @@ TEST(normalization, nfc_033_044)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4439,7 +4439,7 @@ TEST(normalization, nfc_033_044)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4453,7 +4453,7 @@ TEST(normalization, nfc_033_044)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4475,11 +4475,11 @@ TEST(normalization, nfc_033_045)
     // BC85;BC85;1107 1165 11A8;BC85;1107 1165 11A8; 
     // (벅; 벅; 벅; 벅; 벅; ) HANGUL SYLLABLE BEOG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC85 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC85 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11A8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC85 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11A8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC85 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC85 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11A8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC85 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11A8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4496,7 +4496,7 @@ TEST(normalization, nfc_033_045)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4510,7 +4510,7 @@ TEST(normalization, nfc_033_045)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4524,7 +4524,7 @@ TEST(normalization, nfc_033_045)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4538,7 +4538,7 @@ TEST(normalization, nfc_033_045)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4552,7 +4552,7 @@ TEST(normalization, nfc_033_045)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4574,11 +4574,11 @@ TEST(normalization, nfc_033_046)
     // BC86;BC86;1107 1165 11A9;BC86;1107 1165 11A9; 
     // (벆; 벆; 벆; 벆; 벆; ) HANGUL SYLLABLE BEOGG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC86 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC86 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11A9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC86 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11A9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC86 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC86 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11A9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC86 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11A9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4595,7 +4595,7 @@ TEST(normalization, nfc_033_046)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4609,7 +4609,7 @@ TEST(normalization, nfc_033_046)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4623,7 +4623,7 @@ TEST(normalization, nfc_033_046)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4637,7 +4637,7 @@ TEST(normalization, nfc_033_046)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4651,7 +4651,7 @@ TEST(normalization, nfc_033_046)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4673,11 +4673,11 @@ TEST(normalization, nfc_033_047)
     // BC87;BC87;1107 1165 11AA;BC87;1107 1165 11AA; 
     // (벇; 벇; 벇; 벇; 벇; ) HANGUL SYLLABLE BEOGS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC87 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC87 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC87 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC87 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC87 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC87 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4694,7 +4694,7 @@ TEST(normalization, nfc_033_047)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4708,7 +4708,7 @@ TEST(normalization, nfc_033_047)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4722,7 +4722,7 @@ TEST(normalization, nfc_033_047)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4736,7 +4736,7 @@ TEST(normalization, nfc_033_047)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4750,7 +4750,7 @@ TEST(normalization, nfc_033_047)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4772,11 +4772,11 @@ TEST(normalization, nfc_033_048)
     // BC88;BC88;1107 1165 11AB;BC88;1107 1165 11AB; 
     // (번; 번; 번; 번; 번; ) HANGUL SYLLABLE BEON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC88 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC88 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC88 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC88 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC88 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC88 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4793,7 +4793,7 @@ TEST(normalization, nfc_033_048)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4807,7 +4807,7 @@ TEST(normalization, nfc_033_048)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4821,7 +4821,7 @@ TEST(normalization, nfc_033_048)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4835,7 +4835,7 @@ TEST(normalization, nfc_033_048)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4849,7 +4849,7 @@ TEST(normalization, nfc_033_048)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4871,11 +4871,11 @@ TEST(normalization, nfc_033_049)
     // BC89;BC89;1107 1165 11AC;BC89;1107 1165 11AC; 
     // (벉; 벉; 벉; 벉; 벉; ) HANGUL SYLLABLE BEONJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC89 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC89 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC89 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC89 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC89 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC89 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4892,7 +4892,7 @@ TEST(normalization, nfc_033_049)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4906,7 +4906,7 @@ TEST(normalization, nfc_033_049)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4920,7 +4920,7 @@ TEST(normalization, nfc_033_049)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -4934,7 +4934,7 @@ TEST(normalization, nfc_033_049)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4948,7 +4948,7 @@ TEST(normalization, nfc_033_049)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -4970,11 +4970,11 @@ TEST(normalization, nfc_033_050)
     // BC8A;BC8A;1107 1165 11AD;BC8A;1107 1165 11AD; 
     // (벊; 벊; 벊; 벊; 벊; ) HANGUL SYLLABLE BEONH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC8A }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC8A }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC8A }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC8A }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC8A }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC8A }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -4991,7 +4991,7 @@ TEST(normalization, nfc_033_050)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5005,7 +5005,7 @@ TEST(normalization, nfc_033_050)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5019,7 +5019,7 @@ TEST(normalization, nfc_033_050)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5033,7 +5033,7 @@ TEST(normalization, nfc_033_050)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5047,7 +5047,7 @@ TEST(normalization, nfc_033_050)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5069,11 +5069,11 @@ TEST(normalization, nfc_033_051)
     // BC8B;BC8B;1107 1165 11AE;BC8B;1107 1165 11AE; 
     // (벋; 벋; 벋; 벋; 벋; ) HANGUL SYLLABLE BEOD
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC8B }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC8B }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC8B }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC8B }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC8B }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC8B }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5090,7 +5090,7 @@ TEST(normalization, nfc_033_051)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5104,7 +5104,7 @@ TEST(normalization, nfc_033_051)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5118,7 +5118,7 @@ TEST(normalization, nfc_033_051)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5132,7 +5132,7 @@ TEST(normalization, nfc_033_051)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5146,7 +5146,7 @@ TEST(normalization, nfc_033_051)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5168,11 +5168,11 @@ TEST(normalization, nfc_033_052)
     // BC8C;BC8C;1107 1165 11AF;BC8C;1107 1165 11AF; 
     // (벌; 벌; 벌; 벌; 벌; ) HANGUL SYLLABLE BEOL
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC8C }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC8C }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC8C }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC8C }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC8C }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11AF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC8C }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11AF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5189,7 +5189,7 @@ TEST(normalization, nfc_033_052)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5203,7 +5203,7 @@ TEST(normalization, nfc_033_052)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5217,7 +5217,7 @@ TEST(normalization, nfc_033_052)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5231,7 +5231,7 @@ TEST(normalization, nfc_033_052)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5245,7 +5245,7 @@ TEST(normalization, nfc_033_052)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5267,11 +5267,11 @@ TEST(normalization, nfc_033_053)
     // BC8D;BC8D;1107 1165 11B0;BC8D;1107 1165 11B0; 
     // (벍; 벍; 벍; 벍; 벍; ) HANGUL SYLLABLE BEOLG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC8D }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC8D }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC8D }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC8D }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC8D }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC8D }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5288,7 +5288,7 @@ TEST(normalization, nfc_033_053)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5302,7 +5302,7 @@ TEST(normalization, nfc_033_053)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5316,7 +5316,7 @@ TEST(normalization, nfc_033_053)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5330,7 +5330,7 @@ TEST(normalization, nfc_033_053)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5344,7 +5344,7 @@ TEST(normalization, nfc_033_053)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5366,11 +5366,11 @@ TEST(normalization, nfc_033_054)
     // BC8E;BC8E;1107 1165 11B1;BC8E;1107 1165 11B1; 
     // (벎; 벎; 벎; 벎; 벎; ) HANGUL SYLLABLE BEOLM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC8E }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC8E }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC8E }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC8E }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC8E }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC8E }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5387,7 +5387,7 @@ TEST(normalization, nfc_033_054)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5401,7 +5401,7 @@ TEST(normalization, nfc_033_054)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5415,7 +5415,7 @@ TEST(normalization, nfc_033_054)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5429,7 +5429,7 @@ TEST(normalization, nfc_033_054)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5443,7 +5443,7 @@ TEST(normalization, nfc_033_054)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5465,11 +5465,11 @@ TEST(normalization, nfc_033_055)
     // BC8F;BC8F;1107 1165 11B2;BC8F;1107 1165 11B2; 
     // (벏; 벏; 벏; 벏; 벏; ) HANGUL SYLLABLE BEOLB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC8F }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC8F }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC8F }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC8F }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC8F }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC8F }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5486,7 +5486,7 @@ TEST(normalization, nfc_033_055)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5500,7 +5500,7 @@ TEST(normalization, nfc_033_055)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5514,7 +5514,7 @@ TEST(normalization, nfc_033_055)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5528,7 +5528,7 @@ TEST(normalization, nfc_033_055)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5542,7 +5542,7 @@ TEST(normalization, nfc_033_055)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5564,11 +5564,11 @@ TEST(normalization, nfc_033_056)
     // BC90;BC90;1107 1165 11B3;BC90;1107 1165 11B3; 
     // (벐; 벐; 벐; 벐; 벐; ) HANGUL SYLLABLE BEOLS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC90 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC90 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC90 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC90 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC90 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B3 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC90 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5585,7 +5585,7 @@ TEST(normalization, nfc_033_056)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5599,7 +5599,7 @@ TEST(normalization, nfc_033_056)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5613,7 +5613,7 @@ TEST(normalization, nfc_033_056)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5627,7 +5627,7 @@ TEST(normalization, nfc_033_056)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5641,7 +5641,7 @@ TEST(normalization, nfc_033_056)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5663,11 +5663,11 @@ TEST(normalization, nfc_033_057)
     // BC91;BC91;1107 1165 11B4;BC91;1107 1165 11B4; 
     // (벑; 벑; 벑; 벑; 벑; ) HANGUL SYLLABLE BEOLT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC91 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC91 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC91 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC91 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC91 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B4 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC91 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5684,7 +5684,7 @@ TEST(normalization, nfc_033_057)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5698,7 +5698,7 @@ TEST(normalization, nfc_033_057)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5712,7 +5712,7 @@ TEST(normalization, nfc_033_057)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5726,7 +5726,7 @@ TEST(normalization, nfc_033_057)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5740,7 +5740,7 @@ TEST(normalization, nfc_033_057)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5762,11 +5762,11 @@ TEST(normalization, nfc_033_058)
     // BC92;BC92;1107 1165 11B5;BC92;1107 1165 11B5; 
     // (벒; 벒; 벒; 벒; 벒; ) HANGUL SYLLABLE BEOLP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC92 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC92 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC92 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B5 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC92 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC92 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B5 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC92 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B5 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5783,7 +5783,7 @@ TEST(normalization, nfc_033_058)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5797,7 +5797,7 @@ TEST(normalization, nfc_033_058)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5811,7 +5811,7 @@ TEST(normalization, nfc_033_058)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5825,7 +5825,7 @@ TEST(normalization, nfc_033_058)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5839,7 +5839,7 @@ TEST(normalization, nfc_033_058)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5861,11 +5861,11 @@ TEST(normalization, nfc_033_059)
     // BC93;BC93;1107 1165 11B6;BC93;1107 1165 11B6; 
     // (벓; 벓; 벓; 벓; 벓; ) HANGUL SYLLABLE BEOLH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC93 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC93 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC93 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B6 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC93 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC93 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B6 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC93 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B6 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5882,7 +5882,7 @@ TEST(normalization, nfc_033_059)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5896,7 +5896,7 @@ TEST(normalization, nfc_033_059)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5910,7 +5910,7 @@ TEST(normalization, nfc_033_059)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5924,7 +5924,7 @@ TEST(normalization, nfc_033_059)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5938,7 +5938,7 @@ TEST(normalization, nfc_033_059)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -5960,11 +5960,11 @@ TEST(normalization, nfc_033_060)
     // BC94;BC94;1107 1165 11B7;BC94;1107 1165 11B7; 
     // (범; 범; 범; 범; 범; ) HANGUL SYLLABLE BEOM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC94 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC94 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC94 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B7 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC94 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC94 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B7 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC94 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -5981,7 +5981,7 @@ TEST(normalization, nfc_033_060)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -5995,7 +5995,7 @@ TEST(normalization, nfc_033_060)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6009,7 +6009,7 @@ TEST(normalization, nfc_033_060)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6023,7 +6023,7 @@ TEST(normalization, nfc_033_060)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6037,7 +6037,7 @@ TEST(normalization, nfc_033_060)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6059,11 +6059,11 @@ TEST(normalization, nfc_033_061)
     // BC95;BC95;1107 1165 11B8;BC95;1107 1165 11B8; 
     // (법; 법; 법; 법; 법; ) HANGUL SYLLABLE BEOB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC95 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC95 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC95 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC95 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC95 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC95 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6080,7 +6080,7 @@ TEST(normalization, nfc_033_061)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6094,7 +6094,7 @@ TEST(normalization, nfc_033_061)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6108,7 +6108,7 @@ TEST(normalization, nfc_033_061)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6122,7 +6122,7 @@ TEST(normalization, nfc_033_061)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6136,7 +6136,7 @@ TEST(normalization, nfc_033_061)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6158,11 +6158,11 @@ TEST(normalization, nfc_033_062)
     // BC96;BC96;1107 1165 11B9;BC96;1107 1165 11B9; 
     // (벖; 벖; 벖; 벖; 벖; ) HANGUL SYLLABLE BEOBS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC96 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC96 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC96 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC96 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC96 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11B9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC96 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11B9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6179,7 +6179,7 @@ TEST(normalization, nfc_033_062)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6193,7 +6193,7 @@ TEST(normalization, nfc_033_062)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6207,7 +6207,7 @@ TEST(normalization, nfc_033_062)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6221,7 +6221,7 @@ TEST(normalization, nfc_033_062)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6235,7 +6235,7 @@ TEST(normalization, nfc_033_062)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6257,11 +6257,11 @@ TEST(normalization, nfc_033_063)
     // BC97;BC97;1107 1165 11BA;BC97;1107 1165 11BA; 
     // (벗; 벗; 벗; 벗; 벗; ) HANGUL SYLLABLE BEOS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC97 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC97 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC97 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC97 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC97 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC97 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6278,7 +6278,7 @@ TEST(normalization, nfc_033_063)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6292,7 +6292,7 @@ TEST(normalization, nfc_033_063)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6306,7 +6306,7 @@ TEST(normalization, nfc_033_063)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6320,7 +6320,7 @@ TEST(normalization, nfc_033_063)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6334,7 +6334,7 @@ TEST(normalization, nfc_033_063)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6356,11 +6356,11 @@ TEST(normalization, nfc_033_064)
     // BC98;BC98;1107 1165 11BB;BC98;1107 1165 11BB; 
     // (벘; 벘; 벘; 벘; 벘; ) HANGUL SYLLABLE BEOSS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC98 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC98 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC98 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC98 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC98 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC98 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6377,7 +6377,7 @@ TEST(normalization, nfc_033_064)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6391,7 +6391,7 @@ TEST(normalization, nfc_033_064)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6405,7 +6405,7 @@ TEST(normalization, nfc_033_064)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6419,7 +6419,7 @@ TEST(normalization, nfc_033_064)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6433,7 +6433,7 @@ TEST(normalization, nfc_033_064)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6455,11 +6455,11 @@ TEST(normalization, nfc_033_065)
     // BC99;BC99;1107 1165 11BC;BC99;1107 1165 11BC; 
     // (벙; 벙; 벙; 벙; 벙; ) HANGUL SYLLABLE BEONG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC99 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC99 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC99 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC99 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC99 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC99 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6476,7 +6476,7 @@ TEST(normalization, nfc_033_065)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6490,7 +6490,7 @@ TEST(normalization, nfc_033_065)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6504,7 +6504,7 @@ TEST(normalization, nfc_033_065)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6518,7 +6518,7 @@ TEST(normalization, nfc_033_065)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6532,7 +6532,7 @@ TEST(normalization, nfc_033_065)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6554,11 +6554,11 @@ TEST(normalization, nfc_033_066)
     // BC9A;BC9A;1107 1165 11BD;BC9A;1107 1165 11BD; 
     // (벚; 벚; 벚; 벚; 벚; ) HANGUL SYLLABLE BEOJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC9A }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC9A }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC9A }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC9A }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC9A }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC9A }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6575,7 +6575,7 @@ TEST(normalization, nfc_033_066)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6589,7 +6589,7 @@ TEST(normalization, nfc_033_066)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6603,7 +6603,7 @@ TEST(normalization, nfc_033_066)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6617,7 +6617,7 @@ TEST(normalization, nfc_033_066)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6631,7 +6631,7 @@ TEST(normalization, nfc_033_066)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6653,11 +6653,11 @@ TEST(normalization, nfc_033_067)
     // BC9B;BC9B;1107 1165 11BE;BC9B;1107 1165 11BE; 
     // (벛; 벛; 벛; 벛; 벛; ) HANGUL SYLLABLE BEOC
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC9B }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC9B }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC9B }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC9B }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC9B }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC9B }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6674,7 +6674,7 @@ TEST(normalization, nfc_033_067)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6688,7 +6688,7 @@ TEST(normalization, nfc_033_067)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6702,7 +6702,7 @@ TEST(normalization, nfc_033_067)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6716,7 +6716,7 @@ TEST(normalization, nfc_033_067)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6730,7 +6730,7 @@ TEST(normalization, nfc_033_067)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6752,11 +6752,11 @@ TEST(normalization, nfc_033_068)
     // BC9C;BC9C;1107 1165 11BF;BC9C;1107 1165 11BF; 
     // (벜; 벜; 벜; 벜; 벜; ) HANGUL SYLLABLE BEOK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC9C }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC9C }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC9C }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC9C }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC9C }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11BF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC9C }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11BF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6773,7 +6773,7 @@ TEST(normalization, nfc_033_068)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6787,7 +6787,7 @@ TEST(normalization, nfc_033_068)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6801,7 +6801,7 @@ TEST(normalization, nfc_033_068)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6815,7 +6815,7 @@ TEST(normalization, nfc_033_068)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6829,7 +6829,7 @@ TEST(normalization, nfc_033_068)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6851,11 +6851,11 @@ TEST(normalization, nfc_033_069)
     // BC9D;BC9D;1107 1165 11C0;BC9D;1107 1165 11C0; 
     // (벝; 벝; 벝; 벝; 벝; ) HANGUL SYLLABLE BEOT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC9D }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC9D }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11C0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC9D }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11C0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC9D }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC9D }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11C0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC9D }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11C0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6872,7 +6872,7 @@ TEST(normalization, nfc_033_069)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6886,7 +6886,7 @@ TEST(normalization, nfc_033_069)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6900,7 +6900,7 @@ TEST(normalization, nfc_033_069)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6914,7 +6914,7 @@ TEST(normalization, nfc_033_069)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6928,7 +6928,7 @@ TEST(normalization, nfc_033_069)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -6950,11 +6950,11 @@ TEST(normalization, nfc_033_070)
     // BC9E;BC9E;1107 1165 11C1;BC9E;1107 1165 11C1; 
     // (벞; 벞; 벞; 벞; 벞; ) HANGUL SYLLABLE BEOP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC9E }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC9E }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11C1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC9E }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11C1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC9E }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC9E }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11C1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC9E }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11C1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -6971,7 +6971,7 @@ TEST(normalization, nfc_033_070)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6985,7 +6985,7 @@ TEST(normalization, nfc_033_070)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -6999,7 +6999,7 @@ TEST(normalization, nfc_033_070)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7013,7 +7013,7 @@ TEST(normalization, nfc_033_070)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7027,7 +7027,7 @@ TEST(normalization, nfc_033_070)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7049,11 +7049,11 @@ TEST(normalization, nfc_033_071)
     // BC9F;BC9F;1107 1165 11C2;BC9F;1107 1165 11C2; 
     // (벟; 벟; 벟; 벟; 벟; ) HANGUL SYLLABLE BEOH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBC9F }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBC9F }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11C2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBC9F }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11C2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBC9F }};
+        std::array<char32_t, 1> const c2 = {{ 0xBC9F }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1165, 0x11C2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBC9F }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1165, 0x11C2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7070,7 +7070,7 @@ TEST(normalization, nfc_033_071)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7084,7 +7084,7 @@ TEST(normalization, nfc_033_071)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7098,7 +7098,7 @@ TEST(normalization, nfc_033_071)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7112,7 +7112,7 @@ TEST(normalization, nfc_033_071)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7126,7 +7126,7 @@ TEST(normalization, nfc_033_071)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7148,11 +7148,11 @@ TEST(normalization, nfc_033_072)
     // BCA0;BCA0;1107 1166;BCA0;1107 1166; 
     // (베; 베; 베; 베; 베; ) HANGUL SYLLABLE BE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCA0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCA0 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x1107, 0x1166 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCA0 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x1107, 0x1166 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCA0 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCA0 }};
+        std::array<char32_t, 2> const c3 = {{ 0x1107, 0x1166 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCA0 }};
+        std::array<char32_t, 2> const c5 = {{ 0x1107, 0x1166 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7169,7 +7169,7 @@ TEST(normalization, nfc_033_072)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7183,7 +7183,7 @@ TEST(normalization, nfc_033_072)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7197,7 +7197,7 @@ TEST(normalization, nfc_033_072)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7211,7 +7211,7 @@ TEST(normalization, nfc_033_072)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7225,7 +7225,7 @@ TEST(normalization, nfc_033_072)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7247,11 +7247,11 @@ TEST(normalization, nfc_033_073)
     // BCA1;BCA1;1107 1166 11A8;BCA1;1107 1166 11A8; 
     // (벡; 벡; 벡; 벡; 벡; ) HANGUL SYLLABLE BEG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCA1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCA1 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11A8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCA1 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11A8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCA1 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCA1 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11A8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCA1 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11A8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7268,7 +7268,7 @@ TEST(normalization, nfc_033_073)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7282,7 +7282,7 @@ TEST(normalization, nfc_033_073)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7296,7 +7296,7 @@ TEST(normalization, nfc_033_073)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7310,7 +7310,7 @@ TEST(normalization, nfc_033_073)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7324,7 +7324,7 @@ TEST(normalization, nfc_033_073)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7346,11 +7346,11 @@ TEST(normalization, nfc_033_074)
     // BCA2;BCA2;1107 1166 11A9;BCA2;1107 1166 11A9; 
     // (벢; 벢; 벢; 벢; 벢; ) HANGUL SYLLABLE BEGG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCA2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCA2 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11A9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCA2 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11A9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCA2 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCA2 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11A9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCA2 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11A9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7367,7 +7367,7 @@ TEST(normalization, nfc_033_074)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7381,7 +7381,7 @@ TEST(normalization, nfc_033_074)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7395,7 +7395,7 @@ TEST(normalization, nfc_033_074)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7409,7 +7409,7 @@ TEST(normalization, nfc_033_074)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7423,7 +7423,7 @@ TEST(normalization, nfc_033_074)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7445,11 +7445,11 @@ TEST(normalization, nfc_033_075)
     // BCA3;BCA3;1107 1166 11AA;BCA3;1107 1166 11AA; 
     // (벣; 벣; 벣; 벣; 벣; ) HANGUL SYLLABLE BEGS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCA3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCA3 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCA3 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCA3 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCA3 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCA3 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7466,7 +7466,7 @@ TEST(normalization, nfc_033_075)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7480,7 +7480,7 @@ TEST(normalization, nfc_033_075)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7494,7 +7494,7 @@ TEST(normalization, nfc_033_075)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7508,7 +7508,7 @@ TEST(normalization, nfc_033_075)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7522,7 +7522,7 @@ TEST(normalization, nfc_033_075)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7544,11 +7544,11 @@ TEST(normalization, nfc_033_076)
     // BCA4;BCA4;1107 1166 11AB;BCA4;1107 1166 11AB; 
     // (벤; 벤; 벤; 벤; 벤; ) HANGUL SYLLABLE BEN
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCA4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCA4 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCA4 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCA4 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCA4 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCA4 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7565,7 +7565,7 @@ TEST(normalization, nfc_033_076)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7579,7 +7579,7 @@ TEST(normalization, nfc_033_076)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7593,7 +7593,7 @@ TEST(normalization, nfc_033_076)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7607,7 +7607,7 @@ TEST(normalization, nfc_033_076)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7621,7 +7621,7 @@ TEST(normalization, nfc_033_076)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7643,11 +7643,11 @@ TEST(normalization, nfc_033_077)
     // BCA5;BCA5;1107 1166 11AC;BCA5;1107 1166 11AC; 
     // (벥; 벥; 벥; 벥; 벥; ) HANGUL SYLLABLE BENJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCA5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCA5 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCA5 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCA5 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCA5 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCA5 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7664,7 +7664,7 @@ TEST(normalization, nfc_033_077)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7678,7 +7678,7 @@ TEST(normalization, nfc_033_077)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7692,7 +7692,7 @@ TEST(normalization, nfc_033_077)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7706,7 +7706,7 @@ TEST(normalization, nfc_033_077)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7720,7 +7720,7 @@ TEST(normalization, nfc_033_077)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7742,11 +7742,11 @@ TEST(normalization, nfc_033_078)
     // BCA6;BCA6;1107 1166 11AD;BCA6;1107 1166 11AD; 
     // (벦; 벦; 벦; 벦; 벦; ) HANGUL SYLLABLE BENH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCA6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCA6 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCA6 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCA6 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCA6 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCA6 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7763,7 +7763,7 @@ TEST(normalization, nfc_033_078)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7777,7 +7777,7 @@ TEST(normalization, nfc_033_078)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7791,7 +7791,7 @@ TEST(normalization, nfc_033_078)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7805,7 +7805,7 @@ TEST(normalization, nfc_033_078)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7819,7 +7819,7 @@ TEST(normalization, nfc_033_078)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7841,11 +7841,11 @@ TEST(normalization, nfc_033_079)
     // BCA7;BCA7;1107 1166 11AE;BCA7;1107 1166 11AE; 
     // (벧; 벧; 벧; 벧; 벧; ) HANGUL SYLLABLE BED
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCA7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCA7 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCA7 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCA7 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCA7 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCA7 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7862,7 +7862,7 @@ TEST(normalization, nfc_033_079)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7876,7 +7876,7 @@ TEST(normalization, nfc_033_079)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7890,7 +7890,7 @@ TEST(normalization, nfc_033_079)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7904,7 +7904,7 @@ TEST(normalization, nfc_033_079)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7918,7 +7918,7 @@ TEST(normalization, nfc_033_079)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -7940,11 +7940,11 @@ TEST(normalization, nfc_033_080)
     // BCA8;BCA8;1107 1166 11AF;BCA8;1107 1166 11AF; 
     // (벨; 벨; 벨; 벨; 벨; ) HANGUL SYLLABLE BEL
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCA8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCA8 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCA8 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCA8 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCA8 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11AF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCA8 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11AF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -7961,7 +7961,7 @@ TEST(normalization, nfc_033_080)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7975,7 +7975,7 @@ TEST(normalization, nfc_033_080)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -7989,7 +7989,7 @@ TEST(normalization, nfc_033_080)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8003,7 +8003,7 @@ TEST(normalization, nfc_033_080)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8017,7 +8017,7 @@ TEST(normalization, nfc_033_080)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8039,11 +8039,11 @@ TEST(normalization, nfc_033_081)
     // BCA9;BCA9;1107 1166 11B0;BCA9;1107 1166 11B0; 
     // (벩; 벩; 벩; 벩; 벩; ) HANGUL SYLLABLE BELG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCA9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCA9 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCA9 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCA9 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCA9 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCA9 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8060,7 +8060,7 @@ TEST(normalization, nfc_033_081)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8074,7 +8074,7 @@ TEST(normalization, nfc_033_081)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8088,7 +8088,7 @@ TEST(normalization, nfc_033_081)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8102,7 +8102,7 @@ TEST(normalization, nfc_033_081)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8116,7 +8116,7 @@ TEST(normalization, nfc_033_081)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8138,11 +8138,11 @@ TEST(normalization, nfc_033_082)
     // BCAA;BCAA;1107 1166 11B1;BCAA;1107 1166 11B1; 
     // (벪; 벪; 벪; 벪; 벪; ) HANGUL SYLLABLE BELM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCAA }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCAA }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCAA }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCAA }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCAA }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCAA }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8159,7 +8159,7 @@ TEST(normalization, nfc_033_082)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8173,7 +8173,7 @@ TEST(normalization, nfc_033_082)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8187,7 +8187,7 @@ TEST(normalization, nfc_033_082)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8201,7 +8201,7 @@ TEST(normalization, nfc_033_082)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8215,7 +8215,7 @@ TEST(normalization, nfc_033_082)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8237,11 +8237,11 @@ TEST(normalization, nfc_033_083)
     // BCAB;BCAB;1107 1166 11B2;BCAB;1107 1166 11B2; 
     // (벫; 벫; 벫; 벫; 벫; ) HANGUL SYLLABLE BELB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCAB }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCAB }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCAB }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCAB }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCAB }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCAB }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8258,7 +8258,7 @@ TEST(normalization, nfc_033_083)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8272,7 +8272,7 @@ TEST(normalization, nfc_033_083)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8286,7 +8286,7 @@ TEST(normalization, nfc_033_083)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8300,7 +8300,7 @@ TEST(normalization, nfc_033_083)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8314,7 +8314,7 @@ TEST(normalization, nfc_033_083)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8336,11 +8336,11 @@ TEST(normalization, nfc_033_084)
     // BCAC;BCAC;1107 1166 11B3;BCAC;1107 1166 11B3; 
     // (벬; 벬; 벬; 벬; 벬; ) HANGUL SYLLABLE BELS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCAC }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCAC }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCAC }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCAC }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCAC }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B3 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCAC }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8357,7 +8357,7 @@ TEST(normalization, nfc_033_084)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8371,7 +8371,7 @@ TEST(normalization, nfc_033_084)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8385,7 +8385,7 @@ TEST(normalization, nfc_033_084)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8399,7 +8399,7 @@ TEST(normalization, nfc_033_084)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8413,7 +8413,7 @@ TEST(normalization, nfc_033_084)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8435,11 +8435,11 @@ TEST(normalization, nfc_033_085)
     // BCAD;BCAD;1107 1166 11B4;BCAD;1107 1166 11B4; 
     // (벭; 벭; 벭; 벭; 벭; ) HANGUL SYLLABLE BELT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCAD }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCAD }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCAD }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCAD }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCAD }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B4 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCAD }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8456,7 +8456,7 @@ TEST(normalization, nfc_033_085)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8470,7 +8470,7 @@ TEST(normalization, nfc_033_085)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8484,7 +8484,7 @@ TEST(normalization, nfc_033_085)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8498,7 +8498,7 @@ TEST(normalization, nfc_033_085)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8512,7 +8512,7 @@ TEST(normalization, nfc_033_085)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8534,11 +8534,11 @@ TEST(normalization, nfc_033_086)
     // BCAE;BCAE;1107 1166 11B5;BCAE;1107 1166 11B5; 
     // (벮; 벮; 벮; 벮; 벮; ) HANGUL SYLLABLE BELP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCAE }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCAE }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCAE }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B5 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCAE }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCAE }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B5 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCAE }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B5 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8555,7 +8555,7 @@ TEST(normalization, nfc_033_086)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8569,7 +8569,7 @@ TEST(normalization, nfc_033_086)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8583,7 +8583,7 @@ TEST(normalization, nfc_033_086)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8597,7 +8597,7 @@ TEST(normalization, nfc_033_086)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8611,7 +8611,7 @@ TEST(normalization, nfc_033_086)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8633,11 +8633,11 @@ TEST(normalization, nfc_033_087)
     // BCAF;BCAF;1107 1166 11B6;BCAF;1107 1166 11B6; 
     // (벯; 벯; 벯; 벯; 벯; ) HANGUL SYLLABLE BELH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCAF }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCAF }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCAF }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B6 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCAF }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCAF }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B6 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCAF }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B6 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8654,7 +8654,7 @@ TEST(normalization, nfc_033_087)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8668,7 +8668,7 @@ TEST(normalization, nfc_033_087)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8682,7 +8682,7 @@ TEST(normalization, nfc_033_087)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8696,7 +8696,7 @@ TEST(normalization, nfc_033_087)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8710,7 +8710,7 @@ TEST(normalization, nfc_033_087)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8732,11 +8732,11 @@ TEST(normalization, nfc_033_088)
     // BCB0;BCB0;1107 1166 11B7;BCB0;1107 1166 11B7; 
     // (벰; 벰; 벰; 벰; 벰; ) HANGUL SYLLABLE BEM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCB0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCB0 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCB0 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B7 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCB0 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCB0 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B7 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCB0 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8753,7 +8753,7 @@ TEST(normalization, nfc_033_088)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8767,7 +8767,7 @@ TEST(normalization, nfc_033_088)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8781,7 +8781,7 @@ TEST(normalization, nfc_033_088)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8795,7 +8795,7 @@ TEST(normalization, nfc_033_088)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8809,7 +8809,7 @@ TEST(normalization, nfc_033_088)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8831,11 +8831,11 @@ TEST(normalization, nfc_033_089)
     // BCB1;BCB1;1107 1166 11B8;BCB1;1107 1166 11B8; 
     // (벱; 벱; 벱; 벱; 벱; ) HANGUL SYLLABLE BEB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCB1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCB1 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCB1 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCB1 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCB1 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCB1 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8852,7 +8852,7 @@ TEST(normalization, nfc_033_089)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8866,7 +8866,7 @@ TEST(normalization, nfc_033_089)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8880,7 +8880,7 @@ TEST(normalization, nfc_033_089)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8894,7 +8894,7 @@ TEST(normalization, nfc_033_089)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8908,7 +8908,7 @@ TEST(normalization, nfc_033_089)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -8930,11 +8930,11 @@ TEST(normalization, nfc_033_090)
     // BCB2;BCB2;1107 1166 11B9;BCB2;1107 1166 11B9; 
     // (벲; 벲; 벲; 벲; 벲; ) HANGUL SYLLABLE BEBS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCB2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCB2 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCB2 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCB2 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCB2 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11B9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCB2 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11B9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -8951,7 +8951,7 @@ TEST(normalization, nfc_033_090)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8965,7 +8965,7 @@ TEST(normalization, nfc_033_090)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8979,7 +8979,7 @@ TEST(normalization, nfc_033_090)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -8993,7 +8993,7 @@ TEST(normalization, nfc_033_090)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9007,7 +9007,7 @@ TEST(normalization, nfc_033_090)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9029,11 +9029,11 @@ TEST(normalization, nfc_033_091)
     // BCB3;BCB3;1107 1166 11BA;BCB3;1107 1166 11BA; 
     // (벳; 벳; 벳; 벳; 벳; ) HANGUL SYLLABLE BES
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCB3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCB3 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCB3 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCB3 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCB3 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCB3 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9050,7 +9050,7 @@ TEST(normalization, nfc_033_091)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9064,7 +9064,7 @@ TEST(normalization, nfc_033_091)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9078,7 +9078,7 @@ TEST(normalization, nfc_033_091)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9092,7 +9092,7 @@ TEST(normalization, nfc_033_091)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9106,7 +9106,7 @@ TEST(normalization, nfc_033_091)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9128,11 +9128,11 @@ TEST(normalization, nfc_033_092)
     // BCB4;BCB4;1107 1166 11BB;BCB4;1107 1166 11BB; 
     // (벴; 벴; 벴; 벴; 벴; ) HANGUL SYLLABLE BESS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCB4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCB4 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCB4 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCB4 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCB4 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCB4 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9149,7 +9149,7 @@ TEST(normalization, nfc_033_092)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9163,7 +9163,7 @@ TEST(normalization, nfc_033_092)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9177,7 +9177,7 @@ TEST(normalization, nfc_033_092)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9191,7 +9191,7 @@ TEST(normalization, nfc_033_092)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9205,7 +9205,7 @@ TEST(normalization, nfc_033_092)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9227,11 +9227,11 @@ TEST(normalization, nfc_033_093)
     // BCB5;BCB5;1107 1166 11BC;BCB5;1107 1166 11BC; 
     // (벵; 벵; 벵; 벵; 벵; ) HANGUL SYLLABLE BENG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCB5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCB5 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCB5 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCB5 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCB5 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCB5 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9248,7 +9248,7 @@ TEST(normalization, nfc_033_093)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9262,7 +9262,7 @@ TEST(normalization, nfc_033_093)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9276,7 +9276,7 @@ TEST(normalization, nfc_033_093)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9290,7 +9290,7 @@ TEST(normalization, nfc_033_093)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9304,7 +9304,7 @@ TEST(normalization, nfc_033_093)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9326,11 +9326,11 @@ TEST(normalization, nfc_033_094)
     // BCB6;BCB6;1107 1166 11BD;BCB6;1107 1166 11BD; 
     // (벶; 벶; 벶; 벶; 벶; ) HANGUL SYLLABLE BEJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCB6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCB6 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCB6 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCB6 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCB6 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCB6 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9347,7 +9347,7 @@ TEST(normalization, nfc_033_094)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9361,7 +9361,7 @@ TEST(normalization, nfc_033_094)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9375,7 +9375,7 @@ TEST(normalization, nfc_033_094)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9389,7 +9389,7 @@ TEST(normalization, nfc_033_094)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9403,7 +9403,7 @@ TEST(normalization, nfc_033_094)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9425,11 +9425,11 @@ TEST(normalization, nfc_033_095)
     // BCB7;BCB7;1107 1166 11BE;BCB7;1107 1166 11BE; 
     // (벷; 벷; 벷; 벷; 벷; ) HANGUL SYLLABLE BEC
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCB7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCB7 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCB7 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCB7 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCB7 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCB7 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9446,7 +9446,7 @@ TEST(normalization, nfc_033_095)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9460,7 +9460,7 @@ TEST(normalization, nfc_033_095)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9474,7 +9474,7 @@ TEST(normalization, nfc_033_095)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9488,7 +9488,7 @@ TEST(normalization, nfc_033_095)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9502,7 +9502,7 @@ TEST(normalization, nfc_033_095)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9524,11 +9524,11 @@ TEST(normalization, nfc_033_096)
     // BCB8;BCB8;1107 1166 11BF;BCB8;1107 1166 11BF; 
     // (벸; 벸; 벸; 벸; 벸; ) HANGUL SYLLABLE BEK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCB8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCB8 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCB8 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCB8 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCB8 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11BF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCB8 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11BF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9545,7 +9545,7 @@ TEST(normalization, nfc_033_096)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9559,7 +9559,7 @@ TEST(normalization, nfc_033_096)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9573,7 +9573,7 @@ TEST(normalization, nfc_033_096)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9587,7 +9587,7 @@ TEST(normalization, nfc_033_096)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9601,7 +9601,7 @@ TEST(normalization, nfc_033_096)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9623,11 +9623,11 @@ TEST(normalization, nfc_033_097)
     // BCB9;BCB9;1107 1166 11C0;BCB9;1107 1166 11C0; 
     // (벹; 벹; 벹; 벹; 벹; ) HANGUL SYLLABLE BET
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCB9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCB9 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11C0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCB9 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11C0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCB9 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCB9 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11C0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCB9 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11C0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9644,7 +9644,7 @@ TEST(normalization, nfc_033_097)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9658,7 +9658,7 @@ TEST(normalization, nfc_033_097)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9672,7 +9672,7 @@ TEST(normalization, nfc_033_097)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9686,7 +9686,7 @@ TEST(normalization, nfc_033_097)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9700,7 +9700,7 @@ TEST(normalization, nfc_033_097)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9722,11 +9722,11 @@ TEST(normalization, nfc_033_098)
     // BCBA;BCBA;1107 1166 11C1;BCBA;1107 1166 11C1; 
     // (벺; 벺; 벺; 벺; 벺; ) HANGUL SYLLABLE BEP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCBA }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCBA }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11C1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCBA }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11C1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCBA }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCBA }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11C1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCBA }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11C1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9743,7 +9743,7 @@ TEST(normalization, nfc_033_098)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9757,7 +9757,7 @@ TEST(normalization, nfc_033_098)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9771,7 +9771,7 @@ TEST(normalization, nfc_033_098)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9785,7 +9785,7 @@ TEST(normalization, nfc_033_098)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9799,7 +9799,7 @@ TEST(normalization, nfc_033_098)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9821,11 +9821,11 @@ TEST(normalization, nfc_033_099)
     // BCBB;BCBB;1107 1166 11C2;BCBB;1107 1166 11C2; 
     // (벻; 벻; 벻; 벻; 벻; ) HANGUL SYLLABLE BEH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCBB }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCBB }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11C2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCBB }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11C2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCBB }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCBB }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1166, 0x11C2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCBB }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1166, 0x11C2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9842,7 +9842,7 @@ TEST(normalization, nfc_033_099)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9856,7 +9856,7 @@ TEST(normalization, nfc_033_099)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9870,7 +9870,7 @@ TEST(normalization, nfc_033_099)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9884,7 +9884,7 @@ TEST(normalization, nfc_033_099)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9898,7 +9898,7 @@ TEST(normalization, nfc_033_099)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9920,11 +9920,11 @@ TEST(normalization, nfc_033_100)
     // BCBC;BCBC;1107 1167;BCBC;1107 1167; 
     // (벼; 벼; 벼; 벼; 벼; ) HANGUL SYLLABLE BYEO
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCBC }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCBC }};
-        std::array<uint32_t, 2> const c3 = {{ 0x1107, 0x1167 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCBC }};
-        std::array<uint32_t, 2> const c5 = {{ 0x1107, 0x1167 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCBC }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCBC }};
+        std::array<char32_t, 2> const c3 = {{ 0x1107, 0x1167 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCBC }};
+        std::array<char32_t, 2> const c5 = {{ 0x1107, 0x1167 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -9941,7 +9941,7 @@ TEST(normalization, nfc_033_100)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9955,7 +9955,7 @@ TEST(normalization, nfc_033_100)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9969,7 +9969,7 @@ TEST(normalization, nfc_033_100)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -9983,7 +9983,7 @@ TEST(normalization, nfc_033_100)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -9997,7 +9997,7 @@ TEST(normalization, nfc_033_100)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10019,11 +10019,11 @@ TEST(normalization, nfc_033_101)
     // BCBD;BCBD;1107 1167 11A8;BCBD;1107 1167 11A8; 
     // (벽; 벽; 벽; 벽; 벽; ) HANGUL SYLLABLE BYEOG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCBD }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCBD }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11A8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCBD }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11A8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCBD }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCBD }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11A8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCBD }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11A8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10040,7 +10040,7 @@ TEST(normalization, nfc_033_101)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10054,7 +10054,7 @@ TEST(normalization, nfc_033_101)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10068,7 +10068,7 @@ TEST(normalization, nfc_033_101)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10082,7 +10082,7 @@ TEST(normalization, nfc_033_101)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10096,7 +10096,7 @@ TEST(normalization, nfc_033_101)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10118,11 +10118,11 @@ TEST(normalization, nfc_033_102)
     // BCBE;BCBE;1107 1167 11A9;BCBE;1107 1167 11A9; 
     // (벾; 벾; 벾; 벾; 벾; ) HANGUL SYLLABLE BYEOGG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCBE }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCBE }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11A9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCBE }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11A9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCBE }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCBE }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11A9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCBE }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11A9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10139,7 +10139,7 @@ TEST(normalization, nfc_033_102)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10153,7 +10153,7 @@ TEST(normalization, nfc_033_102)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10167,7 +10167,7 @@ TEST(normalization, nfc_033_102)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10181,7 +10181,7 @@ TEST(normalization, nfc_033_102)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10195,7 +10195,7 @@ TEST(normalization, nfc_033_102)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10217,11 +10217,11 @@ TEST(normalization, nfc_033_103)
     // BCBF;BCBF;1107 1167 11AA;BCBF;1107 1167 11AA; 
     // (벿; 벿; 벿; 벿; 벿; ) HANGUL SYLLABLE BYEOGS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCBF }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCBF }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCBF }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCBF }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCBF }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCBF }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10238,7 +10238,7 @@ TEST(normalization, nfc_033_103)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10252,7 +10252,7 @@ TEST(normalization, nfc_033_103)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10266,7 +10266,7 @@ TEST(normalization, nfc_033_103)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10280,7 +10280,7 @@ TEST(normalization, nfc_033_103)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10294,7 +10294,7 @@ TEST(normalization, nfc_033_103)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10316,11 +10316,11 @@ TEST(normalization, nfc_033_104)
     // BCC0;BCC0;1107 1167 11AB;BCC0;1107 1167 11AB; 
     // (변; 변; 변; 변; 변; ) HANGUL SYLLABLE BYEON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCC0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCC0 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCC0 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCC0 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCC0 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCC0 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10337,7 +10337,7 @@ TEST(normalization, nfc_033_104)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10351,7 +10351,7 @@ TEST(normalization, nfc_033_104)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10365,7 +10365,7 @@ TEST(normalization, nfc_033_104)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10379,7 +10379,7 @@ TEST(normalization, nfc_033_104)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10393,7 +10393,7 @@ TEST(normalization, nfc_033_104)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10415,11 +10415,11 @@ TEST(normalization, nfc_033_105)
     // BCC1;BCC1;1107 1167 11AC;BCC1;1107 1167 11AC; 
     // (볁; 볁; 볁; 볁; 볁; ) HANGUL SYLLABLE BYEONJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCC1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCC1 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCC1 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCC1 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCC1 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCC1 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10436,7 +10436,7 @@ TEST(normalization, nfc_033_105)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10450,7 +10450,7 @@ TEST(normalization, nfc_033_105)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10464,7 +10464,7 @@ TEST(normalization, nfc_033_105)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10478,7 +10478,7 @@ TEST(normalization, nfc_033_105)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10492,7 +10492,7 @@ TEST(normalization, nfc_033_105)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10514,11 +10514,11 @@ TEST(normalization, nfc_033_106)
     // BCC2;BCC2;1107 1167 11AD;BCC2;1107 1167 11AD; 
     // (볂; 볂; 볂; 볂; 볂; ) HANGUL SYLLABLE BYEONH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCC2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCC2 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCC2 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCC2 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCC2 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCC2 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10535,7 +10535,7 @@ TEST(normalization, nfc_033_106)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10549,7 +10549,7 @@ TEST(normalization, nfc_033_106)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10563,7 +10563,7 @@ TEST(normalization, nfc_033_106)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10577,7 +10577,7 @@ TEST(normalization, nfc_033_106)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10591,7 +10591,7 @@ TEST(normalization, nfc_033_106)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10613,11 +10613,11 @@ TEST(normalization, nfc_033_107)
     // BCC3;BCC3;1107 1167 11AE;BCC3;1107 1167 11AE; 
     // (볃; 볃; 볃; 볃; 볃; ) HANGUL SYLLABLE BYEOD
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCC3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCC3 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCC3 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCC3 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCC3 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCC3 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10634,7 +10634,7 @@ TEST(normalization, nfc_033_107)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10648,7 +10648,7 @@ TEST(normalization, nfc_033_107)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10662,7 +10662,7 @@ TEST(normalization, nfc_033_107)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10676,7 +10676,7 @@ TEST(normalization, nfc_033_107)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10690,7 +10690,7 @@ TEST(normalization, nfc_033_107)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10712,11 +10712,11 @@ TEST(normalization, nfc_033_108)
     // BCC4;BCC4;1107 1167 11AF;BCC4;1107 1167 11AF; 
     // (별; 별; 별; 별; 별; ) HANGUL SYLLABLE BYEOL
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCC4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCC4 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCC4 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCC4 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCC4 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11AF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCC4 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11AF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10733,7 +10733,7 @@ TEST(normalization, nfc_033_108)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10747,7 +10747,7 @@ TEST(normalization, nfc_033_108)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10761,7 +10761,7 @@ TEST(normalization, nfc_033_108)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10775,7 +10775,7 @@ TEST(normalization, nfc_033_108)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10789,7 +10789,7 @@ TEST(normalization, nfc_033_108)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10811,11 +10811,11 @@ TEST(normalization, nfc_033_109)
     // BCC5;BCC5;1107 1167 11B0;BCC5;1107 1167 11B0; 
     // (볅; 볅; 볅; 볅; 볅; ) HANGUL SYLLABLE BYEOLG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCC5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCC5 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCC5 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCC5 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCC5 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCC5 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10832,7 +10832,7 @@ TEST(normalization, nfc_033_109)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10846,7 +10846,7 @@ TEST(normalization, nfc_033_109)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10860,7 +10860,7 @@ TEST(normalization, nfc_033_109)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10874,7 +10874,7 @@ TEST(normalization, nfc_033_109)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10888,7 +10888,7 @@ TEST(normalization, nfc_033_109)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10910,11 +10910,11 @@ TEST(normalization, nfc_033_110)
     // BCC6;BCC6;1107 1167 11B1;BCC6;1107 1167 11B1; 
     // (볆; 볆; 볆; 볆; 볆; ) HANGUL SYLLABLE BYEOLM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCC6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCC6 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCC6 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCC6 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCC6 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCC6 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -10931,7 +10931,7 @@ TEST(normalization, nfc_033_110)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10945,7 +10945,7 @@ TEST(normalization, nfc_033_110)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10959,7 +10959,7 @@ TEST(normalization, nfc_033_110)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -10973,7 +10973,7 @@ TEST(normalization, nfc_033_110)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -10987,7 +10987,7 @@ TEST(normalization, nfc_033_110)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11009,11 +11009,11 @@ TEST(normalization, nfc_033_111)
     // BCC7;BCC7;1107 1167 11B2;BCC7;1107 1167 11B2; 
     // (볇; 볇; 볇; 볇; 볇; ) HANGUL SYLLABLE BYEOLB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCC7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCC7 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCC7 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCC7 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCC7 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCC7 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11030,7 +11030,7 @@ TEST(normalization, nfc_033_111)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11044,7 +11044,7 @@ TEST(normalization, nfc_033_111)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11058,7 +11058,7 @@ TEST(normalization, nfc_033_111)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11072,7 +11072,7 @@ TEST(normalization, nfc_033_111)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11086,7 +11086,7 @@ TEST(normalization, nfc_033_111)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11108,11 +11108,11 @@ TEST(normalization, nfc_033_112)
     // BCC8;BCC8;1107 1167 11B3;BCC8;1107 1167 11B3; 
     // (볈; 볈; 볈; 볈; 볈; ) HANGUL SYLLABLE BYEOLS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCC8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCC8 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCC8 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCC8 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCC8 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B3 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCC8 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11129,7 +11129,7 @@ TEST(normalization, nfc_033_112)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11143,7 +11143,7 @@ TEST(normalization, nfc_033_112)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11157,7 +11157,7 @@ TEST(normalization, nfc_033_112)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11171,7 +11171,7 @@ TEST(normalization, nfc_033_112)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11185,7 +11185,7 @@ TEST(normalization, nfc_033_112)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11207,11 +11207,11 @@ TEST(normalization, nfc_033_113)
     // BCC9;BCC9;1107 1167 11B4;BCC9;1107 1167 11B4; 
     // (볉; 볉; 볉; 볉; 볉; ) HANGUL SYLLABLE BYEOLT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCC9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCC9 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCC9 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCC9 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCC9 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B4 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCC9 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11228,7 +11228,7 @@ TEST(normalization, nfc_033_113)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11242,7 +11242,7 @@ TEST(normalization, nfc_033_113)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11256,7 +11256,7 @@ TEST(normalization, nfc_033_113)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11270,7 +11270,7 @@ TEST(normalization, nfc_033_113)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11284,7 +11284,7 @@ TEST(normalization, nfc_033_113)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11306,11 +11306,11 @@ TEST(normalization, nfc_033_114)
     // BCCA;BCCA;1107 1167 11B5;BCCA;1107 1167 11B5; 
     // (볊; 볊; 볊; 볊; 볊; ) HANGUL SYLLABLE BYEOLP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCCA }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCCA }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCCA }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B5 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCCA }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCCA }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B5 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCCA }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B5 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11327,7 +11327,7 @@ TEST(normalization, nfc_033_114)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11341,7 +11341,7 @@ TEST(normalization, nfc_033_114)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11355,7 +11355,7 @@ TEST(normalization, nfc_033_114)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11369,7 +11369,7 @@ TEST(normalization, nfc_033_114)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11383,7 +11383,7 @@ TEST(normalization, nfc_033_114)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11405,11 +11405,11 @@ TEST(normalization, nfc_033_115)
     // BCCB;BCCB;1107 1167 11B6;BCCB;1107 1167 11B6; 
     // (볋; 볋; 볋; 볋; 볋; ) HANGUL SYLLABLE BYEOLH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCCB }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCCB }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCCB }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B6 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCCB }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCCB }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B6 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCCB }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B6 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11426,7 +11426,7 @@ TEST(normalization, nfc_033_115)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11440,7 +11440,7 @@ TEST(normalization, nfc_033_115)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11454,7 +11454,7 @@ TEST(normalization, nfc_033_115)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11468,7 +11468,7 @@ TEST(normalization, nfc_033_115)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11482,7 +11482,7 @@ TEST(normalization, nfc_033_115)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11504,11 +11504,11 @@ TEST(normalization, nfc_033_116)
     // BCCC;BCCC;1107 1167 11B7;BCCC;1107 1167 11B7; 
     // (볌; 볌; 볌; 볌; 볌; ) HANGUL SYLLABLE BYEOM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCCC }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCCC }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCCC }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B7 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCCC }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCCC }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B7 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCCC }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11525,7 +11525,7 @@ TEST(normalization, nfc_033_116)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11539,7 +11539,7 @@ TEST(normalization, nfc_033_116)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11553,7 +11553,7 @@ TEST(normalization, nfc_033_116)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11567,7 +11567,7 @@ TEST(normalization, nfc_033_116)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11581,7 +11581,7 @@ TEST(normalization, nfc_033_116)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11603,11 +11603,11 @@ TEST(normalization, nfc_033_117)
     // BCCD;BCCD;1107 1167 11B8;BCCD;1107 1167 11B8; 
     // (볍; 볍; 볍; 볍; 볍; ) HANGUL SYLLABLE BYEOB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCCD }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCCD }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCCD }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCCD }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCCD }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCCD }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11624,7 +11624,7 @@ TEST(normalization, nfc_033_117)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11638,7 +11638,7 @@ TEST(normalization, nfc_033_117)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11652,7 +11652,7 @@ TEST(normalization, nfc_033_117)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11666,7 +11666,7 @@ TEST(normalization, nfc_033_117)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11680,7 +11680,7 @@ TEST(normalization, nfc_033_117)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11702,11 +11702,11 @@ TEST(normalization, nfc_033_118)
     // BCCE;BCCE;1107 1167 11B9;BCCE;1107 1167 11B9; 
     // (볎; 볎; 볎; 볎; 볎; ) HANGUL SYLLABLE BYEOBS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCCE }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCCE }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCCE }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCCE }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCCE }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11B9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCCE }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11B9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11723,7 +11723,7 @@ TEST(normalization, nfc_033_118)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11737,7 +11737,7 @@ TEST(normalization, nfc_033_118)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11751,7 +11751,7 @@ TEST(normalization, nfc_033_118)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11765,7 +11765,7 @@ TEST(normalization, nfc_033_118)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11779,7 +11779,7 @@ TEST(normalization, nfc_033_118)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11801,11 +11801,11 @@ TEST(normalization, nfc_033_119)
     // BCCF;BCCF;1107 1167 11BA;BCCF;1107 1167 11BA; 
     // (볏; 볏; 볏; 볏; 볏; ) HANGUL SYLLABLE BYEOS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCCF }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCCF }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCCF }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCCF }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCCF }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCCF }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11822,7 +11822,7 @@ TEST(normalization, nfc_033_119)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11836,7 +11836,7 @@ TEST(normalization, nfc_033_119)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11850,7 +11850,7 @@ TEST(normalization, nfc_033_119)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11864,7 +11864,7 @@ TEST(normalization, nfc_033_119)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11878,7 +11878,7 @@ TEST(normalization, nfc_033_119)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11900,11 +11900,11 @@ TEST(normalization, nfc_033_120)
     // BCD0;BCD0;1107 1167 11BB;BCD0;1107 1167 11BB; 
     // (볐; 볐; 볐; 볐; 볐; ) HANGUL SYLLABLE BYEOSS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCD0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCD0 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCD0 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCD0 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCD0 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCD0 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -11921,7 +11921,7 @@ TEST(normalization, nfc_033_120)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11935,7 +11935,7 @@ TEST(normalization, nfc_033_120)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11949,7 +11949,7 @@ TEST(normalization, nfc_033_120)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -11963,7 +11963,7 @@ TEST(normalization, nfc_033_120)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11977,7 +11977,7 @@ TEST(normalization, nfc_033_120)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -11999,11 +11999,11 @@ TEST(normalization, nfc_033_121)
     // BCD1;BCD1;1107 1167 11BC;BCD1;1107 1167 11BC; 
     // (병; 병; 병; 병; 병; ) HANGUL SYLLABLE BYEONG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCD1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCD1 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCD1 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCD1 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCD1 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCD1 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12020,7 +12020,7 @@ TEST(normalization, nfc_033_121)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12034,7 +12034,7 @@ TEST(normalization, nfc_033_121)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12048,7 +12048,7 @@ TEST(normalization, nfc_033_121)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12062,7 +12062,7 @@ TEST(normalization, nfc_033_121)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12076,7 +12076,7 @@ TEST(normalization, nfc_033_121)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12098,11 +12098,11 @@ TEST(normalization, nfc_033_122)
     // BCD2;BCD2;1107 1167 11BD;BCD2;1107 1167 11BD; 
     // (볒; 볒; 볒; 볒; 볒; ) HANGUL SYLLABLE BYEOJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCD2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCD2 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCD2 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCD2 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCD2 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCD2 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12119,7 +12119,7 @@ TEST(normalization, nfc_033_122)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12133,7 +12133,7 @@ TEST(normalization, nfc_033_122)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12147,7 +12147,7 @@ TEST(normalization, nfc_033_122)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12161,7 +12161,7 @@ TEST(normalization, nfc_033_122)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12175,7 +12175,7 @@ TEST(normalization, nfc_033_122)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12197,11 +12197,11 @@ TEST(normalization, nfc_033_123)
     // BCD3;BCD3;1107 1167 11BE;BCD3;1107 1167 11BE; 
     // (볓; 볓; 볓; 볓; 볓; ) HANGUL SYLLABLE BYEOC
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCD3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCD3 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCD3 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCD3 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCD3 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCD3 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12218,7 +12218,7 @@ TEST(normalization, nfc_033_123)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12232,7 +12232,7 @@ TEST(normalization, nfc_033_123)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12246,7 +12246,7 @@ TEST(normalization, nfc_033_123)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12260,7 +12260,7 @@ TEST(normalization, nfc_033_123)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12274,7 +12274,7 @@ TEST(normalization, nfc_033_123)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12296,11 +12296,11 @@ TEST(normalization, nfc_033_124)
     // BCD4;BCD4;1107 1167 11BF;BCD4;1107 1167 11BF; 
     // (볔; 볔; 볔; 볔; 볔; ) HANGUL SYLLABLE BYEOK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCD4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCD4 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCD4 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCD4 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCD4 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11BF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCD4 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11BF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12317,7 +12317,7 @@ TEST(normalization, nfc_033_124)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12331,7 +12331,7 @@ TEST(normalization, nfc_033_124)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12345,7 +12345,7 @@ TEST(normalization, nfc_033_124)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12359,7 +12359,7 @@ TEST(normalization, nfc_033_124)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12373,7 +12373,7 @@ TEST(normalization, nfc_033_124)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12395,11 +12395,11 @@ TEST(normalization, nfc_033_125)
     // BCD5;BCD5;1107 1167 11C0;BCD5;1107 1167 11C0; 
     // (볕; 볕; 볕; 볕; 볕; ) HANGUL SYLLABLE BYEOT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCD5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCD5 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11C0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCD5 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11C0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCD5 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCD5 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11C0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCD5 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11C0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12416,7 +12416,7 @@ TEST(normalization, nfc_033_125)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12430,7 +12430,7 @@ TEST(normalization, nfc_033_125)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12444,7 +12444,7 @@ TEST(normalization, nfc_033_125)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12458,7 +12458,7 @@ TEST(normalization, nfc_033_125)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12472,7 +12472,7 @@ TEST(normalization, nfc_033_125)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12494,11 +12494,11 @@ TEST(normalization, nfc_033_126)
     // BCD6;BCD6;1107 1167 11C1;BCD6;1107 1167 11C1; 
     // (볖; 볖; 볖; 볖; 볖; ) HANGUL SYLLABLE BYEOP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCD6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCD6 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11C1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCD6 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11C1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCD6 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCD6 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11C1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCD6 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11C1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12515,7 +12515,7 @@ TEST(normalization, nfc_033_126)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12529,7 +12529,7 @@ TEST(normalization, nfc_033_126)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12543,7 +12543,7 @@ TEST(normalization, nfc_033_126)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12557,7 +12557,7 @@ TEST(normalization, nfc_033_126)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12571,7 +12571,7 @@ TEST(normalization, nfc_033_126)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12593,11 +12593,11 @@ TEST(normalization, nfc_033_127)
     // BCD7;BCD7;1107 1167 11C2;BCD7;1107 1167 11C2; 
     // (볗; 볗; 볗; 볗; 볗; ) HANGUL SYLLABLE BYEOH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCD7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCD7 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11C2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCD7 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11C2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCD7 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCD7 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1167, 0x11C2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCD7 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1167, 0x11C2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12614,7 +12614,7 @@ TEST(normalization, nfc_033_127)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12628,7 +12628,7 @@ TEST(normalization, nfc_033_127)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12642,7 +12642,7 @@ TEST(normalization, nfc_033_127)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12656,7 +12656,7 @@ TEST(normalization, nfc_033_127)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12670,7 +12670,7 @@ TEST(normalization, nfc_033_127)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12692,11 +12692,11 @@ TEST(normalization, nfc_033_128)
     // BCD8;BCD8;1107 1168;BCD8;1107 1168; 
     // (볘; 볘; 볘; 볘; 볘; ) HANGUL SYLLABLE BYE
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCD8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCD8 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x1107, 0x1168 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCD8 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x1107, 0x1168 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCD8 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCD8 }};
+        std::array<char32_t, 2> const c3 = {{ 0x1107, 0x1168 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCD8 }};
+        std::array<char32_t, 2> const c5 = {{ 0x1107, 0x1168 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12713,7 +12713,7 @@ TEST(normalization, nfc_033_128)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12727,7 +12727,7 @@ TEST(normalization, nfc_033_128)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12741,7 +12741,7 @@ TEST(normalization, nfc_033_128)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12755,7 +12755,7 @@ TEST(normalization, nfc_033_128)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12769,7 +12769,7 @@ TEST(normalization, nfc_033_128)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12791,11 +12791,11 @@ TEST(normalization, nfc_033_129)
     // BCD9;BCD9;1107 1168 11A8;BCD9;1107 1168 11A8; 
     // (볙; 볙; 볙; 볙; 볙; ) HANGUL SYLLABLE BYEG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCD9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCD9 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11A8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCD9 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11A8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCD9 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCD9 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11A8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCD9 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11A8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12812,7 +12812,7 @@ TEST(normalization, nfc_033_129)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12826,7 +12826,7 @@ TEST(normalization, nfc_033_129)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12840,7 +12840,7 @@ TEST(normalization, nfc_033_129)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12854,7 +12854,7 @@ TEST(normalization, nfc_033_129)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12868,7 +12868,7 @@ TEST(normalization, nfc_033_129)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12890,11 +12890,11 @@ TEST(normalization, nfc_033_130)
     // BCDA;BCDA;1107 1168 11A9;BCDA;1107 1168 11A9; 
     // (볚; 볚; 볚; 볚; 볚; ) HANGUL SYLLABLE BYEGG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCDA }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCDA }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11A9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCDA }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11A9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCDA }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCDA }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11A9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCDA }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11A9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -12911,7 +12911,7 @@ TEST(normalization, nfc_033_130)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12925,7 +12925,7 @@ TEST(normalization, nfc_033_130)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12939,7 +12939,7 @@ TEST(normalization, nfc_033_130)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -12953,7 +12953,7 @@ TEST(normalization, nfc_033_130)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12967,7 +12967,7 @@ TEST(normalization, nfc_033_130)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -12989,11 +12989,11 @@ TEST(normalization, nfc_033_131)
     // BCDB;BCDB;1107 1168 11AA;BCDB;1107 1168 11AA; 
     // (볛; 볛; 볛; 볛; 볛; ) HANGUL SYLLABLE BYEGS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCDB }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCDB }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCDB }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCDB }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCDB }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCDB }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13010,7 +13010,7 @@ TEST(normalization, nfc_033_131)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13024,7 +13024,7 @@ TEST(normalization, nfc_033_131)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13038,7 +13038,7 @@ TEST(normalization, nfc_033_131)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13052,7 +13052,7 @@ TEST(normalization, nfc_033_131)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13066,7 +13066,7 @@ TEST(normalization, nfc_033_131)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13088,11 +13088,11 @@ TEST(normalization, nfc_033_132)
     // BCDC;BCDC;1107 1168 11AB;BCDC;1107 1168 11AB; 
     // (볜; 볜; 볜; 볜; 볜; ) HANGUL SYLLABLE BYEN
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCDC }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCDC }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCDC }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCDC }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCDC }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCDC }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13109,7 +13109,7 @@ TEST(normalization, nfc_033_132)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13123,7 +13123,7 @@ TEST(normalization, nfc_033_132)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13137,7 +13137,7 @@ TEST(normalization, nfc_033_132)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13151,7 +13151,7 @@ TEST(normalization, nfc_033_132)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13165,7 +13165,7 @@ TEST(normalization, nfc_033_132)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13187,11 +13187,11 @@ TEST(normalization, nfc_033_133)
     // BCDD;BCDD;1107 1168 11AC;BCDD;1107 1168 11AC; 
     // (볝; 볝; 볝; 볝; 볝; ) HANGUL SYLLABLE BYENJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCDD }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCDD }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCDD }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCDD }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCDD }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCDD }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13208,7 +13208,7 @@ TEST(normalization, nfc_033_133)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13222,7 +13222,7 @@ TEST(normalization, nfc_033_133)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13236,7 +13236,7 @@ TEST(normalization, nfc_033_133)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13250,7 +13250,7 @@ TEST(normalization, nfc_033_133)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13264,7 +13264,7 @@ TEST(normalization, nfc_033_133)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13286,11 +13286,11 @@ TEST(normalization, nfc_033_134)
     // BCDE;BCDE;1107 1168 11AD;BCDE;1107 1168 11AD; 
     // (볞; 볞; 볞; 볞; 볞; ) HANGUL SYLLABLE BYENH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCDE }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCDE }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCDE }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCDE }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCDE }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCDE }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13307,7 +13307,7 @@ TEST(normalization, nfc_033_134)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13321,7 +13321,7 @@ TEST(normalization, nfc_033_134)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13335,7 +13335,7 @@ TEST(normalization, nfc_033_134)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13349,7 +13349,7 @@ TEST(normalization, nfc_033_134)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13363,7 +13363,7 @@ TEST(normalization, nfc_033_134)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13385,11 +13385,11 @@ TEST(normalization, nfc_033_135)
     // BCDF;BCDF;1107 1168 11AE;BCDF;1107 1168 11AE; 
     // (볟; 볟; 볟; 볟; 볟; ) HANGUL SYLLABLE BYED
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCDF }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCDF }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCDF }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCDF }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCDF }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCDF }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13406,7 +13406,7 @@ TEST(normalization, nfc_033_135)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13420,7 +13420,7 @@ TEST(normalization, nfc_033_135)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13434,7 +13434,7 @@ TEST(normalization, nfc_033_135)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13448,7 +13448,7 @@ TEST(normalization, nfc_033_135)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13462,7 +13462,7 @@ TEST(normalization, nfc_033_135)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13484,11 +13484,11 @@ TEST(normalization, nfc_033_136)
     // BCE0;BCE0;1107 1168 11AF;BCE0;1107 1168 11AF; 
     // (볠; 볠; 볠; 볠; 볠; ) HANGUL SYLLABLE BYEL
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCE0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCE0 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCE0 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCE0 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCE0 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11AF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCE0 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11AF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13505,7 +13505,7 @@ TEST(normalization, nfc_033_136)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13519,7 +13519,7 @@ TEST(normalization, nfc_033_136)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13533,7 +13533,7 @@ TEST(normalization, nfc_033_136)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13547,7 +13547,7 @@ TEST(normalization, nfc_033_136)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13561,7 +13561,7 @@ TEST(normalization, nfc_033_136)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13583,11 +13583,11 @@ TEST(normalization, nfc_033_137)
     // BCE1;BCE1;1107 1168 11B0;BCE1;1107 1168 11B0; 
     // (볡; 볡; 볡; 볡; 볡; ) HANGUL SYLLABLE BYELG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCE1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCE1 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCE1 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCE1 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCE1 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCE1 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13604,7 +13604,7 @@ TEST(normalization, nfc_033_137)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13618,7 +13618,7 @@ TEST(normalization, nfc_033_137)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13632,7 +13632,7 @@ TEST(normalization, nfc_033_137)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13646,7 +13646,7 @@ TEST(normalization, nfc_033_137)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13660,7 +13660,7 @@ TEST(normalization, nfc_033_137)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13682,11 +13682,11 @@ TEST(normalization, nfc_033_138)
     // BCE2;BCE2;1107 1168 11B1;BCE2;1107 1168 11B1; 
     // (볢; 볢; 볢; 볢; 볢; ) HANGUL SYLLABLE BYELM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCE2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCE2 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCE2 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCE2 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCE2 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCE2 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13703,7 +13703,7 @@ TEST(normalization, nfc_033_138)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13717,7 +13717,7 @@ TEST(normalization, nfc_033_138)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13731,7 +13731,7 @@ TEST(normalization, nfc_033_138)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13745,7 +13745,7 @@ TEST(normalization, nfc_033_138)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13759,7 +13759,7 @@ TEST(normalization, nfc_033_138)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13781,11 +13781,11 @@ TEST(normalization, nfc_033_139)
     // BCE3;BCE3;1107 1168 11B2;BCE3;1107 1168 11B2; 
     // (볣; 볣; 볣; 볣; 볣; ) HANGUL SYLLABLE BYELB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCE3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCE3 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCE3 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCE3 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCE3 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCE3 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13802,7 +13802,7 @@ TEST(normalization, nfc_033_139)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13816,7 +13816,7 @@ TEST(normalization, nfc_033_139)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13830,7 +13830,7 @@ TEST(normalization, nfc_033_139)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13844,7 +13844,7 @@ TEST(normalization, nfc_033_139)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13858,7 +13858,7 @@ TEST(normalization, nfc_033_139)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13880,11 +13880,11 @@ TEST(normalization, nfc_033_140)
     // BCE4;BCE4;1107 1168 11B3;BCE4;1107 1168 11B3; 
     // (볤; 볤; 볤; 볤; 볤; ) HANGUL SYLLABLE BYELS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCE4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCE4 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCE4 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCE4 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCE4 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B3 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCE4 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -13901,7 +13901,7 @@ TEST(normalization, nfc_033_140)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13915,7 +13915,7 @@ TEST(normalization, nfc_033_140)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13929,7 +13929,7 @@ TEST(normalization, nfc_033_140)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -13943,7 +13943,7 @@ TEST(normalization, nfc_033_140)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13957,7 +13957,7 @@ TEST(normalization, nfc_033_140)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -13979,11 +13979,11 @@ TEST(normalization, nfc_033_141)
     // BCE5;BCE5;1107 1168 11B4;BCE5;1107 1168 11B4; 
     // (볥; 볥; 볥; 볥; 볥; ) HANGUL SYLLABLE BYELT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCE5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCE5 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCE5 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCE5 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCE5 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B4 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCE5 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14000,7 +14000,7 @@ TEST(normalization, nfc_033_141)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14014,7 +14014,7 @@ TEST(normalization, nfc_033_141)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14028,7 +14028,7 @@ TEST(normalization, nfc_033_141)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14042,7 +14042,7 @@ TEST(normalization, nfc_033_141)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14056,7 +14056,7 @@ TEST(normalization, nfc_033_141)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14078,11 +14078,11 @@ TEST(normalization, nfc_033_142)
     // BCE6;BCE6;1107 1168 11B5;BCE6;1107 1168 11B5; 
     // (볦; 볦; 볦; 볦; 볦; ) HANGUL SYLLABLE BYELP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCE6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCE6 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCE6 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B5 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCE6 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCE6 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B5 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCE6 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B5 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14099,7 +14099,7 @@ TEST(normalization, nfc_033_142)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14113,7 +14113,7 @@ TEST(normalization, nfc_033_142)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14127,7 +14127,7 @@ TEST(normalization, nfc_033_142)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14141,7 +14141,7 @@ TEST(normalization, nfc_033_142)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14155,7 +14155,7 @@ TEST(normalization, nfc_033_142)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14177,11 +14177,11 @@ TEST(normalization, nfc_033_143)
     // BCE7;BCE7;1107 1168 11B6;BCE7;1107 1168 11B6; 
     // (볧; 볧; 볧; 볧; 볧; ) HANGUL SYLLABLE BYELH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCE7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCE7 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCE7 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B6 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCE7 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCE7 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B6 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCE7 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B6 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14198,7 +14198,7 @@ TEST(normalization, nfc_033_143)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14212,7 +14212,7 @@ TEST(normalization, nfc_033_143)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14226,7 +14226,7 @@ TEST(normalization, nfc_033_143)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14240,7 +14240,7 @@ TEST(normalization, nfc_033_143)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14254,7 +14254,7 @@ TEST(normalization, nfc_033_143)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14276,11 +14276,11 @@ TEST(normalization, nfc_033_144)
     // BCE8;BCE8;1107 1168 11B7;BCE8;1107 1168 11B7; 
     // (볨; 볨; 볨; 볨; 볨; ) HANGUL SYLLABLE BYEM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCE8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCE8 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCE8 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B7 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCE8 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCE8 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B7 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCE8 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14297,7 +14297,7 @@ TEST(normalization, nfc_033_144)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14311,7 +14311,7 @@ TEST(normalization, nfc_033_144)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14325,7 +14325,7 @@ TEST(normalization, nfc_033_144)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14339,7 +14339,7 @@ TEST(normalization, nfc_033_144)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14353,7 +14353,7 @@ TEST(normalization, nfc_033_144)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14375,11 +14375,11 @@ TEST(normalization, nfc_033_145)
     // BCE9;BCE9;1107 1168 11B8;BCE9;1107 1168 11B8; 
     // (볩; 볩; 볩; 볩; 볩; ) HANGUL SYLLABLE BYEB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCE9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCE9 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCE9 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCE9 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCE9 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCE9 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14396,7 +14396,7 @@ TEST(normalization, nfc_033_145)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14410,7 +14410,7 @@ TEST(normalization, nfc_033_145)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14424,7 +14424,7 @@ TEST(normalization, nfc_033_145)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14438,7 +14438,7 @@ TEST(normalization, nfc_033_145)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14452,7 +14452,7 @@ TEST(normalization, nfc_033_145)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14474,11 +14474,11 @@ TEST(normalization, nfc_033_146)
     // BCEA;BCEA;1107 1168 11B9;BCEA;1107 1168 11B9; 
     // (볪; 볪; 볪; 볪; 볪; ) HANGUL SYLLABLE BYEBS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCEA }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCEA }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCEA }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCEA }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCEA }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11B9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCEA }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11B9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14495,7 +14495,7 @@ TEST(normalization, nfc_033_146)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14509,7 +14509,7 @@ TEST(normalization, nfc_033_146)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14523,7 +14523,7 @@ TEST(normalization, nfc_033_146)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14537,7 +14537,7 @@ TEST(normalization, nfc_033_146)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14551,7 +14551,7 @@ TEST(normalization, nfc_033_146)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14573,11 +14573,11 @@ TEST(normalization, nfc_033_147)
     // BCEB;BCEB;1107 1168 11BA;BCEB;1107 1168 11BA; 
     // (볫; 볫; 볫; 볫; 볫; ) HANGUL SYLLABLE BYES
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCEB }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCEB }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCEB }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCEB }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCEB }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCEB }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14594,7 +14594,7 @@ TEST(normalization, nfc_033_147)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14608,7 +14608,7 @@ TEST(normalization, nfc_033_147)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14622,7 +14622,7 @@ TEST(normalization, nfc_033_147)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14636,7 +14636,7 @@ TEST(normalization, nfc_033_147)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14650,7 +14650,7 @@ TEST(normalization, nfc_033_147)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14672,11 +14672,11 @@ TEST(normalization, nfc_033_148)
     // BCEC;BCEC;1107 1168 11BB;BCEC;1107 1168 11BB; 
     // (볬; 볬; 볬; 볬; 볬; ) HANGUL SYLLABLE BYESS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCEC }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCEC }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCEC }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCEC }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCEC }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCEC }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14693,7 +14693,7 @@ TEST(normalization, nfc_033_148)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14707,7 +14707,7 @@ TEST(normalization, nfc_033_148)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14721,7 +14721,7 @@ TEST(normalization, nfc_033_148)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14735,7 +14735,7 @@ TEST(normalization, nfc_033_148)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14749,7 +14749,7 @@ TEST(normalization, nfc_033_148)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14771,11 +14771,11 @@ TEST(normalization, nfc_033_149)
     // BCED;BCED;1107 1168 11BC;BCED;1107 1168 11BC; 
     // (볭; 볭; 볭; 볭; 볭; ) HANGUL SYLLABLE BYENG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCED }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCED }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCED }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCED }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCED }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCED }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14792,7 +14792,7 @@ TEST(normalization, nfc_033_149)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14806,7 +14806,7 @@ TEST(normalization, nfc_033_149)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14820,7 +14820,7 @@ TEST(normalization, nfc_033_149)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14834,7 +14834,7 @@ TEST(normalization, nfc_033_149)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14848,7 +14848,7 @@ TEST(normalization, nfc_033_149)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14870,11 +14870,11 @@ TEST(normalization, nfc_033_150)
     // BCEE;BCEE;1107 1168 11BD;BCEE;1107 1168 11BD; 
     // (볮; 볮; 볮; 볮; 볮; ) HANGUL SYLLABLE BYEJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCEE }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCEE }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCEE }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCEE }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCEE }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCEE }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14891,7 +14891,7 @@ TEST(normalization, nfc_033_150)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14905,7 +14905,7 @@ TEST(normalization, nfc_033_150)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14919,7 +14919,7 @@ TEST(normalization, nfc_033_150)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -14933,7 +14933,7 @@ TEST(normalization, nfc_033_150)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14947,7 +14947,7 @@ TEST(normalization, nfc_033_150)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -14969,11 +14969,11 @@ TEST(normalization, nfc_033_151)
     // BCEF;BCEF;1107 1168 11BE;BCEF;1107 1168 11BE; 
     // (볯; 볯; 볯; 볯; 볯; ) HANGUL SYLLABLE BYEC
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCEF }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCEF }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCEF }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCEF }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCEF }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCEF }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -14990,7 +14990,7 @@ TEST(normalization, nfc_033_151)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15004,7 +15004,7 @@ TEST(normalization, nfc_033_151)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15018,7 +15018,7 @@ TEST(normalization, nfc_033_151)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15032,7 +15032,7 @@ TEST(normalization, nfc_033_151)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15046,7 +15046,7 @@ TEST(normalization, nfc_033_151)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15068,11 +15068,11 @@ TEST(normalization, nfc_033_152)
     // BCF0;BCF0;1107 1168 11BF;BCF0;1107 1168 11BF; 
     // (볰; 볰; 볰; 볰; 볰; ) HANGUL SYLLABLE BYEK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCF0 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCF0 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCF0 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCF0 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCF0 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11BF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCF0 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11BF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -15089,7 +15089,7 @@ TEST(normalization, nfc_033_152)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15103,7 +15103,7 @@ TEST(normalization, nfc_033_152)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15117,7 +15117,7 @@ TEST(normalization, nfc_033_152)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15131,7 +15131,7 @@ TEST(normalization, nfc_033_152)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15145,7 +15145,7 @@ TEST(normalization, nfc_033_152)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15167,11 +15167,11 @@ TEST(normalization, nfc_033_153)
     // BCF1;BCF1;1107 1168 11C0;BCF1;1107 1168 11C0; 
     // (볱; 볱; 볱; 볱; 볱; ) HANGUL SYLLABLE BYET
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCF1 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCF1 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11C0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCF1 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11C0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCF1 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCF1 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11C0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCF1 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11C0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -15188,7 +15188,7 @@ TEST(normalization, nfc_033_153)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15202,7 +15202,7 @@ TEST(normalization, nfc_033_153)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15216,7 +15216,7 @@ TEST(normalization, nfc_033_153)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15230,7 +15230,7 @@ TEST(normalization, nfc_033_153)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15244,7 +15244,7 @@ TEST(normalization, nfc_033_153)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15266,11 +15266,11 @@ TEST(normalization, nfc_033_154)
     // BCF2;BCF2;1107 1168 11C1;BCF2;1107 1168 11C1; 
     // (볲; 볲; 볲; 볲; 볲; ) HANGUL SYLLABLE BYEP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCF2 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCF2 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11C1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCF2 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11C1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCF2 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCF2 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11C1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCF2 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11C1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -15287,7 +15287,7 @@ TEST(normalization, nfc_033_154)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15301,7 +15301,7 @@ TEST(normalization, nfc_033_154)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15315,7 +15315,7 @@ TEST(normalization, nfc_033_154)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15329,7 +15329,7 @@ TEST(normalization, nfc_033_154)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15343,7 +15343,7 @@ TEST(normalization, nfc_033_154)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15365,11 +15365,11 @@ TEST(normalization, nfc_033_155)
     // BCF3;BCF3;1107 1168 11C2;BCF3;1107 1168 11C2; 
     // (볳; 볳; 볳; 볳; 볳; ) HANGUL SYLLABLE BYEH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCF3 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCF3 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11C2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCF3 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11C2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCF3 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCF3 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1168, 0x11C2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCF3 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1168, 0x11C2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -15386,7 +15386,7 @@ TEST(normalization, nfc_033_155)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15400,7 +15400,7 @@ TEST(normalization, nfc_033_155)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15414,7 +15414,7 @@ TEST(normalization, nfc_033_155)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15428,7 +15428,7 @@ TEST(normalization, nfc_033_155)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15442,7 +15442,7 @@ TEST(normalization, nfc_033_155)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15464,11 +15464,11 @@ TEST(normalization, nfc_033_156)
     // BCF4;BCF4;1107 1169;BCF4;1107 1169; 
     // (보; 보; 보; 보; 보; ) HANGUL SYLLABLE BO
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCF4 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCF4 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x1107, 0x1169 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCF4 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x1107, 0x1169 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCF4 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCF4 }};
+        std::array<char32_t, 2> const c3 = {{ 0x1107, 0x1169 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCF4 }};
+        std::array<char32_t, 2> const c5 = {{ 0x1107, 0x1169 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -15485,7 +15485,7 @@ TEST(normalization, nfc_033_156)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15499,7 +15499,7 @@ TEST(normalization, nfc_033_156)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15513,7 +15513,7 @@ TEST(normalization, nfc_033_156)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15527,7 +15527,7 @@ TEST(normalization, nfc_033_156)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15541,7 +15541,7 @@ TEST(normalization, nfc_033_156)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15563,11 +15563,11 @@ TEST(normalization, nfc_033_157)
     // BCF5;BCF5;1107 1169 11A8;BCF5;1107 1169 11A8; 
     // (복; 복; 복; 복; 복; ) HANGUL SYLLABLE BOG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCF5 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCF5 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11A8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCF5 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11A8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCF5 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCF5 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11A8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCF5 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11A8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -15584,7 +15584,7 @@ TEST(normalization, nfc_033_157)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15598,7 +15598,7 @@ TEST(normalization, nfc_033_157)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15612,7 +15612,7 @@ TEST(normalization, nfc_033_157)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15626,7 +15626,7 @@ TEST(normalization, nfc_033_157)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15640,7 +15640,7 @@ TEST(normalization, nfc_033_157)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15662,11 +15662,11 @@ TEST(normalization, nfc_033_158)
     // BCF6;BCF6;1107 1169 11A9;BCF6;1107 1169 11A9; 
     // (볶; 볶; 볶; 볶; 볶; ) HANGUL SYLLABLE BOGG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCF6 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCF6 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11A9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCF6 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11A9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCF6 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCF6 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11A9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCF6 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11A9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -15683,7 +15683,7 @@ TEST(normalization, nfc_033_158)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15697,7 +15697,7 @@ TEST(normalization, nfc_033_158)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15711,7 +15711,7 @@ TEST(normalization, nfc_033_158)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15725,7 +15725,7 @@ TEST(normalization, nfc_033_158)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15739,7 +15739,7 @@ TEST(normalization, nfc_033_158)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15761,11 +15761,11 @@ TEST(normalization, nfc_033_159)
     // BCF7;BCF7;1107 1169 11AA;BCF7;1107 1169 11AA; 
     // (볷; 볷; 볷; 볷; 볷; ) HANGUL SYLLABLE BOGS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCF7 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCF7 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCF7 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCF7 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCF7 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCF7 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -15782,7 +15782,7 @@ TEST(normalization, nfc_033_159)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15796,7 +15796,7 @@ TEST(normalization, nfc_033_159)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15810,7 +15810,7 @@ TEST(normalization, nfc_033_159)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15824,7 +15824,7 @@ TEST(normalization, nfc_033_159)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15838,7 +15838,7 @@ TEST(normalization, nfc_033_159)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15860,11 +15860,11 @@ TEST(normalization, nfc_033_160)
     // BCF8;BCF8;1107 1169 11AB;BCF8;1107 1169 11AB; 
     // (본; 본; 본; 본; 본; ) HANGUL SYLLABLE BON
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCF8 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCF8 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCF8 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCF8 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCF8 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCF8 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -15881,7 +15881,7 @@ TEST(normalization, nfc_033_160)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15895,7 +15895,7 @@ TEST(normalization, nfc_033_160)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15909,7 +15909,7 @@ TEST(normalization, nfc_033_160)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15923,7 +15923,7 @@ TEST(normalization, nfc_033_160)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15937,7 +15937,7 @@ TEST(normalization, nfc_033_160)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -15959,11 +15959,11 @@ TEST(normalization, nfc_033_161)
     // BCF9;BCF9;1107 1169 11AC;BCF9;1107 1169 11AC; 
     // (볹; 볹; 볹; 볹; 볹; ) HANGUL SYLLABLE BONJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCF9 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCF9 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCF9 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCF9 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCF9 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCF9 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -15980,7 +15980,7 @@ TEST(normalization, nfc_033_161)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -15994,7 +15994,7 @@ TEST(normalization, nfc_033_161)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16008,7 +16008,7 @@ TEST(normalization, nfc_033_161)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16022,7 +16022,7 @@ TEST(normalization, nfc_033_161)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16036,7 +16036,7 @@ TEST(normalization, nfc_033_161)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16058,11 +16058,11 @@ TEST(normalization, nfc_033_162)
     // BCFA;BCFA;1107 1169 11AD;BCFA;1107 1169 11AD; 
     // (볺; 볺; 볺; 볺; 볺; ) HANGUL SYLLABLE BONH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCFA }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCFA }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCFA }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCFA }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCFA }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCFA }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -16079,7 +16079,7 @@ TEST(normalization, nfc_033_162)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16093,7 +16093,7 @@ TEST(normalization, nfc_033_162)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16107,7 +16107,7 @@ TEST(normalization, nfc_033_162)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16121,7 +16121,7 @@ TEST(normalization, nfc_033_162)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16135,7 +16135,7 @@ TEST(normalization, nfc_033_162)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16157,11 +16157,11 @@ TEST(normalization, nfc_033_163)
     // BCFB;BCFB;1107 1169 11AE;BCFB;1107 1169 11AE; 
     // (볻; 볻; 볻; 볻; 볻; ) HANGUL SYLLABLE BOD
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCFB }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCFB }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCFB }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCFB }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCFB }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCFB }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -16178,7 +16178,7 @@ TEST(normalization, nfc_033_163)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16192,7 +16192,7 @@ TEST(normalization, nfc_033_163)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16206,7 +16206,7 @@ TEST(normalization, nfc_033_163)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16220,7 +16220,7 @@ TEST(normalization, nfc_033_163)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16234,7 +16234,7 @@ TEST(normalization, nfc_033_163)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16256,11 +16256,11 @@ TEST(normalization, nfc_033_164)
     // BCFC;BCFC;1107 1169 11AF;BCFC;1107 1169 11AF; 
     // (볼; 볼; 볼; 볼; 볼; ) HANGUL SYLLABLE BOL
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCFC }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCFC }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCFC }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCFC }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCFC }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11AF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCFC }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11AF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -16277,7 +16277,7 @@ TEST(normalization, nfc_033_164)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16291,7 +16291,7 @@ TEST(normalization, nfc_033_164)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16305,7 +16305,7 @@ TEST(normalization, nfc_033_164)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16319,7 +16319,7 @@ TEST(normalization, nfc_033_164)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16333,7 +16333,7 @@ TEST(normalization, nfc_033_164)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16355,11 +16355,11 @@ TEST(normalization, nfc_033_165)
     // BCFD;BCFD;1107 1169 11B0;BCFD;1107 1169 11B0; 
     // (볽; 볽; 볽; 볽; 볽; ) HANGUL SYLLABLE BOLG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCFD }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCFD }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCFD }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCFD }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCFD }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCFD }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -16376,7 +16376,7 @@ TEST(normalization, nfc_033_165)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16390,7 +16390,7 @@ TEST(normalization, nfc_033_165)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16404,7 +16404,7 @@ TEST(normalization, nfc_033_165)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16418,7 +16418,7 @@ TEST(normalization, nfc_033_165)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16432,7 +16432,7 @@ TEST(normalization, nfc_033_165)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16454,11 +16454,11 @@ TEST(normalization, nfc_033_166)
     // BCFE;BCFE;1107 1169 11B1;BCFE;1107 1169 11B1; 
     // (볾; 볾; 볾; 볾; 볾; ) HANGUL SYLLABLE BOLM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCFE }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCFE }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCFE }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCFE }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCFE }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCFE }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -16475,7 +16475,7 @@ TEST(normalization, nfc_033_166)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16489,7 +16489,7 @@ TEST(normalization, nfc_033_166)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16503,7 +16503,7 @@ TEST(normalization, nfc_033_166)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16517,7 +16517,7 @@ TEST(normalization, nfc_033_166)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16531,7 +16531,7 @@ TEST(normalization, nfc_033_166)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16553,11 +16553,11 @@ TEST(normalization, nfc_033_167)
     // BCFF;BCFF;1107 1169 11B2;BCFF;1107 1169 11B2; 
     // (볿; 볿; 볿; 볿; 볿; ) HANGUL SYLLABLE BOLB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBCFF }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBCFF }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBCFF }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBCFF }};
+        std::array<char32_t, 1> const c2 = {{ 0xBCFF }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBCFF }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -16574,7 +16574,7 @@ TEST(normalization, nfc_033_167)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16588,7 +16588,7 @@ TEST(normalization, nfc_033_167)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16602,7 +16602,7 @@ TEST(normalization, nfc_033_167)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16616,7 +16616,7 @@ TEST(normalization, nfc_033_167)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16630,7 +16630,7 @@ TEST(normalization, nfc_033_167)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16652,11 +16652,11 @@ TEST(normalization, nfc_033_168)
     // BD00;BD00;1107 1169 11B3;BD00;1107 1169 11B3; 
     // (봀; 봀; 봀; 봀; 봀; ) HANGUL SYLLABLE BOLS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD00 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD00 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD00 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD00 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD00 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B3 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD00 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -16673,7 +16673,7 @@ TEST(normalization, nfc_033_168)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16687,7 +16687,7 @@ TEST(normalization, nfc_033_168)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16701,7 +16701,7 @@ TEST(normalization, nfc_033_168)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16715,7 +16715,7 @@ TEST(normalization, nfc_033_168)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16729,7 +16729,7 @@ TEST(normalization, nfc_033_168)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16751,11 +16751,11 @@ TEST(normalization, nfc_033_169)
     // BD01;BD01;1107 1169 11B4;BD01;1107 1169 11B4; 
     // (봁; 봁; 봁; 봁; 봁; ) HANGUL SYLLABLE BOLT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD01 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD01 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD01 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD01 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD01 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B4 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD01 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -16772,7 +16772,7 @@ TEST(normalization, nfc_033_169)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16786,7 +16786,7 @@ TEST(normalization, nfc_033_169)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16800,7 +16800,7 @@ TEST(normalization, nfc_033_169)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16814,7 +16814,7 @@ TEST(normalization, nfc_033_169)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16828,7 +16828,7 @@ TEST(normalization, nfc_033_169)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16850,11 +16850,11 @@ TEST(normalization, nfc_033_170)
     // BD02;BD02;1107 1169 11B5;BD02;1107 1169 11B5; 
     // (봂; 봂; 봂; 봂; 봂; ) HANGUL SYLLABLE BOLP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD02 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD02 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD02 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B5 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD02 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD02 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B5 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD02 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B5 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -16871,7 +16871,7 @@ TEST(normalization, nfc_033_170)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16885,7 +16885,7 @@ TEST(normalization, nfc_033_170)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16899,7 +16899,7 @@ TEST(normalization, nfc_033_170)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16913,7 +16913,7 @@ TEST(normalization, nfc_033_170)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16927,7 +16927,7 @@ TEST(normalization, nfc_033_170)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -16949,11 +16949,11 @@ TEST(normalization, nfc_033_171)
     // BD03;BD03;1107 1169 11B6;BD03;1107 1169 11B6; 
     // (봃; 봃; 봃; 봃; 봃; ) HANGUL SYLLABLE BOLH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD03 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD03 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD03 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B6 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD03 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD03 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B6 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD03 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B6 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -16970,7 +16970,7 @@ TEST(normalization, nfc_033_171)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16984,7 +16984,7 @@ TEST(normalization, nfc_033_171)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -16998,7 +16998,7 @@ TEST(normalization, nfc_033_171)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17012,7 +17012,7 @@ TEST(normalization, nfc_033_171)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17026,7 +17026,7 @@ TEST(normalization, nfc_033_171)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17048,11 +17048,11 @@ TEST(normalization, nfc_033_172)
     // BD04;BD04;1107 1169 11B7;BD04;1107 1169 11B7; 
     // (봄; 봄; 봄; 봄; 봄; ) HANGUL SYLLABLE BOM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD04 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD04 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B7 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD04 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B7 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD04 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD04 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B7 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD04 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B7 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -17069,7 +17069,7 @@ TEST(normalization, nfc_033_172)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17083,7 +17083,7 @@ TEST(normalization, nfc_033_172)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17097,7 +17097,7 @@ TEST(normalization, nfc_033_172)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17111,7 +17111,7 @@ TEST(normalization, nfc_033_172)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17125,7 +17125,7 @@ TEST(normalization, nfc_033_172)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17147,11 +17147,11 @@ TEST(normalization, nfc_033_173)
     // BD05;BD05;1107 1169 11B8;BD05;1107 1169 11B8; 
     // (봅; 봅; 봅; 봅; 봅; ) HANGUL SYLLABLE BOB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD05 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD05 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD05 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD05 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD05 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD05 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -17168,7 +17168,7 @@ TEST(normalization, nfc_033_173)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17182,7 +17182,7 @@ TEST(normalization, nfc_033_173)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17196,7 +17196,7 @@ TEST(normalization, nfc_033_173)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17210,7 +17210,7 @@ TEST(normalization, nfc_033_173)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17224,7 +17224,7 @@ TEST(normalization, nfc_033_173)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17246,11 +17246,11 @@ TEST(normalization, nfc_033_174)
     // BD06;BD06;1107 1169 11B9;BD06;1107 1169 11B9; 
     // (봆; 봆; 봆; 봆; 봆; ) HANGUL SYLLABLE BOBS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD06 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD06 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD06 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD06 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD06 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11B9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD06 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11B9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -17267,7 +17267,7 @@ TEST(normalization, nfc_033_174)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17281,7 +17281,7 @@ TEST(normalization, nfc_033_174)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17295,7 +17295,7 @@ TEST(normalization, nfc_033_174)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17309,7 +17309,7 @@ TEST(normalization, nfc_033_174)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17323,7 +17323,7 @@ TEST(normalization, nfc_033_174)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17345,11 +17345,11 @@ TEST(normalization, nfc_033_175)
     // BD07;BD07;1107 1169 11BA;BD07;1107 1169 11BA; 
     // (봇; 봇; 봇; 봇; 봇; ) HANGUL SYLLABLE BOS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD07 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD07 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD07 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD07 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD07 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD07 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -17366,7 +17366,7 @@ TEST(normalization, nfc_033_175)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17380,7 +17380,7 @@ TEST(normalization, nfc_033_175)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17394,7 +17394,7 @@ TEST(normalization, nfc_033_175)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17408,7 +17408,7 @@ TEST(normalization, nfc_033_175)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17422,7 +17422,7 @@ TEST(normalization, nfc_033_175)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17444,11 +17444,11 @@ TEST(normalization, nfc_033_176)
     // BD08;BD08;1107 1169 11BB;BD08;1107 1169 11BB; 
     // (봈; 봈; 봈; 봈; 봈; ) HANGUL SYLLABLE BOSS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD08 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD08 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD08 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD08 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD08 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD08 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -17465,7 +17465,7 @@ TEST(normalization, nfc_033_176)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17479,7 +17479,7 @@ TEST(normalization, nfc_033_176)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17493,7 +17493,7 @@ TEST(normalization, nfc_033_176)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17507,7 +17507,7 @@ TEST(normalization, nfc_033_176)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17521,7 +17521,7 @@ TEST(normalization, nfc_033_176)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17543,11 +17543,11 @@ TEST(normalization, nfc_033_177)
     // BD09;BD09;1107 1169 11BC;BD09;1107 1169 11BC; 
     // (봉; 봉; 봉; 봉; 봉; ) HANGUL SYLLABLE BONG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD09 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD09 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD09 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD09 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD09 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD09 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -17564,7 +17564,7 @@ TEST(normalization, nfc_033_177)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17578,7 +17578,7 @@ TEST(normalization, nfc_033_177)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17592,7 +17592,7 @@ TEST(normalization, nfc_033_177)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17606,7 +17606,7 @@ TEST(normalization, nfc_033_177)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17620,7 +17620,7 @@ TEST(normalization, nfc_033_177)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17642,11 +17642,11 @@ TEST(normalization, nfc_033_178)
     // BD0A;BD0A;1107 1169 11BD;BD0A;1107 1169 11BD; 
     // (봊; 봊; 봊; 봊; 봊; ) HANGUL SYLLABLE BOJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD0A }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD0A }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD0A }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD0A }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD0A }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD0A }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -17663,7 +17663,7 @@ TEST(normalization, nfc_033_178)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17677,7 +17677,7 @@ TEST(normalization, nfc_033_178)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17691,7 +17691,7 @@ TEST(normalization, nfc_033_178)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17705,7 +17705,7 @@ TEST(normalization, nfc_033_178)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17719,7 +17719,7 @@ TEST(normalization, nfc_033_178)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17741,11 +17741,11 @@ TEST(normalization, nfc_033_179)
     // BD0B;BD0B;1107 1169 11BE;BD0B;1107 1169 11BE; 
     // (봋; 봋; 봋; 봋; 봋; ) HANGUL SYLLABLE BOC
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD0B }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD0B }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD0B }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD0B }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD0B }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD0B }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -17762,7 +17762,7 @@ TEST(normalization, nfc_033_179)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17776,7 +17776,7 @@ TEST(normalization, nfc_033_179)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17790,7 +17790,7 @@ TEST(normalization, nfc_033_179)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17804,7 +17804,7 @@ TEST(normalization, nfc_033_179)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17818,7 +17818,7 @@ TEST(normalization, nfc_033_179)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17840,11 +17840,11 @@ TEST(normalization, nfc_033_180)
     // BD0C;BD0C;1107 1169 11BF;BD0C;1107 1169 11BF; 
     // (봌; 봌; 봌; 봌; 봌; ) HANGUL SYLLABLE BOK
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD0C }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD0C }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD0C }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD0C }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD0C }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11BF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD0C }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11BF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -17861,7 +17861,7 @@ TEST(normalization, nfc_033_180)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17875,7 +17875,7 @@ TEST(normalization, nfc_033_180)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17889,7 +17889,7 @@ TEST(normalization, nfc_033_180)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17903,7 +17903,7 @@ TEST(normalization, nfc_033_180)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17917,7 +17917,7 @@ TEST(normalization, nfc_033_180)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -17939,11 +17939,11 @@ TEST(normalization, nfc_033_181)
     // BD0D;BD0D;1107 1169 11C0;BD0D;1107 1169 11C0; 
     // (봍; 봍; 봍; 봍; 봍; ) HANGUL SYLLABLE BOT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD0D }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD0D }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11C0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD0D }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11C0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD0D }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD0D }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11C0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD0D }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11C0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -17960,7 +17960,7 @@ TEST(normalization, nfc_033_181)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17974,7 +17974,7 @@ TEST(normalization, nfc_033_181)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -17988,7 +17988,7 @@ TEST(normalization, nfc_033_181)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18002,7 +18002,7 @@ TEST(normalization, nfc_033_181)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18016,7 +18016,7 @@ TEST(normalization, nfc_033_181)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18038,11 +18038,11 @@ TEST(normalization, nfc_033_182)
     // BD0E;BD0E;1107 1169 11C1;BD0E;1107 1169 11C1; 
     // (봎; 봎; 봎; 봎; 봎; ) HANGUL SYLLABLE BOP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD0E }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD0E }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11C1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD0E }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11C1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD0E }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD0E }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11C1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD0E }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11C1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -18059,7 +18059,7 @@ TEST(normalization, nfc_033_182)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18073,7 +18073,7 @@ TEST(normalization, nfc_033_182)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18087,7 +18087,7 @@ TEST(normalization, nfc_033_182)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18101,7 +18101,7 @@ TEST(normalization, nfc_033_182)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18115,7 +18115,7 @@ TEST(normalization, nfc_033_182)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18137,11 +18137,11 @@ TEST(normalization, nfc_033_183)
     // BD0F;BD0F;1107 1169 11C2;BD0F;1107 1169 11C2; 
     // (봏; 봏; 봏; 봏; 봏; ) HANGUL SYLLABLE BOH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD0F }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD0F }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11C2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD0F }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11C2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD0F }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD0F }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x1169, 0x11C2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD0F }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x1169, 0x11C2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -18158,7 +18158,7 @@ TEST(normalization, nfc_033_183)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18172,7 +18172,7 @@ TEST(normalization, nfc_033_183)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18186,7 +18186,7 @@ TEST(normalization, nfc_033_183)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18200,7 +18200,7 @@ TEST(normalization, nfc_033_183)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18214,7 +18214,7 @@ TEST(normalization, nfc_033_183)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18236,11 +18236,11 @@ TEST(normalization, nfc_033_184)
     // BD10;BD10;1107 116A;BD10;1107 116A; 
     // (봐; 봐; 봐; 봐; 봐; ) HANGUL SYLLABLE BWA
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD10 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD10 }};
-        std::array<uint32_t, 2> const c3 = {{ 0x1107, 0x116A }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD10 }};
-        std::array<uint32_t, 2> const c5 = {{ 0x1107, 0x116A }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD10 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD10 }};
+        std::array<char32_t, 2> const c3 = {{ 0x1107, 0x116A }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD10 }};
+        std::array<char32_t, 2> const c5 = {{ 0x1107, 0x116A }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -18257,7 +18257,7 @@ TEST(normalization, nfc_033_184)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18271,7 +18271,7 @@ TEST(normalization, nfc_033_184)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18285,7 +18285,7 @@ TEST(normalization, nfc_033_184)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18299,7 +18299,7 @@ TEST(normalization, nfc_033_184)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18313,7 +18313,7 @@ TEST(normalization, nfc_033_184)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18335,11 +18335,11 @@ TEST(normalization, nfc_033_185)
     // BD11;BD11;1107 116A 11A8;BD11;1107 116A 11A8; 
     // (봑; 봑; 봑; 봑; 봑; ) HANGUL SYLLABLE BWAG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD11 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD11 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11A8 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD11 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11A8 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD11 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD11 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11A8 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD11 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11A8 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -18356,7 +18356,7 @@ TEST(normalization, nfc_033_185)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18370,7 +18370,7 @@ TEST(normalization, nfc_033_185)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18384,7 +18384,7 @@ TEST(normalization, nfc_033_185)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18398,7 +18398,7 @@ TEST(normalization, nfc_033_185)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18412,7 +18412,7 @@ TEST(normalization, nfc_033_185)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18434,11 +18434,11 @@ TEST(normalization, nfc_033_186)
     // BD12;BD12;1107 116A 11A9;BD12;1107 116A 11A9; 
     // (봒; 봒; 봒; 봒; 봒; ) HANGUL SYLLABLE BWAGG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD12 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD12 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11A9 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD12 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11A9 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD12 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD12 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11A9 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD12 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11A9 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -18455,7 +18455,7 @@ TEST(normalization, nfc_033_186)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18469,7 +18469,7 @@ TEST(normalization, nfc_033_186)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18483,7 +18483,7 @@ TEST(normalization, nfc_033_186)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18497,7 +18497,7 @@ TEST(normalization, nfc_033_186)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18511,7 +18511,7 @@ TEST(normalization, nfc_033_186)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18533,11 +18533,11 @@ TEST(normalization, nfc_033_187)
     // BD13;BD13;1107 116A 11AA;BD13;1107 116A 11AA; 
     // (봓; 봓; 봓; 봓; 봓; ) HANGUL SYLLABLE BWAGS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD13 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD13 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AA }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD13 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AA }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD13 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD13 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AA }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD13 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AA }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -18554,7 +18554,7 @@ TEST(normalization, nfc_033_187)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18568,7 +18568,7 @@ TEST(normalization, nfc_033_187)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18582,7 +18582,7 @@ TEST(normalization, nfc_033_187)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18596,7 +18596,7 @@ TEST(normalization, nfc_033_187)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18610,7 +18610,7 @@ TEST(normalization, nfc_033_187)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18632,11 +18632,11 @@ TEST(normalization, nfc_033_188)
     // BD14;BD14;1107 116A 11AB;BD14;1107 116A 11AB; 
     // (봔; 봔; 봔; 봔; 봔; ) HANGUL SYLLABLE BWAN
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD14 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD14 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AB }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD14 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AB }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD14 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD14 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AB }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD14 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AB }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -18653,7 +18653,7 @@ TEST(normalization, nfc_033_188)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18667,7 +18667,7 @@ TEST(normalization, nfc_033_188)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18681,7 +18681,7 @@ TEST(normalization, nfc_033_188)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18695,7 +18695,7 @@ TEST(normalization, nfc_033_188)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18709,7 +18709,7 @@ TEST(normalization, nfc_033_188)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18731,11 +18731,11 @@ TEST(normalization, nfc_033_189)
     // BD15;BD15;1107 116A 11AC;BD15;1107 116A 11AC; 
     // (봕; 봕; 봕; 봕; 봕; ) HANGUL SYLLABLE BWANJ
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD15 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD15 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AC }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD15 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AC }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD15 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD15 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AC }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD15 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AC }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -18752,7 +18752,7 @@ TEST(normalization, nfc_033_189)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18766,7 +18766,7 @@ TEST(normalization, nfc_033_189)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18780,7 +18780,7 @@ TEST(normalization, nfc_033_189)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18794,7 +18794,7 @@ TEST(normalization, nfc_033_189)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18808,7 +18808,7 @@ TEST(normalization, nfc_033_189)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18830,11 +18830,11 @@ TEST(normalization, nfc_033_190)
     // BD16;BD16;1107 116A 11AD;BD16;1107 116A 11AD; 
     // (봖; 봖; 봖; 봖; 봖; ) HANGUL SYLLABLE BWANH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD16 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD16 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AD }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD16 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AD }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD16 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD16 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AD }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD16 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AD }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -18851,7 +18851,7 @@ TEST(normalization, nfc_033_190)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18865,7 +18865,7 @@ TEST(normalization, nfc_033_190)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18879,7 +18879,7 @@ TEST(normalization, nfc_033_190)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18893,7 +18893,7 @@ TEST(normalization, nfc_033_190)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18907,7 +18907,7 @@ TEST(normalization, nfc_033_190)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -18929,11 +18929,11 @@ TEST(normalization, nfc_033_191)
     // BD17;BD17;1107 116A 11AE;BD17;1107 116A 11AE; 
     // (봗; 봗; 봗; 봗; 봗; ) HANGUL SYLLABLE BWAD
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD17 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD17 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AE }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD17 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AE }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD17 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD17 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AE }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD17 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AE }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -18950,7 +18950,7 @@ TEST(normalization, nfc_033_191)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18964,7 +18964,7 @@ TEST(normalization, nfc_033_191)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18978,7 +18978,7 @@ TEST(normalization, nfc_033_191)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -18992,7 +18992,7 @@ TEST(normalization, nfc_033_191)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19006,7 +19006,7 @@ TEST(normalization, nfc_033_191)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19028,11 +19028,11 @@ TEST(normalization, nfc_033_192)
     // BD18;BD18;1107 116A 11AF;BD18;1107 116A 11AF; 
     // (봘; 봘; 봘; 봘; 봘; ) HANGUL SYLLABLE BWAL
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD18 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD18 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AF }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD18 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AF }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD18 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD18 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11AF }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD18 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11AF }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -19049,7 +19049,7 @@ TEST(normalization, nfc_033_192)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19063,7 +19063,7 @@ TEST(normalization, nfc_033_192)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19077,7 +19077,7 @@ TEST(normalization, nfc_033_192)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19091,7 +19091,7 @@ TEST(normalization, nfc_033_192)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19105,7 +19105,7 @@ TEST(normalization, nfc_033_192)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19127,11 +19127,11 @@ TEST(normalization, nfc_033_193)
     // BD19;BD19;1107 116A 11B0;BD19;1107 116A 11B0; 
     // (봙; 봙; 봙; 봙; 봙; ) HANGUL SYLLABLE BWALG
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD19 }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD19 }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B0 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD19 }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B0 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD19 }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD19 }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B0 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD19 }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B0 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -19148,7 +19148,7 @@ TEST(normalization, nfc_033_193)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19162,7 +19162,7 @@ TEST(normalization, nfc_033_193)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19176,7 +19176,7 @@ TEST(normalization, nfc_033_193)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19190,7 +19190,7 @@ TEST(normalization, nfc_033_193)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19204,7 +19204,7 @@ TEST(normalization, nfc_033_193)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19226,11 +19226,11 @@ TEST(normalization, nfc_033_194)
     // BD1A;BD1A;1107 116A 11B1;BD1A;1107 116A 11B1; 
     // (봚; 봚; 봚; 봚; 봚; ) HANGUL SYLLABLE BWALM
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD1A }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD1A }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B1 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD1A }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B1 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD1A }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD1A }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B1 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD1A }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B1 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -19247,7 +19247,7 @@ TEST(normalization, nfc_033_194)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19261,7 +19261,7 @@ TEST(normalization, nfc_033_194)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19275,7 +19275,7 @@ TEST(normalization, nfc_033_194)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19289,7 +19289,7 @@ TEST(normalization, nfc_033_194)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19303,7 +19303,7 @@ TEST(normalization, nfc_033_194)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19325,11 +19325,11 @@ TEST(normalization, nfc_033_195)
     // BD1B;BD1B;1107 116A 11B2;BD1B;1107 116A 11B2; 
     // (봛; 봛; 봛; 봛; 봛; ) HANGUL SYLLABLE BWALB
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD1B }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD1B }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B2 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD1B }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B2 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD1B }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD1B }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B2 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD1B }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B2 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -19346,7 +19346,7 @@ TEST(normalization, nfc_033_195)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19360,7 +19360,7 @@ TEST(normalization, nfc_033_195)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19374,7 +19374,7 @@ TEST(normalization, nfc_033_195)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19388,7 +19388,7 @@ TEST(normalization, nfc_033_195)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19402,7 +19402,7 @@ TEST(normalization, nfc_033_195)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19424,11 +19424,11 @@ TEST(normalization, nfc_033_196)
     // BD1C;BD1C;1107 116A 11B3;BD1C;1107 116A 11B3; 
     // (봜; 봜; 봜; 봜; 봜; ) HANGUL SYLLABLE BWALS
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD1C }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD1C }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B3 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD1C }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B3 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD1C }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD1C }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B3 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD1C }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B3 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -19445,7 +19445,7 @@ TEST(normalization, nfc_033_196)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19459,7 +19459,7 @@ TEST(normalization, nfc_033_196)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19473,7 +19473,7 @@ TEST(normalization, nfc_033_196)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19487,7 +19487,7 @@ TEST(normalization, nfc_033_196)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19501,7 +19501,7 @@ TEST(normalization, nfc_033_196)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19523,11 +19523,11 @@ TEST(normalization, nfc_033_197)
     // BD1D;BD1D;1107 116A 11B4;BD1D;1107 116A 11B4; 
     // (봝; 봝; 봝; 봝; 봝; ) HANGUL SYLLABLE BWALT
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD1D }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD1D }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B4 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD1D }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B4 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD1D }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD1D }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B4 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD1D }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B4 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -19544,7 +19544,7 @@ TEST(normalization, nfc_033_197)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19558,7 +19558,7 @@ TEST(normalization, nfc_033_197)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19572,7 +19572,7 @@ TEST(normalization, nfc_033_197)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19586,7 +19586,7 @@ TEST(normalization, nfc_033_197)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19600,7 +19600,7 @@ TEST(normalization, nfc_033_197)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19622,11 +19622,11 @@ TEST(normalization, nfc_033_198)
     // BD1E;BD1E;1107 116A 11B5;BD1E;1107 116A 11B5; 
     // (봞; 봞; 봞; 봞; 봞; ) HANGUL SYLLABLE BWALP
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD1E }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD1E }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B5 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD1E }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B5 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD1E }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD1E }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B5 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD1E }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B5 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -19643,7 +19643,7 @@ TEST(normalization, nfc_033_198)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19657,7 +19657,7 @@ TEST(normalization, nfc_033_198)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19671,7 +19671,7 @@ TEST(normalization, nfc_033_198)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19685,7 +19685,7 @@ TEST(normalization, nfc_033_198)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19699,7 +19699,7 @@ TEST(normalization, nfc_033_198)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19721,11 +19721,11 @@ TEST(normalization, nfc_033_199)
     // BD1F;BD1F;1107 116A 11B6;BD1F;1107 116A 11B6; 
     // (봟; 봟; 봟; 봟; 봟; ) HANGUL SYLLABLE BWALH
     {
-        std::array<uint32_t, 1> const c1 = {{ 0xBD1F }};
-        std::array<uint32_t, 1> const c2 = {{ 0xBD1F }};
-        std::array<uint32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B6 }};
-        std::array<uint32_t, 1> const c4 = {{ 0xBD1F }};
-        std::array<uint32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B6 }};
+        std::array<char32_t, 1> const c1 = {{ 0xBD1F }};
+        std::array<char32_t, 1> const c2 = {{ 0xBD1F }};
+        std::array<char32_t, 3> const c3 = {{ 0x1107, 0x116A, 0x11B6 }};
+        std::array<char32_t, 1> const c4 = {{ 0xBD1F }};
+        std::array<char32_t, 3> const c5 = {{ 0x1107, 0x116A, 0x11B6 }};
 
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
         EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
@@ -19742,7 +19742,7 @@ TEST(normalization, nfc_033_199)
 
 
         {
-            std::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::u8string str = boost::text::to_u8string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19756,7 +19756,7 @@ TEST(normalization, nfc_033_199)
         }
 
         {
-            std::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::u8string str = boost::text::to_u8string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19770,7 +19770,7 @@ TEST(normalization, nfc_033_199)
         }
 
         {
-            std::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::u8string str = boost::text::to_u8string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c2.size());
@@ -19784,7 +19784,7 @@ TEST(normalization, nfc_033_199)
         }
 
         {
-            std::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::u8string str = boost::text::to_u8string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
@@ -19798,7 +19798,7 @@ TEST(normalization, nfc_033_199)
         }
 
         {
-            std::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::u8string str = boost::text::to_u8string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::c>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c4.size());
