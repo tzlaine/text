@@ -1097,3 +1097,72 @@ TEST(transcoding, back_insert_iterators)
         EXPECT_EQ(cps_copy_from_result, cps_copy);
     }
 }
+
+struct my_text_type
+{
+    my_text_type() = default;
+    my_text_type(std::u8string utf8) : utf8_(std::move(utf8)) {}
+
+    auto begin() const
+    {
+        return text::utf_8_to_32_iterator(
+            utf8_.begin(), utf8_.begin(), utf8_.end());
+    }
+    auto end() const
+    {
+        return text::utf_8_to_32_iterator(
+            utf8_.begin(), utf8_.end(), utf8_.end());
+    }
+
+private:
+    std::u8string utf8_;
+};
+
+TEST(transcoding, normalize_adaptors)
+{
+    static_assert(std::is_same_v<
+                  decltype(my_text_type(u8"text") | boost::text::as_nfc),
+                  boost::text::nfc_view<
+                      boost::text::utf32_view<boost::text::unpacking_view<
+                          std::ranges::owning_view<my_text_type>>>>>);
+
+    static_assert(std::is_same_v<
+                  decltype(u8"text" | boost::text::as_nfc),
+                  boost::text::nfc_view<boost::text::utf32_view<
+                      std::ranges::subrange<const char8_t *>>>>);
+
+    static_assert(std::is_same_v<
+                  decltype(std::u8string(u8"text") | boost::text::as_nfc),
+                  boost::text::nfc_view<boost::text::utf32_view<
+                      std::ranges::owning_view<std::u8string>>>>);
+
+    std::u8string const str = u8"text";
+
+    static_assert(std::is_same_v<
+                  decltype(str | boost::text::as_nfc),
+                  boost::text::nfc_view<boost::text::utf32_view<
+                      std::ranges::ref_view<std::u8string const>>>>);
+
+    static_assert(std::is_same_v<
+                  decltype(str.c_str() | boost::text::as_nfc),
+                  boost::text::nfc_view<boost::text::utf32_view<std::ranges::subrange<
+                      const char8_t *,
+                      boost::text::null_sentinel_t>>>>);
+
+    static_assert(std::is_same_v<
+                  decltype(std::ranges::empty_view<int>{} | boost::text::as_char16_t),
+                  std::ranges::empty_view<char16_t>>);
+
+    std::u16string str2 = u"text";
+
+    static_assert(std::is_same_v<
+                  decltype(str2 | boost::text::as_nfc),
+                  boost::text::nfc_view<boost::text::utf32_view<
+                      std::ranges::ref_view<std::u16string>>>>);
+
+    static_assert(std::is_same_v<
+                  decltype(str2.c_str() | boost::text::as_nfc),
+                  boost::text::nfc_view<boost::text::utf32_view<std::ranges::subrange<
+                      const char16_t *,
+                      boost::text::null_sentinel_t>>>>);
+}
