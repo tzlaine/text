@@ -368,7 +368,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         requires std::ranges::view<V>
     template<bool Const, bool StoreLast>
     class normalize_view<N, V>::iterator
-        : public detail::first_last_storage<detail::maybe_const<Const, V>, false>,
+        : detail::first_last_storage<detail::maybe_const<Const, V>, false>,
           public boost::stl_interfaces::iterator_interface<
               iterator<Const, StoreLast>,
               std::forward_iterator_tag,
@@ -510,20 +510,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
 
     namespace dtl {
+        // Repeating this in every place that needs this concept works around
+        // an odd GCC 13 bug.
         template<class R>
-        concept can_utf32_view = requires { as_utf32(std::declval<R>()); };
-
-        template<class T>
-        constexpr bool is_utf32_view = false;
-        template<class V>
-        constexpr bool is_utf32_view<utf32_view<V>> = true;
-        template<class V>
-        constexpr bool is_utf32_view<utf_view<format::utf32, V>> = true;
+        concept can_utf32_view0 = requires { as_utf32(std::declval<R>()); };
 
         template<template<class> class View, nf N>
         struct normalize_impl : range_adaptor_closure<normalize_impl<View, N>>
         {
-            template<can_utf32_view R>
+            template<can_utf32_view0 R>
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
                 using T = std::remove_cvref_t<R>;

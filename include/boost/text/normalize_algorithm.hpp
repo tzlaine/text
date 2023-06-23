@@ -660,8 +660,9 @@ namespace boost { namespace text { namespace detail {
                     buffer, insertion_first_stable, insertion_last_stable);
             } else {
                 boost::text::normalize_append<Normalization>(
-                    boost::text::as_stream_safe(
-                        insertion_first_stable, insertion_last_stable),
+                    std::ranges::subrange(
+                        insertion_first_stable, insertion_last_stable) |
+                        as_stream_safe,
                     buffer);
             }
         }

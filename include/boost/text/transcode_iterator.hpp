@@ -3036,6 +3036,7 @@ namespace boost { namespace text { namespace detail {
     template<
         class V,
         bool StoreFirst = !is_utf_iter<std::ranges::iterator_t<V>> &&
+                          std::ranges::common_range<V> &&
                           std::ranges::bidirectional_range<V>,
         bool StoreLast = !is_utf_iter<std::ranges::iterator_t<V>>>
     struct first_last_storage
@@ -3048,7 +3049,7 @@ namespace boost { namespace text { namespace detail {
             first_{std::ranges::begin(base)}, last_{std::ranges::end(base)}
         {}
 
-        constexpr auto begin(std::ranges::iterator_t<V> & it) const { return first_; }
+        constexpr auto begin() const { return first_; }
         constexpr auto end(std::ranges::iterator_t<V> & it) const { return last_; }
 
         std::ranges::iterator_t<V> first_;
@@ -3061,7 +3062,7 @@ namespace boost { namespace text { namespace detail {
         constexpr first_last_storage() requires std::default_initializable<std::ranges::iterator_t<V>> = default;
         constexpr first_last_storage(V & base) : first_{std::ranges::begin(base)} {}
 
-        constexpr auto begin(std::ranges::iterator_t<V> & it) const { return first_; }
+        constexpr auto begin() const { return first_; }
         constexpr auto end(std::ranges::iterator_t<V> & it) const { return it.end(); }
 
         std::ranges::iterator_t<V> first_;
@@ -3075,7 +3076,7 @@ namespace boost { namespace text { namespace detail {
 
         constexpr auto begin(std::ranges::iterator_t<V> & it) const {
             if constexpr (is_utf_iter<std::ranges::iterator_t<V>>) {
-                return it.begin();
+                return std::ranges::iterator_t<V>(it.begin(), it.begin(), it.end());
             } else {
                 return;
             }
@@ -3093,13 +3094,25 @@ namespace boost { namespace text { namespace detail {
 
         constexpr auto begin(std::ranges::iterator_t<V> & it) const {
             if constexpr (is_utf_iter<std::ranges::iterator_t<V>>) {
-                return it.begin();
+                return std::ranges::iterator_t<V>(it.begin(), it.begin(), it.end());
             } else {
                 return;
             }
         }
         constexpr auto end(std::ranges::iterator_t<V> & it) const { return it.end(); }
     };
+
+    template<class V>
+    constexpr auto uc_view_category() {
+        if constexpr (std::ranges::common_range<V> && std::ranges::bidirectional_range<V>) {
+            return std::bidirectional_iterator_tag{};
+        } else {
+            return std::forward_iterator_tag{};
+        }
+    }
+
+    template<class V>
+    using uc_view_category_t = decltype(uc_view_category<V>());
 
     template<bool Const, class T>
     using maybe_const = std::conditional_t<Const, const T, T>;

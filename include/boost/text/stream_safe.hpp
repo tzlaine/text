@@ -25,11 +25,10 @@ namespace boost { namespace text {
     using copy_result = in_out_result<I, O>;
 
     namespace detail {
-        enum : std::size_t { stream_safe_max_nonstarters = 9 };
+        enum : std::size_t { stream_safe_max_nonstarters = 20 };
 
-        template<typename CPIter, typename Sentinel>
-        CPIter next_stream_safe_cp(
-            CPIter first, Sentinel last, std::size_t & nonstarters)
+        template<typename CPIter, typename Sentinel, typename T>
+        CPIter next_stream_safe_cp(CPIter first, Sentinel last, T & nonstarters)
         {
             for (; first != last; ++first) {
                 auto const cp = *first;
@@ -37,7 +36,7 @@ namespace boost { namespace text {
                     nonstarters = 0;
                 else
                     ++nonstarters;
-                if (nonstarters < stream_safe_max_nonstarters)
+                if (nonstarters <= (T)stream_safe_max_nonstarters)
                     break;
             }
             return first;
@@ -512,60 +511,196 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    template<code_point_iter I, std::sentinel_for<I> S>
+    template<utf32_iter I, std::sentinel_for<I> S>
     constexpr bool is_stream_safe(I first, S last)
     {
         return detail::is_stream_safe_impl(first, last);
     }
 
-    template<code_point_range R>
+    template<utf32_range R>
     constexpr bool is_stream_safe(R && r)
     {
         return boost::text::is_stream_safe(
             std::ranges::begin(r), std::ranges::end(r));
     }
 
-    namespace dtl {
-        struct as_stream_safe_impl : range_adaptor_closure<as_stream_safe_impl>
-        {
-            template<utf_iter I, std::sentinel_for<I> S>
-            constexpr auto operator()(I first, S last) const
-            {
-                auto intermediate =
-                    std::ranges::subrange(first, last) | boost::text::as_utf32;
-                return detail::as_stream_safe_impl(
-                    std::ranges::begin(intermediate),
-                    std::ranges::end(intermediate));
-            }
+    template<utf32_range V>
+        requires std::ranges::view<V>
+    class stream_safe_view : public std::ranges::view_interface<stream_safe_view<V>>
+    {
+        template<bool Const, bool StoreLast = !detail::is_utf_iter<std::ranges::iterator_t<V>>>
+        class iterator;
+        class sentinel;
 
-            template<utf_range_like R>
-            constexpr auto operator()(R && r) const
+        static constexpr bool bidi =
+            std::derived_from<detail::uc_view_category_t<V>, std::bidirectional_iterator_tag>;
+
+        V base_ = V();
+
+    public:
+        constexpr stream_safe_view() requires std::default_initializable<V> = default;
+        constexpr stream_safe_view(V base) : base_{std::move(base)} {}
+
+        constexpr V base() const & requires std::copy_constructible<V> { return base_; }
+        constexpr V base() && { return std::move(base_); }
+
+        constexpr iterator<false> begin() { return iterator<false>{base_}; }
+        constexpr iterator<true> begin() const requires utf32_range<const V> { return iterator<true>{base_}; }
+
+        constexpr auto end() {
+            if constexpr (bidi) {
+                return iterator<false>{base_, std::ranges::end(base_)};
+            } else {
+                return sentinel{};
+            }
+        }
+        constexpr auto end() const requires utf32_range<const V> {
+            if constexpr (bidi) {
+                return iterator<true>{base_, std::ranges::end(base_)};
+            } else {
+                return sentinel{};
+            }
+        }
+    };
+
+    template<utf32_range V>
+        requires std::ranges::view<V>
+    template<bool Const, bool StoreLast>
+    class stream_safe_view<V>::iterator
+        : detail::first_last_storage<detail::maybe_const<Const, V>>,
+          public boost::stl_interfaces::iterator_interface<
+              iterator<Const, StoreLast>,
+              detail::uc_view_category_t<V>,
+              char32_t,
+              char32_t>
+    {
+        using Base = detail::maybe_const<Const, V>;
+        using storage_base = detail::first_last_storage<Base>;
+
+        static constexpr bool bidi =
+            std::derived_from<detail::uc_view_category_t<V>, std::bidirectional_iterator_tag>;
+
+        std::ranges::iterator_t<Base> it_;
+        // exposition-only, and only defined when std::ranges::iterator_t<Base>
+        // is not a specialization of utf_iterator.
+        // std::ranges::iterator_t<Base> first_;
+        // std::ranges::sentinel_t<Base> last_;
+        std::ptrdiff_t nonstarters_ = 0;
+
+        friend class sentinel;
+
+    public:
+        constexpr iterator() requires std::default_initializable<std::ranges::iterator_t<Base>> = default;
+        constexpr iterator(Base & base) : storage_base(base), it_(std::ranges::begin(base)) {
+            if (it_ != storage_base::end(it_) && detail::ccc(*it_))
+                nonstarters_ = 1;
+        }
+        constexpr iterator(Base & base, std::ranges::iterator_t<V> it) requires bidi
+            : storage_base(base), it_(it) {}
+        constexpr iterator(iterator<!Const, StoreLast> i)
+            requires Const && std::convertible_to<std::ranges::iterator_t<V>, std::ranges::iterator_t<Base>>
+            : storage_base(i), it_(i.it_) {}
+
+        constexpr const std::ranges::iterator_t<Base> & base() const & noexcept { return it_; }
+        constexpr std::ranges::iterator_t<Base> base() && { return std::move(it_); }
+
+        constexpr char32_t operator*() const { return *it_; }
+
+        constexpr iterator & operator++() {
+            if (it_ == storage_base::end(it_))
+                return *this;
+            ++it_;
+            it_ = detail::next_stream_safe_cp(it_, storage_base::end(it_), nonstarters_);
+            return *this;
+        }
+
+        constexpr iterator & operator--() requires bidi {
+            auto const first = storage_base::begin(it_);
+            if (it_ == first)
+                return *this;
+            if (0 < nonstarters_) {
+                --it_;
+                --nonstarters_;
+            } else {
+                auto const initial_it = it_;
+                auto it = text::find_if_backward(
+                    first, it_, [](auto cp) { return detail::ccc(cp) == 0; });
+                auto const from = it == it_ ? first : std::ranges::next(it);
+                std::size_t const nonstarters = std::distance(from, it_);
+                nonstarters_ = (std::min)(
+                    nonstarters, detail::stream_safe_max_nonstarters - 1);
+                if (nonstarters_)
+                    it_ = std::ranges::next(from, nonstarters_);
+                if (it_ == initial_it)
+                    --it_;
+            }
+            return *this;
+        }
+
+        friend bool operator==(iterator lhs, iterator rhs) requires std::ranges::common_range<V>
+            { return lhs.base() == rhs.base(); }
+
+        using base_type = boost::stl_interfaces::iterator_interface<
+            iterator<Const, StoreLast>,
+            detail::uc_view_category_t<V>,
+            char32_t,
+            char32_t>;
+        using base_type::operator++;
+        using base_type::operator--;
+    };
+
+    template<utf32_range V>
+        requires std::ranges::view<V>
+    class stream_safe_view<V>::sentinel
+    {
+    public:
+        template<bool Const, bool StoreLast>
+        friend constexpr bool operator==(const iterator<Const, StoreLast> & it, sentinel) {
+            if constexpr (StoreLast) {
+                return it.it_ == it.last_;
+            } else {
+                return it.base().base() == it.base().end();
+            }
+        }
+    };
+
+    template<class R>
+    stream_safe_view(R &&) -> stream_safe_view<std::views::all_t<R>>;
+
+    namespace dtl {
+        template<class R>
+        concept can_utf32_view1 = requires { as_utf32(std::declval<R>()); };
+
+        struct stream_safe_impl : range_adaptor_closure<stream_safe_impl>
+        {
+            template<can_utf32_view1 R>
+            [[nodiscard]] constexpr auto operator()(R && r) const
             {
-                if constexpr (
-                    !std::is_pointer_v<std::remove_reference_t<R>> &&
-                    !std::ranges::borrowed_range<R>) {
-                    return std::ranges::dangling{};
+                using T = std::remove_cvref_t<R>;
+                if constexpr (detail::is_empty_view<T>) {
+                    return std::ranges::empty_view<T>{};
+                } else if constexpr (is_utf32_view<T>) {
+                    return stream_safe_view(std::forward<R>(r));
                 } else {
-                    auto intermediate = r | boost::text::as_utf32;
-                    return (*this)(
-                        std::ranges::begin(intermediate),
-                        std::ranges::end(intermediate));
+                    return stream_safe_view(std::forward<R>(r) | as_utf32);
                 }
             }
         };
     }
 
-    inline constexpr dtl::as_stream_safe_impl as_stream_safe;
+    inline constexpr dtl::stream_safe_impl as_stream_safe;
+
+    namespace dtl {
+        template<class R>
+        concept can_stream_safe = requires { as_stream_safe(std::declval<R>()); };
+    }
 
 }}}
 
 namespace std::ranges {
-    template<typename I, std::sentinel_for<I> S>
-    // clang-format off
-    requires boost::text::detail::is_stream_safe_iter<I>::value
-    inline constexpr bool
-        // clang-format on
-        enable_borrowed_range<boost::text::stream_safe_view<I, S>> = true;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::v2::stream_safe_view<V>> =
+        enable_borrowed_range<V>;
 }
 
 #endif

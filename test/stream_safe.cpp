@@ -76,24 +76,6 @@ TEST(stream_safe, no_truncation_needed)
             auto const it = stream_safe(utf32);
             EXPECT_EQ(it, utf32.end());
         }
-
-        {
-            std::u8string str = already_stream_safe;
-            auto const utf32 = as_utf32(str);
-            auto const ss = as_stream_safe(utf32);
-            auto it = ss.begin();
-            while (it != ss.end()) {
-                ++it;
-            }
-            std::vector<char32_t> cps;
-            std::copy(
-                std::make_reverse_iterator(it),
-                std::make_reverse_iterator(ss.begin()),
-                std::back_inserter(cps));
-            std::reverse(cps.begin(), cps.end());
-            std::vector<char32_t> ss_copy(ss.begin(), ss.end());
-            EXPECT_EQ(cps, ss_copy);
-        }
     }
 
     {
@@ -110,7 +92,7 @@ TEST(stream_safe, no_truncation_needed)
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
-            u8" stream-safe format.";
+            u8"."; // ' stream-safe format'
 
         EXPECT_TRUE(is_stream_safe(as_utf32(already_stream_safe)));
 
@@ -131,20 +113,16 @@ TEST(stream_safe, no_truncation_needed)
 
         {
             std::u8string str = already_stream_safe;
-            auto const utf32 = as_utf32(str);
-            auto const ss = as_stream_safe(utf32);
-            auto it = ss.begin();
-            while (it != ss.end()) {
-                ++it;
+            auto const ss = str | as_stream_safe | as_utf8;
+            auto const first = ss.begin();
+            auto it = ss.end();
+            std::u8string result;
+            while (it != first) {
+                --it;
+                result += *it;
             }
-            std::vector<char32_t> cps;
-            std::copy(
-                std::make_reverse_iterator(it),
-                std::make_reverse_iterator(ss.begin()),
-                std::back_inserter(cps));
-            std::reverse(cps.begin(), cps.end());
-            std::vector<char32_t> ss_copy(ss.begin(), ss.end());
-            EXPECT_EQ(cps, ss_copy);
+            std::ranges::reverse(str);
+            EXPECT_TRUE(result == str);
         }
     }
 }
@@ -155,6 +133,7 @@ TEST(stream_safe, truncation_needed_short)
         char8_t const * stream_unsafe =
             u8"Needs truncation: 2"
             // 10 combiners
+            u8"\u0300"
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
@@ -172,6 +151,11 @@ TEST(stream_safe, truncation_needed_short)
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            // 5 combiners
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
@@ -183,6 +167,18 @@ TEST(stream_safe, truncation_needed_short)
 
         std::u8string const expected =
             u8"Needs truncation: 2"
+            u8"\u0300"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
@@ -205,7 +201,7 @@ TEST(stream_safe, truncation_needed_short)
         {
             std::u8string result;
             auto utf32 = as_utf32(stream_unsafe);
-            auto const v = as_stream_safe(utf32.begin(), utf32.end());
+            auto const v = as_stream_safe(utf32);
             // Can't use std::copy() (or even range-base for) because of the
             // sentinel
             for (auto it = v.begin(); it != v.end(); ++it) {
@@ -217,8 +213,7 @@ TEST(stream_safe, truncation_needed_short)
  
         {
             std::u8string result;
-            auto utf32 = as_utf32(stream_unsafe);
-            auto const v = as_stream_safe(utf32.begin(), null_sentinel);
+            auto const v = as_stream_safe(stream_unsafe);
             // Can't use std::copy() (or even range-base for) because of the
             // sentinel
             for (auto it = v.begin(); it != v.end(); ++it) {
@@ -254,13 +249,27 @@ TEST(stream_safe, truncation_needed_short)
             std::vector<char32_t> ss_copy(ss.begin(), ss.end());
             EXPECT_EQ(cps, ss_copy);
         }
+        {
+            std::u8string str = stream_unsafe;
+            auto const ss = str | as_stream_safe | as_utf8;
+            auto const first = ss.begin();
+            auto it = ss.end();
+            std::u8string result;
+            while (it != first) {
+                --it;
+                result += *it;
+            }
+            auto reversed_expected = expected;
+            std::ranges::reverse(reversed_expected);
+            EXPECT_TRUE(result == reversed_expected);
+        }
     }
 }
 
 TEST(stream_safe, truncation_needed_long)
 {
     {
-        char8_t const * stream_unsafe = u8"\u0308"
+        char8_t const * stream_unsafe = u8"\u0300"
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
@@ -276,6 +285,12 @@ TEST(stream_safe, truncation_needed_long)
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            // 5 combiners
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
@@ -283,7 +298,7 @@ TEST(stream_safe, truncation_needed_long)
             u8"\u0308"
             u8"Needs truncation: 2"
             // 10 combiners
-            u8"\u0308"
+            u8"\u0300"
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
@@ -299,6 +314,12 @@ TEST(stream_safe, truncation_needed_long)
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            // 5 combiners
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
@@ -308,7 +329,20 @@ TEST(stream_safe, truncation_needed_long)
 
         EXPECT_FALSE(is_stream_safe(as_utf32(stream_unsafe)));
 
-        std::u8string const expected = u8"\u0308"
+        std::u8string const expected = u8"\u0300"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            // 10 combiners
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
@@ -318,6 +352,19 @@ TEST(stream_safe, truncation_needed_long)
             u8"\u0308"
             u8"Needs truncation: 2"
             // 10 combiners
+            u8"\u0300"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            u8"\u0308"
+            // 10 combiners
+            u8"\u0308"
+            u8"\u0308"
             u8"\u0308"
             u8"\u0308"
             u8"\u0308"
@@ -340,7 +387,7 @@ TEST(stream_safe, truncation_needed_long)
         {
             std::u8string result;
             auto utf32 = as_utf32(stream_unsafe);
-            auto const v = as_stream_safe(utf32.begin(), utf32.end());
+            auto const v = as_stream_safe(utf32);
             // Can't use std::copy() (or even range-base for) because of the
             // sentinel
             for (auto it = v.begin(); it != v.end(); ++it) {
@@ -348,12 +395,15 @@ TEST(stream_safe, truncation_needed_long)
             }
             EXPECT_FALSE(stream_unsafe == result);
             EXPECT_TRUE(result == expected);
+
+            std::string result2(result.begin(), result.end());
+            std::string expected2(expected.begin(), expected.end());
+            EXPECT_EQ(result2, expected2);
         }
  
         {
             std::u8string result;
-            auto utf32 = as_utf32(stream_unsafe);
-            auto const v = as_stream_safe(utf32.begin(), null_sentinel);
+            auto const v = as_stream_safe(stream_unsafe);
             // Can't use std::copy() (or even range-base for) because of the
             // sentinel
             for (auto it = v.begin(); it != v.end(); ++it) {
@@ -382,6 +432,21 @@ TEST(stream_safe, truncation_needed_long)
             }
             EXPECT_FALSE(stream_unsafe == result);
             EXPECT_TRUE(result == expected);
+        }
+
+        {
+            std::u8string str = stream_unsafe;
+            auto const ss = str | as_stream_safe | as_utf8;
+            auto const first = ss.begin();
+            auto it = ss.end();
+            std::u8string result;
+            while (it != first) {
+                --it;
+                result += *it;
+            }
+            auto reversed_expected = expected;
+            std::ranges::reverse(reversed_expected);
+            EXPECT_TRUE(result == reversed_expected);
         }
     }
 }

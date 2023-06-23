@@ -465,6 +465,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 }
             }
         };
+
+        template<class T>
+        constexpr bool is_utf32_view = false;
+        template<class V>
+        constexpr bool is_utf32_view<utf32_view<V>> = true;
+        template<class V>
+        constexpr bool is_utf32_view<utf_view<format::utf32, V>> = true;
     }
 
     inline constexpr dtl::as_utf_impl<utf8_view, format::utf8> as_utf8;
