@@ -524,8 +524,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             std::ranges::begin(r), std::ranges::end(r));
     }
 
+    // TODO: Explain why this is inherently unusable with input ranges --
+    // there is inherently going to be backtracking.
     template<utf32_range V>
-        requires std::ranges::view<V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
     class stream_safe_view : public std::ranges::view_interface<stream_safe_view<V>>
     {
         template<bool Const, bool StoreLast = !detail::is_utf_iter<std::ranges::iterator_t<V>>>
@@ -564,7 +566,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
     template<utf32_range V>
-        requires std::ranges::view<V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
     template<bool Const, bool StoreLast>
     class stream_safe_view<V>::iterator
         : detail::first_last_storage<detail::maybe_const<Const, V>>,
@@ -650,7 +652,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
     template<utf32_range V>
-        requires std::ranges::view<V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
     class stream_safe_view<V>::sentinel
     {
     public:
@@ -674,6 +676,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         struct stream_safe_impl : range_adaptor_closure<stream_safe_impl>
         {
             template<can_utf32_view1 R>
+                requires std::ranges::forward_range<R> || std::is_pointer_v<std::remove_cvref_t<R>>
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
                 using T = std::remove_cvref_t<R>;
