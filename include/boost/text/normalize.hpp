@@ -464,7 +464,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return *this;
         }
 
-        friend bool operator==(iterator lhs, iterator rhs) requires std::ranges::common_range<V>
+        friend bool operator==(iterator lhs, iterator rhs)
         {
             return lhs.it_ == rhs.it_ && (lhs.index_ == rhs.index_ ||
                                           (lhs.index_ == (int)lhs.buf_.size() &&
