@@ -3063,7 +3063,13 @@ namespace boost { namespace text { namespace detail {
         constexpr first_last_storage(V & base) : first_{std::ranges::begin(base)} {}
 
         constexpr auto begin(std::ranges::iterator_t<V> & it) const { return first_; }
-        constexpr auto end(std::ranges::iterator_t<V> & it) const { return it.end(); }
+        constexpr auto end(std::ranges::iterator_t<V> & it) const {
+            if constexpr (requires {std::ranges::iterator_t<V>(it.begin(), it.end(), it.end());}) {
+                return std::ranges::iterator_t<V>(it.begin(), it.end(), it.end());
+            } else {
+                return it.end();
+            }
+        }
 
         std::ranges::iterator_t<V> first_;
     };
@@ -3099,7 +3105,13 @@ namespace boost { namespace text { namespace detail {
                 return;
             }
         }
-        constexpr auto end(std::ranges::iterator_t<V> & it) const { return it.end(); }
+        constexpr auto end(std::ranges::iterator_t<V> & it) const {
+            if constexpr (requires {std::ranges::iterator_t<V>(it.begin(), it.end(), it.end());}) {
+                return std::ranges::iterator_t<V>(it.begin(), it.end(), it.end());
+            } else {
+                return it.end();
+            }
+        }
     };
 
 
