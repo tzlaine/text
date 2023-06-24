@@ -6,12 +6,7 @@
 #ifndef BOOST_TEXT_NORMALIZE_HPP
 #define BOOST_TEXT_NORMALIZE_HPP
 
-#include <boost/text/algorithm.hpp>
-#include <boost/text/concepts.hpp>
-#include <boost/text/transcode_algorithm.hpp>
-#include <boost/text/transcode_iterator.hpp>
-#include <boost/text/transcode_view.hpp>
-#include <boost/text/detail/normalization_data.hpp>
+#include <boost/text/stream_safe.hpp>
 #include <boost/text/detail/normalize.hpp>
 
 #include <boost/container/static_vector.hpp>
@@ -355,6 +350,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         static_assert(nf::c <= N && N <= nf::fcc);
 
     public:
+        static constexpr nf normalization_form = N;
+
         constexpr normalize_view() requires std::default_initializable<V> = default;
         constexpr normalize_view(V base) : base_{std::move(base)} {}
 
@@ -562,25 +559,40 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
 
     namespace dtl {
-        // Repeating this in every place that needs this concept works around
-        // an odd GCC 13 bug.
-        template<class R>
-        concept can_utf32_view0 = requires { as_utf32(std::declval<R>()); };
+        template<class T>
+        constexpr bool is_normalize_view = false;
+        template<nf N, class T>
+        constexpr bool is_normalize_view<normalize_view<N, T>> = true;
+        template<class T>
+        constexpr bool is_normalize_view<nfc_view<T>> = true;
+        template<class T>
+        constexpr bool is_normalize_view<nfkc_view<T>> = true;
+        template<class T>
+        constexpr bool is_normalize_view<nfd_view<T>> = true;
+        template<class T>
+        constexpr bool is_normalize_view<nfkd_view<T>> = true;
+        template<class T>
+        constexpr bool is_normalize_view<fcc_view<T>> = true;
 
         template<template<class> class View, nf N>
         struct normalize_impl : range_adaptor_closure<normalize_impl<View, N>>
         {
-            template<can_utf32_view0 R>
-                requires std::ranges::forward_range<R> || std::is_pointer_v<std::remove_cvref_t<R>>
+            template<can_stream_safe R>
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
                 using T = std::remove_cvref_t<R>;
                 if constexpr (detail::is_empty_view<T>) {
                     return std::ranges::empty_view<T>{};
-                } else if constexpr (is_utf32_view<T>) {
-                    return View(std::forward<R>(r));
+                } else if constexpr (is_normalize_view<T>) {
+                    if constexpr (N == T::normalization_form) {
+                        return std::forward<R>(r);
+                    } else if constexpr (requires { View(std::forward<R>(r).base()); }) {
+                        return View(std::forward<R>(r).base());
+                    } else {
+                        return View(std::forward<R>(r));
+                    }
                 } else {
-                    return View(std::forward<R>(r) | as_utf32);
+                    return View(std::forward<R>(r) | as_stream_safe);
                 }
             }
         };

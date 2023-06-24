@@ -454,18 +454,27 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     stream_safe_view(R &&) -> stream_safe_view<std::views::all_t<R>>;
 
     namespace dtl {
+        // Repeating this in every place that needs this concept works around
+        // an odd GCC 13 bug.
         template<class R>
-        concept can_utf32_view1 = requires { as_utf32(std::declval<R>()); };
+        concept can_utf32_view0 = requires { as_utf32(std::declval<R>()); };
+
+        template<class T>
+        constexpr bool is_stream_safe_view = false;
+        template<class T>
+        constexpr bool is_stream_safe_view<stream_safe_view<T>> = true;
 
         struct stream_safe_impl : range_adaptor_closure<stream_safe_impl>
         {
-            template<can_utf32_view1 R>
+            template<can_utf32_view0 R>
                 requires std::ranges::forward_range<R> || std::is_pointer_v<std::remove_cvref_t<R>>
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
                 using T = std::remove_cvref_t<R>;
                 if constexpr (detail::is_empty_view<T>) {
                     return std::ranges::empty_view<T>{};
+                } else if constexpr (is_stream_safe_view<T>) {
+                    return std::forward<R>(r);
                 } else if constexpr (is_utf32_view<T>) {
                     return stream_safe_view(std::forward<R>(r));
                 } else {
