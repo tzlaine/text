@@ -49,11 +49,16 @@ TEST(normalization, nfkc_087_000)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -69,11 +74,16 @@ TEST(normalization, nfkc_087_000)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -89,11 +99,16 @@ TEST(normalization, nfkc_087_000)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -109,11 +124,16 @@ TEST(normalization, nfkc_087_000)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -129,11 +149,16 @@ TEST(normalization, nfkc_087_000)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -178,11 +203,16 @@ TEST(normalization, nfkc_087_001)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -198,11 +228,16 @@ TEST(normalization, nfkc_087_001)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -218,11 +253,16 @@ TEST(normalization, nfkc_087_001)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -238,11 +278,16 @@ TEST(normalization, nfkc_087_001)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -258,11 +303,16 @@ TEST(normalization, nfkc_087_001)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -315,11 +365,16 @@ TEST(normalization, nfkc_087_002)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -335,11 +390,16 @@ TEST(normalization, nfkc_087_002)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -355,11 +415,16 @@ TEST(normalization, nfkc_087_002)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -375,11 +440,16 @@ TEST(normalization, nfkc_087_002)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -395,11 +465,16 @@ TEST(normalization, nfkc_087_002)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -444,11 +519,16 @@ TEST(normalization, nfkc_087_003)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -464,11 +544,16 @@ TEST(normalization, nfkc_087_003)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -484,11 +569,16 @@ TEST(normalization, nfkc_087_003)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -504,11 +594,16 @@ TEST(normalization, nfkc_087_003)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -524,11 +619,16 @@ TEST(normalization, nfkc_087_003)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -581,11 +681,16 @@ TEST(normalization, nfkc_087_004)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -601,11 +706,16 @@ TEST(normalization, nfkc_087_004)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -621,11 +731,16 @@ TEST(normalization, nfkc_087_004)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -641,11 +756,16 @@ TEST(normalization, nfkc_087_004)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -661,11 +781,16 @@ TEST(normalization, nfkc_087_004)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -718,11 +843,16 @@ TEST(normalization, nfkc_087_005)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -738,11 +868,16 @@ TEST(normalization, nfkc_087_005)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -758,11 +893,16 @@ TEST(normalization, nfkc_087_005)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -778,11 +918,16 @@ TEST(normalization, nfkc_087_005)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -798,11 +943,16 @@ TEST(normalization, nfkc_087_005)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -855,11 +1005,16 @@ TEST(normalization, nfkc_087_006)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -875,11 +1030,16 @@ TEST(normalization, nfkc_087_006)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -895,11 +1055,16 @@ TEST(normalization, nfkc_087_006)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -915,11 +1080,16 @@ TEST(normalization, nfkc_087_006)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -935,11 +1105,16 @@ TEST(normalization, nfkc_087_006)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -992,11 +1167,16 @@ TEST(normalization, nfkc_087_007)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1012,11 +1192,16 @@ TEST(normalization, nfkc_087_007)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1032,11 +1217,16 @@ TEST(normalization, nfkc_087_007)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1052,11 +1242,16 @@ TEST(normalization, nfkc_087_007)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1072,11 +1267,16 @@ TEST(normalization, nfkc_087_007)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1129,11 +1329,16 @@ TEST(normalization, nfkc_087_008)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1149,11 +1354,16 @@ TEST(normalization, nfkc_087_008)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1169,11 +1379,16 @@ TEST(normalization, nfkc_087_008)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1189,11 +1404,16 @@ TEST(normalization, nfkc_087_008)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1209,11 +1429,16 @@ TEST(normalization, nfkc_087_008)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1258,11 +1483,16 @@ TEST(normalization, nfkc_087_009)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1278,11 +1508,16 @@ TEST(normalization, nfkc_087_009)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1298,11 +1533,16 @@ TEST(normalization, nfkc_087_009)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1318,11 +1558,16 @@ TEST(normalization, nfkc_087_009)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1338,11 +1583,16 @@ TEST(normalization, nfkc_087_009)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1395,11 +1645,16 @@ TEST(normalization, nfkc_087_010)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1415,11 +1670,16 @@ TEST(normalization, nfkc_087_010)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1435,11 +1695,16 @@ TEST(normalization, nfkc_087_010)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1455,11 +1720,16 @@ TEST(normalization, nfkc_087_010)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1475,11 +1745,16 @@ TEST(normalization, nfkc_087_010)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1532,11 +1807,16 @@ TEST(normalization, nfkc_087_011)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1552,11 +1832,16 @@ TEST(normalization, nfkc_087_011)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1572,11 +1857,16 @@ TEST(normalization, nfkc_087_011)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1592,11 +1882,16 @@ TEST(normalization, nfkc_087_011)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1612,11 +1907,16 @@ TEST(normalization, nfkc_087_011)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1669,11 +1969,16 @@ TEST(normalization, nfkc_087_012)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1689,11 +1994,16 @@ TEST(normalization, nfkc_087_012)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1709,11 +2019,16 @@ TEST(normalization, nfkc_087_012)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1729,11 +2044,16 @@ TEST(normalization, nfkc_087_012)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1749,11 +2069,16 @@ TEST(normalization, nfkc_087_012)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1798,11 +2123,16 @@ TEST(normalization, nfkc_087_013)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1818,11 +2148,16 @@ TEST(normalization, nfkc_087_013)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1838,11 +2173,16 @@ TEST(normalization, nfkc_087_013)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1858,11 +2198,16 @@ TEST(normalization, nfkc_087_013)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1878,11 +2223,16 @@ TEST(normalization, nfkc_087_013)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1935,11 +2285,16 @@ TEST(normalization, nfkc_087_014)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1955,11 +2310,16 @@ TEST(normalization, nfkc_087_014)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1975,11 +2335,16 @@ TEST(normalization, nfkc_087_014)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -1995,11 +2360,16 @@ TEST(normalization, nfkc_087_014)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2015,11 +2385,16 @@ TEST(normalization, nfkc_087_014)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2064,11 +2439,16 @@ TEST(normalization, nfkc_087_015)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2084,11 +2464,16 @@ TEST(normalization, nfkc_087_015)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2104,11 +2489,16 @@ TEST(normalization, nfkc_087_015)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2124,11 +2514,16 @@ TEST(normalization, nfkc_087_015)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2144,11 +2539,16 @@ TEST(normalization, nfkc_087_015)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2201,11 +2601,16 @@ TEST(normalization, nfkc_087_016)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2221,11 +2626,16 @@ TEST(normalization, nfkc_087_016)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2241,11 +2651,16 @@ TEST(normalization, nfkc_087_016)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2261,11 +2676,16 @@ TEST(normalization, nfkc_087_016)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2281,11 +2701,16 @@ TEST(normalization, nfkc_087_016)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2338,11 +2763,16 @@ TEST(normalization, nfkc_087_017)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2358,11 +2788,16 @@ TEST(normalization, nfkc_087_017)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2378,11 +2813,16 @@ TEST(normalization, nfkc_087_017)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2398,11 +2838,16 @@ TEST(normalization, nfkc_087_017)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2418,11 +2863,16 @@ TEST(normalization, nfkc_087_017)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2475,11 +2925,16 @@ TEST(normalization, nfkc_087_018)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2495,11 +2950,16 @@ TEST(normalization, nfkc_087_018)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2515,11 +2975,16 @@ TEST(normalization, nfkc_087_018)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2535,11 +3000,16 @@ TEST(normalization, nfkc_087_018)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2555,11 +3025,16 @@ TEST(normalization, nfkc_087_018)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2604,11 +3079,16 @@ TEST(normalization, nfkc_087_019)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2624,11 +3104,16 @@ TEST(normalization, nfkc_087_019)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2644,11 +3129,16 @@ TEST(normalization, nfkc_087_019)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2664,11 +3154,16 @@ TEST(normalization, nfkc_087_019)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2684,11 +3179,16 @@ TEST(normalization, nfkc_087_019)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2741,11 +3241,16 @@ TEST(normalization, nfkc_087_020)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2761,11 +3266,16 @@ TEST(normalization, nfkc_087_020)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2781,11 +3291,16 @@ TEST(normalization, nfkc_087_020)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2801,11 +3316,16 @@ TEST(normalization, nfkc_087_020)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2821,11 +3341,16 @@ TEST(normalization, nfkc_087_020)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2870,11 +3395,16 @@ TEST(normalization, nfkc_087_021)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2890,11 +3420,16 @@ TEST(normalization, nfkc_087_021)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2910,11 +3445,16 @@ TEST(normalization, nfkc_087_021)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2930,11 +3470,16 @@ TEST(normalization, nfkc_087_021)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -2950,11 +3495,16 @@ TEST(normalization, nfkc_087_021)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3007,11 +3557,16 @@ TEST(normalization, nfkc_087_022)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3027,11 +3582,16 @@ TEST(normalization, nfkc_087_022)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3047,11 +3607,16 @@ TEST(normalization, nfkc_087_022)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3067,11 +3632,16 @@ TEST(normalization, nfkc_087_022)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3087,11 +3657,16 @@ TEST(normalization, nfkc_087_022)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3144,11 +3719,16 @@ TEST(normalization, nfkc_087_023)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3164,11 +3744,16 @@ TEST(normalization, nfkc_087_023)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3184,11 +3769,16 @@ TEST(normalization, nfkc_087_023)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3204,11 +3794,16 @@ TEST(normalization, nfkc_087_023)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3224,11 +3819,16 @@ TEST(normalization, nfkc_087_023)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3281,11 +3881,16 @@ TEST(normalization, nfkc_087_024)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3301,11 +3906,16 @@ TEST(normalization, nfkc_087_024)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3321,11 +3931,16 @@ TEST(normalization, nfkc_087_024)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3341,11 +3956,16 @@ TEST(normalization, nfkc_087_024)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3361,11 +3981,16 @@ TEST(normalization, nfkc_087_024)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3418,11 +4043,16 @@ TEST(normalization, nfkc_087_025)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3438,11 +4068,16 @@ TEST(normalization, nfkc_087_025)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3458,11 +4093,16 @@ TEST(normalization, nfkc_087_025)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3478,11 +4118,16 @@ TEST(normalization, nfkc_087_025)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3498,11 +4143,16 @@ TEST(normalization, nfkc_087_025)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3555,11 +4205,16 @@ TEST(normalization, nfkc_087_026)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3575,11 +4230,16 @@ TEST(normalization, nfkc_087_026)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3595,11 +4255,16 @@ TEST(normalization, nfkc_087_026)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3615,11 +4280,16 @@ TEST(normalization, nfkc_087_026)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3635,11 +4305,16 @@ TEST(normalization, nfkc_087_026)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3692,11 +4367,16 @@ TEST(normalization, nfkc_087_027)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3712,11 +4392,16 @@ TEST(normalization, nfkc_087_027)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3732,11 +4417,16 @@ TEST(normalization, nfkc_087_027)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3752,11 +4442,16 @@ TEST(normalization, nfkc_087_027)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3772,11 +4467,16 @@ TEST(normalization, nfkc_087_027)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3829,11 +4529,16 @@ TEST(normalization, nfkc_087_028)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3849,11 +4554,16 @@ TEST(normalization, nfkc_087_028)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3869,11 +4579,16 @@ TEST(normalization, nfkc_087_028)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3889,11 +4604,16 @@ TEST(normalization, nfkc_087_028)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3909,11 +4629,16 @@ TEST(normalization, nfkc_087_028)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3958,11 +4683,16 @@ TEST(normalization, nfkc_087_029)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3978,11 +4708,16 @@ TEST(normalization, nfkc_087_029)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -3998,11 +4733,16 @@ TEST(normalization, nfkc_087_029)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4018,11 +4758,16 @@ TEST(normalization, nfkc_087_029)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4038,11 +4783,16 @@ TEST(normalization, nfkc_087_029)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4095,11 +4845,16 @@ TEST(normalization, nfkc_087_030)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4115,11 +4870,16 @@ TEST(normalization, nfkc_087_030)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4135,11 +4895,16 @@ TEST(normalization, nfkc_087_030)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4155,11 +4920,16 @@ TEST(normalization, nfkc_087_030)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4175,11 +4945,16 @@ TEST(normalization, nfkc_087_030)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4232,11 +5007,16 @@ TEST(normalization, nfkc_087_031)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4252,11 +5032,16 @@ TEST(normalization, nfkc_087_031)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4272,11 +5057,16 @@ TEST(normalization, nfkc_087_031)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4292,11 +5082,16 @@ TEST(normalization, nfkc_087_031)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4312,11 +5107,16 @@ TEST(normalization, nfkc_087_031)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4369,11 +5169,16 @@ TEST(normalization, nfkc_087_032)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4389,11 +5194,16 @@ TEST(normalization, nfkc_087_032)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4409,11 +5219,16 @@ TEST(normalization, nfkc_087_032)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4429,11 +5244,16 @@ TEST(normalization, nfkc_087_032)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4449,11 +5269,16 @@ TEST(normalization, nfkc_087_032)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4506,11 +5331,16 @@ TEST(normalization, nfkc_087_033)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4526,11 +5356,16 @@ TEST(normalization, nfkc_087_033)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4546,11 +5381,16 @@ TEST(normalization, nfkc_087_033)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4566,11 +5406,16 @@ TEST(normalization, nfkc_087_033)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4586,11 +5431,16 @@ TEST(normalization, nfkc_087_033)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4643,11 +5493,16 @@ TEST(normalization, nfkc_087_034)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4663,11 +5518,16 @@ TEST(normalization, nfkc_087_034)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4683,11 +5543,16 @@ TEST(normalization, nfkc_087_034)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4703,11 +5568,16 @@ TEST(normalization, nfkc_087_034)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4723,11 +5593,16 @@ TEST(normalization, nfkc_087_034)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4772,11 +5647,16 @@ TEST(normalization, nfkc_087_035)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4792,11 +5672,16 @@ TEST(normalization, nfkc_087_035)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4812,11 +5697,16 @@ TEST(normalization, nfkc_087_035)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4832,11 +5722,16 @@ TEST(normalization, nfkc_087_035)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4852,11 +5747,16 @@ TEST(normalization, nfkc_087_035)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4909,11 +5809,16 @@ TEST(normalization, nfkc_087_036)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4929,11 +5834,16 @@ TEST(normalization, nfkc_087_036)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4949,11 +5859,16 @@ TEST(normalization, nfkc_087_036)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4969,11 +5884,16 @@ TEST(normalization, nfkc_087_036)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -4989,11 +5909,16 @@ TEST(normalization, nfkc_087_036)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5046,11 +5971,16 @@ TEST(normalization, nfkc_087_037)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5066,11 +5996,16 @@ TEST(normalization, nfkc_087_037)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5086,11 +6021,16 @@ TEST(normalization, nfkc_087_037)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5106,11 +6046,16 @@ TEST(normalization, nfkc_087_037)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5126,11 +6071,16 @@ TEST(normalization, nfkc_087_037)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5183,11 +6133,16 @@ TEST(normalization, nfkc_087_038)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5203,11 +6158,16 @@ TEST(normalization, nfkc_087_038)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5223,11 +6183,16 @@ TEST(normalization, nfkc_087_038)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5243,11 +6208,16 @@ TEST(normalization, nfkc_087_038)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5263,11 +6233,16 @@ TEST(normalization, nfkc_087_038)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5312,11 +6287,16 @@ TEST(normalization, nfkc_087_039)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5332,11 +6312,16 @@ TEST(normalization, nfkc_087_039)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5352,11 +6337,16 @@ TEST(normalization, nfkc_087_039)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5372,11 +6362,16 @@ TEST(normalization, nfkc_087_039)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5392,11 +6387,16 @@ TEST(normalization, nfkc_087_039)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5449,11 +6449,16 @@ TEST(normalization, nfkc_087_040)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5469,11 +6474,16 @@ TEST(normalization, nfkc_087_040)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5489,11 +6499,16 @@ TEST(normalization, nfkc_087_040)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5509,11 +6524,16 @@ TEST(normalization, nfkc_087_040)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5529,11 +6549,16 @@ TEST(normalization, nfkc_087_040)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5578,11 +6603,16 @@ TEST(normalization, nfkc_087_041)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5598,11 +6628,16 @@ TEST(normalization, nfkc_087_041)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5618,11 +6653,16 @@ TEST(normalization, nfkc_087_041)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5638,11 +6678,16 @@ TEST(normalization, nfkc_087_041)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5658,11 +6703,16 @@ TEST(normalization, nfkc_087_041)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5715,11 +6765,16 @@ TEST(normalization, nfkc_087_042)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5735,11 +6790,16 @@ TEST(normalization, nfkc_087_042)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5755,11 +6815,16 @@ TEST(normalization, nfkc_087_042)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5775,11 +6840,16 @@ TEST(normalization, nfkc_087_042)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5795,11 +6865,16 @@ TEST(normalization, nfkc_087_042)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5844,11 +6919,16 @@ TEST(normalization, nfkc_087_043)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5864,11 +6944,16 @@ TEST(normalization, nfkc_087_043)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5884,11 +6969,16 @@ TEST(normalization, nfkc_087_043)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5904,11 +6994,16 @@ TEST(normalization, nfkc_087_043)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5924,11 +7019,16 @@ TEST(normalization, nfkc_087_043)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -5981,11 +7081,16 @@ TEST(normalization, nfkc_087_044)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6001,11 +7106,16 @@ TEST(normalization, nfkc_087_044)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6021,11 +7131,16 @@ TEST(normalization, nfkc_087_044)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6041,11 +7156,16 @@ TEST(normalization, nfkc_087_044)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6061,11 +7181,16 @@ TEST(normalization, nfkc_087_044)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6118,11 +7243,16 @@ TEST(normalization, nfkc_087_045)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6138,11 +7268,16 @@ TEST(normalization, nfkc_087_045)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6158,11 +7293,16 @@ TEST(normalization, nfkc_087_045)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6178,11 +7318,16 @@ TEST(normalization, nfkc_087_045)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6198,11 +7343,16 @@ TEST(normalization, nfkc_087_045)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6255,11 +7405,16 @@ TEST(normalization, nfkc_087_046)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6275,11 +7430,16 @@ TEST(normalization, nfkc_087_046)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6295,11 +7455,16 @@ TEST(normalization, nfkc_087_046)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6315,11 +7480,16 @@ TEST(normalization, nfkc_087_046)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6335,11 +7505,16 @@ TEST(normalization, nfkc_087_046)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6384,11 +7559,16 @@ TEST(normalization, nfkc_087_047)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6404,11 +7584,16 @@ TEST(normalization, nfkc_087_047)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6424,11 +7609,16 @@ TEST(normalization, nfkc_087_047)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6444,11 +7634,16 @@ TEST(normalization, nfkc_087_047)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6464,11 +7659,16 @@ TEST(normalization, nfkc_087_047)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6521,11 +7721,16 @@ TEST(normalization, nfkc_087_048)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6541,11 +7746,16 @@ TEST(normalization, nfkc_087_048)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6561,11 +7771,16 @@ TEST(normalization, nfkc_087_048)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6581,11 +7796,16 @@ TEST(normalization, nfkc_087_048)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6601,11 +7821,16 @@ TEST(normalization, nfkc_087_048)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6658,11 +7883,16 @@ TEST(normalization, nfkc_087_049)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6678,11 +7908,16 @@ TEST(normalization, nfkc_087_049)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6698,11 +7933,16 @@ TEST(normalization, nfkc_087_049)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6718,11 +7958,16 @@ TEST(normalization, nfkc_087_049)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6738,11 +7983,16 @@ TEST(normalization, nfkc_087_049)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6795,11 +8045,16 @@ TEST(normalization, nfkc_087_050)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6815,11 +8070,16 @@ TEST(normalization, nfkc_087_050)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6835,11 +8095,16 @@ TEST(normalization, nfkc_087_050)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6855,11 +8120,16 @@ TEST(normalization, nfkc_087_050)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6875,11 +8145,16 @@ TEST(normalization, nfkc_087_050)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6924,11 +8199,16 @@ TEST(normalization, nfkc_087_051)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6944,11 +8224,16 @@ TEST(normalization, nfkc_087_051)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6964,11 +8249,16 @@ TEST(normalization, nfkc_087_051)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -6984,11 +8274,16 @@ TEST(normalization, nfkc_087_051)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7004,11 +8299,16 @@ TEST(normalization, nfkc_087_051)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7061,11 +8361,16 @@ TEST(normalization, nfkc_087_052)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7081,11 +8386,16 @@ TEST(normalization, nfkc_087_052)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7101,11 +8411,16 @@ TEST(normalization, nfkc_087_052)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7121,11 +8436,16 @@ TEST(normalization, nfkc_087_052)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7141,11 +8461,16 @@ TEST(normalization, nfkc_087_052)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7198,11 +8523,16 @@ TEST(normalization, nfkc_087_053)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7218,11 +8548,16 @@ TEST(normalization, nfkc_087_053)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7238,11 +8573,16 @@ TEST(normalization, nfkc_087_053)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7258,11 +8598,16 @@ TEST(normalization, nfkc_087_053)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7278,11 +8623,16 @@ TEST(normalization, nfkc_087_053)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7335,11 +8685,16 @@ TEST(normalization, nfkc_087_054)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7355,11 +8710,16 @@ TEST(normalization, nfkc_087_054)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7375,11 +8735,16 @@ TEST(normalization, nfkc_087_054)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7395,11 +8760,16 @@ TEST(normalization, nfkc_087_054)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7415,11 +8785,16 @@ TEST(normalization, nfkc_087_054)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7464,11 +8839,16 @@ TEST(normalization, nfkc_087_055)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7484,11 +8864,16 @@ TEST(normalization, nfkc_087_055)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7504,11 +8889,16 @@ TEST(normalization, nfkc_087_055)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7524,11 +8914,16 @@ TEST(normalization, nfkc_087_055)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7544,11 +8939,16 @@ TEST(normalization, nfkc_087_055)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7601,11 +9001,16 @@ TEST(normalization, nfkc_087_056)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7621,11 +9026,16 @@ TEST(normalization, nfkc_087_056)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7641,11 +9051,16 @@ TEST(normalization, nfkc_087_056)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7661,11 +9076,16 @@ TEST(normalization, nfkc_087_056)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7681,11 +9101,16 @@ TEST(normalization, nfkc_087_056)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7738,11 +9163,16 @@ TEST(normalization, nfkc_087_057)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7758,11 +9188,16 @@ TEST(normalization, nfkc_087_057)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7778,11 +9213,16 @@ TEST(normalization, nfkc_087_057)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7798,11 +9238,16 @@ TEST(normalization, nfkc_087_057)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7818,11 +9263,16 @@ TEST(normalization, nfkc_087_057)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7875,11 +9325,16 @@ TEST(normalization, nfkc_087_058)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7895,11 +9350,16 @@ TEST(normalization, nfkc_087_058)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7915,11 +9375,16 @@ TEST(normalization, nfkc_087_058)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7935,11 +9400,16 @@ TEST(normalization, nfkc_087_058)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -7955,11 +9425,16 @@ TEST(normalization, nfkc_087_058)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8004,11 +9479,16 @@ TEST(normalization, nfkc_087_059)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8024,11 +9504,16 @@ TEST(normalization, nfkc_087_059)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8044,11 +9529,16 @@ TEST(normalization, nfkc_087_059)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8064,11 +9554,16 @@ TEST(normalization, nfkc_087_059)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8084,11 +9579,16 @@ TEST(normalization, nfkc_087_059)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8141,11 +9641,16 @@ TEST(normalization, nfkc_087_060)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8161,11 +9666,16 @@ TEST(normalization, nfkc_087_060)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8181,11 +9691,16 @@ TEST(normalization, nfkc_087_060)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8201,11 +9716,16 @@ TEST(normalization, nfkc_087_060)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8221,11 +9741,16 @@ TEST(normalization, nfkc_087_060)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8270,11 +9795,16 @@ TEST(normalization, nfkc_087_061)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8290,11 +9820,16 @@ TEST(normalization, nfkc_087_061)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8310,11 +9845,16 @@ TEST(normalization, nfkc_087_061)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8330,11 +9870,16 @@ TEST(normalization, nfkc_087_061)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8350,11 +9895,16 @@ TEST(normalization, nfkc_087_061)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8407,11 +9957,16 @@ TEST(normalization, nfkc_087_062)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8427,11 +9982,16 @@ TEST(normalization, nfkc_087_062)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8447,11 +10007,16 @@ TEST(normalization, nfkc_087_062)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8467,11 +10032,16 @@ TEST(normalization, nfkc_087_062)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8487,11 +10057,16 @@ TEST(normalization, nfkc_087_062)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8536,11 +10111,16 @@ TEST(normalization, nfkc_087_063)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8556,11 +10136,16 @@ TEST(normalization, nfkc_087_063)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8576,11 +10161,16 @@ TEST(normalization, nfkc_087_063)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8596,11 +10186,16 @@ TEST(normalization, nfkc_087_063)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8616,11 +10211,16 @@ TEST(normalization, nfkc_087_063)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8673,11 +10273,16 @@ TEST(normalization, nfkc_087_064)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8693,11 +10298,16 @@ TEST(normalization, nfkc_087_064)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8713,11 +10323,16 @@ TEST(normalization, nfkc_087_064)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8733,11 +10348,16 @@ TEST(normalization, nfkc_087_064)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8753,11 +10373,16 @@ TEST(normalization, nfkc_087_064)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8802,11 +10427,16 @@ TEST(normalization, nfkc_087_065)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8822,11 +10452,16 @@ TEST(normalization, nfkc_087_065)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8842,11 +10477,16 @@ TEST(normalization, nfkc_087_065)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8862,11 +10502,16 @@ TEST(normalization, nfkc_087_065)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8882,11 +10527,16 @@ TEST(normalization, nfkc_087_065)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8939,11 +10589,16 @@ TEST(normalization, nfkc_087_066)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8959,11 +10614,16 @@ TEST(normalization, nfkc_087_066)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8979,11 +10639,16 @@ TEST(normalization, nfkc_087_066)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -8999,11 +10664,16 @@ TEST(normalization, nfkc_087_066)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9019,11 +10689,16 @@ TEST(normalization, nfkc_087_066)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9068,11 +10743,16 @@ TEST(normalization, nfkc_087_067)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9088,11 +10768,16 @@ TEST(normalization, nfkc_087_067)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9108,11 +10793,16 @@ TEST(normalization, nfkc_087_067)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9128,11 +10818,16 @@ TEST(normalization, nfkc_087_067)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9148,11 +10843,16 @@ TEST(normalization, nfkc_087_067)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9205,11 +10905,16 @@ TEST(normalization, nfkc_087_068)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9225,11 +10930,16 @@ TEST(normalization, nfkc_087_068)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9245,11 +10955,16 @@ TEST(normalization, nfkc_087_068)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9265,11 +10980,16 @@ TEST(normalization, nfkc_087_068)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9285,11 +11005,16 @@ TEST(normalization, nfkc_087_068)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9334,11 +11059,16 @@ TEST(normalization, nfkc_087_069)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9354,11 +11084,16 @@ TEST(normalization, nfkc_087_069)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9374,11 +11109,16 @@ TEST(normalization, nfkc_087_069)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9394,11 +11134,16 @@ TEST(normalization, nfkc_087_069)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9414,11 +11159,16 @@ TEST(normalization, nfkc_087_069)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9471,11 +11221,16 @@ TEST(normalization, nfkc_087_070)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9491,11 +11246,16 @@ TEST(normalization, nfkc_087_070)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9511,11 +11271,16 @@ TEST(normalization, nfkc_087_070)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9531,11 +11296,16 @@ TEST(normalization, nfkc_087_070)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9551,11 +11321,16 @@ TEST(normalization, nfkc_087_070)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9600,11 +11375,16 @@ TEST(normalization, nfkc_087_071)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9620,11 +11400,16 @@ TEST(normalization, nfkc_087_071)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9640,11 +11425,16 @@ TEST(normalization, nfkc_087_071)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9660,11 +11450,16 @@ TEST(normalization, nfkc_087_071)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9680,11 +11475,16 @@ TEST(normalization, nfkc_087_071)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9737,11 +11537,16 @@ TEST(normalization, nfkc_087_072)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9757,11 +11562,16 @@ TEST(normalization, nfkc_087_072)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9777,11 +11587,16 @@ TEST(normalization, nfkc_087_072)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9797,11 +11612,16 @@ TEST(normalization, nfkc_087_072)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9817,11 +11637,16 @@ TEST(normalization, nfkc_087_072)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9866,11 +11691,16 @@ TEST(normalization, nfkc_087_073)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9886,11 +11716,16 @@ TEST(normalization, nfkc_087_073)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9906,11 +11741,16 @@ TEST(normalization, nfkc_087_073)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9926,11 +11766,16 @@ TEST(normalization, nfkc_087_073)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -9946,11 +11791,16 @@ TEST(normalization, nfkc_087_073)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10003,11 +11853,16 @@ TEST(normalization, nfkc_087_074)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10023,11 +11878,16 @@ TEST(normalization, nfkc_087_074)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10043,11 +11903,16 @@ TEST(normalization, nfkc_087_074)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10063,11 +11928,16 @@ TEST(normalization, nfkc_087_074)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10083,11 +11953,16 @@ TEST(normalization, nfkc_087_074)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10132,11 +12007,16 @@ TEST(normalization, nfkc_087_075)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10152,11 +12032,16 @@ TEST(normalization, nfkc_087_075)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10172,11 +12057,16 @@ TEST(normalization, nfkc_087_075)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10192,11 +12082,16 @@ TEST(normalization, nfkc_087_075)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10212,11 +12107,16 @@ TEST(normalization, nfkc_087_075)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10269,11 +12169,16 @@ TEST(normalization, nfkc_087_076)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10289,11 +12194,16 @@ TEST(normalization, nfkc_087_076)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10309,11 +12219,16 @@ TEST(normalization, nfkc_087_076)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10329,11 +12244,16 @@ TEST(normalization, nfkc_087_076)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10349,11 +12269,16 @@ TEST(normalization, nfkc_087_076)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10406,11 +12331,16 @@ TEST(normalization, nfkc_087_077)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10426,11 +12356,16 @@ TEST(normalization, nfkc_087_077)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10446,11 +12381,16 @@ TEST(normalization, nfkc_087_077)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10466,11 +12406,16 @@ TEST(normalization, nfkc_087_077)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10486,11 +12431,16 @@ TEST(normalization, nfkc_087_077)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10543,11 +12493,16 @@ TEST(normalization, nfkc_087_078)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10563,11 +12518,16 @@ TEST(normalization, nfkc_087_078)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10583,11 +12543,16 @@ TEST(normalization, nfkc_087_078)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10603,11 +12568,16 @@ TEST(normalization, nfkc_087_078)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10623,11 +12593,16 @@ TEST(normalization, nfkc_087_078)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10672,11 +12647,16 @@ TEST(normalization, nfkc_087_079)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10692,11 +12672,16 @@ TEST(normalization, nfkc_087_079)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10712,11 +12697,16 @@ TEST(normalization, nfkc_087_079)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10732,11 +12722,16 @@ TEST(normalization, nfkc_087_079)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10752,11 +12747,16 @@ TEST(normalization, nfkc_087_079)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10809,11 +12809,16 @@ TEST(normalization, nfkc_087_080)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10829,11 +12834,16 @@ TEST(normalization, nfkc_087_080)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10849,11 +12859,16 @@ TEST(normalization, nfkc_087_080)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10869,11 +12884,16 @@ TEST(normalization, nfkc_087_080)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10889,11 +12909,16 @@ TEST(normalization, nfkc_087_080)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10946,11 +12971,16 @@ TEST(normalization, nfkc_087_081)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10966,11 +12996,16 @@ TEST(normalization, nfkc_087_081)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -10986,11 +13021,16 @@ TEST(normalization, nfkc_087_081)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11006,11 +13046,16 @@ TEST(normalization, nfkc_087_081)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11026,11 +13071,16 @@ TEST(normalization, nfkc_087_081)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11083,11 +13133,16 @@ TEST(normalization, nfkc_087_082)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11103,11 +13158,16 @@ TEST(normalization, nfkc_087_082)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11123,11 +13183,16 @@ TEST(normalization, nfkc_087_082)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11143,11 +13208,16 @@ TEST(normalization, nfkc_087_082)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11163,11 +13233,16 @@ TEST(normalization, nfkc_087_082)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11212,11 +13287,16 @@ TEST(normalization, nfkc_087_083)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11232,11 +13312,16 @@ TEST(normalization, nfkc_087_083)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11252,11 +13337,16 @@ TEST(normalization, nfkc_087_083)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11272,11 +13362,16 @@ TEST(normalization, nfkc_087_083)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11292,11 +13387,16 @@ TEST(normalization, nfkc_087_083)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11349,11 +13449,16 @@ TEST(normalization, nfkc_087_084)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11369,11 +13474,16 @@ TEST(normalization, nfkc_087_084)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11389,11 +13499,16 @@ TEST(normalization, nfkc_087_084)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11409,11 +13524,16 @@ TEST(normalization, nfkc_087_084)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11429,11 +13549,16 @@ TEST(normalization, nfkc_087_084)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11478,11 +13603,16 @@ TEST(normalization, nfkc_087_085)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11498,11 +13628,16 @@ TEST(normalization, nfkc_087_085)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11518,11 +13653,16 @@ TEST(normalization, nfkc_087_085)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11538,11 +13678,16 @@ TEST(normalization, nfkc_087_085)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11558,11 +13703,16 @@ TEST(normalization, nfkc_087_085)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11615,11 +13765,16 @@ TEST(normalization, nfkc_087_086)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11635,11 +13790,16 @@ TEST(normalization, nfkc_087_086)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11655,11 +13815,16 @@ TEST(normalization, nfkc_087_086)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11675,11 +13840,16 @@ TEST(normalization, nfkc_087_086)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11695,11 +13865,16 @@ TEST(normalization, nfkc_087_086)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11744,11 +13919,16 @@ TEST(normalization, nfkc_087_087)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11764,11 +13944,16 @@ TEST(normalization, nfkc_087_087)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11784,11 +13969,16 @@ TEST(normalization, nfkc_087_087)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11804,11 +13994,16 @@ TEST(normalization, nfkc_087_087)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11824,11 +14019,16 @@ TEST(normalization, nfkc_087_087)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11881,11 +14081,16 @@ TEST(normalization, nfkc_087_088)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11901,11 +14106,16 @@ TEST(normalization, nfkc_087_088)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11921,11 +14131,16 @@ TEST(normalization, nfkc_087_088)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11941,11 +14156,16 @@ TEST(normalization, nfkc_087_088)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -11961,11 +14181,16 @@ TEST(normalization, nfkc_087_088)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12010,11 +14235,16 @@ TEST(normalization, nfkc_087_089)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12030,11 +14260,16 @@ TEST(normalization, nfkc_087_089)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12050,11 +14285,16 @@ TEST(normalization, nfkc_087_089)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12070,11 +14310,16 @@ TEST(normalization, nfkc_087_089)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12090,11 +14335,16 @@ TEST(normalization, nfkc_087_089)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12147,11 +14397,16 @@ TEST(normalization, nfkc_087_090)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12167,11 +14422,16 @@ TEST(normalization, nfkc_087_090)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12187,11 +14447,16 @@ TEST(normalization, nfkc_087_090)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12207,11 +14472,16 @@ TEST(normalization, nfkc_087_090)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12227,11 +14497,16 @@ TEST(normalization, nfkc_087_090)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12276,11 +14551,16 @@ TEST(normalization, nfkc_087_091)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12296,11 +14576,16 @@ TEST(normalization, nfkc_087_091)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12316,11 +14601,16 @@ TEST(normalization, nfkc_087_091)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12336,11 +14626,16 @@ TEST(normalization, nfkc_087_091)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12356,11 +14651,16 @@ TEST(normalization, nfkc_087_091)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12413,11 +14713,16 @@ TEST(normalization, nfkc_087_092)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12433,11 +14738,16 @@ TEST(normalization, nfkc_087_092)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12453,11 +14763,16 @@ TEST(normalization, nfkc_087_092)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12473,11 +14788,16 @@ TEST(normalization, nfkc_087_092)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12493,11 +14813,16 @@ TEST(normalization, nfkc_087_092)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12542,11 +14867,16 @@ TEST(normalization, nfkc_087_093)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12562,11 +14892,16 @@ TEST(normalization, nfkc_087_093)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12582,11 +14917,16 @@ TEST(normalization, nfkc_087_093)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12602,11 +14942,16 @@ TEST(normalization, nfkc_087_093)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12622,11 +14967,16 @@ TEST(normalization, nfkc_087_093)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12679,11 +15029,16 @@ TEST(normalization, nfkc_087_094)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12699,11 +15054,16 @@ TEST(normalization, nfkc_087_094)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12719,11 +15079,16 @@ TEST(normalization, nfkc_087_094)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12739,11 +15104,16 @@ TEST(normalization, nfkc_087_094)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12759,11 +15129,16 @@ TEST(normalization, nfkc_087_094)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12808,11 +15183,16 @@ TEST(normalization, nfkc_087_095)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12828,11 +15208,16 @@ TEST(normalization, nfkc_087_095)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12848,11 +15233,16 @@ TEST(normalization, nfkc_087_095)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12868,11 +15258,16 @@ TEST(normalization, nfkc_087_095)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12888,11 +15283,16 @@ TEST(normalization, nfkc_087_095)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12945,11 +15345,16 @@ TEST(normalization, nfkc_087_096)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12965,11 +15370,16 @@ TEST(normalization, nfkc_087_096)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -12985,11 +15395,16 @@ TEST(normalization, nfkc_087_096)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13005,11 +15420,16 @@ TEST(normalization, nfkc_087_096)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13025,11 +15445,16 @@ TEST(normalization, nfkc_087_096)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13074,11 +15499,16 @@ TEST(normalization, nfkc_087_097)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13094,11 +15524,16 @@ TEST(normalization, nfkc_087_097)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13114,11 +15549,16 @@ TEST(normalization, nfkc_087_097)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13134,11 +15574,16 @@ TEST(normalization, nfkc_087_097)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13154,11 +15599,16 @@ TEST(normalization, nfkc_087_097)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13211,11 +15661,16 @@ TEST(normalization, nfkc_087_098)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13231,11 +15686,16 @@ TEST(normalization, nfkc_087_098)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13251,11 +15711,16 @@ TEST(normalization, nfkc_087_098)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13271,11 +15736,16 @@ TEST(normalization, nfkc_087_098)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13291,11 +15761,16 @@ TEST(normalization, nfkc_087_098)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13340,11 +15815,16 @@ TEST(normalization, nfkc_087_099)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13360,11 +15840,16 @@ TEST(normalization, nfkc_087_099)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13380,11 +15865,16 @@ TEST(normalization, nfkc_087_099)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13400,11 +15890,16 @@ TEST(normalization, nfkc_087_099)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13420,11 +15915,16 @@ TEST(normalization, nfkc_087_099)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13477,11 +15977,16 @@ TEST(normalization, nfkc_087_100)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13497,11 +16002,16 @@ TEST(normalization, nfkc_087_100)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13517,11 +16027,16 @@ TEST(normalization, nfkc_087_100)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13537,11 +16052,16 @@ TEST(normalization, nfkc_087_100)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13557,11 +16077,16 @@ TEST(normalization, nfkc_087_100)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13606,11 +16131,16 @@ TEST(normalization, nfkc_087_101)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13626,11 +16156,16 @@ TEST(normalization, nfkc_087_101)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13646,11 +16181,16 @@ TEST(normalization, nfkc_087_101)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13666,11 +16206,16 @@ TEST(normalization, nfkc_087_101)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13686,11 +16231,16 @@ TEST(normalization, nfkc_087_101)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13743,11 +16293,16 @@ TEST(normalization, nfkc_087_102)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13763,11 +16318,16 @@ TEST(normalization, nfkc_087_102)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13783,11 +16343,16 @@ TEST(normalization, nfkc_087_102)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13803,11 +16368,16 @@ TEST(normalization, nfkc_087_102)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13823,11 +16393,16 @@ TEST(normalization, nfkc_087_102)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13872,11 +16447,16 @@ TEST(normalization, nfkc_087_103)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13892,11 +16472,16 @@ TEST(normalization, nfkc_087_103)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13912,11 +16497,16 @@ TEST(normalization, nfkc_087_103)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13932,11 +16522,16 @@ TEST(normalization, nfkc_087_103)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -13952,11 +16547,16 @@ TEST(normalization, nfkc_087_103)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14009,11 +16609,16 @@ TEST(normalization, nfkc_087_104)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14029,11 +16634,16 @@ TEST(normalization, nfkc_087_104)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14049,11 +16659,16 @@ TEST(normalization, nfkc_087_104)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14069,11 +16684,16 @@ TEST(normalization, nfkc_087_104)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14089,11 +16709,16 @@ TEST(normalization, nfkc_087_104)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14138,11 +16763,16 @@ TEST(normalization, nfkc_087_105)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14158,11 +16788,16 @@ TEST(normalization, nfkc_087_105)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14178,11 +16813,16 @@ TEST(normalization, nfkc_087_105)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14198,11 +16838,16 @@ TEST(normalization, nfkc_087_105)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14218,11 +16863,16 @@ TEST(normalization, nfkc_087_105)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14275,11 +16925,16 @@ TEST(normalization, nfkc_087_106)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14295,11 +16950,16 @@ TEST(normalization, nfkc_087_106)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14315,11 +16975,16 @@ TEST(normalization, nfkc_087_106)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14335,11 +17000,16 @@ TEST(normalization, nfkc_087_106)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14355,11 +17025,16 @@ TEST(normalization, nfkc_087_106)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14404,11 +17079,16 @@ TEST(normalization, nfkc_087_107)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14424,11 +17104,16 @@ TEST(normalization, nfkc_087_107)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14444,11 +17129,16 @@ TEST(normalization, nfkc_087_107)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14464,11 +17154,16 @@ TEST(normalization, nfkc_087_107)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14484,11 +17179,16 @@ TEST(normalization, nfkc_087_107)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14541,11 +17241,16 @@ TEST(normalization, nfkc_087_108)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14561,11 +17266,16 @@ TEST(normalization, nfkc_087_108)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14581,11 +17291,16 @@ TEST(normalization, nfkc_087_108)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14601,11 +17316,16 @@ TEST(normalization, nfkc_087_108)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14621,11 +17341,16 @@ TEST(normalization, nfkc_087_108)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14670,11 +17395,16 @@ TEST(normalization, nfkc_087_109)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14690,11 +17420,16 @@ TEST(normalization, nfkc_087_109)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14710,11 +17445,16 @@ TEST(normalization, nfkc_087_109)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14730,11 +17470,16 @@ TEST(normalization, nfkc_087_109)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14750,11 +17495,16 @@ TEST(normalization, nfkc_087_109)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14807,11 +17557,16 @@ TEST(normalization, nfkc_087_110)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14827,11 +17582,16 @@ TEST(normalization, nfkc_087_110)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14847,11 +17607,16 @@ TEST(normalization, nfkc_087_110)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14867,11 +17632,16 @@ TEST(normalization, nfkc_087_110)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14887,11 +17657,16 @@ TEST(normalization, nfkc_087_110)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14936,11 +17711,16 @@ TEST(normalization, nfkc_087_111)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14956,11 +17736,16 @@ TEST(normalization, nfkc_087_111)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14976,11 +17761,16 @@ TEST(normalization, nfkc_087_111)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -14996,11 +17786,16 @@ TEST(normalization, nfkc_087_111)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15016,11 +17811,16 @@ TEST(normalization, nfkc_087_111)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15073,11 +17873,16 @@ TEST(normalization, nfkc_087_112)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15093,11 +17898,16 @@ TEST(normalization, nfkc_087_112)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15113,11 +17923,16 @@ TEST(normalization, nfkc_087_112)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15133,11 +17948,16 @@ TEST(normalization, nfkc_087_112)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15153,11 +17973,16 @@ TEST(normalization, nfkc_087_112)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15202,11 +18027,16 @@ TEST(normalization, nfkc_087_113)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15222,11 +18052,16 @@ TEST(normalization, nfkc_087_113)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15242,11 +18077,16 @@ TEST(normalization, nfkc_087_113)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15262,11 +18102,16 @@ TEST(normalization, nfkc_087_113)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15282,11 +18127,16 @@ TEST(normalization, nfkc_087_113)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15339,11 +18189,16 @@ TEST(normalization, nfkc_087_114)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15359,11 +18214,16 @@ TEST(normalization, nfkc_087_114)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15379,11 +18239,16 @@ TEST(normalization, nfkc_087_114)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15399,11 +18264,16 @@ TEST(normalization, nfkc_087_114)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15419,11 +18289,16 @@ TEST(normalization, nfkc_087_114)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15468,11 +18343,16 @@ TEST(normalization, nfkc_087_115)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15488,11 +18368,16 @@ TEST(normalization, nfkc_087_115)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15508,11 +18393,16 @@ TEST(normalization, nfkc_087_115)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15528,11 +18418,16 @@ TEST(normalization, nfkc_087_115)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15548,11 +18443,16 @@ TEST(normalization, nfkc_087_115)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15605,11 +18505,16 @@ TEST(normalization, nfkc_087_116)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15625,11 +18530,16 @@ TEST(normalization, nfkc_087_116)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15645,11 +18555,16 @@ TEST(normalization, nfkc_087_116)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15665,11 +18580,16 @@ TEST(normalization, nfkc_087_116)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15685,11 +18605,16 @@ TEST(normalization, nfkc_087_116)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15734,11 +18659,16 @@ TEST(normalization, nfkc_087_117)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15754,11 +18684,16 @@ TEST(normalization, nfkc_087_117)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15774,11 +18709,16 @@ TEST(normalization, nfkc_087_117)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15794,11 +18734,16 @@ TEST(normalization, nfkc_087_117)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15814,11 +18759,16 @@ TEST(normalization, nfkc_087_117)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15871,11 +18821,16 @@ TEST(normalization, nfkc_087_118)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15891,11 +18846,16 @@ TEST(normalization, nfkc_087_118)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15911,11 +18871,16 @@ TEST(normalization, nfkc_087_118)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15931,11 +18896,16 @@ TEST(normalization, nfkc_087_118)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -15951,11 +18921,16 @@ TEST(normalization, nfkc_087_118)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16000,11 +18975,16 @@ TEST(normalization, nfkc_087_119)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16020,11 +19000,16 @@ TEST(normalization, nfkc_087_119)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16040,11 +19025,16 @@ TEST(normalization, nfkc_087_119)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16060,11 +19050,16 @@ TEST(normalization, nfkc_087_119)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16080,11 +19075,16 @@ TEST(normalization, nfkc_087_119)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16137,11 +19137,16 @@ TEST(normalization, nfkc_087_120)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16157,11 +19162,16 @@ TEST(normalization, nfkc_087_120)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16177,11 +19187,16 @@ TEST(normalization, nfkc_087_120)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16197,11 +19212,16 @@ TEST(normalization, nfkc_087_120)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16217,11 +19237,16 @@ TEST(normalization, nfkc_087_120)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16266,11 +19291,16 @@ TEST(normalization, nfkc_087_121)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16286,11 +19316,16 @@ TEST(normalization, nfkc_087_121)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16306,11 +19341,16 @@ TEST(normalization, nfkc_087_121)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16326,11 +19366,16 @@ TEST(normalization, nfkc_087_121)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16346,11 +19391,16 @@ TEST(normalization, nfkc_087_121)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16403,11 +19453,16 @@ TEST(normalization, nfkc_087_122)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16423,11 +19478,16 @@ TEST(normalization, nfkc_087_122)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16443,11 +19503,16 @@ TEST(normalization, nfkc_087_122)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16463,11 +19528,16 @@ TEST(normalization, nfkc_087_122)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16483,11 +19553,16 @@ TEST(normalization, nfkc_087_122)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16532,11 +19607,16 @@ TEST(normalization, nfkc_087_123)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16552,11 +19632,16 @@ TEST(normalization, nfkc_087_123)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16572,11 +19657,16 @@ TEST(normalization, nfkc_087_123)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16592,11 +19682,16 @@ TEST(normalization, nfkc_087_123)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16612,11 +19707,16 @@ TEST(normalization, nfkc_087_123)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16669,11 +19769,16 @@ TEST(normalization, nfkc_087_124)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16689,11 +19794,16 @@ TEST(normalization, nfkc_087_124)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16709,11 +19819,16 @@ TEST(normalization, nfkc_087_124)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16729,11 +19844,16 @@ TEST(normalization, nfkc_087_124)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16749,11 +19869,16 @@ TEST(normalization, nfkc_087_124)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16806,11 +19931,16 @@ TEST(normalization, nfkc_087_125)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16826,11 +19956,16 @@ TEST(normalization, nfkc_087_125)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16846,11 +19981,16 @@ TEST(normalization, nfkc_087_125)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16866,11 +20006,16 @@ TEST(normalization, nfkc_087_125)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16886,11 +20031,16 @@ TEST(normalization, nfkc_087_125)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16943,11 +20093,16 @@ TEST(normalization, nfkc_087_126)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16963,11 +20118,16 @@ TEST(normalization, nfkc_087_126)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -16983,11 +20143,16 @@ TEST(normalization, nfkc_087_126)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17003,11 +20168,16 @@ TEST(normalization, nfkc_087_126)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17023,11 +20193,16 @@ TEST(normalization, nfkc_087_126)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17080,11 +20255,16 @@ TEST(normalization, nfkc_087_127)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17100,11 +20280,16 @@ TEST(normalization, nfkc_087_127)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17120,11 +20305,16 @@ TEST(normalization, nfkc_087_127)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17140,11 +20330,16 @@ TEST(normalization, nfkc_087_127)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17160,11 +20355,16 @@ TEST(normalization, nfkc_087_127)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17217,11 +20417,16 @@ TEST(normalization, nfkc_087_128)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17237,11 +20442,16 @@ TEST(normalization, nfkc_087_128)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17257,11 +20467,16 @@ TEST(normalization, nfkc_087_128)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17277,11 +20492,16 @@ TEST(normalization, nfkc_087_128)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17297,11 +20517,16 @@ TEST(normalization, nfkc_087_128)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17354,11 +20579,16 @@ TEST(normalization, nfkc_087_129)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17374,11 +20604,16 @@ TEST(normalization, nfkc_087_129)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17394,11 +20629,16 @@ TEST(normalization, nfkc_087_129)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17414,11 +20654,16 @@ TEST(normalization, nfkc_087_129)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17434,11 +20679,16 @@ TEST(normalization, nfkc_087_129)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17491,11 +20741,16 @@ TEST(normalization, nfkc_087_130)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17511,11 +20766,16 @@ TEST(normalization, nfkc_087_130)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17531,11 +20791,16 @@ TEST(normalization, nfkc_087_130)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17551,11 +20816,16 @@ TEST(normalization, nfkc_087_130)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17571,11 +20841,16 @@ TEST(normalization, nfkc_087_130)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17628,11 +20903,16 @@ TEST(normalization, nfkc_087_131)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17648,11 +20928,16 @@ TEST(normalization, nfkc_087_131)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17668,11 +20953,16 @@ TEST(normalization, nfkc_087_131)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17688,11 +20978,16 @@ TEST(normalization, nfkc_087_131)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17708,11 +21003,16 @@ TEST(normalization, nfkc_087_131)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17765,11 +21065,16 @@ TEST(normalization, nfkc_087_132)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17785,11 +21090,16 @@ TEST(normalization, nfkc_087_132)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17805,11 +21115,16 @@ TEST(normalization, nfkc_087_132)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17825,11 +21140,16 @@ TEST(normalization, nfkc_087_132)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17845,11 +21165,16 @@ TEST(normalization, nfkc_087_132)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17894,11 +21219,16 @@ TEST(normalization, nfkc_087_133)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17914,11 +21244,16 @@ TEST(normalization, nfkc_087_133)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17934,11 +21269,16 @@ TEST(normalization, nfkc_087_133)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17954,11 +21294,16 @@ TEST(normalization, nfkc_087_133)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -17974,11 +21319,16 @@ TEST(normalization, nfkc_087_133)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18031,11 +21381,16 @@ TEST(normalization, nfkc_087_134)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18051,11 +21406,16 @@ TEST(normalization, nfkc_087_134)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18071,11 +21431,16 @@ TEST(normalization, nfkc_087_134)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18091,11 +21456,16 @@ TEST(normalization, nfkc_087_134)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18111,11 +21481,16 @@ TEST(normalization, nfkc_087_134)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18160,11 +21535,16 @@ TEST(normalization, nfkc_087_135)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18180,11 +21560,16 @@ TEST(normalization, nfkc_087_135)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18200,11 +21585,16 @@ TEST(normalization, nfkc_087_135)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18220,11 +21610,16 @@ TEST(normalization, nfkc_087_135)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18240,11 +21635,16 @@ TEST(normalization, nfkc_087_135)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18297,11 +21697,16 @@ TEST(normalization, nfkc_087_136)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18317,11 +21722,16 @@ TEST(normalization, nfkc_087_136)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18337,11 +21747,16 @@ TEST(normalization, nfkc_087_136)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18357,11 +21772,16 @@ TEST(normalization, nfkc_087_136)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18377,11 +21797,16 @@ TEST(normalization, nfkc_087_136)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18426,11 +21851,16 @@ TEST(normalization, nfkc_087_137)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18446,11 +21876,16 @@ TEST(normalization, nfkc_087_137)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18466,11 +21901,16 @@ TEST(normalization, nfkc_087_137)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18486,11 +21926,16 @@ TEST(normalization, nfkc_087_137)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18506,11 +21951,16 @@ TEST(normalization, nfkc_087_137)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18563,11 +22013,16 @@ TEST(normalization, nfkc_087_138)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18583,11 +22038,16 @@ TEST(normalization, nfkc_087_138)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18603,11 +22063,16 @@ TEST(normalization, nfkc_087_138)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18623,11 +22088,16 @@ TEST(normalization, nfkc_087_138)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18643,11 +22113,16 @@ TEST(normalization, nfkc_087_138)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18692,11 +22167,16 @@ TEST(normalization, nfkc_087_139)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18712,11 +22192,16 @@ TEST(normalization, nfkc_087_139)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18732,11 +22217,16 @@ TEST(normalization, nfkc_087_139)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18752,11 +22242,16 @@ TEST(normalization, nfkc_087_139)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18772,11 +22267,16 @@ TEST(normalization, nfkc_087_139)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18829,11 +22329,16 @@ TEST(normalization, nfkc_087_140)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18849,11 +22354,16 @@ TEST(normalization, nfkc_087_140)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18869,11 +22379,16 @@ TEST(normalization, nfkc_087_140)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18889,11 +22404,16 @@ TEST(normalization, nfkc_087_140)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18909,11 +22429,16 @@ TEST(normalization, nfkc_087_140)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18958,11 +22483,16 @@ TEST(normalization, nfkc_087_141)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18978,11 +22508,16 @@ TEST(normalization, nfkc_087_141)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -18998,11 +22533,16 @@ TEST(normalization, nfkc_087_141)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19018,11 +22558,16 @@ TEST(normalization, nfkc_087_141)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19038,11 +22583,16 @@ TEST(normalization, nfkc_087_141)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19095,11 +22645,16 @@ TEST(normalization, nfkc_087_142)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19115,11 +22670,16 @@ TEST(normalization, nfkc_087_142)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19135,11 +22695,16 @@ TEST(normalization, nfkc_087_142)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19155,11 +22720,16 @@ TEST(normalization, nfkc_087_142)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19175,11 +22745,16 @@ TEST(normalization, nfkc_087_142)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19224,11 +22799,16 @@ TEST(normalization, nfkc_087_143)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19244,11 +22824,16 @@ TEST(normalization, nfkc_087_143)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19264,11 +22849,16 @@ TEST(normalization, nfkc_087_143)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19284,11 +22874,16 @@ TEST(normalization, nfkc_087_143)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19304,11 +22899,16 @@ TEST(normalization, nfkc_087_143)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19361,11 +22961,16 @@ TEST(normalization, nfkc_087_144)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19381,11 +22986,16 @@ TEST(normalization, nfkc_087_144)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19401,11 +23011,16 @@ TEST(normalization, nfkc_087_144)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19421,11 +23036,16 @@ TEST(normalization, nfkc_087_144)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19441,11 +23061,16 @@ TEST(normalization, nfkc_087_144)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19490,11 +23115,16 @@ TEST(normalization, nfkc_087_145)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19510,11 +23140,16 @@ TEST(normalization, nfkc_087_145)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19530,11 +23165,16 @@ TEST(normalization, nfkc_087_145)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19550,11 +23190,16 @@ TEST(normalization, nfkc_087_145)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19570,11 +23215,16 @@ TEST(normalization, nfkc_087_145)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19627,11 +23277,16 @@ TEST(normalization, nfkc_087_146)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19647,11 +23302,16 @@ TEST(normalization, nfkc_087_146)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19667,11 +23327,16 @@ TEST(normalization, nfkc_087_146)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19687,11 +23352,16 @@ TEST(normalization, nfkc_087_146)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19707,11 +23377,16 @@ TEST(normalization, nfkc_087_146)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19756,11 +23431,16 @@ TEST(normalization, nfkc_087_147)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19776,11 +23456,16 @@ TEST(normalization, nfkc_087_147)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19796,11 +23481,16 @@ TEST(normalization, nfkc_087_147)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19816,11 +23506,16 @@ TEST(normalization, nfkc_087_147)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19836,11 +23531,16 @@ TEST(normalization, nfkc_087_147)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19893,11 +23593,16 @@ TEST(normalization, nfkc_087_148)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19913,11 +23618,16 @@ TEST(normalization, nfkc_087_148)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19933,11 +23643,16 @@ TEST(normalization, nfkc_087_148)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19953,11 +23668,16 @@ TEST(normalization, nfkc_087_148)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -19973,11 +23693,16 @@ TEST(normalization, nfkc_087_148)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20022,11 +23747,16 @@ TEST(normalization, nfkc_087_149)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20042,11 +23772,16 @@ TEST(normalization, nfkc_087_149)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20062,11 +23797,16 @@ TEST(normalization, nfkc_087_149)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20082,11 +23822,16 @@ TEST(normalization, nfkc_087_149)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20102,11 +23847,16 @@ TEST(normalization, nfkc_087_149)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20159,11 +23909,16 @@ TEST(normalization, nfkc_087_150)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20179,11 +23934,16 @@ TEST(normalization, nfkc_087_150)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20199,11 +23959,16 @@ TEST(normalization, nfkc_087_150)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20219,11 +23984,16 @@ TEST(normalization, nfkc_087_150)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20239,11 +24009,16 @@ TEST(normalization, nfkc_087_150)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20288,11 +24063,16 @@ TEST(normalization, nfkc_087_151)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20308,11 +24088,16 @@ TEST(normalization, nfkc_087_151)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20328,11 +24113,16 @@ TEST(normalization, nfkc_087_151)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20348,11 +24138,16 @@ TEST(normalization, nfkc_087_151)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20368,11 +24163,16 @@ TEST(normalization, nfkc_087_151)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20425,11 +24225,16 @@ TEST(normalization, nfkc_087_152)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20445,11 +24250,16 @@ TEST(normalization, nfkc_087_152)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20465,11 +24275,16 @@ TEST(normalization, nfkc_087_152)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20485,11 +24300,16 @@ TEST(normalization, nfkc_087_152)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20505,11 +24325,16 @@ TEST(normalization, nfkc_087_152)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20554,11 +24379,16 @@ TEST(normalization, nfkc_087_153)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20574,11 +24404,16 @@ TEST(normalization, nfkc_087_153)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20594,11 +24429,16 @@ TEST(normalization, nfkc_087_153)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20614,11 +24454,16 @@ TEST(normalization, nfkc_087_153)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20634,11 +24479,16 @@ TEST(normalization, nfkc_087_153)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20691,11 +24541,16 @@ TEST(normalization, nfkc_087_154)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20711,11 +24566,16 @@ TEST(normalization, nfkc_087_154)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20731,11 +24591,16 @@ TEST(normalization, nfkc_087_154)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20751,11 +24616,16 @@ TEST(normalization, nfkc_087_154)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20771,11 +24641,16 @@ TEST(normalization, nfkc_087_154)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20820,11 +24695,16 @@ TEST(normalization, nfkc_087_155)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20840,11 +24720,16 @@ TEST(normalization, nfkc_087_155)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20860,11 +24745,16 @@ TEST(normalization, nfkc_087_155)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20880,11 +24770,16 @@ TEST(normalization, nfkc_087_155)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20900,11 +24795,16 @@ TEST(normalization, nfkc_087_155)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20957,11 +24857,16 @@ TEST(normalization, nfkc_087_156)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20977,11 +24882,16 @@ TEST(normalization, nfkc_087_156)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -20997,11 +24907,16 @@ TEST(normalization, nfkc_087_156)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21017,11 +24932,16 @@ TEST(normalization, nfkc_087_156)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21037,11 +24957,16 @@ TEST(normalization, nfkc_087_156)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21086,11 +25011,16 @@ TEST(normalization, nfkc_087_157)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21106,11 +25036,16 @@ TEST(normalization, nfkc_087_157)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21126,11 +25061,16 @@ TEST(normalization, nfkc_087_157)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21146,11 +25086,16 @@ TEST(normalization, nfkc_087_157)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21166,11 +25111,16 @@ TEST(normalization, nfkc_087_157)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21223,11 +25173,16 @@ TEST(normalization, nfkc_087_158)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21243,11 +25198,16 @@ TEST(normalization, nfkc_087_158)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21263,11 +25223,16 @@ TEST(normalization, nfkc_087_158)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21283,11 +25248,16 @@ TEST(normalization, nfkc_087_158)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21303,11 +25273,16 @@ TEST(normalization, nfkc_087_158)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21352,11 +25327,16 @@ TEST(normalization, nfkc_087_159)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21372,11 +25352,16 @@ TEST(normalization, nfkc_087_159)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21392,11 +25377,16 @@ TEST(normalization, nfkc_087_159)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21412,11 +25402,16 @@ TEST(normalization, nfkc_087_159)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21432,11 +25427,16 @@ TEST(normalization, nfkc_087_159)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21489,11 +25489,16 @@ TEST(normalization, nfkc_087_160)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21509,11 +25514,16 @@ TEST(normalization, nfkc_087_160)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21529,11 +25539,16 @@ TEST(normalization, nfkc_087_160)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21549,11 +25564,16 @@ TEST(normalization, nfkc_087_160)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21569,11 +25589,16 @@ TEST(normalization, nfkc_087_160)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21626,11 +25651,16 @@ TEST(normalization, nfkc_087_161)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21646,11 +25676,16 @@ TEST(normalization, nfkc_087_161)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21666,11 +25701,16 @@ TEST(normalization, nfkc_087_161)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21686,11 +25726,16 @@ TEST(normalization, nfkc_087_161)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21706,11 +25751,16 @@ TEST(normalization, nfkc_087_161)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21763,11 +25813,16 @@ TEST(normalization, nfkc_087_162)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21783,11 +25838,16 @@ TEST(normalization, nfkc_087_162)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21803,11 +25863,16 @@ TEST(normalization, nfkc_087_162)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21823,11 +25888,16 @@ TEST(normalization, nfkc_087_162)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21843,11 +25913,16 @@ TEST(normalization, nfkc_087_162)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21892,11 +25967,16 @@ TEST(normalization, nfkc_087_163)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21912,11 +25992,16 @@ TEST(normalization, nfkc_087_163)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21932,11 +26017,16 @@ TEST(normalization, nfkc_087_163)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21952,11 +26042,16 @@ TEST(normalization, nfkc_087_163)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -21972,11 +26067,16 @@ TEST(normalization, nfkc_087_163)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22029,11 +26129,16 @@ TEST(normalization, nfkc_087_164)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22049,11 +26154,16 @@ TEST(normalization, nfkc_087_164)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22069,11 +26179,16 @@ TEST(normalization, nfkc_087_164)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22089,11 +26204,16 @@ TEST(normalization, nfkc_087_164)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22109,11 +26229,16 @@ TEST(normalization, nfkc_087_164)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22158,11 +26283,16 @@ TEST(normalization, nfkc_087_165)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22178,11 +26308,16 @@ TEST(normalization, nfkc_087_165)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22198,11 +26333,16 @@ TEST(normalization, nfkc_087_165)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22218,11 +26358,16 @@ TEST(normalization, nfkc_087_165)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22238,11 +26383,16 @@ TEST(normalization, nfkc_087_165)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22295,11 +26445,16 @@ TEST(normalization, nfkc_087_166)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22315,11 +26470,16 @@ TEST(normalization, nfkc_087_166)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22335,11 +26495,16 @@ TEST(normalization, nfkc_087_166)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22355,11 +26520,16 @@ TEST(normalization, nfkc_087_166)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22375,11 +26545,16 @@ TEST(normalization, nfkc_087_166)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22432,11 +26607,16 @@ TEST(normalization, nfkc_087_167)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22452,11 +26632,16 @@ TEST(normalization, nfkc_087_167)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22472,11 +26657,16 @@ TEST(normalization, nfkc_087_167)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22492,11 +26682,16 @@ TEST(normalization, nfkc_087_167)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22512,11 +26707,16 @@ TEST(normalization, nfkc_087_167)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22569,11 +26769,16 @@ TEST(normalization, nfkc_087_168)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22589,11 +26794,16 @@ TEST(normalization, nfkc_087_168)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22609,11 +26819,16 @@ TEST(normalization, nfkc_087_168)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22629,11 +26844,16 @@ TEST(normalization, nfkc_087_168)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22649,11 +26869,16 @@ TEST(normalization, nfkc_087_168)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22698,11 +26923,16 @@ TEST(normalization, nfkc_087_169)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22718,11 +26948,16 @@ TEST(normalization, nfkc_087_169)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22738,11 +26973,16 @@ TEST(normalization, nfkc_087_169)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22758,11 +26998,16 @@ TEST(normalization, nfkc_087_169)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22778,11 +27023,16 @@ TEST(normalization, nfkc_087_169)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22835,11 +27085,16 @@ TEST(normalization, nfkc_087_170)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22855,11 +27110,16 @@ TEST(normalization, nfkc_087_170)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22875,11 +27135,16 @@ TEST(normalization, nfkc_087_170)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22895,11 +27160,16 @@ TEST(normalization, nfkc_087_170)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22915,11 +27185,16 @@ TEST(normalization, nfkc_087_170)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22964,11 +27239,16 @@ TEST(normalization, nfkc_087_171)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -22984,11 +27264,16 @@ TEST(normalization, nfkc_087_171)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23004,11 +27289,16 @@ TEST(normalization, nfkc_087_171)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23024,11 +27314,16 @@ TEST(normalization, nfkc_087_171)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23044,11 +27339,16 @@ TEST(normalization, nfkc_087_171)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23101,11 +27401,16 @@ TEST(normalization, nfkc_087_172)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23121,11 +27426,16 @@ TEST(normalization, nfkc_087_172)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23141,11 +27451,16 @@ TEST(normalization, nfkc_087_172)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23161,11 +27476,16 @@ TEST(normalization, nfkc_087_172)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23181,11 +27501,16 @@ TEST(normalization, nfkc_087_172)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23238,11 +27563,16 @@ TEST(normalization, nfkc_087_173)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23258,11 +27588,16 @@ TEST(normalization, nfkc_087_173)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23278,11 +27613,16 @@ TEST(normalization, nfkc_087_173)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23298,11 +27638,16 @@ TEST(normalization, nfkc_087_173)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23318,11 +27663,16 @@ TEST(normalization, nfkc_087_173)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23375,11 +27725,16 @@ TEST(normalization, nfkc_087_174)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23395,11 +27750,16 @@ TEST(normalization, nfkc_087_174)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23415,11 +27775,16 @@ TEST(normalization, nfkc_087_174)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23435,11 +27800,16 @@ TEST(normalization, nfkc_087_174)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23455,11 +27825,16 @@ TEST(normalization, nfkc_087_174)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23504,11 +27879,16 @@ TEST(normalization, nfkc_087_175)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23524,11 +27904,16 @@ TEST(normalization, nfkc_087_175)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23544,11 +27929,16 @@ TEST(normalization, nfkc_087_175)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23564,11 +27954,16 @@ TEST(normalization, nfkc_087_175)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23584,11 +27979,16 @@ TEST(normalization, nfkc_087_175)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23641,11 +28041,16 @@ TEST(normalization, nfkc_087_176)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23661,11 +28066,16 @@ TEST(normalization, nfkc_087_176)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23681,11 +28091,16 @@ TEST(normalization, nfkc_087_176)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23701,11 +28116,16 @@ TEST(normalization, nfkc_087_176)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23721,11 +28141,16 @@ TEST(normalization, nfkc_087_176)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23770,11 +28195,16 @@ TEST(normalization, nfkc_087_177)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23790,11 +28220,16 @@ TEST(normalization, nfkc_087_177)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23810,11 +28245,16 @@ TEST(normalization, nfkc_087_177)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23830,11 +28270,16 @@ TEST(normalization, nfkc_087_177)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23850,11 +28295,16 @@ TEST(normalization, nfkc_087_177)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23907,11 +28357,16 @@ TEST(normalization, nfkc_087_178)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23927,11 +28382,16 @@ TEST(normalization, nfkc_087_178)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23947,11 +28407,16 @@ TEST(normalization, nfkc_087_178)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23967,11 +28432,16 @@ TEST(normalization, nfkc_087_178)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -23987,11 +28457,16 @@ TEST(normalization, nfkc_087_178)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24036,11 +28511,16 @@ TEST(normalization, nfkc_087_179)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24056,11 +28536,16 @@ TEST(normalization, nfkc_087_179)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24076,11 +28561,16 @@ TEST(normalization, nfkc_087_179)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24096,11 +28586,16 @@ TEST(normalization, nfkc_087_179)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24116,11 +28611,16 @@ TEST(normalization, nfkc_087_179)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24173,11 +28673,16 @@ TEST(normalization, nfkc_087_180)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24193,11 +28698,16 @@ TEST(normalization, nfkc_087_180)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24213,11 +28723,16 @@ TEST(normalization, nfkc_087_180)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24233,11 +28748,16 @@ TEST(normalization, nfkc_087_180)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24253,11 +28773,16 @@ TEST(normalization, nfkc_087_180)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24310,11 +28835,16 @@ TEST(normalization, nfkc_087_181)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24330,11 +28860,16 @@ TEST(normalization, nfkc_087_181)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24350,11 +28885,16 @@ TEST(normalization, nfkc_087_181)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24370,11 +28910,16 @@ TEST(normalization, nfkc_087_181)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24390,11 +28935,16 @@ TEST(normalization, nfkc_087_181)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24447,11 +28997,16 @@ TEST(normalization, nfkc_087_182)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24467,11 +29022,16 @@ TEST(normalization, nfkc_087_182)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24487,11 +29047,16 @@ TEST(normalization, nfkc_087_182)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24507,11 +29072,16 @@ TEST(normalization, nfkc_087_182)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24527,11 +29097,16 @@ TEST(normalization, nfkc_087_182)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24584,11 +29159,16 @@ TEST(normalization, nfkc_087_183)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24604,11 +29184,16 @@ TEST(normalization, nfkc_087_183)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24624,11 +29209,16 @@ TEST(normalization, nfkc_087_183)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24644,11 +29234,16 @@ TEST(normalization, nfkc_087_183)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24664,11 +29259,16 @@ TEST(normalization, nfkc_087_183)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24721,11 +29321,16 @@ TEST(normalization, nfkc_087_184)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24741,11 +29346,16 @@ TEST(normalization, nfkc_087_184)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24761,11 +29371,16 @@ TEST(normalization, nfkc_087_184)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24781,11 +29396,16 @@ TEST(normalization, nfkc_087_184)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24801,11 +29421,16 @@ TEST(normalization, nfkc_087_184)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24858,11 +29483,16 @@ TEST(normalization, nfkc_087_185)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24878,11 +29508,16 @@ TEST(normalization, nfkc_087_185)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24898,11 +29533,16 @@ TEST(normalization, nfkc_087_185)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24918,11 +29558,16 @@ TEST(normalization, nfkc_087_185)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24938,11 +29583,16 @@ TEST(normalization, nfkc_087_185)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -24995,11 +29645,16 @@ TEST(normalization, nfkc_087_186)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25015,11 +29670,16 @@ TEST(normalization, nfkc_087_186)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25035,11 +29695,16 @@ TEST(normalization, nfkc_087_186)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25055,11 +29720,16 @@ TEST(normalization, nfkc_087_186)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25075,11 +29745,16 @@ TEST(normalization, nfkc_087_186)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25132,11 +29807,16 @@ TEST(normalization, nfkc_087_187)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25152,11 +29832,16 @@ TEST(normalization, nfkc_087_187)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25172,11 +29857,16 @@ TEST(normalization, nfkc_087_187)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25192,11 +29882,16 @@ TEST(normalization, nfkc_087_187)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25212,11 +29907,16 @@ TEST(normalization, nfkc_087_187)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25269,11 +29969,16 @@ TEST(normalization, nfkc_087_188)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25289,11 +29994,16 @@ TEST(normalization, nfkc_087_188)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25309,11 +30019,16 @@ TEST(normalization, nfkc_087_188)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25329,11 +30044,16 @@ TEST(normalization, nfkc_087_188)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25349,11 +30069,16 @@ TEST(normalization, nfkc_087_188)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25406,11 +30131,16 @@ TEST(normalization, nfkc_087_189)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25426,11 +30156,16 @@ TEST(normalization, nfkc_087_189)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25446,11 +30181,16 @@ TEST(normalization, nfkc_087_189)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25466,11 +30206,16 @@ TEST(normalization, nfkc_087_189)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25486,11 +30231,16 @@ TEST(normalization, nfkc_087_189)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25543,11 +30293,16 @@ TEST(normalization, nfkc_087_190)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25563,11 +30318,16 @@ TEST(normalization, nfkc_087_190)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25583,11 +30343,16 @@ TEST(normalization, nfkc_087_190)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25603,11 +30368,16 @@ TEST(normalization, nfkc_087_190)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25623,11 +30393,16 @@ TEST(normalization, nfkc_087_190)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25680,11 +30455,16 @@ TEST(normalization, nfkc_087_191)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25700,11 +30480,16 @@ TEST(normalization, nfkc_087_191)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25720,11 +30505,16 @@ TEST(normalization, nfkc_087_191)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25740,11 +30530,16 @@ TEST(normalization, nfkc_087_191)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25760,11 +30555,16 @@ TEST(normalization, nfkc_087_191)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25817,11 +30617,16 @@ TEST(normalization, nfkc_087_192)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25837,11 +30642,16 @@ TEST(normalization, nfkc_087_192)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25857,11 +30667,16 @@ TEST(normalization, nfkc_087_192)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25877,11 +30692,16 @@ TEST(normalization, nfkc_087_192)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25897,11 +30717,16 @@ TEST(normalization, nfkc_087_192)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25946,11 +30771,16 @@ TEST(normalization, nfkc_087_193)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25966,11 +30796,16 @@ TEST(normalization, nfkc_087_193)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -25986,11 +30821,16 @@ TEST(normalization, nfkc_087_193)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26006,11 +30846,16 @@ TEST(normalization, nfkc_087_193)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26026,11 +30871,16 @@ TEST(normalization, nfkc_087_193)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26083,11 +30933,16 @@ TEST(normalization, nfkc_087_194)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26103,11 +30958,16 @@ TEST(normalization, nfkc_087_194)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26123,11 +30983,16 @@ TEST(normalization, nfkc_087_194)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26143,11 +31008,16 @@ TEST(normalization, nfkc_087_194)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26163,11 +31033,16 @@ TEST(normalization, nfkc_087_194)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26212,11 +31087,16 @@ TEST(normalization, nfkc_087_195)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26232,11 +31112,16 @@ TEST(normalization, nfkc_087_195)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26252,11 +31137,16 @@ TEST(normalization, nfkc_087_195)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26272,11 +31162,16 @@ TEST(normalization, nfkc_087_195)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26292,11 +31187,16 @@ TEST(normalization, nfkc_087_195)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26349,11 +31249,16 @@ TEST(normalization, nfkc_087_196)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26369,11 +31274,16 @@ TEST(normalization, nfkc_087_196)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26389,11 +31299,16 @@ TEST(normalization, nfkc_087_196)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26409,11 +31324,16 @@ TEST(normalization, nfkc_087_196)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26429,11 +31349,16 @@ TEST(normalization, nfkc_087_196)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26478,11 +31403,16 @@ TEST(normalization, nfkc_087_197)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26498,11 +31428,16 @@ TEST(normalization, nfkc_087_197)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26518,11 +31453,16 @@ TEST(normalization, nfkc_087_197)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26538,11 +31478,16 @@ TEST(normalization, nfkc_087_197)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26558,11 +31503,16 @@ TEST(normalization, nfkc_087_197)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26615,11 +31565,16 @@ TEST(normalization, nfkc_087_198)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26635,11 +31590,16 @@ TEST(normalization, nfkc_087_198)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26655,11 +31615,16 @@ TEST(normalization, nfkc_087_198)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26675,11 +31640,16 @@ TEST(normalization, nfkc_087_198)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26695,11 +31665,16 @@ TEST(normalization, nfkc_087_198)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26752,11 +31727,16 @@ TEST(normalization, nfkc_087_199)
 
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c1.begin(), c1.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c1.begin(), c1.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26772,11 +31752,16 @@ TEST(normalization, nfkc_087_199)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c2.begin(), c2.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c2.begin(), c2.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26792,11 +31777,16 @@ TEST(normalization, nfkc_087_199)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c3.begin(), c3.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c3.begin(), c3.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26812,11 +31802,16 @@ TEST(normalization, nfkc_087_199)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c4.begin(), c4.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c4.begin(), c4.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);
@@ -26832,11 +31827,16 @@ TEST(normalization, nfkc_087_199)
         }
 
         {
-            std::u8string strs[2] = {boost::text::to_u8string(c5.begin(), c5.end())};
+            std::u8string strs[3] = {boost::text::to_u8string(c5.begin(), c5.end())};
             auto v = strs[0] | boost::text::as_nfkc | boost::text::as_utf8;
             for (auto c : v) {
                 strs[1] += c;
             }
+            for (auto it = v.end(), first = v.begin(); it != first;) {
+                --it;
+                strs[2] += *it;
+            }
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::kc>(strs[0]);
             for (auto str : strs) {
                 auto const r = boost::text::as_utf32(str);

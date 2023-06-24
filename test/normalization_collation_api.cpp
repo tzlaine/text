@@ -1166,3 +1166,43 @@ TEST(transcoding, normalize_adaptors)
                       const char16_t *,
                       boost::text::null_sentinel_t>>>>);
 }
+
+TEST(transcoding, normalize_view_bidi)
+{
+    // 0061 0315 0300 05AE 1DF3 0062;00E0 05AE 1DF3 0315 0062;0061 05AE 0300 1DF3 0315 0062;00E0 05AE 1DF3 0315 0062;0061 05AE 0300 1DF3 0315 0062;
+    // (a◌̕◌̀◌֮◌ᷳb; à◌֮◌ᷳ◌̕b; a◌֮◌̀◌ᷳ◌̕b; à◌֮◌ᷳ◌̕b; a◌֮◌̀◌ᷳ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, COMBINING LATIN SMALL LETTER O WITH DIAERESIS, LATIN SMALL LETTER B
+    std::array<char32_t, 6> const un_norm = {
+        {0x0061, 0x0315, 0x0300, 0x05AE, 0x1DF3, 0x0062}};
+    std::array<char32_t, 5> const nfc = {
+        {0x00E0, 0x05AE, 0x1DF3, 0x0315, 0x0062}};
+
+    auto v = un_norm | text::as_nfc;
+    std::vector<decltype(v.begin())> fwd_iterators;
+    auto it = v.begin();
+    auto nfc_it = nfc.begin();
+    int i = 0;
+    for (auto last = v.end(); it != last; ++it, ++nfc_it, ++i) {
+        EXPECT_EQ(*it, nfc[i]) << "element " << i;
+        fwd_iterators.push_back(it);
+    }
+    fwd_iterators.push_back(it);
+
+    it = v.end();
+    std::vector<decltype(v.begin())> rev_iterators;
+    i = nfc.size();
+    for (auto first = v.begin(); it != first; --it, --i) {
+        if (it != v.end()) {
+            EXPECT_EQ(*it, nfc[i]) << "element " << i;
+        }
+        rev_iterators.push_back(it);
+    }
+    EXPECT_EQ(*it, nfc[i]) << "element " << i;
+    rev_iterators.push_back(it);
+    std::ranges::reverse(rev_iterators);
+
+    EXPECT_EQ(fwd_iterators.size(), rev_iterators.size());
+
+    for (int i = 0; i != (int)fwd_iterators.size(); ++i) {
+        EXPECT_TRUE(fwd_iterators[i] == rev_iterators[i]) << "iteration " << i;
+    }
+}

@@ -54,5 +54,57 @@ TEST(normalization, idempotence)
 
         EXPECT_TRUE(std::ranges::equal(
             str | boost::text::as_nfkc | boost::text::as_utf8, initial_str));
+
+        {
+            auto v = str | boost::text::as_nfc | boost::text::as_utf8;
+            auto const first = v.begin();
+            auto it = v.end();
+            std::u8string str;
+            while (it != first) {
+                --it;
+                str += *it;
+            }
+            std::ranges::reverse(str);
+            EXPECT_TRUE(std::ranges::equal(str, initial_str));
+        }
+
+        {
+            auto v = str | boost::text::as_nfd | boost::text::as_utf8;
+            auto const first = v.begin();
+            auto it = v.end();
+            std::u8string str;
+            while (it != first) {
+                --it;
+                str += *it;
+            }
+            std::ranges::reverse(str);
+            EXPECT_TRUE(std::ranges::equal(str, initial_str));
+        }
+
+        {
+            auto v = str | boost::text::as_nfkd | boost::text::as_utf8;
+            auto const first = v.begin();
+            auto it = v.end();
+            std::u8string str;
+            while (it != first) {
+                --it;
+                str += *it;
+            }
+            std::ranges::reverse(str);
+            EXPECT_TRUE(std::ranges::equal(str, initial_str));
+        }
+
+        {
+            auto v = str | boost::text::as_nfkc | boost::text::as_utf8;
+            auto const first = v.begin();
+            auto it = v.end();
+            std::u8string str;
+            while (it != first) {
+                --it;
+                str += *it;
+            }
+            std::ranges::reverse(str);
+            EXPECT_TRUE(std::ranges::equal(str, initial_str));
+        }
     }
 }

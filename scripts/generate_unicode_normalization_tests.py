@@ -208,11 +208,16 @@ TEST(normalization, {0}_{1:03}_{2:03})
 def generate_norm_check(normalization, from_, to_):
     return '''
         {{
-            std::u8string strs[2] = {{boost::text::to_u8string({1}.begin(), {1}.end())}};
+            std::u8string strs[3] = {{boost::text::to_u8string({1}.begin(), {1}.end())}};
             auto v = strs[0] | boost::text::as_nf{0} | boost::text::as_utf8;
             for (auto c : v) {{
                 strs[1] += c;
             }}
+            for (auto it = v.end(), first = v.begin(); it != first;) {{
+                --it;
+                strs[2] += *it;
+            }}
+            std::reverse(strs[2].begin(), strs[2].end());
             boost::text::normalize<boost::text::nf::{0}>(strs[0]);
             for (auto str : strs) {{
                 auto const r = boost::text::as_utf32(str);
