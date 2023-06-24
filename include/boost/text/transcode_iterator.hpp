@@ -3102,6 +3102,7 @@ namespace boost { namespace text { namespace detail {
         constexpr auto end(std::ranges::iterator_t<V> & it) const { return it.end(); }
     };
 
+
     template<class V>
     constexpr auto uc_view_category() {
         if constexpr (std::ranges::common_range<V> && std::ranges::bidirectional_range<V>) {

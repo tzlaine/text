@@ -25,7 +25,7 @@ namespace boost { namespace text {
     using copy_result = in_out_result<I, O>;
 
     namespace detail {
-        enum : std::size_t { stream_safe_max_nonstarters = 20 };
+        constexpr int stream_safe_max_nonstarters = 20;
 
         template<typename CPIter, typename Sentinel, typename T>
         CPIter next_stream_safe_cp(CPIter first, Sentinel last, T & nonstarters)
@@ -119,7 +119,7 @@ namespace boost { namespace text {
         template<typename I, typename S>
         bool is_stream_safe_impl(I first, S last)
         {
-            std::size_t nonstarters = 0;
+            int nonstarters = 0;
             for (; first != last; ++first) {
                 auto const cp = *first;
                 if (detail::ccc(cp) == 0)
@@ -296,12 +296,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<utf32_iter I, std::sentinel_for<I> S>
+        requires std::forward_iterator<I>
     constexpr bool is_stream_safe(I first, S last)
     {
         return detail::is_stream_safe_impl(first, last);
     }
 
     template<utf32_range R>
+        requires std::ranges::forward_range<R>
     constexpr bool is_stream_safe(R && r)
     {
         return boost::text::is_stream_safe(
@@ -371,7 +373,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         // is not a specialization of utf_iterator.
         // std::ranges::iterator_t<Base> first_;
         // std::ranges::sentinel_t<Base> last_;
-        std::ptrdiff_t nonstarters_ = 0;
+        int nonstarters_ = 0;
 
         friend class sentinel;
 
@@ -412,9 +414,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 auto it = text::find_if_backward(
                     first, it_, [](auto cp) { return detail::ccc(cp) == 0; });
                 auto const from = it == it_ ? first : std::ranges::next(it);
-                std::size_t const nonstarters = std::distance(from, it_);
+                std::ptrdiff_t const nonstarters = std::distance(from, it_);
                 nonstarters_ = (std::min)(
-                    nonstarters, detail::stream_safe_max_nonstarters - 1);
+                    nonstarters, std::ptrdiff_t(detail::stream_safe_max_nonstarters - 1));
                 if (nonstarters_)
                     it_ = std::ranges::next(from, nonstarters_);
                 if (it_ == initial_it)
