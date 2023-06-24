@@ -385,7 +385,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             : storage_base(base), it_(it) {}
         constexpr iterator(iterator<!Const, StoreLast> i)
             requires Const && std::convertible_to<std::ranges::iterator_t<V>, std::ranges::iterator_t<Base>>
-            : storage_base(i), it_(i.it_) {}
+            : storage_base(i), it_(i.it_), nonstarters_(i.nonstarters_) {}
 
         constexpr const std::ranges::iterator_t<Base> & base() const & noexcept { return it_; }
         constexpr std::ranges::iterator_t<Base> base() && { return std::move(it_); }

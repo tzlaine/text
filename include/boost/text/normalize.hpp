@@ -347,6 +347,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         class iterator;
         class sentinel;
 
+        static constexpr bool bidi =
+            std::derived_from<detail::uc_view_category_t<V>, std::bidirectional_iterator_tag>;
+
         V base_ = V();
 
         static_assert(nf::c <= N && N <= nf::fcc);
@@ -361,41 +364,58 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         constexpr iterator<false> begin() { return iterator<false>{base_}; }
         constexpr iterator<true> begin() const requires utf32_range<const V> { return iterator<true>{base_}; }
 
-        constexpr sentinel end() { return {}; }
-        constexpr sentinel end() const requires utf32_range<const V> { return {}; }
+        constexpr auto end() {
+            if constexpr (bidi) {
+                return iterator<false>{base_, std::ranges::end(base_)};
+            } else {
+                return sentinel{};
+            }
+        }
+        constexpr auto end() const requires utf32_range<const V> {
+            if constexpr (bidi) {
+                return iterator<true>{base_, std::ranges::end(base_)};
+            } else {
+                return sentinel{};
+            }
+        }
     };
 
     template<nf N, utf32_range V>
         requires std::ranges::view<V> && std::ranges::forward_range<V>
     template<bool Const, bool StoreLast>
     class normalize_view<N, V>::iterator
-        : detail::first_last_storage<detail::maybe_const<Const, V>, false>,
+        : detail::first_last_storage<detail::maybe_const<Const, V>>,
           public boost::stl_interfaces::iterator_interface<
               iterator<Const, StoreLast>,
-              std::forward_iterator_tag,
+              detail::uc_view_category_t<V>,
               char32_t,
               char32_t>
     {
         using Base = detail::maybe_const<Const, V>;
-        using storage_base = detail::first_last_storage<Base, false>;
+        using storage_base = detail::first_last_storage<Base>;
+
+        static constexpr bool bidi =
+            std::derived_from<detail::uc_view_category_t<V>, std::bidirectional_iterator_tag>;
 
         std::ranges::iterator_t<Base> it_;
+        std::ranges::iterator_t<Base> chunk_last_;
         // exposition-only, and only defined when std::ranges::iterator_t<Base>
         // is not a specialization of utf_iterator.
+        // std::ranges::iterator_t<Base> first_;
         // std::ranges::sentinel_t<Base> last_;
 
         boost::container::static_vector<char32_t, 32> buf_;
         int index_ = 0;
 
-        constexpr void read_chunk_and_normalize() {
+        constexpr void read_chunk_and_normalize(bool reverse) {
             boost::container::static_vector<char32_t, 32> temp_buf_;
             auto search_it = it_;
             if (search_it != storage_base::end(it_))
                 ++search_it;
-            auto last = detail::first_stable_cp<N>(search_it, storage_base::end(it_));
-            it_ = std::ranges::copy(it_, last, std::back_inserter(temp_buf_)).in;
+            auto last = reverse ?
+                chunk_last_ : detail::first_stable_cp<N>(search_it, storage_base::end(it_));
+            chunk_last_ = std::ranges::copy(it_, last, std::back_inserter(temp_buf_)).in;
             buf_.clear();
-            index_ = 0;
             text::normalize<N>(temp_buf_, std::back_inserter(buf_));
         }
 
@@ -404,11 +424,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     public:
         constexpr iterator() requires std::default_initializable<std::ranges::iterator_t<Base>> = default;
         constexpr iterator(Base & base) : storage_base(base), it_(std::ranges::begin(base)) {
-            read_chunk_and_normalize();
+            read_chunk_and_normalize(false);
         }
+        constexpr iterator(Base & base, std::ranges::iterator_t<V> it) requires bidi
+            : storage_base(base), it_(it), chunk_last_(it) {}
         constexpr iterator(iterator<!Const, StoreLast> i)
             requires Const && std::convertible_to<std::ranges::iterator_t<V>, std::ranges::iterator_t<Base>>
-            : storage_base(i), it_(i.it_) {}
+            : storage_base(i), it_(i.it_), chunk_last_(i.chunk_last_), buf_(i.buf_), index_(i.index_) {}
 
         constexpr const std::ranges::iterator_t<Base> & base() const & noexcept { return it_; }
         constexpr std::ranges::iterator_t<Base> base() && { return std::move(it_); }
@@ -416,17 +438,46 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         constexpr char32_t operator*() const { return buf_[index_]; }
 
         constexpr iterator & operator++() {
-            if ((int)buf_.size() <= ++index_)
-                read_chunk_and_normalize();
+            auto const last = storage_base::end(it_);
+            if (it_ == last && index_ == (int)buf_.size())
+                return *this;
+            ++index_;
+            if ((int)buf_.size() == index_ && it_ != last) {
+                it_ = chunk_last_;
+                read_chunk_and_normalize(false);
+                index_ = 0;
+            }
             return *this;
+        }
+
+        constexpr iterator & operator--() requires bidi {
+            auto const first = storage_base::begin(it_);
+            if (it_ == first && !index_)
+                return *this;
+            if (!index_) {
+                chunk_last_ = it_;
+                it_ = detail::last_stable_cp<N>(first, it_);
+                read_chunk_and_normalize(true);
+                index_ = buf_.size();
+            }
+            --index_;
+            return *this;
+        }
+
+        friend bool operator==(iterator lhs, iterator rhs) requires std::ranges::common_range<V>
+        {
+            return lhs.it_ == rhs.it_ && (lhs.index_ == rhs.index_ ||
+                                          (lhs.index_ == (int)lhs.buf_.size() &&
+                                           rhs.index_ == (int)rhs.buf_.size()));
         }
 
         using base_type = boost::stl_interfaces::iterator_interface<
             iterator<Const, StoreLast>,
-            std::forward_iterator_tag,
+            detail::uc_view_category_t<V>,
             char32_t,
             char32_t>;
         using base_type::operator++;
+        using base_type::operator--;
     };
 
     template<nf N, utf32_range V>
