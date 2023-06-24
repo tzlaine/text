@@ -133,6 +133,7 @@ namespace boost { namespace text {
         }
     }
 
+#if 0 // TODO
     /** An iterator that filters out all the non-stream-safe code points from
         a sequence of code points.
 
@@ -306,6 +307,7 @@ namespace boost { namespace text {
                 iterator{first, last}, iterator{last, last}};
         }
     }
+#endif
 
 }}
 
@@ -427,6 +429,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             detail::begin(r), detail::end(r));
     }
 
+#if 0 // TODO
     namespace dtl {
         struct as_stream_safe_impl : range_adaptor_closure<as_stream_safe_impl>
         {
@@ -467,6 +470,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     namespace {
         constexpr dtl::as_stream_safe_impl as_stream_safe;
     }
+#endif
 #endif
 
 }}}

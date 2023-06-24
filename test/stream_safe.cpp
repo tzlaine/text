@@ -6,6 +6,8 @@
 #include <boost/text/stream_safe.hpp>
 #include <boost/text/transcode_view.hpp>
 
+#include "ill_formed.hpp"
+
 #include <gtest/gtest.h>
 
 #include <algorithm>
@@ -448,5 +450,78 @@ TEST(stream_safe, truncation_needed_long)
             std::ranges::reverse(reversed_expected);
             EXPECT_TRUE(result == reversed_expected);
         }
+    }
+}
+
+template<typename T>
+using decrement = decltype(--std::declval<T>());
+
+TEST(stream_safe, view)
+{
+    { // bidi, common_range, and utf_iterators
+        std::u8string str = u8".";
+
+        auto v = stream_safe_view(str | as_utf32);
+        auto first = v.begin();
+        auto last = v.end();
+        ++first;
+        EXPECT_TRUE(first == last);
+        --last;
+    }
+    { // bidi, common_range, and !utf_iterators
+        std::u32string str = U".";
+
+        auto v = stream_safe_view(
+            std::ranges::subrange(str.data(), str.data() + str.size()));
+        auto first = v.begin();
+        auto last = v.end();
+        ++first;
+        EXPECT_TRUE(first == last);
+        --last;
+    }
+    { // bidi, !common_range, and utf_iterators
+        std::u8string str = u8".";
+
+        auto v = stream_safe_view(str.c_str() | as_utf32);
+        auto first = v.begin();
+        auto last = v.end();
+        ++first;
+        EXPECT_TRUE(first == last);
+        static_assert(ill_formed<decrement, decltype(first)>::value);
+    }
+    { // bidi, !common_range, and !utf_iterators
+        std::u32string str = U".";
+
+        auto v =
+            stream_safe_view(std::ranges::subrange(str.c_str(), null_sentinel));
+        auto first = v.begin();
+        auto last = v.end();
+        ++first;
+        EXPECT_TRUE(first == last);
+        static_assert(ill_formed<decrement, decltype(first)>::value);
+    }
+
+    { // !bidi, common_range, and utf_iterators
+        std::u8string str = u8".";
+        std::list<char8_t> list(str.begin(), str.end());
+
+        auto v = stream_safe_view(list | as_utf32);
+        auto first = v.begin();
+        auto last = v.end();
+        ++first;
+        EXPECT_TRUE(first == last);
+        --last;
+    }
+    { // !bidi, common_range, and !utf_iterators
+        std::u32string str = U".";
+        std::list<char32_t> list(str.begin(), str.end());
+
+        auto v =
+            stream_safe_view(std::ranges::subrange(list.begin(), list.end()));
+        auto first = v.begin();
+        auto last = v.end();
+        ++first;
+        EXPECT_TRUE(first == last);
+        --last;
     }
 }

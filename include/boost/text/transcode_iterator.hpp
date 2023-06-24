@@ -3049,7 +3049,7 @@ namespace boost { namespace text { namespace detail {
             first_{std::ranges::begin(base)}, last_{std::ranges::end(base)}
         {}
 
-        constexpr auto begin() const { return first_; }
+        constexpr auto begin(std::ranges::iterator_t<V> & it) const { return first_; }
         constexpr auto end(std::ranges::iterator_t<V> & it) const { return last_; }
 
         std::ranges::iterator_t<V> first_;
@@ -3062,7 +3062,7 @@ namespace boost { namespace text { namespace detail {
         constexpr first_last_storage() requires std::default_initializable<std::ranges::iterator_t<V>> = default;
         constexpr first_last_storage(V & base) : first_{std::ranges::begin(base)} {}
 
-        constexpr auto begin() const { return first_; }
+        constexpr auto begin(std::ranges::iterator_t<V> & it) const { return first_; }
         constexpr auto end(std::ranges::iterator_t<V> & it) const { return it.end(); }
 
         std::ranges::iterator_t<V> first_;
