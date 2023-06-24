@@ -26,17 +26,17 @@ TEST(normalization, nfd_016_000)
         std::array<char32_t, 1> const c4 = {{ 0xAF10 }};
         std::array<char32_t, 2> const c5 = {{ 0x1101, 0x1168 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -155,17 +155,17 @@ TEST(normalization, nfd_016_001)
         std::array<char32_t, 1> const c4 = {{ 0xAF11 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11A8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -284,17 +284,17 @@ TEST(normalization, nfd_016_002)
         std::array<char32_t, 1> const c4 = {{ 0xAF12 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11A9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -413,17 +413,17 @@ TEST(normalization, nfd_016_003)
         std::array<char32_t, 1> const c4 = {{ 0xAF13 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11AA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -542,17 +542,17 @@ TEST(normalization, nfd_016_004)
         std::array<char32_t, 1> const c4 = {{ 0xAF14 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11AB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -671,17 +671,17 @@ TEST(normalization, nfd_016_005)
         std::array<char32_t, 1> const c4 = {{ 0xAF15 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11AC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -800,17 +800,17 @@ TEST(normalization, nfd_016_006)
         std::array<char32_t, 1> const c4 = {{ 0xAF16 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11AD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -929,17 +929,17 @@ TEST(normalization, nfd_016_007)
         std::array<char32_t, 1> const c4 = {{ 0xAF17 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11AE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -1058,17 +1058,17 @@ TEST(normalization, nfd_016_008)
         std::array<char32_t, 1> const c4 = {{ 0xAF18 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11AF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -1187,17 +1187,17 @@ TEST(normalization, nfd_016_009)
         std::array<char32_t, 1> const c4 = {{ 0xAF19 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11B0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -1316,17 +1316,17 @@ TEST(normalization, nfd_016_010)
         std::array<char32_t, 1> const c4 = {{ 0xAF1A }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11B1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -1445,17 +1445,17 @@ TEST(normalization, nfd_016_011)
         std::array<char32_t, 1> const c4 = {{ 0xAF1B }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11B2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -1574,17 +1574,17 @@ TEST(normalization, nfd_016_012)
         std::array<char32_t, 1> const c4 = {{ 0xAF1C }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11B3 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -1703,17 +1703,17 @@ TEST(normalization, nfd_016_013)
         std::array<char32_t, 1> const c4 = {{ 0xAF1D }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11B4 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -1832,17 +1832,17 @@ TEST(normalization, nfd_016_014)
         std::array<char32_t, 1> const c4 = {{ 0xAF1E }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11B5 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -1961,17 +1961,17 @@ TEST(normalization, nfd_016_015)
         std::array<char32_t, 1> const c4 = {{ 0xAF1F }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11B6 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -2090,17 +2090,17 @@ TEST(normalization, nfd_016_016)
         std::array<char32_t, 1> const c4 = {{ 0xAF20 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11B7 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -2219,17 +2219,17 @@ TEST(normalization, nfd_016_017)
         std::array<char32_t, 1> const c4 = {{ 0xAF21 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11B8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -2348,17 +2348,17 @@ TEST(normalization, nfd_016_018)
         std::array<char32_t, 1> const c4 = {{ 0xAF22 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11B9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -2477,17 +2477,17 @@ TEST(normalization, nfd_016_019)
         std::array<char32_t, 1> const c4 = {{ 0xAF23 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11BA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -2606,17 +2606,17 @@ TEST(normalization, nfd_016_020)
         std::array<char32_t, 1> const c4 = {{ 0xAF24 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11BB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -2735,17 +2735,17 @@ TEST(normalization, nfd_016_021)
         std::array<char32_t, 1> const c4 = {{ 0xAF25 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11BC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -2864,17 +2864,17 @@ TEST(normalization, nfd_016_022)
         std::array<char32_t, 1> const c4 = {{ 0xAF26 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11BD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -2993,17 +2993,17 @@ TEST(normalization, nfd_016_023)
         std::array<char32_t, 1> const c4 = {{ 0xAF27 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11BE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -3122,17 +3122,17 @@ TEST(normalization, nfd_016_024)
         std::array<char32_t, 1> const c4 = {{ 0xAF28 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11BF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -3251,17 +3251,17 @@ TEST(normalization, nfd_016_025)
         std::array<char32_t, 1> const c4 = {{ 0xAF29 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11C0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -3380,17 +3380,17 @@ TEST(normalization, nfd_016_026)
         std::array<char32_t, 1> const c4 = {{ 0xAF2A }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11C1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -3509,17 +3509,17 @@ TEST(normalization, nfd_016_027)
         std::array<char32_t, 1> const c4 = {{ 0xAF2B }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1168, 0x11C2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -3638,17 +3638,17 @@ TEST(normalization, nfd_016_028)
         std::array<char32_t, 1> const c4 = {{ 0xAF2C }};
         std::array<char32_t, 2> const c5 = {{ 0x1101, 0x1169 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -3767,17 +3767,17 @@ TEST(normalization, nfd_016_029)
         std::array<char32_t, 1> const c4 = {{ 0xAF2D }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11A8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -3896,17 +3896,17 @@ TEST(normalization, nfd_016_030)
         std::array<char32_t, 1> const c4 = {{ 0xAF2E }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11A9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -4025,17 +4025,17 @@ TEST(normalization, nfd_016_031)
         std::array<char32_t, 1> const c4 = {{ 0xAF2F }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11AA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -4154,17 +4154,17 @@ TEST(normalization, nfd_016_032)
         std::array<char32_t, 1> const c4 = {{ 0xAF30 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11AB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -4283,17 +4283,17 @@ TEST(normalization, nfd_016_033)
         std::array<char32_t, 1> const c4 = {{ 0xAF31 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11AC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -4412,17 +4412,17 @@ TEST(normalization, nfd_016_034)
         std::array<char32_t, 1> const c4 = {{ 0xAF32 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11AD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -4541,17 +4541,17 @@ TEST(normalization, nfd_016_035)
         std::array<char32_t, 1> const c4 = {{ 0xAF33 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11AE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -4670,17 +4670,17 @@ TEST(normalization, nfd_016_036)
         std::array<char32_t, 1> const c4 = {{ 0xAF34 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11AF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -4799,17 +4799,17 @@ TEST(normalization, nfd_016_037)
         std::array<char32_t, 1> const c4 = {{ 0xAF35 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11B0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -4928,17 +4928,17 @@ TEST(normalization, nfd_016_038)
         std::array<char32_t, 1> const c4 = {{ 0xAF36 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11B1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -5057,17 +5057,17 @@ TEST(normalization, nfd_016_039)
         std::array<char32_t, 1> const c4 = {{ 0xAF37 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11B2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -5186,17 +5186,17 @@ TEST(normalization, nfd_016_040)
         std::array<char32_t, 1> const c4 = {{ 0xAF38 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11B3 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -5315,17 +5315,17 @@ TEST(normalization, nfd_016_041)
         std::array<char32_t, 1> const c4 = {{ 0xAF39 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11B4 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -5444,17 +5444,17 @@ TEST(normalization, nfd_016_042)
         std::array<char32_t, 1> const c4 = {{ 0xAF3A }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11B5 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -5573,17 +5573,17 @@ TEST(normalization, nfd_016_043)
         std::array<char32_t, 1> const c4 = {{ 0xAF3B }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11B6 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -5702,17 +5702,17 @@ TEST(normalization, nfd_016_044)
         std::array<char32_t, 1> const c4 = {{ 0xAF3C }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11B7 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -5831,17 +5831,17 @@ TEST(normalization, nfd_016_045)
         std::array<char32_t, 1> const c4 = {{ 0xAF3D }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11B8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -5960,17 +5960,17 @@ TEST(normalization, nfd_016_046)
         std::array<char32_t, 1> const c4 = {{ 0xAF3E }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11B9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -6089,17 +6089,17 @@ TEST(normalization, nfd_016_047)
         std::array<char32_t, 1> const c4 = {{ 0xAF3F }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11BA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -6218,17 +6218,17 @@ TEST(normalization, nfd_016_048)
         std::array<char32_t, 1> const c4 = {{ 0xAF40 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11BB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -6347,17 +6347,17 @@ TEST(normalization, nfd_016_049)
         std::array<char32_t, 1> const c4 = {{ 0xAF41 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11BC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -6476,17 +6476,17 @@ TEST(normalization, nfd_016_050)
         std::array<char32_t, 1> const c4 = {{ 0xAF42 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11BD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -6605,17 +6605,17 @@ TEST(normalization, nfd_016_051)
         std::array<char32_t, 1> const c4 = {{ 0xAF43 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11BE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -6734,17 +6734,17 @@ TEST(normalization, nfd_016_052)
         std::array<char32_t, 1> const c4 = {{ 0xAF44 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11BF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -6863,17 +6863,17 @@ TEST(normalization, nfd_016_053)
         std::array<char32_t, 1> const c4 = {{ 0xAF45 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11C0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -6992,17 +6992,17 @@ TEST(normalization, nfd_016_054)
         std::array<char32_t, 1> const c4 = {{ 0xAF46 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11C1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -7121,17 +7121,17 @@ TEST(normalization, nfd_016_055)
         std::array<char32_t, 1> const c4 = {{ 0xAF47 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x1169, 0x11C2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -7250,17 +7250,17 @@ TEST(normalization, nfd_016_056)
         std::array<char32_t, 1> const c4 = {{ 0xAF48 }};
         std::array<char32_t, 2> const c5 = {{ 0x1101, 0x116A }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -7379,17 +7379,17 @@ TEST(normalization, nfd_016_057)
         std::array<char32_t, 1> const c4 = {{ 0xAF49 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11A8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -7508,17 +7508,17 @@ TEST(normalization, nfd_016_058)
         std::array<char32_t, 1> const c4 = {{ 0xAF4A }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11A9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -7637,17 +7637,17 @@ TEST(normalization, nfd_016_059)
         std::array<char32_t, 1> const c4 = {{ 0xAF4B }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11AA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -7766,17 +7766,17 @@ TEST(normalization, nfd_016_060)
         std::array<char32_t, 1> const c4 = {{ 0xAF4C }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11AB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -7895,17 +7895,17 @@ TEST(normalization, nfd_016_061)
         std::array<char32_t, 1> const c4 = {{ 0xAF4D }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11AC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -8024,17 +8024,17 @@ TEST(normalization, nfd_016_062)
         std::array<char32_t, 1> const c4 = {{ 0xAF4E }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11AD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -8153,17 +8153,17 @@ TEST(normalization, nfd_016_063)
         std::array<char32_t, 1> const c4 = {{ 0xAF4F }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11AE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -8282,17 +8282,17 @@ TEST(normalization, nfd_016_064)
         std::array<char32_t, 1> const c4 = {{ 0xAF50 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11AF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -8411,17 +8411,17 @@ TEST(normalization, nfd_016_065)
         std::array<char32_t, 1> const c4 = {{ 0xAF51 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11B0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -8540,17 +8540,17 @@ TEST(normalization, nfd_016_066)
         std::array<char32_t, 1> const c4 = {{ 0xAF52 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11B1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -8669,17 +8669,17 @@ TEST(normalization, nfd_016_067)
         std::array<char32_t, 1> const c4 = {{ 0xAF53 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11B2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -8798,17 +8798,17 @@ TEST(normalization, nfd_016_068)
         std::array<char32_t, 1> const c4 = {{ 0xAF54 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11B3 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -8927,17 +8927,17 @@ TEST(normalization, nfd_016_069)
         std::array<char32_t, 1> const c4 = {{ 0xAF55 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11B4 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -9056,17 +9056,17 @@ TEST(normalization, nfd_016_070)
         std::array<char32_t, 1> const c4 = {{ 0xAF56 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11B5 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -9185,17 +9185,17 @@ TEST(normalization, nfd_016_071)
         std::array<char32_t, 1> const c4 = {{ 0xAF57 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11B6 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -9314,17 +9314,17 @@ TEST(normalization, nfd_016_072)
         std::array<char32_t, 1> const c4 = {{ 0xAF58 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11B7 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -9443,17 +9443,17 @@ TEST(normalization, nfd_016_073)
         std::array<char32_t, 1> const c4 = {{ 0xAF59 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11B8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -9572,17 +9572,17 @@ TEST(normalization, nfd_016_074)
         std::array<char32_t, 1> const c4 = {{ 0xAF5A }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11B9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -9701,17 +9701,17 @@ TEST(normalization, nfd_016_075)
         std::array<char32_t, 1> const c4 = {{ 0xAF5B }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11BA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -9830,17 +9830,17 @@ TEST(normalization, nfd_016_076)
         std::array<char32_t, 1> const c4 = {{ 0xAF5C }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11BB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -9959,17 +9959,17 @@ TEST(normalization, nfd_016_077)
         std::array<char32_t, 1> const c4 = {{ 0xAF5D }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11BC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -10088,17 +10088,17 @@ TEST(normalization, nfd_016_078)
         std::array<char32_t, 1> const c4 = {{ 0xAF5E }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11BD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -10217,17 +10217,17 @@ TEST(normalization, nfd_016_079)
         std::array<char32_t, 1> const c4 = {{ 0xAF5F }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11BE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -10346,17 +10346,17 @@ TEST(normalization, nfd_016_080)
         std::array<char32_t, 1> const c4 = {{ 0xAF60 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11BF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -10475,17 +10475,17 @@ TEST(normalization, nfd_016_081)
         std::array<char32_t, 1> const c4 = {{ 0xAF61 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11C0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -10604,17 +10604,17 @@ TEST(normalization, nfd_016_082)
         std::array<char32_t, 1> const c4 = {{ 0xAF62 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11C1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -10733,17 +10733,17 @@ TEST(normalization, nfd_016_083)
         std::array<char32_t, 1> const c4 = {{ 0xAF63 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116A, 0x11C2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -10862,17 +10862,17 @@ TEST(normalization, nfd_016_084)
         std::array<char32_t, 1> const c4 = {{ 0xAF64 }};
         std::array<char32_t, 2> const c5 = {{ 0x1101, 0x116B }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -10991,17 +10991,17 @@ TEST(normalization, nfd_016_085)
         std::array<char32_t, 1> const c4 = {{ 0xAF65 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11A8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -11120,17 +11120,17 @@ TEST(normalization, nfd_016_086)
         std::array<char32_t, 1> const c4 = {{ 0xAF66 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11A9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -11249,17 +11249,17 @@ TEST(normalization, nfd_016_087)
         std::array<char32_t, 1> const c4 = {{ 0xAF67 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11AA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -11378,17 +11378,17 @@ TEST(normalization, nfd_016_088)
         std::array<char32_t, 1> const c4 = {{ 0xAF68 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11AB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -11507,17 +11507,17 @@ TEST(normalization, nfd_016_089)
         std::array<char32_t, 1> const c4 = {{ 0xAF69 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11AC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -11636,17 +11636,17 @@ TEST(normalization, nfd_016_090)
         std::array<char32_t, 1> const c4 = {{ 0xAF6A }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11AD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -11765,17 +11765,17 @@ TEST(normalization, nfd_016_091)
         std::array<char32_t, 1> const c4 = {{ 0xAF6B }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11AE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -11894,17 +11894,17 @@ TEST(normalization, nfd_016_092)
         std::array<char32_t, 1> const c4 = {{ 0xAF6C }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11AF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -12023,17 +12023,17 @@ TEST(normalization, nfd_016_093)
         std::array<char32_t, 1> const c4 = {{ 0xAF6D }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11B0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -12152,17 +12152,17 @@ TEST(normalization, nfd_016_094)
         std::array<char32_t, 1> const c4 = {{ 0xAF6E }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11B1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -12281,17 +12281,17 @@ TEST(normalization, nfd_016_095)
         std::array<char32_t, 1> const c4 = {{ 0xAF6F }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11B2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -12410,17 +12410,17 @@ TEST(normalization, nfd_016_096)
         std::array<char32_t, 1> const c4 = {{ 0xAF70 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11B3 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -12539,17 +12539,17 @@ TEST(normalization, nfd_016_097)
         std::array<char32_t, 1> const c4 = {{ 0xAF71 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11B4 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -12668,17 +12668,17 @@ TEST(normalization, nfd_016_098)
         std::array<char32_t, 1> const c4 = {{ 0xAF72 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11B5 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -12797,17 +12797,17 @@ TEST(normalization, nfd_016_099)
         std::array<char32_t, 1> const c4 = {{ 0xAF73 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11B6 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -12926,17 +12926,17 @@ TEST(normalization, nfd_016_100)
         std::array<char32_t, 1> const c4 = {{ 0xAF74 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11B7 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -13055,17 +13055,17 @@ TEST(normalization, nfd_016_101)
         std::array<char32_t, 1> const c4 = {{ 0xAF75 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11B8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -13184,17 +13184,17 @@ TEST(normalization, nfd_016_102)
         std::array<char32_t, 1> const c4 = {{ 0xAF76 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11B9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -13313,17 +13313,17 @@ TEST(normalization, nfd_016_103)
         std::array<char32_t, 1> const c4 = {{ 0xAF77 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11BA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -13442,17 +13442,17 @@ TEST(normalization, nfd_016_104)
         std::array<char32_t, 1> const c4 = {{ 0xAF78 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11BB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -13571,17 +13571,17 @@ TEST(normalization, nfd_016_105)
         std::array<char32_t, 1> const c4 = {{ 0xAF79 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11BC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -13700,17 +13700,17 @@ TEST(normalization, nfd_016_106)
         std::array<char32_t, 1> const c4 = {{ 0xAF7A }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11BD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -13829,17 +13829,17 @@ TEST(normalization, nfd_016_107)
         std::array<char32_t, 1> const c4 = {{ 0xAF7B }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11BE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -13958,17 +13958,17 @@ TEST(normalization, nfd_016_108)
         std::array<char32_t, 1> const c4 = {{ 0xAF7C }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11BF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -14087,17 +14087,17 @@ TEST(normalization, nfd_016_109)
         std::array<char32_t, 1> const c4 = {{ 0xAF7D }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11C0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -14216,17 +14216,17 @@ TEST(normalization, nfd_016_110)
         std::array<char32_t, 1> const c4 = {{ 0xAF7E }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11C1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -14345,17 +14345,17 @@ TEST(normalization, nfd_016_111)
         std::array<char32_t, 1> const c4 = {{ 0xAF7F }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116B, 0x11C2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -14474,17 +14474,17 @@ TEST(normalization, nfd_016_112)
         std::array<char32_t, 1> const c4 = {{ 0xAF80 }};
         std::array<char32_t, 2> const c5 = {{ 0x1101, 0x116C }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -14603,17 +14603,17 @@ TEST(normalization, nfd_016_113)
         std::array<char32_t, 1> const c4 = {{ 0xAF81 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11A8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -14732,17 +14732,17 @@ TEST(normalization, nfd_016_114)
         std::array<char32_t, 1> const c4 = {{ 0xAF82 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11A9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -14861,17 +14861,17 @@ TEST(normalization, nfd_016_115)
         std::array<char32_t, 1> const c4 = {{ 0xAF83 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11AA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -14990,17 +14990,17 @@ TEST(normalization, nfd_016_116)
         std::array<char32_t, 1> const c4 = {{ 0xAF84 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11AB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -15119,17 +15119,17 @@ TEST(normalization, nfd_016_117)
         std::array<char32_t, 1> const c4 = {{ 0xAF85 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11AC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -15248,17 +15248,17 @@ TEST(normalization, nfd_016_118)
         std::array<char32_t, 1> const c4 = {{ 0xAF86 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11AD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -15377,17 +15377,17 @@ TEST(normalization, nfd_016_119)
         std::array<char32_t, 1> const c4 = {{ 0xAF87 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11AE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -15506,17 +15506,17 @@ TEST(normalization, nfd_016_120)
         std::array<char32_t, 1> const c4 = {{ 0xAF88 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11AF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -15635,17 +15635,17 @@ TEST(normalization, nfd_016_121)
         std::array<char32_t, 1> const c4 = {{ 0xAF89 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11B0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -15764,17 +15764,17 @@ TEST(normalization, nfd_016_122)
         std::array<char32_t, 1> const c4 = {{ 0xAF8A }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11B1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -15893,17 +15893,17 @@ TEST(normalization, nfd_016_123)
         std::array<char32_t, 1> const c4 = {{ 0xAF8B }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11B2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -16022,17 +16022,17 @@ TEST(normalization, nfd_016_124)
         std::array<char32_t, 1> const c4 = {{ 0xAF8C }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11B3 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -16151,17 +16151,17 @@ TEST(normalization, nfd_016_125)
         std::array<char32_t, 1> const c4 = {{ 0xAF8D }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11B4 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -16280,17 +16280,17 @@ TEST(normalization, nfd_016_126)
         std::array<char32_t, 1> const c4 = {{ 0xAF8E }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11B5 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -16409,17 +16409,17 @@ TEST(normalization, nfd_016_127)
         std::array<char32_t, 1> const c4 = {{ 0xAF8F }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11B6 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -16538,17 +16538,17 @@ TEST(normalization, nfd_016_128)
         std::array<char32_t, 1> const c4 = {{ 0xAF90 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11B7 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -16667,17 +16667,17 @@ TEST(normalization, nfd_016_129)
         std::array<char32_t, 1> const c4 = {{ 0xAF91 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11B8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -16796,17 +16796,17 @@ TEST(normalization, nfd_016_130)
         std::array<char32_t, 1> const c4 = {{ 0xAF92 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11B9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -16925,17 +16925,17 @@ TEST(normalization, nfd_016_131)
         std::array<char32_t, 1> const c4 = {{ 0xAF93 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11BA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -17054,17 +17054,17 @@ TEST(normalization, nfd_016_132)
         std::array<char32_t, 1> const c4 = {{ 0xAF94 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11BB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -17183,17 +17183,17 @@ TEST(normalization, nfd_016_133)
         std::array<char32_t, 1> const c4 = {{ 0xAF95 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11BC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -17312,17 +17312,17 @@ TEST(normalization, nfd_016_134)
         std::array<char32_t, 1> const c4 = {{ 0xAF96 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11BD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -17441,17 +17441,17 @@ TEST(normalization, nfd_016_135)
         std::array<char32_t, 1> const c4 = {{ 0xAF97 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11BE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -17570,17 +17570,17 @@ TEST(normalization, nfd_016_136)
         std::array<char32_t, 1> const c4 = {{ 0xAF98 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11BF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -17699,17 +17699,17 @@ TEST(normalization, nfd_016_137)
         std::array<char32_t, 1> const c4 = {{ 0xAF99 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11C0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -17828,17 +17828,17 @@ TEST(normalization, nfd_016_138)
         std::array<char32_t, 1> const c4 = {{ 0xAF9A }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11C1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -17957,17 +17957,17 @@ TEST(normalization, nfd_016_139)
         std::array<char32_t, 1> const c4 = {{ 0xAF9B }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116C, 0x11C2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -18086,17 +18086,17 @@ TEST(normalization, nfd_016_140)
         std::array<char32_t, 1> const c4 = {{ 0xAF9C }};
         std::array<char32_t, 2> const c5 = {{ 0x1101, 0x116D }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -18215,17 +18215,17 @@ TEST(normalization, nfd_016_141)
         std::array<char32_t, 1> const c4 = {{ 0xAF9D }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11A8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -18344,17 +18344,17 @@ TEST(normalization, nfd_016_142)
         std::array<char32_t, 1> const c4 = {{ 0xAF9E }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11A9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -18473,17 +18473,17 @@ TEST(normalization, nfd_016_143)
         std::array<char32_t, 1> const c4 = {{ 0xAF9F }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11AA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -18602,17 +18602,17 @@ TEST(normalization, nfd_016_144)
         std::array<char32_t, 1> const c4 = {{ 0xAFA0 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11AB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -18731,17 +18731,17 @@ TEST(normalization, nfd_016_145)
         std::array<char32_t, 1> const c4 = {{ 0xAFA1 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11AC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -18860,17 +18860,17 @@ TEST(normalization, nfd_016_146)
         std::array<char32_t, 1> const c4 = {{ 0xAFA2 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11AD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -18989,17 +18989,17 @@ TEST(normalization, nfd_016_147)
         std::array<char32_t, 1> const c4 = {{ 0xAFA3 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11AE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -19118,17 +19118,17 @@ TEST(normalization, nfd_016_148)
         std::array<char32_t, 1> const c4 = {{ 0xAFA4 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11AF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -19247,17 +19247,17 @@ TEST(normalization, nfd_016_149)
         std::array<char32_t, 1> const c4 = {{ 0xAFA5 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11B0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -19376,17 +19376,17 @@ TEST(normalization, nfd_016_150)
         std::array<char32_t, 1> const c4 = {{ 0xAFA6 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11B1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -19505,17 +19505,17 @@ TEST(normalization, nfd_016_151)
         std::array<char32_t, 1> const c4 = {{ 0xAFA7 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11B2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -19634,17 +19634,17 @@ TEST(normalization, nfd_016_152)
         std::array<char32_t, 1> const c4 = {{ 0xAFA8 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11B3 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -19763,17 +19763,17 @@ TEST(normalization, nfd_016_153)
         std::array<char32_t, 1> const c4 = {{ 0xAFA9 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11B4 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -19892,17 +19892,17 @@ TEST(normalization, nfd_016_154)
         std::array<char32_t, 1> const c4 = {{ 0xAFAA }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11B5 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -20021,17 +20021,17 @@ TEST(normalization, nfd_016_155)
         std::array<char32_t, 1> const c4 = {{ 0xAFAB }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11B6 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -20150,17 +20150,17 @@ TEST(normalization, nfd_016_156)
         std::array<char32_t, 1> const c4 = {{ 0xAFAC }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11B7 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -20279,17 +20279,17 @@ TEST(normalization, nfd_016_157)
         std::array<char32_t, 1> const c4 = {{ 0xAFAD }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11B8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -20408,17 +20408,17 @@ TEST(normalization, nfd_016_158)
         std::array<char32_t, 1> const c4 = {{ 0xAFAE }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11B9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -20537,17 +20537,17 @@ TEST(normalization, nfd_016_159)
         std::array<char32_t, 1> const c4 = {{ 0xAFAF }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11BA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -20666,17 +20666,17 @@ TEST(normalization, nfd_016_160)
         std::array<char32_t, 1> const c4 = {{ 0xAFB0 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11BB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -20795,17 +20795,17 @@ TEST(normalization, nfd_016_161)
         std::array<char32_t, 1> const c4 = {{ 0xAFB1 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11BC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -20924,17 +20924,17 @@ TEST(normalization, nfd_016_162)
         std::array<char32_t, 1> const c4 = {{ 0xAFB2 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11BD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -21053,17 +21053,17 @@ TEST(normalization, nfd_016_163)
         std::array<char32_t, 1> const c4 = {{ 0xAFB3 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11BE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -21182,17 +21182,17 @@ TEST(normalization, nfd_016_164)
         std::array<char32_t, 1> const c4 = {{ 0xAFB4 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11BF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -21311,17 +21311,17 @@ TEST(normalization, nfd_016_165)
         std::array<char32_t, 1> const c4 = {{ 0xAFB5 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11C0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -21440,17 +21440,17 @@ TEST(normalization, nfd_016_166)
         std::array<char32_t, 1> const c4 = {{ 0xAFB6 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11C1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -21569,17 +21569,17 @@ TEST(normalization, nfd_016_167)
         std::array<char32_t, 1> const c4 = {{ 0xAFB7 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116D, 0x11C2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -21698,17 +21698,17 @@ TEST(normalization, nfd_016_168)
         std::array<char32_t, 1> const c4 = {{ 0xAFB8 }};
         std::array<char32_t, 2> const c5 = {{ 0x1101, 0x116E }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -21827,17 +21827,17 @@ TEST(normalization, nfd_016_169)
         std::array<char32_t, 1> const c4 = {{ 0xAFB9 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11A8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -21956,17 +21956,17 @@ TEST(normalization, nfd_016_170)
         std::array<char32_t, 1> const c4 = {{ 0xAFBA }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11A9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -22085,17 +22085,17 @@ TEST(normalization, nfd_016_171)
         std::array<char32_t, 1> const c4 = {{ 0xAFBB }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11AA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -22214,17 +22214,17 @@ TEST(normalization, nfd_016_172)
         std::array<char32_t, 1> const c4 = {{ 0xAFBC }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11AB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -22343,17 +22343,17 @@ TEST(normalization, nfd_016_173)
         std::array<char32_t, 1> const c4 = {{ 0xAFBD }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11AC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -22472,17 +22472,17 @@ TEST(normalization, nfd_016_174)
         std::array<char32_t, 1> const c4 = {{ 0xAFBE }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11AD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -22601,17 +22601,17 @@ TEST(normalization, nfd_016_175)
         std::array<char32_t, 1> const c4 = {{ 0xAFBF }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11AE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -22730,17 +22730,17 @@ TEST(normalization, nfd_016_176)
         std::array<char32_t, 1> const c4 = {{ 0xAFC0 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11AF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -22859,17 +22859,17 @@ TEST(normalization, nfd_016_177)
         std::array<char32_t, 1> const c4 = {{ 0xAFC1 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11B0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -22988,17 +22988,17 @@ TEST(normalization, nfd_016_178)
         std::array<char32_t, 1> const c4 = {{ 0xAFC2 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11B1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -23117,17 +23117,17 @@ TEST(normalization, nfd_016_179)
         std::array<char32_t, 1> const c4 = {{ 0xAFC3 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11B2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -23246,17 +23246,17 @@ TEST(normalization, nfd_016_180)
         std::array<char32_t, 1> const c4 = {{ 0xAFC4 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11B3 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -23375,17 +23375,17 @@ TEST(normalization, nfd_016_181)
         std::array<char32_t, 1> const c4 = {{ 0xAFC5 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11B4 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -23504,17 +23504,17 @@ TEST(normalization, nfd_016_182)
         std::array<char32_t, 1> const c4 = {{ 0xAFC6 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11B5 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -23633,17 +23633,17 @@ TEST(normalization, nfd_016_183)
         std::array<char32_t, 1> const c4 = {{ 0xAFC7 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11B6 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -23762,17 +23762,17 @@ TEST(normalization, nfd_016_184)
         std::array<char32_t, 1> const c4 = {{ 0xAFC8 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11B7 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -23891,17 +23891,17 @@ TEST(normalization, nfd_016_185)
         std::array<char32_t, 1> const c4 = {{ 0xAFC9 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11B8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -24020,17 +24020,17 @@ TEST(normalization, nfd_016_186)
         std::array<char32_t, 1> const c4 = {{ 0xAFCA }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11B9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -24149,17 +24149,17 @@ TEST(normalization, nfd_016_187)
         std::array<char32_t, 1> const c4 = {{ 0xAFCB }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11BA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -24278,17 +24278,17 @@ TEST(normalization, nfd_016_188)
         std::array<char32_t, 1> const c4 = {{ 0xAFCC }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11BB }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -24407,17 +24407,17 @@ TEST(normalization, nfd_016_189)
         std::array<char32_t, 1> const c4 = {{ 0xAFCD }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11BC }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -24536,17 +24536,17 @@ TEST(normalization, nfd_016_190)
         std::array<char32_t, 1> const c4 = {{ 0xAFCE }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11BD }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -24665,17 +24665,17 @@ TEST(normalization, nfd_016_191)
         std::array<char32_t, 1> const c4 = {{ 0xAFCF }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11BE }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -24794,17 +24794,17 @@ TEST(normalization, nfd_016_192)
         std::array<char32_t, 1> const c4 = {{ 0xAFD0 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11BF }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -24923,17 +24923,17 @@ TEST(normalization, nfd_016_193)
         std::array<char32_t, 1> const c4 = {{ 0xAFD1 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11C0 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -25052,17 +25052,17 @@ TEST(normalization, nfd_016_194)
         std::array<char32_t, 1> const c4 = {{ 0xAFD2 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11C1 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -25181,17 +25181,17 @@ TEST(normalization, nfd_016_195)
         std::array<char32_t, 1> const c4 = {{ 0xAFD3 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116E, 0x11C2 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -25310,17 +25310,17 @@ TEST(normalization, nfd_016_196)
         std::array<char32_t, 1> const c4 = {{ 0xAFD4 }};
         std::array<char32_t, 2> const c5 = {{ 0x1101, 0x116F }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -25439,17 +25439,17 @@ TEST(normalization, nfd_016_197)
         std::array<char32_t, 1> const c4 = {{ 0xAFD5 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116F, 0x11A8 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -25568,17 +25568,17 @@ TEST(normalization, nfd_016_198)
         std::array<char32_t, 1> const c4 = {{ 0xAFD6 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116F, 0x11A9 }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 
@@ -25697,17 +25697,17 @@ TEST(normalization, nfd_016_199)
         std::array<char32_t, 1> const c4 = {{ 0xAFD7 }};
         std::array<char32_t, 3> const c5 = {{ 0x1101, 0x116F, 0x11AA }};
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::kd>(c5.begin(), c5.end()));
 
 
 

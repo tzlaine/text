@@ -188,7 +188,7 @@ def generate_test_prefix(normalization, chunk_idx, test_idx, line, comment, fiel
         for i in range(0, 4):
             if fields[f + 1] == fields[i + 1]:
                 normalized_checks += \
-              '        EXPECT_TRUE(boost::text::normalized<boost::text::nf::{0}>(c{1}.begin(), c{1}.end()));\n'.format(\
+              '        EXPECT_TRUE(boost::text::is_normalized<boost::text::nf::{0}>(c{1}.begin(), c{1}.end()));\n'.format(\
                 normalizations[i][2:], f + 2)
         normalized_checks += '\n'
     return '''

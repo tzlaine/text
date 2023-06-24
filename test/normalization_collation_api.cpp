@@ -67,17 +67,17 @@ TEST(sentinel_apis, nfd)
         sentinel_cp_range_t c5;
         to_sentinel_cp_range(c5_, c5, {0x0044, 0x0307});
 
-        EXPECT_TRUE(text::normalized<text::nf::c>(c2.begin(), c2.end()));
-        EXPECT_TRUE(text::normalized<text::nf::kc>(c2.begin(), c2.end()));
+        EXPECT_TRUE(text::is_normalized<text::nf::c>(c2.begin(), c2.end()));
+        EXPECT_TRUE(text::is_normalized<text::nf::kc>(c2.begin(), c2.end()));
 
-        EXPECT_TRUE(text::normalized<text::nf::d>(c3.begin(), c3.end()));
-        EXPECT_TRUE(text::normalized<text::nf::kd>(c3.begin(), c3.end()));
+        EXPECT_TRUE(text::is_normalized<text::nf::d>(c3.begin(), c3.end()));
+        EXPECT_TRUE(text::is_normalized<text::nf::kd>(c3.begin(), c3.end()));
 
-        EXPECT_TRUE(text::normalized<text::nf::c>(c4.begin(), c4.end()));
-        EXPECT_TRUE(text::normalized<text::nf::kc>(c4.begin(), c4.end()));
+        EXPECT_TRUE(text::is_normalized<text::nf::c>(c4.begin(), c4.end()));
+        EXPECT_TRUE(text::is_normalized<text::nf::kc>(c4.begin(), c4.end()));
 
-        EXPECT_TRUE(text::normalized<text::nf::d>(c5.begin(), c5.end()));
-        EXPECT_TRUE(text::normalized<text::nf::kd>(c5.begin(), c5.end()));
+        EXPECT_TRUE(text::is_normalized<text::nf::d>(c5.begin(), c5.end()));
+        EXPECT_TRUE(text::is_normalized<text::nf::kd>(c5.begin(), c5.end()));
     }
 
     {
@@ -676,8 +676,8 @@ TEST(sentinel_apis, normalize_fcc)
 
     EXPECT_EQ(result3, result1);
 
-    EXPECT_TRUE(text::normalized<text::nf::fcc>(utf8.c_str()));
-    EXPECT_TRUE(text::normalized<text::nf::fcc>(
+    EXPECT_TRUE(text::is_normalized<text::nf::fcc>(utf8.c_str()));
+    EXPECT_TRUE(text::is_normalized<text::nf::fcc>(
         std::ranges::subrange(utf8.c_str(), text::null_sentinel)));
 
     // utf_8_to_32_iterator/utf_8_to_32_iterator
@@ -701,9 +701,9 @@ TEST(sentinel_apis, normalize_fcc)
 
     EXPECT_EQ(result5, result1);
 
-    EXPECT_TRUE(text::normalized<text::nf::fcc>(result5));
+    EXPECT_TRUE(text::is_normalized<text::nf::fcc>(result5));
     EXPECT_TRUE(
-        text::normalized<text::nf::fcc>(result5.begin(), result5.end()));
+        text::is_normalized<text::nf::fcc>(result5.begin(), result5.end()));
 }
 
 TEST(transcoding, output_iterators)

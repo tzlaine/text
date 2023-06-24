@@ -312,7 +312,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<nf N, utf_iter I, std::sentinel_for<I> S>
-    bool normalized(I first, S last)
+    bool is_normalized(I first, S last)
     {
         if constexpr (utf32_iter<I>) {
             BOOST_TEXT_STATIC_ASSERT_N();
@@ -322,18 +322,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         } else {
             auto const code_points =
                 std::ranges::subrange(first, last) | as_utf32;
-            return boost::text::normalized<N>(
+            return boost::text::is_normalized<N>(
                 code_points.begin(), code_points.end());
         }
     }
 
     template<nf N, utf_range_like R>
-    bool normalized(R && r)
+    bool is_normalized(R && r)
     {
         if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
-            return boost::text::normalized<N>(r, null_sentinel);
+            return boost::text::is_normalized<N>(r, null_sentinel);
         } else {
-            return boost::text::normalized<N>(
+            return boost::text::is_normalized<N>(
                 std::ranges::begin(r), std::ranges::end(r));
         }
     }
