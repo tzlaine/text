@@ -339,7 +339,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<nf N, utf32_range V>
-        requires std::ranges::view<V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
     class normalize_view : public std::ranges::view_interface<normalize_view<N, V>>
     {
         template<bool Const, bool StoreLast = !detail::is_utf_iter<std::ranges::iterator_t<V>>>
@@ -365,7 +365,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
     template<nf N, utf32_range V>
-        requires std::ranges::view<V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
     template<bool Const, bool StoreLast>
     class normalize_view<N, V>::iterator
         : detail::first_last_storage<detail::maybe_const<Const, V>, false>,
@@ -429,7 +429,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
     template<nf N, utf32_range V>
-        requires std::ranges::view<V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
     class normalize_view<N, V>::sentinel
     {
     public:
@@ -447,7 +447,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
 
     template<utf32_range V>
-        requires std::ranges::view<V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
     class nfc_view : public normalize_view<nf::c, V>
     {
     public:
@@ -457,7 +457,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         {}
     };
     template<utf32_range V>
-        requires std::ranges::view<V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
     class nfkc_view : public normalize_view<nf::kc, V>
     {
     public:
@@ -467,7 +467,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         {}
     };
     template<utf32_range V>
-        requires std::ranges::view<V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
     class nfd_view : public normalize_view<nf::d, V>
     {
     public:
@@ -477,7 +477,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         {}
     };
     template<utf32_range V>
-        requires std::ranges::view<V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
     class nfkd_view : public normalize_view<nf::kd, V>
     {
     public:
@@ -487,7 +487,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         {}
     };
     template<utf32_range V>
-        requires std::ranges::view<V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
     class fcc_view : public normalize_view<nf::fcc, V>
     {
     public:
@@ -519,6 +519,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         struct normalize_impl : range_adaptor_closure<normalize_impl<View, N>>
         {
             template<can_utf32_view0 R>
+                requires std::ranges::forward_range<R> || std::is_pointer_v<std::remove_cvref_t<R>>
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
                 using T = std::remove_cvref_t<R>;
