@@ -66,31 +66,31 @@ namespace boost { namespace text {
         class charn_projection_sentinel
         {
             using Base = maybe_const<Const, V>;
-            using sentinel_type = std::ranges::sentinel_t<Base>;
+            using sentinel = std::ranges::sentinel_t<Base>;
 
-            sentinel_type end_ = sentinel_type();
+            sentinel end_ = sentinel();
 
         public:
             constexpr charn_projection_sentinel() = default;
-            constexpr explicit charn_projection_sentinel(sentinel_type end) : end_(std::move(end)) {}
+            constexpr explicit charn_projection_sentinel(sentinel end) : end_(std::move(end)) {}
             constexpr charn_projection_sentinel(charn_projection_sentinel<!Const, V, T> i) requires Const
                 && std::convertible_to<std::ranges::sentinel_t<V>, std::ranges::sentinel_t<Base>>;
 
-            constexpr sentinel_type base() const { return end_; }
+            constexpr sentinel base() const { return end_; }
 
             template<bool OtherConst>
-                requires std::sentinel_for<sentinel_type, std::ranges::iterator_t<maybe_const<OtherConst, V>>>
+                requires std::sentinel_for<sentinel, std::ranges::iterator_t<maybe_const<OtherConst, V>>>
             friend constexpr bool operator==(const charn_projection_iterator<OtherConst, V, T> & x, const charn_projection_sentinel & y)
                 { return x.it_ == y.end_; }
 
             template<bool OtherConst>
-                requires std::sized_sentinel_for<sentinel_type, std::ranges::iterator_t<maybe_const<OtherConst, V>>>
+                requires std::sized_sentinel_for<sentinel, std::ranges::iterator_t<maybe_const<OtherConst, V>>>
             friend constexpr std::ranges::range_difference_t<maybe_const<OtherConst, V>>
             operator-(const charn_projection_iterator<OtherConst, V, T> & x, const charn_projection_sentinel & y)
                 { return x.it_ - y.end_; }
 
             template<bool OtherConst>
-                requires std::sized_sentinel_for<sentinel_type, std::ranges::iterator_t<maybe_const<OtherConst, V>>>
+                requires std::sized_sentinel_for<sentinel, std::ranges::iterator_t<maybe_const<OtherConst, V>>>
             friend constexpr std::ranges::range_difference_t<maybe_const<OtherConst, V>>
             operator-(const charn_projection_sentinel & y, const charn_projection_iterator<OtherConst, V, T> & x)
                 { return y.end_ - x.it_; }
