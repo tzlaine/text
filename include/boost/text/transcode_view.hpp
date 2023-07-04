@@ -18,40 +18,6 @@
 
 namespace boost { namespace text {
 
-    // TODO: This is a possible implementation, but it disables unpacking when
-    // followed by an as_utfN adaptor.
-#if 0
-    template<format Format>
-    struct as_charn_t_impl : range_adaptor_closure<as_charn_t_impl<Format>>
-    {
-        template<class R>
-        requires (std::ranges::viewable_range<R> &&
-                  std::integral<std::ranges::range_value_t<R>> &&
-                  (int)ToFormat <= sizeof(std::ranges::range_value_t<R>)) ||
-                 utf_pointer<std::remove_cvref_t<R>>
-        [[nodiscard]] constexpr auto operator()(R && r) const
-        {
-            using char_type = dtl::format_to_type_t<ToFormat>;
-            using T = std::remove_cvref_t<R>;
-            if constexpr (detail::is_empty_view_v<T>) {
-                return std::ranges::empty_view<dtl::format_to_type_t<Format>>{};
-            } else if constexpr (std::is_pointer_v<T>) {
-                return std::ranges::subrange(r, null_sentinel) |
-                       std::views::transform(
-                           [](auto c) { return static_cast<char_type>(c); });
-            } else {
-                return std::forward<R>(r) |
-                       std::views::transform(
-                           [](auto c) { return static_cast<char_type>(c); });
-            }
-        }
-    };
-
-    inline constexpr dtl::as_charn_t_impl<format::utf8> as_char8_t;
-    inline constexpr dtl::as_charn_t_impl<format::utf16> as_char16_t;
-    inline constexpr dtl::as_charn_t_impl<format::utf32> as_char32_t;
-#endif
-
     namespace detail {
         template<class I>
         constexpr auto iterator_to_tag()
