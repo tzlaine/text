@@ -51,7 +51,7 @@ namespace boost { namespace text {
             iterator & base_reference() noexcept { return it_; }
             iterator base_reference() const { return it_; }
 
-            iterator it_;
+            iterator it_ = iterator();
 
             friend charn_projection_sentinel<Const, V, T>;
 
@@ -80,7 +80,8 @@ namespace boost { namespace text {
 
             template<bool OtherConst>
                 requires std::sentinel_for<sentinel, std::ranges::iterator_t<maybe_const<OtherConst, V>>>
-            friend constexpr bool operator==(const charn_projection_iterator<OtherConst, V, T> & x, const charn_projection_sentinel & y)
+            friend constexpr bool operator==(const charn_projection_iterator<OtherConst, V, T> & x,
+                                             const charn_projection_sentinel & y)
                 { return x.it_ == y.end_; }
 
             template<bool OtherConst>
@@ -124,12 +125,14 @@ namespace boost { namespace text {
         constexpr V base() && { return std::move(base_); }
 
         constexpr iterator<false> begin() { return iterator<false>{std::ranges::begin(base_)}; }
-        constexpr iterator<true> begin() const requires std::ranges::range<const V> { return iterator<true>{std::ranges::begin(base_)}; }
+        constexpr iterator<true> begin() const requires std::ranges::range<const V>
+            { return iterator<true>{std::ranges::begin(base_)}; }
 
         constexpr sentinel<false> end() { return sentinel<false>{std::ranges::end(base_)}; }
         constexpr iterator<false> end() requires std::ranges::common_range<V> { return iterator<false>{std::ranges::end(base_)}; }
         constexpr sentinel<true> end() const requires std::ranges::range<const V> { return sentinel<true>{std::ranges::end(base_)}; }
-        constexpr iterator<true> end() const requires std::ranges::common_range<const V> { return iterator<true>{std::ranges::end(base_)}; }
+        constexpr iterator<true> end() const requires std::ranges::common_range<const V>
+            { return iterator<true>{std::ranges::end(base_)}; }
 
         constexpr auto size() requires std::ranges::sized_range<V> { return std::ranges::size(base_); }
         constexpr auto size() const requires std::ranges::sized_range<const V> { return std::ranges::size(base_); }
@@ -158,12 +161,14 @@ namespace boost { namespace text {
         constexpr V base() && { return std::move(base_); }
 
         constexpr iterator<false> begin() { return iterator<false>{std::ranges::begin(base_)}; }
-        constexpr iterator<true> begin() const requires std::ranges::range<const V> { return iterator<true>{std::ranges::begin(base_)}; }
+        constexpr iterator<true> begin() const requires std::ranges::range<const V>
+            { return iterator<true>{std::ranges::begin(base_)}; }
 
         constexpr sentinel<false> end() { return sentinel<false>{std::ranges::end(base_)}; }
         constexpr iterator<false> end() requires std::ranges::common_range<V> { return iterator<false>{std::ranges::end(base_)}; }
         constexpr sentinel<true> end() const requires std::ranges::range<const V> { return sentinel<true>{std::ranges::end(base_)}; }
-        constexpr iterator<true> end() const requires std::ranges::common_range<const V> { return iterator<true>{std::ranges::end(base_)}; }
+        constexpr iterator<true> end() const requires std::ranges::common_range<const V>
+            { return iterator<true>{std::ranges::end(base_)}; }
 
         constexpr auto size() requires std::ranges::sized_range<V> { return std::ranges::size(base_); }
         constexpr auto size() const requires std::ranges::sized_range<const V> { return std::ranges::size(base_); }
@@ -192,12 +197,14 @@ namespace boost { namespace text {
         constexpr V base() && { return std::move(base_); }
 
         constexpr iterator<false> begin() { return iterator<false>{std::ranges::begin(base_)}; }
-        constexpr iterator<true> begin() const requires std::ranges::range<const V> { return iterator<true>{std::ranges::begin(base_)}; }
+        constexpr iterator<true> begin() const requires std::ranges::range<const V>
+            { return iterator<true>{std::ranges::begin(base_)}; }
 
         constexpr sentinel<false> end() { return sentinel<false>{std::ranges::end(base_)}; }
         constexpr iterator<false> end() requires std::ranges::common_range<V> { return iterator<false>{std::ranges::end(base_)}; }
         constexpr sentinel<true> end() const requires std::ranges::range<const V> { return sentinel<true>{std::ranges::end(base_)}; }
-        constexpr iterator<true> end() const requires std::ranges::common_range<const V> { return iterator<true>{std::ranges::end(base_)}; }
+        constexpr iterator<true> end() const requires std::ranges::common_range<const V>
+            { return iterator<true>{std::ranges::end(base_)}; }
 
         constexpr auto size() requires std::ranges::sized_range<V> { return std::ranges::size(base_); }
         constexpr auto size() const requires std::ranges::sized_range<const V> { return std::ranges::size(base_); }
