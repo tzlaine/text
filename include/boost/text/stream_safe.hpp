@@ -335,20 +335,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         constexpr iterator<false> begin() { return iterator<false>{base_}; }
         constexpr iterator<true> begin() const requires utf32_range<const V> { return iterator<true>{base_}; }
 
-        constexpr auto end() {
-            if constexpr (bidi) {
-                return iterator<false>{base_, std::ranges::end(base_)};
-            } else {
-                return sentinel{};
-            }
-        }
-        constexpr auto end() const requires utf32_range<const V> {
-            if constexpr (bidi) {
-                return iterator<true>{base_, std::ranges::end(base_)};
-            } else {
-                return sentinel{};
-            }
-        }
+        constexpr sentinel end() { return sentinel{}; }
+        constexpr iterator<false> end() requires bidi { return iterator<false>{base_, std::ranges::end(base_)}; }
+        constexpr sentinel end() const requires utf32_range<const V> { return sentinel{}; }
+        constexpr iterator<true> end() const requires utf32_range<const V> && bidi { return iterator<true>{base_, std::ranges::end(base_)}; }
     };
 
     template<utf32_range V>
