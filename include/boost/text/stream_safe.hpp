@@ -27,8 +27,8 @@ namespace boost { namespace text {
     namespace detail {
         constexpr int stream_safe_max_nonstarters = 20;
 
-        template<typename CPIter, typename Sentinel, typename T>
-        CPIter next_stream_safe_cp(CPIter first, Sentinel last, T & nonstarters)
+        template<typename I, typename S>
+        I next_stream_safe_cp(I first, S last, int & nonstarters)
         {
             for (; first != last; ++first) {
                 auto const cp = *first;
@@ -36,7 +36,7 @@ namespace boost { namespace text {
                     nonstarters = 0;
                 else
                     ++nonstarters;
-                if (nonstarters <= (T)stream_safe_max_nonstarters)
+                if (nonstarters <= stream_safe_max_nonstarters)
                     break;
             }
             return first;
@@ -96,7 +96,7 @@ namespace boost { namespace text {
         {
             if (first == last)
                 return {first, out};
-            std::size_t nonstarters = detail::ccc(*first) ? 1 : 0;
+            int nonstarters = detail::ccc(*first) ? 1 : 0;
             do {
                 *out = *first;
                 ++out;
