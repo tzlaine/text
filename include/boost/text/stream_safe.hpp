@@ -310,8 +310,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             std::ranges::begin(r), std::ranges::end(r));
     }
 
-    // TODO: Explain why this is inherently unusable with input ranges --
-    // there is inherently going to be backtracking.
     template<utf32_range V>
         requires std::ranges::view<V> && std::ranges::forward_range<V>
     class stream_safe_view : public std::ranges::view_interface<stream_safe_view<V>>

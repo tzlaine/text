@@ -364,7 +364,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         constexpr sentinel end() { return sentinel{}; }
         constexpr iterator<false> end() requires bidi { return iterator<false>{base_, std::ranges::end(base_)}; }
         constexpr sentinel end() const requires utf32_range<const V> { return sentinel{}; }
-        constexpr iterator<true> end() const requires utf32_range<const V> && bidi { return iterator<true>{base_, std::ranges::end(base_)}; }
+        constexpr iterator<true> end() const requires utf32_range<const V> && bidi
+            { return iterator<true>{base_, std::ranges::end(base_)}; }
     };
 
     template<nf N, utf32_range V>
@@ -451,8 +452,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return *this;
         }
 
-        friend bool operator==(iterator lhs, iterator rhs)
-        {
+        friend bool operator==(iterator lhs, iterator rhs) {
             return lhs.it_ == rhs.it_ && (lhs.index_ == rhs.index_ ||
                                           (lhs.index_ == (int)lhs.buf_.size() &&
                                            rhs.index_ == (int)rhs.buf_.size()));
