@@ -217,7 +217,7 @@ namespace boost { namespace text {
 
     // clang-format off
     template<utf_range V>
-    requires std::ranges::view<V>
+    requires std::ranges::view<V> && std::ranges::forward_range<V>
     class unpacking_view : public std::ranges::view_interface<unpacking_view<V>> {
       V base_ = V();
 
@@ -462,6 +462,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 namespace std::ranges {
     template<class V, auto F>
     inline constexpr bool enable_borrowed_range<boost::text::project_view<V, F>> =
+        enable_borrowed_range<V>;
+
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::unpacking_view<V>> =
         enable_borrowed_range<V>;
 
     template<boost::text::format Format, class V>
