@@ -37,13 +37,12 @@ namespace boost { namespace text {
 
         template<class Char>
         struct cast_to_charn {
-            template<class T>
-            constexpr Char operator()(T && x) const { return static_cast<Char>(std::forward<T>(x)); }
+            constexpr Char operator()(Char c) const { return c; }
         };
     }
 
     template<std::ranges::input_range V, auto F>
-        requires std::ranges::view<V> && std::is_object_v<decltype(F)> &&
+        requires std::ranges::view<V> &&
                  std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> // TODO &&
                  // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<V>>>
     class project_view : public std::ranges::view_interface<project_view<V, F>>
@@ -78,7 +77,7 @@ namespace boost { namespace text {
     };
 
     template<std::ranges::input_range V, auto F>
-        requires std::ranges::view<V> && std::is_object_v<decltype(F)> &&
+        requires std::ranges::view<V> &&
                  std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> // TODO &&
                  // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<V>>>
     template<bool Const>
@@ -107,7 +106,7 @@ namespace boost { namespace text {
     };
 
     template<std::ranges::input_range V, auto F>
-        requires std::ranges::view<V> && std::is_object_v<decltype(F)> &&
+        requires std::ranges::view<V> &&
                  std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> // TODO &&
                  // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<V>>>
     template<bool Const>
@@ -145,6 +144,9 @@ namespace boost { namespace text {
             { return y.end_ - x.it_; }
     };
 
+    template<class R, auto F>
+    project_view(R &&) -> project_view<std::views::all_t<R>, F>;
+
     namespace detail {
         template<auto F>
             requires std::is_object_v<decltype(F)>
@@ -170,40 +172,12 @@ namespace boost { namespace text {
     template<auto F>
     constexpr detail::project_impl<F> project;
 
-    template<std::ranges::input_range V>
-        requires std::ranges::view<V> && std::convertible_to<std::ranges::range_reference_t<V>, char8_t>
-    class char8_view : public project_view<V, detail::cast_to_charn<char8_t>{}> {
-    public:
-        constexpr char8_view() requires std::default_initializable<V> = default;
-        constexpr char8_view(V base) :
-            project_view<V, detail::cast_to_charn<char8_t>{}>{std::move(base)}
-        {}
-    };
-    template<std::ranges::input_range V>
-        requires std::ranges::view<V> && std::convertible_to<std::ranges::range_reference_t<V>, char16_t>
-    class char16_view : public project_view<V, detail::cast_to_charn<char16_t>{}> {
-    public:
-        constexpr char16_view() requires std::default_initializable<V> = default;
-        constexpr char16_view(V base) :
-            project_view<V, detail::cast_to_charn<char16_t>{}>{std::move(base)}
-        {}
-    };
-    template<std::ranges::input_range V>
-        requires std::ranges::view<V> && std::convertible_to<std::ranges::range_reference_t<V>, char32_t>
-    class char32_view : public project_view<V, detail::cast_to_charn<char32_t>{}> {
-    public:
-        constexpr char32_view() requires std::default_initializable<V> = default;
-        constexpr char32_view(V base) :
-            project_view<V, detail::cast_to_charn<char32_t>{}>{std::move(base)}
-        {}
-    };
-
-    template<class R>
-    char8_view(R &&) -> char8_view<std::views::all_t<R>>;
-    template<class R>
-    char16_view(R &&) -> char16_view<std::views::all_t<R>>;
-    template<class R>
-    char32_view(R &&) -> char32_view<std::views::all_t<R>>;
+    template<class V>
+    using char8_view = project_view<V, detail::cast_to_charn<char8_t>{}>;
+    template<class V>
+    using char16_view = project_view<V, detail::cast_to_charn<char16_t>{}>;
+    template<class V>
+    using char32_view = project_view<V, detail::cast_to_charn<char32_t>{}>;
 
     namespace detail {
         template<template<class> class View, format Format>
@@ -243,7 +217,7 @@ namespace boost { namespace text {
 
     // clang-format off
     template<utf_range V>
-        requires std::ranges::view<V>
+    requires std::ranges::view<V>
     class unpacking_view : public std::ranges::view_interface<unpacking_view<V>> {
       V base_ = V();
 
@@ -486,14 +460,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 }}}
 
 namespace std::ranges {
-    template<class V>
-    inline constexpr bool enable_borrowed_range<boost::text::char8_view<V>> =
-        enable_borrowed_range<V>;
-    template<class V>
-    inline constexpr bool enable_borrowed_range<boost::text::char16_view<V>> =
-        enable_borrowed_range<V>;
-    template<class V>
-    inline constexpr bool enable_borrowed_range<boost::text::char32_view<V>> =
+    template<class V, auto F>
+    inline constexpr bool enable_borrowed_range<boost::text::project_view<V, F>> =
         enable_borrowed_range<V>;
 
     template<boost::text::format Format, class V>
