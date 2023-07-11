@@ -35,179 +35,167 @@ namespace boost { namespace text {
         template<class I>
         using iterator_to_tag_t = decltype(iterator_to_tag<I>());
 
-        template<bool Const, class V, class T>
-        class charn_projection_sentinel;
-
-        template<bool Const, class V, class T>
-        class charn_projection_iterator
-            : public boost::stl_interfaces::proxy_iterator_interface<
-                  charn_projection_iterator<Const, V, T>, // TODO
-                  iterator_to_tag_t<std::ranges::iterator_t<maybe_const<Const, V>>>,
-                  T>
-        {
-            using iterator = std::ranges::iterator_t<maybe_const<Const, V>>;
-
-            friend boost::stl_interfaces::access;
-            iterator & base_reference() noexcept { return it_; }
-            iterator base_reference() const { return it_; }
-
-            iterator it_ = iterator();
-
-            friend charn_projection_sentinel<Const, V, T>;
-
-        public:
-            constexpr charn_projection_iterator() = default;
-            constexpr charn_projection_iterator(iterator it) : it_(std::move(it)) {}
-
-            constexpr T operator*() const { return T(*it_); }
-        };
-
-        template<bool Const, class V, class T>
-        class charn_projection_sentinel
-        {
-            using Base = maybe_const<Const, V>;
-            using sentinel = std::ranges::sentinel_t<Base>;
-
-            sentinel end_ = sentinel();
-
-        public:
-            constexpr charn_projection_sentinel() = default;
-            constexpr explicit charn_projection_sentinel(sentinel end) : end_(std::move(end)) {}
-            constexpr charn_projection_sentinel(charn_projection_sentinel<!Const, V, T> i) requires Const
-                && std::convertible_to<std::ranges::sentinel_t<V>, std::ranges::sentinel_t<Base>>;
-
-            constexpr sentinel base() const { return end_; }
-
-            template<bool OtherConst>
-                requires std::sentinel_for<sentinel, std::ranges::iterator_t<maybe_const<OtherConst, V>>>
-            friend constexpr bool operator==(const charn_projection_iterator<OtherConst, V, T> & x,
-                                             const charn_projection_sentinel & y)
-                { return x.it_ == y.end_; }
-
-            template<bool OtherConst>
-                requires std::sized_sentinel_for<sentinel, std::ranges::iterator_t<maybe_const<OtherConst, V>>>
-            friend constexpr std::ranges::range_difference_t<maybe_const<OtherConst, V>>
-            operator-(const charn_projection_iterator<OtherConst, V, T> & x, const charn_projection_sentinel & y)
-                { return x.it_ - y.end_; }
-
-            template<bool OtherConst>
-                requires std::sized_sentinel_for<sentinel, std::ranges::iterator_t<maybe_const<OtherConst, V>>>
-            friend constexpr std::ranges::range_difference_t<maybe_const<OtherConst, V>>
-            operator-(const charn_projection_sentinel & y, const charn_projection_iterator<OtherConst, V, T> & x)
-                { return y.end_ - x.it_; }
+        template<class Char>
+        struct cast_to_charn {
+            template<class T>
+            constexpr Char operator()(T && x) const { return static_cast<Char>(std::forward<T>(x)); }
         };
     }
 
-    template<format Format, utf_range V>
-        requires std::ranges::view<V>
-    class utf_view;
-
-    template<std::ranges::view V>
-        requires std::ranges::input_range<V> && std::convertible_to<std::ranges::range_reference_t<V>, char8_t>
-    class char8_view : public std::ranges::view_interface<char8_view<V>>
+    template<std::ranges::input_range V, auto F>
+        requires std::ranges::view<V> && std::is_object_v<decltype(F)> &&
+                 std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> // TODO &&
+                 // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<V>>>
+    class project_view : public std::ranges::view_interface<project_view<V, F>>
     {
         V base_ = V();
 
         template<bool Const>
-        using iterator = detail::charn_projection_iterator<Const, V, char8_t>;
+        class iterator;
         template<bool Const>
-        using sentinel = detail::charn_projection_sentinel<Const, V, char8_t>;
+        class sentinel;
 
-        template<format Format2, utf_range V2>
-            requires std::ranges::view<V2>
-        friend class utf_view;
+    public:
+        constexpr project_view() requires std::default_initializable<V> = default;
+        constexpr explicit project_view(V base) : base_(std::move(base)) {}
 
+        constexpr V& base() & { return base_; }
+        constexpr const V& base() const& { return base_; }
+        constexpr V base() && { return std::move(base_); }
+
+        constexpr iterator<false> begin() { return iterator<false>{std::ranges::begin(base_)}; }
+        constexpr iterator<true> begin() const requires std::ranges::range<const V>
+            { return iterator<true>{std::ranges::begin(base_)}; }
+
+        constexpr sentinel<false> end() { return sentinel<false>{std::ranges::end(base_)}; }
+        constexpr iterator<false> end() requires std::ranges::common_range<V> { return iterator<false>{std::ranges::end(base_)}; }
+        constexpr sentinel<true> end() const requires std::ranges::range<const V> { return sentinel<true>{std::ranges::end(base_)}; }
+        constexpr iterator<true> end() const requires std::ranges::common_range<const V>
+            { return iterator<true>{std::ranges::end(base_)}; }
+
+        constexpr auto size() requires std::ranges::sized_range<V> { return std::ranges::size(base_); }
+        constexpr auto size() const requires std::ranges::sized_range<const V> { return std::ranges::size(base_); }
+    };
+
+    template<std::ranges::input_range V, auto F>
+        requires std::ranges::view<V> && std::is_object_v<decltype(F)> &&
+                 std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> // TODO &&
+                 // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<V>>>
+    template<bool Const>
+    class project_view<V, F>::iterator
+        : public boost::stl_interfaces::proxy_iterator_interface<
+              iterator<Const>, // TODO
+              detail::iterator_to_tag_t<std::ranges::iterator_t<detail::maybe_const<Const, V>>>,
+              std::invoke_result_t<decltype(F)&, std::ranges::range_reference_t<V>>>
+    {
+        using iterator_type = std::ranges::iterator_t<detail::maybe_const<Const, V>>;
+        using reference_type = std::invoke_result_t<decltype(F)&, std::ranges::range_reference_t<V>>;
+
+        friend boost::stl_interfaces::access;
+        iterator_type & base_reference() noexcept { return it_; }
+        iterator_type base_reference() const { return it_; }
+
+        iterator_type it_ = iterator_type();
+
+        friend project_view<V, F>::sentinel<Const>;
+
+    public:
+        constexpr iterator() = default;
+        constexpr iterator(iterator_type it) : it_(std::move(it)) {}
+
+        constexpr reference_type operator*() const { return F(*it_); }
+    };
+
+    template<std::ranges::input_range V, auto F>
+        requires std::ranges::view<V> && std::is_object_v<decltype(F)> &&
+                 std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> // TODO &&
+                 // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<V>>>
+    template<bool Const>
+    class project_view<V, F>::sentinel
+    {
+        using Base = detail::maybe_const<Const, V>;
+        using sentinel_type = std::ranges::sentinel_t<Base>;
+
+        sentinel_type end_ = sentinel_type();
+
+    public:
+        constexpr sentinel() = default;
+        constexpr explicit sentinel(sentinel_type end) : end_(std::move(end)) {}
+        constexpr sentinel(sentinel<!Const> i) requires Const
+            && std::convertible_to<std::ranges::sentinel_t<V>, std::ranges::sentinel_t<Base>>;
+
+        constexpr sentinel_type base() const { return end_; }
+
+        template<bool OtherConst>
+            requires std::sentinel_for<sentinel_type, std::ranges::iterator_t<detail::maybe_const<OtherConst, V>>>
+        friend constexpr bool operator==(const iterator<OtherConst> & x,
+                                         const sentinel & y)
+            { return x.it_ == y.end_; }
+
+        template<bool OtherConst>
+            requires std::sized_sentinel_for<sentinel_type, std::ranges::iterator_t<detail::maybe_const<OtherConst, V>>>
+        friend constexpr std::ranges::range_difference_t<detail::maybe_const<OtherConst, V>>
+        operator-(const iterator<OtherConst> & x, const sentinel & y)
+            { return x.it_ - y.end_; }
+
+        template<bool OtherConst>
+            requires std::sized_sentinel_for<sentinel_type, std::ranges::iterator_t<detail::maybe_const<OtherConst, V>>>
+        friend constexpr std::ranges::range_difference_t<detail::maybe_const<OtherConst, V>>
+        operator-(const sentinel & y, const iterator<OtherConst> & x)
+            { return y.end_ - x.it_; }
+    };
+
+    namespace detail {
+        template<auto F>
+            requires std::is_object_v<decltype(F)>
+        struct project_impl : range_adaptor_closure<project_impl<F>>
+        {
+            template<class R>
+                requires std::ranges::viewable_range<R> &&
+                         std::ranges::input_range<R> &&
+                         std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<R>> // TODO &&
+                         // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<R>>>
+            [[nodiscard]] constexpr auto operator()(R && r) const
+            {
+                using T = std::remove_cvref_t<R>;
+                if constexpr (std::is_rvalue_reference_v<R &&>) {
+                    return project_view<std::views::all_t<T>, F>{std::forward<R>(r)};
+                } else {
+                    return project_view<T, F>{std::forward<R>(r)};
+                }
+            }
+        };
+    }
+
+    template<auto F>
+    constexpr detail::project_impl<F> project;
+
+    template<std::ranges::input_range V>
+        requires std::ranges::view<V> && std::convertible_to<std::ranges::range_reference_t<V>, char8_t>
+    class char8_view : public project_view<V, detail::cast_to_charn<char8_t>{}> {
     public:
         constexpr char8_view() requires std::default_initializable<V> = default;
-        constexpr explicit char8_view(V base) : base_(std::move(base)) {}
-
-        constexpr V base() const & requires std::copy_constructible<V> { return base_; }
-        constexpr V base() && { return std::move(base_); }
-
-        constexpr iterator<false> begin() { return iterator<false>{std::ranges::begin(base_)}; }
-        constexpr iterator<true> begin() const requires std::ranges::range<const V>
-            { return iterator<true>{std::ranges::begin(base_)}; }
-
-        constexpr sentinel<false> end() { return sentinel<false>{std::ranges::end(base_)}; }
-        constexpr iterator<false> end() requires std::ranges::common_range<V> { return iterator<false>{std::ranges::end(base_)}; }
-        constexpr sentinel<true> end() const requires std::ranges::range<const V> { return sentinel<true>{std::ranges::end(base_)}; }
-        constexpr iterator<true> end() const requires std::ranges::common_range<const V>
-            { return iterator<true>{std::ranges::end(base_)}; }
-
-        constexpr auto size() requires std::ranges::sized_range<V> { return std::ranges::size(base_); }
-        constexpr auto size() const requires std::ranges::sized_range<const V> { return std::ranges::size(base_); }
+        constexpr char8_view(V base) :
+            project_view<V, detail::cast_to_charn<char8_t>{}>{std::move(base)}
+        {}
     };
-
-    template<std::ranges::view V>
-        requires std::ranges::input_range<V> && std::convertible_to<std::ranges::range_reference_t<V>, char16_t>
-    class char16_view : public std::ranges::view_interface<char16_view<V>>
-    {
-        V base_ = V();
-
-        template<bool Const>
-        using iterator = detail::charn_projection_iterator<Const, V, char16_t>;
-        template<bool Const>
-        using sentinel = detail::charn_projection_sentinel<Const, V, char16_t>;
-
-        template<format Format2, utf_range V2>
-            requires std::ranges::view<V2>
-        friend class utf_view;
-
+    template<std::ranges::input_range V>
+        requires std::ranges::view<V> && std::convertible_to<std::ranges::range_reference_t<V>, char16_t>
+    class char16_view : public project_view<V, detail::cast_to_charn<char16_t>{}> {
     public:
         constexpr char16_view() requires std::default_initializable<V> = default;
-        constexpr explicit char16_view(V base) : base_(std::move(base)) {}
-
-        constexpr V base() const & requires std::copy_constructible<V> { return base_; }
-        constexpr V base() && { return std::move(base_); }
-
-        constexpr iterator<false> begin() { return iterator<false>{std::ranges::begin(base_)}; }
-        constexpr iterator<true> begin() const requires std::ranges::range<const V>
-            { return iterator<true>{std::ranges::begin(base_)}; }
-
-        constexpr sentinel<false> end() { return sentinel<false>{std::ranges::end(base_)}; }
-        constexpr iterator<false> end() requires std::ranges::common_range<V> { return iterator<false>{std::ranges::end(base_)}; }
-        constexpr sentinel<true> end() const requires std::ranges::range<const V> { return sentinel<true>{std::ranges::end(base_)}; }
-        constexpr iterator<true> end() const requires std::ranges::common_range<const V>
-            { return iterator<true>{std::ranges::end(base_)}; }
-
-        constexpr auto size() requires std::ranges::sized_range<V> { return std::ranges::size(base_); }
-        constexpr auto size() const requires std::ranges::sized_range<const V> { return std::ranges::size(base_); }
+        constexpr char16_view(V base) :
+            project_view<V, detail::cast_to_charn<char16_t>{}>{std::move(base)}
+        {}
     };
-
-    template<std::ranges::view V>
-        requires std::ranges::input_range<V> && std::convertible_to<std::ranges::range_reference_t<V>, char32_t>
-    class char32_view : public std::ranges::view_interface<char32_view<V>>
-    {
-        V base_ = V();
-
-        template<bool Const>
-        using iterator = detail::charn_projection_iterator<Const, V, char32_t>;
-        template<bool Const>
-        using sentinel = detail::charn_projection_sentinel<Const, V, char32_t>;
-
-        template<format Format2, utf_range V2>
-            requires std::ranges::view<V2>
-        friend class utf_view;
-
+    template<std::ranges::input_range V>
+        requires std::ranges::view<V> && std::convertible_to<std::ranges::range_reference_t<V>, char32_t>
+    class char32_view : public project_view<V, detail::cast_to_charn<char32_t>{}> {
     public:
         constexpr char32_view() requires std::default_initializable<V> = default;
-        constexpr explicit char32_view(V base) : base_(std::move(base)) {}
-
-        constexpr V base() const & requires std::copy_constructible<V> { return base_; }
-        constexpr V base() && { return std::move(base_); }
-
-        constexpr iterator<false> begin() { return iterator<false>{std::ranges::begin(base_)}; }
-        constexpr iterator<true> begin() const requires std::ranges::range<const V>
-            { return iterator<true>{std::ranges::begin(base_)}; }
-
-        constexpr sentinel<false> end() { return sentinel<false>{std::ranges::end(base_)}; }
-        constexpr iterator<false> end() requires std::ranges::common_range<V> { return iterator<false>{std::ranges::end(base_)}; }
-        constexpr sentinel<true> end() const requires std::ranges::range<const V> { return sentinel<true>{std::ranges::end(base_)}; }
-        constexpr iterator<true> end() const requires std::ranges::common_range<const V>
-            { return iterator<true>{std::ranges::end(base_)}; }
-
-        constexpr auto size() requires std::ranges::sized_range<V> { return std::ranges::size(base_); }
-        constexpr auto size() const requires std::ranges::sized_range<const V> { return std::ranges::size(base_); }
+        constexpr char32_view(V base) :
+            project_view<V, detail::cast_to_charn<char32_t>{}>{std::move(base)}
+        {}
     };
 
     template<class R>
@@ -320,7 +308,7 @@ namespace boost { namespace text {
         {
             constexpr format from_format = detail::format_of<std::ranges::range_value_t<V>>();
             if constexpr(detail::is_charn_view<V>) {
-                return make_begin<from_format>(std::ranges::begin(base_.base_), std::ranges::end(base_.base_));
+                return make_begin<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
                 return make_begin<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
@@ -329,7 +317,7 @@ namespace boost { namespace text {
         {
             constexpr format from_format = detail::format_of<std::ranges::range_value_t<const V>>();
             if constexpr(detail::is_charn_view<V>) {
-                return make_begin<from_format>(std::ranges::begin(base_.base_), std::ranges::end(base_.base_));
+                return make_begin<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
                 return make_begin<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
@@ -339,7 +327,7 @@ namespace boost { namespace text {
         {
             constexpr format from_format = detail::format_of<std::ranges::range_value_t<V>>();
             if constexpr(detail::is_charn_view<V>) {
-                return make_end<from_format>(std::ranges::begin(base_.base_), std::ranges::end(base_.base_));
+                return make_end<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
                 return make_end<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
@@ -348,7 +336,7 @@ namespace boost { namespace text {
         {
             constexpr format from_format = detail::format_of<std::ranges::range_value_t<const V>>();
             if constexpr(detail::is_charn_view<V>) {
-                return make_end<from_format>(std::ranges::begin(base_.base_), std::ranges::end(base_.base_));
+                return make_end<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
                 return make_end<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
