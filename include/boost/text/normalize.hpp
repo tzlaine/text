@@ -335,7 +335,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<nf N, utf32_range V>
-        requires std::ranges::view<V> && std::ranges::forward_range<V>
+        requires std::ranges::view<V>
     class normalize_view : public std::ranges::view_interface<normalize_view<N, V>>
     {
         template<bool Const, bool StoreLast = !detail::is_utf_iter<std::ranges::iterator_t<V>>>
@@ -369,7 +369,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
     template<nf N, utf32_range V>
-        requires std::ranges::view<V> && std::ranges::forward_range<V>
+        requires std::ranges::view<V>
     template<bool Const, bool StoreLast>
     class normalize_view<N, V>::iterator
         : detail::first_last_storage<detail::maybe_const<Const, V>>,
@@ -468,7 +468,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
     template<nf N, utf32_range V>
-        requires std::ranges::view<V> && std::ranges::forward_range<V>
+        requires std::ranges::view<V>
     class normalize_view<N, V>::sentinel
     {
     public:
