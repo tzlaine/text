@@ -18,6 +18,202 @@ struct char32_convertible
     int value;
 };
 
+TEST(charn_view, project_adaptor)
+{
+    char32_t expected_null[] = {'a', 'b', 'c', 'd', 'e', '\0'};
+    char32_t expected[] = {'a', 'b', 'c', 'd', 'e'};
+
+    {
+        int int_utf32_null[] = {'a', 'b', 'c', 'd', 'e', '\0'};
+
+        auto v0 = int_utf32_null | boost::text::project<boost::text::detail::cast_to_charn<char32_t>{}>;
+        static_assert(
+            std::same_as<std::ranges::range_value_t<decltype(v0)>, char32_t>);
+        EXPECT_TRUE(std::ranges::equal(v0, expected_null));
+
+        auto v2 = v0 | boost::text::as_utf16;
+        static_assert(std::same_as<
+                      decltype(v2.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf32,
+                          boost::text::format::utf16,
+                          int *>>);
+        EXPECT_TRUE(std::ranges::equal(v2, expected_null));
+    }
+
+    {
+        int int_utf32[] = {'a', 'b', 'c', 'd', 'e'};
+
+        auto v0 = int_utf32 | boost::text::project<boost::text::detail::cast_to_charn<char32_t>{}>;
+        static_assert(
+            std::same_as<std::ranges::range_value_t<decltype(v0)>, char32_t>);
+        EXPECT_TRUE(std::ranges::equal(v0, expected));
+
+        auto v2 = v0 | boost::text::as_utf16;
+        static_assert(std::same_as<
+                      decltype(v2.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf32,
+                          boost::text::format::utf16,
+                          int *>>);
+        EXPECT_TRUE(std::ranges::equal(v2, expected));
+    }
+
+    {
+        char32_t char32_utf32_null[] = {'a', 'b', 'c', 'd', 'e', '\0'};
+
+        auto v0 = char32_utf32_null | boost::text::project<boost::text::detail::cast_to_charn<char32_t>{}>;
+        static_assert(
+            std::same_as<std::ranges::range_value_t<decltype(v0)>, char32_t>);
+        EXPECT_TRUE(std::ranges::equal(v0, expected_null));
+
+        auto v2 = v0 | boost::text::as_utf16;
+        static_assert(std::same_as<
+                      decltype(v2.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf32,
+                          boost::text::format::utf16,
+                          char32_t *>>);
+        EXPECT_TRUE(std::ranges::equal(v2, expected_null));
+    }
+
+    {
+        char32_t char32_utf32[] = {'a', 'b', 'c', 'd', 'e'};
+
+        auto v0 = char32_utf32 | boost::text::project<boost::text::detail::cast_to_charn<char32_t>{}>;
+        static_assert(
+            std::same_as<std::ranges::range_value_t<decltype(v0)>, char32_t>);
+        EXPECT_TRUE(std::ranges::equal(v0, expected));
+
+        auto v2 = v0 | boost::text::as_utf16;
+        static_assert(std::same_as<
+                      decltype(v2.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf32,
+                          boost::text::format::utf16,
+                          char32_t *>>);
+        EXPECT_TRUE(std::ranges::equal(v2, expected));
+    }
+
+#if !defined(_MSC_VER)
+    {
+        std::wstring str = L"abcde";
+
+        auto v0 = str | boost::text::project<boost::text::detail::cast_to_charn<char32_t>{}>;
+        static_assert(
+            std::same_as<std::ranges::range_value_t<decltype(v0)>, char32_t>);
+        EXPECT_TRUE(std::ranges::equal(v0, expected));
+
+        auto v1 = std::wstring(L"abcde") | boost::text::project<boost::text::detail::cast_to_charn<char32_t>{}>;
+        static_assert(
+            std::same_as<std::ranges::range_value_t<decltype(v1)>, char32_t>);
+        EXPECT_TRUE(std::ranges::equal(v1, expected));
+
+        auto v2 = v0 | boost::text::as_utf16;
+        static_assert(std::same_as<
+                      decltype(v2.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf32,
+                          boost::text::format::utf16,
+                          std::wstring::iterator>>);
+        EXPECT_TRUE(std::ranges::equal(v2, expected));
+
+        auto v3 = std::move(v1) | boost::text::as_utf16;
+        static_assert(std::same_as<
+                      decltype(v3.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf32,
+                          boost::text::format::utf16,
+                          std::wstring::iterator>>);
+        EXPECT_TRUE(std::ranges::equal(v3, expected));
+    }
+#endif
+
+    {
+        std::u32string const str = U"abcde";
+
+        auto v0 = str | boost::text::project<boost::text::detail::cast_to_charn<char32_t>{}>;
+        static_assert(
+            std::same_as<std::ranges::range_value_t<decltype(v0)>, char32_t>);
+        EXPECT_TRUE(std::ranges::equal(v0, expected));
+
+        auto v1 = std::u32string(U"abcde") | boost::text::project<boost::text::detail::cast_to_charn<char32_t>{}>;
+        static_assert(
+            std::same_as<std::ranges::range_value_t<decltype(v1)>, char32_t>);
+        EXPECT_TRUE(std::ranges::equal(v1, expected));
+
+        auto v2 = v0 | boost::text::as_utf16;
+        static_assert(std::same_as<
+                      decltype(v2.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf32,
+                          boost::text::format::utf16,
+                          std::u32string::const_iterator>>);
+        EXPECT_TRUE(std::ranges::equal(v2, expected));
+
+        auto v3 = std::move(v1) | boost::text::as_utf16;
+        static_assert(std::same_as<
+                      decltype(v3.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf32,
+                          boost::text::format::utf16,
+                          std::u32string::iterator>>);
+        EXPECT_TRUE(std::ranges::equal(v3, expected));
+    }
+
+    {
+        std::vector<int> vec = {'a', 'b', 'c', 'd', 'e'};
+
+        auto v0 = vec | boost::text::project<boost::text::detail::cast_to_charn<char32_t>{}>;
+        static_assert(
+            std::same_as<std::ranges::range_value_t<decltype(v0)>, char32_t>);
+        EXPECT_TRUE(std::ranges::equal(v0, expected));
+
+        auto v1 =
+            std::vector<int>{'a', 'b', 'c', 'd', 'e'} | boost::text::project<boost::text::detail::cast_to_charn<char32_t>{}>;
+        static_assert(
+            std::same_as<std::ranges::range_value_t<decltype(v1)>, char32_t>);
+        EXPECT_TRUE(std::ranges::equal(v1, expected));
+
+        auto v2 = v0 | boost::text::as_utf16;
+        static_assert(std::same_as<
+                      decltype(v2.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf32,
+                          boost::text::format::utf16,
+                          std::vector<int>::iterator>>);
+        EXPECT_TRUE(std::ranges::equal(v2, expected));
+
+        auto v3 = std::move(v1) | boost::text::as_utf16;
+        static_assert(std::same_as<
+                      decltype(v3.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf32,
+                          boost::text::format::utf16,
+                          std::vector<int>::iterator>>);
+        EXPECT_TRUE(std::ranges::equal(v3, expected));
+    }
+
+    // weird UDT
+    {
+        char32_convertible conv_utf32[] = {{'a'}, {'b'}, {'c'}, {'d'}, {'e'}};
+
+        auto v0 = conv_utf32 | boost::text::project<boost::text::detail::cast_to_charn<char32_t>{}>;
+        static_assert(
+            std::same_as<std::ranges::range_value_t<decltype(v0)>, char32_t>);
+        EXPECT_TRUE(std::ranges::equal(v0, expected));
+
+        auto v2 = v0 | boost::text::as_utf16;
+        static_assert(std::same_as<
+                      decltype(v2.begin()),
+                      boost::text::utf_iterator<
+                          boost::text::format::utf32,
+                          boost::text::format::utf16,
+                          char32_convertible *>>);
+        EXPECT_TRUE(std::ranges::equal(v2, expected));
+    }
+}
+
 TEST(charn_view, char8_t_)
 {
     char8_t expected_null[] = {'a', 'b', 'c', 'd', 'e', '\0'};

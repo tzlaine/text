@@ -149,9 +149,11 @@ namespace boost { namespace text {
 
     namespace detail {
         template<auto F>
-            requires std::is_object_v<decltype(F)>
         struct project_impl : range_adaptor_closure<project_impl<F>>
         {
+            template<class R>
+            using project_view_type = project_view<R, F>;
+
             template<class R>
                 requires std::ranges::viewable_range<R> &&
                          std::ranges::input_range<R> &&
@@ -159,12 +161,7 @@ namespace boost { namespace text {
                          // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<R>>>
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
-                using T = std::remove_cvref_t<R>;
-                if constexpr (std::is_rvalue_reference_v<R &&>) {
-                    return project_view<std::views::all_t<T>, F>{std::forward<R>(r)};
-                } else {
-                    return project_view<T, F>{std::forward<R>(r)};
-                }
+                return project_view_type(std::forward<R>(r));
             }
         };
     }
