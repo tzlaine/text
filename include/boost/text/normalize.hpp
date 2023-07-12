@@ -485,67 +485,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
 
-    template<utf32_range V>
-        requires std::ranges::view<V> && std::ranges::forward_range<V>
-    class nfc_view : public normalize_view<nf::c, V>
-    {
-    public:
-        constexpr nfc_view() requires std::default_initializable<V> = default;
-        constexpr nfc_view(V base) :
-            normalize_view<nf::c, V>{std::move(base)}
-        {}
-    };
-    template<utf32_range V>
-        requires std::ranges::view<V> && std::ranges::forward_range<V>
-    class nfkc_view : public normalize_view<nf::kc, V>
-    {
-    public:
-        constexpr nfkc_view() requires std::default_initializable<V> = default;
-        constexpr nfkc_view(V base) :
-            normalize_view<nf::kc, V>{std::move(base)}
-        {}
-    };
-    template<utf32_range V>
-        requires std::ranges::view<V> && std::ranges::forward_range<V>
-    class nfd_view : public normalize_view<nf::d, V>
-    {
-    public:
-        constexpr nfd_view() requires std::default_initializable<V> = default;
-        constexpr nfd_view(V base) :
-            normalize_view<nf::d, V>{std::move(base)}
-        {}
-    };
-    template<utf32_range V>
-        requires std::ranges::view<V> && std::ranges::forward_range<V>
-    class nfkd_view : public normalize_view<nf::kd, V>
-    {
-    public:
-        constexpr nfkd_view() requires std::default_initializable<V> = default;
-        constexpr nfkd_view(V base) :
-            normalize_view<nf::kd, V>{std::move(base)}
-        {}
-    };
-    template<utf32_range V>
-        requires std::ranges::view<V> && std::ranges::forward_range<V>
-    class fcc_view : public normalize_view<nf::fcc, V>
-    {
-    public:
-        constexpr fcc_view() requires std::default_initializable<V> = default;
-        constexpr fcc_view(V base) :
-            normalize_view<nf::fcc, V>{std::move(base)}
-        {}
-    };
+    template<nf N, class R>
+    normalize_view(R &&) -> normalize_view<N, std::views::all_t<R>>;
 
-    template<class R>
-    nfc_view(R &&) -> nfc_view<std::views::all_t<R>>;
-    template<class R>
-    nfkc_view(R &&) -> nfkc_view<std::views::all_t<R>>;
-    template<class R>
-    nfd_view(R &&) -> nfd_view<std::views::all_t<R>>;
-    template<class R>
-    nfkd_view(R &&) -> nfkd_view<std::views::all_t<R>>;
-    template<class R>
-    fcc_view(R &&) -> fcc_view<std::views::all_t<R>>;
+    template<class V>
+    using nfc_view = normalize_view<nf::c, V>;
+    template<class V>
+    using nfkc_view = normalize_view<nf::kc, V>;
+    template<class V>
+    using nfd_view = normalize_view<nf::d, V>;
+    template<class V>
+    using nfkd_view = normalize_view<nf::kd, V>;
+    template<class V>
+    using fcc_view = normalize_view<nf::fcc, V>;
 
 
     namespace dtl {
@@ -599,21 +551,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 namespace std::ranges {
     template<boost::text::nf N, class V>
     inline constexpr bool enable_borrowed_range<boost::text::normalize_view<N, V>> =
-        enable_borrowed_range<V>;
-    template<class V>
-    inline constexpr bool enable_borrowed_range<boost::text::nfc_view<V>> =
-        enable_borrowed_range<V>;
-    template<class V>
-    inline constexpr bool enable_borrowed_range<boost::text::nfkc_view<V>> =
-        enable_borrowed_range<V>;
-    template<class V>
-    inline constexpr bool enable_borrowed_range<boost::text::nfd_view<V>> =
-        enable_borrowed_range<V>;
-    template<class V>
-    inline constexpr bool enable_borrowed_range<boost::text::nfkd_view<V>> =
-        enable_borrowed_range<V>;
-    template<class V>
-    inline constexpr bool enable_borrowed_range<boost::text::fcc_view<V>> =
         enable_borrowed_range<V>;
 }
 
