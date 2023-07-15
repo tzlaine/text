@@ -18,18 +18,27 @@ struct char32_convertible
     int value;
 };
 
-TEST(charn_view, project_adaptor_wording_example)
+TEST(charn_view, project_adaptor_wording_examples)
 {
     using namespace std;
 
-    vector<int> is{0, 1, 2, 3, 4};
-    struct f
     {
-        static int operator()(int i) { return i * i; }
-    };
-    auto squares = boost::text::project<f{}>(is);
-    for (int i : squares)
-        cout << i << ' '; // prints 0 1 4 9 16
+        vector<int> is{0, 1, 2, 3, 4};
+        struct f
+        {
+            static int operator()(int i) { return i * i; }
+        };
+        auto squares = boost::text::project<f{}>(is);
+        for (int i : squares)
+            cout << i << ' '; // prints 0 1 4 9 16
+    }
+    {
+        vector<int> v = {'U', 'n', 'i', 'c', 'o', 'd', 'e'};
+        for (auto c : v | boost::text::as_char8_t) {
+            static_assert(same_as<decltype(c), char8_t>);
+            cout << (char)c << ' '; // prints U n i c o d e
+        }
+    }
 }
 
 TEST(charn_view, project_adaptor)
