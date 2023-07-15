@@ -39,12 +39,17 @@ namespace boost { namespace text {
         struct cast_to_charn {
             constexpr Char operator()(Char c) const { return c; }
         };
+
+        template<class T>
+        using with_reference = T &;
+        template<typename T>
+        concept can_reference = requires { typename with_reference<T>; };
     }
 
     template<std::ranges::input_range V, auto F>
         requires std::ranges::view<V> &&
-                 std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> // TODO &&
-                 // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<V>>>
+                 std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> &&
+                 detail::can_reference<std::invoke_result_t<decltype(F)&, std::ranges::range_reference_t<V>>>
     class project_view : public std::ranges::view_interface<project_view<V, F>>
     {
         V base_ = V();
@@ -78,8 +83,8 @@ namespace boost { namespace text {
 
     template<std::ranges::input_range V, auto F>
         requires std::ranges::view<V> &&
-                 std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> // TODO &&
-                 // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<V>>>
+                 std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> &&
+                 detail::can_reference<std::invoke_result_t<decltype(F)&, std::ranges::range_reference_t<V>>>
     template<bool Const>
     class project_view<V, F>::iterator
         : public boost::stl_interfaces::proxy_iterator_interface<
@@ -107,8 +112,8 @@ namespace boost { namespace text {
 
     template<std::ranges::input_range V, auto F>
         requires std::ranges::view<V> &&
-                 std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> // TODO &&
-                 // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<V>>>
+                 std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<V>> &&
+                 detail::can_reference<std::invoke_result_t<decltype(F)&, std::ranges::range_reference_t<V>>>
     template<bool Const>
     class project_view<V, F>::sentinel
     {
@@ -157,8 +162,8 @@ namespace boost { namespace text {
             template<class R>
                 requires std::ranges::viewable_range<R> &&
                          std::ranges::input_range<R> &&
-                         std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<R>> // TODO &&
-                         // TODO @*can-reference*@<invoke_result_t<decltype(F)&, ranges::range_reference_t<R>>>
+                         std::regular_invocable<decltype(F)&, std::ranges::range_reference_t<R>> &&
+                         detail::can_reference<std::invoke_result_t<decltype(F)&, std::ranges::range_reference_t<R>>>
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
                 return project_view_type(std::forward<R>(r));
