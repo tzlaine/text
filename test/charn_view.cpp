@@ -18,6 +18,20 @@ struct char32_convertible
     int value;
 };
 
+TEST(charn_view, project_adaptor_wording_example)
+{
+    using namespace std;
+
+    vector<int> is{0, 1, 2, 3, 4};
+    struct f
+    {
+        static int operator()(int i) { return i * i; }
+    };
+    auto squares = boost::text::project<f{}>(is);
+    for (int i : squares)
+        cout << i << ' '; // prints 0 1 4 9 16
+}
+
 TEST(charn_view, project_adaptor)
 {
     char32_t expected_null[] = {'a', 'b', 'c', 'd', 'e', '\0'};
