@@ -195,26 +195,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format on
 
     template<typename T>
-    concept utf8_input_range_like =
-        (std::ranges::input_range<std::remove_reference_t<T>> &&
-         utf8_code_unit<std::iter_value_t<T>>) ||
+    concept utf8_range_like = utf8_code_unit<std::iter_value_t<T>> ||
         utf8_pointer<std::remove_reference_t<T>>;
     template<typename T>
-    concept utf16_input_range_like =
-        (std::ranges::input_range<std::remove_reference_t<T>> &&
-         utf16_code_unit<std::iter_value_t<T>>) ||
+    concept utf16_range_like = utf16_code_unit<std::iter_value_t<T>> ||
         utf16_pointer<std::remove_reference_t<T>>;
     template<typename T>
-    concept utf32_input_range_like =
-        (std::ranges::input_range<std::remove_reference_t<T>> &&
-         utf32_code_unit<std::iter_value_t<T>>) ||
+    concept utf32_range_like = utf32_code_unit<std::iter_value_t<T>> ||
         utf32_pointer<std::remove_reference_t<T>>;
-
-    template<typename T>
-    concept utf_input_range_like =
-        utf8_input_range_like<T> || utf16_input_range_like<T> ||
-        utf32_input_range_like<T>;
-
     //]
 
     // Clang 13 defines __cpp_lib_concepts but not std::indirectly copyable.

@@ -873,7 +873,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<typename R, std::output_iterator<uint32_t> O>
-        requires(utf16_input_range_like<R> || utf32_input_range_like<R>)
+        requires(utf16_range_like<R> || utf32_range_like<R>)
     transcode_result<dtl::uc_result_iterator<R>, O> transcode_to_utf8(
         R && r, O out)
     {
@@ -904,7 +904,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<typename R, std::output_iterator<uint32_t> O>
-        requires(utf8_input_range_like<R> || utf32_input_range_like<R>)
+        requires(utf8_range_like<R> || utf32_range_like<R>)
     transcode_result<dtl::uc_result_iterator<R>, O> transcode_to_utf16(
         R && r, O out)
     {
@@ -935,7 +935,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<typename R, std::output_iterator<uint32_t> O>
-        requires(utf8_input_range_like<R> || utf16_input_range_like<R>)
+        requires(utf8_range_like<R> || utf16_range_like<R>)
     transcode_result<dtl::uc_result_iterator<R>, O> transcode_to_utf32(
         R && r, O out)
     {
