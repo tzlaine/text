@@ -22,16 +22,18 @@ namespace boost { namespace text {
         template<typename T>
         constexpr format format_of()
         {
-            constexpr uint32_t size = sizeof(T);
-            static_assert(std::is_integral<T>::value, "");
-            static_assert(size == 1 || size == 2 || size == 4, "");
-            constexpr format formats[] = {
-                format::utf8,
-                format::utf8,
-                format::utf16,
-                format::utf32,
-                format::utf32};
-            return formats[size];
+            if constexpr (std::same_as<T, char> || std::same_as<T, char8_t>) {
+                return format::utf8;
+            } else if (
+                std::same_as<T, char16_t>
+#ifdef _MSC_VER
+                || std::same_as<T, wchar_t>
+#endif
+            ) {
+                return format::utf16;
+            } else {
+                return format::utf32;
+            }
         }
     }
 
