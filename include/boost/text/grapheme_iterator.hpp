@@ -137,7 +137,7 @@ namespace boost { namespace text {
         [[no_unique_address]] cu_sentinel last_;
 
         template<code_point_iter I2, std::sentinel_for<I2> S2>
-        friend struct grapheme_iterator;
+        friend class grapheme_iterator;
     };
 
 }}
