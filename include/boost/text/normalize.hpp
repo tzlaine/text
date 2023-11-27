@@ -487,6 +487,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
 
+#if defined(__cpp_deduction_guides) && 201907L <= __cpp_deduction_guides
     template<nf N, class R>
     normalize_view(R &&) -> normalize_view<N, std::views::all_t<R>>;
 
@@ -500,6 +501,58 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     using nfkd_view = normalize_view<nf::kd, V>;
     template<class V>
     using fcc_view = normalize_view<nf::fcc, V>;
+#else
+    template<utf32_range V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
+    class nfc_view : public normalize_view<nf::c, V>
+    {
+    public:
+        constexpr nfc_view() requires std::default_initializable<V> = default;
+        constexpr nfc_view(V base) :
+            normalize_view<nf::c, V>{std::move(base)}
+        {}
+    };
+    template<utf32_range V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
+    class nfkc_view : public normalize_view<nf::kc, V>
+    {
+    public:
+        constexpr nfkc_view() requires std::default_initializable<V> = default;
+        constexpr nfkc_view(V base) :
+            normalize_view<nf::kc, V>{std::move(base)}
+        {}
+    };
+    template<utf32_range V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
+    class nfd_view : public normalize_view<nf::d, V>
+    {
+    public:
+        constexpr nfd_view() requires std::default_initializable<V> = default;
+        constexpr nfd_view(V base) :
+            normalize_view<nf::d, V>{std::move(base)}
+        {}
+    };
+    template<utf32_range V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
+    class nfkd_view : public normalize_view<nf::kd, V>
+    {
+    public:
+        constexpr nfkd_view() requires std::default_initializable<V> = default;
+        constexpr nfkd_view(V base) :
+            normalize_view<nf::kd, V>{std::move(base)}
+        {}
+    };
+    template<utf32_range V>
+        requires std::ranges::view<V> && std::ranges::forward_range<V>
+    class fcc_view : public normalize_view<nf::fcc, V>
+    {
+    public:
+        constexpr fcc_view() requires std::default_initializable<V> = default;
+        constexpr fcc_view(V base) :
+            normalize_view<nf::fcc, V>{std::move(base)}
+        {}
+    };
+#endif
 
 
     namespace dtl {
@@ -554,6 +607,23 @@ namespace std::ranges {
     template<boost::text::nf N, class V>
     inline constexpr bool enable_borrowed_range<boost::text::normalize_view<N, V>> =
         enable_borrowed_range<V>;
+#if !defined(__cpp_deduction_guides) || __cpp_deduction_guides < 201907L
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::nfc_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::nfkc_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::nfd_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::nfkd_view<V>> =
+        enable_borrowed_range<V>;
+    template<class V>
+    inline constexpr bool enable_borrowed_range<boost::text::fcc_view<V>> =
+        enable_borrowed_range<V>;
+#endif
 }
 
 #endif
