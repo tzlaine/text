@@ -396,15 +396,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         int index_ = 0;
 
         constexpr void read_chunk_and_normalize(bool reverse) {
-            boost::container::static_vector<char32_t, 32> temp_buf_;
+            std::array<char32_t, 32> temp_buf_;
             auto search_it = it_;
             if (search_it != storage_base::end(it_))
                 ++search_it;
             auto last = reverse ?
                 chunk_last_ : detail::first_stable_cp<N>(search_it, storage_base::end(it_));
-            chunk_last_ = std::ranges::copy(it_, last, std::back_inserter(temp_buf_)).in;
+            auto [in_it, out_it] = std::ranges::copy(it_, last, temp_buf_.data());
+            chunk_last_ = in_it;
             buf_.clear();
-            text::normalize<N>(temp_buf_, std::back_inserter(buf_));
+            text::normalize<N>(
+                temp_buf_.data(), out_it, std::back_inserter(buf_));
         }
 
         friend class sentinel;
