@@ -2949,7 +2949,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     buf_index_ = 0;
                     buf_last_ = it - buf_.begin();
                 } catch (...) {
-                    buf_ = buf_;
+                    buf_ = buf;
                     curr() = initial;
                     throw;
                 }
@@ -2977,7 +2977,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     buf_index_ = buf_last_ - 1;
                     to_increment_ = std::distance(curr(), initial);
                 } catch (...) {
-                    buf_ = buf_;
+                    buf_ = buf;
                     curr() = initial;
                     throw;
                 }
