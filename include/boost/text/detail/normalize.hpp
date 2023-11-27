@@ -595,7 +595,7 @@ namespace boost { namespace text { namespace detail {
                 auto const decomp = decompose_hangul_syllable<3, char16_t>(c);
                 buffer.append_ccc_zero(decomp.begin(), decomp.end());
             } else {
-                char16_t const * mapping = table.get_mapping(norm16);
+                uint16_t const * mapping = table.get_mapping(norm16);
                 char16_t first_unit = *mapping;
                 int32_t length = first_unit & table.mapping_length_mask;
                 char8_t trail_cc = (char8_t)(first_unit >> 8);
@@ -1113,7 +1113,7 @@ namespace boost { namespace text { namespace detail {
                         table.comp_boundary_before_utf8(first, last)) {
                         if (prev_boundary != prev_first)
                             appender.append(prev_boundary, prev_first);
-                        char16_t const * mapping = table.get_mapping(norm16);
+                        uint16_t const * mapping = table.get_mapping(norm16);
                         int32_t length = *mapping++ & table.mapping_length_mask;
                         detail::append_utf16(
                             mapping, mapping + length, appender);
