@@ -15,6 +15,13 @@
 #include <climits>
 #include <format>
 
+// GCC 12 claims to support 201907L <= __cpp_deduction_guides, but does not.
+#if defined(__cpp_deduction_guides) && 201907L <= __cpp_deduction_guides && (!defined(__GNUC__) || 13 <= __GNUC__)
+#define BOOST_TEXT_USE_ALIAS_CTAD 1
+#else
+#define BOOST_TEXT_USE_ALIAS_CTAD 0
+#endif
+
 
 namespace boost { namespace text {
 
@@ -93,7 +100,9 @@ namespace boost { namespace text {
               std::invoke_result_t<decltype(F)&, std::ranges::range_reference_t<V>>>
     {
         using iterator_type = std::ranges::iterator_t<detail::maybe_const<Const, V>>;
+        using sentinel_type = std::ranges::sentinel_t<detail::maybe_const<Const, V>>;
         using reference_type = std::invoke_result_t<decltype(F)&, std::ranges::range_reference_t<V>>;
+        using sentinel = project_view<V, F>::sentinel<Const>;
 
         friend boost::stl_interfaces::access;
         iterator_type & base_reference() noexcept { return it_; }
@@ -102,6 +111,21 @@ namespace boost { namespace text {
         iterator_type it_ = iterator_type();
 
         friend project_view<V, F>::sentinel<Const>;
+
+        template<bool OtherConst>
+            requires std::sentinel_for<sentinel_type, std::ranges::iterator_t<detail::maybe_const<OtherConst, V>>>
+        friend constexpr bool operator==(const iterator<OtherConst> & x,
+                                         const sentinel & y);
+
+        template<bool OtherConst>
+            requires std::sized_sentinel_for<sentinel_type, std::ranges::iterator_t<detail::maybe_const<OtherConst, V>>>
+        friend constexpr std::ranges::range_difference_t<detail::maybe_const<OtherConst, V>>
+        operator-(const iterator<OtherConst> & x, const sentinel & y);
+
+        template<bool OtherConst>
+            requires std::sized_sentinel_for<sentinel_type, std::ranges::iterator_t<detail::maybe_const<OtherConst, V>>>
+        friend constexpr std::ranges::range_difference_t<detail::maybe_const<OtherConst, V>>
+        operator-(const sentinel & y, const iterator<OtherConst> & x);
 
     public:
         constexpr iterator() = default;
@@ -149,7 +173,7 @@ namespace boost { namespace text {
             { return y.end_ - x.it_; }
     };
 
-#if defined(__cpp_deduction_guides) && 201907L <= __cpp_deduction_guides
+#if BOOST_TEXT_USE_ALIAS_CTAD
     template<class R, auto F>
     project_view(R &&) -> project_view<std::views::all_t<R>, F>;
 #endif
@@ -168,7 +192,11 @@ namespace boost { namespace text {
                          detail::can_reference<std::invoke_result_t<decltype(F)&, std::ranges::range_reference_t<R>>>
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
+#if BOOST_TEXT_USE_ALIAS_CTAD
                 return project_view_type(std::forward<R>(r));
+#else
+                return project_view_type<R>(std::forward<R>(r));
+#endif
             }
         };
     }
@@ -176,7 +204,7 @@ namespace boost { namespace text {
     template<auto F>
     constexpr detail::project_impl<F> project;
 
-#if defined(__cpp_deduction_guides) && 201907L <= __cpp_deduction_guides
+#if BOOST_TEXT_USE_ALIAS_CTAD
     template<class V>
     using char8_view = project_view<V, detail::cast_to_charn<char8_t>{}>;
     template<class V>
@@ -211,6 +239,13 @@ namespace boost { namespace text {
             project_view<V, detail::cast_to_charn<char32_t>{}>{std::move(base)}
         {}
     };
+
+    template<class R>
+    char8_view(R &&) -> char8_view<std::views::all_t<R>>;
+    template<class R>
+    char16_view(R &&) -> char16_view<std::views::all_t<R>>;
+    template<class R>
+    char32_view(R &&) -> char32_view<std::views::all_t<R>>;
 #endif
 
     namespace detail {
@@ -385,7 +420,7 @@ namespace boost { namespace text {
     };
 
 
-#if defined(__cpp_deduction_guides) && 201907L <= __cpp_deduction_guides
+#if BOOST_TEXT_USE_ALIAS_CTAD
     template<format Format, class R>
     utf_view(R &&) -> utf_view<Format, std::views::all_t<R>>;
 
@@ -426,6 +461,13 @@ namespace boost { namespace text {
             utf_view<format::utf32, V>{std::move(base)}
         {}
     };
+
+    template<class R>
+    utf8_view(R &&) -> utf8_view<std::views::all_t<R>>;
+    template<class R>
+    utf16_view(R &&) -> utf16_view<std::views::all_t<R>>;
+    template<class R>
+    utf32_view(R &&) -> utf32_view<std::views::all_t<R>>;
 #endif
 
 }}
@@ -539,7 +581,7 @@ namespace std::ranges {
     inline constexpr bool enable_borrowed_range<boost::text::utf_view<Format, V>> =
         enable_borrowed_range<V>;
 
-#if !defined(__cpp_deduction_guides) || __cpp_deduction_guides < 201907L
+#if !BOOST_TEXT_USE_ALIAS_CTAD
     template<class V>
     inline constexpr bool enable_borrowed_range<boost::text::utf8_view<V>> =
         enable_borrowed_range<V>;

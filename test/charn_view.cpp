@@ -26,9 +26,13 @@ TEST(charn_view, project_adaptor_wording_examples)
         vector<int> is{0, 1, 2, 3, 4};
         struct f
         {
+#if defined(__cpp_static_call_operator)
             static int operator()(int i) { return i * i; }
+#else
+            constexpr int operator()(int i) const { return i * i; }
+#endif
         };
-        auto squares = boost::text::project<f{}>(is);
+        auto squares = std::views::all(is) | boost::text::project<f{}>;
         for (int i : squares)
             cout << i << ' '; // prints 0 1 4 9 16
     }
@@ -41,6 +45,7 @@ TEST(charn_view, project_adaptor_wording_examples)
     }
 }
 
+#if BOOST_TEXT_USE_ALIAS_CTAD
 TEST(charn_view, project_adaptor)
 {
     char32_t expected_null[] = {'a', 'b', 'c', 'd', 'e', '\0'};
@@ -236,6 +241,7 @@ TEST(charn_view, project_adaptor)
         EXPECT_TRUE(std::ranges::equal(v2, expected));
     }
 }
+#endif
 
 TEST(charn_view, char8_t_)
 {

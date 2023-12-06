@@ -115,6 +115,7 @@ TEST(transcode_view, adaptor_semantics)
                       boost::text::null_sentinel_t>>>);
 }
 
+#if defined(__cpp_lib_format)
 TEST(formatter, basic) // TODO
 {
     {
@@ -144,6 +145,7 @@ TEST(formatter, basic) // TODO
         std::wstring result = std::format(L"{}", v);
     }
 }
+#endif
 
 TEST(transcode_view, from_utf8)
 {

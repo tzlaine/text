@@ -9,6 +9,8 @@
 #include <boost/text/transcode_view.hpp>
 #include <boost/text/estimated_width.hpp>
 
+#if defined(__cpp_lib_format)
+
 #include <format>
 
 
@@ -55,5 +57,7 @@ struct std::formatter<boost::text::utf_view<Format, V>, CharT>
 private:
   std::formatter<std::basic_string<CharT>, CharT> underlying_;
 };
+
+#endif
 
 #endif

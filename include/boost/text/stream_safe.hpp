@@ -414,6 +414,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         friend bool operator==(iterator lhs, iterator rhs)
             { return lhs.base() == rhs.base(); }
 
+        template<bool Const2, bool StoreLast2>
+        friend constexpr bool operator==(const iterator<Const2, StoreLast2> & it, sentinel);
+
         using base_type = boost::stl_interfaces::iterator_interface<
             iterator<Const, StoreLast>,
             detail::uc_view_category_t<V>,
