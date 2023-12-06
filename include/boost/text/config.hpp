@@ -26,7 +26,10 @@
 #    define BOOST_TEXT_STRING_INSERT_MAX 4096
 #endif
 
-#if defined(__cpp_lib_concepts) && !defined(BOOST_TEXT_DISABLE_CONCEPTS)
+// The contents of <ranges> in libstdc++ is incomplete (e.g. no owning_view)
+// before GCC 12.
+#if defined(__cpp_lib_concepts) && !defined(BOOST_TEXT_DISABLE_CONCEPTS) &&    \
+    (!defined(__GNUC__) || 12 <= __GNUC__)
 #    define BOOST_TEXT_USE_CONCEPTS 1
 #else
 #    define BOOST_TEXT_USE_CONCEPTS 0
