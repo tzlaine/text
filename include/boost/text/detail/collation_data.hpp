@@ -249,7 +249,7 @@ namespace boost { namespace text { namespace detail {
 
         iterator erase(iterator at)
         {
-            BOOST_ASSERT(at == std::ranges::prev(end()));
+            BOOST_ASSERT(at == detail::prev(end()));
             --size_;
             return --at;
         }
@@ -299,7 +299,7 @@ namespace boost { namespace text { namespace detail {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
             return impl_.longest_subsequence(
-                std::ranges::subrange(first, last) | as_utf16);
+                BOOST_TEXT_SUBRANGE(first, last) | as_utf16);
         }
 
         match_result longest_subsequence(char16_t cu) const
@@ -309,7 +309,7 @@ namespace boost { namespace text { namespace detail {
 
         match_result longest_subsequence(char32_t cp) const
         {
-            auto const r = std::ranges::subrange(&cp, &cp + 1) | as_utf16;
+            auto const r = BOOST_TEXT_SUBRANGE(&cp, &cp + 1) | as_utf16;
             return impl_.longest_subsequence(r.begin(), r.end());
         }
 
@@ -319,7 +319,7 @@ namespace boost { namespace text { namespace detail {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
             return impl_.longest_match(
-                std::ranges::subrange(first, last) | as_utf16);
+                BOOST_TEXT_SUBRANGE(first, last) | as_utf16);
         }
 
         match_result extend_subsequence(match_result prev, char16_t cu) const
@@ -329,7 +329,7 @@ namespace boost { namespace text { namespace detail {
 
         match_result extend_subsequence(match_result prev, char32_t cp) const
         {
-            auto const r = std::ranges::subrange(&cp, &cp + 1) | as_utf16;
+            auto const r = BOOST_TEXT_SUBRANGE(&cp, &cp + 1) | as_utf16;
             return impl_.extend_subsequence(prev, r.begin(), r.end());
         }
 
@@ -370,7 +370,7 @@ namespace boost { namespace text { namespace detail {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
             return impl_.insert_or_assign(
-                std::ranges::subrange(first, last) | as_utf16,
+                BOOST_TEXT_SUBRANGE(first, last) | as_utf16,
                 std::move(value));
         }
 

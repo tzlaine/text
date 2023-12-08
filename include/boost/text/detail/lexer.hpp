@@ -208,7 +208,7 @@ namespace boost { namespace text { namespace detail {
         int brackets_nesting = 0;
         bool in_quote = false;
 
-        char8_t buf[1024];
+        char8_type buf[1024];
 
         auto report_error = [&](string_view msg, int column) {
             if (errors) {
@@ -238,8 +238,8 @@ namespace boost { namespace text { namespace detail {
         };
 
         auto consume =
-            [&](int n, string_view end_msg, char8_t * buf_ptr = nullptr) {
-                char8_t * buf_ = buf_ptr ? buf_ptr : buf;
+            [&](int n, string_view end_msg, char8_type * buf_ptr = nullptr) {
+                char8_type * buf_ = buf_ptr ? buf_ptr : buf;
                 while (n) {
                     check_not_at_end(end_msg);
                     *buf_++ = *first++;
@@ -254,7 +254,7 @@ namespace boost { namespace text { namespace detail {
             return *(consume(1, end_msg) - 1);
         };
 
-        auto consume_if_equals = [&](char8_t c) {
+        auto consume_if_equals = [&](char8_type c) {
             bool retval = false;
             if (first != last && *first == c) {
                 consume_one("");
@@ -263,11 +263,11 @@ namespace boost { namespace text { namespace detail {
             return retval;
         };
 
-        auto is_space = [&](char8_t initial_char) {
+        auto is_space = [&](char8_type initial_char) {
             auto const code_units = boost::text::utf8_code_units(initial_char);
             if (code_units < 0 || last - first < code_units - 1)
                 return 0;
-            boost::container::static_vector<char8_t, 4> cus(
+            boost::container::static_vector<char8_type, 4> cus(
                 first - 1, first - 1 + code_units);
             auto const r = cus | as_utf32;
             char32_t const cp = *r.begin();
@@ -288,7 +288,7 @@ namespace boost { namespace text { namespace detail {
             return retval;
         };
 
-        auto is_syntax_char = [](char8_t c) {
+        auto is_syntax_char = [](char8_type c) {
             // \u0021-\u002F \u003A-\u0040 \u005B-\u0060 \u007B-\u007E
             // Intentionally leaves out 0x21 (' '), 0x27 ('\''), 0x2d ('-'),
             // and 0x5c ('\\'), which are all handled specially.
@@ -298,8 +298,8 @@ namespace boost { namespace text { namespace detail {
                    (0x7b <= c && c <= 0x7e);
         };
 
-        auto is_id_char = [](char8_t c) {
-            char8_t const id_chars[] =
+        auto is_id_char = [](char8_type c) {
+            char8_type const id_chars[] =
                 u8"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUV"
                 u8"WXYZ"
                 u8"_-";
@@ -308,21 +308,21 @@ namespace boost { namespace text { namespace detail {
                    detail::end(id_chars);
         };
 
-        auto is_hex = [](char8_t c) {
+        auto is_hex = [](char8_type c) {
             return ('0' <= c && c <= '9') || ('a' <= c && c <= 'f') ||
                    ('A' <= c && c <= 'F');
         };
 
-        auto is_octal = [](char8_t c) { return '0' <= c && c <= '8'; };
+        auto is_octal = [](char8_type c) { return '0' <= c && c <= '8'; };
 
-        auto from_hex = [](char8_t const * str) {
+        auto from_hex = [](char8_type const * str) {
             std::istringstream is((char const *)str);
             uint32_t x;
             is >> std::hex >> x;
             return x;
         };
 
-        auto from_octal = [](char8_t const * str) {
+        auto from_octal = [](char8_type const * str) {
             std::istringstream is((char const *)str);
             uint32_t x;
             is >> std::oct >> x;
@@ -348,7 +348,7 @@ namespace boost { namespace text { namespace detail {
                 detail::token(std::move(id), line, initial_column));
         };
 
-        auto lex_utf8 = [&](char8_t initial_char) {
+        auto lex_utf8 = [&](char8_type initial_char) {
             // UTF-8 encoded code point.
             auto const code_units = boost::text::utf8_code_units(initial_char);
             if (code_units < 0)
@@ -372,7 +372,7 @@ namespace boost { namespace text { namespace detail {
 
         while (first != last) {
             initial_column = column;
-            char8_t const initial_char = consume_one("");
+            char8_type const initial_char = consume_one("");
 
             if (is_syntax_char(initial_char)) {
                 if (in_quote) {
@@ -430,7 +430,7 @@ namespace boost { namespace text { namespace detail {
                 continue;
             } else if (initial_char == '\r') {
                 check_not_in_quote("\\r");
-                char8_t const c = consume_one(
+                char8_type const c = consume_one(
                     "'\\r' at end of input (must be followed by '\\n')");
                 if (c != '\n') {
                     report_error(
@@ -445,7 +445,7 @@ namespace boost { namespace text { namespace detail {
                 // documentation of ICU's UnicodeString::unescape(), as
                 // indicated by
                 // http://www.unicode.org/reports/tr35/tr35-collation.html#Rules
-                char8_t const c = consume_one("\\ at end of input");
+                char8_type const c = consume_one("\\ at end of input");
                 BOOST_ASSERT(c != 'r' && c != 'n'); // Handled above.
                 switch (c) {
                 case 'u': {
@@ -478,7 +478,7 @@ namespace boost { namespace text { namespace detail {
                     break;
                 }
                 case 'x': {
-                    char8_t local_buf[4] = {0};
+                    char8_type local_buf[4] = {0};
                     auto local_buf_end = local_buf;
                     *local_buf_end++ = consume_one(
                         "Incomplete '\\xN[N]' hexidecimal escape sequence "
@@ -496,7 +496,7 @@ namespace boost { namespace text { namespace detail {
                     break;
                 }
                 case 'o': {
-                    char8_t local_buf[4] = {0};
+                    char8_type local_buf[4] = {0};
                     auto local_buf_end = local_buf;
                     *local_buf_end++ = consume_one(
                         "Incomplete '\\oN[N][N]' octal escape sequence (at "

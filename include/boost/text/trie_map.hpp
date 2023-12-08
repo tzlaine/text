@@ -7,6 +7,7 @@
 #define BOOST_TEXT_TRIE_MAP_HPP
 
 #include <boost/text/trie.hpp>
+#include <boost/text/detail/algorithm.hpp>
 
 #include <boost/stl_interfaces/reverse_iterator.hpp>
 
@@ -875,7 +876,7 @@ namespace boost { namespace text {
                     key.insert(key.end(), e);
                 from_trie_impl(*n, key, false);
                 if (!root)
-                    key.erase(std::ranges::prev(key.end()));
+                    key.erase(detail::prev(key.end()));
             }
         }
 

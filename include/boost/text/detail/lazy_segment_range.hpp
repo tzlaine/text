@@ -45,7 +45,7 @@ namespace boost { namespace text { namespace detail {
 
         CPRange operator*() const
         {
-            return CPRange{std::ranges::subrange(prev_, it_)};
+            return CPRange{BOOST_TEXT_SUBRANGE(prev_, it_)};
         }
 
         const_lazy_segment_iterator & operator++()
@@ -116,7 +116,7 @@ namespace boost { namespace text { namespace detail {
                 return *this;
             }
             auto const prev_it =
-                (*prev_func_)(first_, std::ranges::prev(it_), next_);
+                (*prev_func_)(first_, detail::prev(it_), next_);
             next_ = it_;
             it_ = prev_it;
             return *this;
@@ -150,7 +150,7 @@ namespace boost { namespace text { namespace detail {
         typename CPIter,
         typename Sentinel,
         typename NextFunc,
-        typename CPRange = std::ranges::subrange<CPIter>,
+        typename CPRange = BOOST_TEXT_SUBRANGE<CPIter>,
         template<class, class, class, class> class IteratorTemplate =
             detail::const_lazy_segment_iterator,
         bool Reverse = false>

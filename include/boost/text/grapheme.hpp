@@ -19,14 +19,19 @@
 namespace boost { namespace text {
 
     struct grapheme;
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
+#else
+    template<typename I>
+#endif
     struct grapheme_ref;
 
     /** An owning sequence of code points that comprise an extended grapheme
         cluster. */
     struct grapheme
     {
-        using iterator = utf_8_to_32_iterator<char8_t const *>;
+        using iterator =
+            utf_iterator<format::utf8, format::utf32, char8_type const *>;
         using const_iterator = iterator;
 
         /** Default ctor. */
@@ -36,7 +41,11 @@ namespace boost { namespace text {
 
             \pre The code points in [first, last) comprise at most one
             grapheme. */
+#if BOOST_TEXT_USE_CONCEPTS
         template<utf_iter I, std::sentinel_for<I> S>
+#else
+        template<typename I, typename S>
+#endif
         grapheme(I first, S last)
         {
             boost::text::transcode_to_utf8(
@@ -56,7 +65,11 @@ namespace boost { namespace text {
         /** Constructs *this from r.
 
             \pre The code points in r comprise at most one grapheme. */
+#if BOOST_TEXT_USE_CONCEPTS
         template<utf_range_like R>
+#else
+        template<typename R>
+#endif
         grapheme(R && r)
         {
             if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
@@ -64,8 +77,8 @@ namespace boost { namespace text {
                     r, null_sentinel, std::back_inserter(chars_));
             } else {
                 boost::text::transcode_to_utf8(
-                    std::ranges::begin(r),
-                    std::ranges::end(r),
+                    detail::begin(r),
+                    detail::end(r),
                     std::back_inserter(chars_));
             }
             BOOST_ASSERT(
@@ -110,14 +123,18 @@ namespace boost { namespace text {
         }
 
     private:
-        container::small_vector<char8_t, 8> chars_;
+        container::small_vector<char8_type, 8> chars_;
     };
 
 
     /** A non-owning reference to a range of code points that comprise a
         grapheme. */
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
-    struct grapheme_ref : utf32_view<std::ranges::subrange<I>>
+#else
+    template<typename I>
+#endif
+    struct grapheme_ref : utf32_view<BOOST_TEXT_SUBRANGE<I>>
     {
         /** Default ctor. */
         constexpr grapheme_ref() = default;
@@ -127,8 +144,8 @@ namespace boost { namespace text {
             \pre The code points in [first, last) comprise at most one
             grapheme. */
         constexpr grapheme_ref(I first, I last) :
-            utf32_view<std::ranges::subrange<I>>(
-                std::ranges::subrange(first, last))
+            utf32_view<BOOST_TEXT_SUBRANGE<I>>(
+                BOOST_TEXT_SUBRANGE(first, last))
         {
             BOOST_ASSERT(boost::text::next_grapheme_break(first, last) == last);
         }
@@ -136,24 +153,28 @@ namespace boost { namespace text {
         /** Constructs *this from r.
 
             \pre The code points in r comprise at most one grapheme. */
+#if BOOST_TEXT_USE_CONCEPTS
         template<std::ranges::viewable_range R>
-        // clang-format off
             requires std::same_as<std::ranges::iterator_t<R>, I> && utf32_range<R> && std::ranges::common_range<R>
-        // clang-format on
+#else
+        template<typename R>
+#endif
         constexpr grapheme_ref(R && r) :
-             utf32_view<std::ranges::subrange<I>>(
-                 std::ranges::subrange(std::ranges::begin(r), std::ranges::end(r)))
+             utf32_view<BOOST_TEXT_SUBRANGE<I>>(
+                 BOOST_TEXT_SUBRANGE(detail::begin(r), detail::end(r)))
         {
             BOOST_ASSERT(
                 boost::text::next_grapheme_break(
-                    std::ranges::begin(r), std::ranges::end(r)) ==
-                std::ranges::end(r));
+                    detail::begin(r), detail::end(r)) ==
+                detail::end(r));
         }
 
         /** Constructs *this from g. */
         constexpr grapheme_ref(grapheme const & g)
+#if BOOST_TEXT_USE_CONCEPTS
             requires std::same_as<grapheme::iterator, I>
-            : utf32_view<std::ranges::subrange<I>>(g)
+#endif
+            : utf32_view<BOOST_TEXT_SUBRANGE<I>>(g)
         {}
     };
 
@@ -162,7 +183,7 @@ namespace boost { namespace text {
     grapheme_ref(I, I) -> grapheme_ref<I>;
 
     template<class R>
-    grapheme_ref(R &&) -> grapheme_ref<std::ranges::iterator_t<R>>;
+    grapheme_ref(R &&) -> grapheme_ref<detail::iterator_t<R>>;
 
 #if !defined(_MSC_VER)
     grapheme_ref(grapheme) -> grapheme_ref<grapheme::const_iterator>;
@@ -170,7 +191,11 @@ namespace boost { namespace text {
 #endif
 
     /** Returns the number of bytes g refers to. */
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
+#else
+    template<typename I>
+#endif
     int storage_code_units(grapheme_ref<I> g)
     {
         return std::distance(g.begin().base(), g.end().base());
@@ -188,7 +213,7 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_CONCEPTS
 
 namespace std::ranges {
-    template<boost::text::code_point_iter I>
+    template<typename I>
     inline constexpr bool enable_borrowed_range<boost::text::grapheme_ref<I>> =
         true;
 }

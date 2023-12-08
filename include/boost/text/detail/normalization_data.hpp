@@ -367,7 +367,11 @@ namespace boost { namespace text { namespace detail {
                quick_check_code_point<form>(cp) == quick_check::yes;
     }
 
+#if BOOST_TEXT_USE_CONCEPTS
     template<nf N, typename I, std::sentinel_for<I> S>
+#else
+    template<nf N, typename I, typename S>
+#endif
     I last_stable_cp(I first, S last)
     {
         auto const it =
@@ -377,7 +381,11 @@ namespace boost { namespace text { namespace detail {
         return it;
     }
 
+#if BOOST_TEXT_USE_CONCEPTS
     template<nf N, typename I, std::sentinel_for<I> S>
+#else
+    template<nf N, typename I, typename S>
+#endif
     I first_stable_cp(I first, S last)
     {
         return find_if(first, last, detail::stable_code_point<N>);

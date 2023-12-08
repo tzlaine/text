@@ -22,12 +22,17 @@ namespace boost { namespace text {
         template<typename T>
         constexpr format format_of()
         {
-            if constexpr (std::same_as<T, char> || std::same_as<T, char8_t>) {
+            if constexpr (
+                std::is_same_v<T, char>
+#if defined(__cpp_char8_t)
+                || std::is_same_v<T, char8_t>
+#endif
+            ) {
                 return format::utf8;
             } else if (
-                std::same_as<T, char16_t>
+                std::is_same_v<T, char16_t>
 #ifdef _MSC_VER
-                || std::same_as<T, wchar_t>
+                || std::is_same_v<T, wchar_t>
 #endif
             ) {
                 return format::utf16;

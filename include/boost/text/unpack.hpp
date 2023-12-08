@@ -8,6 +8,9 @@
 
 #include <boost/text/transcode_iterator_fwd.hpp>
 
+#include <type_traits>
+#include <optional>
+
 
 namespace boost { namespace text {
 
@@ -32,11 +35,26 @@ namespace boost { namespace text {
         struct repacker
         {
             repacker() = default;
-            repacker(I first, S last, Then then) requires Bidi : first{first},
-                                                                 last{last},
-                                                                 then{then}
+#if !BOOST_TEXT_USE_CONCEPTS
+            template<bool Enable = Bidi, typename = std::enable_if_t<Enable>>
+#endif
+            repacker(I first, S last, Then then)
+#if BOOST_TEXT_USE_CONCEPTS
+                requires Bidi
+#endif
+                : first{first},
+                  last{last},
+                  then{then}
             {}
-            repacker(S last, Then then) requires (!Bidi) : last{last}, then{then}
+#if !BOOST_TEXT_USE_CONCEPTS
+            template<bool Enable = !Bidi, typename = std::enable_if_t<Enable>>
+#endif
+            repacker(S last, Then then)
+#if BOOST_TEXT_USE_CONCEPTS
+                requires(!Bidi)
+#endif
+                :
+                last{last}, then{then}
             {}
 
             auto operator()(I it) const
@@ -91,11 +109,15 @@ namespace boost { namespace text {
 
         struct unpack_iterator_and_sentinel_cpo
         {
+#if BOOST_TEXT_USE_CONCEPTS
             template<
                 utf_iter I,
                 std::sentinel_for<I> S,
                 typename Repack = no_op_repacker>
             requires std::forward_iterator<I>
+#else
+            template<typename I, typename S, typename Repack = no_op_repacker>
+#endif
             constexpr auto
             operator()(I first, S last, Repack repack = Repack()) const
             {
@@ -109,7 +131,11 @@ namespace boost { namespace text {
             unpack_iterator_and_sentinel{};
     }
 
+#if BOOST_TEXT_USE_CONCEPTS
     template<format FormatTag, utf_iter I, std::sentinel_for<I> S, class Repack>
+#else
+    template<format FormatTag, typename I, typename S, class Repack>
+#endif
     struct unpack_result
     {
         static constexpr format format_tag = FormatTag;
@@ -126,18 +152,32 @@ namespace boost { namespace text {
         constexpr auto
         unpack_iterator_and_sentinel_impl(I first, S last, Repack repack)
         {
-            if constexpr (utf8_iter<I>) {
+            using value_type = detail::iter_value_t<I>;
+            if constexpr (
+                std::is_same_v<value_type, char>
+#if defined(__cpp_char8_t)
+                || std::is_same_v<value_type, char8_t>
+#endif
+            ) {
                 return unpack_result<format::utf8, I, S, Repack>{
                     first, last, repack};
-            } else if constexpr (utf16_iter<I>) {
+            } else if constexpr (
+#if defined(_MSC_VER)
+                std::is_same_v<value_type, wchar_t> ||
+#endif
+                std::is_same_v<value_type, char16_t>) {
                 return unpack_result<format::utf16, I, S, Repack>{
                     first, last, repack};
-            } else if constexpr (utf32_iter<I>) {
+            } else if constexpr (
+#if !defined(_MSC_VER)
+                std::is_same_v<value_type, wchar_t> ||
+#endif
+                std::is_same_v<value_type, char32_t>) {
                 return unpack_result<format::utf32, I, S, Repack>{
                     first, last, repack};
             } else {
                 static_assert(
-                    std::same_as<Repack, no_such_type>,
+                    std::is_same_v<Repack, no_such_type>,
                     "Unpacked iterator is not a utf_iter!");
                 return 0;
             }
@@ -163,7 +203,15 @@ namespace boost { namespace text { namespace detail {
         Repack repack)
     {
         using iterator = utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>;
-        if constexpr (std::bidirectional_iterator<I>) {
+        if constexpr (
+#if BOOST_TEXT_USE_CONCEPTS
+            std::bidirectional_iterator<I>
+#else
+            std::is_base_of_v<
+                std::bidirectional_iterator_tag,
+                typename std::iterator_traits<I>::iterator_category>
+#endif
+        ) {
             return boost::text::unpack_iterator_and_sentinel(
                 first.base(),
                 last.base(),
@@ -195,7 +243,15 @@ namespace boost { namespace text { namespace detail {
         Repack repack)
     {
         using iterator = utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>;
-        if constexpr (std::bidirectional_iterator<I>) {
+        if constexpr (
+#if BOOST_TEXT_USE_CONCEPTS
+            std::bidirectional_iterator<I>
+#else
+            std::is_base_of_v<
+                std::bidirectional_iterator_tag,
+                typename std::iterator_traits<I>::iterator_category>
+#endif
+        ) {
             return boost::text::unpack_iterator_and_sentinel(
                 first.base(),
                 last,
