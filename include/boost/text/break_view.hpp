@@ -63,7 +63,7 @@ namespace boost { namespace text {
 
             CPRange operator*() const
             {
-                return CPRange{std::ranges::subrange(seg_.first, seg_.second)};
+                return CPRange{BOOST_TEXT_SUBRANGE(seg_.first, seg_.second)};
             }
 
             break_iterator & operator++()
@@ -82,7 +82,7 @@ namespace boost { namespace text {
                 }
 
                 auto const prev_it = (*prev_func_)(
-                    first_, std::ranges::prev(seg_.first), seg_.second);
+                    first_, detail::prev(seg_.first), seg_.second);
                 seg_.second = seg_.first;
                 seg_.first = prev_it;
                 return *this;
@@ -171,7 +171,7 @@ namespace boost { namespace text {
         typename PrevFunc,
         typename NextFunc,
         typename Subrange =
-            utf_view<format::utf32, std::ranges::subrange<CPIter>>>
+            utf_view<format::utf32, BOOST_TEXT_SUBRANGE<CPIter>>>
     struct break_view
         : stl_interfaces::view_interface<
               break_view<CPIter, CPSentinel, PrevFunc, NextFunc, Subrange>>

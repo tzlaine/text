@@ -465,7 +465,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     return std::ranges::empty_view<T>{};
                 } else if constexpr (is_stream_safe_view<T>) {
                     return std::forward<R>(r);
-                } else if constexpr (is_utf32_view<T>) {
+                } else if constexpr (detail::is_utf32_view<T>) {
                     return stream_safe_view(std::forward<R>(r));
                 } else {
                     return stream_safe_view(std::forward<R>(r) | as_utf32);

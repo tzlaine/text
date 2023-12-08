@@ -18,27 +18,37 @@
 #include <numeric>
 #include <type_traits>
 #include <utility>
+#if BOOST_TEXT_USE_CONCEPTS
+#include <ranges>
+#endif
 
 
 namespace boost { namespace text { namespace detail {
+
+    template<typename I>
+    auto prev(I it)
+    {
+#if BOOST_TEXT_USE_CONCEPTS
+        return std::ranges::prev(it);
+#else
+        return std::prev(it);
+#endif
+    }
+    template<typename I>
+    auto next(I it)
+    {
+#if BOOST_TEXT_USE_CONCEPTS
+        return std::ranges::next(it);
+#else
+        return std::next(it);
+#endif
+    }
 
     template<typename T>
     using remove_cv_ref_t =
         typename std::remove_cv<typename std::remove_reference<T>::type>::type;
 
 #if BOOST_TEXT_USE_CONCEPTS
-
-    template<typename T>
-    using iterator_t = std::ranges::iterator_t<T>;
-    template<typename T>
-    using sentinel_t = std::ranges::sentinel_t<T>;
-    template<typename T>
-    using iter_value_t = std::iter_value_t<T>;
-    template<typename T>
-    using iter_reference_t = std::iter_reference_t<T>;
-    template<typename T>
-    using range_value_t = std::ranges::range_value_t<T>;
-
     // A grapheme_range that has a sentinel type that is not an iterator, but
     // that is comparable with T's interator type.
     template<typename T>
@@ -60,17 +70,6 @@ namespace boost { namespace text { namespace detail {
         gr_rng_cp_iter_t<T>>;
 
 #else
-
-    template<typename T>
-    using iterator_t = decltype(detail::begin(std::declval<T &>()));
-    template<typename T>
-    using sentinel_t = decltype(detail::end(std::declval<T &>()));
-    template<typename T>
-    using iter_value_t = typename std::iterator_traits<T>::value_type;
-    template<typename T>
-    using iter_reference_t = decltype(*std::declval<T &>());
-    template<typename T>
-    using range_value_t = iter_value_t<iterator_t<T>>;
 
     template<typename T>
     using has_base = decltype(std::declval<T>().base());

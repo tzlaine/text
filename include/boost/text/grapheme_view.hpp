@@ -26,36 +26,48 @@ namespace boost { namespace text {
 
     /** A view over graphemes that occur in an underlying sequence of code
         points. */
+#if BOOST_TEXT_USE_CONCEPTS
     template<std::ranges::view V>
     // clang-format off
         requires utf32_range<V>
-    class grapheme_view : public std::ranges::view_interface<grapheme_view<V>>
+#else
+    template<typename V>
+#endif
+    class grapheme_view : public stl_interfaces::view_interface<grapheme_view<V>>
     // clang-format on
     {
         V base_ = V();
 
     public:
-        constexpr grapheme_view() requires std::default_initializable<V> = default;
+        constexpr grapheme_view()
+#if BOOST_TEXT_USE_CONCEPTS
+            requires std::default_initializable<V>
+#endif
+        = default;
         constexpr grapheme_view(V base) : base_{std::move(base)} {}
 
-        constexpr V base() const & requires std::copy_constructible<V> { return base_; }
+        constexpr V base() const &
+#if BOOST_TEXT_USE_CONCEPTS
+            requires std::copy_constructible<V>
+#endif
+        { return base_; }
         constexpr V base() && { return std::move(base_); }
 
         constexpr auto begin() const {
             return grapheme_iterator(
-                std::ranges::begin(base_),
-                std::ranges::begin(base_),
-                std::ranges::end(base_));
+                detail::begin(base_),
+                detail::begin(base_),
+                detail::end(base_));
         }
         constexpr auto end() const
         {
-            if constexpr (std::ranges::common_range<V>) {
+            if constexpr (detail::common_range_v<V>) {
                 return grapheme_iterator(
-                    std::ranges::begin(base_),
-                    std::ranges::end(base_),
-                    std::ranges::end(base_));
+                    detail::begin(base_),
+                    detail::end(base_),
+                    detail::end(base_));
             } else {
-                return std::ranges::end(base_);
+                return detail::end(base_);
             }
         }
 
@@ -85,29 +97,32 @@ namespace boost { namespace text {
 #endif
     };
 
+#if BOOST_TEXT_USE_CONCEPTS
     template<class R>
     grapheme_view(R &&) -> grapheme_view<std::views::all_t<R>>;
-}}
+#endif
 
+    namespace detail {
 #if BOOST_TEXT_USE_CONCEPTS
-
-namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
-
-    namespace dtl {
         template<class R>
         concept can_grapheme_view = requires { grapheme_view(std::declval<R &>()); };
+#endif
 
         template<class R>
         constexpr decltype(auto) unpack_range_to_utf32(R && r)
         {
-            using T = std::remove_cvref_t<R>;
-            if constexpr (utf32_range<T>) {
+            using T = remove_cv_ref_t<R>;
+            if constexpr (utf32_range_v<T>) {
                 return std::forward<R>(r);
-            } else if constexpr (std::ranges::forward_range<T>) {
+            } else if constexpr (forward_range_v<T>) {
                 auto unpacked = boost::text::unpack_iterator_and_sentinel(
-                    std::ranges::begin(r), std::ranges::end(r));
-                return std::ranges::subrange(unpacked.first, unpacked.last) |
+                    detail::begin(r), detail::end(r));
+#if BOOST_TEXT_USE_CONCEPTS
+                return BOOST_TEXT_SUBRANGE(unpacked.first, unpacked.last) |
                        as_utf32;
+#else
+                return subrange{unpacked.first, unpacked.last} | as_utf32;
+#endif
             } else {
                 return std::forward<R>(r) | as_utf32;
             }
@@ -115,35 +130,40 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         template<class R>
         using unpacked_range_utf32 =
-            decltype(dtl::unpack_range_to_utf32(std::declval<R>()));
+            decltype(detail::unpack_range_to_utf32(std::declval<R>()));
 
         struct as_graphemes_impl : range_adaptor_closure<as_graphemes_impl>
         {
             template<class R>
+#if BOOST_TEXT_USE_CONCEPTS
                 requires(std::ranges::viewable_range<R> &&
                          can_grapheme_view<unpacked_range_utf32<R>>) ||
                         utf_pointer<std::remove_cvref_t<R>>
+#endif
             [[nodiscard]] constexpr auto operator()(R && r) const
             {
-                using T = std::remove_cvref_t<R>;
+                using T = remove_cv_ref_t<R>;
                 if constexpr (detail::is_empty_view<T>) {
                     return r;
                 } else if constexpr (std::is_pointer_v<T>) {
                     return grapheme_view(
-                        std::ranges::subrange(r, null_sentinel) | as_utf32);
+#if BOOST_TEXT_USE_CONCEPTS
+                        BOOST_TEXT_SUBRANGE(r, null_sentinel)
+#else
+                        subrange{r, null_sentinel}
+#endif
+                        | as_utf32);
                 } else {
                     return grapheme_view(
-                        dtl::unpack_range_to_utf32(std::forward<R>(r)));
+                        detail::unpack_range_to_utf32(std::forward<R>(r)));
                 }
             }
         };
     }
 
-    inline constexpr dtl::as_graphemes_impl as_graphemes;
+    inline constexpr detail::as_graphemes_impl as_graphemes;
 
-}}}
-
-#endif
+}}
 
 #if BOOST_TEXT_USE_CONCEPTS
 

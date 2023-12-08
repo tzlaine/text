@@ -33,6 +33,7 @@
 #    define BOOST_TEXT_USE_CONCEPTS 1
 #else
 #    define BOOST_TEXT_USE_CONCEPTS 0
+#    define BOOST_STL_INTERFACES_DISABLE_CONCEPTS
 #endif
 
 #if 202002L <= __cplusplus && defined(__cpp_lib_coroutine) &&                  \
@@ -48,6 +49,14 @@
 #    define BOOST_TEXT_USE_STD_FILESYSTEM 0
 #endif
 
+// GCC 12 claims to support 201907L <= __cpp_deduction_guides, but does not.
+#if defined(__cpp_deduction_guides) && 201907L <= __cpp_deduction_guides &&    \
+    (!defined(__GNUC__) || 13 <= __GNUC__)
+#define BOOST_TEXT_USE_ALIAS_CTAD 1
+#else
+#define BOOST_TEXT_USE_ALIAS_CTAD 0
+#endif
+
 #ifndef BOOST_TEXT_DOXYGEN
 
 #if defined(__cpp_lib_ranges)
@@ -58,6 +67,21 @@ namespace boost { namespace text { namespace detail {
 #else
 #include <boost/text/detail/begin_end.hpp>
 #endif
+
+#if BOOST_TEXT_USE_CONCEPTS
+#    define BOOST_TEXT_SUBRANGE std::ranges::subrange
+#else
+#    include <boost/text/subrange.hpp>
+#    define BOOST_TEXT_SUBRANGE boost::text::subrange
+#endif
+
+namespace boost { namespace text {
+#if defined(__cpp_char8_t)
+    using char8_type = char8_t;
+#else
+    using char8_type = char;
+#endif
+}}
 
 // The inline namespaces v1 and v2 represent pre- and post-C++20.  v1 is
 // inline for standards before C++20, and v2 is inline for C++20 and later.

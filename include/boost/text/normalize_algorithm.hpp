@@ -250,7 +250,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         nf Normalization,
         utf_string String,
         code_point_iter I,
-        typename StringIter = std::ranges::iterator_t<String>>
+        typename StringIter = detail::iterator_t<String>>
     replace_result<StringIter> normalize_replace(
         String & string,
         StringIter str_first,
@@ -267,7 +267,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         nf Normalization,
         utf_string String,
         code_point_iter I,
-        typename StringIter = std::ranges::iterator_t<String>>
+        typename StringIter = detail::iterator_t<String>>
     replace_result<StringIter> normalize_insert(
         String & string,
         StringIter at,
@@ -285,28 +285,28 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         nf Normalization,
         utf_string String,
         code_point_range R,
-        typename StringIter = std::ranges::iterator_t<String>>
+        typename StringIter = detail::iterator_t<String>>
     replace_result<StringIter> normalize_insert(
         String & string,
         StringIter at,
         R && r,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
-        if (std::ranges::begin(r) == std::ranges::end(r))
+        if (detail::begin(r) == detail::end(r))
             return {at, at};
         return detail::replace_impl<false, Normalization>(
             string,
             at,
             at,
-            std::ranges::begin(r),
-            std::ranges::end(r),
+            detail::begin(r),
+            detail::end(r),
             insertion_norm);
     }
 
     template<
         nf Normalization,
         utf_string String,
-        typename StringIter = std::ranges::iterator_t<String>>
+        typename StringIter = detail::iterator_t<String>>
     replace_result<StringIter> normalize_erase(
         String & string, StringIter str_first, StringIter str_last)
     {
@@ -505,7 +505,7 @@ namespace boost { namespace text { namespace detail {
     template<typename String>
     using normalized_insert_buffer_t = std::conditional_t<
         utf8_range<String>,
-        container::small_vector<char8_t, 1024>,
+        container::small_vector<char8_type, 1024>,
         container::small_vector<char16_t, 512>>;
 
     template<typename Buffer, bool UTF8 = utf8_range<Buffer>>

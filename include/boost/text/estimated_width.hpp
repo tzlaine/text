@@ -45,7 +45,7 @@ namespace boost { namespace text { namespace detail {
     {
         std::size_t retval = 0;
         for (auto grapheme :
-             std::ranges::subrange(first, last) | as_graphemes) {
+             BOOST_TEXT_SUBRANGE(first, last) | as_graphemes) {
             retval += detail::width_implied_by_cp(grapheme.front());
         }
         return retval;

@@ -20,10 +20,14 @@
 
 namespace boost { namespace text {
 
-    // TODO: forward and input feriendliness
+    // TODO: forward and input friendliness
     /** A bidirectional filtering iterator that iterates over the extended
         grapheme clusters in a sequence of code points. */
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I, std::sentinel_for<I> S = I>
+#else
+    template<typename I, typename S = I>
+#endif
     class grapheme_iterator : public stl_interfaces::iterator_interface<
                                   grapheme_iterator<I, S>,
                                   decltype(detail::bidirectional_at_most<I>()),
@@ -44,7 +48,9 @@ namespace boost { namespace text {
         {}
 
         template<class I2, class S2>
+#if BOOST_TEXT_USE_CONCEPTS
             requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
+#endif
         constexpr grapheme_iterator(grapheme_iterator<I2, S2> const & other) :
             first_(other.first_),
             grapheme_first_(other.grapheme_first_),
@@ -52,7 +58,11 @@ namespace boost { namespace text {
             last_(other.last_)
         {}
 
-        constexpr I begin() const requires std::bidirectional_iterator<I> { return seq_begin(); }
+        constexpr I begin() const
+#if BOOST_TEXT_USE_CONCEPTS
+            requires std::bidirectional_iterator<I>
+#endif
+        { return seq_begin(); }
         constexpr S end() const { return seq_end(); }
 
         constexpr I base() const { return gr_begin(); }
@@ -75,7 +85,7 @@ namespace boost { namespace text {
         constexpr grapheme_iterator & operator--()
         {
             I prev_break = boost::text::prev_grapheme_break(
-                seq_begin(), std::ranges::prev(gr_begin()), seq_end());
+                seq_begin(), detail::prev(gr_begin()), seq_end());
             grapheme_last_ = grapheme_first_;
             grapheme_first_ =
                 text::unpack_iterator_and_sentinel(prev_break, seq_end()).first;
@@ -88,8 +98,16 @@ namespace boost { namespace text {
             return lhs.base() == rhs.base();
         }
 
-        friend constexpr bool
-        operator==(grapheme_iterator lhs, S rhs) requires(!std::same_as<I, S>)
+        friend constexpr
+#if BOOST_TEXT_USE_CONCEPTS
+        bool
+#else
+        std::enable_if_t<!std::is_same_v<I, S>, bool>
+#endif
+        operator==(grapheme_iterator lhs, S rhs)
+#if BOOST_TEXT_USE_CONCEPTS
+            requires(!std::same_as<I, S>)
+#endif
         {
             return lhs.base() == rhs;
         }
@@ -104,10 +122,20 @@ namespace boost { namespace text {
                          std::declval<I>(), std::declval<S>())
                          .last);
 
+        template<typename T, typename I1, typename I2, typename S2>
+        using make_iter_trinary_expr = decltype(T(
+            std::declval<I1>(), std::declval<I2>(), std::declval<S2>()));
+
         template<typename ResultType, typename I1, typename I2, typename S2>
         static auto make_iter(I1 first, I2 it, S2 last)
         {
-            if constexpr (requires { ResultType(first, it, last); }) {
+            if constexpr (
+#if BOOST_TEXT_USE_CONCEPTS
+                requires { ResultType(first, it, last); }
+#else
+                is_detected_v<make_iter_trinary_expr, ResultType, I1, I2, S2>
+#endif
+                ) {
                 return ResultType{first, it, last};
             } else {
                 return it;
@@ -136,7 +164,11 @@ namespace boost { namespace text {
         cu_iterator grapheme_last_;
         [[no_unique_address]] cu_sentinel last_;
 
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I2, std::sentinel_for<I2> S2>
+#else
+        template<typename I2, typename S2>
+#endif
         friend class grapheme_iterator;
     };
 

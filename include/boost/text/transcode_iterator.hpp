@@ -22,7 +22,6 @@
 #include <stdexcept>
 #include <string_view>
 
-
 namespace boost { namespace text {
 
     namespace {
@@ -115,6 +114,7 @@ namespace boost { namespace text {
         template<typename I>
         auto bidirectional_at_most()
         {
+#if BOOST_TEXT_USE_CONCEPTS
             if constexpr (std::bidirectional_iterator<I>) {
                 return std::bidirectional_iterator_tag{};
             } else if constexpr (std::forward_iterator<I>) {
@@ -122,6 +122,17 @@ namespace boost { namespace text {
             } else if constexpr (std::input_iterator<I>) {
                 return std::input_iterator_tag{};
             }
+#else
+            using category =
+                typename std::iterator_traits<I>::iterator_category;
+            if constexpr (std::is_base_of_v<
+                              std::bidirectional_iterator_tag,
+                              category>) {
+                return std::bidirectional_iterator_tag{};
+            } else {
+                return category{};
+            }
+#endif
         }
 
         template<typename I>
@@ -176,19 +187,19 @@ namespace boost { namespace text {
 
     /** Returns true iff `c` is a UTF-8 lead code unit (which must be followed
         by 1-3 following units). */
-    constexpr bool lead_code_unit(char8_t c)
+    constexpr bool lead_code_unit(char8_type c)
     {
         return uint8_t((unsigned char)c - 0xc2) <= 0x32;
     }
 
     /** Returns true iff `c` is a UTF-8 continuation code unit. */
-    constexpr bool continuation(char8_t c) { return (int8_t)c < -0x40; }
+    constexpr bool continuation(char8_type c) { return (int8_t)c < -0x40; }
 
     /** Given the first (and possibly only) code unit of a UTF-8-encoded code
         point, returns the number of bytes occupied by that code point (in the
         range `[1, 4]`).  Returns a value < 0 if `first_unit` is not a valid
         initial UTF-8 code unit. */
-    inline constexpr int utf8_code_units(char8_t first_unit_)
+    inline constexpr int utf8_code_units(char8_type first_unit_)
     {
         auto first_unit = (unsigned int)first_unit_;
         return first_unit <= 0x7f ? 1
@@ -939,13 +950,24 @@ namespace boost { namespace text {
         4-byte integral value, iff the pointer is null. */
     struct null_sentinel_t
     {
+#if BOOST_TEXT_USE_CONCEPTS
         template<std::input_iterator I>
             requires std::default_initializable<std::iter_value_t<I>> &&
                      std::equality_comparable_with<std::iter_reference_t<I>, std::iter_value_t<I>>
+#else
+        template<typename I>
+#endif
         friend constexpr auto operator==(I it, null_sentinel_t)
         {
-            return *it == std::iter_value_t<I>{};
+            return *it == detail::iter_value_t<I>{};
         }
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<typename I>
+        friend constexpr auto operator!=(I it, null_sentinel_t)
+        {
+            return *it != detail::iter_value_t<I>{};
+        }
+#endif
     };
 
 #if defined(__cpp_inline_variables)
@@ -1100,7 +1122,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        constexpr utf_8_to_32_out_iterator & operator=(char8_t cu)
+        constexpr utf_8_to_32_out_iterator & operator=(char8_type cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_32_insert(cu, cp_, state_, out);
@@ -1647,7 +1669,7 @@ namespace boost { namespace text {
             state_(detail::invalid_table_state)
         {}
 
-        constexpr utf_8_to_16_out_iterator & operator=(char8_t cu)
+        constexpr utf_8_to_16_out_iterator & operator=(char8_type cu)
         {
             auto & out = this->iter();
             out = detail::assign_8_to_16_insert(cu, cp_, state_, out);
@@ -1776,10 +1798,14 @@ namespace boost { namespace text { namespace detail {
     struct make_utf8_dispatch<format::utf16>
     {
         template<typename Iter, typename Sentinel>
-        static constexpr utf_16_to_8_iterator<Iter, Sentinel>
+        static constexpr utf_iterator<
+            format::utf16,
+            format::utf8,
+            Iter,
+            Sentinel>
         call(Iter first, Iter it, Sentinel last)
         {
-            return utf_16_to_8_iterator<Iter, Sentinel>(first, it, last);
+            return {first, it, last};
         }
     };
 
@@ -1787,10 +1813,14 @@ namespace boost { namespace text { namespace detail {
     struct make_utf8_dispatch<format::utf32>
     {
         template<typename Iter, typename Sentinel>
-        static constexpr utf_32_to_8_iterator<Iter, Sentinel>
+        static constexpr utf_iterator<
+            format::utf32,
+            format::utf8,
+            Iter,
+            Sentinel>
         call(Iter first, Iter it, Sentinel last)
         {
-            return utf_32_to_8_iterator<Iter, Sentinel>(first, it, last);
+            return {first, it, last};
         }
     };
 
@@ -1801,10 +1831,14 @@ namespace boost { namespace text { namespace detail {
     struct make_utf16_dispatch<format::utf8>
     {
         template<typename Iter, typename Sentinel>
-        static constexpr utf_8_to_16_iterator<Iter, Sentinel>
+        static constexpr utf_iterator<
+            format::utf8,
+            format::utf16,
+            Iter,
+            Sentinel>
         call(Iter first, Iter it, Sentinel last)
         {
-            return utf_8_to_16_iterator<Iter, Sentinel>(first, it, last);
+            return {first, it, last};
         }
     };
 
@@ -1822,10 +1856,14 @@ namespace boost { namespace text { namespace detail {
     struct make_utf16_dispatch<format::utf32>
     {
         template<typename Iter, typename Sentinel>
-        static constexpr utf_32_to_16_iterator<Iter, Sentinel>
+        static constexpr utf_iterator<
+            format::utf32,
+            format::utf16,
+            Iter,
+            Sentinel>
         call(Iter first, Iter it, Sentinel last)
         {
-            return utf_32_to_16_iterator<Iter, Sentinel>(first, it, last);
+            return {first, it, last};
         }
     };
 
@@ -1836,10 +1874,14 @@ namespace boost { namespace text { namespace detail {
     struct make_utf32_dispatch<format::utf8>
     {
         template<typename Iter, typename Sentinel>
-        static constexpr utf_8_to_32_iterator<Iter, Sentinel>
+        static constexpr utf_iterator<
+            format::utf8,
+            format::utf32,
+            Iter,
+            Sentinel>
         call(Iter first, Iter it, Sentinel last)
         {
-            return utf_8_to_32_iterator<Iter, Sentinel>(first, it, last);
+            return {first, it, last};
         }
     };
 
@@ -1847,10 +1889,14 @@ namespace boost { namespace text { namespace detail {
     struct make_utf32_dispatch<format::utf16>
     {
         template<typename Iter, typename Sentinel>
-        static constexpr utf_16_to_32_iterator<Iter, Sentinel>
+        static constexpr utf_iterator<
+            format::utf16,
+            format::utf32,
+            Iter,
+            Sentinel>
         call(Iter first, Iter it, Sentinel last)
         {
-            return utf_16_to_32_iterator<Iter, Sentinel>(first, it, last);
+            return {first, it, last};
         }
     };
 
@@ -2451,12 +2497,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    namespace dtl {
+}}}
+
+#endif
+
+namespace boost { namespace text {
+    namespace detail {
         template<format Format>
         constexpr auto format_to_type()
         {
             if constexpr (Format == format::utf8) {
-                return char8_t{};
+                return char8_type{};
             } else if constexpr (Format == format::utf16) {
                 return char16_t{};
             } else {
@@ -2464,16 +2515,33 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
         }
 
-        template<
-            typename I,
-            bool SupportReverse = std::bidirectional_iterator<I>>
+        template<typename I>
+        constexpr bool is_bidi =
+#if BOOST_TEXT_USE_CONCEPTS
+            std::bidirectional_iterator<I>
+#else
+            std::is_base_of_v<
+                std::bidirectional_iterator_tag,
+                typename std::iterator_traits<I>::iterator_category>
+#endif
+            ;
+
+        template<typename I, bool SupportReverse = is_bidi<I>>
         struct first_and_curr
         {
             first_and_curr() = default;
             first_and_curr(I curr) : curr{curr} {}
             first_and_curr(const first_and_curr & other) = default;
-            template<class I2>
+            template<
+                class I2
+#if !BOOST_TEXT_USE_CONCEPTS
+                ,
+                typename Enable = std::enable_if_t<std::is_convertible_v<I2, I>>
+#endif
+                >
+#if BOOST_TEXT_USE_CONCEPTS // TODO
             requires std::convertible_to<I2, I>
+#endif
             first_and_curr(const first_and_curr<I2> & other) : curr{other.curr}
             {}
 
@@ -2485,8 +2553,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             first_and_curr() = default;
             first_and_curr(I first, I curr) : first{first}, curr{curr} {}
             first_and_curr(const first_and_curr & other) = default;
-            template<class I2>
+            template<
+                class I2
+#if !BOOST_TEXT_USE_CONCEPTS
+                ,
+                typename Enable = std::enable_if_t<std::is_convertible_v<I2, I>>
+#endif
+                >
+#if BOOST_TEXT_USE_CONCEPTS
             requires std::convertible_to<I2, I>
+#endif
             first_and_curr(const first_and_curr<I2> & other) :
                 first{other.first}, curr{other.curr}
             {}
@@ -2496,19 +2572,28 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         };
     }
 
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         format FromFormat,
         format ToFormat,
         std::input_iterator I,
         std::sentinel_for<I> S,
         transcoding_error_handler ErrorHandler>
-        requires std::convertible_to<std::iter_value_t<I>, dtl::format_to_type_t<FromFormat>>
+        requires std::convertible_to<std::iter_value_t<I>, detail::format_to_type_t<FromFormat>>
+#else
+    template<
+        format FromFormat,
+        format ToFormat,
+        typename I,
+        typename S,
+        typename ErrorHandler>
+#endif
     class utf_iterator
         : public stl_interfaces::iterator_interface<
               utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
               detail::bidirectional_at_most_t<I>,
-              dtl::format_to_type_t<ToFormat>,
-              dtl::format_to_type_t<ToFormat>>
+              detail::format_to_type_t<ToFormat>,
+              detail::format_to_type_t<ToFormat>>
     {
         static_assert(
             FromFormat == format::utf8 || FromFormat == format::utf16 ||
@@ -2517,30 +2602,74 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             ToFormat == format::utf8 || ToFormat == format::utf16 ||
             ToFormat == format::utf32);
 
-        static_assert(!std::input_iterator<I> || noexcept(ErrorHandler{}("")));
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<typename T>
+        constexpr static bool is_bidirectional = std::is_base_of_v<
+            std::bidirectional_iterator_tag,
+            detail::bidirectional_at_most_t<T>>;
+        template<typename T>
+        constexpr static bool is_forward = std::is_base_of_v<
+            std::forward_iterator_tag,
+            detail::bidirectional_at_most_t<T>>;
+        template<typename T>
+        constexpr static bool is_input = !is_bidirectional<T> && !is_forward<T>;
+#endif
+
+        static_assert(
+#if BOOST_TEXT_USE_CONCEPTS
+            std::forward_iterator<I>
+#else
+            is_forward<I>
+#endif
+            || noexcept(ErrorHandler{}("")));
 
     public:
-        using value_type = dtl::format_to_type_t<ToFormat>;
+        using value_type = detail::format_to_type_t<ToFormat>;
 
         constexpr utf_iterator() = default;
 
-        constexpr utf_iterator(
-            I first, I it, S last) requires std::bidirectional_iterator<I>
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<
+            typename J = I,
+            typename Enable = std::enable_if_t<is_bidirectional<J>>>
+#endif
+        constexpr utf_iterator(I first, I it, S last)
+#if BOOST_TEXT_USE_CONCEPTS
+            requires std::bidirectional_iterator<I>
+#endif
             : first_and_curr_{first, it}, last_(last)
         {
             if (curr() != last_)
                 read();
         }
-        constexpr utf_iterator(I it, S last) requires(
-            !std::bidirectional_iterator<I>) :
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<
+            typename J = I,
+            typename Enable = std::enable_if_t<is_bidirectional<J>>>
+#endif
+        constexpr utf_iterator(I it, S last)
+#if BOOST_TEXT_USE_CONCEPTS
+            requires(!std::bidirectional_iterator<I>)
+#endif
+            :
             first_and_curr_{it}, last_(last)
         {
             if (curr() != last_)
                 read();
         }
 
-        template<class I2, class S2>
+        template<
+            class I2,
+            class S2
+#if !BOOST_TEXT_USE_CONCEPTS
+            ,
+            typename Enable = std::enable_if_t<
+                std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>>
+#endif
+            >
+#if BOOST_TEXT_USE_CONCEPTS
         requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
+#endif
         constexpr utf_iterator(
             utf_iterator<FromFormat, ToFormat, I2, S2, ErrorHandler> const &
                 other) :
@@ -2551,10 +2680,32 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             last_(other.last_)
         {}
 
-        constexpr I begin() const requires std::bidirectional_iterator<I> { return first(); }
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<
+            typename J = I,
+            typename Enable = std::enable_if_t<is_bidirectional<J>>>
+#endif
+        constexpr I begin() const
+#if BOOST_TEXT_USE_CONCEPTS
+            requires std::bidirectional_iterator<I>
+#endif
+        {
+            return first();
+        }
         constexpr S end() const { return last_; }
 
-        constexpr I base() const requires std::forward_iterator<I> { return curr(); }
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<
+            typename J = I,
+            typename Enable = std::enable_if_t<is_forward<J>>>
+#endif
+        constexpr I base() const
+#if BOOST_TEXT_USE_CONCEPTS
+            requires std::forward_iterator<I>
+#endif
+        {
+            return curr();
+        }
 
         constexpr value_type operator*() const
         {
@@ -2566,7 +2717,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         {
             BOOST_ASSERT(buf_index_ != buf_last_ || curr() != last_);
             if (buf_index_ + 1 == buf_last_ && curr() != last_) {
-                if constexpr (std::forward_iterator<I>) {
+                if constexpr (
+#if BOOST_TEXT_USE_CONCEPTS
+                    std::forward_iterator<I>
+#else
+                    is_forward<I>
+#endif
+                ) {
                     std::advance(curr(), to_increment_);
                 }
                 if (curr() == last_)
@@ -2579,8 +2736,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return *this;
         }
 
-        constexpr utf_iterator &
-        operator--() requires std::bidirectional_iterator<I>
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<
+            typename J = I,
+            typename Enable = std::enable_if_t<is_bidirectional<J>>>
+#endif
+        constexpr utf_iterator & operator--()
+#if BOOST_TEXT_USE_CONCEPTS
+            requires std::bidirectional_iterator<I>
+#endif
         {
             BOOST_ASSERT(buf_index_ || curr() != first());
             if (!buf_index_ && curr() != first())
@@ -2590,10 +2754,24 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             return *this;
         }
 
-        friend constexpr bool operator==(utf_iterator lhs, utf_iterator rhs)
-            requires std::forward_iterator<I> || requires(I i) { i != i; }
+        friend constexpr bool operator==(
+#if BOOST_TEXT_USE_CONCEPTS
+            utf_iterator
+#else
+            std::enable_if_t<is_forward<I>, utf_iterator>
+#endif
+            lhs, utf_iterator rhs)
+#if BOOST_TEXT_USE_CONCEPTS
+            requires std::forward_iterator<I> || requires(I i) { i == i; }
+#endif
         {
-            if constexpr (std::forward_iterator<I>) {
+            if constexpr (
+#if BOOST_TEXT_USE_CONCEPTS
+                std::forward_iterator<I>
+#else
+                is_forward<I>
+#endif
+            ) {
                 return lhs.curr() == rhs.curr() && lhs.buf_index_ == rhs.buf_index_;
             } else {
                 if (lhs.curr() != rhs.curr())
@@ -2611,7 +2789,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         friend constexpr bool operator==(utf_iterator lhs, S rhs)
         {
-            if constexpr (std::forward_iterator<I>) {
+            if constexpr (
+#if BOOST_TEXT_USE_CONCEPTS
+                std::forward_iterator<I>
+#else
+                is_forward<I>
+#endif
+            ) {
                 return lhs.curr() == rhs;
             } else {
                 return lhs.curr() == rhs && lhs.buf_index_ == lhs.buf_last_;
@@ -2660,7 +2844,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             */
                 // clang-format on
 
-                char8_t curr_c = cp;
+                char8_type curr_c = cp;
 
                 auto error = [&]() {
                     return ErrorHandler{}("Ill-formed UTF-8.");
@@ -2857,8 +3041,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             }
         }
 
-        constexpr char32_t
-        decode_code_point_reverse() requires std::bidirectional_iterator<I>
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<
+            typename J = I,
+            typename Enable = std::enable_if_t<is_bidirectional<J>>>
+#endif
+        constexpr char32_t decode_code_point_reverse()
+#if BOOST_TEXT_USE_CONCEPTS
+            requires std::bidirectional_iterator<I>
+#endif
         {
             if constexpr (FromFormat == format::utf8) {
                 curr() = detail::decrement(first(), curr());
@@ -2882,7 +3073,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                         "Invalid UTF-16 sequence; lone trailing surrogate.");
                 }
 
-                char16_t hi = *std::ranges::prev(curr());
+                char16_t hi = *detail::prev(curr());
                 if (!boost::text::high_surrogate(hi)) {
                     return ErrorHandler{}(
                         "Invalid UTF-16 sequence; lone trailing surrogate.");
@@ -2901,19 +3092,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         {
             if constexpr (ToFormat == format::utf8) {
                 if (cp < 0x80) {
-                    *out++ = static_cast<char8_t>(cp);
+                    *out++ = static_cast<char8_type>(cp);
                 } else if (cp < 0x800) {
-                    *out++ = static_cast<char8_t>(0xC0 + (cp >> 6));
-                    *out++ = static_cast<char8_t>(0x80 + (cp & 0x3f));
+                    *out++ = static_cast<char8_type>(0xC0 + (cp >> 6));
+                    *out++ = static_cast<char8_type>(0x80 + (cp & 0x3f));
                 } else if (cp < 0x10000) {
-                    *out++ = static_cast<char8_t>(0xe0 + (cp >> 12));
-                    *out++ = static_cast<char8_t>(0x80 + ((cp >> 6) & 0x3f));
-                    *out++ = static_cast<char8_t>(0x80 + (cp & 0x3f));
+                    *out++ = static_cast<char8_type>(0xe0 + (cp >> 12));
+                    *out++ = static_cast<char8_type>(0x80 + ((cp >> 6) & 0x3f));
+                    *out++ = static_cast<char8_type>(0x80 + (cp & 0x3f));
                 } else {
-                    *out++ = static_cast<char8_t>(0xf0 + (cp >> 18));
-                    *out++ = static_cast<char8_t>(0x80 + ((cp >> 12) & 0x3f));
-                    *out++ = static_cast<char8_t>(0x80 + ((cp >> 6) & 0x3f));
-                    *out++ = static_cast<char8_t>(0x80 + (cp & 0x3f));
+                    *out++ = static_cast<char8_type>(0xf0 + (cp >> 18));
+                    *out++ = static_cast<char8_type>(0x80 + ((cp >> 12) & 0x3f));
+                    *out++ = static_cast<char8_type>(0x80 + ((cp >> 6) & 0x3f));
+                    *out++ = static_cast<char8_type>(0x80 + (cp & 0x3f));
                 }
             } else if constexpr (ToFormat == format::utf16) {
                 if (cp < 0x10000) {
@@ -2933,7 +3124,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         constexpr void read()
         {
             I initial;
-            if constexpr (std::forward_iterator<I>) {
+            if constexpr (
+#if BOOST_TEXT_USE_CONCEPTS
+                std::forward_iterator<I>
+#else
+                is_forward<I>
+#endif
+            ) {
                 initial = curr();
             }
             if constexpr (noexcept(ErrorHandler{}(""))) {
@@ -2943,18 +3140,28 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 buf_last_ = it - buf_.begin();
             } else {
                 auto buf = buf_;
+#if BOOST_TEXT_USE_CONCEPTS
                 try {
+#endif
                     char32_t cp = decode_code_point();
                     auto it = encode_code_point(cp, buf_.begin());
                     buf_index_ = 0;
                     buf_last_ = it - buf_.begin();
+#if BOOST_TEXT_USE_CONCEPTS
                 } catch (...) {
                     buf_ = buf;
                     curr() = initial;
                     throw;
                 }
+#endif
             }
-            if constexpr (std::forward_iterator<I>) {
+            if constexpr (
+#if BOOST_TEXT_USE_CONCEPTS
+                std::forward_iterator<I>
+#else
+            is_forward<I>
+#endif
+            ) {
                 curr() = initial;
             }
         }
@@ -2970,21 +3177,33 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 to_increment_ = std::distance(curr(), initial);
             } else {
                 auto buf = buf_;
+#if BOOST_TEXT_USE_CONCEPTS
                 try {
+#endif
                     char32_t cp = decode_code_point_reverse();
                     auto it = encode_code_point(cp, buf_.begin());
                     buf_last_ = it - buf_.begin();
                     buf_index_ = buf_last_ - 1;
                     to_increment_ = std::distance(curr(), initial);
+#if BOOST_TEXT_USE_CONCEPTS
                 } catch (...) {
                     buf_ = buf;
                     curr() = initial;
                     throw;
                 }
+#endif
             }
         }
 
-        constexpr I first() const requires std::bidirectional_iterator<I>
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<
+            typename J = I,
+            typename Enable = std::enable_if_t<is_bidirectional<J>>>
+#endif
+        constexpr I first() const
+#if BOOST_TEXT_USE_CONCEPTS
+            requires std::bidirectional_iterator<I>
+#endif
         {
             return first_and_curr_.first;
         }
@@ -2993,7 +3212,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         std::array<value_type, 4 / static_cast<int>(ToFormat)> buf_;
 
-        dtl::first_and_curr<I> first_and_curr_;
+        detail::first_and_curr<I> first_and_curr_;
 
         uint8_t buf_index_ = 0;
         uint8_t buf_last_ = 0;
@@ -3001,17 +3220,26 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         [[no_unique_address]] S last_;
 
+#if BOOST_TEXT_USE_CONCEPTS
         template<
             format FromFormat2,
             format ToFormat2,
             std::input_iterator I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
-        requires std::convertible_to<std::iter_value_t<I2>, dtl::format_to_type_t<FromFormat2>>
+        requires std::convertible_to<std::iter_value_t<I2>, detail::format_to_type_t<FromFormat2>>
+#else
+        template<
+            format FromFormat2,
+            format ToFormat2,
+            typename I2,
+            typename S2,
+            typename ErrorHandler2>
+#endif
         friend class utf_iterator;
     };
 
-}}}
+}}
 
 namespace boost { namespace text { namespace detail {
 
@@ -3030,63 +3258,167 @@ namespace boost { namespace text { namespace detail {
     // These are here because so many downstream views that use
     // utf_iterator use them.
 
+#if BOOST_TEXT_USE_CONCEPTS
+
+    template<typename V>
+    constexpr bool common_range_v = std::ranges::common_range<V>;
+    template<typename V>
+    constexpr bool forward_range_v = std::ranges::forward_range<V>;
+    template<typename V>
+    constexpr bool bidirectional_range_v = std::ranges::bidirectional_range<V>;
+    template<typename T>
+    constexpr bool default_initializable_v = std::default_initializable<T>;
+
+    template<typename V>
+    constexpr bool utf32_range_v = utf32_range<V>;
+
+#else
+
+    template<typename T>
+    using range_expr =
+        decltype(detail::begin(std::declval<T &>()) == detail::end(std::declval<T &>()));
+    template<typename T>
+    constexpr bool is_range_v = is_detected_v<range_expr, T>;
+
+    template<typename V>
+    constexpr bool common_range_v =
+        is_range_v<V> && std::is_same_v<iterator_t<V>, sentinel_t<V>>;
+    template<typename V>
+    constexpr bool input_range_v = is_range_v<V> && std::is_base_of_v<
+        std::input_iterator_tag,
+        typename std::iterator_traits<iterator_t<V>>::iterator_category>;
+    template<typename V>
+    constexpr bool forward_range_v = is_range_v<V> && std::is_base_of_v<
+        std::forward_iterator_tag,
+        typename std::iterator_traits<iterator_t<V>>::iterator_category>;
+    template<typename V>
+    constexpr bool bidirectional_range_v = is_range_v<V> && std::is_base_of_v<
+        std::bidirectional_iterator_tag,
+        typename std::iterator_traits<iterator_t<V>>::iterator_category>;
+    template<typename T>
+    constexpr bool default_initializable_v = std::is_default_constructible_v<T>;
+
+    template<typename V>
+    constexpr bool utf_range_v = is_range_v<V> && code_unit_v<range_value_t<V>>;
+
+    template<typename V>
+    constexpr bool
+        utf32_range_v = is_range_v<V> &&
+                        (
+#if !defined(_MSC_VER)
+                            std::is_same_v<range_value_t<V>, wchar_t> ||
+#endif
+                            std::is_same_v<range_value_t<V>, char32_t>);
+
+#endif
+
+    template<typename I>
+    constexpr bool random_access_iterator_v = std::is_base_of_v<
+        std::random_access_iterator_tag,
+        typename std::iterator_traits<I>::iterator_category>;
+    template<typename I>
+    constexpr bool bidirectional_iterator_v = std::is_base_of_v<
+        std::bidirectional_iterator_tag,
+        typename std::iterator_traits<I>::iterator_category>;
+    template<typename I>
+    constexpr bool forward_iterator_v = std::is_base_of_v<
+        std::forward_iterator_tag,
+        typename std::iterator_traits<I>::iterator_category>;
+
     template<
         class V,
-        bool StoreFirst = !is_utf_iter<std::ranges::iterator_t<V>> &&
-                          std::ranges::common_range<V> &&
-                          std::ranges::bidirectional_range<V>,
-        bool StoreLast = !is_utf_iter<std::ranges::iterator_t<V>>>
+        bool StoreFirst = !is_utf_iter<iterator_t<V>> && common_range_v<V> &&
+                          bidirectional_range_v<V>,
+        bool StoreLast = !is_utf_iter<iterator_t<V>>>
     struct first_last_storage
     {
-        constexpr first_last_storage() requires
-            std::default_initializable<std::ranges::iterator_t<V>> &&
-            std::default_initializable<std::ranges::sentinel_t<V>>
-        = default;
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<
+            typename Enable = std::enable_if_t<
+                default_initializable_v<iterator_t<V>> &&
+                default_initializable_v<sentinel_t<V>>>>
+#endif
+        constexpr first_last_storage()
+#if BOOST_TEXT_USE_CONCEPTS
+            requires default_initializable_v<iterator_t<V>> &&
+            default_initializable_v<sentinel_t<V>>
+#endif
+        {}
         constexpr first_last_storage(V & base) :
-            first_{std::ranges::begin(base)}, last_{std::ranges::end(base)}
+            first_{detail::begin(base)}, last_{detail::end(base)}
         {}
 
-        constexpr auto begin(std::ranges::iterator_t<V> & it) const { return first_; }
-        constexpr auto end(std::ranges::iterator_t<V> & it) const { return last_; }
+        constexpr auto begin(iterator_t<V> & it) const { return first_; }
+        constexpr auto end(iterator_t<V> & it) const { return last_; }
 
-        std::ranges::iterator_t<V> first_;
-        std::ranges::sentinel_t<V> last_;
+        iterator_t<V> first_;
+        sentinel_t<V> last_;
     };
+
+    template<typename I>
+    using trinary_iter_ctor = decltype(I(
+        std::declval<I>().begin(),
+        std::declval<I>().end(),
+        std::declval<I>().end()));
 
     template<class V>
     struct first_last_storage<V, true, false>
     {
-        constexpr first_last_storage() requires std::default_initializable<std::ranges::iterator_t<V>> = default;
-        constexpr first_last_storage(V & base) : first_{std::ranges::begin(base)} {}
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<
+            typename Enable =
+                std::enable_if_t<default_initializable_v<iterator_t<V>>>>
+#endif
+        constexpr first_last_storage()
+#if BOOST_TEXT_USE_CONCEPTS
+            requires default_initializable_v<iterator_t<V>>
+#endif
+        {}
+        constexpr first_last_storage(V & base) : first_{detail::begin(base)} {}
 
-        constexpr auto begin(std::ranges::iterator_t<V> & it) const { return first_; }
-        constexpr auto end(std::ranges::iterator_t<V> & it) const {
-            if constexpr (requires {std::ranges::iterator_t<V>(it.begin(), it.end(), it.end());}) {
-                return std::ranges::iterator_t<V>(it.begin(), it.end(), it.end());
+        constexpr auto begin(iterator_t<V> & it) const { return first_; }
+        constexpr auto end(iterator_t<V> & it) const {
+            if constexpr (
+#if BOOST_TEXT_USE_CONCEPTS
+                requires { iterator_t<V>(it.begin(), it.end(), it.end()); }
+#else
+                is_detected_v<trinary_iter_ctor, iterator_t<V>>
+#endif
+            ) {
+                return iterator_t<V>(it.begin(), it.end(), it.end());
             } else {
                 return it.end();
             }
         }
 
-        std::ranges::iterator_t<V> first_;
+        iterator_t<V> first_;
     };
 
     template<class V>
     struct first_last_storage<V, false, true>
     {
-        constexpr first_last_storage() requires std::default_initializable<std::ranges::sentinel_t<V>> = default;
-        constexpr first_last_storage(V & base) : last_{std::ranges::end(base)} {}
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<
+            typename Enable =
+                std::enable_if_t<default_initializable_v<sentinel_t<V>>>>
+#endif
+        constexpr first_last_storage()
+#if BOOST_TEXT_USE_CONCEPTS
+            requires default_initializable_v<sentinel_t<V>>
+#endif
+        {}
+        constexpr first_last_storage(V & base) : last_{detail::end(base)} {}
 
-        constexpr auto begin(std::ranges::iterator_t<V> & it) const {
-            if constexpr (is_utf_iter<std::ranges::iterator_t<V>>) {
-                return std::ranges::iterator_t<V>(it.begin(), it.begin(), it.end());
+        constexpr auto begin(iterator_t<V> & it) const {
+            if constexpr (is_utf_iter<iterator_t<V>>) {
+                return iterator_t<V>(it.begin(), it.begin(), it.end());
             } else {
                 return;
             }
         }
-        constexpr auto end(std::ranges::iterator_t<V> & it) const { return last_; }
+        constexpr auto end(iterator_t<V> & it) const { return last_; }
 
-        std::ranges::sentinel_t<V> last_;
+        sentinel_t<V> last_;
     };
 
     template<class V>
@@ -3095,16 +3427,22 @@ namespace boost { namespace text { namespace detail {
         constexpr first_last_storage() = default;
         constexpr first_last_storage(V & base) {}
 
-        constexpr auto begin(std::ranges::iterator_t<V> & it) const {
-            if constexpr (is_utf_iter<std::ranges::iterator_t<V>>) {
-                return std::ranges::iterator_t<V>(it.begin(), it.begin(), it.end());
+        constexpr auto begin(iterator_t<V> & it) const {
+            if constexpr (is_utf_iter<iterator_t<V>>) {
+                return iterator_t<V>(it.begin(), it.begin(), it.end());
             } else {
                 return;
             }
         }
-        constexpr auto end(std::ranges::iterator_t<V> & it) const {
-            if constexpr (requires {std::ranges::iterator_t<V>(it.begin(), it.end(), it.end());}) {
-                return std::ranges::iterator_t<V>(it.begin(), it.end(), it.end());
+        constexpr auto end(iterator_t<V> & it) const {
+            if constexpr (
+#if BOOST_TEXT_USE_CONCEPTS
+                requires { iterator_t<V>(it.begin(), it.end(), it.end()); }
+#else
+                is_detected_v<trinary_iter_ctor, iterator_t<V>>
+#endif
+            ) {
+                return iterator_t<V>(it.begin(), it.end(), it.end());
             } else {
                 return it.end();
             }
@@ -3114,7 +3452,7 @@ namespace boost { namespace text { namespace detail {
 
     template<class V>
     constexpr auto uc_view_category() {
-        if constexpr (std::ranges::common_range<V> && std::ranges::bidirectional_range<V>) {
+        if constexpr (common_range_v<V> && bidirectional_range_v<V>) {
             return std::bidirectional_iterator_tag{};
         } else {
             return std::forward_iterator_tag{};
@@ -3129,11 +3467,11 @@ namespace boost { namespace text { namespace detail {
 
     template<class T>
     constexpr bool is_empty_view = false;
+#if BOOST_TEXT_USE_CONCEPTS
     template<class T>
     constexpr bool is_empty_view<std::ranges::empty_view<T>> = true;
+#endif
 
 }}}
-
-#endif
 
 #endif

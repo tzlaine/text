@@ -23,9 +23,9 @@ namespace boost { namespace text {
     }
 }}
 
-namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+namespace boost { namespace text {
 
-    namespace dtl {
+    namespace detail {
         template<format Format>
         constexpr auto format_to_type();
 
@@ -33,14 +33,25 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         using format_to_type_t = decltype(format_to_type<Format>());
     }
 
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         format FromFormat,
         format ToFormat,
         std::input_iterator I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
-        requires std::convertible_to<std::iter_value_t<I>, dtl::format_to_type_t<FromFormat>>
+        requires std::convertible_to<std::iter_value_t<I>, detail::format_to_type_t<FromFormat>>
+#else
+    template<
+        format FromFormat,
+        format ToFormat,
+        typename I,
+        typename S = I,
+        typename ErrorHandler = use_replacement_character>
+#endif
     class utf_iterator;
+
+#if BOOST_TEXT_USE_ALIAS_CTAD
 
     template<
         utf8_iter I,
@@ -83,6 +94,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     using utf_32_to_16_iterator =
         utf_iterator<format::utf32, format::utf16, I, S, ErrorHandler>;
 
-}}}
+#endif
+
+}}
 
 #endif

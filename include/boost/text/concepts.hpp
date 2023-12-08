@@ -8,6 +8,7 @@
 
 #include <boost/text/config.hpp>
 #include <boost/text/utf.hpp>
+#include <boost/text/detail/begin_end.hpp>
 
 #if BOOST_TEXT_USE_CONCEPTS
 
@@ -221,5 +222,56 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 }}}
 
 #endif
+
+namespace boost { namespace text { namespace detail {
+
+#if BOOST_TEXT_USE_CONCEPTS
+
+    template<typename T>
+    using iterator_t = std::ranges::iterator_t<T>;
+    template<typename T>
+    using sentinel_t = std::ranges::sentinel_t<T>;
+    template<typename T>
+    using iter_value_t = std::iter_value_t<T>;
+    template<typename T>
+    using iter_reference_t = std::iter_reference_t<T>;
+    template<typename T>
+    using range_value_t = std::ranges::range_value_t<T>;
+    template<typename T>
+    using range_reference_t = std::ranges::range_reference_t<T>;
+    template<typename T>
+    using range_difference_t = std::ranges::range_difference_t<T>;
+
+#else
+
+    template<typename T>
+    using iterator_t = decltype(detail::begin(std::declval<T &>()));
+    template<typename T>
+    using sentinel_t = decltype(detail::end(std::declval<T &>()));
+    template<typename T>
+    using iter_value_t = typename std::iterator_traits<T>::value_type;
+    template<typename T>
+    using iter_reference_t = decltype(*std::declval<T &>());
+    template<typename T>
+    using range_value_t = iter_value_t<iterator_t<T>>;
+    template<typename T>
+    using range_reference_t = iter_reference_t<iterator_t<T>>;
+    template<typename T>
+    using range_difference_t = std::ptrdiff_t;
+
+    template<typename T>
+    constexpr bool code_unit_v =
+#if defined(__cpp_char8_t)
+        std::is_same_v<T, char8_t> ||
+#endif
+        std::is_same_v<T, char16_t> || std::is_same_v<T, char32_t>
+#if BOOST_TEXT_CODE_UNIT_CONCEPT_OPTION_2
+        || std::is_same_v<T, char> || std::is_same_v<T, wchar_t>
+#endif
+        ;
+
+#endif
+
+}}}
 
 #endif
