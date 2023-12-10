@@ -156,7 +156,7 @@ namespace boost { namespace text { namespace detail {
         {
             auto utf32 = BOOST_TEXT_SUBRANGE(utf16_first, utf16_last) |
                          as_char16_t | as_utf32;
-            out = std::copy(utf32.begin(), utf32.end(), out);
+            out_ = std::copy(utf32.begin(), utf32.end(), out_);
         }
 
         UTF32OutIter out() const { return out_; }
