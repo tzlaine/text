@@ -2787,6 +2787,12 @@ namespace boost { namespace text {
             }
         }
 
+#if !BOOST_PARSER_DETAIL_TEXT_USE_CONCEPTS
+        friend constexpr bool operator!=(
+            std::enable_if_t<is_forward<I>, utf_iterator> lhs, utf_iterator rhs)
+        { return !(lhs == rhs); }
+#endif
+
         friend constexpr bool operator==(utf_iterator lhs, S rhs)
         {
             if constexpr (
@@ -2801,6 +2807,11 @@ namespace boost { namespace text {
                 return lhs.curr() == rhs && lhs.buf_index_ == lhs.buf_last_;
             }
         }
+
+#if !BOOST_PARSER_DETAIL_TEXT_USE_CONCEPTS
+        friend constexpr bool operator!=(utf_iterator lhs, S rhs)
+        { return !(lhs == rhs); }
+#endif
 
         // exposition only
         using base_type = stl_interfaces::iterator_interface<
