@@ -17,6 +17,12 @@
 #include <boost/config.hpp>
 #include <boost/predef/hardware/simd.h>
 
+// Override BOOST_TEXT_USE_SIMD, disabling it.  See
+// https://github.com/tzlaine/text/issues/212.
+#if defined(BOOST_TEXT_USE_SIMD)
+#undef BOOST_TEXT_USE_SIMD
+#endif
+#define BOOST_TEXT_USE_SIMD 0
 
 #if !defined(BOOST_TEXT_USE_SIMD) || BOOST_TEXT_USE_SIMD == 1
 #if BOOST_HW_SIMD_X86_SSE2_VERSION <= BOOST_HW_SIMD_X86
