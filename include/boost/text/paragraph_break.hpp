@@ -29,7 +29,7 @@ namespace boost { namespace text { namespace detail {
     prev_paragraph_break_impl(CPIter first, CPIter it, Sentinel last)
     {
         // CRLF special case.
-        if (it != first && it != last && *detail::prev(it) == 0xd &&
+        if (it != first && it != last && *std::ranges::prev(it) == 0xd &&
             *it == 0xa) {
             --it;
         }
@@ -46,12 +46,12 @@ namespace boost { namespace text { namespace detail {
         if (first == last)
             return first;
         first = boost::text::find_if(
-            detail::next(first), last, detail::paragraph_break);
+            std::ranges::next(first), last, detail::paragraph_break);
         if (first == last)
             return first;
         // Eat LF after CR.
-        if (*first == 0xd && detail::next(first) != last &&
-            *detail::next(first) == 0xa) {
+        if (*first == 0xd && std::ranges::next(first) != last &&
+            *std::ranges::next(first) == 0xa) {
             ++first;
         }
         return ++first;
@@ -83,7 +83,7 @@ namespace boost { namespace text { namespace detail {
     prev_paragraph_break_cr_impl(CPRange && range, CPIter it)
     {
         return detail::prev_paragraph_break_impl(
-            detail::begin(range), it, detail::end(range));
+            std::ranges::begin(range), it, std::ranges::end(range));
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -104,7 +104,7 @@ namespace boost { namespace text { namespace detail {
     iterator_t<CPRange>
     next_paragraph_break_cr_impl(CPRange && range, CPIter it)
     {
-        return detail::next_paragraph_break_impl(it, detail::end(range));
+        return detail::next_paragraph_break_impl(it, std::ranges::end(range));
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -131,17 +131,17 @@ namespace boost { namespace text { namespace detail {
     template<typename CPRange, typename CPIter>
     bool at_paragraph_break_cr_impl(CPRange && range, CPIter it)
     {
-        if (it == detail::end(range))
+        if (it == std::ranges::end(range))
             return true;
         return detail::prev_paragraph_break_impl(
-                   detail::begin(range), it, detail::end(range)) == it;
+                   std::ranges::begin(range), it, std::ranges::end(range)) == it;
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
     bool
     at_paragraph_break_gr_impl(GraphemeRange && range, GraphemeIter it)
     {
-        if (it == detail::end(range))
+        if (it == std::ranges::end(range))
             return true;
         using cp_iter_t = decltype(range.begin().base());
         cp_iter_t it_ = static_cast<cp_iter_t>(it.base());
@@ -163,10 +163,10 @@ namespace boost { namespace text { namespace detail {
     paragraph_cr_impl(CPRange && range, CPIter it)
     {
         auto first = detail::prev_paragraph_break_impl(
-            detail::begin(range), it, detail::end(range));
+            std::ranges::begin(range), it, std::ranges::end(range));
         return utf_view<format::utf32, CPIter>{
             first,
-            detail::next_paragraph_break_impl(first, detail::end(range))};
+            detail::next_paragraph_break_impl(first, std::ranges::end(range))};
     }
 
     template<typename GraphemeRange, typename GraphemeIter>

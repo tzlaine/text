@@ -304,8 +304,9 @@ namespace boost { namespace text { namespace detail {
                 u8"WXYZ"
                 u8"_-";
             return std::find(
-                       detail::begin(id_chars), detail::end(id_chars), c) !=
-                   detail::end(id_chars);
+                       std::ranges::begin(id_chars),
+                       std::ranges::end(id_chars),
+                       c) != std::ranges::end(id_chars);
         };
 
         auto is_hex = [](char8_type c) {

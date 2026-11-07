@@ -57,7 +57,7 @@ namespace boost { namespace text { namespace detail {
         NextFunc<iterator_t<CPRange>, sentinel_t<CPRange>>>
     breaks_cr_impl(CPRange && range)
     {
-        return {detail::begin(range), detail::end(range), {}, {}};
+        return {std::ranges::begin(range), std::ranges::end(range), {}, {}};
     }
 
     template<

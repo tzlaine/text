@@ -90,7 +90,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T>
     using gr_rng_cp_iter_t =
-        decltype(detail::begin(std::declval<T &>()).base());
+        decltype(std::ranges::begin(std::declval<T &>()).base());
     template<typename T>
     using gr_rng_cp_sent_t = std::conditional_t<
         is_cp_sentinel_gr_rng_v<T>,
@@ -134,9 +134,9 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using has_begin = decltype(*detail::begin(std::declval<T &>()));
+    using has_begin = decltype(*std::ranges::begin(std::declval<T &>()));
     template<typename T>
-    using has_end = decltype(*detail::end(std::declval<T &>()));
+    using has_end = decltype(*std::ranges::end(std::declval<T &>()));
 
     template<typename T>
     using value_type_ = typename std::remove_cv<
@@ -236,9 +236,9 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using has_contig_begin = decltype(&*detail::begin(std::declval<T &>()));
+    using has_contig_begin = decltype(&*std::ranges::begin(std::declval<T &>()));
     template<typename T>
-    using has_contig_end = decltype(&*detail::end(std::declval<T &>()));
+    using has_contig_end = decltype(&*std::ranges::end(std::declval<T &>()));
 
     template<typename T>
     constexpr bool is_contig_char_range_v =

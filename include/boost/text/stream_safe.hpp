@@ -217,9 +217,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename CPRange, typename OutIter>
     constexpr auto stream_safe_copy(CPRange && r, OutIter out)
         ->decltype(boost::text::v1::stream_safe_copy(
-            detail::begin(r), detail::end(r), out))
+            std::ranges::begin(r), std::ranges::end(r), out))
     {
-        return v1::stream_safe_copy(detail::begin(r), detail::end(r), out);
+        return v1::stream_safe_copy(std::ranges::begin(r), std::ranges::end(r), out);
     }
 
     template<typename CPIter, typename Sentinel>
@@ -232,9 +232,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename CPRange>
     constexpr auto stream_safe(CPRange && r)
         ->decltype(boost::text::v1::stream_safe(
-            detail::begin(r), detail::end(r)))
+            std::ranges::begin(r), std::ranges::end(r)))
     {
-        return v1::stream_safe(detail::begin(r), detail::end(r));
+        return v1::stream_safe(std::ranges::begin(r), std::ranges::end(r));
     }
 
     template<typename CPIter, typename Sentinel>
@@ -247,10 +247,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<typename CPRange>
     constexpr auto is_stream_safe(CPRange && r)
         ->decltype(boost::text::v1::is_stream_safe(
-            detail::begin(r), detail::end(r)))
+            std::ranges::begin(r), std::ranges::end(r)))
     {
         return boost::text::v1::is_stream_safe(
-            detail::begin(r), detail::end(r));
+            std::ranges::begin(r), std::ranges::end(r));
     }
 
 }}}
@@ -343,7 +343,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     class stream_safe_view<V>::iterator
         : detail::first_last_storage<detail::maybe_const<Const, V>>,
           public boost::stl_interfaces::iterator_interface<
-              iterator<Const, StoreLast>,
               detail::uc_view_category_t<V>,
               char32_t,
               char32_t>
@@ -418,7 +417,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         friend constexpr bool operator==(const iterator<Const2, StoreLast2> & it, sentinel);
 
         using base_type = boost::stl_interfaces::iterator_interface<
-            iterator<Const, StoreLast>,
             detail::uc_view_category_t<V>,
             char32_t,
             char32_t>;

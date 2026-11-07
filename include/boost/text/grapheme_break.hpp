@@ -178,12 +178,12 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
             state.it = it;
             state.prop = boost::text::grapheme_prop(*state.it);
             state.prev_prop =
-                boost::text::grapheme_prop(*detail::prev(state.it));
+                boost::text::grapheme_prop(*std::ranges::prev(state.it));
             state.emoji_state = grapheme_break_emoji_state_t::none;
 
             for (; state.it != first; state = prev(state)) {
                 state.prev_prop =
-                    boost::text::grapheme_prop(*detail::prev(state.it));
+                    boost::text::grapheme_prop(*std::ranges::prev(state.it));
 
                 // When we see an RI, back up to the first RI so we can see what
                 // emoji state we're supposed to be in here.
@@ -208,7 +208,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
                 // GB11
                 if (state.prev_prop == grapheme_property::ZWJ &&
                     state.prop == grapheme_property::ExtPict &&
-                    detail::gb11_prefix(first, detail::prev(state.it))) {
+                    detail::gb11_prefix(first, std::ranges::prev(state.it))) {
                     continue;
                 }
 
@@ -251,7 +251,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
                 return state.it;
 
             state.prev_prop =
-                boost::text::grapheme_prop(*detail::prev(state.it));
+                boost::text::grapheme_prop(*std::ranges::prev(state.it));
             state.prop = boost::text::grapheme_prop(*state.it);
 
             state.emoji_state =
@@ -265,7 +265,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
                 // GB11
                 if (state.prev_prop == grapheme_property::ZWJ &&
                     state.prop == grapheme_property::ExtPict &&
-                    detail::gb11_prefix(first, detail::prev(state.it))) {
+                    detail::gb11_prefix(first, std::ranges::prev(state.it))) {
                     continue;
                 }
 
@@ -377,14 +377,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return v1::prev_grapheme_break(
-            detail::begin(range), it, detail::end(range));
+            std::ranges::begin(range), it, std::ranges::end(range));
     }
 
     template<typename CPRange, typename CPIter>
     auto next_grapheme_break(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return v1::next_grapheme_break(it, detail::end(range));
+        return v1::next_grapheme_break(it, std::ranges::end(range));
     }
 
     template<typename CPIter, typename Sentinel>
@@ -400,10 +400,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto at_grapheme_break(CPRange && range, CPIter it)
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        if (it == detail::end(range))
+        if (it == std::ranges::end(range))
             return true;
         return v1::prev_grapheme_break(
-                   detail::begin(range), it, detail::end(range)) == it;
+                   std::ranges::begin(range), it, std::ranges::end(range)) == it;
     }
 
 #endif
@@ -434,14 +434,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         R && r, std::ranges::iterator_t<R> it)
     {
         return boost::text::prev_grapheme_break(
-            detail::begin(r), it, detail::end(r));
+            std::ranges::begin(r), it, std::ranges::end(r));
     }
 
     template<code_point_range R>
     std::ranges::borrowed_iterator_t<R> next_grapheme_break(
         R && r, std::ranges::iterator_t<R> it)
     {
-        return boost::text::next_grapheme_break(it, detail::end(r));
+        return boost::text::next_grapheme_break(it, std::ranges::end(r));
     }
 
     template<code_point_iter I, std::sentinel_for<I> S>
@@ -455,10 +455,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<code_point_range R>
     bool at_grapheme_break(R && r, std::ranges::iterator_t<R> it)
     {
-        if (it == detail::end(r))
+        if (it == std::ranges::end(r))
             return true;
         return boost::text::prev_grapheme_break(
-                   detail::begin(r), it, detail::end(r)) == it;
+                   std::ranges::begin(r), it, std::ranges::end(r)) == it;
     }
 
 }}}

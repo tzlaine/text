@@ -259,7 +259,7 @@ namespace boost { namespace text {
             size_(0),
             comp_(comp)
         {
-            insert(detail::begin(r), detail::end(r));
+            insert(std::ranges::begin(r), std::ranges::end(r));
         }
         template<std::size_t KeySize>
         explicit trie_map(
@@ -366,8 +366,8 @@ namespace boost { namespace text {
         template<typename KeyRange>
         const_iterator find(KeyRange const & key) const
         {
-            auto first = detail::begin(key);
-            auto const last = detail::end(key);
+            auto first = std::ranges::begin(key);
+            auto const last = std::ranges::end(key);
             auto match = longest_match_impl(first, last);
             if (first == last && match.match) {
                 return const_iterator(iter_state_t{
@@ -432,7 +432,7 @@ namespace boost { namespace text {
         template<typename KeyRange>
         match_result longest_subsequence(KeyRange const & key) const
         {
-            return longest_subsequence(detail::begin(key), detail::end(key));
+            return longest_subsequence(std::ranges::begin(key), std::ranges::end(key));
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -454,7 +454,7 @@ namespace boost { namespace text {
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const
         {
-            return longest_match(detail::begin(key), detail::end(key));
+            return longest_match(std::ranges::begin(key), std::ranges::end(key));
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -655,7 +655,7 @@ namespace boost { namespace text {
         template<typename KeyRange>
         insert_result insert(KeyRange const & key, Value value)
         {
-            return insert(detail::begin(key), detail::end(key), std::move(value));
+            return insert(std::ranges::begin(key), std::ranges::end(key), std::move(value));
         }
 
         template<typename Char, std::size_t N>
@@ -675,7 +675,7 @@ namespace boost { namespace text {
         insert_result insert(value_type e)
         {
             return insert(
-                detail::begin(e.key), detail::end(e.key), std::move(e.value));
+                std::ranges::begin(e.key), std::ranges::end(e.key), std::move(e.value));
         }
 
         /** Inserts the sequence of key/value pairs `[first, last)` into
@@ -695,7 +695,7 @@ namespace boost { namespace text {
         template<typename Range>
         insert_result insert(Range const & r)
         {
-            return insert(detail::begin(r), detail::end(r));
+            return insert(std::ranges::begin(r), std::ranges::end(r));
         }
 
         /** Inserts the sequence of key/value pairs `il` into this.  The
@@ -740,7 +740,7 @@ namespace boost { namespace text {
         insert_result insert_or_assign(KeyRange const & key, Value value)
         {
             return insert_or_assign(
-                detail::begin(key), detail::end(key), std::move(value));
+                std::ranges::begin(key), std::ranges::end(key), std::move(value));
         }
 
         template<typename Char, std::size_t N>
@@ -876,7 +876,7 @@ namespace boost { namespace text {
                     key.insert(key.end(), e);
                 from_trie_impl(*n, key, false);
                 if (!root)
-                    key.erase(detail::prev(key.end()));
+                    key.erase(std::ranges::prev(key.end()));
             }
         }
 
@@ -944,8 +944,8 @@ namespace boost { namespace text {
         template<bool LowerBound, typename KeyRange>
         const_iterator bound_impl(KeyRange const & key) const
         {
-            auto first = detail::begin(key);
-            auto const last = detail::end(key);
+            auto first = std::ranges::begin(key);
+            auto const last = std::ranges::end(key);
             auto match = longest_match_impl(first, last);
             if (first == last && match.match) {
                 auto retval = const_iterator(iter_state_t{
@@ -1001,7 +1001,6 @@ namespace boost { namespace text {
 
     template<typename Key, typename Value>
     struct const_trie_map_iterator : stl_interfaces::iterator_interface<
-                                         const_trie_map_iterator<Key, Value>,
                                          std::bidirectional_iterator_tag,
                                          trie_element<Key, Value>,
                                          trie_element<Key, Value const &>>
@@ -1114,7 +1113,6 @@ namespace boost { namespace text {
         }
 
         using base_type = stl_interfaces::iterator_interface<
-            const_trie_map_iterator<Key, Value>,
             std::bidirectional_iterator_tag,
             trie_element<Key, Value>,
             trie_element<Key, Value const &>>;
@@ -1140,7 +1138,6 @@ namespace boost { namespace text {
 
     template<typename Key, typename Value>
     struct trie_map_iterator : stl_interfaces::iterator_interface<
-                                   trie_map_iterator<Key, Value>,
                                    std::bidirectional_iterator_tag,
                                    trie_element<Key, Value>,
                                    trie_element<Key, Value &>>
@@ -1188,7 +1185,6 @@ namespace boost { namespace text {
         }
 
         using base_type = stl_interfaces::iterator_interface<
-            trie_map_iterator<Key, Value>,
             std::bidirectional_iterator_tag,
             trie_element<Key, Value>,
             trie_element<Key, Value &>>;

@@ -114,9 +114,8 @@ TEST(unpack, _8_N)
 
     // N = 32
     {
-        boost::text::utf_8_to_32_iterator<char8_t const *> it1(str, str, str + 3);
-        boost::text::utf_8_to_32_iterator<char8_t const *> it2(
-            str, str + 3, str + 3);
+        auto it1 = boost::text::utf32_iterator(str, str, str + 3);
+        auto it2 = boost::text::utf32_iterator(str, str + 3, str + 3);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(it1, it2);
         static_assert(unpacked.format_tag == boost::text::format::utf8, "");
         static_assert(
@@ -128,9 +127,8 @@ TEST(unpack, _8_N)
         EXPECT_EQ(unpacked.repack(unpacked.first), it1);
     }
     {
-        boost::text::
-            utf_8_to_32_iterator<char8_t const *, boost::text::null_sentinel_t>
-                it(str, str, boost::text::null_sentinel);
+        auto it =
+            boost::text::utf32_iterator(str, str, boost::text::null_sentinel);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(
             it, boost::text::null_sentinel);
         static_assert(unpacked.format_tag == boost::text::format::utf8, "");
@@ -147,9 +145,8 @@ TEST(unpack, _8_N)
 
     // N = 16
     {
-        boost::text::utf_8_to_16_iterator<char8_t const *> it1(str, str, str + 3);
-        boost::text::utf_8_to_16_iterator<char8_t const *> it2(
-            str, str + 3, str + 3);
+        auto it1 = boost::text::utf16_iterator(str, str, str + 3);
+        auto it2 = boost::text::utf16_iterator(str, str + 3, str + 3);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(it1, it2);
         static_assert(unpacked.format_tag == boost::text::format::utf8, "");
         static_assert(
@@ -161,9 +158,8 @@ TEST(unpack, _8_N)
         EXPECT_EQ(unpacked.repack(unpacked.first), it1);
     }
     {
-        boost::text::
-            utf_8_to_16_iterator<char8_t const *, boost::text::null_sentinel_t>
-                it(str, str, boost::text::null_sentinel);
+        auto it =
+            boost::text::utf16_iterator(str, str, boost::text::null_sentinel);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(
             it, boost::text::null_sentinel);
         static_assert(unpacked.format_tag == boost::text::format::utf8, "");
@@ -185,10 +181,8 @@ TEST(unpack, _16_N)
 
     // N = 32
     {
-        boost::text::utf_16_to_32_iterator<char16_t const *> it1(
-            str, str, str + 3);
-        boost::text::utf_16_to_32_iterator<char16_t const *> it2(
-            str, str + 3, str + 3);
+        auto it1 = boost::text::utf32_iterator(str, str, str + 3);
+        auto it2 = boost::text::utf32_iterator(str, str + 3, str + 3);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(it1, it2);
         static_assert(unpacked.format_tag == boost::text::format::utf16, "");
         static_assert(
@@ -201,10 +195,8 @@ TEST(unpack, _16_N)
         EXPECT_EQ(unpacked.repack(unpacked.first), it1);
     }
     {
-        boost::text::utf_16_to_32_iterator<
-            char16_t const *,
-            boost::text::null_sentinel_t>
-            it(str, str, boost::text::null_sentinel);
+        auto it =
+            boost::text::utf32_iterator(str, str, boost::text::null_sentinel);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(
             it, boost::text::null_sentinel);
         static_assert(unpacked.format_tag == boost::text::format::utf16, "");
@@ -222,10 +214,8 @@ TEST(unpack, _16_N)
 
     // N = 8
     {
-        boost::text::utf_16_to_8_iterator<char16_t const *> it1(
-            str, str, str + 3);
-        boost::text::utf_16_to_8_iterator<char16_t const *> it2(
-            str, str + 3, str + 3);
+        auto it1 = boost::text::utf8_iterator(str, str, str + 3);
+        auto it2 = boost::text::utf8_iterator(str, str + 3, str + 3);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(it1, it2);
         static_assert(unpacked.format_tag == boost::text::format::utf16, "");
         static_assert(
@@ -238,9 +228,8 @@ TEST(unpack, _16_N)
         EXPECT_EQ(unpacked.repack(unpacked.first), it1);
     }
     {
-        boost::text::
-            utf_16_to_8_iterator<char16_t const *, boost::text::null_sentinel_t>
-                it(str, str, boost::text::null_sentinel);
+        auto it =
+            boost::text::utf8_iterator(str, str, boost::text::null_sentinel);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(
             it, boost::text::null_sentinel);
         static_assert(unpacked.format_tag == boost::text::format::utf16, "");
@@ -263,10 +252,8 @@ TEST(unpack, _32_N)
 
     // N = 16
     {
-        boost::text::utf_32_to_16_iterator<char32_t const *> it1(
-            str, str, str + 3);
-        boost::text::utf_32_to_16_iterator<char32_t const *> it2(
-            str, str + 3, str + 3);
+        auto it1 = boost::text::utf16_iterator(str, str, str + 3);
+        auto it2 = boost::text::utf16_iterator(str, str + 3, str + 3);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(it1, it2);
         static_assert(unpacked.format_tag == boost::text::format::utf32, "");
         static_assert(
@@ -279,10 +266,8 @@ TEST(unpack, _32_N)
         EXPECT_EQ(unpacked.repack(unpacked.first), it1);
     }
     {
-        boost::text::utf_32_to_16_iterator<
-            char32_t const *,
-            boost::text::null_sentinel_t>
-            it(str, str, boost::text::null_sentinel);
+        auto it =
+            boost::text::utf16_iterator(str, str, boost::text::null_sentinel);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(
             it, boost::text::null_sentinel);
         static_assert(unpacked.format_tag == boost::text::format::utf32, "");
@@ -300,10 +285,8 @@ TEST(unpack, _32_N)
 
     // N = 8
     {
-        boost::text::utf_32_to_8_iterator<char32_t const *> it1(
-            str, str, str + 3);
-        boost::text::utf_32_to_8_iterator<char32_t const *> it2(
-            str, str + 3, str + 3);
+        auto it1 = boost::text::utf8_iterator(str, str, str + 3);
+        auto it2 = boost::text::utf8_iterator(str, str + 3, str + 3);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(it1, it2);
         static_assert(unpacked.format_tag == boost::text::format::utf32, "");
         static_assert(
@@ -316,9 +299,8 @@ TEST(unpack, _32_N)
         EXPECT_EQ(unpacked.repack(unpacked.first), it1);
     }
     {
-        boost::text::
-            utf_32_to_8_iterator<char32_t const *, boost::text::null_sentinel_t>
-                it(str, str, boost::text::null_sentinel);
+        auto it =
+            boost::text::utf8_iterator(str, str, boost::text::null_sentinel);
         auto unpacked = boost::text::unpack_iterator_and_sentinel(
             it, boost::text::null_sentinel);
         static_assert(unpacked.format_tag == boost::text::format::utf32, "");
@@ -339,7 +321,7 @@ namespace my {
 
     struct _8_to_32
         : boost::stl_interfaces::
-              iterator_interface<_8_to_32, std::bidirectional_iterator_tag, char32_t>
+              iterator_interface<std::bidirectional_iterator_tag, char32_t>
     {
         _8_to_32() = default;
         _8_to_32(
@@ -359,8 +341,10 @@ namespace my {
 
     private:
         friend boost::stl_interfaces::access;
-        using iterator_t = boost::text::
-            utf_8_to_32_iterator<char8_t const *, boost::text::null_sentinel_t>;
+        using iterator_t = decltype(boost::text::utf32_iterator(
+            std::declval<char8_t const *>(),
+            std::declval<char8_t const *>(),
+            boost::text::null_sentinel_t{}));
         iterator_t & base_reference() noexcept { return it_; }
         iterator_t base_reference() const noexcept { return it_; }
         iterator_t it_;
@@ -385,10 +369,9 @@ namespace my {
     }
 
     template<typename I>
-    struct template_8_to_32 : boost::stl_interfaces::iterator_interface<
-                                  template_8_to_32<I>,
-                                  std::bidirectional_iterator_tag,
-                                  char32_t>
+    struct template_8_to_32
+        : boost::stl_interfaces::
+              iterator_interface<std::bidirectional_iterator_tag, char32_t>
     {
         template_8_to_32() = default;
         template_8_to_32(I first, I it, boost::text::null_sentinel_t) :
@@ -407,8 +390,10 @@ namespace my {
 
     private:
         friend boost::stl_interfaces::access;
-        using iterator_t =
-            boost::text::utf_8_to_32_iterator<I, boost::text::null_sentinel_t>;
+        using iterator_t = decltype(boost::text::utf32_iterator(
+            std::declval<I>(),
+            std::declval<I>(),
+            boost::text::null_sentinel_t{}));
         iterator_t & base_reference() noexcept { return it_; }
         iterator_t base_reference() const noexcept { return it_; }
         iterator_t it_;
@@ -479,10 +464,8 @@ TEST(unpack, user_type_interop)
         my::template_8_to_32<char8_t const *> bottom(
             str, str, boost::text::null_sentinel);
 
-        boost::text::utf_32_to_8_iterator<
-            my::template_8_to_32<char8_t const *>,
-            boost::text::null_sentinel_t>
-            it(bottom, bottom, boost::text::null_sentinel);
+        auto it = boost::text::utf8_iterator(
+            bottom, bottom, boost::text::null_sentinel);
 
         auto unpacked = boost::text::unpack_iterator_and_sentinel(
             it, boost::text::null_sentinel);
@@ -501,15 +484,10 @@ TEST(unpack, user_type_interop)
     {
         my::template_8_to_32<char8_t const *> bottom(
             str, str, boost::text::null_sentinel);
-        boost::text::utf_32_to_8_iterator<
-            my::template_8_to_32<char8_t const *>,
-            boost::text::null_sentinel_t>
-            middle(bottom, bottom, boost::text::null_sentinel);
+        auto middle = boost::text::utf8_iterator(
+            bottom, bottom, boost::text::null_sentinel);
 
-        my::template_8_to_32<boost::text::utf_32_to_8_iterator<
-            my::template_8_to_32<char8_t const *>,
-            boost::text::null_sentinel_t>>
-            it(middle, middle, boost::text::null_sentinel);
+        my::template_8_to_32 it(middle, middle, boost::text::null_sentinel);
 
         auto unpacked = boost::text::unpack_iterator_and_sentinel(
             it, boost::text::null_sentinel);

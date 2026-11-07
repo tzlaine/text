@@ -257,7 +257,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     --temp_it;
                 } else if (last_prop == word_property::ExtPict) {
                     auto const next_to_last_prop =
-                        word_prop(*detail::prev(temp_it));
+                        word_prop(*std::ranges::prev(temp_it));
                     if (next_to_last_prop == word_property::ZWJ)
                         --temp_it;
                 }
@@ -265,12 +265,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 state.caps[ph::curr] = cp_and_word_prop(*temp_it, word_prop);
                 state.caps[ph::next] = cp_and_word_prop();
                 state.caps[ph::next_next] = cp_and_word_prop();
-                if (detail::next(state.it) != last) {
+                if (std::ranges::next(state.it) != last) {
                     state.caps[ph::next] =
-                        cp_and_word_prop(*detail::next(state.it), word_prop);
-                    if (detail::next(state.it, 2) != last) {
+                        cp_and_word_prop(*std::ranges::next(state.it), word_prop);
+                    if (std::ranges::next(state.it, 2) != last) {
                         state.caps[ph::next_next] = cp_and_word_prop(
-                            *detail::next(state.it, 2), word_prop);
+                            *std::ranges::next(state.it, 2), word_prop);
                     }
                 }
             }
@@ -355,18 +355,18 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             // below.
             if (it != first) {
                 state.caps[ph::prev] =
-                    cp_and_word_prop(*detail::prev(state.it), word_prop);
-                if (detail::prev(state.it) != first) {
+                    cp_and_word_prop(*std::ranges::prev(state.it), word_prop);
+                if (std::ranges::prev(state.it) != first) {
                     state.caps[ph::prev_prev] =
-                        cp_and_word_prop(*detail::prev(state.it, 2), word_prop);
+                        cp_and_word_prop(*std::ranges::prev(state.it, 2), word_prop);
                 }
             }
-            if (detail::next(state.it) != last) {
+            if (std::ranges::next(state.it) != last) {
                 state.caps[ph::next] =
-                    cp_and_word_prop(*detail::next(state.it), word_prop);
-                if (detail::next(state.it, 2) != last) {
+                    cp_and_word_prop(*std::ranges::next(state.it), word_prop);
+                if (std::ranges::next(state.it, 2) != last) {
                     state.caps[ph::next_next] =
-                        cp_and_word_prop(*detail::next(state.it, 2), word_prop);
+                        cp_and_word_prop(*std::ranges::next(state.it, 2), word_prop);
                 }
             }
             if (word_break(
@@ -388,7 +388,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 if (prev != it) {
                     state.it = prev;
                     state.caps[ph::next] =
-                        cp_and_word_prop(*detail::next(state.it), word_prop);
+                        cp_and_word_prop(*std::ranges::next(state.it), word_prop);
                     state.caps[ph::curr] =
                         cp_and_word_prop(*state.it, word_prop);
 
@@ -407,20 +407,20 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             }
 
             state.caps[ph::prev_prev] = cp_and_word_prop();
-            if (detail::prev(state.it) != first) {
+            if (std::ranges::prev(state.it) != first) {
                 state.caps[ph::prev_prev] =
-                    cp_and_word_prop(*detail::prev(state.it, 2), word_prop);
+                    cp_and_word_prop(*std::ranges::prev(state.it, 2), word_prop);
             }
             state.caps[ph::prev] =
-                cp_and_word_prop(*detail::prev(state.it), word_prop);
+                cp_and_word_prop(*std::ranges::prev(state.it), word_prop);
             state.caps[ph::next] = cp_and_word_prop();
             state.caps[ph::next_next] = cp_and_word_prop();
-            if (detail::next(state.it) != last) {
+            if (std::ranges::next(state.it) != last) {
                 state.caps[ph::next] =
-                    cp_and_word_prop(*detail::next(state.it), word_prop);
-                if (detail::next(state.it, 2) != last) {
+                    cp_and_word_prop(*std::ranges::next(state.it), word_prop);
+                if (std::ranges::next(state.it, 2) != last) {
                     state.caps[ph::next_next] =
-                        cp_and_word_prop(*detail::next(state.it, 2), word_prop);
+                        cp_and_word_prop(*std::ranges::next(state.it, 2), word_prop);
                 }
             }
 
@@ -428,7 +428,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             // we need to look forward to make sure that next_prop and
             // next_next_prop don't point to skippables.
             {
-                if (detail::next(state.it) != last) {
+                if (std::ranges::next(state.it) != last) {
                     auto temp_state = state;
                     temp_state = detail::next(temp_state);
                     temp_state = detail::skip_forward(
@@ -438,7 +438,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                         state.caps[ph::next_next] = cp_and_word_prop();
                     } else {
                         state.caps[ph::next] = temp_state.caps[ph::curr];
-                        if (detail::next(temp_state.it) != last) {
+                        if (std::ranges::next(temp_state.it) != last) {
                             temp_state = detail::next(temp_state);
                             temp_state = detail::skip_forward(
                                 temp_state, first, last, word_prop);
@@ -476,7 +476,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                             state.caps[ph::prev_prev] = cp_and_word_prop();
                         } else {
                             state.caps[ph::prev_prev] = cp_and_word_prop(
-                                *detail::prev(temp_it), word_prop);
+                                *std::ranges::prev(temp_it), word_prop);
                         }
                     }
                 }
@@ -484,9 +484,9 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             };
 
             for (; state.it != first; state = detail::prev(state)) {
-                if (detail::prev(state.it) != first) {
+                if (std::ranges::prev(state.it) != first) {
                     state.caps[ph::prev_prev] =
-                        cp_and_word_prop(*detail::prev(state.it, 2), word_prop);
+                        cp_and_word_prop(*std::ranges::prev(state.it, 2), word_prop);
                 } else {
                     state.caps[ph::prev_prev] = cp_and_word_prop();
                 }
@@ -522,10 +522,10 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                             word_property::Regional_Indicator) {
                             temp_state = detail::prev(temp_state);
                             if (temp_state.it != first &&
-                                detail::prev(temp_state.it) != first) {
+                                std::ranges::prev(temp_state.it) != first) {
                                 temp_state.caps[ph::prev_prev] =
                                     cp_and_word_prop(
-                                        *detail::prev(temp_state.it, 2),
+                                        *std::ranges::prev(temp_state.it, 2),
                                         word_prop);
                             } else {
                                 temp_state.caps[ph::prev_prev] =
@@ -689,16 +689,16 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
             state.caps[ph::prev_prev] = cp_and_word_prop();
             state.caps[ph::prev] =
-                cp_and_word_prop(*detail::prev(state.it), word_prop);
+                cp_and_word_prop(*std::ranges::prev(state.it), word_prop);
             state.caps[ph::curr] = cp_and_word_prop(*state.it, word_prop);
             state.caps[ph::next] = cp_and_word_prop();
             state.caps[ph::next_next] = cp_and_word_prop();
-            if (detail::next(state.it) != last) {
+            if (std::ranges::next(state.it) != last) {
                 state.caps[ph::next] =
-                    cp_and_word_prop(*detail::next(state.it), word_prop);
-                if (detail::next(state.it, 2) != last) {
+                    cp_and_word_prop(*std::ranges::next(state.it), word_prop);
+                if (std::ranges::next(state.it, 2) != last) {
                     state.caps[ph::next_next] =
-                        cp_and_word_prop(*detail::next(state.it, 2), word_prop);
+                        cp_and_word_prop(*std::ranges::next(state.it, 2), word_prop);
                 }
             }
 
@@ -708,10 +708,10 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     : detail::word_break_emoji_state_t::none;
 
             for (; state.it != last; state = detail::next(state)) {
-                if (detail::next(state.it) != last &&
-                    detail::next(state.it, 2) != last) {
+                if (std::ranges::next(state.it) != last &&
+                    std::ranges::next(state.it, 2) != last) {
                     state.caps[ph::next_next] =
-                        cp_and_word_prop(*detail::next(state.it, 2), word_prop);
+                        cp_and_word_prop(*std::ranges::next(state.it, 2), word_prop);
                 } else {
                     state.caps[ph::next_next] = cp_and_word_prop();
                 }
@@ -768,7 +768,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 // WB6
                 if (detail::ah_letter(state.caps[ph::prev].prop) &&
                     detail::mid_ah(state.caps[ph::curr].prop) &&
-                    detail::next(state.it) != last) {
+                    std::ranges::next(state.it) != last) {
                     auto const temp_state = detail::skip_forward(
                         detail::next(state), first, last, word_prop);
                     if (temp_state.it == last)
@@ -787,7 +787,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 // WB7b
                 if (state.caps[ph::prev].prop == word_property::Hebrew_Letter &&
                     state.caps[ph::curr].prop == word_property::Double_Quote &&
-                    detail::next(state.it) != last) {
+                    std::ranges::next(state.it) != last) {
                     auto const temp_state = detail::skip_forward(
                         detail::next(state), first, last, word_prop);
                     if (temp_state.it == last)
@@ -815,7 +815,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 // WB12
                 if (state.caps[ph::prev].prop == word_property::Numeric &&
                     detail::mid_num(state.caps[ph::curr].prop) &&
-                    detail::next(state.it) != last) {
+                    std::ranges::next(state.it) != last) {
                     auto const temp_state = detail::skip_forward(
                         detail::next(state), first, last, word_prop);
                     if (temp_state.it == last)
@@ -863,7 +863,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordBreakFunc const & word_break = WordBreakFunc{})
         {
             return detail::prev_word_break_impl(
-                detail::begin(range), it, detail::end(range), word_prop, word_break);
+                std::ranges::begin(range), it, std::ranges::end(range), word_prop, word_break);
         }
 
         template<
@@ -901,7 +901,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordBreakFunc const & word_break = WordBreakFunc{})
         {
             return detail::next_word_break_impl(
-                it, detail::end(range), word_prop, word_break);
+                it, std::ranges::end(range), word_prop, word_break);
         }
 
         template<
@@ -955,12 +955,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordPropFunc const & word_prop = WordPropFunc{},
             WordBreakFunc const & word_break = WordBreakFunc{})
         {
-            if (it == detail::end(range))
+            if (it == std::ranges::end(range))
                 return true;
             return detail::prev_word_break_impl(
-                       detail::begin(range),
+                       std::ranges::begin(range),
                        it,
-                       detail::end(range),
+                       std::ranges::end(range),
                        word_prop,
                        word_break) == it;
         }
@@ -976,7 +976,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordPropFunc const & word_prop = WordPropFunc{},
             WordBreakFunc const & word_break = WordBreakFunc{})
         {
-            if (it == detail::end(range))
+            if (it == std::ranges::end(range))
                 return true;
             using cp_iter_t = decltype(range.begin().base());
             cp_iter_t it_ = static_cast<cp_iter_t>(it.base());
@@ -1055,11 +1055,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordBreakFunc const & word_break = WordBreakFunc{})
         {
             auto first = detail::prev_word_break_impl(
-                detail::begin(range), it, detail::end(range), word_prop, word_break);
+                std::ranges::begin(range), it, std::ranges::end(range), word_prop, word_break);
             return utf_view<format::utf32, iterator_t<CPRange>>{
                 first,
                 detail::next_word_break_impl(
-                    first, detail::end(range), word_prop, word_break)};
+                    first, std::ranges::end(range), word_prop, word_break)};
         }
 
         template<
@@ -1135,8 +1135,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     WordBreakFunc>>
         {
             return {
-                detail::begin(range),
-                detail::end(range),
+                std::ranges::begin(range),
+                std::ranges::end(range),
                 {word_prop, word_break},
                 {word_prop, word_break}};
         }

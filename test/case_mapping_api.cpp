@@ -14,8 +14,10 @@
 using namespace boost;
 using namespace boost::text::detail;
 
-using u32_iter =
-    text::utf_8_to_32_iterator<char8_t const *, text::null_sentinel_t>;
+using u32_iter = decltype(text::utf32_iterator(
+    std::declval<char8_t const *>(),
+    std::declval<char8_t const *>(),
+    text::null_sentinel_t{}));
 using null_sent_cp_subrange =
     std::ranges::subrange<u32_iter, text::null_sentinel_t>;
 using sentinel_cp_range_t =

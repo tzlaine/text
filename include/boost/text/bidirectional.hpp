@@ -194,7 +194,6 @@ namespace boost { namespace text {
         template<typename CPIter>
         struct props_and_embeddings_cp_iterator
             : stl_interfaces::iterator_interface<
-                  props_and_embeddings_cp_iterator<CPIter>,
                   std::bidirectional_iterator_tag,
                   char32_t const,
                   char32_t const>
@@ -228,7 +227,6 @@ namespace boost { namespace text {
             }
 
             using base_type = stl_interfaces::iterator_interface<
-                props_and_embeddings_cp_iterator<CPIter>,
                 std::bidirectional_iterator_tag,
                 char32_t const,
                 char32_t const>;
@@ -261,7 +259,6 @@ namespace boost { namespace text {
 
         template<typename CPIter>
         struct run_seq_iter : stl_interfaces::iterator_interface<
-                                  run_seq_iter<CPIter>,
                                   std::bidirectional_iterator_tag,
                                   prop_and_embedding_t<CPIter>>
         {
@@ -278,7 +275,7 @@ namespace boost { namespace text {
             {
                 ++it_;
                 if (it_ == runs_it_->end()) {
-                    auto const next_runs_it = detail::next(runs_it_);
+                    auto const next_runs_it = std::ranges::next(runs_it_);
                     if (next_runs_it == runs_end_) {
                         it_ = runs_it_->end();
                     } else {
@@ -312,7 +309,6 @@ namespace boost { namespace text {
             }
 
             using base_type = stl_interfaces::iterator_interface<
-                run_seq_iter<CPIter>,
                 std::bidirectional_iterator_tag,
                 prop_and_embedding_t<CPIter>>;
             using base_type::operator++;
@@ -358,7 +354,7 @@ namespace boost { namespace text {
             }
             iterator end()
             {
-                auto const back_it = detail::prev(runs_.end());
+                auto const back_it = std::ranges::prev(runs_.end());
                 return iterator{back_it->end(), back_it, runs_.end()};
             }
 
@@ -421,7 +417,7 @@ namespace boost { namespace text {
                                 [](prop_and_embedding_t<CPIter> lhs,
                                    prop_and_embedding_t<CPIter> rhs) {
                                     return detail::post_l1_removable(rhs) ||
-                                           detail::next(lhs.it_) != rhs.it_;
+                                           std::ranges::next(lhs.it_) != rhs.it_;
                                 });
                             if (next_it != last)
                                 ++next_it;
@@ -459,9 +455,9 @@ namespace boost { namespace text {
                     sequence.embedding(run.begin()->embedding_);
                     run.use();
                     while (detail::isolate_initiator(
-                        detail::prev(sequence.runs().back().end())->prop())) {
+                        std::ranges::prev(sequence.runs().back().end())->prop())) {
                         auto const pdi_it = detail::matching_pdi(
-                            detail::prev(sequence.runs().back().end()), end);
+                            std::ranges::prev(sequence.runs().back().end()), end);
                         if (pdi_it != end) {
                             auto const all_runs_end =
                                 &all_runs[0] + all_runs.size();
@@ -506,13 +502,13 @@ namespace boost { namespace text {
                 auto prev_embedding = paragraph_embedding_level;
                 auto const run_seq_front_pae_it = it->runs().front().begin();
                 if (run_seq_front_pae_it != paes.begin()) {
-                    auto const prev_it = detail::prev(run_seq_front_pae_it);
+                    auto const prev_it = std::ranges::prev(run_seq_front_pae_it);
                     prev_embedding = prev_it->embedding_;
                 }
 
                 auto next_embedding = paragraph_embedding_level;
                 auto const run_seq_back_pae_it =
-                    detail::prev(it->runs().back().end());
+                    std::ranges::prev(it->runs().back().end());
 
                 using pae_const_iter =
                     typename props_and_embeddings_t<CPIter>::const_iterator;
@@ -613,7 +609,7 @@ namespace boost { namespace text {
             if (seq.empty())
                 return;
             {
-                auto it = detail::next(seq.begin());
+                auto it = std::ranges::next(seq.begin());
                 if (it == seq.end())
                     return;
                 if (++it == seq.end())
@@ -621,8 +617,8 @@ namespace boost { namespace text {
             }
 
             for (auto prev_it = seq.begin(),
-                      it = detail::next(prev_it),
-                      next_it = detail::next(it),
+                      it = std::ranges::next(prev_it),
+                      next_it = std::ranges::next(it),
                       end = seq.end();
                  next_it != end;
                  ++prev_it, ++it, ++next_it) {
@@ -671,7 +667,7 @@ namespace boost { namespace text {
                 },
                 [&seq](foreach_subrange_range<iter_t> r) {
                     if ((r.begin() != seq.begin() &&
-                         (*detail::prev(r.begin())).prop() ==
+                         (*std::ranges::prev(r.begin())).prop() ==
                              bidi_property::EN) ||
                         (r.end() != seq.end() &&
                          (*r.end()).prop() == bidi_property::EN)) {
@@ -868,7 +864,7 @@ namespace boost { namespace text {
                 prev_strong_prop = prop;
                 (*pair.begin()).prop_ = (char8_type)prop;
                 auto transform_end = std::find_if(
-                    detail::next(pair.end()),
+                    std::ranges::next(pair.end()),
                     end,
                     [](prop_and_embedding_t<CPIter> pae) {
                         return !pae.originally_nsm_;
@@ -895,7 +891,7 @@ namespace boost { namespace text {
                     auto const pair = *bracket_it++;
                     bool strong_found = false;
                     auto const same_direction_strong_it = std::find_if(
-                        detail::next(pair.begin()),
+                        std::ranges::next(pair.begin()),
                         pair.end(),
                         [&seq, &strong_found, strong](
                             prop_and_embedding_t<CPIter> pae) {
@@ -954,7 +950,7 @@ namespace boost { namespace text {
                 [&seq, &num_to_r](foreach_subrange_range<iter_t> r) {
                     auto prev_prop = seq.sos();
                     if (r.begin() != seq.begin())
-                        prev_prop = num_to_r(*detail::prev(r.begin()));
+                        prev_prop = num_to_r(*std::ranges::prev(r.begin()));
                     auto next_prop = seq.eos();
                     if (r.end() != seq.end())
                         next_prop = num_to_r(*r.end());
@@ -1153,7 +1149,6 @@ namespace boost { namespace text {
 
         template<typename CPIter>
         struct fwd_rev_cp_iter : stl_interfaces::iterator_interface<
-                                     fwd_rev_cp_iter<CPIter>,
                                      std::bidirectional_iterator_tag,
                                      char32_t,
                                      char32_t>
@@ -1208,7 +1203,7 @@ namespace boost { namespace text {
                 if (kind_ == kind_t::user_it)
                     return *it_;
                 else if (kind_ == kind_t::rev_user_it)
-                    return *detail::prev(it_);
+                    return *std::ranges::prev(it_);
                 else
                     return *ait_;
             }
@@ -1225,7 +1220,6 @@ namespace boost { namespace text {
             }
 
             using base_type = stl_interfaces::iterator_interface<
-                fwd_rev_cp_iter<CPIter>,
                 std::bidirectional_iterator_tag,
                 char32_t,
                 char32_t>;
@@ -1244,7 +1238,6 @@ namespace boost { namespace text {
         template<typename CPIter>
         struct fwd_rev_grapheme_iter
             : stl_interfaces::iterator_interface<
-                  fwd_rev_grapheme_iter<CPIter>,
                   std::bidirectional_iterator_tag,
                   grapheme_ref<fwd_rev_cp_iter<CPIter>>,
                   grapheme_ref<fwd_rev_cp_iter<CPIter>>>
@@ -1289,7 +1282,7 @@ namespace boost { namespace text {
                         first_ = last.it_;
                         grapheme_ = value_t(
                             boost::text::prev_grapheme_break(
-                                first_, detail::prev(it.it_), last_),
+                                first_, std::ranges::prev(it.it_), last_),
                             it.it_);
                     }
                 } else {
@@ -1314,7 +1307,7 @@ namespace boost { namespace text {
                     } else {
                         grapheme_ = value_t(
                             boost::text::prev_grapheme_break(
-                                first_, detail::prev(last), last_),
+                                first_, std::ranges::prev(last), last_),
                             last);
                     }
                 } else {
@@ -1334,7 +1327,7 @@ namespace boost { namespace text {
                     } else {
                         grapheme_ = value_t(
                             boost::text::prev_grapheme_break(
-                                first_, detail::prev(last), last_),
+                                first_, std::ranges::prev(last), last_),
                             last);
                     }
                 } else if (kind_ == kind_t::rev_user_it) {
@@ -1364,7 +1357,6 @@ namespace boost { namespace text {
             }
 
             using base_type = stl_interfaces::iterator_interface<
-                fwd_rev_grapheme_iter<CPIter>,
                 std::bidirectional_iterator_tag,
                 grapheme_ref<fwd_rev_cp_iter<CPIter>>,
                 grapheme_ref<fwd_rev_cp_iter<CPIter>>>;
@@ -1728,7 +1720,7 @@ namespace boost { namespace text {
                 case bidi_property::FSI:
                     // https://unicode.org/reports/tr9/#X5c
                     if (detail::p2_p3(
-                            detail::next(it),
+                            std::ranges::next(it),
                             detail::matching_pdi(it, para_last)) == 1) {
                         x5a(stack,
                             props_and_embeddings,
@@ -1850,7 +1842,7 @@ namespace boost { namespace text {
             bool operator()(grapheme_ref<CPIter2> grapheme) const
             {
                 BOOST_ASSERT(!grapheme.empty());
-                if (detail::next(grapheme.begin()) != grapheme.end())
+                if (std::ranges::next(grapheme.begin()) != grapheme.end())
                     return false;
                 mirror_index_ = detail::bidi_mirroring(*grapheme.begin());
                 return mirror_index_ != -1;
@@ -2172,7 +2164,7 @@ namespace boost { namespace text {
                 auto const cp_first = run.begin()->it_;
                 auto const cp_last = run.begin() == run.end()
                                          ? cp_first
-                                         : detail::next(detail::prev(run.end())->it_);
+                                         : std::ranges::next(std::ranges::prev(run.end())->it_);
 
                 state.out_values_.clear();
 
@@ -2203,7 +2195,7 @@ namespace boost { namespace text {
                             state.out_values_.push_back(prev_subrange);
                         }
 
-                        auto const break_ = detail::next(it) == out_last
+                        auto const break_ = std::ranges::next(it) == out_last
                                                 ? line_break
                                                 : bidi_line_break_kind::none;
 
@@ -2296,7 +2288,7 @@ namespace boost { namespace text {
                 auto const cp_first = run.begin()->it_;
                 auto const cp_last = run.begin() == run.end()
                                          ? cp_first
-                                         : detail::next(detail::prev(run.end())->it_);
+                                         : std::ranges::next(std::ranges::prev(run.end())->it_);
 
                 state.out_values_.clear();
 
@@ -2395,7 +2387,7 @@ namespace boost { namespace text {
 
                         if constexpr (Mode == bidi_mode::general) {
                             auto const line_break =
-                                detail::next(run_it) == run_last
+                                std::ranges::next(run_it) == run_last
                                     ? break_at_end_of_line
                                     : bidi_line_break_kind::none;
 
@@ -2403,7 +2395,7 @@ namespace boost { namespace text {
                             auto const cp_last =
                                 run.begin() == run.end()
                                     ? cp_first
-                                    : detail::next(detail::prev(run.end())->it_);
+                                    : std::ranges::next(std::ranges::prev(run.end())->it_);
 
                             if (run.reversed()) {
                                 // https://unicode.org/reports/tr9/#L4
@@ -2436,7 +2428,7 @@ namespace boost { namespace text {
                                         co_yield OutValueType{out_first, it};
 
                                     auto const break_ =
-                                        detail::next(it) == out_last
+                                        std::ranges::next(it) == out_last
                                             ? line_break
                                             : bidi_line_break_kind::none;
 
@@ -2480,8 +2472,8 @@ namespace boost { namespace text {
                             auto const cp_last =
                                 run.begin() == run.end()
                                     ? cp_first
-                                    : detail::next(
-                                          detail::prev(run.end())->it_);
+                                    : std::ranges::next(
+                                          std::ranges::prev(run.end())->it_);
 
                             if (run.reversed()) {
                                 co_yield OutValueType{
@@ -2510,11 +2502,6 @@ namespace boost { namespace text {
             typename NextLineBreakFunc>
         struct const_lazy_bidi_segment_iterator
             : stl_interfaces::proxy_iterator_interface<
-                  const_lazy_bidi_segment_iterator<
-                      CPIter,
-                      Sentinel,
-                      ResultType,
-                      NextLineBreakFunc>,
                   std::bidirectional_iterator_tag,
                   ResultType>
         {
@@ -2545,11 +2532,6 @@ namespace boost { namespace text {
             }
 
             using base_type = stl_interfaces::proxy_iterator_interface<
-                const_lazy_bidi_segment_iterator<
-                    CPIter,
-                    Sentinel,
-                    ResultType,
-                    NextLineBreakFunc>,
                 std::bidirectional_iterator_tag,
                 ResultType>;
             using base_type::operator++;
@@ -2864,13 +2846,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 #if BOOST_TEXT_USE_COROUTINES
                 return detail::bidi_subranges<
                     bidirectional_cp_subrange<detail::iterator_t<R>>>(
-                    detail::begin(r),
-                    detail::end(r),
+                    std::ranges::begin(r),
+                    std::ranges::end(r),
                     paragraph_embedding_level);
 #else
                 return {
-                    detail::begin(r),
-                    detail::end(r),
+                    std::ranges::begin(r),
+                    std::ranges::end(r),
                     paragraph_embedding_level};
 #endif
             }
@@ -2964,14 +2946,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 #if BOOST_TEXT_USE_COROUTINES
                 return detail::bidi_subranges<
                     bidirectional_cp_subrange<detail::iterator_t<R>>>(
-                    detail::begin(r),
-                    detail::end(r),
+                    std::ranges::begin(r),
+                    std::ranges::end(r),
                     paragraph_embedding_level,
                     std::move(next));
 #else
                 return {
-                    detail::begin(r),
-                    detail::end(r),
+                    std::ranges::begin(r),
+                    std::ranges::end(r),
                     paragraph_embedding_level,
                     std::move(next)};
 #endif
@@ -3084,16 +3066,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 #if BOOST_TEXT_USE_COROUTINES
                 return detail::bidi_subranges<
                     bidirectional_cp_subrange<detail::iterator_t<R>>>(
-                    detail::begin(r),
-                    detail::end(r),
+                    std::ranges::begin(r),
+                    std::ranges::end(r),
                     paragraph_embedding_level);
 #else
                 return lazy_bidi_segment_range<
                     detail::iterator_t<R>,
                     detail::sentinel_t<R>,
                     bidirectional_cp_subrange<detail::iterator_t<R>>>{
-                    detail::begin(r),
-                    detail::end(r),
+                    std::ranges::begin(r),
+                    std::ranges::end(r),
                     paragraph_embedding_level};
 #endif
             }
@@ -3181,8 +3163,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 #if BOOST_TEXT_USE_COROUTINES
                 return detail::bidi_subranges<
                     bidirectional_cp_subrange<detail::iterator_t<R>>>(
-                    detail::begin(r),
-                    detail::end(r),
+                    std::ranges::begin(r),
+                    std::ranges::end(r),
                     paragraph_embedding_level,
                     std::move(next));
 #else
@@ -3193,8 +3175,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     detail::next_allowed_line_break_within_extent_callable<
                         Extent,
                         Func>>{
-                    detail::begin(r),
-                    detail::end(r),
+                    std::ranges::begin(r),
+                    std::ranges::end(r),
                     paragraph_embedding_level,
                     std::move(next)};
 #endif

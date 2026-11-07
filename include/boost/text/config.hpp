@@ -26,6 +26,10 @@
 #    define BOOST_TEXT_STRING_INSERT_MAX 4096
 #endif
 
+#define BOOST_TEXT_USE_CONCEPTS 1
+#define BOOST_TEXT_USE_COROUTINES 1
+#define BOOST_TEXT_USE_STD_FILESYSTEM 1
+#if 0
 // The contents of <ranges> in libstdc++ is incomplete (e.g. no owning_view)
 // before GCC 12.
 #if defined(__cpp_lib_concepts) && !defined(BOOST_TEXT_DISABLE_CONCEPTS) &&    \
@@ -47,6 +51,7 @@
 #    define BOOST_TEXT_USE_STD_FILESYSTEM 1
 #else
 #    define BOOST_TEXT_USE_STD_FILESYSTEM 0
+#endif
 #endif
 
 // GCC 12 claims to support 201907L <= __cpp_deduction_guides, but does not.

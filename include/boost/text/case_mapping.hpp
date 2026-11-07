@@ -563,7 +563,7 @@ namespace boost { namespace text {
             auto after_vowel_with_accent = [first](CPIter it) {
                 if (it == first)
                     return false;
-                return (detail::greek_case_data(*detail::prev(it)) &
+                return (detail::greek_case_data(*std::ranges::prev(it)) &
                         (has_vowel | has_accent | has_dialytika)) ==
                        (has_vowel | has_accent);
             };
@@ -607,7 +607,7 @@ namespace boost { namespace text {
                     continue;
                 }
 
-                auto const condition_first = detail::next(it);
+                auto const condition_first = std::ranges::next(it);
 
                 uint32_t greek_data = mode == map_case_mode::upper
                                           ? detail::greek_case_data(*it)
@@ -982,7 +982,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto is_lower(CPRange && range)
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        return v1::is_lower(detail::begin(range), detail::end(range));
+        return v1::is_lower(std::ranges::begin(range), std::ranges::end(range));
     }
 
     template<typename GraphemeRange>
@@ -1019,7 +1019,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             CPRange>
     {
         return v1::to_lower(
-            detail::begin(range), detail::end(range), out, lang);
+            std::ranges::begin(range), std::ranges::end(range), out, lang);
     }
 
     template<
@@ -1072,7 +1072,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return v1::is_title(
-            detail::begin(range), detail::end(range), next_word_break);
+            std::ranges::begin(range), std::ranges::end(range), next_word_break);
     }
 
     template<
@@ -1133,8 +1133,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             CPRange>
     {
         return v1::to_title(
-            detail::begin(range),
-            detail::end(range),
+            std::ranges::begin(range),
+            std::ranges::end(range),
             out,
             lang,
             next_word_break);
@@ -1177,7 +1177,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto is_upper(CPRange && range)
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        return v1::is_upper(detail::begin(range), detail::end(range));
+        return v1::is_upper(std::ranges::begin(range), std::ranges::end(range));
     }
 
     template<typename GraphemeRange>
@@ -1214,7 +1214,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             CPRange>
     {
         return v1::to_upper(
-            detail::begin(range), detail::end(range), out, lang);
+            std::ranges::begin(range), std::ranges::end(range), out, lang);
     }
 
     template<
@@ -1256,7 +1256,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<code_point_range R>
     bool is_lower(R && r)
     {
-        return v2::is_lower(detail::begin(r), detail::end(r));
+        return v2::is_lower(std::ranges::begin(r), std::ranges::end(r));
     }
 
     template<grapheme_range R>
@@ -1288,7 +1288,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     case_mapping_result<std::ranges::borrowed_iterator_t<R>, O>
     to_lower(R && r, O out, case_language lang = case_language::other)
     {
-        return v2::to_lower(detail::begin(r), detail::end(r), out, lang);
+        return v2::to_lower(std::ranges::begin(r), std::ranges::end(r), out, lang);
     }
 
     template<grapheme_range R, std::weakly_incrementable O>
@@ -1335,7 +1335,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     bool is_title(
         R && r, NextWordBreakFunc next_word_break = NextWordBreakFunc{})
     {
-        return v2::is_title(detail::begin(r), detail::end(r), next_word_break);
+        return v2::is_title(std::ranges::begin(r), std::ranges::end(r), next_word_break);
     }
 
     template<
@@ -1394,7 +1394,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{})
     {
         return v2::to_title(
-            detail::begin(r), detail::end(r), out, lang, next_word_break);
+            std::ranges::begin(r), std::ranges::end(r), out, lang, next_word_break);
     }
 
     template<
@@ -1431,7 +1431,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<code_point_range R>
     bool is_upper(R && r)
     {
-        return v2::is_upper(detail::begin(r), detail::end(r));
+        return v2::is_upper(std::ranges::begin(r), std::ranges::end(r));
     }
 
     template<grapheme_range R>
@@ -1463,7 +1463,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     case_mapping_result<std::ranges::borrowed_iterator_t<R>, O>
     to_upper(R && r, O out, case_language lang = case_language::other)
     {
-        return v2::to_upper(detail::begin(r), detail::end(r), out, lang);
+        return v2::to_upper(std::ranges::begin(r), std::ranges::end(r), out, lang);
     }
 
     template<grapheme_range R, std::weakly_incrementable O>

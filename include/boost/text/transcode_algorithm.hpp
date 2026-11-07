@@ -678,10 +678,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         {
             static constexpr auto
             call(Range && r, std::ptrdiff_t n, OutIter out)
-                -> transcode_result<decltype(detail::begin(r)), OutIter>
+                -> transcode_result<decltype(std::ranges::begin(r)), OutIter>
             {
                 auto const u = text::unpack_iterator_and_sentinel(
-                    detail::begin(r), detail::end(r));
+                    std::ranges::begin(r), std::ranges::end(r));
                 auto unpacked = detail::transcode_to_8<UseN>(
                     detail::tag_t<u.format_tag>{}, u.first, u.last, n, out);
                 return {u.repack(unpacked.in), unpacked.out};
@@ -720,10 +720,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         {
             static constexpr auto
             call(Range && r, std::ptrdiff_t n, OutIter out)
-                -> transcode_result<decltype(detail::begin(r)), OutIter>
+                -> transcode_result<decltype(std::ranges::begin(r)), OutIter>
             {
                 auto const u = text::unpack_iterator_and_sentinel(
-                    detail::begin(r), detail::end(r));
+                    std::ranges::begin(r), std::ranges::end(r));
                 auto unpacked = detail::transcode_to_16<UseN>(
                     detail::tag_t<u.format_tag>{}, u.first, u.last, n, out);
                 return {u.repack(unpacked.in), unpacked.out};
@@ -762,10 +762,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         {
             static constexpr auto
             call(Range && r, std::ptrdiff_t n, OutIter out)
-                -> transcode_result<decltype(detail::begin(r)), OutIter>
+                -> transcode_result<decltype(std::ranges::begin(r)), OutIter>
             {
                 auto const u = text::unpack_iterator_and_sentinel(
-                    detail::begin(r), detail::end(r));
+                    std::ranges::begin(r), std::ranges::end(r));
                 auto unpacked = detail::transcode_to_32<UseN>(
                     detail::tag_t<u.format_tag>{}, u.first, u.last, n, out);
                 return {u.repack(unpacked.in), unpacked.out};

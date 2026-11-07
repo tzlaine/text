@@ -14,7 +14,6 @@ namespace boost { namespace text { namespace detail {
     template<typename Char, typename String>
     struct const_rope_view_iterator
         : stl_interfaces::iterator_interface<
-              const_rope_view_iterator<Char, String>,
               std::random_access_iterator_tag,
               Char,
               Char>

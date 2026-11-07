@@ -86,7 +86,7 @@ namespace boost { namespace text {
         explicit trie_set(Range r, Compare const & comp = Compare()) :
             trie_(comp)
         {
-            insert(detail::begin(r), detail::end(r));
+            insert(std::ranges::begin(r), std::ranges::end(r));
         }
         trie_set(std::initializer_list<value_type> il) : trie_() { insert(il); }
 
@@ -375,7 +375,7 @@ namespace boost { namespace text {
         insert_result insert(KeyRange const & key)
         {
             auto const trie_result = trie_.insert(
-                detail::begin(key), detail::end(key), detail::void_type{});
+                std::ranges::begin(key), std::ranges::end(key), detail::void_type{});
             return translate_insert_result(trie_result);
         }
 
@@ -388,7 +388,7 @@ namespace boost { namespace text {
            operation resulted in a new insertion, or false otherwise. */
         insert_result insert(Key const & key)
         {
-            return insert(detail::begin(key), detail::end(key));
+            return insert(std::ranges::begin(key), std::ranges::end(key));
         }
 
         /** Inserts the the sequence of keys `[first, last)` into *this.  The
@@ -405,7 +405,7 @@ namespace boost { namespace text {
         template<typename Range>
         insert_result insert(Range const & r)
         {
-            trie_.insert(detail::begin(r), detail::end(r));
+            trie_.insert(std::ranges::begin(r), std::ranges::end(r));
         }
 #endif
 
@@ -495,7 +495,6 @@ namespace boost { namespace text {
 
     template<typename Key>
     struct const_trie_set_iterator : stl_interfaces::proxy_iterator_interface<
-                                         const_trie_set_iterator<Key>,
                                          std::bidirectional_iterator_tag,
                                          Key>
     {
@@ -540,7 +539,6 @@ namespace boost { namespace text {
 
     template<typename Key>
     struct trie_set_iterator : stl_interfaces::proxy_iterator_interface<
-                                   trie_set_iterator<Key>,
                                    std::bidirectional_iterator_tag,
                                    Key>
     {

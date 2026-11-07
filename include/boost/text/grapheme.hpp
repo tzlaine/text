@@ -77,8 +77,8 @@ namespace boost { namespace text {
                     r, null_sentinel, std::back_inserter(chars_));
             } else {
                 boost::text::transcode_to_utf8(
-                    detail::begin(r),
-                    detail::end(r),
+                    std::ranges::begin(r),
+                    std::ranges::end(r),
                     std::back_inserter(chars_));
             }
             BOOST_ASSERT(
@@ -161,12 +161,12 @@ namespace boost { namespace text {
 #endif
         constexpr grapheme_ref(R && r) :
              utf32_view<BOOST_TEXT_SUBRANGE<I>>(
-                 BOOST_TEXT_SUBRANGE(detail::begin(r), detail::end(r)))
+                 BOOST_TEXT_SUBRANGE(std::ranges::begin(r), std::ranges::end(r)))
         {
             BOOST_ASSERT(
                 boost::text::next_grapheme_break(
-                    detail::begin(r), detail::end(r)) ==
-                detail::end(r));
+                    std::ranges::begin(r), std::ranges::end(r)) ==
+                std::ranges::end(r));
         }
 
         /** Constructs *this from g. */

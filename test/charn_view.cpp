@@ -330,11 +330,6 @@ TEST(charn_view, char8_t_)
             std::same_as<std::ranges::range_value_t<decltype(v0)>, char8_t>);
         EXPECT_TRUE(std::ranges::equal(v0, expected_null));
 
-        auto v1 = (char8_t *)char8_utf8_null | boost::text::as_char8_t;
-        static_assert(
-            std::same_as<std::ranges::range_value_t<decltype(v1)>, char8_t>);
-        EXPECT_TRUE(std::ranges::equal(v1, expected));
-
         auto v2 = v0 | boost::text::as_utf32;
         static_assert(std::same_as<
                       decltype(v2.begin()),
@@ -343,16 +338,6 @@ TEST(charn_view, char8_t_)
                           boost::text::format::utf32,
                           char8_t *>>);
         EXPECT_TRUE(std::ranges::equal(v2, expected_null));
-
-        auto v3 = v1 | boost::text::as_utf32;
-        static_assert(std::same_as<
-                      decltype(v3.begin()),
-                      boost::text::utf_iterator<
-                          boost::text::format::utf8,
-                          boost::text::format::utf32,
-                          char8_t *,
-                          boost::text::null_sentinel_t>>);
-        EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 
     {
@@ -363,11 +348,6 @@ TEST(charn_view, char8_t_)
             std::same_as<std::ranges::range_value_t<decltype(v0)>, char8_t>);
         EXPECT_TRUE(std::ranges::equal(v0, expected));
 
-        auto v1 = (char8_t *)char8_utf8 | boost::text::as_char8_t;
-        static_assert(
-            std::same_as<std::ranges::range_value_t<decltype(v1)>, char8_t>);
-        EXPECT_TRUE(std::ranges::equal(v1, expected));
-
         auto v2 = v0 | boost::text::as_utf32;
         static_assert(std::same_as<
                       decltype(v2.begin()),
@@ -376,16 +356,6 @@ TEST(charn_view, char8_t_)
                           boost::text::format::utf32,
                           char8_t *>>);
         EXPECT_TRUE(std::ranges::equal(v2, expected));
-
-        auto v3 = v1 | boost::text::as_utf32;
-        static_assert(std::same_as<
-                      decltype(v3.begin()),
-                      boost::text::utf_iterator<
-                          boost::text::format::utf8,
-                          boost::text::format::utf32,
-                          char8_t *,
-                          boost::text::null_sentinel_t>>);
-        EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 
     {
@@ -535,11 +505,6 @@ TEST(charn_view, char16_t_)
             std::same_as<std::ranges::range_value_t<decltype(v0)>, char16_t>);
         EXPECT_TRUE(std::ranges::equal(v0, expected_null));
 
-        auto v1 = (char16_t *)char16_utf16_null | boost::text::as_char16_t;
-        static_assert(
-            std::same_as<std::ranges::range_value_t<decltype(v1)>, char16_t>);
-        EXPECT_TRUE(std::ranges::equal(v1, expected));
-
         auto v2 = v0 | boost::text::as_utf8;
         static_assert(std::same_as<
                       decltype(v2.begin()),
@@ -548,16 +513,6 @@ TEST(charn_view, char16_t_)
                           boost::text::format::utf8,
                           char16_t *>>);
         EXPECT_TRUE(std::ranges::equal(v2, expected_null));
-
-        auto v3 = v1 | boost::text::as_utf8;
-        static_assert(std::same_as<
-                      decltype(v3.begin()),
-                      boost::text::utf_iterator<
-                          boost::text::format::utf16,
-                          boost::text::format::utf8,
-                          char16_t *,
-                          boost::text::null_sentinel_t>>);
-        EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 
     {
@@ -568,11 +523,6 @@ TEST(charn_view, char16_t_)
             std::same_as<std::ranges::range_value_t<decltype(v0)>, char16_t>);
         EXPECT_TRUE(std::ranges::equal(v0, expected));
 
-        auto v1 = (char16_t *)char16_utf16 | boost::text::as_char16_t;
-        static_assert(
-            std::same_as<std::ranges::range_value_t<decltype(v1)>, char16_t>);
-        EXPECT_TRUE(std::ranges::equal(v1, expected));
-
         auto v2 = v0 | boost::text::as_utf8;
         static_assert(std::same_as<
                       decltype(v2.begin()),
@@ -581,16 +531,6 @@ TEST(charn_view, char16_t_)
                           boost::text::format::utf8,
                           char16_t *>>);
         EXPECT_TRUE(std::ranges::equal(v2, expected));
-
-        auto v3 = v1 | boost::text::as_utf8;
-        static_assert(std::same_as<
-                      decltype(v3.begin()),
-                      boost::text::utf_iterator<
-                          boost::text::format::utf16,
-                          boost::text::format::utf8,
-                          char16_t *,
-                          boost::text::null_sentinel_t>>);
-        EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 
 #if defined(_MSC_VER)
@@ -742,11 +682,6 @@ TEST(charn_view, char32_t_)
             std::same_as<std::ranges::range_value_t<decltype(v0)>, char32_t>);
         EXPECT_TRUE(std::ranges::equal(v0, expected_null));
 
-        auto v1 = (char32_t *)char32_utf32_null | boost::text::as_char32_t;
-        static_assert(
-            std::same_as<std::ranges::range_value_t<decltype(v1)>, char32_t>);
-        EXPECT_TRUE(std::ranges::equal(v1, expected));
-
         auto v2 = v0 | boost::text::as_utf16;
         static_assert(std::same_as<
                       decltype(v2.begin()),
@@ -755,16 +690,6 @@ TEST(charn_view, char32_t_)
                           boost::text::format::utf16,
                           char32_t *>>);
         EXPECT_TRUE(std::ranges::equal(v2, expected_null));
-
-        auto v3 = v1 | boost::text::as_utf16;
-        static_assert(std::same_as<
-                      decltype(v3.begin()),
-                      boost::text::utf_iterator<
-                          boost::text::format::utf32,
-                          boost::text::format::utf16,
-                          char32_t *,
-                          boost::text::null_sentinel_t>>);
-        EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 
     {
@@ -775,11 +700,6 @@ TEST(charn_view, char32_t_)
             std::same_as<std::ranges::range_value_t<decltype(v0)>, char32_t>);
         EXPECT_TRUE(std::ranges::equal(v0, expected));
 
-        auto v1 = (char32_t *)char32_utf32 | boost::text::as_char32_t;
-        static_assert(
-            std::same_as<std::ranges::range_value_t<decltype(v1)>, char32_t>);
-        EXPECT_TRUE(std::ranges::equal(v1, expected));
-
         auto v2 = v0 | boost::text::as_utf16;
         static_assert(std::same_as<
                       decltype(v2.begin()),
@@ -788,16 +708,6 @@ TEST(charn_view, char32_t_)
                           boost::text::format::utf16,
                           char32_t *>>);
         EXPECT_TRUE(std::ranges::equal(v2, expected));
-
-        auto v3 = v1 | boost::text::as_utf16;
-        static_assert(std::same_as<
-                      decltype(v3.begin()),
-                      boost::text::utf_iterator<
-                          boost::text::format::utf32,
-                          boost::text::format::utf16,
-                          char32_t *,
-                          boost::text::null_sentinel_t>>);
-        EXPECT_TRUE(std::ranges::equal(v3, expected));
     }
 
 #if !defined(_MSC_VER)

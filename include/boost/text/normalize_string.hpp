@@ -203,7 +203,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     void normalize_append(CPRange && r, String & s)
     {
         return boost::text::v1::normalize_append<Normalization>(
-            detail::begin(r), detail::end(r), s);
+            std::ranges::begin(r), std::ranges::end(r), s);
     }
 
     template<nf Normalization, typename String>
@@ -257,7 +257,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 r, null_sentinel, s);
         } else {
             return boost::text::normalize_append<Normalization>(
-                detail::begin(r), detail::end(r), s);
+                std::ranges::begin(r), std::ranges::end(r), s);
         }
     }
 

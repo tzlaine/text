@@ -398,7 +398,7 @@ namespace boost { namespace text {
                 cu_rng_alg_ret_t<(int)utf_format, replace_result<iterator>, R>
 #endif
         {
-            return replace(first, last, detail::begin(r), detail::end(r));
+            return replace(first, last, std::ranges::begin(r), std::ranges::end(r));
         }
 
         /** Replaces the portion of `*this` delimited by `[first1, last1)`
@@ -437,7 +437,7 @@ namespace boost { namespace text {
             -> detail::graph_rng_alg_ret_t<replace_result<iterator>, R>
 #endif
         {
-            return replace(first, last, detail::begin(r), detail::end(r));
+            return replace(first, last, std::ranges::begin(r), std::ranges::end(r));
         }
 
         /** Replaces the portion of `*this` delimited by `[first1, last1)`
@@ -735,10 +735,10 @@ namespace boost { namespace text {
                 decltype(lhs = rhs, true)>
         {
             return algorithm::equal(
-                detail::begin(lhs),
-                detail::end(lhs),
-                detail::begin(rhs),
-                detail::end(rhs));
+                std::ranges::begin(lhs),
+                std::ranges::end(lhs),
+                std::ranges::begin(rhs),
+                std::ranges::end(rhs));
         }
 
         /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which

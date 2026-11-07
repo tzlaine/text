@@ -17,8 +17,10 @@
 using namespace boost;
 using namespace boost::text::detail;
 
-using u32_iter =
-    text::utf_8_to_32_iterator<char8_t const *, text::null_sentinel_t>;
+using u32_iter = decltype(text::utf32_iterator(
+    std::declval<char8_t const *>(),
+    std::declval<char8_t const *>(),
+    text::null_sentinel_t{}));
 using null_sent_cp_rubrange =
     std::ranges::subrange<u32_iter, text::null_sentinel_t>;
 using sentinel_cp_range_t =
@@ -1105,13 +1107,11 @@ struct my_text_type
 
     auto begin() const
     {
-        return text::utf_8_to_32_iterator(
-            utf8_.begin(), utf8_.begin(), utf8_.end());
+        return text::utf32_iterator(utf8_.begin(), utf8_.begin(), utf8_.end());
     }
     auto end() const
     {
-        return text::utf_8_to_32_iterator(
-            utf8_.begin(), utf8_.end(), utf8_.end());
+        return text::utf32_iterator(utf8_.begin(), utf8_.end(), utf8_.end());
     }
 
 private:

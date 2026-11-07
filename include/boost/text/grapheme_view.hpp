@@ -55,19 +55,19 @@ namespace boost { namespace text {
 
         constexpr auto begin() const {
             return grapheme_iterator(
-                detail::begin(base_),
-                detail::begin(base_),
-                detail::end(base_));
+                std::ranges::begin(base_),
+                std::ranges::begin(base_),
+                std::ranges::end(base_));
         }
         constexpr auto end() const
         {
             if constexpr (detail::common_range_v<V>) {
                 return grapheme_iterator(
-                    detail::begin(base_),
-                    detail::end(base_),
-                    detail::end(base_));
+                    std::ranges::begin(base_),
+                    std::ranges::end(base_),
+                    std::ranges::end(base_));
             } else {
-                return detail::end(base_);
+                return std::ranges::end(base_);
             }
         }
 
@@ -116,7 +116,7 @@ namespace boost { namespace text {
                 return std::forward<R>(r);
             } else if constexpr (forward_range_v<T>) {
                 auto unpacked = boost::text::unpack_iterator_and_sentinel(
-                    detail::begin(r), detail::end(r));
+                    std::ranges::begin(r), std::ranges::end(r));
 #if BOOST_TEXT_USE_CONCEPTS
                 return BOOST_TEXT_SUBRANGE(unpacked.first, unpacked.last) |
                        as_utf32;

@@ -25,7 +25,7 @@ namespace boost { namespace text {
         constexpr subrange(I first, S last) : first_(first), last_(last) {}
         template<typename R>
         constexpr explicit subrange(R const & r) :
-            first_(detail::begin(r)), last_(detail::end(r))
+            first_(std::ranges::begin(r)), last_(std::ranges::end(r))
         {}
 
         constexpr I begin() const { return first_; }
@@ -37,7 +37,7 @@ namespace boost { namespace text {
         }
         [[nodiscard]] constexpr subrange prev(std::ptrdiff_t n = 1) const
         {
-            return subrange{detail::prev(first_), last_};
+            return subrange{std::ranges::prev(first_), last_};
         }
 
         constexpr subrange & advance(std::ptrdiff_t n)

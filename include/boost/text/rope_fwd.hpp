@@ -58,12 +58,18 @@ namespace boost { namespace text {
         template<typename T, typename Iter>
         struct rope_transcode_iterator<T, Iter, 1>
         {
-            using type = utf_8_to_32_iterator<Iter>;
+            using type = decltype(utf32_iterator(
+                std::declval<Iter>(),
+                std::declval<Iter>(),
+                std::declval<Iter>()));
         };
         template<typename T, typename Iter>
         struct rope_transcode_iterator<T, Iter, 2>
         {
-            using type = utf_16_to_32_iterator<Iter>;
+            using type = decltype(utf32_iterator(
+                std::declval<Iter>(),
+                std::declval<Iter>(),
+                std::declval<Iter>()));
         };
         template<typename T, typename Iter>
         using rope_transcode_iterator_t =

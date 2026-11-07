@@ -20,7 +20,6 @@ namespace boost { namespace text { namespace detail {
         typename CPRange>
     struct const_lazy_segment_iterator
         : stl_interfaces::proxy_iterator_interface<
-              const_lazy_segment_iterator<CPIter, Sentinel, NextFunc, CPRange>,
               std::forward_iterator_tag,
               CPRange>
     {
@@ -70,7 +69,6 @@ namespace boost { namespace text { namespace detail {
         }
 
         using base_type = stl_interfaces::proxy_iterator_interface<
-            const_lazy_segment_iterator<CPIter, Sentinel, NextFunc, CPRange>,
             std::forward_iterator_tag,
             CPRange>;
         using base_type::operator++;
@@ -83,11 +81,6 @@ namespace boost { namespace text { namespace detail {
         typename CPRange>
     struct const_reverse_lazy_segment_iterator
         : stl_interfaces::proxy_iterator_interface<
-              const_reverse_lazy_segment_iterator<
-                  CPIter,
-                  Ignored,
-                  PrevFunc,
-                  CPRange>,
               std::forward_iterator_tag,
               CPRange>
     {
@@ -116,7 +109,7 @@ namespace boost { namespace text { namespace detail {
                 return *this;
             }
             auto const prev_it =
-                (*prev_func_)(first_, detail::prev(it_), next_);
+                (*prev_func_)(first_, std::ranges::prev(it_), next_);
             next_ = it_;
             it_ = prev_it;
             return *this;
@@ -136,11 +129,6 @@ namespace boost { namespace text { namespace detail {
         }
 
         using base_type = stl_interfaces::proxy_iterator_interface<
-            const_reverse_lazy_segment_iterator<
-                CPIter,
-                Ignored,
-                PrevFunc,
-                CPRange>,
             std::forward_iterator_tag,
             CPRange>;
         using base_type::operator++;

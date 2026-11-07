@@ -106,26 +106,26 @@ namespace boost { namespace text {
         constexpr const V& base() const& { return base_; }
         constexpr V base() && { return std::move(base_); }
 
-        constexpr iterator<false> begin() { return iterator<false>{detail::begin(base_)}; }
+        constexpr iterator<false> begin() { return iterator<false>{std::ranges::begin(base_)}; }
         constexpr iterator<true> begin() const
 #if BOOST_TEXT_USE_CONCEPTS
             requires std::ranges::range<const V>
 #endif
-        { return iterator<true>{detail::begin(base_)}; }
+        { return iterator<true>{std::ranges::begin(base_)}; }
 
-        constexpr sentinel<false> end() { return sentinel<false>{detail::end(base_)}; }
+        constexpr sentinel<false> end() { return sentinel<false>{std::ranges::end(base_)}; }
 #if BOOST_TEXT_USE_CONCEPTS
         constexpr iterator<false> end() requires std::ranges::common_range<V>
-            { return iterator<false>{detail::end(base_)}; }
+            { return iterator<false>{std::ranges::end(base_)}; }
 #endif
         constexpr sentinel<true> end() const
 #if BOOST_TEXT_USE_CONCEPTS
             requires std::ranges::range<const V>
-        { return sentinel<true>{detail::end(base_)}; }
+        { return sentinel<true>{std::ranges::end(base_)}; }
         constexpr iterator<true> end() const
             requires std::ranges::common_range<const V>
 #endif
-        { return iterator<true>{detail::end(base_)}; }
+        { return iterator<true>{std::ranges::end(base_)}; }
 
 #if BOOST_TEXT_USE_CONCEPTS
         constexpr auto size() requires std::ranges::sized_range<V> { return std::ranges::size(base_); }
@@ -144,7 +144,6 @@ namespace boost { namespace text {
     template<bool Const>
     class project_view<V, F>::iterator
         : public boost::stl_interfaces::proxy_iterator_interface<
-              iterator<Const>, // TODO
               detail::iterator_to_tag_t<detail::iterator_t<detail::maybe_const<Const, V>>>,
 #if BOOST_TEXT_USE_CONCEPTS
               std::invoke_result_t<decltype(F)&, detail::range_reference_t<V>>
@@ -176,9 +175,13 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_CONCEPTS
             requires std::sentinel_for<sentinel_type, std::ranges::iterator_t<detail::maybe_const<OtherConst, V>>>
 #endif
-        friend constexpr bool operator==(const iterator<OtherConst> & x,
-                                         const sentinel & y);
+        friend constexpr bool
+        operator==(const iterator<OtherConst> & x, const sentinel & y)
+        {
+            return x.it_ == y;
+        }
 
+#if 0
         template<bool OtherConst>
 #if BOOST_TEXT_USE_CONCEPTS
             requires std::sized_sentinel_for<sentinel_type, std::ranges::iterator_t<detail::maybe_const<OtherConst, V>>>
@@ -192,6 +195,7 @@ namespace boost { namespace text {
 #endif
         friend constexpr detail::range_difference_t<detail::maybe_const<OtherConst, V>>
         operator-(const sentinel & y, const iterator<OtherConst> & x);
+#endif
 
     public:
         constexpr iterator() = default;
@@ -475,7 +479,7 @@ namespace boost { namespace text {
       constexpr V base() && { return std::move(base_); }
 
       constexpr auto code_units() const noexcept {
-        auto unpacked = boost::text::unpack_iterator_and_sentinel(detail::begin(base_), detail::end(base_));
+        auto unpacked = boost::text::unpack_iterator_and_sentinel(std::ranges::begin(base_), std::ranges::end(base_));
 #if BOOST_TEXT_USE_CONCEPTS
         return std::ranges::subrange(unpacked.first, unpacked.last);
 #else
@@ -501,7 +505,7 @@ namespace boost { namespace text {
         requires std::ranges::view<V>
 #else
     template<format Format, typename V/* TODO,
-                                        typename Enable = std::enable_if_t<detail::utf_range_v<V>>*/>
+             typename Enable = std::enable_if_t<detail::utf_range_v<V>>*/>
 #endif
     class utf_view : public stl_interfaces::view_interface<utf_view<Format, V>>
     {
@@ -510,7 +514,7 @@ namespace boost { namespace text {
         template<format FromFormat, class I, class S>
         static constexpr auto make_begin(I first, S last)
         {
-            if constexpr (detail::bidirectional_iterator_v<I>) {
+            if constexpr (std::bidirectional_iterator<I>) {
                 return utf_iterator<FromFormat, Format, I, S>{first, first, last};
             } else {
                 return utf_iterator<FromFormat, Format, I, S>{first, last};
@@ -521,7 +525,7 @@ namespace boost { namespace text {
         {
             if constexpr (!std::is_same_v<I, S>) {
                 return last;
-            } else if constexpr (detail::bidirectional_iterator_v<I>) {
+            } else if constexpr (std::bidirectional_iterator<I>) {
                 return utf_iterator<FromFormat, Format, I, S>{first, last, last};
             } else {
                 return utf_iterator<FromFormat, Format, I, S>{last, last};
@@ -547,18 +551,18 @@ namespace boost { namespace text {
         {
             constexpr format from_format = detail::format_of<detail::range_value_t<V>>();
             if constexpr(detail::is_charn_view<V>) {
-                return make_begin<from_format>(detail::begin(base_.base()), detail::end(base_.base()));
+                return make_begin<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
-                return make_begin<from_format>(detail::begin(base_), detail::end(base_));
+                return make_begin<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
         }
         constexpr auto begin() const
         {
             constexpr format from_format = detail::format_of<detail::range_value_t<const V>>();
             if constexpr(detail::is_charn_view<V>) {
-                return make_begin<from_format>(detail::begin(base_.base()), detail::end(base_.base()));
+                return make_begin<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
-                return make_begin<from_format>(detail::begin(base_), detail::end(base_));
+                return make_begin<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
         }
 
@@ -566,18 +570,18 @@ namespace boost { namespace text {
         {
             constexpr format from_format = detail::format_of<detail::range_value_t<V>>();
             if constexpr(detail::is_charn_view<V>) {
-                return make_end<from_format>(detail::begin(base_.base()), detail::end(base_.base()));
+                return make_end<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
-                return make_end<from_format>(detail::begin(base_), detail::end(base_));
+                return make_end<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
         }
         constexpr auto end() const
         {
             constexpr format from_format = detail::format_of<detail::range_value_t<const V>>();
             if constexpr(detail::is_charn_view<V>) {
-                return make_end<from_format>(detail::begin(base_.base()), detail::end(base_.base()));
+                return make_end<from_format>(std::ranges::begin(base_.base()), std::ranges::end(base_.base()));
             } else {
-                return make_end<from_format>(detail::begin(base_), detail::end(base_));
+                return make_end<from_format>(std::ranges::begin(base_), std::ranges::end(base_));
             }
         }
 
@@ -743,7 +747,7 @@ namespace boost { namespace text {
             using T = detail::remove_cv_ref_t<R>;
             if constexpr (forward_range_v<T>) {
                 auto unpacked =
-                    boost::text::unpack_iterator_and_sentinel(detail::begin(r), detail::end(r));
+                    boost::text::unpack_iterator_and_sentinel(std::ranges::begin(r), std::ranges::end(r));
                 if constexpr (is_bounded_array_v<T>) {
                     constexpr auto n = std::extent_v<T>;
                     if (n && !r[n - 1])

@@ -704,10 +704,10 @@ namespace boost { namespace text {
             decltype(lhs = lhs, true)>
     {
         return algorithm::equal(
-                   detail::begin(lhs),
-                   detail::end(lhs),
-                   detail::begin(rhs),
-                   detail::end(rhs));
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs));
     }
 
     /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
@@ -719,10 +719,10 @@ namespace boost { namespace text {
             decltype(rhs = lhs, true)>
     {
         return algorithm::equal(
-                   detail::begin(lhs),
-                   detail::end(lhs),
-                   detail::begin(rhs),
-                   detail::end(rhs));
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs));
     }
 
     /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
@@ -756,10 +756,10 @@ namespace boost { namespace text {
             decltype(lhs = rhs, true)>
     {
         return boost::text::lexicographical_compare_three_way(
-                   detail::begin(lhs),
-                   detail::end(lhs),
-                   detail::begin(rhs),
-                   detail::end(rhs)) < 0;
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) < 0;
     }
 
     /** Returns true iff `lhs` < `rhs`, where `rhs` is an object for which
@@ -771,10 +771,10 @@ namespace boost { namespace text {
             decltype(rhs = lhs, true)>
     {
         return boost::text::lexicographical_compare_three_way(
-                   detail::begin(lhs),
-                   detail::end(lhs),
-                   detail::begin(rhs),
-                   detail::end(rhs)) < 0;
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) < 0;
     }
 
     /** Returns true iff `lhs` <= `rhs`, where `rhs` is an object for which
@@ -786,10 +786,10 @@ namespace boost { namespace text {
             decltype(lhs = rhs, true)>
     {
         return boost::text::lexicographical_compare_three_way(
-                   detail::begin(lhs),
-                   detail::end(lhs),
-                   detail::begin(rhs),
-                   detail::end(rhs)) <= 0;
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) <= 0;
     }
 
     /** Returns true iff `lhs` <= `rhs`, where `rhs` is an object for which
@@ -801,10 +801,10 @@ namespace boost { namespace text {
             decltype(rhs = lhs, true)>
     {
         return boost::text::lexicographical_compare_three_way(
-                   detail::begin(lhs),
-                   detail::end(lhs),
-                   detail::begin(rhs),
-                   detail::end(rhs)) <= 0;
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) <= 0;
     }
 
     /** Returns true iff `lhs` > `rhs`, where `rhs` is an object for which
@@ -816,10 +816,10 @@ namespace boost { namespace text {
             decltype(lhs = rhs, true)>
     {
         return boost::text::lexicographical_compare_three_way(
-                   detail::begin(lhs),
-                   detail::end(lhs),
-                   detail::begin(rhs),
-                   detail::end(rhs)) > 0;
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) > 0;
     }
 
     /** Returns true iff `lhs` > `rhs`, where `rhs` is an object for which
@@ -831,10 +831,10 @@ namespace boost { namespace text {
             decltype(rhs = lhs, true)>
     {
         return boost::text::lexicographical_compare_three_way(
-                   detail::begin(lhs),
-                   detail::end(lhs),
-                   detail::begin(rhs),
-                   detail::end(rhs)) > 0;
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) > 0;
     }
 
     /** Returns true iff `lhs` >= `rhs`, where `rhs` is an object for which
@@ -846,10 +846,10 @@ namespace boost { namespace text {
             decltype(lhs = rhs, true)>
     {
         return boost::text::lexicographical_compare_three_way(
-                   detail::begin(lhs),
-                   detail::end(lhs),
-                   detail::begin(rhs),
-                   detail::end(rhs)) >= 0;
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) >= 0;
     }
 
     /** Returns true iff `lhs` >= `rhs`, where `rhs` is an object for which
@@ -861,10 +861,10 @@ namespace boost { namespace text {
             decltype(rhs = lhs, true)>
     {
         return boost::text::lexicographical_compare_three_way(
-                   detail::begin(lhs),
-                   detail::end(lhs),
-                   detail::begin(rhs),
-                   detail::end(rhs)) >= 0;
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) >= 0;
     }
 
 #endif

@@ -17,7 +17,6 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename Segment>
     struct const_vector_iterator : stl_interfaces::iterator_interface<
-                                       const_vector_iterator<T, Segment>,
                                        std::random_access_iterator_tag,
                                        T,
                                        T const &,

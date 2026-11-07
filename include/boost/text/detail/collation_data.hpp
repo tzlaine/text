@@ -249,7 +249,7 @@ namespace boost { namespace text { namespace detail {
 
         iterator erase(iterator at)
         {
-            BOOST_ASSERT(at == detail::prev(end()));
+            BOOST_ASSERT(at == std::ranges::prev(end()));
             --size_;
             return --at;
         }
@@ -288,7 +288,7 @@ namespace boost { namespace text { namespace detail {
         bool contains(KeyRange const & key) const
         {
             static_assert(std::is_same<
-                          std::decay_t<decltype(*detail::begin(key))>,
+                          std::decay_t<decltype(*std::ranges::begin(key))>,
                           uint32_t>::value, "");
             return impl_.contains(key | as_utf16);
         }
@@ -338,7 +338,7 @@ namespace boost { namespace text { namespace detail {
         operator[](KeyRange const & key) const
         {
             static_assert(std::is_same<
-                          std::decay_t<decltype(*detail::begin(key))>,
+                          std::decay_t<decltype(*std::ranges::begin(key))>,
                           uint32_t>::value, "");
             return impl_[key | as_utf16];
         }
@@ -359,7 +359,7 @@ namespace boost { namespace text { namespace detail {
         bool insert(KeyRange const & key, value_type value)
         {
             static_assert(std::is_same<
-                          std::decay_t<decltype(*detail::begin(key))>,
+                          std::decay_t<decltype(*std::ranges::begin(key))>,
                           uint32_t>::value, "");
             return impl_.insert(key | as_utf16, std::move(value));
         }
@@ -378,7 +378,7 @@ namespace boost { namespace text { namespace detail {
         void insert_or_assign(KeyRange const & key, value_type value)
         {
             static_assert(std::is_same<
-                          std::decay_t<decltype(*detail::begin(key))>,
+                          std::decay_t<decltype(*std::ranges::begin(key))>,
                           uint32_t>::value, "");
             return impl_.insert_or_assign(key | as_utf16, std::move(value));
         }

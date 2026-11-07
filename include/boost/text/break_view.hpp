@@ -21,12 +21,6 @@ namespace boost { namespace text {
             typename NextFunc,
             typename CPRange>
         struct break_iterator : stl_interfaces::proxy_iterator_interface<
-                                    break_iterator<
-                                        CPIter,
-                                        CPSentinel,
-                                        PrevFunc,
-                                        NextFunc,
-                                        CPRange>,
                                     std::bidirectional_iterator_tag,
                                     CPRange>
         {
@@ -82,7 +76,7 @@ namespace boost { namespace text {
                 }
 
                 auto const prev_it = (*prev_func_)(
-                    first_, detail::prev(seg_.first), seg_.second);
+                    first_, std::ranges::prev(seg_.first), seg_.second);
                 seg_.second = seg_.first;
                 seg_.first = prev_it;
                 return *this;
@@ -105,7 +99,6 @@ namespace boost { namespace text {
             }
 
             using base_type = stl_interfaces::proxy_iterator_interface<
-                break_iterator<CPIter, CPSentinel, PrevFunc, NextFunc, CPRange>,
                 std::bidirectional_iterator_tag,
                 CPRange>;
             using base_type::operator++;

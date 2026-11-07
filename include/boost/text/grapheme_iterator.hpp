@@ -29,7 +29,6 @@ namespace boost { namespace text {
     template<typename I, typename S = I>
 #endif
     class grapheme_iterator : public stl_interfaces::iterator_interface<
-                                  grapheme_iterator<I, S>,
                                   decltype(detail::bidirectional_at_most<I>()),
                                   grapheme_ref<I>,
                                   grapheme_ref<I>>
@@ -85,7 +84,7 @@ namespace boost { namespace text {
         constexpr grapheme_iterator & operator--()
         {
             I prev_break = boost::text::prev_grapheme_break(
-                seq_begin(), detail::prev(gr_begin()), seq_end());
+                seq_begin(), std::ranges::prev(gr_begin()), seq_end());
             grapheme_last_ = grapheme_first_;
             grapheme_first_ =
                 text::unpack_iterator_and_sentinel(prev_break, seq_end()).first;

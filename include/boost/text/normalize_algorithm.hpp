@@ -221,10 +221,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPRange && r,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
-        if (detail::begin(r) == detail::end(r))
+        if (std::ranges::begin(r) == std::ranges::end(r))
             return {at, at};
         return detail::replace_impl<false, Normalization>(
-            string, at, at, detail::begin(r), detail::end(r), insertion_norm);
+            string, at, at, std::ranges::begin(r), std::ranges::end(r), insertion_norm);
     }
 
     template<
@@ -292,14 +292,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         R && r,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
-        if (detail::begin(r) == detail::end(r))
+        if (std::ranges::begin(r) == std::ranges::end(r))
             return {at, at};
         return detail::replace_impl<false, Normalization>(
             string,
             at,
             at,
-            detail::begin(r),
-            detail::end(r),
+            std::ranges::begin(r),
+            std::ranges::end(r),
             insertion_norm);
     }
 
@@ -332,7 +332,6 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename R1, typename R2>
     struct cons_iter : stl_interfaces::proxy_iterator_interface<
-                           cons_iter<T, R1, R2>,
                            std::bidirectional_iterator_tag,
                            T>
     {
@@ -402,7 +401,6 @@ namespace boost { namespace text { namespace detail {
         }
 
         using base_type = stl_interfaces::proxy_iterator_interface<
-            cons_iter<T, R1, R2>,
             std::bidirectional_iterator_tag,
             T>;
         using base_type::operator++;

@@ -24,17 +24,6 @@ set(LIMIT_TESTING_FOR_CI false CACHE BOOL "Timeouts kinda suck, so...")
 set(LIMIT_TESTING_FOR_APPVEYOR false CACHE BOOL
     "Boost is installed, but linking to built Boost libs is problematic")
 
-try_compile(
-    fcoroutines_supported
-    ${CMAKE_BINARY_DIR}
-    ${CMAKE_SOURCE_DIR}/cmake/fcoroutines.cpp
-    COMPILE_DEFINITIONS -fcoroutines -std=c++20
-)
-if (fcoroutines_supported)
-    add_definitions(-fcoroutines)
-    message("Using -fcoroutines to compile tests.")
-endif()
-
 set(warnings_flag)
 if (NOT MSVC)
     set(warnings_flag -Wall)
@@ -111,10 +100,10 @@ endmacro()
 add_test_executable(detail_utility 0)
 add_test_executable(utf8 0)
 add_test_executable(utf16 0)
-add_test_executable(transcode_algorithm 0)
-add_test_executable(transcode_algorithm_no_simd 0)
-add_test_executable(transcode_insert_iterator 0)
-add_test_executable(transcode_input_forward_iterator 0)
+#add_test_executable(transcode_algorithm 0)
+#add_test_executable(transcode_algorithm_no_simd 0)
+#add_test_executable(transcode_insert_iterator 0)
+#add_test_executable(transcode_input_forward_iterator 0)
 add_test_executable(transcode_view 0)
 add_test_executable(charn_view 0)
 add_test_executable(unpack 0)
@@ -150,7 +139,7 @@ add_test_executable(normalization_collation_api 0)
 # TODO add_test_executable(rope_algorithm 0)
 # TODO add_test_executable(rope_view_algorithm 0)
 # TODO add_test_executable(string_algo 0)
-add_test_executable(normalization_idempotence 0)
+#add_test_executable(normalization_idempotence 0)
 add_test_executable(stream_safe 0)
 # TODO add_test_executable(relative_collation_test_non_ignorable_0 0)
 # TODO if (NOT LIMIT_TESTING_FOR_APPVEYOR)

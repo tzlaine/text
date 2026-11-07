@@ -606,7 +606,6 @@ namespace boost { namespace text {
 
         template<typename Derived, typename I, typename ValueType>
         using trans_iter = stl_interfaces::iterator_interface<
-            Derived,
             bidirectional_at_most_t<I>,
             ValueType,
             ValueType>;
@@ -964,6 +963,27 @@ namespace boost { namespace text {
 #if !BOOST_TEXT_USE_CONCEPTS
         template<typename I>
         friend constexpr auto operator!=(I it, null_sentinel_t)
+        {
+            return *it != detail::iter_value_t<I>{};
+        }
+#endif
+
+#if BOOST_TEXT_USE_CONCEPTS
+        template<std::input_iterator I>
+            requires std::default_initializable<std::iter_value_t<I>> &&
+                     std::equality_comparable_with<
+                         std::iter_reference_t<I>,
+                         std::iter_value_t<I>>
+#else
+        template<typename I>
+#endif
+        friend constexpr auto operator==(null_sentinel_t ns, I it)
+        {
+            return it == ns;
+        }
+#if !BOOST_TEXT_USE_CONCEPTS
+        template<typename I>
+        friend constexpr auto operator!=(null_sentinel_t, I it)
         {
             return *it != detail::iter_value_t<I>{};
         }
@@ -2590,7 +2610,6 @@ namespace boost { namespace text {
 #endif
     class utf_iterator
         : public stl_interfaces::iterator_interface<
-              utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
               detail::bidirectional_at_most_t<I>,
               detail::format_to_type_t<ToFormat>,
               detail::format_to_type_t<ToFormat>>
@@ -2787,7 +2806,7 @@ namespace boost { namespace text {
             }
         }
 
-#if !BOOST_PARSER_DETAIL_TEXT_USE_CONCEPTS
+#if !BOOST_TEXT_USE_CONCEPTS
         friend constexpr bool operator!=(
             std::enable_if_t<is_forward<I>, utf_iterator> lhs, utf_iterator rhs)
         { return !(lhs == rhs); }
@@ -2808,14 +2827,13 @@ namespace boost { namespace text {
             }
         }
 
-#if !BOOST_PARSER_DETAIL_TEXT_USE_CONCEPTS
+#if !BOOST_TEXT_USE_CONCEPTS
         friend constexpr bool operator!=(utf_iterator lhs, S rhs)
         { return !(lhs == rhs); }
 #endif
 
         // exposition only
         using base_type = stl_interfaces::iterator_interface<
-            utf_iterator<FromFormat, ToFormat, I, S, ErrorHandler>,
             detail::bidirectional_at_most_t<I>,
             value_type,
             value_type>;
@@ -2826,7 +2844,7 @@ namespace boost { namespace text {
         constexpr char32_t decode_code_point()
         {
             if constexpr (FromFormat == format::utf8) {
-                char32_t cp = *curr();
+                char32_t cp = char32_t(*curr());
                 ++curr();
                 to_increment_ = 1;
                 if (cp < 0x80)
@@ -2855,7 +2873,7 @@ namespace boost { namespace text {
             */
                 // clang-format on
 
-                char8_type curr_c = cp;
+                char8_type curr_c = char8_type(cp);
 
                 auto error = [&]() {
                     return ErrorHandler{}("Ill-formed UTF-8.");
@@ -3084,7 +3102,7 @@ namespace boost { namespace text {
                         "Invalid UTF-16 sequence; lone trailing surrogate.");
                 }
 
-                char16_t hi = *detail::prev(curr());
+                char16_t hi = *std::ranges::prev(curr());
                 if (!boost::text::high_surrogate(hi)) {
                     return ErrorHandler{}(
                         "Invalid UTF-16 sequence; lone trailing surrogate.");
@@ -3287,7 +3305,7 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T>
     using range_expr =
-        decltype(detail::begin(std::declval<T &>()) == detail::end(std::declval<T &>()));
+        decltype(std::ranges::begin(std::declval<T &>()) == std::ranges::end(std::declval<T &>()));
     template<typename T>
     constexpr bool is_range_v = is_detected_v<range_expr, T>;
 
@@ -3356,7 +3374,7 @@ namespace boost { namespace text { namespace detail {
 #endif
         {}
         constexpr first_last_storage(V & base) :
-            first_{detail::begin(base)}, last_{detail::end(base)}
+            first_{std::ranges::begin(base)}, last_{std::ranges::end(base)}
         {}
 
         constexpr auto begin(iterator_t<V> & it) const { return first_; }
@@ -3385,7 +3403,7 @@ namespace boost { namespace text { namespace detail {
             requires default_initializable_v<iterator_t<V>>
 #endif
         {}
-        constexpr first_last_storage(V & base) : first_{detail::begin(base)} {}
+        constexpr first_last_storage(V & base) : first_{std::ranges::begin(base)} {}
 
         constexpr auto begin(iterator_t<V> & it) const { return first_; }
         constexpr auto end(iterator_t<V> & it) const {
@@ -3418,7 +3436,7 @@ namespace boost { namespace text { namespace detail {
             requires default_initializable_v<sentinel_t<V>>
 #endif
         {}
-        constexpr first_last_storage(V & base) : last_{detail::end(base)} {}
+        constexpr first_last_storage(V & base) : last_{std::ranges::end(base)} {}
 
         constexpr auto begin(iterator_t<V> & it) const {
             if constexpr (is_utf_iter<iterator_t<V>>) {

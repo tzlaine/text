@@ -1156,8 +1156,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         -> detail::cp_rng_alg_ret_t<text_sort_key, CPRange>
     {
         return detail::collation_sort_key(
-            detail::begin(r),
-            detail::end(r),
+            std::ranges::begin(r),
+            std::ranges::end(r),
             detail::to_strength(flags),
             detail::to_case_first(flags),
             detail::to_case_level(flags),
@@ -1174,8 +1174,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         -> detail::graph_rng_alg_ret_t<text_sort_key, GraphemeRange>
     {
         return detail::collation_sort_key(
-            detail::begin(r).base(),
-            detail::end(r).base(),
+            std::ranges::begin(r).base(),
+            std::ranges::end(r).base(),
             detail::to_strength(flags),
             detail::to_case_first(flags),
             detail::to_case_level(flags),
@@ -1251,10 +1251,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         -> detail::cp_rng_alg_ret_t<int, CPRange1>
     {
         return v1::collate(
-            detail::begin(r1),
-            detail::end(r1),
-            detail::begin(r2),
-            detail::end(r2),
+            std::ranges::begin(r1),
+            std::ranges::end(r1),
+            std::ranges::begin(r2),
+            std::ranges::end(r2),
             table,
             detail::to_strength(flags),
             detail::to_case_first(flags),
@@ -1272,10 +1272,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         -> detail::graph_rng_alg_ret_t<int, GraphemeRange1>
     {
         return v1::collate(
-            detail::begin(r1).base(),
-            detail::end(r1).base(),
-            detail::begin(r2).base(),
-            detail::end(r2).base(),
+            std::ranges::begin(r1).base(),
+            std::ranges::end(r1).base(),
+            std::ranges::begin(r2).base(),
+            std::ranges::end(r2).base(),
             table,
             detail::to_strength(flags),
             detail::to_case_first(flags),
@@ -1339,8 +1339,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         collation_flags flags = collation_flags::none)
     {
         return detail::collation_sort_key(
-            detail::begin(r),
-            detail::end(r),
+            std::ranges::begin(r),
+            std::ranges::end(r),
             detail::to_strength(flags),
             detail::to_case_first(flags),
             detail::to_case_level(flags),
@@ -1356,8 +1356,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         collation_flags flags = collation_flags::none)
     {
         return detail::collation_sort_key(
-            detail::begin(r).base(),
-            detail::end(r).base(),
+            std::ranges::begin(r).base(),
+            std::ranges::end(r).base(),
             detail::to_strength(flags),
             detail::to_case_first(flags),
             detail::to_case_level(flags),
@@ -1430,10 +1430,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         collation_flags flags = collation_flags::none)
     {
         return boost::text::collate(
-            detail::begin(r1),
-            detail::end(r1),
-            detail::begin(r2),
-            detail::end(r2),
+            std::ranges::begin(r1),
+            std::ranges::end(r1),
+            std::ranges::begin(r2),
+            std::ranges::end(r2),
             table,
             detail::to_strength(flags),
             detail::to_case_first(flags),
@@ -1450,10 +1450,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         collation_flags flags = collation_flags::none)
     {
         return boost::text::collate(
-            detail::begin(r1).base(),
-            detail::end(r1).base(),
-            detail::begin(r2).base(),
-            detail::end(r2).base(),
+            std::ranges::begin(r1).base(),
+            std::ranges::end(r1).base(),
+            std::ranges::begin(r2).base(),
+            std::ranges::end(r2).base(),
             table,
             detail::to_strength(flags),
             detail::to_case_first(flags),

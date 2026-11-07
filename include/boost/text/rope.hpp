@@ -116,7 +116,7 @@ namespace boost { namespace text {
             CURange const & r,
             detail::cu_rng_alg_ret_t<(int)utf_format, int *, CURange> = 0) :
 #endif
-            rope_(detail::begin(r), detail::end(r))
+            rope_(std::ranges::begin(r), std::ranges::end(r))
         {}
 
         /** Constructs a `basic_rope` from a sequence of `char_type`. */
@@ -354,7 +354,7 @@ namespace boost { namespace text {
                 CURange>
 #endif
         {
-            return replace(first, last, detail::begin(r), detail::end(r));
+            return replace(first, last, std::ranges::begin(r), std::ranges::end(r));
         }
 
         /** Replaces the portion of `*this` delimited by `[first1, last1)`
@@ -752,10 +752,10 @@ namespace boost { namespace text {
                 decltype(lhs = rhs, true)>
         {
             return algorithm::equal(
-                detail::begin(lhs),
-                detail::end(lhs),
-                detail::begin(rhs),
-                detail::end(rhs));
+                std::ranges::begin(lhs),
+                std::ranges::end(lhs),
+                std::ranges::begin(rhs),
+                std::ranges::end(rhs));
         }
 
         /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
