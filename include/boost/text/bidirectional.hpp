@@ -1027,10 +1027,10 @@ namespace boost { namespace text {
             // L1.1, L1.2
             for (auto it = line.begin(), end = line.end(); it != end; ++it) {
                 auto const original_prop =
-                    boost::text::bidi_prop(it.base()->cp());
+                    boost::text::bidi_prop(it.base().base()->cp());
                 if (original_prop == bidi_property::B ||
                     original_prop == bidi_property::S) {
-                    it.base()->embedding_ = paragraph_embedding_level;
+                    it.base().base()->embedding_ = paragraph_embedding_level;
                 }
             }
 
@@ -1038,8 +1038,8 @@ namespace boost { namespace text {
             using iter_t = decltype(line.begin().base());
             auto const last = line.end().base();
             boost::text::foreach_subrange_if(
-                line.begin().base(),
-                line.end().base(),
+                line.begin().base().base(),
+                line.end().base().base(),
                 [](prop_and_embedding_t<CPIter> pae) {
                     auto const original_prop = boost::text::bidi_prop(pae.cp());
                     return original_prop == bidi_property::WS ||
@@ -1053,16 +1053,16 @@ namespace boost { namespace text {
                     bool reset = r.end() == last;
                     if (!reset) {
                         auto const original_next_prop =
-                            boost::text::bidi_prop(r.end()->cp());
+                            boost::text::bidi_prop(r.end().base()->cp());
                         reset = original_next_prop == bidi_property::S ||
                                 original_next_prop == bidi_property::B;
                     }
 
                     if (reset) {
                         std::transform(
-                            r.begin(),
-                            r.end(),
-                            r.begin(),
+                            r.begin().base(),
+                            r.end().base(),
+                            r.begin().base(),
                             [paragraph_embedding_level](
                                 prop_and_embedding_t<CPIter> pae) {
                                 pae.embedding_ = paragraph_embedding_level;
@@ -1518,21 +1518,26 @@ namespace boost { namespace text {
                     reordered_runs_t<CPIter> local_reordered_runs;
                     auto pae_it = reorderd_runs_it->begin();
 
-                    for (auto grapheme : boost::text::as_graphemes(
+                    for (auto grapheme :
+                         BOOST_TEXT_SUBRANGE(
                              pae_cp_iterator{reorderd_runs_it->begin()},
-                             pae_cp_iterator{reorderd_runs_it->end()})) {
+                             pae_cp_iterator{reorderd_runs_it->end()}) |
+                             boost::text::as_graphemes) {
                         if (1 < std::distance(
                                     grapheme.begin().base(),
                                     grapheme.end().base())) {
                             if (pae_it != grapheme.begin().base()) {
                                 local_reordered_runs.push_back(
                                     reordered_run<CPIter>{
-                                        pae_it, grapheme.begin().base(), true});
+                                        pae_it,
+                                        grapheme.begin().base().base(),
+                                        true});
                             }
                             local_reordered_runs.push_back(
-                                reordered_run<CPIter>{grapheme.begin().base(),
-                                                      grapheme.end().base(),
-                                                      false});
+                                reordered_run<CPIter>{
+                                    grapheme.begin().base().base(),
+                                    grapheme.end().base().base(),
+                                    false});
                         }
                     }
 
@@ -1674,7 +1679,11 @@ namespace boost { namespace text {
             for (auto it = para_first; it != para_last; ++it) {
                 auto const prop = boost::text::bidi_prop(*it);
                 props_and_embeddings.push_back(prop_and_embedding_t<CPIter>{
-                    it, stack.top().embedding_, (char8_type)prop, false, false});
+                    it.base(),
+                    stack.top().embedding_,
+                    (char8_type)prop,
+                    false,
+                    false});
 
                 switch (prop) {
                 case bidi_property::RLE:
@@ -2366,7 +2375,9 @@ namespace boost { namespace text {
                     // https://unicode.org/reports/tr9/#L2
                     all_runs_t<CPIter> line_all_runs =
                         detail::find_all_runs<CPIter>(
-                            line.begin().base(), line.end().base(), true);
+                            line.begin().base().base(),
+                            line.end().base().base(),
+                            true);
 
                     reordered_runs_t<CPIter> reordered_runs =
                         detail::l2(line_all_runs);

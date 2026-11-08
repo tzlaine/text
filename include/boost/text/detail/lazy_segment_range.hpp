@@ -42,10 +42,7 @@ namespace boost { namespace text { namespace detail {
             next_func_(), prev_(), it_(), last_(last)
         {}
 
-        CPRange operator*() const
-        {
-            return CPRange{BOOST_TEXT_SUBRANGE(prev_, it_)};
-        }
+        CPRange operator*() const { return CPRange(prev_, it_); }
 
         stl_interfaces::proxy_arrow_result<CPRange> operator->() const
         {

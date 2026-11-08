@@ -166,7 +166,9 @@ namespace boost { namespace text {
     struct line_break_cp_view
         : utf_view<format::utf32, BOOST_TEXT_SUBRANGE<I>>
     {
-        line_break_cp_view() : utf_view<format::utf32, I>(), hard_break_() {}
+        line_break_cp_view() :
+            utf_view<format::utf32, BOOST_TEXT_SUBRANGE<I>>(), hard_break_()
+        {}
         line_break_cp_view(
             line_break_result<I> first, line_break_result<I> last) :
             utf_view<format::utf32, BOOST_TEXT_SUBRANGE<I>>(
