@@ -1818,6 +1818,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 return CPRange{seg_.first, seg_.second};
             }
 
+            stl_interfaces::proxy_arrow_result<CPRange> operator->() const
+            {
+                return {operator*()};
+            }
+
             forward_allowed_break_iterator & operator++()
             {
                 auto const next_it = (*next_func_)(seg_.second, last_);
@@ -2079,6 +2084,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             Subrange operator*() const
             {
                 return Subrange{seg_.first, seg_.second};
+            }
+
+            stl_interfaces::proxy_arrow_result<Subrange> operator->() const
+            {
+                return {operator*()};
             }
 
             allowed_break_iterator & operator++()

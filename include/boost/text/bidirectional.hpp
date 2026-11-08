@@ -2519,6 +2519,11 @@ namespace boost { namespace text {
                 return state_->get_value();
             }
 
+            stl_interfaces::proxy_arrow_result<ResultType> operator->() const
+            {
+                return {operator*()};
+            }
+
             const_lazy_bidi_segment_iterator & operator++()
             {
                 return *this;

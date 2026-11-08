@@ -47,6 +47,11 @@ namespace boost { namespace text { namespace detail {
             return CPRange{BOOST_TEXT_SUBRANGE(prev_, it_)};
         }
 
+        stl_interfaces::proxy_arrow_result<CPRange> operator->() const
+        {
+            return {operator*()};
+        }
+
         const_lazy_segment_iterator & operator++()
         {
             auto const next_it = (*next_func_)(it_, last_);
@@ -101,6 +106,11 @@ namespace boost { namespace text { namespace detail {
         {}
 
         CPRange operator*() const { return CPRange{it_, next_}; }
+
+        stl_interfaces::proxy_arrow_result<CPRange> operator->() const
+        {
+            return {operator*()};
+        }
 
         const_reverse_lazy_segment_iterator & operator++()
         {

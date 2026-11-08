@@ -394,6 +394,11 @@ namespace boost { namespace text { namespace detail {
 
         T operator*() const { return in_r1_ ? *it1_ : *it2_; }
 
+        stl_interfaces::proxy_arrow_result<T> operator->() const
+        {
+            return {operator*()};
+        }
+
         friend bool operator==(cons_iter lhs, cons_iter rhs)
         {
             return lhs.in_r1_ == rhs.in_r1_ &&

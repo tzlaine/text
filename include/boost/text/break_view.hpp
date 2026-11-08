@@ -60,6 +60,11 @@ namespace boost { namespace text {
                 return CPRange{BOOST_TEXT_SUBRANGE(seg_.first, seg_.second)};
             }
 
+            stl_interfaces::proxy_arrow_result<CPRange> operator->() const
+            {
+                return {operator*()};
+            }
+
             break_iterator & operator++()
             {
                 auto const next_it = (*next_func_)(seg_.second, last_);
