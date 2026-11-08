@@ -20,7 +20,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     //[ concepts_concepts
 
-#define BOOST_TEXT_CODE_UNIT_CONCEPT_OPTION_2 0
+#define BOOST_TEXT_CODE_UNIT_CONCEPT_OPTION_2 1
 
 #ifdef _MSC_VER
     inline constexpr format wchar_t_format = format::utf16;

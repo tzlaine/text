@@ -43,7 +43,11 @@ static_assert(
 
 #if BOOST_TEXT_CODE_UNIT_CONCEPT_OPTION_2
 static_assert(
-    text::detail::is_cp_iter_v<text::utf_8_to_32_iterator<char const *>>, "");
+    text::detail::is_cp_iter_v<decltype(text::utf32_iterator(
+        std::declval<char const *>(),
+        std::declval<char const *>(),
+        std::declval<char const *>()))>,
+    "");
 #endif
 
 
