@@ -7,17 +7,17 @@ enable_testing()
 add_custom_target(
     check
     COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_CURRENT_BINARY_DIR}/*.table
-    COMMAND ${CMAKE_CTEST_COMMAND} -j4 -C ${CMAKE_CFG_INTDIR}
+    COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -j4 -C ${CMAKE_CFG_INTDIR}
 )
 
 add_custom_target(
     compile_tests
-    COMMAND ${CMAKE_CTEST_COMMAND} --verbose -C ${CMAKE_CFG_INTDIR} -R compile_
+    COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure --verbose -C ${CMAKE_CFG_INTDIR} -R compile_
 )
 
 add_custom_target(
     bidi_tests
-    COMMAND ${CMAKE_CTEST_COMMAND} -j4 -C ${CMAKE_CFG_INTDIR} -R bidi
+    COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -j4 -C ${CMAKE_CFG_INTDIR} -R bidi
 )
 
 set(LIMIT_TESTING_FOR_CI false CACHE BOOL "Timeouts kinda suck, so...")
